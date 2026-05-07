@@ -412,11 +412,14 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 waiting_lines = 0
                 continue
 
-            # Cod nou cu separator – fără NR_CRT explicit (ex: "30172 - Transport")
+            # Cod nou cu separator – fără NR_CRT explicit (ex: "30172 - Transport" sau "TRA01A20")
             # Finalizează articolul curent și pornește unul nou
             parsed_cod, parsed_den, parsed_um_hint = _try_parse_cod(line)
+            # Check both code patterns WITH separators and standalone code patterns
+            # This handles cases where same article code appears multiple times in same deviz
             if parsed_cod and (COD_NUMERIC_RE.match(line) or COD_NORM_RE.match(line)
-                               or COD_NORM_EXTENDED_RE.match(line) or COD_BREVIAR_RE.match(line)):
+                               or COD_NORM_EXTENDED_RE.match(line) or COD_BREVIAR_RE.match(line)
+                               or COD_NUMERIC_PIPE_RE.match(line) or COD_NORM_STANDALONE_RE.match(line)):
                 _finalize()
                 cod = parsed_cod
                 denumire_parts = [parsed_den] if parsed_den else []
@@ -433,10 +436,14 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
 
             # Format "100 MC." — indicator normativ pe linie separată
             # Extrage DOAR um-ul; cantitatea reală urmează pe linia următoare
+            # BUT: skip "NUMBER KM" (always distance spec like "20 KM", never work unit)
             if um == '':
                 m_um_norm = re.match(r'^\d+\s+([A-Z]{1,6})\.?\s*$', line, re.IGNORECASE)
                 if m_um_norm:
                     um_candidate = m_um_norm.group(1).upper()
+                    # KM e ÎNTOTDEAUNA specificație de distanță (20 KM, 50 KM), nu unitate de lucru
+                    if um_candidate == 'KM':
+                        continue
                     if _is_valid_um(um_candidate):
                         um = um_candidate
                         continue

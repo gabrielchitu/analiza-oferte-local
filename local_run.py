@@ -107,6 +107,20 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_codes: set = N
     articles = extract_articles_v3(page_classes)
     logger.info(f"  {len(articles)} articole extrase din linii")
 
+    # Deduplicate by 4-tuple: (deviz, cod, um, cantitate)
+    # If same article appears multiple times with identical quantity and UM, keep only one
+    seen_4tuple = {}
+    deduped = []
+    for art in articles:
+        key = (art.get("deviz"), art.get("cod"), art.get("um"), art.get("cantitate"))
+        if key not in seen_4tuple:
+            deduped.append(art)
+            seen_4tuple[key] = True
+
+    if len(deduped) < len(articles):
+        logger.info(f"  {len(articles) - len(deduped)} duplicates removed (same deviz/cod/um/cantitate)")
+    articles = deduped
+
     # Extract articles from tables (structured F3 data)
     # Tables contain the same articles as pages but in structured format
     # Extract once from identified tables, not for each deviz separately
@@ -116,17 +130,17 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_codes: set = N
         # Identify which devizes have tables with article data
         articles_from_tables = extract_articles_from_tables_smart(tables)
 
-        # Merge: avoid duplicates by (cod, deviz) key
-        article_keys = set()
+        # Merge: avoid duplicates by (deviz, cod, um, cantitate) 4-tuple
+        article_4tuple = set()
         for art in articles:
-            key = (art.get("cod"), art.get("deviz"))
-            article_keys.add(key)
+            key = (art.get("deviz"), art.get("cod"), art.get("um"), art.get("cantitate"))
+            article_4tuple.add(key)
 
         for art in articles_from_tables:
-            key = (art.get("cod"), art.get("deviz"))
-            if key not in article_keys:
+            key = (art.get("deviz"), art.get("cod"), art.get("um"), art.get("cantitate"))
+            if key not in article_4tuple:
                 articles.append(art)
-                article_keys.add(key)
+                article_4tuple.add(key)
 
         logger.info(f"  {len(articles_from_tables)} articole din tabele, {len(articles)} total dupa merge")
 

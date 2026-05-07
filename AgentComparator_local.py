@@ -132,11 +132,30 @@ def match_global(
     Identic cu _match_global din AgentComparator/core.py dar fara dependente Azure.
     include_prices=False implicit — pentru comparare fara preturi.
     """
-    ref_map = {_art_key(a): a for a in ref_articole
-               if a.get("cod") and not a.get("is_component")}
+    # Deduplicate by 4-tuple (deviz, cod, um, cantitate) before matching
+    # If same article appears multiple times with identical values, keep first occurrence
+    ref_seen = {}
+    ref_dedup = []
+    for a in ref_articole:
+        if a.get("cod") and not a.get("is_component"):
+            key = (a.get("deviz"), a.get("cod"), a.get("um"), a.get("cantitate"))
+            if key not in ref_seen:
+                ref_dedup.append(a)
+                ref_seen[key] = True
+
+    oferta_seen = {}
+    oferta_dedup = []
+    for a in oferta_articole:
+        if a.get("cod"):
+            key = (a.get("deviz"), a.get("cod"), a.get("um"), a.get("cantitate"))
+            if key not in oferta_seen:
+                oferta_dedup.append(a)
+                oferta_seen[key] = True
+
+    ref_map = {_art_key(a): a for a in ref_dedup}
     ref_component_cods = {_normalize_cod(a.get("cod", ""))
                           for a in ref_articole if a.get("is_component")}
-    oferta_map = {_art_key(a): a for a in oferta_articole if a.get("cod")}
+    oferta_map = {_art_key(a): a for a in oferta_dedup}
 
     neconformitati = []
     matches = []
