@@ -215,6 +215,11 @@ def main():
     # Step 1: Extrage referinta
     logger.info("\n--- Extragere REFERINTA ---")
     ref_articles = extract_document(ref_path, client, model)
+
+    # Populate missing deviz denominations (so reports show work categories)
+    from shared.deviz_namer import populate_deviz_denominations
+    ref_articles = populate_deviz_denominations(ref_articles)
+
     ref_out = OUTPUT_DIR / "referinta.json"
     ref_out.write_text(
         json.dumps({"articole": ref_articles}, ensure_ascii=False, indent=2),
@@ -236,6 +241,10 @@ def main():
 
         logger.info(f"\n--- Extragere OFERTA {oferta_nr} ---")
         oferta_articles = extract_document(oferta_path, client, model, ref_deviz_codes=ref_deviz_codes)
+
+        # Populate missing deviz denominations (so reports show work categories)
+        oferta_articles = populate_deviz_denominations(oferta_articles)
+
         oferta_out = OUTPUT_DIR / f"oferta_{oferta_nr}.json"
         oferta_out.write_text(
             json.dumps({"articole": oferta_articles}, ensure_ascii=False, indent=2),
