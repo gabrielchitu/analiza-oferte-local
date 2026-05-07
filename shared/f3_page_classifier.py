@@ -87,6 +87,29 @@ def _extract_deviz_from_stadiul_fizic(text: str) -> tuple[str, str]:
     return "", text.strip()
 
 
+def _extract_deviz_name_from_formular_f3(full_content: str) -> str:
+    """Extrage denumirea devizului din pagina Formular F3.
+
+    Cautare patterns:
+    1. "Deviz oferta 226208 STRUCTURA DE..." → extrage STRUCTURA DE...
+    2. "Obiectul : NNNN STRUCTURA DE..." → extrage STRUCTURA DE...
+
+    Fallback: gol dacă nu gasit
+    """
+    # Pattern 1: "Deviz oferta NNNNNN STRUCTURED_NAME" (up to "Categoria" or "Lista")
+    # Uses greedy match (.+?) with positive lookahead
+    m = re.search(r'Deviz\s+oferta\s+\d{5,8}\s+(.+?)(?=\s+(?:Categ|Lista))', full_content, re.IGNORECASE)
+    if m:
+        return m.group(1).strip()
+
+    # Pattern 2: "Obiectul : NNNN STRUCTURED_NAME"
+    m = re.search(r'Obiectul\s*:\s*\d+\s+(.+?)(?=\s+(?:Categ|Lista))', full_content, re.IGNORECASE)
+    if m:
+        return m.group(1).strip()
+
+    return ""
+
+
 def classify_page_local(page: dict) -> dict:
     """
     Clasifică o pagină DI JSON fără LLM.
@@ -146,7 +169,7 @@ def classify_page_local(page: dict) -> dict:
             # Fallback: "Deviz oferta 226108 STRUCTURA..." (Design Studio / format standard)
             m = re.search(r'Deviz\s+oferta\s+([A-Z0-9]{5,8})', full_content, re.IGNORECASE)
         cod = m.group(1) if m else ""
-        den = ""  # va fi completat de deviz_normalizer
+        den = _extract_deviz_name_from_formular_f3(full_content)
         return {"label": "F3", "deviz_cod": cod, "deviz_den": den, "is_header": False}
 
     # ── Verifică SECTIUNEA TEHNICA (eDevize data pages) ──
