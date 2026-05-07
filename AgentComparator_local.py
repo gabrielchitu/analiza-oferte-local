@@ -203,42 +203,6 @@ def match_global(
         else:
             still_unmatched_ref.append(ref_art)
 
-    # Layer 2.5: Cross-deviz exact cod match
-    if still_unmatched_ref and unmatched_oferta_keys:
-        norm_cod_to_oferta_keys = defaultdict(list)
-        for ok in unmatched_oferta_keys:
-            _, oc = ok
-            norm_cod_to_oferta_keys[_normalize_cod(oc)].append(ok)
-
-        still_after_25 = []
-        for ref_art in still_unmatched_ref:
-            ref_cod = ref_art.get("cod", "")
-            norm_ref = _normalize_cod(ref_cod)
-            deviz_cod = ref_art.get("deviz", "")
-            deviz_den = ref_art.get("deviz_denumire", "")
-            candidates = norm_cod_to_oferta_keys.get(norm_ref, [])
-            if not candidates:
-                still_after_25.append(ref_art)
-                continue
-            same_deviz = [c for c in candidates if c[0] == deviz_cod]
-            ok = same_deviz[0] if same_deviz else candidates[0]
-            remaining = [c for c in candidates if c != ok]
-            norm_cod_to_oferta_keys[norm_ref] = remaining
-            oferta_art = oferta_map[ok]
-            matched_oferta_keys.add(ok)
-            unmatched_oferta_keys.discard(ok)
-            diffs = compare_articles(ref_art, oferta_art, include_prices=include_prices)
-            arith = check_arithmetic(oferta_art) if include_prices else []
-            for d in diffs + arith:
-                _enrich(d, ref_art, oferta_art, deviz_cod, deviz_den)
-            neconformitati.extend(diffs + arith)
-            matches.append({
-                "ref_cod": ref_cod,
-                "ref_denumire": ref_art.get("denumire", ""),
-                "oferta_cod": oferta_art.get("cod", ""),
-                "oferta_denumire": oferta_art.get("denumire", ""),
-            })
-        still_unmatched_ref = still_after_25
 
     # Layer 3: LLM fuzzy match per grup deviz
     if still_unmatched_ref and unmatched_oferta_keys:
