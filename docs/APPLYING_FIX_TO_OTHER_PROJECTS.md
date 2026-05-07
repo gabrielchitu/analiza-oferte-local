@@ -97,7 +97,7 @@ def _is_price_line(line):
     return bool(re.search(price_pattern, line.strip()))
 ```
 
-**Location:** Find where other helper functions are defined (search for `def _is_` or `def is_`). Place this before the main parsing function.
+**Location:** Typically near the top of the file, after imports and before the main extraction function. Find where other helper functions are defined (search for `def _is_` or `def is_`) and place this alongside them.
 
 #### Change 2: Update the READING_ARTICLE State Machine (2 minutes)
 
@@ -580,7 +580,7 @@ def check_multiline_logic(parser_file):
     
     # Look for the multi-line append logic
     patterns = [
-        r"if\s+um\s*==\s*'':\s*\n.*denominare_parts\.append\(line\)",
+        r"if\s+um\s*==\s*'':\s*\n.*denumire_parts\.append\(line\)",
         r"elif\s+line.*not\s+_is_price_line",
     ]
     
