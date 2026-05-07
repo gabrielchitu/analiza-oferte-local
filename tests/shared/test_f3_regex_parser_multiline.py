@@ -22,9 +22,11 @@ def test_two_line_article_description():
     concatenated with a space.
     """
     lines = [
-        "VA02B08    Prelucrare date si documentatie legata de",
+        "1",
+        "VA02B08 - Prelucrare date si documentatie legata de",
         "relocare sarcini - intocmire si depunere documentatie la OJSC",
-        "BUC       1.0"
+        "BUC",
+        "1.0"
     ]
 
     articles = extract_articles_regex(lines, "OB1", "TEST_SECTION")
@@ -56,10 +58,12 @@ def test_three_line_article_description():
     concatenated with spaces.
     """
     lines = [
-        "VA03K02    Intocmire cu parere de especialist in domeniu privind",
+        "1",
+        "VA03K02 - Intocmire cu parere de especialist in domeniu privind",
         "evaluarea impactului asupra mediului - consultare publica -",
         "desfasurare procedura de informatii si consiliere",
-        "BUC       1.0"
+        "BUC",
+        "1.0"
     ]
 
     articles = extract_articles_regex(lines, "OB1", "TEST_SECTION")
@@ -93,8 +97,14 @@ def test_single_line_article_no_regression():
     functionality for single-line articles.
     """
     lines = [
-        "VA01A01    Servicii generale de consultanta                              BUC       2.0",
-        "VA01A02    Analiza situatiei existente                                   BUC       1.0"
+        "1",
+        "VA01A01 - Servicii generale de consultanta",
+        "BUC",
+        "2.0",
+        "2",
+        "VA01A02 - Analiza situatiei existente",
+        "BUC",
+        "1.0"
     ]
 
     articles = extract_articles_regex(lines, "OB1", "TEST_SECTION")
