@@ -18617,36 +18617,13 @@
     {
       "tip": "ARTICOL_EXTRA",
       "deviz_ref": "",
-      "deviz_denumire": "CANALIZARE",
+      "deviz_denumire": "INSTALATII SANITARE OB.5",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "IA37E1",
-      "oferta_denumire": "REZERVOR DEPOZIT PT. COMBUSTIBIL LICHID, CILINDRIC CAPACITATE 30000 L. material: manopera: utilaj: transport: 16.L BAZIN VIDANJABIL PAFSIN 20 MC BUC. 16.L BAZIN VIDANJABIL 40 MC BUC.",
-      "oferta_um": "buc",
-      "oferta_cantitate": 2.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare)",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "IZD04D1",
-      "oferta_denumire": "VOPSIRE CU APARAT AER COMPR VOPSEA ULEI PE CONF SICONSTR MET PROFILE 8-12MM 2STRATURI A material: manopera: utilaj: transport:",
-      "oferta_um": "ton",
-      "oferta_cantitate": 0.95
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare)",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "CB13I1",
-      "oferta_denumire": "COFRAJE DIN PANOURI REFOLOSIBILE LA CONSTRUCTII CU H<20M LA PLACI SI GRINZI CU PLACAJ DE 15MM material: manopera: utilaj: transport:",
-      "oferta_um": "mp",
-      "oferta_cantitate": 300.0,
-      "posibil_omis_din_extractie": true
+      "oferta_cod": "DN32",
+      "oferta_denumire": "buc material: manopera: utilaj: transport:",
+      "oferta_um": "mm",
+      "oferta_cantitate": 10.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -18662,13 +18639,13 @@
     {
       "tip": "ARTICOL_EXTRA",
       "deviz_ref": "",
-      "deviz_denumire": "ALIMENTARE CU E.E. SI ILUMINAT",
+      "deviz_denumire": "STRUCTURA DE REZISTENTA CUPOLA TEREN TENIS",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "W1F12D",
-      "oferta_denumire": "INCERCARI PENTRU MASURAREA TENSIUNII DE ATINGERE SI DE PAS. material: manopera: utilaj: transport: procent material manopera utilaj transport total",
-      "oferta_um": "buc",
-      "oferta_cantitate": 1.0
+      "oferta_cod": "IZD03D1",
+      "oferta_denumire": "VOPSIRE CU VOPS MINIU CU APARAT AER COMPR 1 STR PECONF SI CTII METAL EXEC DIN PROF GROS 8-12 MM A material: manopera: utilaj: transport:",
+      "oferta_um": "ton",
+      "oferta_cantitate": 12.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -18695,13 +18672,13 @@
     {
       "tip": "ARTICOL_EXTRA",
       "deviz_ref": "",
-      "deviz_denumire": "INSTALATII SANITARE OB.5",
+      "deviz_denumire": "STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare)",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "DN32",
-      "oferta_denumire": "buc material: manopera: utilaj: transport:",
-      "oferta_um": "mm",
-      "oferta_cantitate": 10.0
+      "oferta_cod": "IZD04D1",
+      "oferta_denumire": "VOPSIRE CU APARAT AER COMPR VOPSEA ULEI PE CONF SICONSTR MET PROFILE 8-12MM 2STRATURI A material: manopera: utilaj: transport:",
+      "oferta_um": "ton",
+      "oferta_cantitate": 0.95
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -18717,13 +18694,36 @@
     {
       "tip": "ARTICOL_EXTRA",
       "deviz_ref": "",
-      "deviz_denumire": "STRUCTURA DE REZISTENTA CUPOLA TEREN TENIS",
+      "deviz_denumire": "CANALIZARE",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "IZD03D1",
-      "oferta_denumire": "VOPSIRE CU VOPS MINIU CU APARAT AER COMPR 1 STR PECONF SI CTII METAL EXEC DIN PROF GROS 8-12 MM A material: manopera: utilaj: transport:",
-      "oferta_um": "ton",
-      "oferta_cantitate": 12.0
+      "oferta_cod": "IA37E1",
+      "oferta_denumire": "REZERVOR DEPOZIT PT. COMBUSTIBIL LICHID, CILINDRIC CAPACITATE 30000 L. material: manopera: utilaj: transport: 16.L BAZIN VIDANJABIL PAFSIN 20 MC BUC. 16.L BAZIN VIDANJABIL 40 MC BUC.",
+      "oferta_um": "buc",
+      "oferta_cantitate": 2.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare)",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "CB13I1",
+      "oferta_denumire": "COFRAJE DIN PANOURI REFOLOSIBILE LA CONSTRUCTII CU H<20M LA PLACI SI GRINZI CU PLACAJ DE 15MM material: manopera: utilaj: transport:",
+      "oferta_um": "mp",
+      "oferta_cantitate": 300.0,
+      "posibil_omis_din_extractie": true
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "ALIMENTARE CU E.E. SI ILUMINAT",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "W1F12D",
+      "oferta_denumire": "INCERCARI PENTRU MASURAREA TENSIUNII DE ATINGERE SI DE PAS. material: manopera: utilaj: transport: procent material manopera utilaj transport total",
+      "oferta_um": "buc",
+      "oferta_cantitate": 1.0
     }
   ],
   "total_neconformitati": 878,

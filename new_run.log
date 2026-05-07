@@ -1,0 +1,904 @@
+2026-05-08 01:23:00,414 [INFO] ==================================================
+2026-05-08 01:23:00,414 [INFO]   Analizator Local Oferte Constructii
+2026-05-08 01:23:00,414 [INFO] ==================================================
+2026-05-08 01:23:00,414 [INFO] Input:  /Users/gabrielchitu/analiza-oferte-local/input_AO
+2026-05-08 01:23:00,414 [INFO] Output: /Users/gabrielchitu/analiza-oferte-local/output_AO
+2026-05-08 01:23:00,415 [INFO] Referinta: di_referinta.json
+2026-05-08 01:23:00,415 [INFO] Oferte (3): ['di_oferta_1.json', 'di_oferta_2.json', 'di_oferta_3.json']
+2026-05-08 01:23:00,415 [INFO] Model Anthropic: claude-sonnet-4-6
+2026-05-08 01:23:00,434 [INFO] 
+--- Extragere REFERINTA ---
+2026-05-08 01:23:00,444 [INFO]   di_referinta.json: 236 pagini DI
+2026-05-08 01:23:00,444 [INFO]   Clasificare pagini cu LLM (poate dura 2-5 min)...
+2026-05-08 01:23:00,455 [INFO] [PC] 60 pagini → LLM batch (clasificare + deviz_cod)
+2026-05-08 01:23:00,734 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:00,734 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPU5coZ8xu1Dyxe55F'}
+2026-05-08 01:23:00,734 [WARNING] [PC] LLM batch classification failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPU5coZ8xu1Dyxe55F'} — tratam ca non-F3
+2026-05-08 01:23:00,734 [INFO] [PC] Clasificare completă: 162/236 pagini F3
+2026-05-08 01:23:00,736 [INFO]   Checkpoint salvat: di_referinta_page_classes.json
+2026-05-08 01:23:00,736 [INFO]   162 pagini F3 (0 fara deviz_cod)
+2026-05-08 01:23:00,740 [INFO] [PARSER] 226108: 9 articole extrase (regex)
+2026-05-08 01:23:00,741 [INFO] [PARSER] 226108: 11 articole extrase (regex)
+2026-05-08 01:23:00,741 [INFO] [PARSER] 226108: 11 articole extrase (regex)
+2026-05-08 01:23:00,741 [INFO] [PARSER] 226108: 11 articole extrase (regex)
+2026-05-08 01:23:00,741 [INFO] [F3] 226108: 2 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,742 [INFO] [PARSER] 226108: 4 articole extrase (regex)
+2026-05-08 01:23:00,742 [INFO] [F3] 226108: 1 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,742 [INFO] [PARSER] 226118: 7 articole extrase (regex)
+2026-05-08 01:23:00,742 [INFO] [PARSER] 226208: 9 articole extrase (regex)
+2026-05-08 01:23:00,743 [INFO] [PARSER] 226208: 11 articole extrase (regex)
+2026-05-08 01:23:00,743 [INFO] [PARSER] 226208: 11 articole extrase (regex)
+2026-05-08 01:23:00,743 [INFO] [PARSER] 226208: 11 articole extrase (regex)
+2026-05-08 01:23:00,743 [INFO] [F3] 226208: 2 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,743 [INFO] [PARSER] 226208: 11 articole extrase (regex)
+2026-05-08 01:23:00,743 [INFO] [F3] 226208: 2 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,744 [INFO] [PARSER] 226218: 7 articole extrase (regex)
+2026-05-08 01:23:00,744 [INFO] [PARSER] 226218: 11 articole extrase (regex)
+2026-05-08 01:23:00,744 [INFO] [PARSER] 226218: 8 articole extrase (regex)
+2026-05-08 01:23:00,744 [INFO] [F3] 226218: 8 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,744 [INFO] [PARSER] 226218: 8 articole extrase (regex)
+2026-05-08 01:23:00,744 [INFO] [F3] 226218: 3 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,745 [INFO] [PARSER] 226218: 10 articole extrase (regex)
+2026-05-08 01:23:00,745 [INFO] [PARSER] 226218: 11 articole extrase (regex)
+2026-05-08 01:23:00,745 [INFO] [PARSER] 226218: 11 articole extrase (regex)
+2026-05-08 01:23:00,745 [INFO] [PARSER] 226218: 10 articole extrase (regex)
+2026-05-08 01:23:00,746 [INFO] [PARSER] 226218: 9 articole extrase (regex)
+2026-05-08 01:23:00,746 [INFO] [F3] 226218: 1 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,746 [INFO] [PARSER] 226228: 8 articole extrase (regex)
+2026-05-08 01:23:00,746 [INFO] [F3] 226228: 1 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,746 [INFO] [PARSER] 226228: 11 articole extrase (regex)
+2026-05-08 01:23:00,746 [INFO] [F3] 226228: 1 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,746 [INFO] [PARSER] 226228: 11 articole extrase (regex)
+2026-05-08 01:23:00,747 [INFO] [PARSER] 226228: 11 articole extrase (regex)
+2026-05-08 01:23:00,747 [INFO] [PARSER] 226228: 11 articole extrase (regex)
+2026-05-08 01:23:00,747 [INFO] [PARSER] 226228: 11 articole extrase (regex)
+2026-05-08 01:23:00,747 [INFO] [PARSER] 226228: 9 articole extrase (regex)
+2026-05-08 01:23:00,747 [INFO] [F3] 226228: 1 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,748 [INFO] [PARSER] 226228: 9 articole extrase (regex)
+2026-05-08 01:23:00,748 [INFO] [F3] 226228: 8 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,748 [INFO] [PARSER] 226228: 8 articole extrase (regex)
+2026-05-08 01:23:00,748 [INFO] [F3] 226228: 7 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,748 [INFO] [PARSER] 226228: 9 articole extrase (regex)
+2026-05-08 01:23:00,748 [INFO] [F3] 226228: 9 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,748 [INFO] [PARSER] 226228: 9 articole extrase (regex)
+2026-05-08 01:23:00,748 [INFO] [F3] 226228: 8 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,749 [INFO] [PARSER] 226228: 8 articole extrase (regex)
+2026-05-08 01:23:00,749 [INFO] [F3] 226228: 8 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,749 [INFO] [PARSER] 226228: 8 articole extrase (regex)
+2026-05-08 01:23:00,749 [INFO] [F3] 226228: 8 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,749 [INFO] [PARSER] 226228: 9 articole extrase (regex)
+2026-05-08 01:23:00,749 [INFO] [F3] 226228: 9 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,749 [INFO] [PARSER] 226228: 8 articole extrase (regex)
+2026-05-08 01:23:00,749 [INFO] [F3] 226228: 8 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,750 [INFO] [PARSER] 226238: 0 articole extrase (regex)
+2026-05-08 01:23:00,750 [INFO] [PARSER] 226248: 8 articole extrase (regex)
+2026-05-08 01:23:00,750 [INFO] [PARSER] 226248: 1 articole extrase (regex)
+2026-05-08 01:23:00,750 [INFO] [PARSER] 226258: 3 articole extrase (regex)
+2026-05-08 01:23:00,751 [INFO] [PARSER] 226268: 8 articole extrase (regex)
+2026-05-08 01:23:00,751 [INFO] [PARSER] 226268: 13 articole extrase (regex)
+2026-05-08 01:23:00,751 [INFO] [PARSER] 226268: 12 articole extrase (regex)
+2026-05-08 01:23:00,751 [INFO] [PARSER] 226268: 3 articole extrase (regex)
+2026-05-08 01:23:00,752 [INFO] [PARSER] 226278: 7 articole extrase (regex)
+2026-05-08 01:23:00,752 [INFO] [PARSER] 226278: 10 articole extrase (regex)
+2026-05-08 01:23:00,752 [INFO] [PARSER] 226288: 7 articole extrase (regex)
+2026-05-08 01:23:00,752 [INFO] [PARSER] 226288: 9 articole extrase (regex)
+2026-05-08 01:23:00,753 [INFO] [PARSER] 226308: 8 articole extrase (regex)
+2026-05-08 01:23:00,753 [INFO] [PARSER] 226308: 11 articole extrase (regex)
+2026-05-08 01:23:00,753 [INFO] [PARSER] 226308: 11 articole extrase (regex)
+2026-05-08 01:23:00,753 [INFO] [PARSER] 226308: 11 articole extrase (regex)
+2026-05-08 01:23:00,753 [INFO] [F3] 226308: 2 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,754 [INFO] [PARSER] 226308: 11 articole extrase (regex)
+2026-05-08 01:23:00,754 [INFO] [PARSER] 226308: 1 articole extrase (regex)
+2026-05-08 01:23:00,754 [INFO] [F3] 226308: 1 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,754 [INFO] [PARSER] 226318: 9 articole extrase (regex)
+2026-05-08 01:23:00,754 [INFO] [PARSER] 226318: 5 articole extrase (regex)
+2026-05-08 01:23:00,755 [INFO] [PARSER] 226328: 8 articole extrase (regex)
+2026-05-08 01:23:00,755 [INFO] [PARSER] 226328: 3 articole extrase (regex)
+2026-05-08 01:23:00,755 [INFO] [PARSER] 226338: 9 articole extrase (regex)
+2026-05-08 01:23:00,756 [INFO] [PARSER] 226338: 11 articole extrase (regex)
+2026-05-08 01:23:00,756 [INFO] [PARSER] 226338: 1 articole extrase (regex)
+2026-05-08 01:23:00,757 [INFO] [PARSER] 226348: 8 articole extrase (regex)
+2026-05-08 01:23:00,757 [INFO] [PARSER] 226348: 5 articole extrase (regex)
+2026-05-08 01:23:00,757 [INFO] [PARSER] 226358: 10 articole extrase (regex)
+2026-05-08 01:23:00,758 [INFO] [PARSER] 226358: 9 articole extrase (regex)
+2026-05-08 01:23:00,758 [INFO] [PARSER] 226408: 8 articole extrase (regex)
+2026-05-08 01:23:00,758 [INFO] [PARSER] 226408: 11 articole extrase (regex)
+2026-05-08 01:23:00,758 [INFO] [PARSER] 226408: 11 articole extrase (regex)
+2026-05-08 01:23:00,759 [INFO] [PARSER] 226408: 11 articole extrase (regex)
+2026-05-08 01:23:00,759 [INFO] [F3] 226408: 2 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,759 [INFO] [PARSER] 226408: 13 articole extrase (regex)
+2026-05-08 01:23:00,759 [INFO] [PARSER] 226408: 8 articole extrase (regex)
+2026-05-08 01:23:00,759 [INFO] [F3] 226408: 2 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,760 [INFO] [PARSER] 226418: 7 articole extrase (regex)
+2026-05-08 01:23:00,760 [INFO] [PARSER] 226418: 11 articole extrase (regex)
+2026-05-08 01:23:00,760 [INFO] [PARSER] 226418: 8 articole extrase (regex)
+2026-05-08 01:23:00,760 [INFO] [F3] 226418: 8 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,760 [INFO] [PARSER] 226418: 8 articole extrase (regex)
+2026-05-08 01:23:00,760 [INFO] [F3] 226418: 4 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,760 [INFO] [PARSER] 226418: 9 articole extrase (regex)
+2026-05-08 01:23:00,761 [INFO] [PARSER] 226418: 11 articole extrase (regex)
+2026-05-08 01:23:00,761 [INFO] [PARSER] 226418: 11 articole extrase (regex)
+2026-05-08 01:23:00,761 [INFO] [PARSER] 226418: 11 articole extrase (regex)
+2026-05-08 01:23:00,761 [INFO] [PARSER] 226418: 10 articole extrase (regex)
+2026-05-08 01:23:00,761 [INFO] [PARSER] 226418: 10 articole extrase (regex)
+2026-05-08 01:23:00,761 [INFO] [F3] 226418: 1 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,762 [INFO] [PARSER] 226428: 8 articole extrase (regex)
+2026-05-08 01:23:00,762 [INFO] [F3] 226428: 1 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,762 [INFO] [PARSER] 226428: 11 articole extrase (regex)
+2026-05-08 01:23:00,762 [INFO] [F3] 226428: 1 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,762 [INFO] [PARSER] 226428: 11 articole extrase (regex)
+2026-05-08 01:23:00,762 [INFO] [PARSER] 226428: 11 articole extrase (regex)
+2026-05-08 01:23:00,763 [INFO] [PARSER] 226428: 11 articole extrase (regex)
+2026-05-08 01:23:00,763 [INFO] [PARSER] 226428: 11 articole extrase (regex)
+2026-05-08 01:23:00,763 [INFO] [PARSER] 226428: 11 articole extrase (regex)
+2026-05-08 01:23:00,763 [INFO] [PARSER] 226428: 9 articole extrase (regex)
+2026-05-08 01:23:00,763 [INFO] [F3] 226428: 3 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,763 [INFO] [PARSER] 226428: 9 articole extrase (regex)
+2026-05-08 01:23:00,763 [INFO] [F3] 226428: 9 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,764 [INFO] [PARSER] 226428: 8 articole extrase (regex)
+2026-05-08 01:23:00,764 [INFO] [F3] 226428: 7 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,764 [INFO] [PARSER] 226428: 9 articole extrase (regex)
+2026-05-08 01:23:00,764 [INFO] [F3] 226428: 7 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,764 [INFO] [PARSER] 226428: 8 articole extrase (regex)
+2026-05-08 01:23:00,764 [INFO] [F3] 226428: 6 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,764 [INFO] [PARSER] 226438: 0 articole extrase (regex)
+2026-05-08 01:23:00,765 [INFO] [PARSER] 226448: 8 articole extrase (regex)
+2026-05-08 01:23:00,765 [INFO] [PARSER] 226448: 5 articole extrase (regex)
+2026-05-08 01:23:00,765 [INFO] [PARSER] 226458: 4 articole extrase (regex)
+2026-05-08 01:23:00,765 [INFO] [PARSER] 226468: 7 articole extrase (regex)
+2026-05-08 01:23:00,766 [INFO] [PARSER] 226478: 8 articole extrase (regex)
+2026-05-08 01:23:00,766 [INFO] [PARSER] 226478: 13 articole extrase (regex)
+2026-05-08 01:23:00,766 [INFO] [PARSER] 226478: 12 articole extrase (regex)
+2026-05-08 01:23:00,766 [INFO] [PARSER] 226478: 4 articole extrase (regex)
+2026-05-08 01:23:00,767 [INFO] [PARSER] 226488: 8 articole extrase (regex)
+2026-05-08 01:23:00,767 [INFO] [PARSER] 226488: 10 articole extrase (regex)
+2026-05-08 01:23:00,767 [INFO] [PARSER] 226498: 8 articole extrase (regex)
+2026-05-08 01:23:00,767 [INFO] [PARSER] 226498: 9 articole extrase (regex)
+2026-05-08 01:23:00,768 [INFO] [PARSER] 226508: 8 articole extrase (regex)
+2026-05-08 01:23:00,768 [INFO] [PARSER] 226508: 11 articole extrase (regex)
+2026-05-08 01:23:00,768 [INFO] [PARSER] 226508: 11 articole extrase (regex)
+2026-05-08 01:23:00,768 [INFO] [PARSER] 226508: 11 articole extrase (regex)
+2026-05-08 01:23:00,768 [INFO] [F3] 226508: 2 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,769 [INFO] [PARSER] 226508: 11 articole extrase (regex)
+2026-05-08 01:23:00,769 [INFO] [F3] 226508: 2 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,769 [INFO] [PARSER] 226518: 7 articole extrase (regex)
+2026-05-08 01:23:00,769 [INFO] [PARSER] 226518: 9 articole extrase (regex)
+2026-05-08 01:23:00,769 [INFO] [F3] 226518: 2 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,769 [INFO] [PARSER] 226518: 8 articole extrase (regex)
+2026-05-08 01:23:00,769 [INFO] [F3] 226518: 8 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,770 [INFO] [PARSER] 226518: 10 articole extrase (regex)
+2026-05-08 01:23:00,770 [INFO] [F3] 226518: 2 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,770 [INFO] [PARSER] 226518: 11 articole extrase (regex)
+2026-05-08 01:23:00,770 [INFO] [PARSER] 226518: 10 articole extrase (regex)
+2026-05-08 01:23:00,770 [INFO] [PARSER] 226518: 11 articole extrase (regex)
+2026-05-08 01:23:00,770 [INFO] [PARSER] 226518: 11 articole extrase (regex)
+2026-05-08 01:23:00,771 [INFO] [PARSER] 226518: 4 articole extrase (regex)
+2026-05-08 01:23:00,771 [INFO] [F3] 226518: 1 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,771 [INFO] [PARSER] 226528: 9 articole extrase (regex)
+2026-05-08 01:23:00,771 [INFO] [F3] 226528: 1 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,771 [INFO] [PARSER] 226528: 11 articole extrase (regex)
+2026-05-08 01:23:00,771 [INFO] [F3] 226528: 1 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,771 [INFO] [PARSER] 226528: 11 articole extrase (regex)
+2026-05-08 01:23:00,772 [INFO] [PARSER] 226528: 11 articole extrase (regex)
+2026-05-08 01:23:00,772 [INFO] [PARSER] 226528: 11 articole extrase (regex)
+2026-05-08 01:23:00,772 [INFO] [PARSER] 226528: 11 articole extrase (regex)
+2026-05-08 01:23:00,772 [INFO] [PARSER] 226528: 9 articole extrase (regex)
+2026-05-08 01:23:00,772 [INFO] [F3] 226528: 1 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,772 [INFO] [PARSER] 226528: 9 articole extrase (regex)
+2026-05-08 01:23:00,772 [INFO] [F3] 226528: 8 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,773 [INFO] [PARSER] 226528: 8 articole extrase (regex)
+2026-05-08 01:23:00,773 [INFO] [F3] 226528: 7 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,773 [INFO] [PARSER] 226528: 9 articole extrase (regex)
+2026-05-08 01:23:00,773 [INFO] [F3] 226528: 8 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,773 [INFO] [PARSER] 226528: 9 articole extrase (regex)
+2026-05-08 01:23:00,773 [INFO] [F3] 226528: 8 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,773 [INFO] [PARSER] 226528: 8 articole extrase (regex)
+2026-05-08 01:23:00,773 [INFO] [F3] 226528: 8 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,773 [INFO] [PARSER] 226528: 8 articole extrase (regex)
+2026-05-08 01:23:00,774 [INFO] [F3] 226528: 6 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,774 [INFO] [PARSER] 226528: 9 articole extrase (regex)
+2026-05-08 01:23:00,774 [INFO] [F3] 226528: 8 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,774 [INFO] [PARSER] 226528: 3 articole extrase (regex)
+2026-05-08 01:23:00,774 [INFO] [F3] 226528: 3 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,774 [INFO] [PARSER] 226538: 8 articole extrase (regex)
+2026-05-08 01:23:00,774 [INFO] [PARSER] 226538: 1 articole extrase (regex)
+2026-05-08 01:23:00,775 [INFO] [PARSER] 226548: 3 articole extrase (regex)
+2026-05-08 01:23:00,775 [INFO] [PARSER] 226558: 9 articole extrase (regex)
+2026-05-08 01:23:00,775 [INFO] [PARSER] 226558: 12 articole extrase (regex)
+2026-05-08 01:23:00,775 [INFO] [PARSER] 226558: 12 articole extrase (regex)
+2026-05-08 01:23:00,775 [INFO] [PARSER] 226558: 1 articole extrase (regex)
+2026-05-08 01:23:00,776 [INFO] [PARSER] 226578: 7 articole extrase (regex)
+2026-05-08 01:23:00,776 [INFO] [PARSER] 226578: 7 articole extrase (regex)
+2026-05-08 01:23:00,776 [INFO] [PARSER] 226568: 11 articole extrase (regex)
+2026-05-08 01:23:00,777 [INFO] [PARSER] 226568: 7 articole extrase (regex)
+2026-05-08 01:23:00,777 [INFO] [PARSER] 226008: 9 articole extrase (regex)
+2026-05-08 01:23:00,777 [INFO] [PARSER] 226008: 11 articole extrase (regex)
+2026-05-08 01:23:00,777 [INFO] [PARSER] 226008: 10 articole extrase (regex)
+2026-05-08 01:23:00,778 [INFO] [PARSER] 226018: 8 articole extrase (regex)
+2026-05-08 01:23:00,778 [INFO] [PARSER] 226018: 9 articole extrase (regex)
+2026-05-08 01:23:00,778 [INFO] [PARSER] 226018: 6 articole extrase (regex)
+2026-05-08 01:23:00,778 [INFO] [PARSER] 226028: 7 articole extrase (regex)
+2026-05-08 01:23:00,779 [INFO] [PARSER] 226028: 7 articole extrase (regex)
+2026-05-08 01:23:00,779 [INFO] [PARSER] 226028: 8 articole extrase (regex)
+2026-05-08 01:23:00,779 [INFO] [PARSER] 226028: 9 articole extrase (regex)
+2026-05-08 01:23:00,779 [INFO] [PARSER] 226038: 9 articole extrase (regex)
+2026-05-08 01:23:00,780 [INFO] [PARSER] 226038: 10 articole extrase (regex)
+2026-05-08 01:23:00,780 [INFO] [PARSER] 226038: 8 articole extrase (regex)
+2026-05-08 01:23:00,780 [INFO] [PARSER] 226368: 8 articole extrase (regex)
+2026-05-08 01:23:00,780 [INFO] [PARSER] 226718: 3 articole extrase (regex)
+2026-05-08 01:23:00,780 [INFO] [F3] 226718: 1 componente extrase din breviar (>>> + DESCRIERE)
+2026-05-08 01:23:00,781 [INFO] [PARSER] 226708: 3 articole extrase (regex)
+2026-05-08 01:23:00,781 [INFO] [PARSER] 226F08: 1 articole extrase (regex)
+2026-05-08 01:23:00,781 [INFO] [F3v3] Total: 1267 articole extrase (page-aware, fara LLM)
+2026-05-08 01:23:00,781 [INFO]   1267 articole extrase din linii
+2026-05-08 01:23:00,783 [INFO]   0 articole din tabele, 1267 total dupa merge
+2026-05-08 01:23:00,784 [INFO] [DN] Populated 984 missing deviz denominations
+2026-05-08 01:23:00,787 [INFO]   Salvat: referinta.json
+2026-05-08 01:23:00,787 [INFO]   Deviz coduri valide din referinta: ['226008', '226018', '226028', '226038', '226108', '226118', '226208', '226218', '226228', '226248', '226258', '226268', '226278', '226288', '226308', '226318', '226328', '226338', '226348', '226358', '226368', '226408', '226418', '226428', '226448', '226458', '226468', '226478', '226488', '226498', '226508', '226518', '226528', '226538', '226548', '226558', '226568', '226578', '226708', '226718', '226F08']
+2026-05-08 01:23:00,787 [INFO] 
+--- Extragere OFERTA 1 ---
+2026-05-08 01:23:00,814 [INFO]   di_oferta_1.json: 297 pagini DI
+2026-05-08 01:23:00,814 [INFO]   Clasificare pagini cu LLM (poate dura 2-5 min)...
+2026-05-08 01:23:00,831 [INFO] [PC] 62 pagini → LLM batch (clasificare + deviz_cod)
+2026-05-08 01:23:01,176 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:01,176 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPVhMQa5CM6m6gdqxz'}
+2026-05-08 01:23:01,176 [WARNING] [PC] LLM batch classification failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPVhMQa5CM6m6gdqxz'} — tratam ca non-F3
+2026-05-08 01:23:01,176 [INFO] [PC] Clasificare completă: 119/297 pagini F3
+2026-05-08 01:23:01,182 [INFO]   Checkpoint salvat: di_oferta_1_page_classes.json
+2026-05-08 01:23:01,182 [INFO]   Filtrare devize: 119 → 110 pagini F3 (excluse devize din oferta extra)
+2026-05-08 01:23:01,182 [INFO]   110 pagini F3 (0 fara deviz_cod)
+2026-05-08 01:23:01,182 [INFO] [PARSER] 226108: 8 articole extrase (regex)
+2026-05-08 01:23:01,183 [INFO] [PARSER] 226108: 11 articole extrase (regex)
+2026-05-08 01:23:01,184 [INFO] [PARSER] 226108: 12 articole extrase (regex)
+2026-05-08 01:23:01,185 [INFO] [PARSER] 226108: 13 articole extrase (regex)
+2026-05-08 01:23:01,186 [INFO] [PARSER] 226208: 9 articole extrase (regex)
+2026-05-08 01:23:01,187 [INFO] [PARSER] 226208: 11 articole extrase (regex)
+2026-05-08 01:23:01,187 [INFO] [PARSER] 226208: 14 articole extrase (regex)
+2026-05-08 01:23:01,188 [INFO] [PARSER] 226208: 12 articole extrase (regex)
+2026-05-08 01:23:01,188 [INFO] [PARSER] 226208: 0 articole extrase (regex)
+2026-05-08 01:23:01,189 [INFO] [PARSER] 226218: 13 articole extrase (regex)
+2026-05-08 01:23:01,190 [INFO] [PARSER] 226218: 11 articole extrase (regex)
+2026-05-08 01:23:01,190 [INFO] [PARSER] 226218: 13 articole extrase (regex)
+2026-05-08 01:23:01,191 [INFO] [PARSER] 226218: 16 articole extrase (regex)
+2026-05-08 01:23:01,192 [INFO] [PARSER] 226218: 15 articole extrase (regex)
+2026-05-08 01:23:01,193 [INFO] [PARSER] 226218: 13 articole extrase (regex)
+2026-05-08 01:23:01,193 [INFO] [PARSER] 226228: 14 articole extrase (regex)
+2026-05-08 01:23:01,194 [INFO] [PARSER] 226228: 15 articole extrase (regex)
+2026-05-08 01:23:01,195 [INFO] [PARSER] 226228: 12 articole extrase (regex)
+2026-05-08 01:23:01,195 [INFO] [PARSER] 226228: 14 articole extrase (regex)
+2026-05-08 01:23:01,196 [INFO] [PARSER] 226228: 12 articole extrase (regex)
+2026-05-08 01:23:01,197 [INFO] [PARSER] 226228: 10 articole extrase (regex)
+2026-05-08 01:23:01,197 [INFO] [PARSER] 226228: 14 articole extrase (regex)
+2026-05-08 01:23:01,198 [INFO] [PARSER] 226228: 14 articole extrase (regex)
+2026-05-08 01:23:01,199 [INFO] [PARSER] 226228: 13 articole extrase (regex)
+2026-05-08 01:23:01,199 [INFO] [PARSER] 226228: 12 articole extrase (regex)
+2026-05-08 01:23:01,200 [INFO] [PARSER] 226228: 14 articole extrase (regex)
+2026-05-08 01:23:01,200 [INFO] [PARSER] 226248: 11 articole extrase (regex)
+2026-05-08 01:23:01,201 [INFO] [PARSER] 226258: 0 articole extrase (regex)
+2026-05-08 01:23:01,201 [INFO] [PARSER] 226268: 11 articole extrase (regex)
+2026-05-08 01:23:01,202 [INFO] [PARSER] 226268: 16 articole extrase (regex)
+2026-05-08 01:23:01,202 [INFO] [PARSER] 226278: 11 articole extrase (regex)
+2026-05-08 01:23:01,202 [INFO] [PARSER] 226278: 0 articole extrase (regex)
+2026-05-08 01:23:01,203 [INFO] [PARSER] 226288: 12 articole extrase (regex)
+2026-05-08 01:23:01,203 [INFO] [PARSER] 226288: 0 articole extrase (regex)
+2026-05-08 01:23:01,204 [INFO] [PARSER] 226308: 7 articole extrase (regex)
+2026-05-08 01:23:01,204 [INFO] [PARSER] 226308: 11 articole extrase (regex)
+2026-05-08 01:23:01,205 [INFO] [PARSER] 226308: 12 articole extrase (regex)
+2026-05-08 01:23:01,206 [INFO] [PARSER] 226308: 16 articole extrase (regex)
+2026-05-08 01:23:01,206 [INFO] [PARSER] 226318: 10 articole extrase (regex)
+2026-05-08 01:23:01,207 [INFO] [PARSER] 226328: 10 articole extrase (regex)
+2026-05-08 01:23:01,208 [INFO] [PARSER] 226338: 8 articole extrase (regex)
+2026-05-08 01:23:01,208 [INFO] [PARSER] 226338: 11 articole extrase (regex)
+2026-05-08 01:23:01,209 [INFO] [PARSER] 226348: 8 articole extrase (regex)
+2026-05-08 01:23:01,209 [INFO] [PARSER] 226348: 0 articole extrase (regex)
+2026-05-08 01:23:01,209 [INFO] [PARSER] 226358: 8 articole extrase (regex)
+2026-05-08 01:23:01,210 [INFO] [PARSER] 226358: 12 articole extrase (regex)
+2026-05-08 01:23:01,211 [INFO] [PARSER] 226368: 7 articole extrase (regex)
+2026-05-08 01:23:01,211 [INFO] [PARSER] 226408: 9 articole extrase (regex)
+2026-05-08 01:23:01,212 [INFO] [PARSER] 226408: 12 articole extrase (regex)
+2026-05-08 01:23:01,212 [INFO] [PARSER] 226408: 14 articole extrase (regex)
+2026-05-08 01:23:01,213 [INFO] [PARSER] 226408: 11 articole extrase (regex)
+2026-05-08 01:23:01,214 [INFO] [PARSER] 226408: 10 articole extrase (regex)
+2026-05-08 01:23:01,214 [INFO] [PARSER] 226408: 0 articole extrase (regex)
+2026-05-08 01:23:01,214 [INFO] [PARSER] 226418: 13 articole extrase (regex)
+2026-05-08 01:23:01,215 [INFO] [PARSER] 226418: 10 articole extrase (regex)
+2026-05-08 01:23:01,215 [INFO] [PARSER] 226418: 13 articole extrase (regex)
+2026-05-08 01:23:01,216 [INFO] [PARSER] 226418: 16 articole extrase (regex)
+2026-05-08 01:23:01,217 [INFO] [PARSER] 226418: 19 articole extrase (regex)
+2026-05-08 01:23:01,217 [INFO] [PARSER] 226418: 13 articole extrase (regex)
+2026-05-08 01:23:01,218 [INFO] [PARSER] 226418: 13 articole extrase (regex)
+2026-05-08 01:23:01,218 [INFO] [PARSER] 226428: 13 articole extrase (regex)
+2026-05-08 01:23:01,219 [INFO] [PARSER] 226428: 15 articole extrase (regex)
+2026-05-08 01:23:01,219 [INFO] [PARSER] 226428: 12 articole extrase (regex)
+2026-05-08 01:23:01,220 [INFO] [PARSER] 226428: 12 articole extrase (regex)
+2026-05-08 01:23:01,221 [INFO] [PARSER] 226428: 13 articole extrase (regex)
+2026-05-08 01:23:01,221 [INFO] [PARSER] 226428: 15 articole extrase (regex)
+2026-05-08 01:23:01,222 [INFO] [PARSER] 226428: 14 articole extrase (regex)
+2026-05-08 01:23:01,222 [INFO] [PARSER] 226428: 11 articole extrase (regex)
+2026-05-08 01:23:01,223 [INFO] [PARSER] 226428: 13 articole extrase (regex)
+2026-05-08 01:23:01,223 [INFO] [PARSER] 226448: 13 articole extrase (regex)
+2026-05-08 01:23:01,223 [INFO] [PARSER] 226458: 0 articole extrase (regex)
+2026-05-08 01:23:01,224 [INFO] [PARSER] 226478: 11 articole extrase (regex)
+2026-05-08 01:23:01,224 [INFO] [PARSER] 226478: 16 articole extrase (regex)
+2026-05-08 01:23:01,225 [INFO] [PARSER] 226488: 11 articole extrase (regex)
+2026-05-08 01:23:01,225 [INFO] [PARSER] 226488: 0 articole extrase (regex)
+2026-05-08 01:23:01,225 [INFO] [PARSER] 226498: 12 articole extrase (regex)
+2026-05-08 01:23:01,225 [INFO] [PARSER] 226498: 0 articole extrase (regex)
+2026-05-08 01:23:01,226 [INFO] [PARSER] 226508: 9 articole extrase (regex)
+2026-05-08 01:23:01,226 [INFO] [PARSER] 226508: 11 articole extrase (regex)
+2026-05-08 01:23:01,227 [INFO] [PARSER] 226508: 14 articole extrase (regex)
+2026-05-08 01:23:01,228 [INFO] [PARSER] 226508: 10 articole extrase (regex)
+2026-05-08 01:23:01,228 [INFO] [PARSER] 226508: 11 articole extrase (regex)
+2026-05-08 01:23:01,229 [INFO] [PARSER] 226518: 13 articole extrase (regex)
+2026-05-08 01:23:01,229 [INFO] [PARSER] 226518: 12 articole extrase (regex)
+2026-05-08 01:23:01,230 [INFO] [PARSER] 226518: 13 articole extrase (regex)
+2026-05-08 01:23:01,230 [INFO] [PARSER] 226518: 20 articole extrase (regex)
+2026-05-08 01:23:01,231 [INFO] [PARSER] 226518: 13 articole extrase (regex)
+2026-05-08 01:23:01,232 [INFO] [PARSER] 226518: 13 articole extrase (regex)
+2026-05-08 01:23:01,232 [INFO] [PARSER] 226528: 13 articole extrase (regex)
+2026-05-08 01:23:01,232 [INFO] [PARSER] 226528: 13 articole extrase (regex)
+2026-05-08 01:23:01,233 [INFO] [PARSER] 226528: 12 articole extrase (regex)
+2026-05-08 01:23:01,233 [INFO] [PARSER] 226528: 14 articole extrase (regex)
+2026-05-08 01:23:01,234 [INFO] [PARSER] 226528: 12 articole extrase (regex)
+2026-05-08 01:23:01,234 [INFO] [PARSER] 226528: 12 articole extrase (regex)
+2026-05-08 01:23:01,235 [INFO] [PARSER] 226528: 14 articole extrase (regex)
+2026-05-08 01:23:01,235 [INFO] [PARSER] 226528: 14 articole extrase (regex)
+2026-05-08 01:23:01,236 [INFO] [PARSER] 226528: 12 articole extrase (regex)
+2026-05-08 01:23:01,236 [INFO] [PARSER] 226528: 12 articole extrase (regex)
+2026-05-08 01:23:01,237 [INFO] [PARSER] 226528: 13 articole extrase (regex)
+2026-05-08 01:23:01,237 [INFO] [PARSER] 226538: 11 articole extrase (regex)
+2026-05-08 01:23:01,237 [INFO] [PARSER] 226548: 0 articole extrase (regex)
+2026-05-08 01:23:01,238 [INFO] [PARSER] 226558: 12 articole extrase (regex)
+2026-05-08 01:23:01,238 [INFO] [PARSER] 226558: 14 articole extrase (regex)
+2026-05-08 01:23:01,239 [INFO] [PARSER] 226568: 11 articole extrase (regex)
+2026-05-08 01:23:01,239 [INFO] [PARSER] 226568: 0 articole extrase (regex)
+2026-05-08 01:23:01,239 [INFO] [PARSER] 226578: 11 articole extrase (regex)
+2026-05-08 01:23:01,240 [INFO] [PARSER] 226038: 12 articole extrase (regex)
+2026-05-08 01:23:01,240 [INFO] [PARSER] 226038: 10 articole extrase (regex)
+2026-05-08 01:23:01,240 [INFO] [PARSER] 226718: 0 articole extrase (regex)
+2026-05-08 01:23:01,240 [INFO] [PARSER] 226708: 0 articole extrase (regex)
+2026-05-08 01:23:01,240 [INFO] [F3v3] Total: 1081 articole extrase (page-aware, fara LLM)
+2026-05-08 01:23:01,241 [INFO]   1081 articole extrase din linii
+2026-05-08 01:23:01,243 [INFO] [TABLE] 6 articole extrase din tabele pentru 226108
+2026-05-08 01:23:01,243 [INFO] [TABLE] Tabel 53: 6 articole, deviz 226108
+2026-05-08 01:23:01,243 [INFO] [TABLE] 10 articole extrase din tabele pentru 226108
+2026-05-08 01:23:01,243 [INFO] [TABLE] Tabel 54: 10 articole, deviz 226108
+2026-05-08 01:23:01,243 [INFO] [TABLE] 12 articole extrase din tabele pentru 226108
+2026-05-08 01:23:01,243 [INFO] [TABLE] Tabel 55: 12 articole, deviz 226108
+2026-05-08 01:23:01,243 [INFO] [TABLE] 13 articole extrase din tabele pentru 226108
+2026-05-08 01:23:01,243 [INFO] [TABLE] Tabel 56: 13 articole, deviz 226108
+2026-05-08 01:23:01,243 [INFO] [TABLE] 2 articole extrase din tabele pentru 226108
+2026-05-08 01:23:01,243 [INFO] [TABLE] Tabel 57: 2 articole, deviz 226108
+2026-05-08 01:23:01,243 [INFO] [TABLE] 7 articole extrase din tabele pentru 226113
+2026-05-08 01:23:01,243 [INFO] [TABLE] Tabel 62: 7 articole, deviz 226113
+2026-05-08 01:23:01,243 [INFO] [TABLE] 8 articole extrase din tabele pentru 226208
+2026-05-08 01:23:01,243 [INFO] [TABLE] Tabel 79: 8 articole, deviz 226208
+2026-05-08 01:23:01,243 [INFO] [TABLE] 9 articole extrase din tabele pentru 226208
+2026-05-08 01:23:01,243 [INFO] [TABLE] Tabel 80: 9 articole, deviz 226208
+2026-05-08 01:23:01,243 [INFO] [TABLE] 13 articole extrase din tabele pentru 226208
+2026-05-08 01:23:01,243 [INFO] [TABLE] Tabel 81: 13 articole, deviz 226208
+2026-05-08 01:23:01,244 [INFO] [TABLE] 12 articole extrase din tabele pentru 226208
+2026-05-08 01:23:01,244 [INFO] [TABLE] Tabel 82: 12 articole, deviz 226208
+2026-05-08 01:23:01,244 [INFO] [TABLE] 9 articole extrase din tabele pentru 226208
+2026-05-08 01:23:01,244 [INFO] [TABLE] Tabel 83: 9 articole, deviz 226208
+2026-05-08 01:23:01,244 [INFO] [TABLE] 12 articole extrase din tabele pentru 226218
+2026-05-08 01:23:01,244 [INFO] [TABLE] Tabel 88: 12 articole, deviz 226218
+2026-05-08 01:23:01,244 [INFO] [TABLE] 11 articole extrase din tabele pentru 226218
+2026-05-08 01:23:01,244 [INFO] [TABLE] Tabel 89: 11 articole, deviz 226218
+2026-05-08 01:23:01,244 [INFO] [TABLE] 12 articole extrase din tabele pentru 226218
+2026-05-08 01:23:01,244 [INFO] [TABLE] Tabel 90: 12 articole, deviz 226218
+2026-05-08 01:23:01,244 [INFO] [TABLE] 17 articole extrase din tabele pentru 226218
+2026-05-08 01:23:01,244 [INFO] [TABLE] Tabel 91: 17 articole, deviz 226218
+2026-05-08 01:23:01,244 [INFO] [TABLE] 14 articole extrase din tabele pentru 226218
+2026-05-08 01:23:01,244 [INFO] [TABLE] Tabel 92: 14 articole, deviz 226218
+2026-05-08 01:23:01,244 [INFO] [TABLE] 13 articole extrase din tabele pentru 226218
+2026-05-08 01:23:01,244 [INFO] [TABLE] Tabel 93: 13 articole, deviz 226218
+2026-05-08 01:23:01,244 [INFO] [TABLE] 8 articole extrase din tabele pentru 226218
+2026-05-08 01:23:01,244 [INFO] [TABLE] Tabel 94: 8 articole, deviz 226218
+2026-05-08 01:23:01,244 [INFO] [TABLE] 13 articole extrase din tabele pentru 226228
+2026-05-08 01:23:01,244 [INFO] [TABLE] Tabel 100: 13 articole, deviz 226228
+2026-05-08 01:23:01,244 [INFO] [TABLE] 15 articole extrase din tabele pentru 226228
+2026-05-08 01:23:01,244 [INFO] [TABLE] Tabel 101: 15 articole, deviz 226228
+2026-05-08 01:23:01,244 [INFO] [TABLE] 12 articole extrase din tabele pentru 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 102: 12 articole, deviz 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] 14 articole extrase din tabele pentru 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 103: 14 articole, deviz 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] 12 articole extrase din tabele pentru 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 104: 12 articole, deviz 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] 10 articole extrase din tabele pentru 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 105: 10 articole, deviz 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] 14 articole extrase din tabele pentru 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 106: 14 articole, deviz 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] 13 articole extrase din tabele pentru 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 107: 13 articole, deviz 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] 13 articole extrase din tabele pentru 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 108: 13 articole, deviz 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] 12 articole extrase din tabele pentru 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 109: 12 articole, deviz 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] 14 articole extrase din tabele pentru 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 110: 14 articole, deviz 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] 4 articole extrase din tabele pentru 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 111: 4 articole, deviz 226228
+2026-05-08 01:23:01,245 [INFO] [TABLE] 9 articole extrase din tabele pentru 226248
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 121: 9 articole, deviz 226248
+2026-05-08 01:23:01,245 [INFO] [TABLE] 3 articole extrase din tabele pentru 226258
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 126: 3 articole, deviz 226258
+2026-05-08 01:23:01,245 [INFO] [TABLE] 10 articole extrase din tabele pentru 226268
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 131: 10 articole, deviz 226268
+2026-05-08 01:23:01,245 [INFO] [TABLE] 15 articole extrase din tabele pentru 226268
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 132: 15 articole, deviz 226268
+2026-05-08 01:23:01,245 [INFO] [TABLE] 9 articole extrase din tabele pentru 226268
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 133: 9 articole, deviz 226268
+2026-05-08 01:23:01,245 [INFO] [TABLE] 10 articole extrase din tabele pentru 226278
+2026-05-08 01:23:01,245 [INFO] [TABLE] Tabel 139: 10 articole, deviz 226278
+2026-05-08 01:23:01,246 [INFO] [TABLE] 7 articole extrase din tabele pentru 226278
+2026-05-08 01:23:01,246 [INFO] [TABLE] Tabel 140: 7 articole, deviz 226278
+2026-05-08 01:23:01,246 [INFO] [TABLE] 11 articole extrase din tabele pentru 226288
+2026-05-08 01:23:01,246 [INFO] [TABLE] Tabel 145: 11 articole, deviz 226288
+2026-05-08 01:23:01,246 [INFO] [TABLE] 5 articole extrase din tabele pentru 226288
+2026-05-08 01:23:01,246 [INFO] [TABLE] Tabel 146: 5 articole, deviz 226288
+2026-05-08 01:23:01,246 [INFO] [TABLE] 6 articole extrase din tabele pentru 226308
+2026-05-08 01:23:01,246 [INFO] [TABLE] Tabel 171: 6 articole, deviz 226308
+2026-05-08 01:23:01,246 [INFO] [TABLE] 11 articole extrase din tabele pentru 226308
+2026-05-08 01:23:01,246 [INFO] [TABLE] Tabel 172: 11 articole, deviz 226308
+2026-05-08 01:23:01,246 [INFO] [TABLE] 11 articole extrase din tabele pentru 226308
+2026-05-08 01:23:01,246 [INFO] [TABLE] Tabel 173: 11 articole, deviz 226308
+2026-05-08 01:23:01,246 [INFO] [TABLE] 16 articole extrase din tabele pentru 226308
+2026-05-08 01:23:01,246 [INFO] [TABLE] Tabel 174: 16 articole, deviz 226308
+2026-05-08 01:23:01,246 [INFO] [TABLE] 7 articole extrase din tabele pentru 226308
+2026-05-08 01:23:01,246 [INFO] [TABLE] Tabel 175: 7 articole, deviz 226308
+2026-05-08 01:23:01,246 [INFO] [TABLE] 9 articole extrase din tabele pentru 226318
+2026-05-08 01:23:01,246 [INFO] [TABLE] Tabel 180: 9 articole, deviz 226318
+2026-05-08 01:23:01,246 [INFO] [TABLE] 4 articole extrase din tabele pentru 226318
+2026-05-08 01:23:01,246 [INFO] [TABLE] Tabel 181: 4 articole, deviz 226318
+2026-05-08 01:23:01,246 [INFO] [TABLE] 9 articole extrase din tabele pentru 226328
+2026-05-08 01:23:01,246 [INFO] [TABLE] Tabel 186: 9 articole, deviz 226328
+2026-05-08 01:23:01,246 [INFO] [TABLE] 2 articole extrase din tabele pentru 226328
+2026-05-08 01:23:01,246 [INFO] [TABLE] Tabel 187: 2 articole, deviz 226328
+2026-05-08 01:23:01,246 [INFO] [TABLE] 7 articole extrase din tabele pentru 226338
+2026-05-08 01:23:01,246 [INFO] [TABLE] Tabel 191: 7 articole, deviz 226338
+2026-05-08 01:23:01,246 [INFO] [TABLE] 11 articole extrase din tabele pentru 226338
+2026-05-08 01:23:01,246 [INFO] [TABLE] Tabel 192: 11 articole, deviz 226338
+2026-05-08 01:23:01,246 [INFO] [TABLE] 3 articole extrase din tabele pentru 226338
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 193: 3 articole, deviz 226338
+2026-05-08 01:23:01,247 [INFO] [TABLE] 7 articole extrase din tabele pentru 226348
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 198: 7 articole, deviz 226348
+2026-05-08 01:23:01,247 [INFO] [TABLE] 6 articole extrase din tabele pentru 226348
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 199: 6 articole, deviz 226348
+2026-05-08 01:23:01,247 [INFO] [TABLE] 7 articole extrase din tabele pentru 226358
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 204: 7 articole, deviz 226358
+2026-05-08 01:23:01,247 [INFO] [TABLE] 11 articole extrase din tabele pentru 226358
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 205: 11 articole, deviz 226358
+2026-05-08 01:23:01,247 [INFO] [TABLE] 1 articole extrase din tabele pentru 226358
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 206: 1 articole, deviz 226358
+2026-05-08 01:23:01,247 [INFO] [TABLE] 6 articole extrase din tabele pentru 226368
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 210: 6 articole, deviz 226368
+2026-05-08 01:23:01,247 [INFO] [TABLE] 1 articole extrase din tabele pentru 226368
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 211: 1 articole, deviz 226368
+2026-05-08 01:23:01,247 [INFO] [TABLE] 1 articole extrase din tabele pentru 226208
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 216: 1 articole, deviz 226208
+2026-05-08 01:23:01,247 [INFO] [TABLE] 8 articole extrase din tabele pentru 226408
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 235: 8 articole, deviz 226408
+2026-05-08 01:23:01,247 [INFO] [TABLE] 11 articole extrase din tabele pentru 226408
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 236: 11 articole, deviz 226408
+2026-05-08 01:23:01,247 [INFO] [TABLE] 13 articole extrase din tabele pentru 226408
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 237: 13 articole, deviz 226408
+2026-05-08 01:23:01,247 [INFO] [TABLE] 11 articole extrase din tabele pentru 226408
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 238: 11 articole, deviz 226408
+2026-05-08 01:23:01,247 [INFO] [TABLE] 10 articole extrase din tabele pentru 226408
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 239: 10 articole, deviz 226408
+2026-05-08 01:23:01,247 [INFO] [TABLE] 7 articole extrase din tabele pentru 226408
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 240: 7 articole, deviz 226408
+2026-05-08 01:23:01,247 [INFO] [TABLE] 12 articole extrase din tabele pentru 226418
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 245: 12 articole, deviz 226418
+2026-05-08 01:23:01,247 [INFO] [TABLE] 10 articole extrase din tabele pentru 226418
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 246: 10 articole, deviz 226418
+2026-05-08 01:23:01,247 [INFO] [TABLE] 12 articole extrase din tabele pentru 226418
+2026-05-08 01:23:01,247 [INFO] [TABLE] Tabel 247: 12 articole, deviz 226418
+2026-05-08 01:23:01,248 [INFO] [TABLE] 17 articole extrase din tabele pentru 226418
+2026-05-08 01:23:01,248 [INFO] [TABLE] Tabel 248: 17 articole, deviz 226418
+2026-05-08 01:23:01,248 [INFO] [TABLE] 18 articole extrase din tabele pentru 226418
+2026-05-08 01:23:01,248 [INFO] [TABLE] Tabel 249: 18 articole, deviz 226418
+2026-05-08 01:23:01,248 [INFO] [TABLE] 13 articole extrase din tabele pentru 226418
+2026-05-08 01:23:01,248 [INFO] [TABLE] Tabel 250: 13 articole, deviz 226418
+2026-05-08 01:23:01,248 [INFO] [TABLE] 13 articole extrase din tabele pentru 226418
+2026-05-08 01:23:01,248 [INFO] [TABLE] Tabel 251: 13 articole, deviz 226418
+2026-05-08 01:23:01,248 [INFO] [TABLE] 3 articole extrase din tabele pentru 226418
+2026-05-08 01:23:01,248 [INFO] [TABLE] Tabel 252: 3 articole, deviz 226418
+2026-05-08 01:23:01,248 [INFO] [TABLE] 12 articole extrase din tabele pentru 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] Tabel 257: 12 articole, deviz 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] 15 articole extrase din tabele pentru 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] Tabel 258: 15 articole, deviz 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] 12 articole extrase din tabele pentru 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] Tabel 259: 12 articole, deviz 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] 12 articole extrase din tabele pentru 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] Tabel 260: 12 articole, deviz 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] 13 articole extrase din tabele pentru 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] Tabel 261: 13 articole, deviz 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] 15 articole extrase din tabele pentru 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] Tabel 262: 15 articole, deviz 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] 13 articole extrase din tabele pentru 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] Tabel 263: 13 articole, deviz 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] 11 articole extrase din tabele pentru 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] Tabel 264: 11 articole, deviz 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] 13 articole extrase din tabele pentru 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] Tabel 265: 13 articole, deviz 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] 5 articole extrase din tabele pentru 226428
+2026-05-08 01:23:01,248 [INFO] [TABLE] Tabel 266: 5 articole, deviz 226428
+2026-05-08 01:23:01,249 [INFO] [TABLE] 10 articole extrase din tabele pentru 226448
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 276: 10 articole, deviz 226448
+2026-05-08 01:23:01,249 [INFO] [TABLE] 3 articole extrase din tabele pentru 226448
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 277: 3 articole, deviz 226448
+2026-05-08 01:23:01,249 [INFO] [TABLE] 4 articole extrase din tabele pentru 226458
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 282: 4 articole, deviz 226458
+2026-05-08 01:23:01,249 [INFO] [TABLE] 7 articole extrase din tabele pentru 226468
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 287: 7 articole, deviz 226468
+2026-05-08 01:23:01,249 [INFO] [TABLE] 10 articole extrase din tabele pentru 226478
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 293: 10 articole, deviz 226478
+2026-05-08 01:23:01,249 [INFO] [TABLE] 15 articole extrase din tabele pentru 226478
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 294: 15 articole, deviz 226478
+2026-05-08 01:23:01,249 [INFO] [TABLE] 9 articole extrase din tabele pentru 226478
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 295: 9 articole, deviz 226478
+2026-05-08 01:23:01,249 [INFO] [TABLE] 10 articole extrase din tabele pentru 226488
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 300: 10 articole, deviz 226488
+2026-05-08 01:23:01,249 [INFO] [TABLE] 5 articole extrase din tabele pentru 226488
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 301: 5 articole, deviz 226488
+2026-05-08 01:23:01,249 [INFO] [TABLE] 11 articole extrase din tabele pentru 226498
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 306: 11 articole, deviz 226498
+2026-05-08 01:23:01,249 [INFO] [TABLE] 3 articole extrase din tabele pentru 226498
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 307: 3 articole, deviz 226498
+2026-05-08 01:23:01,249 [INFO] [TABLE] 8 articole extrase din tabele pentru 226508
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 321: 8 articole, deviz 226508
+2026-05-08 01:23:01,249 [INFO] [TABLE] 9 articole extrase din tabele pentru 226508
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 322: 9 articole, deviz 226508
+2026-05-08 01:23:01,249 [INFO] [TABLE] 13 articole extrase din tabele pentru 226508
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 323: 13 articole, deviz 226508
+2026-05-08 01:23:01,249 [INFO] [TABLE] 10 articole extrase din tabele pentru 226508
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 324: 10 articole, deviz 226508
+2026-05-08 01:23:01,249 [INFO] [TABLE] 11 articole extrase din tabele pentru 226508
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 325: 11 articole, deviz 226508
+2026-05-08 01:23:01,249 [INFO] [TABLE] 12 articole extrase din tabele pentru 226518
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 330: 12 articole, deviz 226518
+2026-05-08 01:23:01,249 [INFO] [TABLE] 11 articole extrase din tabele pentru 226518
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 331: 11 articole, deviz 226518
+2026-05-08 01:23:01,249 [INFO] [TABLE] 13 articole extrase din tabele pentru 226518
+2026-05-08 01:23:01,249 [INFO] [TABLE] Tabel 332: 13 articole, deviz 226518
+2026-05-08 01:23:01,250 [INFO] [TABLE] 19 articole extrase din tabele pentru 226518
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 333: 19 articole, deviz 226518
+2026-05-08 01:23:01,250 [INFO] [TABLE] 13 articole extrase din tabele pentru 226518
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 334: 13 articole, deviz 226518
+2026-05-08 01:23:01,250 [INFO] [TABLE] 13 articole extrase din tabele pentru 226518
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 335: 13 articole, deviz 226518
+2026-05-08 01:23:01,250 [INFO] [TABLE] 2 articole extrase din tabele pentru 226518
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 336: 2 articole, deviz 226518
+2026-05-08 01:23:01,250 [INFO] [TABLE] 12 articole extrase din tabele pentru 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 340: 12 articole, deviz 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] 13 articole extrase din tabele pentru 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 341: 13 articole, deviz 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] 12 articole extrase din tabele pentru 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 342: 12 articole, deviz 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] 14 articole extrase din tabele pentru 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 343: 14 articole, deviz 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] 12 articole extrase din tabele pentru 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 344: 12 articole, deviz 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] 11 articole extrase din tabele pentru 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 345: 11 articole, deviz 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] 14 articole extrase din tabele pentru 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 346: 14 articole, deviz 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] 13 articole extrase din tabele pentru 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 347: 13 articole, deviz 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] 12 articole extrase din tabele pentru 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 348: 12 articole, deviz 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] 12 articole extrase din tabele pentru 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 349: 12 articole, deviz 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] 13 articole extrase din tabele pentru 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 350: 13 articole, deviz 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] 1 articole extrase din tabele pentru 226528
+2026-05-08 01:23:01,250 [INFO] [TABLE] Tabel 351: 1 articole, deviz 226528
+2026-05-08 01:23:01,251 [INFO] [TABLE] 9 articole extrase din tabele pentru 226538
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 356: 9 articole, deviz 226538
+2026-05-08 01:23:01,251 [INFO] [TABLE] 3 articole extrase din tabele pentru 226548
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 361: 3 articole, deviz 226548
+2026-05-08 01:23:01,251 [INFO] [TABLE] 11 articole extrase din tabele pentru 226558
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 366: 11 articole, deviz 226558
+2026-05-08 01:23:01,251 [INFO] [TABLE] 13 articole extrase din tabele pentru 226558
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 367: 13 articole, deviz 226558
+2026-05-08 01:23:01,251 [INFO] [TABLE] 7 articole extrase din tabele pentru 226558
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 368: 7 articole, deviz 226558
+2026-05-08 01:23:01,251 [INFO] [TABLE] 10 articole extrase din tabele pentru 226568
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 374: 10 articole, deviz 226568
+2026-05-08 01:23:01,251 [INFO] [TABLE] 7 articole extrase din tabele pentru 226568
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 375: 7 articole, deviz 226568
+2026-05-08 01:23:01,251 [INFO] [TABLE] 10 articole extrase din tabele pentru 226578
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 380: 10 articole, deviz 226578
+2026-05-08 01:23:01,251 [INFO] [TABLE] 2 articole extrase din tabele pentru 226578
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 381: 2 articole, deviz 226578
+2026-05-08 01:23:01,251 [INFO] [TABLE] 10 articole extrase din tabele pentru 226008
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 396: 10 articole, deviz 226008
+2026-05-08 01:23:01,251 [INFO] [TABLE] 11 articole extrase din tabele pentru 226008
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 397: 11 articole, deviz 226008
+2026-05-08 01:23:01,251 [INFO] [TABLE] 8 articole extrase din tabele pentru 226008
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 398: 8 articole, deviz 226008
+2026-05-08 01:23:01,251 [INFO] [TABLE] 1 articole extrase din tabele pentru 226008
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 399: 1 articole, deviz 226008
+2026-05-08 01:23:01,251 [INFO] [TABLE] 7 articole extrase din tabele pentru 226018
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 404: 7 articole, deviz 226018
+2026-05-08 01:23:01,251 [INFO] [TABLE] 8 articole extrase din tabele pentru 226018
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 405: 8 articole, deviz 226018
+2026-05-08 01:23:01,251 [INFO] [TABLE] 9 articole extrase din tabele pentru 226018
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 406: 9 articole, deviz 226018
+2026-05-08 01:23:01,251 [INFO] [TABLE] 8 articole extrase din tabele pentru 226028
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 412: 8 articole, deviz 226028
+2026-05-08 01:23:01,251 [INFO] [TABLE] 11 articole extrase din tabele pentru 226028
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 413: 11 articole, deviz 226028
+2026-05-08 01:23:01,251 [INFO] [TABLE] 12 articole extrase din tabele pentru 226028
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 414: 12 articole, deviz 226028
+2026-05-08 01:23:01,251 [INFO] [TABLE] 10 articole extrase din tabele pentru 226028
+2026-05-08 01:23:01,251 [INFO] [TABLE] Tabel 415: 10 articole, deviz 226028
+2026-05-08 01:23:01,252 [INFO] [TABLE] 3 articole extrase din tabele pentru 226028
+2026-05-08 01:23:01,252 [INFO] [TABLE] Tabel 416: 3 articole, deviz 226028
+2026-05-08 01:23:01,252 [INFO] [TABLE] 10 articole extrase din tabele pentru 226038
+2026-05-08 01:23:01,252 [INFO] [TABLE] Tabel 421: 10 articole, deviz 226038
+2026-05-08 01:23:01,252 [INFO] [TABLE] 9 articole extrase din tabele pentru 226038
+2026-05-08 01:23:01,252 [INFO] [TABLE] Tabel 422: 9 articole, deviz 226038
+2026-05-08 01:23:01,252 [INFO] [TABLE] 7 articole extrase din tabele pentru 226038
+2026-05-08 01:23:01,252 [INFO] [TABLE] Tabel 423: 7 articole, deviz 226038
+2026-05-08 01:23:01,252 [INFO] [TABLE] 3 articole extrase din tabele pentru 226718
+2026-05-08 01:23:01,252 [INFO] [TABLE] Tabel 438: 3 articole, deviz 226718
+2026-05-08 01:23:01,252 [INFO] [TABLE] 3 articole extrase din tabele pentru 226708
+2026-05-08 01:23:01,252 [INFO] [TABLE] Tabel 443: 3 articole, deviz 226708
+2026-05-08 01:23:01,252 [INFO] [TABLE] 1 articole extrase din tabele pentru 226728
+2026-05-08 01:23:01,252 [INFO] [TABLE] Tabel 448: 1 articole, deviz 226728
+2026-05-08 01:23:01,252 [INFO]   1391 articole din tabele, 1510 total dupa merge
+2026-05-08 01:23:01,255 [INFO] [DN] Populated 779 missing deviz denominations
+2026-05-08 01:23:01,259 [INFO] 
+--- Comparare OFERTA 1 ---
+2026-05-08 01:23:01,394 [INFO] [DN] Local mapping (no LLM): 44 renames
+2026-05-08 01:23:01,636 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:01,637 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPXvYjL5VWs8rErXLr'}
+2026-05-08 01:23:01,637 [WARNING] [DN] LLM mapping failed — folosim doar mapping local: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPXvYjL5VWs8rErXLr'}
+2026-05-08 01:23:01,906 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:01,907 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPZ2XGo74SDWUGweo9'}
+2026-05-08 01:23:01,907 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPZ2XGo74SDWUGweo9'}
+2026-05-08 01:23:01,907 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:02,162 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:02,163 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPa81V66qypHNwWTi1'}
+2026-05-08 01:23:02,163 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPa81V66qypHNwWTi1'}
+2026-05-08 01:23:02,412 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:02,412 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPbDyvL1ZhUAdT12FB'}
+2026-05-08 01:23:02,412 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPbDyvL1ZhUAdT12FB'}
+2026-05-08 01:23:02,412 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:02,652 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:02,652 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPcGz7DLB6rMT8EY5A'}
+2026-05-08 01:23:02,652 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPcGz7DLB6rMT8EY5A'}
+2026-05-08 01:23:03,140 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:03,140 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPdJFfedW28oXjJ2Nm'}
+2026-05-08 01:23:03,140 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPdJFfedW28oXjJ2Nm'}
+2026-05-08 01:23:03,382 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:03,383 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPfQW88V2ziNZnDHj7'}
+2026-05-08 01:23:03,383 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPfQW88V2ziNZnDHj7'}
+2026-05-08 01:23:03,619 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:03,620 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPgRmduRwDnSDfVQof'}
+2026-05-08 01:23:03,620 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPgRmduRwDnSDfVQof'}
+2026-05-08 01:23:03,858 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:03,859 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPhSHxymDqLUi6APU2'}
+2026-05-08 01:23:03,859 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPhSHxymDqLUi6APU2'}
+2026-05-08 01:23:04,109 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:04,109 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPiT4kDCGgo9E6g5su'}
+2026-05-08 01:23:04,109 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPiT4kDCGgo9E6g5su'}
+2026-05-08 01:23:04,354 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:04,354 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPjY3bd4bqZTz2Fkac'}
+2026-05-08 01:23:04,354 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPjY3bd4bqZTz2Fkac'}
+2026-05-08 01:23:04,595 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:04,596 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPkaoYp2s75JxZA8RC'}
+2026-05-08 01:23:04,596 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPkaoYp2s75JxZA8RC'}
+2026-05-08 01:23:04,596 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:04,596 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:04,596 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:04,596 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:04,850 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:04,851 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPmcKVV5wdvV1WH8fG'}
+2026-05-08 01:23:04,852 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPmcKVV5wdvV1WH8fG'}
+2026-05-08 01:23:05,094 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:05,095 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPniYNwHeVEpJpoir2'}
+2026-05-08 01:23:05,095 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPniYNwHeVEpJpoir2'}
+2026-05-08 01:23:05,337 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:05,338 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPokJc3URCAK4z6kTK'}
+2026-05-08 01:23:05,338 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPokJc3URCAK4z6kTK'}
+2026-05-08 01:23:05,338 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:05,338 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:05,575 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:05,576 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPpn4sCdenejmaSHHi'}
+2026-05-08 01:23:05,576 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPpn4sCdenejmaSHHi'}
+2026-05-08 01:23:05,576 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:05,576 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:06,144 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:06,144 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPr3iJs4QJBqDrLmf7'}
+2026-05-08 01:23:06,145 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPr3iJs4QJBqDrLmf7'}
+2026-05-08 01:23:06,417 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:06,418 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPtGuiS4DLzYj9xRpz'}
+2026-05-08 01:23:06,418 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPtGuiS4DLzYj9xRpz'}
+2026-05-08 01:23:06,418 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:06,419 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:06,420 [INFO] [COMP] matched=1136, lipsa=115, extra=191, similar=0
+2026-05-08 01:23:06,423 [WARNING] [VALID] 14 ARTICOL_EXTRA marcate ca posibil_omis_din_extractie (codul apare in DI referinta dar lipseste din articolele extrase)
+2026-05-08 01:23:06,426 [INFO]   Neconformitati: {'UM_DIFERIT': 45, 'DIFERENTA_CAMP': 83, 'ARTICOL_LIPSA': 115, 'ARTICOL_EXTRA': 191} (total: 434)
+2026-05-08 01:23:06,426 [INFO]   Matched: 1136 articole
+2026-05-08 01:23:06,486 [INFO]   XLSX: Raport_Oferta_1.xlsx
+2026-05-08 01:23:07,200 [INFO]   DOCX: Raport_Oferta_1.docx
+2026-05-08 01:23:07,200 [INFO] 
+--- Extragere OFERTA 2 ---
+2026-05-08 01:23:07,221 [INFO]   di_oferta_2.json: 203 pagini DI
+2026-05-08 01:23:07,221 [INFO]   Clasificare pagini cu LLM (poate dura 2-5 min)...
+2026-05-08 01:23:07,230 [INFO] [PC] 16 pagini → LLM batch (clasificare + deviz_cod)
+2026-05-08 01:23:07,467 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:07,467 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPxrjsA5yHHoZtb3Ch'}
+2026-05-08 01:23:07,467 [WARNING] [PC] LLM batch classification failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPxrjsA5yHHoZtb3Ch'} — tratam ca non-F3
+2026-05-08 01:23:07,467 [INFO] [PC] Clasificare completă: 98/203 pagini F3
+2026-05-08 01:23:07,473 [INFO]   Checkpoint salvat: di_oferta_2_page_classes.json
+2026-05-08 01:23:07,473 [INFO]   Filtrare devize: 98 → 75 pagini F3 (excluse devize din oferta extra)
+2026-05-08 01:23:07,474 [INFO]   75 pagini F3 (0 fara deviz_cod)
+2026-05-08 01:23:07,475 [INFO] [PARSER] 226108: 9 articole extrase (regex)
+2026-05-08 01:23:07,476 [INFO] [PARSER] 226108: 9 articole extrase (regex)
+2026-05-08 01:23:07,477 [INFO] [PARSER] 226108: 7 articole extrase (regex)
+2026-05-08 01:23:07,478 [INFO] [PARSER] 226208: 9 articole extrase (regex)
+2026-05-08 01:23:07,480 [INFO] [PARSER] 226208: 8 articole extrase (regex)
+2026-05-08 01:23:07,481 [INFO] [PARSER] 226208: 9 articole extrase (regex)
+2026-05-08 01:23:07,482 [INFO] [PARSER] 226218: 7 articole extrase (regex)
+2026-05-08 01:23:07,483 [INFO] [PARSER] 226218: 7 articole extrase (regex)
+2026-05-08 01:23:07,484 [INFO] [PARSER] 226218: 7 articole extrase (regex)
+2026-05-08 01:23:07,485 [INFO] [PARSER] 226218: 8 articole extrase (regex)
+2026-05-08 01:23:07,486 [INFO] [PARSER] 226218: 7 articole extrase (regex)
+2026-05-08 01:23:07,487 [INFO] [PARSER] 226228: 9 articole extrase (regex)
+2026-05-08 01:23:07,488 [INFO] [PARSER] 226228: 7 articole extrase (regex)
+2026-05-08 01:23:07,489 [INFO] [PARSER] 226228: 8 articole extrase (regex)
+2026-05-08 01:23:07,490 [INFO] [PARSER] 226228: 7 articole extrase (regex)
+2026-05-08 01:23:07,491 [INFO] [PARSER] 226228: 7 articole extrase (regex)
+2026-05-08 01:23:07,492 [INFO] [PARSER] 226228: 7 articole extrase (regex)
+2026-05-08 01:23:07,493 [INFO] [PARSER] 226228: 7 articole extrase (regex)
+2026-05-08 01:23:07,494 [INFO] [PARSER] 226228: 6 articole extrase (regex)
+2026-05-08 01:23:07,495 [INFO] [PARSER] 226228: 7 articole extrase (regex)
+2026-05-08 01:23:07,495 [INFO] [PARSER] 226268: 5 articole extrase (regex)
+2026-05-08 01:23:07,496 [INFO] [PARSER] 226268: 0 articole extrase (regex)
+2026-05-08 01:23:07,496 [INFO] [PARSER] 226308: 9 articole extrase (regex)
+2026-05-08 01:23:07,497 [INFO] [PARSER] 226308: 9 articole extrase (regex)
+2026-05-08 01:23:07,498 [INFO] [PARSER] 226308: 7 articole extrase (regex)
+2026-05-08 01:23:07,499 [INFO] [PARSER] 226338: 8 articole extrase (regex)
+2026-05-08 01:23:07,500 [INFO] [PARSER] 226358: 7 articole extrase (regex)
+2026-05-08 01:23:07,501 [INFO] [PARSER] 226408: 9 articole extrase (regex)
+2026-05-08 01:23:07,501 [INFO] [PARSER] 226408: 8 articole extrase (regex)
+2026-05-08 01:23:07,502 [INFO] [PARSER] 226408: 9 articole extrase (regex)
+2026-05-08 01:23:07,503 [INFO] [PARSER] 226408: 9 articole extrase (regex)
+2026-05-08 01:23:07,504 [INFO] [PARSER] 226418: 7 articole extrase (regex)
+2026-05-08 01:23:07,505 [INFO] [PARSER] 226418: 7 articole extrase (regex)
+2026-05-08 01:23:07,505 [INFO] [PARSER] 226418: 7 articole extrase (regex)
+2026-05-08 01:23:07,506 [INFO] [PARSER] 226418: 7 articole extrase (regex)
+2026-05-08 01:23:07,507 [INFO] [PARSER] 226418: 8 articole extrase (regex)
+2026-05-08 01:23:07,507 [INFO] [PARSER] 226418: 0 articole extrase (regex)
+2026-05-08 01:23:07,508 [INFO] [PARSER] 226428: 8 articole extrase (regex)
+2026-05-08 01:23:07,509 [INFO] [PARSER] 226428: 7 articole extrase (regex)
+2026-05-08 01:23:07,509 [INFO] [PARSER] 226428: 8 articole extrase (regex)
+2026-05-08 01:23:07,510 [INFO] [PARSER] 226428: 7 articole extrase (regex)
+2026-05-08 01:23:07,511 [INFO] [PARSER] 226428: 6 articole extrase (regex)
+2026-05-08 01:23:07,512 [INFO] [PARSER] 226428: 7 articole extrase (regex)
+2026-05-08 01:23:07,512 [INFO] [PARSER] 226428: 6 articole extrase (regex)
+2026-05-08 01:23:07,512 [INFO] [PARSER] 226458: 0 articole extrase (regex)
+2026-05-08 01:23:07,513 [INFO] [PARSER] 226478: 5 articole extrase (regex)
+2026-05-08 01:23:07,513 [INFO] [PARSER] 226478: 0 articole extrase (regex)
+2026-05-08 01:23:07,514 [INFO] [PARSER] 226508: 9 articole extrase (regex)
+2026-05-08 01:23:07,515 [INFO] [PARSER] 226508: 8 articole extrase (regex)
+2026-05-08 01:23:07,515 [INFO] [PARSER] 226508: 9 articole extrase (regex)
+2026-05-08 01:23:07,516 [INFO] [PARSER] 226518: 6 articole extrase (regex)
+2026-05-08 01:23:07,517 [INFO] [PARSER] 226518: 7 articole extrase (regex)
+2026-05-08 01:23:07,517 [INFO] [PARSER] 226518: 7 articole extrase (regex)
+2026-05-08 01:23:07,518 [INFO] [PARSER] 226518: 8 articole extrase (regex)
+2026-05-08 01:23:07,519 [INFO] [PARSER] 226528: 8 articole extrase (regex)
+2026-05-08 01:23:07,519 [INFO] [PARSER] 226528: 9 articole extrase (regex)
+2026-05-08 01:23:07,520 [INFO] [PARSER] 226528: 8 articole extrase (regex)
+2026-05-08 01:23:07,521 [INFO] [PARSER] 226528: 7 articole extrase (regex)
+2026-05-08 01:23:07,521 [INFO] [PARSER] 226528: 6 articole extrase (regex)
+2026-05-08 01:23:07,522 [INFO] [PARSER] 226528: 7 articole extrase (regex)
+2026-05-08 01:23:07,523 [INFO] [PARSER] 226528: 7 articole extrase (regex)
+2026-05-08 01:23:07,523 [INFO] [PARSER] 226528: 6 articole extrase (regex)
+2026-05-08 01:23:07,524 [INFO] [PARSER] 226528: 6 articole extrase (regex)
+2026-05-08 01:23:07,524 [INFO] [PARSER] 226568: 0 articole extrase (regex)
+2026-05-08 01:23:07,525 [INFO] [PARSER] 226558: 5 articole extrase (regex)
+2026-05-08 01:23:07,525 [INFO] [PARSER] 226008: 9 articole extrase (regex)
+2026-05-08 01:23:07,526 [INFO] [PARSER] 226008: 0 articole extrase (regex)
+2026-05-08 01:23:07,526 [INFO] [PARSER] 226018: 8 articole extrase (regex)
+2026-05-08 01:23:07,527 [INFO] [PARSER] 226038: 7 articole extrase (regex)
+2026-05-08 01:23:07,527 [INFO] [PARSER] 226038: 0 articole extrase (regex)
+2026-05-08 01:23:07,527 [INFO] [PARSER] 226028: 3 articole extrase (regex)
+2026-05-08 01:23:07,528 [INFO] [PARSER] 226028: 6 articole extrase (regex)
+2026-05-08 01:23:07,528 [INFO] [PARSER] 226028: 5 articole extrase (regex)
+2026-05-08 01:23:07,529 [INFO] [PARSER] 226718: 0 articole extrase (regex)
+2026-05-08 01:23:07,529 [INFO] [PARSER] 226708: 0 articole extrase (regex)
+2026-05-08 01:23:07,529 [INFO] [F3v3] Total: 428 articole extrase (page-aware, fara LLM)
+2026-05-08 01:23:07,529 [INFO]   428 articole extrase din linii
+2026-05-08 01:23:07,531 [INFO]   0 articole din tabele, 428 total dupa merge
+2026-05-08 01:23:07,533 [INFO] [DN] Populated 0 missing deviz denominations
+2026-05-08 01:23:07,534 [INFO] 
+--- Comparare OFERTA 2 ---
+2026-05-08 01:23:07,535 [INFO] [DN] Local mapping (no LLM): 9 renames
+2026-05-08 01:23:07,770 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:07,770 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPzB7cd91j8R8v9cog'}
+2026-05-08 01:23:07,770 [WARNING] [DN] LLM mapping failed — folosim doar mapping local: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozPzB7cd91j8R8v9cog'}
+2026-05-08 01:23:08,013 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:08,014 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozQ1CdEGPMQiUZ49dzM'}
+2026-05-08 01:23:08,014 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozQ1CdEGPMQiUZ49dzM'}
+2026-05-08 01:23:08,014 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:08,255 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:08,257 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozQ2DeVhPtqqkBEJ37J'}
+2026-05-08 01:23:08,257 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozQ2DeVhPtqqkBEJ37J'}
+2026-05-08 01:23:08,513 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:08,515 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozQ3HtN9snzfG9HSnEm'}
+2026-05-08 01:23:08,515 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozQ3HtN9snzfG9HSnEm'}
+2026-05-08 01:23:08,516 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:08,516 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:08,517 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-08 01:23:08,519 [INFO] [COMP] matched=418, lipsa=833, extra=10, similar=0
+2026-05-08 01:23:08,520 [WARNING] [VALID] 1 ARTICOL_EXTRA marcate ca posibil_omis_din_extractie (codul apare in DI referinta dar lipseste din articolele extrase)
+2026-05-08 01:23:08,526 [INFO]   Neconformitati: {'UM_DIFERIT': 20, 'DIFERENTA_CAMP': 15, 'ARTICOL_LIPSA': 833, 'ARTICOL_EXTRA': 10} (total: 878)
+2026-05-08 01:23:08,526 [INFO]   Matched: 418 articole
+2026-05-08 01:23:08,621 [INFO]   XLSX: Raport_Oferta_2.xlsx
+2026-05-08 01:23:09,866 [INFO]   DOCX: Raport_Oferta_2.docx
+2026-05-08 01:23:09,867 [INFO] 
+--- Extragere OFERTA 3 ---
+2026-05-08 01:23:09,880 [INFO]   di_oferta_3.json: 267 pagini DI
+2026-05-08 01:23:09,880 [INFO]   Clasificare pagini cu LLM (poate dura 2-5 min)...
+2026-05-08 01:23:09,899 [INFO] [PC] 52 pagini → LLM batch (clasificare + deviz_cod)
+2026-05-08 01:23:10,231 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:10,232 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozQAhNufeFcqH3zaGEM'}
+2026-05-08 01:23:10,232 [WARNING] [PC] LLM batch classification failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozQAhNufeFcqH3zaGEM'} — tratam ca non-F3
+2026-05-08 01:23:10,232 [INFO] [PC] Clasificare completă: 117/267 pagini F3
+2026-05-08 01:23:10,237 [INFO]   Checkpoint salvat: di_oferta_3_page_classes.json
+2026-05-08 01:23:10,237 [INFO]   Filtrare devize: 117 → 25 pagini F3 (excluse devize din oferta extra)
+2026-05-08 01:23:10,237 [INFO]   25 pagini F3 (0 fara deviz_cod)
+2026-05-08 01:23:10,238 [INFO] [PARSER] 226108: 6 articole extrase (regex)
+2026-05-08 01:23:10,239 [INFO] [PARSER] 226208: 8 articole extrase (regex)
+2026-05-08 01:23:10,239 [INFO] [PARSER] 226218: 12 articole extrase (regex)
+2026-05-08 01:23:10,240 [INFO] [PARSER] 226228: 12 articole extrase (regex)
+2026-05-08 01:23:10,241 [INFO] [PARSER] 226268: 10 articole extrase (regex)
+2026-05-08 01:23:10,241 [INFO] [PARSER] 226278: 5 articole extrase (regex)
+2026-05-08 01:23:10,242 [INFO] [PARSER] 226288: 9 articole extrase (regex)
+2026-05-08 01:23:10,243 [INFO] [PARSER] 226308: 6 articole extrase (regex)
+2026-05-08 01:23:10,243 [INFO] [PARSER] 226318: 8 articole extrase (regex)
+2026-05-08 01:23:10,244 [INFO] [PARSER] 226328: 9 articole extrase (regex)
+2026-05-08 01:23:10,245 [INFO] [PARSER] 226338: 7 articole extrase (regex)
+2026-05-08 01:23:10,245 [INFO] [PARSER] 226348: 7 articole extrase (regex)
+2026-05-08 01:23:10,246 [INFO] [PARSER] 226368: 6 articole extrase (regex)
+2026-05-08 01:23:10,246 [INFO] [PARSER] 226408: 8 articole extrase (regex)
+2026-05-08 01:23:10,247 [INFO] [PARSER] 226418: 12 articole extrase (regex)
+2026-05-08 01:23:10,248 [INFO] [PARSER] 226428: 12 articole extrase (regex)
+2026-05-08 01:23:10,248 [INFO] [PARSER] 226478: 10 articole extrase (regex)
+2026-05-08 01:23:10,249 [INFO] [PARSER] 226488: 5 articole extrase (regex)
+2026-05-08 01:23:10,249 [INFO] [PARSER] 226498: 9 articole extrase (regex)
+2026-05-08 01:23:10,250 [INFO] [PARSER] 226508: 8 articole extrase (regex)
+2026-05-08 01:23:10,250 [INFO] [PARSER] 226518: 12 articole extrase (regex)
+2026-05-08 01:23:10,251 [INFO] [PARSER] 226528: 12 articole extrase (regex)
+2026-05-08 01:23:10,252 [INFO] [PARSER] 226558: 11 articole extrase (regex)
+2026-05-08 01:23:10,252 [INFO] [PARSER] 226578: 8 articole extrase (regex)
+2026-05-08 01:23:10,253 [INFO] [PARSER] 226568: 6 articole extrase (regex)
+2026-05-08 01:23:10,253 [INFO] [F3v3] Total: 210 articole extrase (page-aware, fara LLM)
+2026-05-08 01:23:10,253 [INFO]   210 articole extrase din linii
+2026-05-08 01:23:10,254 [INFO]   0 articole din tabele, 210 total dupa merge
+2026-05-08 01:23:10,256 [INFO] [DN] Populated 0 missing deviz denominations
+2026-05-08 01:23:10,258 [INFO] 
+--- Comparare OFERTA 3 ---
+2026-05-08 01:23:10,315 [INFO] [DN] Local mapping (no LLM): 24 renames
+2026-05-08 01:23:10,557 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:10,558 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozQC4V4azU1HSpKAPFP'}
+2026-05-08 01:23:10,558 [WARNING] [DN] LLM mapping failed — folosim doar mapping local: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozQC4V4azU1HSpKAPFP'}
+2026-05-08 01:23:10,829 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2026-05-08 01:23:10,829 [ERROR] [Adapter] Anthropic API error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozQD8EVrPuH3pB1wX1z'}
+2026-05-08 01:23:10,829 [ERROR] [Matcher] match_unmatched_global LLM error: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaozQD8EVrPuH3pB1wX1z'}
+2026-05-08 01:23:10,831 [INFO] [COMP] matched=208, lipsa=1043, extra=2, similar=0
+2026-05-08 01:23:10,836 [INFO]   Neconformitati: {'DIFERENTA_CAMP': 1, 'ARTICOL_LIPSA': 1043, 'ARTICOL_EXTRA': 2} (total: 1046)
+2026-05-08 01:23:10,836 [INFO]   Matched: 208 articole
+2026-05-08 01:23:10,937 [INFO]   XLSX: Raport_Oferta_3.xlsx
+2026-05-08 01:23:12,380 [INFO]   DOCX: Raport_Oferta_3.docx
+2026-05-08 01:23:12,380 [INFO] 
+==================================================
+2026-05-08 01:23:12,380 [INFO]   DONE
+2026-05-08 01:23:12,380 [INFO]   Rezultate in: /Users/gabrielchitu/analiza-oferte-local/output_AO
+2026-05-08 01:23:12,380 [INFO] ==================================================
