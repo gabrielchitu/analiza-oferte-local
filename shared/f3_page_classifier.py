@@ -185,6 +185,19 @@ def classify_page_local(page: dict) -> dict:
         cod = m.group(1) if m else ""
         return {"label": "F3", "deviz_cod": cod, "deviz_den": "", "is_header": False}
 
+    # ── Verifică continuation pages cu pattern "NNNN pag" (zonder >>> marker) ──
+    # Pages like "226U08 pag 170 011 TSD04D1..." sau "226358 pag 079..."
+    # These have article codes at start of page + deviz code marker but no >>> marker
+    if _has_article_codes(full_content):
+        m = re.search(r'\b([A-Z0-9]{6})\s+pag\b', full_content, re.IGNORECASE)
+        if m:
+            pos = m.start()
+            content_before = full_content[:pos]
+            # Pattern should appear early (within ~150 chars = ~3-4 lines)
+            if len(content_before) < 150:
+                cod = m.group(1)
+                return {"label": "F3", "deviz_cod": cod, "deviz_den": "", "is_header": False}
+
     return {"label": "AMBIGUOUS", "deviz_cod": "", "deviz_den": "", "is_header": False}
 
 
