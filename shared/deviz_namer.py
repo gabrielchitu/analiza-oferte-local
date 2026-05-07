@@ -39,14 +39,24 @@ def populate_deviz_denominations(articole: list) -> list:
         if deviz and name:  # Only count non-empty pairs
             deviz_to_names[deviz].append(name)
 
-    # Find most common name for each deviz (or first if tied)
+    # Find canonical name for each deviz
+    # Prefer SHORTEST name to avoid bloated table content from DI JSON
     deviz_to_canonical_name = {}
     for deviz, names in deviz_to_names.items():
         if names:
-            # Use most common name, with SHORTER length as tiebreaker (avoid bloated table content)
+            # Pick shortest name (avoids table structure bloat)
+            # Tiebreaker: most common among shortest ones
             from collections import Counter
-            name_counts = Counter(names)
-            canonical = max(name_counts.items(), key=lambda x: (x[1], -len(x[0])))[0]
+            min_len = min(len(n) for n in names)
+            shortest_names = [n for n in names if len(n) == min_len]
+
+            if len(shortest_names) == 1:
+                canonical = shortest_names[0]
+            else:
+                # Multiple names with same shortest length - pick most common
+                name_counts = Counter(shortest_names)
+                canonical = max(name_counts.items(), key=lambda x: x[1])[0]
+
             deviz_to_canonical_name[deviz] = canonical
             logger.debug(f"[DN] Deviz {deviz}: canonical name = '{canonical}' (len={len(canonical)})")
 
