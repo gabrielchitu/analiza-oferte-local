@@ -70,7 +70,19 @@ def _enrich(neconf: dict, ref_art: dict, oferta_art: dict,
 
 
 def _deviz_key(art: dict) -> str:
-    """Returneaza cheia de deviz normalizata pentru un articol."""
+    """Returneaza cheia de deviz normalizata pentru un articol.
+
+    Uses deviz code (numeric ID like '226108') as primary key.
+    deviz_denumire (name) varies due to OCR differences and formatting.
+    Using denomination as key causes matching to fail when same article
+    appears in same deviz section with slightly different OCR text.
+    """
+    # Primary: use deviz code (reliable, numeric)
+    deviz_cod = (art.get("deviz") or "").strip()
+    if deviz_cod:
+        return deviz_cod
+
+    # Fallback: use normalized denomination if no code
     raw = (art.get("deviz_denumire") or "").strip().upper()
     raw = re.sub(r'^(\d+\s+)+', '', raw).strip()
     raw = re.sub(r'\b(OB|NR|CAP|ART)[\s.]*(\d+)', r'\1\2', raw)
@@ -79,7 +91,11 @@ def _deviz_key(art: dict) -> str:
 
 
 def _art_key(art: dict) -> tuple:
-    """Cheia compusa (deviz, cod) pentru un articol."""
+    """Cheia compusa (deviz, cod) pentru un articol.
+
+    Now uses (deviz_code, cod) which is reliable and matches across
+    reference and oferta without OCR variation issues.
+    """
     return (_deviz_key(art), (art.get("cod") or "").strip())
 
 
