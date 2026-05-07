@@ -69,6 +69,22 @@ def _enrich(neconf: dict, ref_art: dict, oferta_art: dict,
     return neconf
 
 
+def _normalize_deviz_code(deviz_cod: str) -> str:
+    """
+    Normalizeaza codurile deviz pentru a gestiona variatiile OCR.
+    226U18 → 226018 (U = 0)
+    226U38 → 226038 (U = 0)
+    226U28 → 226028 (U = 0)
+    226U08 → 226008 (U = 0)
+    """
+    if not deviz_cod:
+        return deviz_cod
+
+    # Replace U with 0 (OCR confusion: U looks like 0)
+    normalized = deviz_cod.replace('U', '0')
+    return normalized
+
+
 def _deviz_key(art: dict) -> str:
     """Returneaza cheia de deviz normalizata pentru un articol.
 
@@ -77,10 +93,10 @@ def _deviz_key(art: dict) -> str:
     Using denomination as key causes matching to fail when same article
     appears in same deviz section with slightly different OCR text.
     """
-    # Primary: use deviz code (reliable, numeric)
+    # Primary: use deviz code (reliable, numeric) - normalized for OCR variations
     deviz_cod = (art.get("deviz") or "").strip()
     if deviz_cod:
-        return deviz_cod
+        return _normalize_deviz_code(deviz_cod)
 
     # Fallback: use normalized denomination if no code
     raw = (art.get("deviz_denumire") or "").strip().upper()
