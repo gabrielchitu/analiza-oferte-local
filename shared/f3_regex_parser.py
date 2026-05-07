@@ -323,7 +323,19 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 last_nr_crt = int(NR_CRT_RE.match(line).group(1))
                 state = _WAITING
                 waiting_lines = 0
-            # ignore orice altă linie în IDLE
+            else:
+                # Format cod direct fără NR_CRT (ex: "3270513 - BANDA AVERTIZARE...")
+                # Încearcă să parseze ca cod articol direct
+                parsed_cod, parsed_den, parsed_um_hint = _try_parse_cod(line)
+                if parsed_cod:
+                    cod = parsed_cod
+                    denumire_parts = [parsed_den] if parsed_den else []
+                    um = parsed_um_hint
+                    cantitate = 0.0
+                    preturi = []
+                    state = _READING
+                    waiting_lines = 0
+                # altfel ignora orice linie în IDLE
 
         # ── WAITING_ARTICLE ──────────────────────────────────────────────────
         elif state == _WAITING:

@@ -105,7 +105,31 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_codes: set = N
     logger.info(f"  {f3_count} pagini F3 ({no_deviz} fara deviz_cod)")
 
     articles = extract_articles_v3(page_classes)
-    logger.info(f"  {len(articles)} articole extrase")
+    logger.info(f"  {len(articles)} articole extrase din linii")
+
+    # Extract articles from tables (structured F3 data)
+    # Tables contain the same articles as pages but in structured format
+    # Extract once from identified tables, not for each deviz separately
+    from shared.table_extractor import extract_articles_from_tables_smart
+    tables = di.get("tables", [])
+    if tables:
+        # Identify which devizes have tables with article data
+        articles_from_tables = extract_articles_from_tables_smart(tables)
+
+        # Merge: avoid duplicates by (cod, deviz) key
+        article_keys = set()
+        for art in articles:
+            key = (art.get("cod"), art.get("deviz"))
+            article_keys.add(key)
+
+        for art in articles_from_tables:
+            key = (art.get("cod"), art.get("deviz"))
+            if key not in article_keys:
+                articles.append(art)
+                article_keys.add(key)
+
+        logger.info(f"  {len(articles_from_tables)} articole din tabele, {len(articles)} total dupa merge")
+
     return articles
 
 
