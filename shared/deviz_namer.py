@@ -43,12 +43,12 @@ def populate_deviz_denominations(articole: list) -> list:
     deviz_to_canonical_name = {}
     for deviz, names in deviz_to_names.items():
         if names:
-            # Use most common name, with length as tiebreaker (longer = more complete)
+            # Use most common name, with SHORTER length as tiebreaker (avoid bloated table content)
             from collections import Counter
             name_counts = Counter(names)
-            canonical = max(name_counts.items(), key=lambda x: (x[1], len(x[0])))[0]
+            canonical = max(name_counts.items(), key=lambda x: (x[1], -len(x[0])))[0]
             deviz_to_canonical_name[deviz] = canonical
-            logger.debug(f"[DN] Deviz {deviz}: canonical name = '{canonical}'")
+            logger.debug(f"[DN] Deviz {deviz}: canonical name = '{canonical}' (len={len(canonical)})")
 
     if not deviz_to_canonical_name:
         logger.info("[DN] No deviz denominations to populate")

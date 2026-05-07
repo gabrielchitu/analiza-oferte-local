@@ -13,6 +13,15 @@ from typing import List, Dict
 logger = logging.getLogger(__name__)
 
 
+def _clean_article_code(code: str) -> str:
+    """Remove OCR artifacts from article codes: SE56A# → SE56A"""
+    if not code:
+        return code
+    # Remove trailing OCR artifacts: #, @, -, etc. that appear after valid code
+    code = re.sub(r'([A-Z0-9])[#@\-!]+$', r'\1', code)
+    return code
+
+
 def _parse_article_cell(cell_content: str) -> tuple:
     """
     Parse article cell content: 'CODE - DENOMINATION'
@@ -31,6 +40,16 @@ def _parse_article_cell(cell_content: str) -> tuple:
             code = '$' + code
         denom = m.group(2).strip()
         return code, denom
+
+    # Fallback: try to extract code even without perfect dash separation
+    # This handles cases like "SE56A# - Filtru..." where we need to clean the code
+    m2 = re.match(r'^([A-Z0-9#@\-]{2,10})\s*[-–]\s*(.+)', cell_content.strip(), re.IGNORECASE)
+    if m2:
+        code = m2.group(1).upper()
+        code = _clean_article_code(code)
+        if code and len(code) >= 2:  # Valid code
+            denom = m2.group(2).strip()
+            return code, denom
 
     return None, None
 
