@@ -159,6 +159,7 @@ def compare_and_report(
     """Compara oferta cu referinta si genereaza raport XLSX + DOCX."""
     from shared.deviz_normalizer import normalize_devize
     from shared.extraction_validator import mark_suspicious_extras
+    from shared.orphan_detector import detect_orphans
     from shared.report_excel import generate_excel
     from shared.report_word import generate_word
     from AgentComparator_local import match_global
@@ -169,6 +170,9 @@ def compare_and_report(
     # NO deviz reassignment - match strictly by (deviz, cod) pairs
     # If article code appears in different deviz, it's a DIFFERENT work item
 
+    # Detecta coduri orphane (cod identical, deviz diferit)
+    orphans = detect_orphans(ref_articles, oferta_norm)
+
     # Matching 3 straturi
     neconformitati, matches = match_global(
         ref_articles, oferta_norm, client, model, include_prices=include_prices
@@ -177,6 +181,24 @@ def compare_and_report(
     # Marcheaza EXTRA suspecte (codul exista in referinta dar cu alta denumire)
     ref_codes_text = " ".join(a.get("cod", "") for a in ref_articles)
     neconformitati = mark_suspicious_extras(neconformitati, ref_codes_text)
+
+    # Adauga orphane-le la neconformitati cu tip special
+    for orphan in orphans:
+        neconformitati.append({
+            'tip': 'ARTICOL_ORPHAN',
+            'deviz_ref': orphan['ref_deviz'],
+            'deviz_denumire': f'REF:{orphan["ref_deviz"]} vs OFERTA:{orphan["oferta_deviz"]}',
+            'ref_cod': orphan['cod'],
+            'ref_denumire': orphan['ref_denom'],
+            'ref_um': orphan['ref_um'],
+            'ref_cantitate': orphan['ref_cant'],
+            'oferta_cod': orphan['cod'],
+            'oferta_denom': orphan['oferta_denom'],
+            'oferta_denumire': f"Deviz {orphan['oferta_deviz']}",
+            'oferta_um': orphan['oferta_um'],
+            'oferta_cantitate': orphan['oferta_cant'],
+            'motiv': f'Cod {orphan["cod"]}: REF categoriei {orphan["ref_deviz"]} => OFERTA categoriei {orphan["oferta_deviz"]}',
+        })
 
     # Salveaza JSON comparatie
     comparatie_path = OUTPUT_DIR / f"comparatie_oferta_{oferta_nr}.json"
@@ -204,14 +226,14 @@ def compare_and_report(
     }
     comparison_mode = "cu_pret" if include_prices else "fara_pret"
 
-    # Raport XLSX
-    xlsx_path = OUTPUT_DIR / f"Raport_Oferta_{oferta_nr}.xlsx"
-    try:
-        xlsx_bytes = generate_excel(session, [comp], comparison_mode=comparison_mode)
-        xlsx_path.write_bytes(xlsx_bytes)
-        logger.info(f"  XLSX: {xlsx_path.name}")
-    except Exception as e:
-        logger.warning(f"  XLSX failed: {e}")
+    # Raport XLSX — comentat deocamdata (nu e prioritar)
+    # xlsx_path = OUTPUT_DIR / f"Raport_Oferta_{oferta_nr}.xlsx"
+    # try:
+    #     xlsx_bytes = generate_excel(session, [comp], comparison_mode=comparison_mode)
+    #     xlsx_path.write_bytes(xlsx_bytes)
+    #     logger.info(f"  XLSX: {xlsx_path.name}")
+    # except Exception as e:
+    #     logger.warning(f"  XLSX failed: {e}")
 
     # Raport DOCX
     docx_path = OUTPUT_DIR / f"Raport_Oferta_{oferta_nr}.docx"

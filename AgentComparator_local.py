@@ -22,10 +22,14 @@ def _normalize_cod(cod: str) -> str:
     Breviar propriu ($01063) — pastreaza prefixul $ + digits.
     Cod normativ (SA14B#, RPCR21A#-) — extrage doar baza standard.
     Handles OCR confusion: lowercase 'l' (letter L) → '1' (digit one).
+    OCR confusion: letter 'O' → '0' (digit zero) and vice versa.
     """
     cod = (cod or "").strip().upper()
     # OCR fix: lowercase 'l' often confused with digit '1'
     cod = cod.replace('l', '1').replace('L', '1')
+    # OCR fix: letter 'O' often confused with digit '0' — normalize to '0'
+    # IZDO4D1 → IZD04D1 (O becomes 0 in PDF)
+    cod = cod.replace('O', '0')
     if cod.startswith('$'):
         return re.sub(r'[^A-Z0-9$]', '', cod)
     if re.match(r'^\d+$', cod):
@@ -298,10 +302,18 @@ def match_global(
         norm_cod = _normalize_cod(oferta_art.get("cod", ""))
         if norm_cod in ref_component_cods:
             continue
+        # Extract deviz_denumire, truncate if OCR garbage (usually starts with "ARHITECTURA..." but may be followed by "e Devize Formular...")
+        deviz_den = oferta_art.get("deviz_denumire", "")
+        # Truncate at "e Devize" boundary (OCR garbage starts there)
+        if "e Devize" in deviz_den:
+            deviz_den = deviz_den.split("e Devize")[0].strip()
+        elif len(deviz_den) > 100:
+            # Fallback: truncate long strings
+            deviz_den = deviz_den[:100]
         neconformitati.append({
             "tip": "ARTICOL_EXTRA",
-            "deviz_ref": "",
-            "deviz_denumire": oferta_art.get("deviz_denumire", ""),
+            "deviz_ref": oferta_art.get("deviz", ""),
+            "deviz_denumire": deviz_den,
             "ref_cod": "", "ref_denumire": "",
             "oferta_cod": oferta_art.get("cod", ""),
             "oferta_denumire": oferta_art.get("denumire", ""),

@@ -25,6 +25,27 @@ def _normalize_deviz_cod(cod: str) -> str:
     return cod.replace('U', '0')
 
 
+def _normalize_denom(text: str) -> str:
+    """Normalizeaza DENUMIRE pentru matching: lowercase, spații, caractere speciale.
+
+    Rezolvă: "ROBINET 1/2\"" vs "ROBINET 1/2" (quote char variație)
+             "PLASA ZN.MONT. LA" vs "PLASA ZN.MONT.LA" (spații)
+             "BST500 8 MM" vs "BST500 8 mm" (case)
+    """
+    if not text:
+        return text
+    # lowercase
+    text = text.lower()
+    # normalizează citate: " → ', și alte variații
+    text = text.replace('"', "'").replace('"', "'").replace('"', "'")
+    # înlaturează puncte după litere (ex: "INOX." → "INOX", "M." → "M")
+    text = re.sub(r'([A-Z])\.\s+', r'\1 ', text, flags=re.IGNORECASE)
+    # înlaturează spații multiple
+    text = re.sub(r'\s+', ' ', text)
+    # trim
+    return text.strip()
+
+
 # Pattern 1 (priority): "Deviz oferta XXXX DENUMIRE"
 _DEVIZ_OFERTA_RE = re.compile(
     r'Deviz\s+oferta\s+([A-Z0-9]+)\s+(.*)',
@@ -262,7 +283,7 @@ def _make_component(cod: str, denumire: str, um: str,
                     deviz_cod: str, deviz_den: str) -> dict:
     """Construieste un articol component (is_component=True, fara preturi)."""
     return {
-        "cod": cod, "denumire": denumire, "um": um, "cantitate": 0.0,
+        "cod": cod, "denumire": _normalize_denom(denumire), "um": um, "cantitate": 0.0,
         "pret_material": 0.0, "val_material": 0.0,
         "pret_manopera": 0.0, "val_manopera": 0.0,
         "pret_utilaj": 0.0, "val_utilaj": 0.0,
@@ -623,6 +644,8 @@ def extract_articles_v3(page_classifications: list) -> list:
             art["deviz"] = deviz_cod  # deviz_cod já normalizado acima
             art["deviz_denumire"] = deviz_den
             art["is_component"] = False
+            # Normalizeaza DENUMIRE pentru matching (rezolvă OCR variații)
+            art["denumire"] = _normalize_denom(art.get("denumire", ""))
 
         # Extrage componente din $breviar (>>> componenta)
         section_text = "\n".join(lines)

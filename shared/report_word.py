@@ -56,6 +56,11 @@ def _observatie_text(neconf: dict) -> str:
         return (f"Cod similar — posibilă eroare OCR sau variație: "
                 f"referință '{ref_cod}', ofertat '{oferta_cod}'. "
                 f"{motiv}. Necesită verificare manuală.")
+    if tip == "ARTICOL_ORPHAN":
+        ref_deviz = neconf.get("deviz_ref", "")
+        cod = neconf.get("ref_cod", "")
+        motiv = neconf.get("motiv", "")
+        return f"ORPHAN: Cod '{cod}' identic, dar categorii DIFERITE. {motiv}. VERIFICARE MANUALA NECESARA!"
     return tip
 
 
@@ -214,20 +219,33 @@ def generate_word(session: dict, comp: dict, comparison_mode: str = "cu_pret", a
     if not neconformitati:
         doc.add_paragraph("Nicio neconcordanță detectată.")
     else:
+        # Build deviz code -> denomination map from neconformitati
+        deviz_map = {}
+        for nc in neconformitati:
+            deviz_cod = nc.get("deviz_ref", "")
+            deviz_den = nc.get("deviz_denumire", "")
+            if deviz_cod and not deviz_den.startswith("REF:"):  # Skip orphan format
+                deviz_map[deviz_cod] = deviz_den
+
         # 3 header rows
         table = doc.add_table(rows=3, cols=11)
         table.style = "Table Grid"
         _build_header(table, ofertant_name)
 
-        # Group by deviz_denumire (categoria de lucrari) for section separators
-        sorted_nec = sorted(neconformitati, key=lambda x: x.get("deviz_denumire", ""))
+        # Group by deviz_ref (codigo) for section separators
+        sorted_nec = sorted(neconformitati, key=lambda x: x.get("deviz_ref", ""))
         row_nr = 0
 
-        for deviz_key, group_items in groupby(sorted_nec, key=lambda x: x.get("deviz_denumire", "")):
-            # Separator row for this categoria de lucrari
+        for deviz_key, group_items in groupby(sorted_nec, key=lambda x: x.get("deviz_ref", "")):
+            # Separator row for this deviz category (show COD - DENUMIRE)
             sep_cells = table.add_row().cells
             sep_cells[0].merge(sep_cells[10])
-            label = f"Categoria de lucrări: {deviz_key}" if deviz_key else "Necategorizat"
+            deviz_cod = str(deviz_key) if deviz_key else ""
+            deviz_den = deviz_map.get(deviz_cod, "")
+            # Truncate long denomination
+            if len(deviz_den) > 50:
+                deviz_den = deviz_den[:47] + "..."
+            label = f"Deviz: {deviz_cod} - {deviz_den}" if deviz_cod else "Necategorizat"
             sep_run = sep_cells[0].paragraphs[0].add_run(label)
             sep_run.bold = True
             _style_cell(sep_cells[0], 9, bold=True)
@@ -243,17 +261,44 @@ def generate_word(session: dict, comp: dict, comparison_mode: str = "cu_pret", a
 
                 # Reference columns (always present)
                 row[0].paragraphs[0].add_run(str(row_nr))
-                row[1].paragraphs[0].add_run(str(neconf.get("deviz_denumire", "")))
-                row[2].paragraphs[0].add_run(str(neconf.get("ref_cod", "")))
-                row[3].paragraphs[0].add_run(str(neconf.get("ref_denumire", "")))
+                # Deviz: COD - DENUMIRE (from map)
+                deviz_cod = neconf.get("deviz_ref", "")
+                deviz_den = deviz_map.get(deviz_cod, "")
+                # For orphans, show just the code (REF side)
+                if not deviz_den and "vs" in str(neconf.get("deviz_denumire", "")):
+                    # Orphan case: just show the code
+                    deviz_display = str(deviz_cod)
+                else:
+                    # Normal case: CODE - DENOMINATION
+                    if deviz_den and len(deviz_den) > 40:
+                        deviz_den = deviz_den[:37] + "..."
+                    deviz_display = f"{deviz_cod} - {deviz_den}" if deviz_den else str(deviz_cod)
+                deviz_run = row[1].paragraphs[0].add_run(deviz_display)
+                deviz_run.bold = True
+                # COD: make bold and larger for visibility
+                cod_run = row[2].paragraphs[0].add_run(str(neconf.get("ref_cod", "")))
+                cod_run.bold = True
+                cod_run.font.size = Pt(9)
+                # DENUMIRE: truncate if too long
+                denom = str(neconf.get("ref_denumire", ""))
+                if len(denom) > 50:
+                    denom = denom[:47] + "..."
+                row[3].paragraphs[0].add_run(denom)
                 ref_um_run = row[4].paragraphs[0].add_run(str(neconf.get("ref_um", "")))
                 ref_cant_run = row[5].paragraphs[0].add_run(str(neconf.get("ref_cantitate", "")))
 
                 # Offer columns (empty for ARTICOL_LIPSA)
                 oferta_um_run = oferta_cant_run = None
                 if tip != "ARTICOL_LIPSA":
-                    row[6].paragraphs[0].add_run(str(neconf.get("oferta_cod", "")))
-                    row[7].paragraphs[0].add_run(str(neconf.get("oferta_denumire", "")))
+                    # COD: make bold for visibility
+                    oferta_cod_run = row[6].paragraphs[0].add_run(str(neconf.get("oferta_cod", "")))
+                    oferta_cod_run.bold = True
+                    oferta_cod_run.font.size = Pt(9)
+                    # DENUMIRE: truncate if too long
+                    oferta_denom = str(neconf.get("oferta_denumire", ""))
+                    if len(oferta_denom) > 50:
+                        oferta_denom = oferta_denom[:47] + "..."
+                    row[7].paragraphs[0].add_run(oferta_denom)
                     oferta_um_run = row[8].paragraphs[0].add_run(str(neconf.get("oferta_um", "")))
                     oferta_cant_run = row[9].paragraphs[0].add_run(str(neconf.get("oferta_cantitate", "")))
 
@@ -278,6 +323,10 @@ def generate_word(session: dict, comp: dict, comparison_mode: str = "cu_pret", a
                 if tip == "COD_SIMILAR":
                     for cell in row:
                         _set_cell_shading(cell, ORANGE_FILL)
+                if tip == "ARTICOL_ORPHAN":
+                    # Mark orphane-le cu culoare distinctă (light orange/coral)
+                    for cell in row:
+                        _set_cell_shading(cell, "FFCC99")
 
                 # Red text on the specific values that differ
                 if tip == "DIFERENTA_CAMP" and camp == "cantitate":

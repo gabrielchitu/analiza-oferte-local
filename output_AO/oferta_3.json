@@ -2,7 +2,7 @@
   "articole": [
     {
       "cod": "TSC18B1",
-      "denumire": "SAPAT CU BULDOZ. PE TRACT. 65-80CP INCL. IMPINS PAMINTULUI LA 10 M TEREN CAT 2 material: manopera: utilaj: transport:",
+      "denumire": "sapat cu buldoz pe tract 65-80cp incl impins pamintului la 10 m teren cat 2 material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 2.5,
       "deviz": "226108",
@@ -19,7 +19,7 @@
     },
     {
       "cod": "TSC22B1",
-      "denumire": "SPORT PT. FIECARE 10 M IN PLUS LA TSC18B1 BULDOZER DE 65- 80 CP TEREN CATEGORIA 2 material: manopera: utilaj: transport:",
+      "denumire": "sport pt fiecare 10 m in plus la tsc18b1 buldozer de 65- 80 cp teren categoria 2 material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 5.0,
       "deviz": "226108",
@@ -36,7 +36,7 @@
     },
     {
       "cod": "TSC35A22",
-      "denumire": "EXC. TRA. INC. IN AUT.CU INC. FRONT. PE SENILE 1,0-2,50MC.IN PAM. TER.CAT.1 LA DIST.DE 21-30M material: manopera: utilaj: transport:",
+      "denumire": "exc tra inc in aut.cu inc front pe senile 1,0-2,50mc.in pam ter.cat.1 la dist.de 21-30m material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 2.3,
       "deviz": "226108",
@@ -53,7 +53,7 @@
     },
     {
       "cod": "TRA01A10P",
-      "denumire": "TRANSPORTUL RUTIER AL PAMINTULUI SAU MOLOZULUI CU AUTOBASCULANTA DIST. = 10 KM material: manopera: utilaj: transport:",
+      "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 10 km material: manopera: utilaj: transport:",
       "um": "tona",
       "cantitate": 437.0,
       "deviz": "226108",
@@ -70,7 +70,7 @@
     },
     {
       "cod": "TSC02A11",
-      "denumire": "SAPATURA CU EXCAVAT. PE PNEURI 0,21-0,39 MC PAMINT UMID.NATUR. DESC. DEP.TER.CAT.1 IN COND. GOSP. APE material: manopera: utilaj: transport: 6 CA01J1 - TURNARE BETON SIMPLU IN STRATURI DE 5- 20CM PT. EGALIZARI LA CONSTRUCTII EDILITARE (APEDUCTE, CANALE M.C. material: manopera: utilaj: transport:",
+      "denumire": "sapatura cu excavat pe pneuri 0,21-0,39 mc pamint umid.natur desc dep.ter.cat.1 in cond gosp ape material: manopera: utilaj: transport: 6 ca01j1 - turnare beton simplu in straturi de 5- 20cm pt egalizari la constructii edilitare (apeducte, canale m.c material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 0.8,
       "deviz": "226108",
@@ -87,7 +87,7 @@
     },
     {
       "cod": "$2100910",
-      "denumire": "BETON MARFA CLASA C8 / 10 Deviz \"001\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "denumire": "beton marfa clasa c8 / 10 deviz '001' - formular f3 formular generat cu programul @devize (www.edevize.ro)",
       "um": "mc",
       "cantitate": 18.144,
       "deviz": "226108",
@@ -104,7 +104,7 @@
     },
     {
       "cod": "TSC18B1",
-      "denumire": "SAPAT.CU BULDOZ. PE TRACT. 65-80CP INCL. IMPINS PAMINTULUI LA 10 M TEREN CAT 2 material: manopera: utilaj: transport:",
+      "denumire": "sapat.cu buldoz pe tract 65-80cp incl impins pamintului la 10 m teren cat 2 material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 0.7,
       "deviz": "226208",
@@ -121,7 +121,7 @@
     },
     {
       "cod": "TSC02A11",
-      "denumire": "SAPATURA CU EXCAVAT. PE PNEURI 0,21-0,39 MC PAMINT UMID.NATUR.DESC.DEP.TER.CAT. 1 IN COND.GOSP.APE material: manopera: utilaj: transport:",
+      "denumire": "sapatura cu excavat pe pneuri 0,21-0,39 mc pamint umid.natur.desc.dep.ter.cat 1 in cond.gosp.ape material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 0.5,
       "deviz": "226208",
@@ -138,7 +138,7 @@
     },
     {
       "cod": "TSC35A32",
-      "denumire": "INCARC. AUTO CU INCARC. PE PNEURI CUPA 2,6-3,9 MC TEREN CATEG 1 LA DIST. 21-30 M material: manopera: utilaj: transport:",
+      "denumire": "incarc auto cu incarc pe pneuri cupa 2,6-3,9 mc teren categ 1 la dist 21-30 m material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 0.918,
       "deviz": "226208",
@@ -155,7 +155,7 @@
     },
     {
       "cod": "TRA01A10P",
-      "denumire": "TRANSPORTUL RUTIER AL PAMINTULUI SAU MOLOZULUI CU AUTOBASCULANTA DIST. = 10 KM material: manopera: utilaj: transport:",
+      "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 10 km material: manopera: utilaj: transport:",
       "um": "tona",
       "cantitate": 175.0,
       "deviz": "226208",
@@ -172,7 +172,7 @@
     },
     {
       "cod": "CA01J1",
-      "denumire": "TURNARE BETON SIMPLU IN STRATURI DE 5- 20CM PT. EGALIZARI LA CONSTRUCTII EDILITARE (APEDUCTE, CANALE material: manopera: utilaj: transport:",
+      "denumire": "turnare beton simplu in straturi de 5- 20cm pt egalizari la constructii edilitare (apeducte, canale material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 10.0,
       "deviz": "226208",
@@ -189,7 +189,7 @@
     },
     {
       "cod": "$2100910",
-      "denumire": "BETON MARFA CLASA C8 / 10",
+      "denumire": "beton marfa clasa c8 / 10",
       "um": "mc",
       "cantitate": 10.08,
       "deviz": "226208",
@@ -206,7 +206,7 @@
     },
     {
       "cod": "CA02C1",
-      "denumire": "TURNARE BETON ARMAT IN FUNDATII CONTINUE, RADIERE SI PERETI SUB COTA ZERO A CONSTR CU GROS < 30CM material: manopera: utilaj: transport:",
+      "denumire": "turnare beton armat in fundatii continue, radiere si pereti sub cota zero a constr cu gros < 30cm material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 52.0,
       "deviz": "226208",
@@ -223,7 +223,7 @@
     },
     {
       "cod": "$2100912",
-      "denumire": "BETON MARCA CLASA C16 / 20 Deviz \"001\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "denumire": "beton marca clasa c16 / 20 deviz '001' - formular f3 formular generat cu programul @devize (www.edevize.ro)",
       "um": "mc",
       "cantitate": 52.416,
       "deviz": "226208",
@@ -240,7 +240,7 @@
     },
     {
       "cod": "CD05C1",
-      "denumire": "ZIDARIE DIN CARAMIDA TIP GVP LA CONSTR.H < 35M, FORMAT 290X240X138MM, CAL. A material: manopera: utilaj: transport:",
+      "denumire": "zidarie din caramida tip gvp la constr.h < 35m, format 290x240x138mm, cal a material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 60.0,
       "deviz": "226218",
@@ -257,7 +257,7 @@
     },
     {
       "cod": "$2101171",
-      "denumire": "MORTAR DE ZIDARIE M 50 S 1030",
+      "denumire": "mortar de zidarie m 50 s 1030",
       "um": "mc",
       "cantitate": 8.4,
       "deviz": "226218",
@@ -274,7 +274,7 @@
     },
     {
       "cod": "CD05B1",
-      "denumire": "ZIDARIE DIN CARAMIDA TIP GVP LA CONSTR.H < 35M, FORMAT 290X140X 88MM, CAL.A material: manopera: utilaj: transport:",
+      "denumire": "zidarie din caramida tip gvp la constr.h < 35m, format 290x140x 88mm, cal.a material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 18.0,
       "deviz": "226218",
@@ -291,7 +291,7 @@
     },
     {
       "cod": "CF01A1",
-      "denumire": "TENCUIELI INTERIOARE, DRISCUITE, LA STILPI, PERETI EXECUTATE MANUAL PE ZIDARIE, DE 2CM GROSIME material: manopera: utilaj: transport:",
+      "denumire": "tencuieli interioare, driscuite, la stilpi, pereti executate manual pe zidarie, de 2cm grosime material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 408.0,
       "deviz": "226218",
@@ -308,7 +308,7 @@
     },
     {
       "cod": "$2101195",
-      "denumire": "MORTAR TENCUIALA M 100 (VAR HIDRATAT) S",
+      "denumire": "mortar tencuiala m 100 (var hidratat) s",
       "um": "mc",
       "cantitate": 7.344,
       "deviz": "226218",
@@ -325,7 +325,7 @@
     },
     {
       "cod": "CF15C",
-      "denumire": "Tencuieli interioare finisaj fin sclivisite, de 0.5 cm grosime, la pereti din beton cu suprafete plane, executate manual, cu mortar material: manopera: utilaj: transport:",
+      "denumire": "tencuieli interioare finisaj fin sclivisite, de 0.5 cm grosime, la pereti din beton cu suprafete plane, executate manual, cu mortar material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 408.0,
       "deviz": "226218",
@@ -342,7 +342,7 @@
     },
     {
       "cod": "$3276725",
-      "denumire": "TINCI PT TENCUIELI FINE",
+      "denumire": "tinci pt tencuieli fine",
       "um": "kg",
       "cantitate": 2040.0,
       "deviz": "226218",
@@ -359,7 +359,7 @@
     },
     {
       "cod": "CI06C",
-      "denumire": "Placaj faianta, aceeasi culoare si format, 15 cm - 30x30 cm, fixate cu aditiv, pe supr plane pereti si stalpi material: manopera: utilaj: transport:",
+      "denumire": "placaj faianta, aceeasi culoare si format, 15 cm - 30x30 cm, fixate cu aditiv, pe supr plane pereti si stalpi material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 213.0,
       "deviz": "226218",
@@ -376,7 +376,7 @@
     },
     {
       "cod": "$2401678",
-      "denumire": "FAIANTA",
+      "denumire": "faianta",
       "um": "mp",
       "cantitate": 223.65,
       "deviz": "226218",
@@ -393,7 +393,7 @@
     },
     {
       "cod": "$2100833",
-      "denumire": "ADEZIV FAIANTA",
+      "denumire": "adeziv faianta",
       "um": "g",
       "cantitate": 1065.0,
       "deviz": "226218",
@@ -410,7 +410,7 @@
     },
     {
       "cod": "$3270111",
-      "denumire": "CHIT ROSTURI Deviz \"002\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "denumire": "chit rosturi deviz '002' - formular f3 formular generat cu programul @devize (www.edevize.ro)",
       "um": "kg",
       "cantitate": 106.5,
       "deviz": "226218",
@@ -427,7 +427,7 @@
     },
     {
       "cod": "SA14B",
-      "denumire": "TEAVA MAT PL (PP, PE, PP - R) IMBINARE PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND, D = 20 MM material: manopera: utilaj: transport:",
+      "denumire": "teava mat pl (pp, pe, pp - r) imbinare prin sudura prin polifuziune, la ctii ind, d = 20 mm material: manopera: utilaj: transport:",
       "um": "ml",
       "cantitate": 70.0,
       "deviz": "226228",
@@ -444,7 +444,7 @@
     },
     {
       "cod": "$3270225",
-      "denumire": "TEAVA PPR PN 16 PENTRU APA CALDA 20X2.8",
+      "denumire": "teava ppr pn 16 pentru apa calda 20x2.8",
       "um": "m",
       "cantitate": 71.4,
       "deviz": "226228",
@@ -461,7 +461,7 @@
     },
     {
       "cod": "$7206121",
-      "denumire": "@COT CONECTOR PEXAL M - FI 20 X 1/2 \" COD",
+      "denumire": "@cot conector pexal m - fi 20 x 1/2 ' cod",
       "um": "buc",
       "cantitate": 20.0,
       "deviz": "226228",
@@ -478,7 +478,7 @@
     },
     {
       "cod": "$7206160",
-      "denumire": "@TEU PEXAL MMM 20 COD 67101115",
+      "denumire": "@teu pexal mmm 20 cod 67101115",
       "um": "buc",
       "cantitate": 20.0,
       "deviz": "226228",
@@ -495,7 +495,7 @@
     },
     {
       "cod": "$3270235",
-      "denumire": "REDUCTIE PENTRU TEVI DIN POLIETILENA INTERIOR PPR -EXTERIOR PPR 25-20",
+      "denumire": "reductie pentru tevi din polietilena interior ppr -exterior ppr 25-20",
       "um": "buc",
       "cantitate": 10.0,
       "deviz": "226228",
@@ -512,7 +512,7 @@
     },
     {
       "cod": "AUT3000",
-      "denumire": "APARAT DE SUDURA TIP,, COPRAX ' ' 2204 / 50Hz / 700w material: manopera: utilaj: transport: Deviz \"003\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "denumire": "aparat de sudura tip,, coprax ' ' 2204 / 50hz / 700w material: manopera: utilaj: transport: deviz '003' - formular f3 formular generat cu programul @devize (www.edevize.ro)",
       "um": "ora",
       "cantitate": 3.2,
       "deviz": "226228",
@@ -529,7 +529,7 @@
     },
     {
       "cod": "SA43D1",
-      "denumire": "BRATARA PT. FIXAREA COND. OTELFPVC DE AL & MCCU APAFGAZE, MONT. PRIN INCASTRARE, COND. AVIND D = 3/4 TOL material: manopera: utilaj: transport:",
+      "denumire": "bratara pt fixarea cond otelfpvc de al & mccu apafgaze, mont prin incastrare, cond avind d = 3/4 tol material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 45.0,
       "deviz": "226228",
@@ -546,7 +546,7 @@
     },
     {
       "cod": "SA14C",
-      "denumire": "TEAVA MAT PL (PP, PE, PP - R) IMBINATA PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND., D = 25 MM material: manopera: utilaj: transport:",
+      "denumire": "teava mat pl (pp, pe, pp - r) imbinata prin sudura prin polifuziune, la ctii ind., d = 25 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 75.0,
       "deviz": "226228",
@@ -563,7 +563,7 @@
     },
     {
       "cod": "$3271730",
-      "denumire": "TEAVA PN20 PPR VERDE DN25",
+      "denumire": "teava pn20 ppr verde dn25",
       "um": "m",
       "cantitate": 76.5,
       "deviz": "226228",
@@ -580,7 +580,7 @@
     },
     {
       "cod": "$3270394",
-      "denumire": "COT 90 GRD. INTERIOR - EXTERIOR PPR 25",
+      "denumire": "cot 90 grd interior - exterior ppr 25",
       "um": "buc",
       "cantitate": 25.0,
       "deviz": "226228",
@@ -597,7 +597,7 @@
     },
     {
       "cod": "$3270242",
-      "denumire": "REDUCTIE PPR 32-25",
+      "denumire": "reductie ppr 32-25",
       "um": "buc",
       "cantitate": 15.0,
       "deviz": "226228",
@@ -614,7 +614,7 @@
     },
     {
       "cod": "EF03D1",
-      "denumire": "TABLOU ELECTRIC PANOU, DULAP, CELULA SAU PUPITRU GATA ECHIPAT, CU GREUTATEA> 500KG material: manopera: utilaj: transport:",
+      "denumire": "tablou electric panou, dulap, celula sau pupitru gata echipat, cu greutatea> 500kg material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226268",
@@ -631,7 +631,7 @@
     },
     {
       "cod": "$7302051",
-      "denumire": "TABLOU ELECTRIC (vestiar), CONFECTII METALICE, YSA CU YALE, IP54, MONTAJ APARENT, COMPECT ECHIPAT",
+      "denumire": "tablou electric (vestiar), confectii metalice, ysa cu yale, ip54, montaj aparent, compect echipat",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226268",
@@ -648,7 +648,7 @@
     },
     {
       "cod": "EC05A1",
-      "denumire": "CABLU ENERGIE TRAS PRIN TUB PROT METAL PT RACORD MOTOARE TABLOURI APARATE CONDUCTE < 16 MMP. * material: manopera: utilaj: transport:",
+      "denumire": "cablu energie tras prin tub prot metal pt racord motoare tablouri aparate conducte < 16 mmp * material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 650.0,
       "deviz": "226268",
@@ -665,7 +665,7 @@
     },
     {
       "cod": "$3270431",
-      "denumire": "CABLU CYYF 3X2,5",
+      "denumire": "cablu cyyf 3x2,5",
       "um": "m",
       "cantitate": 650.0,
       "deviz": "226268",
@@ -682,7 +682,7 @@
     },
     {
       "cod": "$3270501",
-      "denumire": "CABLU CYYF 4X1,5",
+      "denumire": "cablu cyyf 4x1,5",
       "um": "m",
       "cantitate": 150.0,
       "deviz": "226268",
@@ -699,7 +699,7 @@
     },
     {
       "cod": "EC05B1",
-      "denumire": "CABLU ENERGIE TRAS PRIN TUB PROT METAL PT RACORD MOTOARE TABLOURI APARATE CONDUCTE 25 SAU 35 MMP material: manopera: utilaj: transport:",
+      "denumire": "cablu energie tras prin tub prot metal pt racord motoare tablouri aparate conducte 25 sau 35 mmp material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 550.0,
       "deviz": "226268",
@@ -716,7 +716,7 @@
     },
     {
       "cod": "$3270430",
-      "denumire": "CABLU CYYF 3X1 5",
+      "denumire": "cablu cyyf 3x1 5",
       "um": "m",
       "cantitate": 550.0,
       "deviz": "226268",
@@ -733,7 +733,7 @@
     },
     {
       "cod": "EA02A1",
-      "denumire": "TUB IZOLANT DE PROTECTIE, ETANS IPE - PVC MONTAT INGROPAT CU D = 16MM material: manopera: utilaj: transport:",
+      "denumire": "tub izolant de protectie, etans ipe - pvc montat ingropat cu d = 16mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 225.0,
       "deviz": "226268",
@@ -750,7 +750,7 @@
     },
     {
       "cod": "$2700014",
-      "denumire": "TUB DE PROTECTIE TIP IPEY / MONOFLEX D = 16 MM Deviz \"007\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "denumire": "tub de protectie tip ipey / monoflex d = 16 mm deviz '007' - formular f3 formular generat cu programul @devize (www.edevize.ro)",
       "um": "ml",
       "cantitate": 225.0,
       "deviz": "226268",
@@ -767,7 +767,7 @@
     },
     {
       "cod": "$2955015",
-      "denumire": "CABINET 18U, MONTAT PE PERETE, USA DIN STICLA CU RAMA METALICA, PANOURI LATERALE DETASABILE, KIT SUPORT",
+      "denumire": "cabinet 18u, montat pe perete, usa din sticla cu rama metalica, panouri laterale detasabile, kit suport",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226278",
@@ -784,7 +784,7 @@
     },
     {
       "cod": "$2905212",
-      "denumire": "UNITATE 4 VENTILATOARE CU TERMOSTATE SI INTRERUPATOR",
+      "denumire": "unitate 4 ventilatoare cu termostate si intrerupator",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226278",
@@ -801,7 +801,7 @@
     },
     {
       "cod": "$2905014",
-      "denumire": "SWITCH MEDIACONVECTOR, DIMENSIUNE 1U",
+      "denumire": "switch mediaconvector, dimensiune 1u",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226278",
@@ -818,7 +818,7 @@
     },
     {
       "cod": "$2600000",
-      "denumire": "SWITCH 8 PORTURI RJ45",
+      "denumire": "switch 8 porturi rj45",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226278",
@@ -835,7 +835,7 @@
     },
     {
       "cod": "$5538123",
-      "denumire": "PATCHPANEL 8 PORTURI RJ45 ECHIPAT Deviz \"008\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "denumire": "patchpanel 8 porturi rj45 echipat deviz '008' - formular f3 formular generat cu programul @devize (www.edevize.ro)",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226278",
@@ -852,7 +852,7 @@
     },
     {
       "cod": "$2955018",
-      "denumire": "DIGITAL VIDEO RECORDER 16 CANALE",
+      "denumire": "digital video recorder 16 canale",
       "um": "buc",
       "cantitate": 2.0,
       "deviz": "226288",
@@ -869,7 +869,7 @@
     },
     {
       "cod": "$2955019",
-      "denumire": "HARD DISK STOCARE IMAGINI 2 Tb",
+      "denumire": "hard disk stocare imagini 2 tb",
       "um": "buc",
       "cantitate": 4.0,
       "deviz": "226288",
@@ -886,7 +886,7 @@
     },
     {
       "cod": "TCC23B1",
-      "denumire": "INSTALATIE DE TV IN CIRCUIT INCHIS: MONITOR VIDEOCAMONTARE material: manopera: utilaj: transport:",
+      "denumire": "instalatie de tv in circuit inchis: monitor videocamontare material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 13.0,
       "deviz": "226288",
@@ -903,7 +903,7 @@
     },
     {
       "cod": "$5700023",
-      "denumire": "CAMERA VIDEO COLOR ALL - IN - ONE DE EXTERIOR",
+      "denumire": "camera video color all - in - one de exterior",
       "um": "buc",
       "cantitate": 8.0,
       "deviz": "226288",
@@ -920,7 +920,7 @@
     },
     {
       "cod": "$5700054",
-      "denumire": "Camera video interior, color, varifocala, alimentare 220V",
+      "denumire": "camera video interior, color, varifocala, alimentare 220v",
       "um": "buc",
       "cantitate": 5.0,
       "deviz": "226288",
@@ -937,7 +937,7 @@
     },
     {
       "cod": "EC06A1",
-      "denumire": "CABLU ELECTRIC DE COMANDA SEMNALIZARI BLOCARI MONTAT PE CONSOLE CU 2-30 CONDUCTE DE 0,75-2,5 MMP material: manopera: utilaj: transport:",
+      "denumire": "cablu electric de comanda semnalizari blocari montat pe console cu 2-30 conducte de 0,75-2,5 mmp material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 180.0,
       "deviz": "226288",
@@ -954,7 +954,7 @@
     },
     {
       "cod": "$3270808",
-      "denumire": "CABLU DATE FTP 5E 4 X 2 X AWG24 / 1",
+      "denumire": "cablu date ftp 5e 4 x 2 x awg24 / 1",
       "um": "m",
       "cantitate": 180.0,
       "deviz": "226288",
@@ -971,7 +971,7 @@
     },
     {
       "cod": "EA02A1",
-      "denumire": "TUB IZOLANT DE PROTECTIE, ETANS IPE - PVC MONTAT INGROPAT CU D = 16MM material: manopera: utilaj: transport:",
+      "denumire": "tub izolant de protectie, etans ipe - pvc montat ingropat cu d = 16mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 180.0,
       "deviz": "226288",
@@ -988,7 +988,7 @@
     },
     {
       "cod": "$2700014",
-      "denumire": "TUB DE PROTECTIE TIP IPEY / MONOFLEX D = 16 MM Deviz \"009\" - Formular F3 Formular generat cu programuf &Devize (www.eDevize.ro)",
+      "denumire": "tub de protectie tip ipey / monoflex d = 16 mm deviz '009' - formular f3 formular generat cu programuf &devize (www.edevize.ro)",
       "um": "ml",
       "cantitate": 180.0,
       "deviz": "226288",
@@ -1005,7 +1005,7 @@
     },
     {
       "cod": "TSC18B1",
-      "denumire": "SAPAT.CU BULDOZ. PE TRACT. 65-80CP INCL. IMPINS PAMINTULUI LA 10 M TEREN CAT 2 material: manopera: utilaj: transport:",
+      "denumire": "sapat.cu buldoz pe tract 65-80cp incl impins pamintului la 10 m teren cat 2 material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 2.6,
       "deviz": "226308",
@@ -1022,7 +1022,7 @@
     },
     {
       "cod": "TSC22B1",
-      "denumire": "SPOR PT. FIECARE 10 M IN PLUS LA TSC18B1 BULDOZER DE 65- 80 CP TEREN CATEGORIA 2 material: manopera: utilaj: transport:",
+      "denumire": "spor pt fiecare 10 m in plus la tsc18b1 buldozer de 65- 80 cp teren categoria 2 material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 5.2,
       "deviz": "226308",
@@ -1039,7 +1039,7 @@
     },
     {
       "cod": "TSC02D11",
-      "denumire": "SAPATURA CU EXCAVAT. PE PNEURI 0,21-0,39 MC PAMINT UMID. NATUR DESC. AUT. TER. CAT.2 IN COND. GOSP. APE material: manopera: utilaj: transport:",
+      "denumire": "sapatura cu excavat pe pneuri 0,21-0,39 mc pamint umid natur desc aut ter cat.2 in cond gosp ape material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 4.0,
       "deviz": "226308",
@@ -1056,7 +1056,7 @@
     },
     {
       "cod": "TSC35A32",
-      "denumire": "INCARC. AUTO CU INCARC. PE PNEURI CUPA 2,6-3,9 MC TEREN CATEG 1 LA DIST. 21-30 M material: manopera: utilaj: transport:",
+      "denumire": "incarc auto cu incarc pe pneuri cupa 2,6-3,9 mc teren categ 1 la dist 21-30 m material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 5.542,
       "deviz": "226308",
@@ -1073,7 +1073,7 @@
     },
     {
       "cod": "TRA01A10P",
-      "denumire": "TRANSPORTUL RUTIER AL PAMINTULUI SAU MOLOZULUI CU AUTOBASCULANTA DIST. = 10 KM material: manopera: utilaj: transport: 6 CA01J1 - TURNARE BETON SIMPLU IN STRATURI DE 5- 20CM PT. EGALIZARI LA CONSTRUCTII EDILITARE (APEDUCTE, CANALE M.C. material: manopera: utilaj: transport:",
+      "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 10 km material: manopera: utilaj: transport: 6 ca01j1 - turnare beton simplu in straturi de 5- 20cm pt egalizari la constructii edilitare (apeducte, canale m.c material: manopera: utilaj: transport:",
       "um": "tona",
       "cantitate": 1052.98,
       "deviz": "226308",
@@ -1090,7 +1090,7 @@
     },
     {
       "cod": "$2100910",
-      "denumire": "BETON MARFA CLASA C8 / 10 Deviz \"001\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro) Pagina 1 din 6",
+      "denumire": "beton marfa clasa c8 / 10 deviz '001' - formular f3 formular generat cu programul @devize (www.edevize.ro) pagina 1 din 6",
       "um": "mc",
       "cantitate": 70.56,
       "deviz": "226308",
@@ -1107,7 +1107,7 @@
     },
     {
       "cod": "TSA12C1",
-      "denumire": "SAP.MAN. IN GROPI CU LARG.1-1,5M CU SPRIJ.EVAC MAN. IN PAM.CU UMID.NAT. LA ADINC. 0,0- 1,5M, T. TARE material: manopera: utilaj: transport:",
+      "denumire": "sap.man in gropi cu larg.1-1,5m cu sprij.evac man in pam.cu umid.nat la adinc 0,0- 1,5m, t tare material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 18.0,
       "deviz": "226318",
@@ -1124,7 +1124,7 @@
     },
     {
       "cod": "CA01A1",
-      "denumire": "TURNARE BETON SIMPLU IN FUNDATII (CONTINUE, IZOLATE) SI SOCLURI CU VOLUM < 3MC material: manopera: utilaj: transport:",
+      "denumire": "turnare beton simplu in fundatii (continue, izolate) si socluri cu volum < 3mc material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 18.0,
       "deviz": "226318",
@@ -1141,7 +1141,7 @@
     },
     {
       "cod": "$2100911",
-      "denumire": "BETON MARCA CLASA C15 / 12 (BC15 / B200) 3 TRA06A10 - TRANSPORTUL RUTIER AL BETONULUI- MORTARULUI CU AUTOBETONIERA DE 5,5MC DIST. = 10KM TONA material: manopera: utilaj: transport:",
+      "denumire": "beton marca clasa c15 / 12 (bc15 / b200) 3 tra06a10 - transportul rutier al betonului- mortarului cu autobetoniera de 5,5mc dist = 10km tona material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 18.144,
       "deviz": "226318",
@@ -1158,7 +1158,7 @@
     },
     {
       "cod": "CC01A1",
-      "denumire": "MONTARE ARMATURI DIN OTEL BETON D < 18MM IN FUNDATIIIZOLATE CU DISTANTIERI DIN MASE PLASTICE material: manopera: utilaj: transport:",
+      "denumire": "montare armaturi din otel beton d < 18mm in fundatiiizolate cu distantieri din mase plastice material: manopera: utilaj: transport:",
       "um": "kg",
       "cantitate": 325.0,
       "deviz": "226318",
@@ -1175,7 +1175,7 @@
     },
     {
       "cod": "CZ0301G1",
-      "denumire": "CONFECT. ARMAT. FASONARE BARE PT. FUNDATII IZOL CONTINUI SI RADIERE IN ATEL. SANT. OB 37 D = 6-8 MM material: manopera: utilaj: transport:",
+      "denumire": "confect armat fasonare bare pt fundatii izol continui si radiere in atel sant ob 37 d = 6-8 mm material: manopera: utilaj: transport:",
       "um": "kg",
       "cantitate": 325.0,
       "deviz": "226318",
@@ -1192,7 +1192,7 @@
     },
     {
       "cod": "CO07B1",
-      "denumire": "IMPREJMUIRI DIN SIRMA CU RAME DE OTEL PE STILPI METALICI H = 2,05 M material: manopera: utilaj: transport:",
+      "denumire": "imprejmuiri din sirma cu rame de otel pe stilpi metalici h = 2,05 m material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 380.0,
       "deviz": "226318",
@@ -1209,7 +1209,7 @@
     },
     {
       "cod": "$2940094",
-      "denumire": "CONFECTII METALICE DIVERSE DIN PROFILE STALPI IMPREJMUIRE",
+      "denumire": "confectii metalice diverse din profile stalpi imprejmuire",
       "um": "kg",
       "cantitate": 12850.0,
       "deviz": "226318",
@@ -1226,7 +1226,7 @@
     },
     {
       "cod": "$3273618",
-      "denumire": "PLASA GARD IMPLETITA Deviz \"002\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "denumire": "plasa gard impletita deviz '002' - formular f3 formular generat cu programul @devize (www.edevize.ro)",
       "um": "mp",
       "cantitate": 2280.0,
       "deviz": "226318",
@@ -1243,7 +1243,7 @@
     },
     {
       "cod": "CE05E1",
-      "denumire": "INVELITOARE DIN TABLA CUTATA FIXATA CU SURUBURI FILETATE PINA SUB CAP SI PIULITE material: manopera: utilaj: transport:",
+      "denumire": "invelitoare din tabla cutata fixata cu suruburi filetate pina sub cap si piulite material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 532.0,
       "deviz": "226328",
@@ -1260,7 +1260,7 @@
     },
     {
       "cod": "$3644857",
-      "denumire": "PANOU CUTAT ZINCAT",
+      "denumire": "panou cutat zincat",
       "um": "mp",
       "cantitate": 590.515,
       "deviz": "226328",
@@ -1277,7 +1277,7 @@
     },
     {
       "cod": "CD14D1",
-      "denumire": "PERETI DIN PANOURI DE TABLA CUTATA PRINSE CU SURUBURI AUTOFILETATE LA H < = 7- 12M material: manopera: utilaj: transport:",
+      "denumire": "pereti din panouri de tabla cutata prinse cu suruburi autofiletate la h < = 7- 12m material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 520.0,
       "deviz": "226328",
@@ -1294,7 +1294,7 @@
     },
     {
       "cod": "$2950019",
-      "denumire": "TABLA PERFORATA",
+      "denumire": "tabla perforata",
       "um": "mp",
       "cantitate": 577.195,
       "deviz": "226328",
@@ -1311,7 +1311,7 @@
     },
     {
       "cod": "CP58B1",
-      "denumire": "1 - MONTARE SCAUNE TRIBUNA material: manopera: utilaj: transport:",
+      "denumire": "1 - montare scaune tribuna material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 660.0,
       "deviz": "226328",
@@ -1328,7 +1328,7 @@
     },
     {
       "cod": "CL20C1",
-      "denumire": "MONTAREA CONFECTIILOR METALICE APARENTE: DIVERSE EXCLUSIV PARAPETI, BALUSTRAZI, CHEPENGURI material: manopera: utilaj: transport:",
+      "denumire": "montarea confectiilor metalice aparente: diverse exclusiv parapeti, balustrazi, chepenguri material: manopera: utilaj: transport:",
       "um": "kg",
       "cantitate": 8000.0,
       "deviz": "226328",
@@ -1345,7 +1345,7 @@
     },
     {
       "cod": "$3276982",
-      "denumire": "TEAVA RECTANGULARA 6M 70X40X4",
+      "denumire": "teava rectangulara 6m 70x40x4",
       "um": "m",
       "cantitate": 1314.0,
       "deviz": "226328",
@@ -1362,7 +1362,7 @@
     },
     {
       "cod": "IZD03D1",
-      "denumire": "VOPSIRE CU VOPS MINIU CU APARAT AER COMPR 1 STR PECONF SI CTII METAL EXEC DIN PROF GROS 8-12 MM material: manopera: utilaj: transport:",
+      "denumire": "vopsire cu vops miniu cu aparat aer compr 1 str peconf si ctii metal exec din prof gros 8-12 mm material: manopera: utilaj: transport:",
       "um": "tona",
       "cantitate": 8.0,
       "deviz": "226328",
@@ -1379,7 +1379,7 @@
     },
     {
       "cod": "IZD04D1",
-      "denumire": "VOPSIRE CU APARAT AER COMPR VOPSEA ULEI PE CONF SICONSTR MET PROFILE 8-12MM 2STRATURI material: manopera: utilaj: transport: Deviz \"003\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "denumire": "vopsire cu aparat aer compr vopsea ulei pe conf siconstr met profile 8-12mm 2straturi material: manopera: utilaj: transport: deviz '003' - formular f3 formular generat cu programul @devize (www.edevize.ro)",
       "um": "tona",
       "cantitate": 8.0,
       "deviz": "226328",
@@ -1396,7 +1396,7 @@
     },
     {
       "cod": "TSC02C11",
-      "denumire": "SAPATURA CU EXCAVAT. PE PNEURI 0,21-0,39 MC PAMINT UMID.NATUR DESC. AUT. TER.CAT.1 IN COND. GOSP. APE material: manopera: utilaj: transport:",
+      "denumire": "sapatura cu excavat pe pneuri 0,21-0,39 mc pamint umid.natur desc aut ter.cat.1 in cond gosp ape material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 50.45,
       "deviz": "226338",
@@ -1413,7 +1413,7 @@
     },
     {
       "cod": "TRA01A10P",
-      "denumire": "TRANSPORTUL RUTIER AL PAMINTULUI SAU MOLOZULUI CU AUTOBASCULANTA DIST. = 10 KM material: manopera: utilaj: transport:",
+      "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 10 km material: manopera: utilaj: transport:",
       "um": "tona",
       "cantitate": 9586.0,
       "deviz": "226338",
@@ -1430,7 +1430,7 @@
     },
     {
       "cod": "TSE04A1",
-      "denumire": "NIVELAREA SUPR. TEREN. SI PLATF.DE TERASM. EXEC.CU BULDOZ. PE TRACT. 65-80 CP IN TEREN CATEG. 1 SI 2 material: manopera: utilaj: transport:",
+      "denumire": "nivelarea supr teren si platf.de terasm exec.cu buldoz pe tract 65-80 cp in teren categ 1 si 2 material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 84.04,
       "deviz": "226338",
@@ -1447,7 +1447,7 @@
     },
     {
       "cod": "TSE01A1",
-      "denumire": "NIVELAREA MANUALA A TERENURILOR SI A PLATFORMELOR CU DENIVELARI DE 10-20 CM IN TEREN USOR material: manopera: utilaj: transport:",
+      "denumire": "nivelarea manuala a terenurilor si a platformelor cu denivelari de 10-20 cm in teren usor material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 84.04,
       "deviz": "226338",
@@ -1464,7 +1464,7 @@
     },
     {
       "cod": "TSD07A1",
-      "denumire": "COMPACTAREA UMPLUT.CU RULOU COMPRESOR 10 -12T, EXCL. UDAREA PAM. NECOEZ. GRAD COMPACT. 92-94 % material: manopera: utilaj: transport:",
+      "denumire": "compactarea umplut.cu rulou compresor 10 -12t, excl udarea pam necoez grad compact 92-94 % material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 8.404,
       "deviz": "226338",
@@ -1481,7 +1481,7 @@
     },
     {
       "cod": "TSH05D1",
-      "denumire": "ASTERNEREA PAM. VEGETAL PE TEREN CU PANTA < 20 %, IN STRAT. UNIFORME CU GROSIMEA DE 30CM material: manopera: utilaj: transport:",
+      "denumire": "asternerea pam vegetal pe teren cu panta < 20 %, in strat uniforme cu grosimea de 30cm material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 8404.0,
       "deviz": "226338",
@@ -1498,7 +1498,7 @@
     },
     {
       "cod": "$2100001",
-      "denumire": "PAMANT VEGETAL Deviz \"004\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro) Pagina 1 din 3",
+      "denumire": "pamant vegetal deviz '004' - formular f3 formular generat cu programul @devize (www.edevize.ro) pagina 1 din 3",
       "um": "mc",
       "cantitate": 2522.0,
       "deviz": "226338",
@@ -1515,7 +1515,7 @@
     },
     {
       "cod": "TSH01A1",
-      "denumire": "DEGAJAREA TERENULUI DE CORPURI STRAINE material: manopera: utilaj: transport:",
+      "denumire": "degajarea terenului de corpuri straine material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 59.18,
       "deviz": "226348",
@@ -1532,7 +1532,7 @@
     },
     {
       "cod": "TSC02C11",
-      "denumire": "SAPATURA CU EXCAVAT. PE PNEURI 0,21-0,39 MC PAMINT UMID.NATUR DESC. AUT. TER.CAT.1 IN COND.GOSP. APE material: manopera: utilaj: transport:",
+      "denumire": "sapatura cu excavat pe pneuri 0,21-0,39 mc pamint umid.natur desc aut ter.cat.1 in cond.gosp ape material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 17.75,
       "deviz": "226348",
@@ -1549,7 +1549,7 @@
     },
     {
       "cod": "TRA01A10P",
-      "denumire": "TRANSPORTUL RUTIER AL PAMINTULUI SAU MOLOZULUI CU AUTOBASCULANTA DIST. = 10 KM material: manopera: utilaj: transport:",
+      "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 10 km material: manopera: utilaj: transport:",
       "um": "tona",
       "cantitate": 3373.37,
       "deviz": "226348",
@@ -1566,7 +1566,7 @@
     },
     {
       "cod": "TSE04A1",
-      "denumire": "NIVELAREA SUPR. TEREN. SI PLATF.DE TERASM. EXEC.CU BULDOZ. PE TRACT. 65-80 CP IN TEREN CATEG. 1 SI 2 material: manopera: utilaj: transport:",
+      "denumire": "nivelarea supr teren si platf.de terasm exec.cu buldoz pe tract 65-80 cp in teren categ 1 si 2 material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 59.18,
       "deviz": "226348",
@@ -1583,7 +1583,7 @@
     },
     {
       "cod": "TSE01A1",
-      "denumire": "NIVELAREA MANUALA A TERENURILOR SI A PLATFORMELOR CU DENIVELARI DE 10-20 CM IN TEREN USOR material: manopera: utilaj: transport:",
+      "denumire": "nivelarea manuala a terenurilor si a platformelor cu denivelari de 10-20 cm in teren usor material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 59.18,
       "deviz": "226348",
@@ -1600,7 +1600,7 @@
     },
     {
       "cod": "TSH05D1",
-      "denumire": "ASTERNEREA PAM. VEGETAL PE TEREN CU PANTA < 20 %, IN STRAT. UNIFORME CU GROSIMEA DE 30CM material: manopera: utilaj: transport:",
+      "denumire": "asternerea pam vegetal pe teren cu panta < 20 %, in strat uniforme cu grosimea de 30cm material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 5918.0,
       "deviz": "226348",
@@ -1617,7 +1617,7 @@
     },
     {
       "cod": "$2100001",
-      "denumire": "PAMANT VEGETAL Deviz \"005\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "denumire": "pamant vegetal deviz '005' - formular f3 formular generat cu programul @devize (www.edevize.ro)",
       "um": "mc",
       "cantitate": 1775.0,
       "deviz": "226348",
@@ -1634,7 +1634,7 @@
     },
     {
       "cod": "TSC02A11",
-      "denumire": "SAPATURA CU EXCAVAT. PE PNEURI 0,21-0,39 MC PAMINT UMID.NATUR. DESC. DEP.TER. CAT.1 IN COND. GOSP. APE material: manopera: utilaj: transport:",
+      "denumire": "sapatura cu excavat pe pneuri 0,21-0,39 mc pamint umid.natur desc dep.ter cat.1 in cond gosp ape material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 16.28,
       "deviz": "226368",
@@ -1651,7 +1651,7 @@
     },
     {
       "cod": "TSA02C1",
-      "denumire": "SAP.MAN. IN SPATII LIMIT. SUB 1M CU TALUZ VERT.NESPR. IN PAM. NECOEZ.SI SL.COEZ. ADINC. < 0,75M T. TARE material: manopera: utilaj: transport:",
+      "denumire": "sap.man in spatii limit sub 1m cu taluz vert.nespr in pam necoez.si sl.coez adinc < 0,75m t tare material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 181.0,
       "deviz": "226368",
@@ -1668,7 +1668,7 @@
     },
     {
       "cod": "ACE08A1",
-      "denumire": "UMPLUTURA IN SANT. LA COND. DE ALIM.CU APA SI CANALIZARE CU: NISIP material: manopera: utilaj: transport:",
+      "denumire": "umplutura in sant la cond de alim.cu apa si canalizare cu: nisip material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 402.0,
       "deviz": "226368",
@@ -1685,7 +1685,7 @@
     },
     {
       "cod": "TRA01A20",
-      "denumire": "TRANSPORTUL RUTIER AL MATERIALELOR, SEMIFABRICATELOR CU AUTOBASCULANTA PE DIST. 20 KM. material: manopera: utilaj: transport:",
+      "denumire": "transportul rutier al materialelor, semifabricatelor cu autobasculanta pe dist 20 km material: manopera: utilaj: transport:",
       "um": "tona",
       "cantitate": 723.6,
       "deviz": "226368",
@@ -1702,7 +1702,7 @@
     },
     {
       "cod": "TSD01C1",
-      "denumire": "IMPRASTIEREA CU LOPATA A PAMINT. AFINAT, STRAT UNIFORM 10-30CM. GROS CU SFARIM. BULG. TEREN TARE material: manopera: utilaj: transport:",
+      "denumire": "imprastierea cu lopata a pamint afinat, strat uniform 10-30cm gros cu sfarim bulg teren tare material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 1809.0,
       "deviz": "226368",
@@ -1719,7 +1719,7 @@
     },
     {
       "cod": "TSD04C1",
-      "denumire": "COMPACTAREA CU MAI.DE MINA A UMPLUT. EXECUT. PE STRAT.CU UDAREA FIEC. STRAT DE 20CM GROS. T. NECOEZIV material: manopera: utilaj: transport: 7 DF26A1[2] - Banda de semnalizare M material: manopera: utilaj: transport: Deviz \"007\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "denumire": "compactarea cu mai.de mina a umplut execut pe strat.cu udarea fiec strat de 20cm gros t necoeziv material: manopera: utilaj: transport: 7 df26a1[2] - banda de semnalizare m material: manopera: utilaj: transport: deviz '007' - formular f3 formular generat cu programul @devize (www.edevize.ro)",
       "um": "mc",
       "cantitate": 1809.0,
       "deviz": "226368",
@@ -1736,7 +1736,7 @@
     },
     {
       "cod": "TSC18B1",
-      "denumire": "SAPAT. CU BULDOZ. PE TRACT. 65-80CP INCL. IMPINS PAMINTULUI LA 10 M TEREN CAT 2 material: manopera: utilaj: transport:",
+      "denumire": "sapat cu buldoz pe tract 65-80cp incl impins pamintului la 10 m teren cat 2 material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 0.6,
       "deviz": "226408",
@@ -1753,7 +1753,7 @@
     },
     {
       "cod": "TSC02D11",
-      "denumire": "SAPATURA CU EXCAVAT. PE PNEURI 0,21-0,39 MC PAMINT UMID. NATUR DESC. AUT.TER.CAT.2 IN COND.GOSP. APE material: manopera: utilaj: transport:",
+      "denumire": "sapatura cu excavat pe pneuri 0,21-0,39 mc pamint umid natur desc aut.ter.cat.2 in cond.gosp ape material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 0.8,
       "deviz": "226408",
@@ -1770,7 +1770,7 @@
     },
     {
       "cod": "TSC35A32",
-      "denumire": "INCARC. AUTO CU INCARC. PE PNEURI CUPA 2,6-3,9 MC TEREN CATEG 1 LA DIST. 21-30 M material: manopera: utilaj: transport:",
+      "denumire": "incarc auto cu incarc pe pneuri cupa 2,6-3,9 mc teren categ 1 la dist 21-30 m material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 0.6,
       "deviz": "226408",
@@ -1787,7 +1787,7 @@
     },
     {
       "cod": "TRA01A10P",
-      "denumire": "TRANSPORTUL RUTIER AL PAMINTULUI SAU MOLOZULUI CU AUTOBASCULANTA DIST. = 10 KM material: manopera: utilaj: transport:",
+      "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 10 km material: manopera: utilaj: transport:",
       "um": "tona",
       "cantitate": 140.66,
       "deviz": "226408",
@@ -1804,7 +1804,7 @@
     },
     {
       "cod": "TSJ01A1",
-      "denumire": "STABILIZAREA TERASAMENTELOR IN AMPLASAMENT PRIN AMESTECARE MECANICA CU VAR BULGARI SI CENUSE DE material: manopera: utilaj: transport:",
+      "denumire": "stabilizarea terasamentelor in amplasament prin amestecare mecanica cu var bulgari si cenuse de material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 100.0,
       "deviz": "226408",
@@ -1821,7 +1821,7 @@
     },
     {
       "cod": "$2100696",
-      "denumire": "Var bulgari pt constructii tip 2 vrac S 146",
+      "denumire": "var bulgari pt constructii tip 2 vrac s 146",
       "um": "kg",
       "cantitate": 6240.0,
       "deviz": "226408",
@@ -1838,7 +1838,7 @@
     },
     {
       "cod": "CA01J1",
-      "denumire": "TURNARE BETON SIMPLU IN STRATURI DE 5- 20CM PT. EGALIZARI LA CONSTRUCTII EDILITARE (APEDUCTE, CANALE material: manopera: utilaj: transport:",
+      "denumire": "turnare beton simplu in straturi de 5- 20cm pt egalizari la constructii edilitare (apeducte, canale material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 15.0,
       "deviz": "226408",
@@ -1855,7 +1855,7 @@
     },
     {
       "cod": "$2100910",
-      "denumire": "BETON MARFA CLASA C8 / 10 Deviz \"001\" - Formular F3 Formular generat cu programuf @Devize (www.eDevize.ro)",
+      "denumire": "beton marfa clasa c8 / 10 deviz '001' - formular f3 formular generat cu programuf @devize (www.edevize.ro)",
       "um": "mc",
       "cantitate": 15.12,
       "deviz": "226408",
@@ -1872,7 +1872,7 @@
     },
     {
       "cod": "CD05C1",
-      "denumire": "ZIDARIE DIN CARAMIDA TIP GVP LA CONSTR.H < 35M, FORMAT 290X240X138MM, CAL. A material: manopera: utilaj: transport:",
+      "denumire": "zidarie din caramida tip gvp la constr.h < 35m, format 290x240x138mm, cal a material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 120.9,
       "deviz": "226418",
@@ -1889,7 +1889,7 @@
     },
     {
       "cod": "$2101171",
-      "denumire": "MORTAR DE ZIDARIE M 50 S 1030",
+      "denumire": "mortar de zidarie m 50 s 1030",
       "um": "mc",
       "cantitate": 16.926,
       "deviz": "226418",
@@ -1906,7 +1906,7 @@
     },
     {
       "cod": "CD05B1",
-      "denumire": "ZIDARIE DIN CARAMIDA TIP GVP LA CONSTR.H < 35M, FORMAT 290X140X 88MM, CAL. A material: manopera: utilaj: transport:",
+      "denumire": "zidarie din caramida tip gvp la constr.h < 35m, format 290x140x 88mm, cal a material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 45.81,
       "deviz": "226418",
@@ -1923,7 +1923,7 @@
     },
     {
       "cod": "CF01A1",
-      "denumire": "TENCUIELI INTERIOARE, DRISCUITE, LA STILPI, PERETI EXECUTATE MANUAL PE ZIDARIE, DE 2CM GROSIME material: manopera: utilaj: transport:",
+      "denumire": "tencuieli interioare, driscuite, la stilpi, pereti executate manual pe zidarie, de 2cm grosime material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 873.0,
       "deviz": "226418",
@@ -1940,7 +1940,7 @@
     },
     {
       "cod": "$2101195",
-      "denumire": "MORTAR TENCUIALA M 100 (VAR HIDRATAT) S",
+      "denumire": "mortar tencuiala m 100 (var hidratat) s",
       "um": "mc",
       "cantitate": 15.714,
       "deviz": "226418",
@@ -1957,7 +1957,7 @@
     },
     {
       "cod": "CF15C",
-      "denumire": "Tencuieli interioare finisaj fin sclivisite, de 0.5 cm grosime, la pereti din beton cu suprafete plane, executate manual, cu mortar material: manopera: utilaj: transport:",
+      "denumire": "tencuieli interioare finisaj fin sclivisite, de 0.5 cm grosime, la pereti din beton cu suprafete plane, executate manual, cu mortar material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 873.0,
       "deviz": "226418",
@@ -1974,7 +1974,7 @@
     },
     {
       "cod": "$3276725",
-      "denumire": "TINCI PT TENCUIELI FINE",
+      "denumire": "tinci pt tencuieli fine",
       "um": "kg",
       "cantitate": 4365.0,
       "deviz": "226418",
@@ -1991,7 +1991,7 @@
     },
     {
       "cod": "CI06C",
-      "denumire": "Placaj faianta, aceeasi culoare si format, 15 cm - 30x30 cm, fixate cu aditiv, pe supr plane pereti si stalpi material: manopera: utilaj: transport:",
+      "denumire": "placaj faianta, aceeasi culoare si format, 15 cm - 30x30 cm, fixate cu aditiv, pe supr plane pereti si stalpi material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 282.0,
       "deviz": "226418",
@@ -2008,7 +2008,7 @@
     },
     {
       "cod": "$2401678",
-      "denumire": "FAIANTA",
+      "denumire": "faianta",
       "um": "mp",
       "cantitate": 296.1,
       "deviz": "226418",
@@ -2025,7 +2025,7 @@
     },
     {
       "cod": "$2100833",
-      "denumire": "ADEZIV FAIANTA",
+      "denumire": "adeziv faianta",
       "um": "g",
       "cantitate": 1410.0,
       "deviz": "226418",
@@ -2042,7 +2042,7 @@
     },
     {
       "cod": "$3270111",
-      "denumire": "CHIT ROSTURI Deviz \"002\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "denumire": "chit rosturi deviz '002' - formular f3 formular generat cu programul @devize (www.edevize.ro)",
       "um": "kg",
       "cantitate": 141.0,
       "deviz": "226418",
@@ -2059,7 +2059,7 @@
     },
     {
       "cod": "SA14B",
-      "denumire": "TEAVA MAT PL (PP, PE, PP - R) IMBINARE PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND, D = 20 MM material: manopera: utilaj: transport:",
+      "denumire": "teava mat pl (pp, pe, pp - r) imbinare prin sudura prin polifuziune, la ctii ind, d = 20 mm material: manopera: utilaj: transport:",
       "um": "ml",
       "cantitate": 70.0,
       "deviz": "226428",
@@ -2076,7 +2076,7 @@
     },
     {
       "cod": "$3270225",
-      "denumire": "TEAVA PPR PN 16 PENTRU APA CALDA 20X2.8",
+      "denumire": "teava ppr pn 16 pentru apa calda 20x2.8",
       "um": "m",
       "cantitate": 71.4,
       "deviz": "226428",
@@ -2093,7 +2093,7 @@
     },
     {
       "cod": "$7206121",
-      "denumire": "@COT CONECTOR PEXAL M - FI 20 X 1/2 \" COD",
+      "denumire": "@cot conector pexal m - fi 20 x 1/2 ' cod",
       "um": "buc",
       "cantitate": 20.0,
       "deviz": "226428",
@@ -2110,7 +2110,7 @@
     },
     {
       "cod": "$7206160",
-      "denumire": "@TEU PEXAL MMM 20 COD 67101115",
+      "denumire": "@teu pexal mmm 20 cod 67101115",
       "um": "buc",
       "cantitate": 20.0,
       "deviz": "226428",
@@ -2127,7 +2127,7 @@
     },
     {
       "cod": "$3270235",
-      "denumire": "REDUCTIE PENTRU TEVI DIN POLIETILENA INTERIOR PPR -EXTERIOR PPR 25-20",
+      "denumire": "reductie pentru tevi din polietilena interior ppr -exterior ppr 25-20",
       "um": "buc",
       "cantitate": 10.0,
       "deviz": "226428",
@@ -2144,7 +2144,7 @@
     },
     {
       "cod": "AUT3000",
-      "denumire": "APARAT DE SUDURA TIP COPRAX2204 / 50Hz / 700w material: manopera: utilaj: transport: Deviz \"003\" - Formular F3 Formular generat cu programul Devize (www.eDevize.ro)",
+      "denumire": "aparat de sudura tip coprax2204 / 50hz / 700w material: manopera: utilaj: transport: deviz '003' - formular f3 formular generat cu programul devize (www.edevize.ro)",
       "um": "ora",
       "cantitate": 2.8,
       "deviz": "226428",
@@ -2161,7 +2161,7 @@
     },
     {
       "cod": "SA43D1",
-      "denumire": "BRATARA PT. FIXAREA COND. OTELFPVC DE AL & MCCU APAFGAZE, MONT. PRIN INCASTRARE, COND. AVIND D = 3/4 TOL material: manopera: utilaj: transport:",
+      "denumire": "bratara pt fixarea cond otelfpvc de al & mccu apafgaze, mont prin incastrare, cond avind d = 3/4 tol material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 70.0,
       "deviz": "226428",
@@ -2178,7 +2178,7 @@
     },
     {
       "cod": "SA14C",
-      "denumire": "TEAVA MAT PL (PP, PE, PP - R) IMBINATA PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND, D= 25 MM material: manopera: utilaj: transport:",
+      "denumire": "teava mat pl (pp, pe, pp - r) imbinata prin sudura prin polifuziune, la ctii ind, d= 25 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 40.0,
       "deviz": "226428",
@@ -2195,7 +2195,7 @@
     },
     {
       "cod": "$3271730",
-      "denumire": "TEAVA PN20 PPR VERDE DN25",
+      "denumire": "teava pn20 ppr verde dn25",
       "um": "m",
       "cantitate": 40.8,
       "deviz": "226428",
@@ -2212,7 +2212,7 @@
     },
     {
       "cod": "$3270394",
-      "denumire": "COT 90 GRD. INTERIOR - EXTERIOR PPR 25",
+      "denumire": "cot 90 grd interior - exterior ppr 25",
       "um": "buc",
       "cantitate": 20.0,
       "deviz": "226428",
@@ -2229,7 +2229,7 @@
     },
     {
       "cod": "$3270242",
-      "denumire": "REDUCTIE PPR 32-25",
+      "denumire": "reductie ppr 32-25",
       "um": "buc",
       "cantitate": 10.0,
       "deviz": "226428",
@@ -2246,7 +2246,7 @@
     },
     {
       "cod": "EF03D1",
-      "denumire": "TABLOU ELECTRIC PANOU, DULAP, CELULA SAU PUPITRU GATA ECHIPAT, CU GREUTATEA> 500KG material: manopera: utilaj: transport:",
+      "denumire": "tablou electric panou, dulap, celula sau pupitru gata echipat, cu greutatea> 500kg material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226478",
@@ -2263,7 +2263,7 @@
     },
     {
       "cod": "$7302053",
-      "denumire": "TABLOU ELECTRIC SECUNDAR, IP54, CONFECTII METALICE, USA YALA, MONTAJ APARENT, ECHIPAT",
+      "denumire": "tablou electric secundar, ip54, confectii metalice, usa yala, montaj aparent, echipat",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226478",
@@ -2280,7 +2280,7 @@
     },
     {
       "cod": "EC05A1",
-      "denumire": "CABLU ENERGIE TRAS PRIN TUB PROT METAL PT RACORD MOTOARE TABLOURI APARATE CONDUCTE < 16 MMP. material: manopera: utilaj: transport:",
+      "denumire": "cablu energie tras prin tub prot metal pt racord motoare tablouri aparate conducte < 16 mmp material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 1770.0,
       "deviz": "226478",
@@ -2297,7 +2297,7 @@
     },
     {
       "cod": "$3270431",
-      "denumire": "CABLU CYYF 3X2,5",
+      "denumire": "cablu cyyf 3x2,5",
       "um": "m",
       "cantitate": 1805.0,
       "deviz": "226478",
@@ -2314,7 +2314,7 @@
     },
     {
       "cod": "$3270501",
-      "denumire": "CABLU CYYF 4X1,5",
+      "denumire": "cablu cyyf 4x1,5",
       "um": "m",
       "cantitate": 306.0,
       "deviz": "226478",
@@ -2331,7 +2331,7 @@
     },
     {
       "cod": "EC05B1",
-      "denumire": "CABLU ENERGIE TRAS PRIN TUB PROT METAL PT RACORD MOTOARE TABLOURI APARATE CONDUCTE 25 SAU 35 MMP material: manopera: utilaj: transport:",
+      "denumire": "cablu energie tras prin tub prot metal pt racord motoare tablouri aparate conducte 25 sau 35 mmp material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 1450.0,
       "deviz": "226478",
@@ -2348,7 +2348,7 @@
     },
     {
       "cod": "$3270430",
-      "denumire": "CABLU CYYF 3X1 5",
+      "denumire": "cablu cyyf 3x1 5",
       "um": "m",
       "cantitate": 1479.0,
       "deviz": "226478",
@@ -2365,7 +2365,7 @@
     },
     {
       "cod": "EA02A1",
-      "denumire": "TUB IZOLANT DE PROTECTIE, ETANS IPE - PVC MONTAT INGROPAT CU D = 16MM material: manopera: utilaj: transport:",
+      "denumire": "tub izolant de protectie, etans ipe - pvc montat ingropat cu d = 16mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 1450.0,
       "deviz": "226478",
@@ -2382,7 +2382,7 @@
     },
     {
       "cod": "$2700014",
-      "denumire": "TUB DE PROTECTIE TIP IPEY / MONOFLEX D = 16 MM Deviz \"008\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "denumire": "tub de protectie tip ipey / monoflex d = 16 mm deviz '008' - formular f3 formular generat cu programul @devize (www.edevize.ro)",
       "um": "ml",
       "cantitate": 1486.0,
       "deviz": "226478",
@@ -2399,7 +2399,7 @@
     },
     {
       "cod": "$2955015",
-      "denumire": "CABINET 18U, MONTAT PE PERETE, USA DIN STICLA CU RAMA METALICA, PANOURI LATERALE DETASABILE, KIT SUPORT",
+      "denumire": "cabinet 18u, montat pe perete, usa din sticla cu rama metalica, panouri laterale detasabile, kit suport",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226488",
@@ -2416,7 +2416,7 @@
     },
     {
       "cod": "$2905212",
-      "denumire": "UNITATE 4 VENTILATOARE CU TERMOSTATE SI INTRERUPATOR",
+      "denumire": "unitate 4 ventilatoare cu termostate si intrerupator",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226488",
@@ -2433,7 +2433,7 @@
     },
     {
       "cod": "$2905014",
-      "denumire": "SWITCH MEDIACONVECTOR, DIMENSIUNE 1U",
+      "denumire": "switch mediaconvector, dimensiune 1u",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226488",
@@ -2450,7 +2450,7 @@
     },
     {
       "cod": "$2600000",
-      "denumire": "SWITCH 8 PORTURI RJ45",
+      "denumire": "switch 8 porturi rj45",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226488",
@@ -2467,7 +2467,7 @@
     },
     {
       "cod": "$5538123",
-      "denumire": "PATCHPANEL 8 PORTURI RJ45 ECHIPAT Deviz \"009\" - Formular F3 Formular generat cu programul Devize (www.eDevize.ro)",
+      "denumire": "patchpanel 8 porturi rj45 echipat deviz '009' - formular f3 formular generat cu programul devize (www.edevize.ro)",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226488",
@@ -2484,7 +2484,7 @@
     },
     {
       "cod": "$2955018",
-      "denumire": "DIGITAL VIDEO RECORDER 16 CANALE",
+      "denumire": "digital video recorder 16 canale",
       "um": "buc",
       "cantitate": 2.0,
       "deviz": "226498",
@@ -2501,7 +2501,7 @@
     },
     {
       "cod": "$2955019",
-      "denumire": "HARD DISK STOCARE IMAGINI 2 Tb",
+      "denumire": "hard disk stocare imagini 2 tb",
       "um": "buc",
       "cantitate": 4.0,
       "deviz": "226498",
@@ -2518,7 +2518,7 @@
     },
     {
       "cod": "TCC23B1",
-      "denumire": "INSTALATIE DE TV IN CIRCUIT INCHIS: MONITOR VIDEOCAMONTARE material: manopera: utilaj: transport:",
+      "denumire": "instalatie de tv in circuit inchis: monitor videocamontare material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 16.0,
       "deviz": "226498",
@@ -2535,7 +2535,7 @@
     },
     {
       "cod": "$5700023",
-      "denumire": "CAMERA VIDEO COLOR ALL - IN - ONE DE EXTERIOR",
+      "denumire": "camera video color all - in - one de exterior",
       "um": "buc",
       "cantitate": 9.0,
       "deviz": "226498",
@@ -2552,7 +2552,7 @@
     },
     {
       "cod": "$5700054",
-      "denumire": "Camera video interior, color, varifocala, alimentare 220V",
+      "denumire": "camera video interior, color, varifocala, alimentare 220v",
       "um": "buc",
       "cantitate": 7.0,
       "deviz": "226498",
@@ -2569,7 +2569,7 @@
     },
     {
       "cod": "EC06A1",
-      "denumire": "CABLU ELECTRIC DE COMANDA SEMNALIZARI BLOCARI MONTAT PE CONSOLE CU 2-30 CONDUCTE DE 0,75-2,5 MMP material: manopera: utilaj: transport:",
+      "denumire": "cablu electric de comanda semnalizari blocari montat pe console cu 2-30 conducte de 0,75-2,5 mmp material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 200.0,
       "deviz": "226498",
@@ -2586,7 +2586,7 @@
     },
     {
       "cod": "$3270808",
-      "denumire": "CABLU DATE FTP 5E 4 X 2 X AWG24 / 1",
+      "denumire": "cablu date ftp 5e 4 x 2 x awg24 / 1",
       "um": "m",
       "cantitate": 200.0,
       "deviz": "226498",
@@ -2603,7 +2603,7 @@
     },
     {
       "cod": "EA02A1",
-      "denumire": "TUB IZOLANT DE PROTECTIE, ETANS IPE - PVC MONTAT INGROPAT CU D = 16MM material: manopera: utilaj: transport:",
+      "denumire": "tub izolant de protectie, etans ipe - pvc montat ingropat cu d = 16mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 200.0,
       "deviz": "226498",
@@ -2620,7 +2620,7 @@
     },
     {
       "cod": "$2700014",
-      "denumire": "TUB DE PROTECTIE TIP IPEY / MONOFLEX D = 16 MM Deviz \"010\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "denumire": "tub de protectie tip ipey / monoflex d = 16 mm deviz '010' - formular f3 formular generat cu programul @devize (www.edevize.ro)",
       "um": "ml",
       "cantitate": 200.0,
       "deviz": "226498",
@@ -2637,7 +2637,7 @@
     },
     {
       "cod": "TSC18B1",
-      "denumire": "SAPAT.CU BULDOZ. PE TRACT. 65-80CP INCL. IMPINS PAMINTULUI LA 10 M TEREN CAT 2 material: manopera: utilaj: transport:",
+      "denumire": "sapat.cu buldoz pe tract 65-80cp incl impins pamintului la 10 m teren cat 2 material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 0.4,
       "deviz": "226508",
@@ -2654,7 +2654,7 @@
     },
     {
       "cod": "TSC02D11",
-      "denumire": "SAPATURA CU EXCAVAT. PE PNEURI 0,21-0,39 MC PAMINT UMID.NATUR DESC. AUT. TER. CAT.2 IN COND.GOSP. APE material: manopera: utilaj: transport:",
+      "denumire": "sapatura cu excavat pe pneuri 0,21-0,39 mc pamint umid.natur desc aut ter cat.2 in cond.gosp ape material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 0.8,
       "deviz": "226508",
@@ -2671,7 +2671,7 @@
     },
     {
       "cod": "TSC35A32",
-      "denumire": "INCARC. AUTO CU INCARC. PE PNEURI CUPA 2,6-3,9 MC TEREN CATEG 1 LA DIST. 21-30 M material: manopera: utilaj: transport:",
+      "denumire": "incarc auto cu incarc pe pneuri cupa 2,6-3,9 mc teren categ 1 la dist 21-30 m material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 0.4,
       "deviz": "226508",
@@ -2688,7 +2688,7 @@
     },
     {
       "cod": "TRA01A10P",
-      "denumire": "TRANSPORTUL RUTIER AL PAMINTULUI SAU MOLOZULUI CU AUTOBASCULANTA DIST. = 10 KM material: manopera: utilaj: transport:",
+      "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 10 km material: manopera: utilaj: transport:",
       "um": "tona",
       "cantitate": 197.0,
       "deviz": "226508",
@@ -2705,7 +2705,7 @@
     },
     {
       "cod": "CA01J1",
-      "denumire": "TURNARE BETON SIMPLU IN STRATURI DE 5- 20CM PT. EGALIZARI LA CONSTRUCTII EDILITARE (APEDUCTE, CANALE material: manopera: utilaj: transport:",
+      "denumire": "turnare beton simplu in straturi de 5- 20cm pt egalizari la constructii edilitare (apeducte, canale material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 24.0,
       "deviz": "226508",
@@ -2722,7 +2722,7 @@
     },
     {
       "cod": "$2100910",
-      "denumire": "BETON MARFA CLASA C8 / 10",
+      "denumire": "beton marfa clasa c8 / 10",
       "um": "mc",
       "cantitate": 24.2,
       "deviz": "226508",
@@ -2739,7 +2739,7 @@
     },
     {
       "cod": "CA02C1",
-      "denumire": "TURNARE BETON ARMAT IN FUNDATII CONTINUE, RADIERE SI PERETI SUB COTA ZERO A CONSTR CU GROS < 30CM material: manopera: utilaj: transport:",
+      "denumire": "turnare beton armat in fundatii continue, radiere si pereti sub cota zero a constr cu gros < 30cm material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 28.0,
       "deviz": "226508",
@@ -2756,7 +2756,7 @@
     },
     {
       "cod": "$2100912",
-      "denumire": "BETON MARCA CLASA C16 / 20 Deviz \"001\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "denumire": "beton marca clasa c16 / 20 deviz '001' - formular f3 formular generat cu programul @devize (www.edevize.ro)",
       "um": "mc",
       "cantitate": 28.23,
       "deviz": "226508",
@@ -2773,7 +2773,7 @@
     },
     {
       "cod": "CD05C1",
-      "denumire": "ZIDARIE DIN CARAMIDA TIP GVP LA CONSTR.H < 35M, FORMAT 290X240X138MM, CAL.A material: manopera: utilaj: transport:",
+      "denumire": "zidarie din caramida tip gvp la constr.h < 35m, format 290x240x138mm, cal.a material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 31.0,
       "deviz": "226518",
@@ -2790,7 +2790,7 @@
     },
     {
       "cod": "$2101171",
-      "denumire": "MORTAR DE ZIDARIE M 50 S 1030",
+      "denumire": "mortar de zidarie m 50 s 1030",
       "um": "mc",
       "cantitate": 4.34,
       "deviz": "226518",
@@ -2807,7 +2807,7 @@
     },
     {
       "cod": "CD05B1",
-      "denumire": "ZIDARIE DIN CARAMIDA TIP GVP LA CONSTR.H < 35M, FORMAT 290X140X 88MM, CAL. A material: manopera: utilaj: transport:",
+      "denumire": "zidarie din caramida tip gvp la constr.h < 35m, format 290x140x 88mm, cal a material: manopera: utilaj: transport:",
       "um": "mc",
       "cantitate": 6.0,
       "deviz": "226518",
@@ -2824,7 +2824,7 @@
     },
     {
       "cod": "CF01A1",
-      "denumire": "TENCUIELI INTERIOARE, DRISCUITE, LA STILPI, PERETI EXECUTATE MANUAL PE ZIDARIE, DE 2CM GROSIME material: manopera: utilaj: transport:",
+      "denumire": "tencuieli interioare, driscuite, la stilpi, pereti executate manual pe zidarie, de 2cm grosime material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 156.0,
       "deviz": "226518",
@@ -2841,7 +2841,7 @@
     },
     {
       "cod": "$2101195",
-      "denumire": "MORTAR TENCUIALA M 100 (VAR HIDRATAT) S",
+      "denumire": "mortar tencuiala m 100 (var hidratat) s",
       "um": "mc",
       "cantitate": 2.81,
       "deviz": "226518",
@@ -2858,7 +2858,7 @@
     },
     {
       "cod": "CF15C",
-      "denumire": "Tencuieli interioare finisaj fin sclivisite, de 0.5 cm grosime, la pereti din beton cu suprafete plane, executate manual, cu mortar material: manopera: utilaj: transport:",
+      "denumire": "tencuieli interioare finisaj fin sclivisite, de 0.5 cm grosime, la pereti din beton cu suprafete plane, executate manual, cu mortar material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 156.0,
       "deviz": "226518",
@@ -2875,7 +2875,7 @@
     },
     {
       "cod": "$3276725",
-      "denumire": "TINCI PT TENCUIELI FINE",
+      "denumire": "tinci pt tencuieli fine",
       "um": "kg",
       "cantitate": 780.0,
       "deviz": "226518",
@@ -2892,7 +2892,7 @@
     },
     {
       "cod": "CI06C",
-      "denumire": "Placaj faianta, aceeasi culoare si format, 15 cm - 30x30 cm, fixate cu aditiv, pe supr plane pereti si stalpi material: manopera: utilaj: transport:",
+      "denumire": "placaj faianta, aceeasi culoare si format, 15 cm - 30x30 cm, fixate cu aditiv, pe supr plane pereti si stalpi material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 156.0,
       "deviz": "226518",
@@ -2909,7 +2909,7 @@
     },
     {
       "cod": "$2401678",
-      "denumire": "FAIANTA",
+      "denumire": "faianta",
       "um": "mp",
       "cantitate": 163.8,
       "deviz": "226518",
@@ -2926,7 +2926,7 @@
     },
     {
       "cod": "$2100833",
-      "denumire": "ADEZIV FAIANTA",
+      "denumire": "adeziv faianta",
       "um": "g",
       "cantitate": 780.0,
       "deviz": "226518",
@@ -2943,7 +2943,7 @@
     },
     {
       "cod": "$3270111",
-      "denumire": "CHIT ROSTURI Deviz \"002\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "denumire": "chit rosturi deviz '002' - formular f3 formular generat cu programul @devize (www.edevize.ro)",
       "um": "kg",
       "cantitate": 78.0,
       "deviz": "226518",
@@ -2960,7 +2960,7 @@
     },
     {
       "cod": "SA14B",
-      "denumire": "TEAVA MAT PL (PP, PE, PP - R) IMBINARE PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND, D = 20 MM material: manopera: utilaj: transport:",
+      "denumire": "teava mat pl (pp, pe, pp - r) imbinare prin sudura prin polifuziune, la ctii ind, d = 20 mm material: manopera: utilaj: transport:",
       "um": "ml",
       "cantitate": 30.0,
       "deviz": "226528",
@@ -2977,7 +2977,7 @@
     },
     {
       "cod": "$3270225",
-      "denumire": "TEAVA PPR PN 16 PENTRU APA CALDA 20X2.8",
+      "denumire": "teava ppr pn 16 pentru apa calda 20x2.8",
       "um": "m",
       "cantitate": 30.6,
       "deviz": "226528",
@@ -2994,7 +2994,7 @@
     },
     {
       "cod": "$7206121",
-      "denumire": "@COT CONECTOR PEXAL M - FI 20 X 1/2 \" COD",
+      "denumire": "@cot conector pexal m - fi 20 x 1/2 ' cod",
       "um": "buc",
       "cantitate": 10.0,
       "deviz": "226528",
@@ -3011,7 +3011,7 @@
     },
     {
       "cod": "$3270233",
-      "denumire": "TEU EGAL PPR 20 x 20",
+      "denumire": "teu egal ppr 20 x 20",
       "um": "buc",
       "cantitate": 15.0,
       "deviz": "226528",
@@ -3028,7 +3028,7 @@
     },
     {
       "cod": "$3270235",
-      "denumire": "REDUCTIE PENTRU TEVI DIN POLIETILENA INTERIOR PPR -EXTERIOR PPR 25-20",
+      "denumire": "reductie pentru tevi din polietilena interior ppr -exterior ppr 25-20",
       "um": "buc",
       "cantitate": 5.0,
       "deviz": "226528",
@@ -3045,7 +3045,7 @@
     },
     {
       "cod": "AUT3000",
-      "denumire": "APARAT DE SUDURA TIP,, COPRAX ' ' 2204 / 50Hz / 700w material: manopera: utilaj: transport:",
+      "denumire": "aparat de sudura tip,, coprax ' ' 2204 / 50hz / 700w material: manopera: utilaj: transport:",
       "um": "ora",
       "cantitate": 1.0,
       "deviz": "226528",
@@ -3062,7 +3062,7 @@
     },
     {
       "cod": "SA43D1",
-      "denumire": "BRATARA PT. FIXAREA COND. OTELFPVC DE AL & MCCU APAFGAZE, MONT. PRIN INCASTRARE, COND. AVIND D = 3/4 TOL material: manopera: utilaj: transport:",
+      "denumire": "bratara pt fixarea cond otelfpvc de al & mccu apafgaze, mont prin incastrare, cond avind d = 3/4 tol material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 30.0,
       "deviz": "226528",
@@ -3079,7 +3079,7 @@
     },
     {
       "cod": "SA14C",
-      "denumire": "TEAVA MAT PL (PP, PE, PP - R) IMBINATA PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND., D = 25 MM material: manopera: utilaj: transport:",
+      "denumire": "teava mat pl (pp, pe, pp - r) imbinata prin sudura prin polifuziune, la ctii ind., d = 25 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 10.0,
       "deviz": "226528",
@@ -3096,7 +3096,7 @@
     },
     {
       "cod": "$3271730",
-      "denumire": "TEAVA PN20 PPR VERDE DN25",
+      "denumire": "teava pn20 ppr verde dn25",
       "um": "m",
       "cantitate": 10.0,
       "deviz": "226528",
@@ -3113,7 +3113,7 @@
     },
     {
       "cod": "$3270394",
-      "denumire": "COT 90 GRD. INTERIOR - EXTERIOR PPR 25",
+      "denumire": "cot 90 grd interior - exterior ppr 25",
       "um": "buc",
       "cantitate": 5.0,
       "deviz": "226528",
@@ -3130,7 +3130,7 @@
     },
     {
       "cod": "$3270242",
-      "denumire": "REDUCTIE PPR 32-25",
+      "denumire": "reductie ppr 32-25",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226528",
@@ -3147,7 +3147,7 @@
     },
     {
       "cod": "EF03D1",
-      "denumire": "TABLOU ELECTRIC PANOU, DULAP, CELULA SAU PUPITRU GATA ECHIPAT, CU GREUTATEA> 500KG material: manopera: utilaj: transport:",
+      "denumire": "tablou electric panou, dulap, celula sau pupitru gata echipat, cu greutatea> 500kg material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 2.0,
       "deviz": "226558",
@@ -3164,7 +3164,7 @@
     },
     {
       "cod": "$7312921",
-      "denumire": "TABLOU ELECTRIC GENERAL TEG1",
+      "denumire": "tablou electric general teg1",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226558",
@@ -3181,7 +3181,7 @@
     },
     {
       "cod": "$7302053",
-      "denumire": "TABLOU ELECTRIC SECUNDAR, IP54, CONFECTII METALICE, USA YALA, MONTAJ APARENT, ECHIPAT",
+      "denumire": "tablou electric secundar, ip54, confectii metalice, usa yala, montaj aparent, echipat",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226558",
@@ -3198,7 +3198,7 @@
     },
     {
       "cod": "EC05C1",
-      "denumire": "CABLU ENERGIE TRAS PRIN TUB PROT METAL PT RACORD MOTOARE TABLOURI APARATE CONDUCTE 50 MMP. * material: manopera: utilaj: transport:",
+      "denumire": "cablu energie tras prin tub prot metal pt racord motoare tablouri aparate conducte 50 mmp * material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 10.0,
       "deviz": "226558",
@@ -3215,7 +3215,7 @@
     },
     {
       "cod": "$3270563",
-      "denumire": "CABLU CYYF 5 x 10",
+      "denumire": "cablu cyyf 5 x 10",
       "um": "m",
       "cantitate": 10.0,
       "deviz": "226558",
@@ -3232,7 +3232,7 @@
     },
     {
       "cod": "EC05A1",
-      "denumire": "CABLU ENERGIE TRAS PRIN TUB PROT METAL PT RACORD MOTOARE TABLOURI APARATE CONDUCTE < 16 MMP. material: manopera: utilaj: transport:",
+      "denumire": "cablu energie tras prin tub prot metal pt racord motoare tablouri aparate conducte < 16 mmp material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 125.0,
       "deviz": "226558",
@@ -3249,7 +3249,7 @@
     },
     {
       "cod": "$3270431",
-      "denumire": "CABLU CYYF 3X2,5",
+      "denumire": "cablu cyyf 3x2,5",
       "um": "m",
       "cantitate": 125.0,
       "deviz": "226558",
@@ -3266,7 +3266,7 @@
     },
     {
       "cod": "EC05B1",
-      "denumire": "CABLU ENERGIE TRAS PRIN TUB PROT METAL PT RACORD MOTOARE TABLOURI APARATE CONDUCTE 25 SAU 35 MMP material: manopera: utilaj: transport:",
+      "denumire": "cablu energie tras prin tub prot metal pt racord motoare tablouri aparate conducte 25 sau 35 mmp material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 95.0,
       "deviz": "226558",
@@ -3283,7 +3283,7 @@
     },
     {
       "cod": "$3270430",
-      "denumire": "CABLU CYYF 3X1 5",
+      "denumire": "cablu cyyf 3x1 5",
       "um": "m",
       "cantitate": 95.0,
       "deviz": "226558",
@@ -3300,7 +3300,7 @@
     },
     {
       "cod": "EA02A1",
-      "denumire": "TUB IZOLANT DE PROTECTIE, ETANS IPE - PVC MONTAT INGROPAT CU D = 16MM material: manopera: utilaj: transport:",
+      "denumire": "tub izolant de protectie, etans ipe - pvc montat ingropat cu d = 16mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 95.0,
       "deviz": "226558",
@@ -3317,7 +3317,7 @@
     },
     {
       "cod": "$2700014",
-      "denumire": "TUB DE PROTECTIE TIP IPEY / MONOFLEX D = 16 MM Deviz \"006\" - Formular F3 Formular generat cu programul eDevize (www.eDevize.ro)",
+      "denumire": "tub de protectie tip ipey / monoflex d = 16 mm deviz '006' - formular f3 formular generat cu programul edevize (www.edevize.ro)",
       "um": "ml",
       "cantitate": 95.0,
       "deviz": "226558",
@@ -3334,7 +3334,7 @@
     },
     {
       "cod": "$2955018",
-      "denumire": "DIGITAL VIDEO RECORDER 16 CANALE",
+      "denumire": "digital video recorder 16 canale",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226578",
@@ -3351,7 +3351,7 @@
     },
     {
       "cod": "$2955019",
-      "denumire": "HARD DISK STOCARE IMAGINI 2 Tb",
+      "denumire": "hard disk stocare imagini 2 tb",
       "um": "buc",
       "cantitate": 2.0,
       "deviz": "226578",
@@ -3368,7 +3368,7 @@
     },
     {
       "cod": "TCC23B1",
-      "denumire": "INSTALATIE DE TV IN CIRCUIT INCHIS: MONITOR VIDEOCAMONTARE material: manopera: utilaj: transport:",
+      "denumire": "instalatie de tv in circuit inchis: monitor videocamontare material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 10.0,
       "deviz": "226578",
@@ -3385,7 +3385,7 @@
     },
     {
       "cod": "$5700023",
-      "denumire": "CAMERA VIDEO COLOR ALL - IN - ONE DE EXTERIOR",
+      "denumire": "camera video color all - in - one de exterior",
       "um": "buc",
       "cantitate": 10.0,
       "deviz": "226578",
@@ -3402,7 +3402,7 @@
     },
     {
       "cod": "EC06A1",
-      "denumire": "CABLU ELECTRIC DE COMANDA SEMNALIZARI BLOCARI MONTAT PE CONSOLE CU 2-30 CONDUCTE DE 0,75-2,5 MMP material: manopera: utilaj: transport:",
+      "denumire": "cablu electric de comanda semnalizari blocari montat pe console cu 2-30 conducte de 0,75-2,5 mmp material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 100.0,
       "deviz": "226578",
@@ -3419,7 +3419,7 @@
     },
     {
       "cod": "$3270808",
-      "denumire": "CABLU DATE FTP 5E 4 X 2 X AWG24 / 1",
+      "denumire": "cablu date ftp 5e 4 x 2 x awg24 / 1",
       "um": "m",
       "cantitate": 100.0,
       "deviz": "226578",
@@ -3436,7 +3436,7 @@
     },
     {
       "cod": "EA02A1",
-      "denumire": "TUB IZOLANT DE PROTECTIE, ETANS IPE - PVC MONTAT INGROPAT CU D = 16MM material: manopera: utilaj: transport:",
+      "denumire": "tub izolant de protectie, etans ipe - pvc montat ingropat cu d = 16mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 100.0,
       "deviz": "226578",
@@ -3453,7 +3453,7 @@
     },
     {
       "cod": "$2700014",
-      "denumire": "TUB DE PROTECTIE TIP IPEY / MONOFLEX D = 16 MM Deviz \"007\" - Formular F3 Formular generat cu programul Devize (www.eDevize.ro)",
+      "denumire": "tub de protectie tip ipey / monoflex d = 16 mm deviz '007' - formular f3 formular generat cu programul devize (www.edevize.ro)",
       "um": "ml",
       "cantitate": 100.0,
       "deviz": "226578",
@@ -3470,7 +3470,7 @@
     },
     {
       "cod": "$2955015",
-      "denumire": "CABINET 18U, MONTAT PE PERETE, USA DIN STICLA CU RAMA METALICA, PANOURI LATERALE DETASABILE, KIT SUPORT",
+      "denumire": "cabinet 18u, montat pe perete, usa din sticla cu rama metalica, panouri laterale detasabile, kit suport",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226568",
@@ -3487,7 +3487,7 @@
     },
     {
       "cod": "$2905212",
-      "denumire": "UNITATE 4 VENTILATOARE CU TERMOSTATE SI INTRERUPATOR",
+      "denumire": "unitate 4 ventilatoare cu termostate si intrerupator",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226568",
@@ -3504,7 +3504,7 @@
     },
     {
       "cod": "$2905014",
-      "denumire": "SWITCH MEDIACONVECTOR, DIMENSIUNE 1U",
+      "denumire": "switch mediaconvector, dimensiune 1u",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226568",
@@ -3521,7 +3521,7 @@
     },
     {
       "cod": "ATA01B",
-      "denumire": "MONTAREA APARATELOR IN PANOURI, DULAPURI, CUTII, APARENT SAU INGROPAT CU GREUTATEA: 1-5 KG material: manopera: utilaj: transport:",
+      "denumire": "montarea aparatelor in panouri, dulapuri, cutii, aparent sau ingropat cu greutatea: 1-5 kg material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226568",
@@ -3538,7 +3538,7 @@
     },
     {
       "cod": "$2600000",
-      "denumire": "SWITCH 8 PORTURI RJ45",
+      "denumire": "switch 8 porturi rj45",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226568",
@@ -3555,7 +3555,7 @@
     },
     {
       "cod": "$5538123",
-      "denumire": "PATCHPANEL 8 PORTURI RJ45 ECHIPAT Deviz \"008\" - Formular F3 Formular generat cu programul'eDevize (www.eDevize.ro) Pagina 1 din 3",
+      "denumire": "patchpanel 8 porturi rj45 echipat deviz '008' - formular f3 formular generat cu programul'edevize (www.edevize.ro) pagina 1 din 3",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226568",

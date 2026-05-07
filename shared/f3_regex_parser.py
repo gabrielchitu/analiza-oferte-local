@@ -57,6 +57,11 @@ NR_ALPHA_INLINE_RE = re.compile(
 NR_NUMERIC_INLINE_RE = re.compile(
     r'^(\d{1,3})\s+(\d{4,8})\s*$'
 )
+# NR_CRT + COD single-letter pe aceeaşi linie (ex: "017 W2F05C01" sau "017 H1V06H BUC.")
+NR_SINGLE_INLINE_RE = re.compile(
+    r'^(\d{1,3})\s+([A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,2})\s*$',
+    re.IGNORECASE
+)
 # NR_CRT: integer 1-999 singur pe linie
 NR_CRT_RE = re.compile(r'^(\d{1,3})$')
 # UM: token scurt alfabetic
@@ -300,17 +305,19 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         if state == _IDLE:
             # Format referinţă deviz: "024 CK26A#" sau "024 2200012" (NR+COD pe linie)
             # sau "002 TCB40A1 ASIM" sau "004 ATA01B ASIM BUC." (cu tokeni UM pe aceeași linie)
+            # sau "017 W2F05C01 BUC." (NR + single-letter cod)
             m_ai = NR_ALPHA_INLINE_RE.match(line)
             m_ni = NR_NUMERIC_INLINE_RE.match(line)
-            if m_ai or m_ni:
-                m = m_ai or m_ni
+            m_si = NR_SINGLE_INLINE_RE.match(line)
+            if m_ai or m_ni or m_si:
+                m = m_ai or m_ni or m_si
                 last_nr_crt = int(m.group(1))
                 cod = ('$' + m.group(2)) if m_ni else re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m.group(2).upper())
                 denumire_parts = []
-                # Extrage primul UM valid din tokenii rămași pe linie (grup 3 din NR_ALPHA_INLINE_RE)
+                # Extrage primul UM valid din tokenii rămași pe linie (grup 3 din NR_ALPHA_INLINE_RE și NR_SINGLE_INLINE_RE)
                 um = ''
-                if m_ai and m_ai.lastindex >= 3 and m_ai.group(3):
-                    for tok in m_ai.group(3).strip().split():
+                if (m_ai or m_si) and m.lastindex >= 3 and m.group(3):
+                    for tok in m.group(3).strip().split():
                         tok_clean = tok.rstrip('.')
                         if _is_valid_um(tok_clean):
                             um = tok_clean.upper()
@@ -349,17 +356,18 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 state = _READING
                 waiting_lines = 0
             else:
-                # Verifica si format NR_INLINE (038 2222219) in WAITING — acelasi handling ca IDLE
+                # Verifica si format NR_INLINE (038 2222219) sau single-letter (017 W2F05C01) in WAITING — acelasi handling ca IDLE
                 m_ai = NR_ALPHA_INLINE_RE.match(line)
                 m_ni = NR_NUMERIC_INLINE_RE.match(line)
-                if m_ai or m_ni:
-                    m = m_ai or m_ni
+                m_si = NR_SINGLE_INLINE_RE.match(line)
+                if m_ai or m_ni or m_si:
+                    m = m_ai or m_ni or m_si
                     last_nr_crt = int(m.group(1))
                     cod = ('$' + m.group(2)) if m_ni else re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m.group(2).upper())
                     denumire_parts = []
                     um = ''
-                    if m_ai and m_ai.lastindex >= 3 and m_ai.group(3):
-                        for tok in m_ai.group(3).strip().split():
+                    if (m_ai or m_si) and m.lastindex >= 3 and m.group(3):
+                        for tok in m.group(3).strip().split():
                             tok_clean = tok.rstrip('.')
                             if _is_valid_um(tok_clean):
                                 um = tok_clean.upper()
@@ -382,18 +390,20 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         elif state == _READING:
             # Format referinţă deviz: "024 CK26A#" sau "024 2200012" → finalizează + articol nou
             # sau "002 TCB40A1 ASIM" sau "004 ATA01B ASIM BUC." (cu tokeni UM pe aceeași linie)
+            # sau "017 W2F05C01 BUC." (NR + single-letter cod)
             m_ai = NR_ALPHA_INLINE_RE.match(line)
             m_ni = NR_NUMERIC_INLINE_RE.match(line)
-            if m_ai or m_ni:
+            m_si = NR_SINGLE_INLINE_RE.match(line)
+            if m_ai or m_ni or m_si:
                 _finalize()
-                m = m_ai or m_ni
+                m = m_ai or m_ni or m_si
                 last_nr_crt = int(m.group(1))
                 cod = ('$' + m.group(2)) if m_ni else re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m.group(2).upper())
                 denumire_parts = []
-                # Extrage primul UM valid din tokenii rămași pe linie (grup 3 din NR_ALPHA_INLINE_RE)
+                # Extrage primul UM valid din tokenii rămași pe linie (grup 3 din NR_ALPHA_INLINE_RE sau NR_SINGLE_INLINE_RE)
                 um = ''
-                if m_ai and m_ai.lastindex >= 3 and m_ai.group(3):
-                    for tok in m_ai.group(3).strip().split():
+                if (m_ai or m_si) and m.lastindex >= 3 and m.group(3):
+                    for tok in m.group(3).strip().split():
                         tok_clean = tok.rstrip('.')
                         if _is_valid_um(tok_clean):
                             um = tok_clean.upper()

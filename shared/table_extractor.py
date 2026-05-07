@@ -11,6 +11,17 @@ import logging
 from typing import List, Dict
 
 
+def _normalize_denom(text: str) -> str:
+    """Normalizeaza DENUMIRE: lowercase, spații, caractere speciale."""
+    if not text:
+        return text
+    text = text.lower()
+    text = text.replace('"', "'").replace('"', "'").replace('"', "'")
+    text = re.sub(r'([A-Z])\.\s+', r'\1 ', text, flags=re.IGNORECASE)
+    text = re.sub(r'\s+', ' ', text)
+    return text.strip()
+
+
 def _normalize_deviz_cod_table(cod: str) -> str:
     """Normalizeaza cod deviz: 226U38 → 226038 (U→0 for consistency)."""
     if not cod:
@@ -153,7 +164,7 @@ def extract_articles_from_tables(tables: List[Dict], deviz_cod: str, deviz_den: 
             # Build article
             art = {
                 'cod': code,
-                'denumire': denom,
+                'denumire': _normalize_denom(denom),
                 'um': um.lower() if um else '',
                 'cantitate': cantitate,
                 'deviz': deviz_cod,
