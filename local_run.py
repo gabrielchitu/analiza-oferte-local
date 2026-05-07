@@ -152,9 +152,8 @@ def compare_and_report(
     # Normalizeaza devizele ofertei sa corespunda cu cele din referinta
     oferta_norm = normalize_devize(ref_articles, oferta_articles, client, model)
 
-    # Correcteaza asignarile de deviz pentru articolele cu aceeasi cod dar deviz diferit
-    from shared.deviz_corrector import correct_oferta_deviz_assignments
-    oferta_norm = correct_oferta_deviz_assignments(ref_articles, oferta_norm)
+    # NO deviz reassignment - match strictly by (deviz, cod) pairs
+    # If article code appears in different deviz, it's a DIFFERENT work item
 
     # Matching 3 straturi
     neconformitati, matches = match_global(
