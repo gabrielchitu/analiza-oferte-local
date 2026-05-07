@@ -21,8 +21,11 @@ def _normalize_cod(cod: str) -> str:
     Extrage codul de baza, ignorand sufixele OCR/variante (#, -, @, ASIM etc.).
     Breviar propriu ($01063) — pastreaza prefixul $ + digits.
     Cod normativ (SA14B#, RPCR21A#-) — extrage doar baza standard.
+    Handles OCR confusion: lowercase 'l' (letter L) → '1' (digit one).
     """
     cod = (cod or "").strip().upper()
+    # OCR fix: lowercase 'l' often confused with digit '1'
+    cod = cod.replace('l', '1').replace('L', '1')
     if cod.startswith('$'):
         return re.sub(r'[^A-Z0-9$]', '', cod)
     if re.match(r'^\d+$', cod):
