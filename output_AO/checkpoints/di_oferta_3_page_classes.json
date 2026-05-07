@@ -731,8 +731,8 @@
   },
   {
     "page_number": 10,
-    "is_f3": true,
-    "deviz_cod": "001",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Antet stanga",
@@ -1143,8 +1143,8 @@
   },
   {
     "page_number": 14,
-    "is_f3": true,
-    "deviz_cod": "001",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Antet stanga",
@@ -2529,8 +2529,8 @@
   },
   {
     "page_number": 24,
-    "is_f3": true,
-    "deviz_cod": "002",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Antet stanga",
@@ -9639,8 +9639,8 @@
   },
   {
     "page_number": 66,
-    "is_f3": true,
-    "deviz_cod": "003",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Antet stanga",
@@ -13545,8 +13545,8 @@
   },
   {
     "page_number": 91,
-    "is_f3": true,
-    "deviz_cod": "003",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Antet stanga",
@@ -20976,8 +20976,8 @@
   },
   {
     "page_number": 136,
-    "is_f3": true,
-    "deviz_cod": "005",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Antet stanga",
@@ -27680,8 +27680,8 @@
   },
   {
     "page_number": 176,
-    "is_f3": true,
-    "deviz_cod": "006",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Antet stanga",
@@ -30736,8 +30736,8 @@
   },
   {
     "page_number": 196,
-    "is_f3": true,
-    "deviz_cod": "008",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Antet stanga",
@@ -38750,7 +38750,7 @@
   },
   {
     "page_number": 249,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "",
     "deviz_den": "",
     "lines": [
@@ -38886,7 +38886,7 @@
   },
   {
     "page_number": 252,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "",
     "deviz_den": "",
     "lines": [

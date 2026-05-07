@@ -10,6 +10,13 @@ import re
 import logging
 from typing import List, Dict
 
+
+def _normalize_deviz_cod_table(cod: str) -> str:
+    """Normalizeaza cod deviz: 226U38 → 226038 (U→0 for consistency)."""
+    if not cod:
+        return cod
+    return cod.replace('U', '0')
+
 logger = logging.getLogger(__name__)
 
 
@@ -217,7 +224,7 @@ def extract_articles_from_tables_smart(tables: List[Dict]) -> List[Dict]:
                     # Parse "226U18 CANALIZARE"
                     m = re.match(r'^([A-Z0-9]{5,8})\s+(.+)$', content)
                     if m:
-                        deviz_cod = m.group(1).upper()
+                        deviz_cod = _normalize_deviz_cod_table(m.group(1).upper())
                         deviz_den = m.group(2).strip()
                         metadata_to_deviz[table_idx] = (deviz_cod, deviz_den)
                         logger.debug(f"[TABLE] Tabel {table_idx}: Metadata deviz {deviz_cod} - {deviz_den}")

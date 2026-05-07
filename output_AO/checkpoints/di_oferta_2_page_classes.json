@@ -3389,8 +3389,8 @@
   },
   {
     "page_number": 25,
-    "is_f3": true,
-    "deviz_cod": "226218",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Pag 25",
@@ -4872,8 +4872,8 @@
   },
   {
     "page_number": 32,
-    "is_f3": true,
-    "deviz_cod": "226228",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Pag 32",
@@ -7512,8 +7512,8 @@
   },
   {
     "page_number": 44,
-    "is_f3": true,
-    "deviz_cod": "226248",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Pag 44",
@@ -7943,8 +7943,8 @@
   },
   {
     "page_number": 47,
-    "is_f3": true,
-    "deviz_cod": "226278",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Pag 47",
@@ -8715,8 +8715,8 @@
   },
   {
     "page_number": 51,
-    "is_f3": true,
-    "deviz_cod": "226268",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Pag 51",
@@ -10831,8 +10831,8 @@
   },
   {
     "page_number": 62,
-    "is_f3": true,
-    "deviz_cod": "226328",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Pag 62",
@@ -18181,9 +18181,9 @@
   },
   {
     "page_number": 100,
-    "is_f3": true,
-    "deviz_cod": "226468",
-    "deviz_den": "",
+    "is_f3": false,
+    "deviz_cod": "226458",
+    "deviz_den": "INSTALATII INCALZIRE OB.4",
     "lines": [
       "Pag 98",
       "OBIECTIV:",
@@ -19201,8 +19201,8 @@
   },
   {
     "page_number": 106,
-    "is_f3": true,
-    "deviz_cod": "226478",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Pag 104",
@@ -20965,8 +20965,8 @@
   },
   {
     "page_number": 115,
-    "is_f3": true,
-    "deviz_cod": "226518",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Pag 112",
@@ -24766,8 +24766,8 @@
   },
   {
     "page_number": 132,
-    "is_f3": true,
-    "deviz_cod": "226538",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Pag 129",
@@ -25546,8 +25546,8 @@
   },
   {
     "page_number": 137,
-    "is_f3": true,
-    "deviz_cod": "226568",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "Pag 134",
@@ -25957,9 +25957,9 @@
   },
   {
     "page_number": 140,
-    "is_f3": true,
-    "deviz_cod": "226558",
-    "deviz_den": "",
+    "is_f3": false,
+    "deviz_cod": "226568",
+    "deviz_den": "INSTALATIE VOCE-DATE-OB.5",
     "lines": [
       "Pag 136",
       "OBIECTIV:",

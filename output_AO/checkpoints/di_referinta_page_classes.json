@@ -666,9 +666,9 @@
   },
   {
     "page_number": 11,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226108",
-    "deviz_den": "STRUCTURA DE REZISTENTA CUPOLA TEREN TENIS",
+    "deviz_den": "",
     "lines": [
       "226108 pag",
       "2",
@@ -739,12 +739,13 @@
       "SEMIFABRICATELOR CU AUTOBASCULANTA PE",
       "DIST .= 20 KM."
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 12,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226108",
     "deviz_den": "",
     "lines": [
       "226108 pag",
@@ -810,12 +811,13 @@
       "DIRECT, MATERIALE INCOMODE PESTE 25 KG",
       "DISTANTA 30M"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 13,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226108",
     "deviz_den": "",
     "lines": [
       "226108 pag",
@@ -882,12 +884,13 @@
       "COMPR 1 STR PECONF SI CTII METAL EXEC",
       "DIN PROF GROS 8-12 MM"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 14,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226108",
     "deviz_den": "",
     "lines": [
       "226108 pag",
@@ -951,7 +954,8 @@
       "- proiect actualizat integral",
       "424-rev/ 2024"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 15,
@@ -1193,9 +1197,9 @@
   },
   {
     "page_number": 18,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226208",
-    "deviz_den": "STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare)",
+    "deviz_den": "",
     "lines": [
       "9",
       "226208 pag",
@@ -1266,12 +1270,13 @@
       "SEMIFABRICATELOR CU AUTOBASCULANTA PE",
       "DIST .= 20 KM."
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 19,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226208",
     "deviz_den": "",
     "lines": [
       "10",
@@ -1337,12 +1342,13 @@
       "CARTON BITUMAT FARA STRAT ACOPERITOR",
       "(BLANC) CI300 100CMX20M S 138"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 20,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226208",
     "deviz_den": "",
     "lines": [
       "226208 pag",
@@ -1412,12 +1418,13 @@
       "SCINDURI LA CONSTRUCTII CU H<20M LA",
       "PLACI SI GRINZI"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 21,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226208",
     "deviz_den": "",
     "lines": [
       "12",
@@ -1483,12 +1490,13 @@
       "CUIE CU CAP CONIC TIP A1 3 X 70 OL34 S",
       "2111"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 22,
     "is_f3": false,
-    "deviz_cod": "",
+    "deviz_cod": "226208",
     "deviz_den": "",
     "lines": [
       "226208 pag",
@@ -1630,9 +1638,9 @@
   },
   {
     "page_number": 24,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226218",
-    "deviz_den": "ARHITECTURA teren tenis si grupuri sanitare",
+    "deviz_den": "",
     "lines": [
       "15",
       "226218 pag",
@@ -1692,7 +1700,8 @@
       "MORTAR TENCUIALA M 100 (VAR HIDRATAT) S",
       "1030"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 25,
@@ -1821,7 +1830,7 @@
   },
   {
     "page_number": 27,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226218",
     "deviz_den": "",
     "lines": [
@@ -1878,12 +1887,13 @@
       "GROSIME LUSTRUITE PE FATA INCLUSIV",
       "PROTECTIA ANTICOROZIVA"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 28,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226218",
     "deviz_den": "",
     "lines": [
       "19",
@@ -1943,12 +1953,13 @@
       "CARTON BITUMAT FARA STRAT ACOPERITOR",
       "(BLANC) CI300 100CMX20M S 138"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 29,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226218",
     "deviz_den": "",
     "lines": [
       "226218 pag",
@@ -2017,12 +2028,13 @@
       "BALUSTRADA METALICA H=90 CM, VOPSIT",
       "ELECTROSTATIC"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 30,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226218",
     "deviz_den": "",
     "lines": [
       "226218 pag",
@@ -2079,12 +2091,13 @@
       "Sistem de jgheaburi tip brass din tabla",
       "protejata anticorosiv"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 31,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226218",
     "deviz_den": "",
     "lines": [
       "226218 pag",
@@ -2155,12 +2168,13 @@
       "-Transport auto",
       "Alte cheltuieli directe:"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 32,
     "is_f3": false,
-    "deviz_cod": "",
+    "deviz_cod": "226218",
     "deviz_den": "",
     "lines": [
       "226218 pag",
@@ -2281,9 +2295,9 @@
   },
   {
     "page_number": 34,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226228",
-    "deviz_den": "INSTALATII SANITARE OB.2",
+    "deviz_den": "",
     "lines": [
       "25",
       "226228 pag",
@@ -2340,12 +2354,13 @@
       "APARAT DE SUDURA TIP , , COPRAX' ' 2204/",
       "50Hz/700w"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 35,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226228",
     "deviz_den": "",
     "lines": [
       "226228 pag",
@@ -2416,12 +2431,13 @@
       "ROBINET SFERA APA 1\"",
       "250"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 36,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226228",
     "deviz_den": "",
     "lines": [
       "27",
@@ -2490,12 +2506,13 @@
       "CAUCIUC MONT APAR SAU INGROP SUB PARD, DN",
       "=32 MM"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 37,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226228",
     "deviz_den": "",
     "lines": [
       "28",
@@ -2560,12 +2577,13 @@
       "10.000",
       "TEAVA PP CU MUFA D=110 L=1000"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 38,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226228",
     "deviz_den": "",
     "lines": [
       "29",
@@ -2635,7 +2653,8 @@
       "AERIS DIN TUBURI FONTA SAU GRESIE CERAM",
       "ANTIAC, D=50-150 MM"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 39,
@@ -3456,9 +3475,9 @@
   },
   {
     "page_number": 51,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226248",
-    "deviz_den": "INSTALATII VENTILATIE OB.2",
+    "deviz_den": "",
     "lines": [
       "226248 pag",
       "42",
@@ -3500,7 +3519,8 @@
       "- proiect actualizat integral",
       "424-rev/ 2024"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 52,
@@ -3704,9 +3724,9 @@
   },
   {
     "page_number": 54,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226268",
-    "deviz_den": "INSTALATII ELECTRICE tari OB.2 curenti",
+    "deviz_den": "",
     "lines": [
       "46",
       "226268 pag",
@@ -3773,12 +3793,13 @@
       "CORP DE ILUMINAT SPECIAL, MONOBLOC PT.",
       "ILUM. SIG. CU ACUMULATOR DIBLURI METAL."
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 55,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226268",
     "deviz_den": "",
     "lines": [
       "47",
@@ -3846,12 +3867,13 @@
       "CUTIE CU ECLISA DE LEGATURA PT. CENTURA",
       "DE INPAMINTARE"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 56,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226268",
     "deviz_den": "",
     "lines": [
       "48",
@@ -3911,7 +3933,8 @@
       "PROIECTANT",
       "S.C. DESIGN STUDIO SRL"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 57,
@@ -4003,9 +4026,9 @@
   },
   {
     "page_number": 58,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226278",
-    "deviz_den": "INSTALATIE VOCE-DATE-OB.2",
+    "deviz_den": "",
     "lines": [
       "226278 pag",
       "50",
@@ -4069,12 +4092,13 @@
       "TOTAL",
       "Din care:"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 59,
     "is_f3": false,
-    "deviz_cod": "",
+    "deviz_cod": "226278",
     "deviz_den": "",
     "lines": [
       "226278 pag",
@@ -4195,9 +4219,9 @@
   },
   {
     "page_number": 61,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226288",
-    "deviz_den": "SISTEM SUPRAVEGHEREA VIDEO -OB2",
+    "deviz_den": "",
     "lines": [
       "226288 pag",
       "53",
@@ -4263,12 +4287,13 @@
       "Alte cheltuieli directe:",
       "-CONTRIBUTIE ASIGURATORIE PENTRU MUNCA"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 62,
     "is_f3": false,
-    "deviz_cod": "",
+    "deviz_cod": "226288",
     "deviz_den": "",
     "lines": [
       "226288 pag",
@@ -4394,9 +4419,9 @@
   },
   {
     "page_number": 64,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226308",
-    "deviz_den": "STRUCTURA DE REZISTENTA- (graden e 2 BUC)",
+    "deviz_den": "",
     "lines": [
       "226308 pag",
       "56",
@@ -4469,12 +4494,13 @@
       "30 cm, udate si batute cu placa",
       "vibratoare, inc.imprastiat"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 65,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226308",
     "deviz_den": "",
     "lines": [
       "57",
@@ -4542,12 +4568,13 @@
       "SEMIFABRICATELOR CU AUTOBASCULANTA PE",
       "DIST .= 10 KM."
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 66,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226308",
     "deviz_den": "",
     "lines": [
       "226308 pag",
@@ -4613,12 +4640,13 @@
       "SPOR ASAMBLARE GRINZI CU B.I.R. LA",
       "GRINZI CHESON ASAMBLATE LA POZITIE"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 67,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226308",
     "deviz_den": "",
     "lines": [
       "59",
@@ -4688,12 +4716,13 @@
       "DIRECT, MATERIALE INCOMODE PESTE 25 KG",
       "DISTANTA 30M"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 68,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226308",
     "deviz_den": "",
     "lines": [
       "226308 pag",
@@ -4737,7 +4766,8 @@
       "- proiect actualizat integral",
       "424-rev/ 2024"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 69,
@@ -4840,9 +4870,9 @@
   },
   {
     "page_number": 70,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226318",
-    "deviz_den": "IMPREJMUIRE TEREN FOTBAL -380 ML",
+    "deviz_den": "",
     "lines": [
       "62",
       "226318 pag",
@@ -4909,7 +4939,8 @@
       "- proiect actualizat integral",
       "424-rev/ 2024"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 71,
@@ -5005,9 +5036,9 @@
   },
   {
     "page_number": 72,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226328",
-    "deviz_den": "ARHITECTURA GRADENE",
+    "deviz_den": "",
     "lines": [
       "64",
       "226328 pag",
@@ -5069,7 +5100,8 @@
       "- proiect actualizat integral",
       "424-rev/ 2024"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 73,
@@ -5170,9 +5202,9 @@
   },
   {
     "page_number": 74,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226338",
-    "deviz_den": "TEREN FOTBAL",
+    "deviz_den": "",
     "lines": [
       "226338 pag",
       "66",
@@ -5242,12 +5274,13 @@
       "PAM. SI A SUPRAF . INSAMINTATE SAU",
       "BRAZDUITE"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 75,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226338",
     "deviz_den": "",
     "lines": [
       "67",
@@ -5300,7 +5333,8 @@
       "- proiect actualizat integral",
       "424-rev/ 2024"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 76,
@@ -5404,9 +5438,9 @@
   },
   {
     "page_number": 77,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226348",
-    "deviz_den": "SPATII VERZI",
+    "deviz_den": "",
     "lines": [
       "71",
       "226348 pag",
@@ -5474,7 +5508,8 @@
       "- proiect actualizat integral",
       "424-rev/ 2024"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 78,
@@ -5588,9 +5623,9 @@
   },
   {
     "page_number": 79,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226358",
-    "deviz_den": "ALEI PIETONALE SI CAROSABILE",
+    "deviz_den": "",
     "lines": [
       "73",
       "226358 pag",
@@ -5656,12 +5691,13 @@
       "Valoare aferenta utilaje termice",
       "="
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 80,
     "is_f3": false,
-    "deviz_cod": "",
+    "deviz_cod": "226358",
     "deviz_den": "",
     "lines": [
       "76",
@@ -5784,9 +5820,9 @@
   },
   {
     "page_number": 82,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226408",
-    "deviz_den": "STRUCTURA DE REZISTENTA (vestiar e, sala fitness)",
+    "deviz_den": "",
     "lines": [
       "78",
       "226408 pag",
@@ -5855,12 +5891,13 @@
       "30 cm, udate si batute cu placa",
       "vibratoare, inc. imprastiat"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 83,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226408",
     "deviz_den": "",
     "lines": [
       "79",
@@ -5927,12 +5964,13 @@
       "Montare plasa sudate la inaltimi mai",
       "mici sau egal cu 35m, la placi"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 84,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226408",
     "deviz_den": "",
     "lines": [
       "226408 pag",
@@ -5999,12 +6037,13 @@
       "6090.000",
       "OTEL BETON BST500 6-8 MM"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 85,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226408",
     "deviz_den": "",
     "lines": [
       "226408 pag",
@@ -6087,12 +6126,13 @@
       "PE CONF SICONSTR MET PROFILE 8-12MM",
       "2STRATURI"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 86,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226408",
     "deviz_den": "",
     "lines": [
       "226408 pag",
@@ -6172,7 +6212,8 @@
       "S. C. DESIGN STUDIO SRL",
       "APlusi)"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 87,
@@ -6270,9 +6311,9 @@
   },
   {
     "page_number": 88,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226418",
-    "deviz_den": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
+    "deviz_den": "",
     "lines": [
       "85",
       "226418 pag",
@@ -6330,7 +6371,8 @@
       "MORTAR TENCUIALA M 100 (VAR HIDRATAT) S",
       "1030"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 89,
@@ -6453,7 +6495,7 @@
   },
   {
     "page_number": 91,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226418",
     "deviz_den": "",
     "lines": [
@@ -6510,12 +6552,13 @@
       "GROSIME LUSTRUITE PE FATA INCLUSIV",
       "PROTECTIA ANTICOROZIVA"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 92,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226418",
     "deviz_den": "",
     "lines": [
       "89",
@@ -6574,12 +6617,13 @@
       "CARTON BITUMAT FARA STRAT ACOPERITOR",
       "(BLANC) CI300 100CMX20M S 138"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 93,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226418",
     "deviz_den": "",
     "lines": [
       "90",
@@ -6638,12 +6682,13 @@
       "5.000",
       "adeziv neoprenic- pintru lipire plinte"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 94,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226418",
     "deviz_den": "",
     "lines": [
       "226418 pag",
@@ -6713,12 +6758,13 @@
       "BALUSTRAZI GRILE, CHEPENG, OPRITORI,",
       "GRATARE"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 95,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226418",
     "deviz_den": "",
     "lines": [
       "92",
@@ -6775,12 +6821,13 @@
       "377.000",
       "Solutie de protectie a lemnului tip"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 96,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226418",
     "deviz_den": "",
     "lines": [
       "226418 pag",
@@ -6852,12 +6899,13 @@
       "=",
       "Valoare aferenta utilaje electrice ="
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 97,
     "is_f3": false,
-    "deviz_cod": "",
+    "deviz_cod": "226418",
     "deviz_den": "",
     "lines": [
       "94",
@@ -6984,9 +7032,9 @@
   },
   {
     "page_number": 99,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226428",
-    "deviz_den": "INSTALATII SANITARE OB. 4",
+    "deviz_den": "",
     "lines": [
       "96",
       "226428 pag",
@@ -7043,12 +7091,13 @@
       "APARAT DE SUDURA TIP , ,COPRAX' ' 2204/",
       "50Hz/700w"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 100,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226428",
     "deviz_den": "",
     "lines": [
       "226428 pag",
@@ -7117,12 +7166,13 @@
       "SAU FARA DESCARCARE, PENTRU TEVI OTEL, D=3",
       "/4''"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 101,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226428",
     "deviz_den": "",
     "lines": [
       "98",
@@ -7190,12 +7240,13 @@
       "IZOLATIE ELASTOMER PT TEVI INSTALATII",
       "INCALZIRE/SANITARE L=2M D.28X13MM"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 102,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226428",
     "deviz_den": "",
     "lines": [
       "99",
@@ -7264,12 +7315,13 @@
       "TUB 2 MUFE POLIPROPILENA IGNIF, DIAM 50",
       "MM SI L=1000 MM"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 103,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226428",
     "deviz_den": "",
     "lines": [
       "226428 pag 100",
@@ -7338,12 +7390,13 @@
       "VERTICALA CU OBTURATOR DE MIROSURI",
       "PRIMUS, 123×123MM/115X115MM"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 104,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226428",
     "deviz_den": "",
     "lines": [
       "226428 pag 101",
@@ -7410,7 +7463,8 @@
       "2.000",
       "REDUCTIE PP EXCENTRICA 75/110 MM"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 105,
@@ -7964,9 +8018,9 @@
   },
   {
     "page_number": 113,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226448",
-    "deviz_den": "INSTALATII VENTILATIE OB. 4",
+    "deviz_den": "",
     "lines": [
       "226448 pag 110",
       "004 2997173",
@@ -8032,7 +8086,8 @@
       "- proiect actualizat integral",
       "424-rev/ 2024"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 114,
@@ -8357,9 +8412,9 @@
   },
   {
     "page_number": 118,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226478",
-    "deviz_den": "INSTALATII ELECTRICE curenti tari OB.4",
+    "deviz_den": "",
     "lines": [
       "226478 pag 116",
       "005",
@@ -8424,12 +8479,13 @@
       "SE NZOR DE PREZENTA INCORPORAT, APARENT,",
       "IP65"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 119,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226478",
     "deviz_den": "",
     "lines": [
       "226478 pag 117",
@@ -8495,12 +8551,13 @@
       "PAMINT MONT. PAM OTEL LAT ZINC. 40X5 MM",
       "MONT. IN TEREN TARE"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 120,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226478",
     "deviz_den": "",
     "lines": [
       "226478 pag 118",
@@ -8565,7 +8622,8 @@
       "- proiect actualizat integral",
       "424-rev/ 2024"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 121,
@@ -8655,9 +8713,9 @@
   },
   {
     "page_number": 122,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226488",
-    "deviz_den": "INSTALATIE VOCE-DATE-OB. 4",
+    "deviz_den": "",
     "lines": [
       "226488 pag 120",
       "004 2600000",
@@ -8722,12 +8780,13 @@
       "TOTAL",
       "Din care:"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 123,
     "is_f3": false,
-    "deviz_cod": "",
+    "deviz_cod": "226488",
     "deviz_den": "",
     "lines": [
       "226488 pag 121",
@@ -8845,9 +8904,9 @@
   },
   {
     "page_number": 125,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226498",
-    "deviz_den": "SISTEM SUPRAVEGHEREA VIDEO -OB4",
+    "deviz_den": "",
     "lines": [
       "226498 pag 123",
       "004 EC06A1",
@@ -8910,12 +8969,13 @@
       "Alte cheltuieli directe:",
       "-CONTRIBUTIE ASIGURATORIE PENTRU MUNCA"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 126,
     "is_f3": false,
-    "deviz_cod": "",
+    "deviz_cod": "226498",
     "deviz_den": "",
     "lines": [
       "226498 pag 124",
@@ -9040,9 +9100,9 @@
   },
   {
     "page_number": 128,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226508",
-    "deviz_den": "STRUCTURA DE REZISTENTA (grupuri sanitare publice)",
+    "deviz_den": "",
     "lines": [
       "226508 pag 126",
       "007 CB02A1",
@@ -9110,12 +9170,13 @@
       "SEMIFABRICATELOR CU AUTOBASCULANTA PE",
       "DIST .= 20 KM."
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 129,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226508",
     "deviz_den": "",
     "lines": [
       "226508 pag 127",
@@ -9178,12 +9239,13 @@
       "CARTON BITUMAT FARA STRAT ACOPERITOR",
       "(BLANC) CI300 100CMX20M S 138"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 130,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226508",
     "deviz_den": "",
     "lines": [
       "226508 pag 128",
@@ -9252,12 +9314,13 @@
       "CONSTRUCTII CU H<20M LA STILPI SI CADRE",
       "CU PLACAJ DE 15MM"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 131,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226508",
     "deviz_den": "",
     "lines": [
       "226508 pag 129",
@@ -9323,12 +9386,13 @@
       "CUIE CU CAP CONIC TIP A1 3 X 70 OL34 S",
       "2111"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 132,
     "is_f3": false,
-    "deviz_cod": "",
+    "deviz_cod": "226508",
     "deviz_den": "",
     "lines": [
       "226508 pag 130",
@@ -9654,7 +9718,7 @@
   },
   {
     "page_number": 137,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226518",
     "deviz_den": "",
     "lines": [
@@ -9711,12 +9775,13 @@
       "KG",
       "26.000"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 138,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226518",
     "deviz_den": "",
     "lines": [
       "226518 pag 136",
@@ -9778,12 +9843,13 @@
       "1.00 mp, la ctii cu H mai mic sau egal 35",
       "m"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 139,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226518",
     "deviz_den": "",
     "lines": [
       "226518 pag 137",
@@ -9846,12 +9912,13 @@
       "STRAT BATUTE IN CUIE PE ASTER. CU CARTON",
       "BITUMAT CA 300"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 140,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226518",
     "deviz_den": "",
     "lines": [
       "226518 pag 138",
@@ -9912,12 +9979,13 @@
       "48.000",
       "VATA MINERALA - 10 CM"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 141,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226518",
     "deviz_den": "",
     "lines": [
       "226518 pag 139",
@@ -9978,7 +10046,8 @@
       "- proiect actualizat integral",
       "424-rev/ 2024"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 142,
@@ -10073,9 +10142,9 @@
   },
   {
     "page_number": 143,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226528",
-    "deviz_den": "INSTALATII SANITARE OB.5",
+    "deviz_den": "",
     "lines": [
       "226528 pag 141",
       "003 3271730",
@@ -10131,12 +10200,13 @@
       "APARAT DE SUDURA TIP , , COPRAX' ' 2204/",
       "50Hz/700w"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 144,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226528",
     "deviz_den": "",
     "lines": [
       "226528 pag 142",
@@ -10206,12 +10276,13 @@
       "IZOLATIE ELASTOMER PT TEVI INSTALATII",
       "INCALZIRE/SANITARE L=2M D.22X13MM"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 145,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226528",
     "deviz_den": "",
     "lines": [
       "226528 pag 143",
@@ -10279,12 +10350,13 @@
       "COT 90 32MM, PP-R 80, PRESIUNE: PN 25,",
       "VERDE"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 146,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226528",
     "deviz_den": "",
     "lines": [
       "226528 pag 144",
@@ -10351,12 +10423,13 @@
       "CAUCIUC, MONT APAR SAU INGROP SUB PARD, DN",
       "=110 MM"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 147,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226528",
     "deviz_den": "",
     "lines": [
       "226528 pag 145",
@@ -10422,7 +10495,8 @@
       "3.000",
       "CACIULA VENTILATIE KADH 75MM"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 148,
@@ -11100,9 +11174,9 @@
   },
   {
     "page_number": 158,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226538",
-    "deviz_den": "INSTALATII VENTILATIE OB.5",
+    "deviz_den": "",
     "lines": [
       "226538 pag 156",
       "005 VC23A1",
@@ -11140,7 +11214,8 @@
       "- proiect actualizat integral",
       "424-rev/ 2024"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 159,
@@ -11330,9 +11405,9 @@
   },
   {
     "page_number": 161,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226558",
-    "deviz_den": "INSTALATII ELECTRICE curenti tari OB.5",
+    "deviz_den": "",
     "lines": [
       "226558 pag 159",
       "004 3270430",
@@ -11396,12 +11471,13 @@
       "CORP DE ILUMINAT SPECIAL, MONOBLOC PT.",
       "ILUM. SIG. CU ACUMULATOR DIBLURI METAL."
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 162,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226558",
     "deviz_den": "",
     "lines": [
       "226558 pag 160",
@@ -11470,12 +11546,13 @@
       "LUCRARI DE INSTALATII ELECTRICE LA",
       "CONSTRUCTII"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 163,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226558",
     "deviz_den": "",
     "lines": [
       "226558 pag 161",
@@ -11523,7 +11600,8 @@
       "- proiect actualizat integral",
       "424-rev/ 2024"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 164,
@@ -11613,9 +11691,9 @@
   },
   {
     "page_number": 165,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226578",
-    "deviz_den": "SISTEM SUPRAVEGHEREA VIDEO -OB5",
+    "deviz_den": "",
     "lines": [
       "226578 pag 163",
       "004 3270808",
@@ -11685,7 +11763,8 @@
       "- proiect actualizat integral",
       "424-rev/ 2024"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 166,
@@ -11787,9 +11866,9 @@
   },
   {
     "page_number": 167,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226568",
-    "deviz_den": "INSTALATIE VOCE-DATE-OB.5",
+    "deviz_den": "",
     "lines": [
       "226568 pag",
       "166",
@@ -11863,7 +11942,8 @@
       "- proiect actualizat integral",
       "424-rev/ 2024"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 168,
@@ -11955,9 +12035,9 @@
   },
   {
     "page_number": 169,
-    "is_f3": false,
-    "deviz_cod": "226U08",
-    "deviz_den": "45000000 UTILITATI-RETELE EXTERIOARE",
+    "is_f3": true,
+    "deviz_cod": "226008",
+    "deviz_den": "",
     "lines": [
       "226008 pag 169",
       "005 ACD04A1",
@@ -12019,12 +12099,13 @@
       "1.000",
       "FILTRU IMPURITATI Y DN65"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 170,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226U08",
     "deviz_den": "",
     "lines": [
       "226U08 pag 170",
@@ -12101,12 +12182,13 @@
       "345.000",
       "Banda de semnalizare"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 171,
     "is_f3": false,
-    "deviz_cod": "",
+    "deviz_cod": "226U08",
     "deviz_den": "",
     "lines": [
       "226U08 pag 171",
@@ -12245,9 +12327,9 @@
   },
   {
     "page_number": 173,
-    "is_f3": false,
-    "deviz_cod": "226018",
-    "deviz_den": "45000000 EXTINDERE SI MODERNIZARE BAZA SPORTIVA RACARI UTILITATI-RETELE EXTERIOARE",
+    "is_f3": true,
+    "deviz_cod": "226U18",
+    "deviz_den": "",
     "lines": [
       "226U18 pag 173",
       "006 TSA02C1",
@@ -12318,12 +12400,13 @@
       "REZERVOR DEPOZIT PT. COMBUSTIBIL LICHID,",
       "CILINDRIC CAPACITATE 30000 L."
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 174,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226U18",
     "deviz_den": "",
     "lines": [
       "226U18 pag 174",
@@ -12392,7 +12475,8 @@
       "- proiect actualizat integral",
       "424-rev/ 2024"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 175,
@@ -12489,9 +12573,9 @@
   },
   {
     "page_number": 176,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226U28",
-    "deviz_den": "45000000 UTILITATI-RETELE EXTERIOARE",
+    "deviz_den": "",
     "lines": [
       "226U28 pag 177",
       "006 3272541",
@@ -12556,12 +12640,13 @@
       "EXECUT. PE STRAT. CU UDAREA FIEC. STRAT DE",
       "20CM GROS . T. COEZIV"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 177,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226028",
     "deviz_den": "",
     "lines": [
       "226028 pag 178",
@@ -12625,12 +12710,13 @@
       "PAMINT MONT. PAM. BANDA OL ZINC. 40X4MM",
       "MONT. IN TEREN TARE *"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 178,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226U28",
     "deviz_den": "",
     "lines": [
       "226U28 pag 179",
@@ -12696,12 +12782,13 @@
       "500.000",
       "ENERGIE ELECTRICA PENTRU PROBE"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 179,
     "is_f3": false,
-    "deviz_cod": "",
+    "deviz_cod": "226U28",
     "deviz_den": "",
     "lines": [
       "226U28 pag",
@@ -12842,9 +12929,9 @@
   },
   {
     "page_number": 181,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "226U38",
-    "deviz_den": "45000000 UTILITATI-RETELE EXTERIOARE",
+    "deviz_den": "",
     "lines": [
       "226U38 pag 182",
       "004 7701266",
@@ -12909,12 +12996,13 @@
       "200.000",
       "Banda de semnalizare"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 182,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226U38",
     "deviz_den": "",
     "lines": [
       "226U38 pag 183",
@@ -12988,12 +13076,13 @@
       "Alte cheltuieli directe:",
       "-CONTRIBUTIE ASIGURATORIE PENTRU MUNCA"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false
   },
   {
     "page_number": 183,
     "is_f3": false,
-    "deviz_cod": "",
+    "deviz_cod": "226U38",
     "deviz_den": "",
     "lines": [
       "226U38 pag",

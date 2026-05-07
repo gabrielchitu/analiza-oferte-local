@@ -17,6 +17,14 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 logger = logging.getLogger(__name__)
 
+
+def _normalize_deviz_cod(cod: str) -> str:
+    """Normalizeaza cod deviz: 226U38 → 226038 (U→0 pentru OCR consistency)."""
+    if not cod:
+        return cod
+    return cod.replace('U', '0')
+
+
 # Pattern 1 (priority): "Deviz oferta XXXX DENUMIRE"
 _DEVIZ_OFERTA_RE = re.compile(
     r'Deviz\s+oferta\s+([A-Z0-9]+)\s+(.*)',
@@ -259,7 +267,7 @@ def _make_component(cod: str, denumire: str, um: str,
         "pret_manopera": 0.0, "val_manopera": 0.0,
         "pret_utilaj": 0.0, "val_utilaj": 0.0,
         "pret_transport": 0.0, "val_transport": 0.0,
-        "deviz": deviz_cod, "deviz_denumire": deviz_den,
+        "deviz": _normalize_deviz_cod(deviz_cod), "deviz_denumire": deviz_den,
         "is_component": True,
     }
 
@@ -482,8 +490,10 @@ def extract_articles_from_text(full_text: str, openai_client, deployment: str,
 
         logger.info(f"[F3] {deviz_cod} {deviz_den}: {len(deviz_articles)} articole extrase")
 
+        # Normalize deviz code (226U38 → 226038) for consistency across files
+        normalized_deviz_cod = _normalize_deviz_cod(deviz_cod)
         for art in deviz_articles:
-            art["deviz"] = deviz_cod
+            art["deviz"] = normalized_deviz_cod
             art["deviz_denumire"] = deviz_den
             art["is_component"] = False
 
@@ -598,6 +608,9 @@ def extract_articles_v3(page_classifications: list) -> list:
         deviz_cod = pc.get("deviz_cod", "")
         deviz_den = pc.get("deviz_den", "")
 
+        # Normalize deviz code at entry point (226U38 → 226038)
+        deviz_cod = _normalize_deviz_cod(deviz_cod)
+
         if not deviz_cod:
             logger.warning(f"[F3v3] page {pc.get('page_number')} is_f3=True but deviz_cod is empty — dedup key collision risk")
 
@@ -607,7 +620,7 @@ def extract_articles_v3(page_classifications: list) -> list:
         # Extrage articole principale via parser regex (neschimbat)
         page_articles = extract_articles_regex(lines, deviz_cod, deviz_den)
         for art in page_articles:
-            art["deviz"] = deviz_cod
+            art["deviz"] = deviz_cod  # deviz_cod já normalizado acima
             art["deviz_denumire"] = deviz_den
             art["is_component"] = False
 

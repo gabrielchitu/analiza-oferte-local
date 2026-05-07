@@ -517,8 +517,8 @@
   },
   {
     "page_number": 6,
-    "is_f3": true,
-    "deviz_cod": "0078",
+    "is_f3": false,
+    "deviz_cod": "",
     "deviz_den": "",
     "lines": [
       "0078.5.8",
