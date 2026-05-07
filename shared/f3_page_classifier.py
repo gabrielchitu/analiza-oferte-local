@@ -40,6 +40,10 @@ _STADIUL_FIZIC_EDEVIZE_RE = re.compile(
     re.IGNORECASE
 )
 
+# eDevize continuation pages: ">>> componenta NNN" format with article data
+# Example: "226228 pag >>> componenta 010 035 SD05A1 BUC. 2.000 ROBINET..."
+_EDEVIZE_CONTINUATION_RE = re.compile(r'>>>\s*componenta')
+
 # ── Semnale non-F3 ────────────────────────────────────────────────────────────
 
 _NON_F3_PATTERNS = [
@@ -148,6 +152,15 @@ def classify_page_local(page: dict) -> dict:
     # ── Verifică SECTIUNEA TEHNICA (eDevize data pages) ──
     if _SECTIUNEA_TEHNICA_RE.search(full_content):
         return {"label": "F3", "deviz_cod": "", "deviz_den": "", "is_header": False}
+
+    # ── Verifică eDevize continuation pages (>>> componenta NNN format) ──
+    # These are data continuation pages from eDevize documents that contain articles
+    # but lack standard F3 headers. Example: "226228 pag >>> componenta 010 035 SD05A1 BUC..."
+    if _EDEVIZE_CONTINUATION_RE.search(full_content) and _has_article_codes(full_content):
+        # Extract deviz code from page (format: "226228 pag" or similar)
+        m = re.search(r'\b(\d{6})\s+pag', full_content, re.IGNORECASE)
+        cod = m.group(1) if m else ""
+        return {"label": "F3", "deviz_cod": cod, "deviz_den": "", "is_header": False}
 
     return {"label": "AMBIGUOUS", "deviz_cod": "", "deviz_den": "", "is_header": False}
 
