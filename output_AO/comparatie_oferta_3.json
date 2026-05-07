@@ -6707,28 +6707,6 @@
     {
       "tip": "ARTICOL_EXTRA",
       "deviz_ref": "",
-      "deviz_denumire": "INSTALATII SANITARE OB. 4",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$3270242",
-      "oferta_denumire": "REDUCTIE PPR 32-25",
-      "oferta_um": "buc",
-      "oferta_cantitate": 15.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "INSTALATIE VOCE-DATE-OB. 4",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$7701266",
-      "oferta_denumire": "UPS RACKTABIL 1.5 KVA",
-      "oferta_um": "buc",
-      "oferta_cantitate": 1.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
       "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB4",
       "ref_cod": "",
       "ref_denumire": "",
@@ -6740,90 +6718,24 @@
     {
       "tip": "ARTICOL_EXTRA",
       "deviz_ref": "",
-      "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB4",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "EA02A1",
-      "oferta_denumire": "TUB IZOLANT DE PROTECTIE, ETANS IPE - PVC MONTAT INGROPAT CU D = 16MM material: manopera: utilaj: transport:",
-      "oferta_um": "m",
-      "oferta_cantitate": 200.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "INSTALATIE VOCE-DATE-OB. 4",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$6718506",
-      "oferta_denumire": "BANDA AVERTIZOARE PVC INSCRIPTIONATA PENTRU CABLU TELECOMUNICATII IN SAPATURA 1 MM GROSIME Deviz \"004\" - Formular F3 Formular generat cu programul eDevize (www.eDevize.ro)",
-      "oferta_um": "ml",
-      "oferta_cantitate": 1900.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
       "deviz_denumire": "INSTALATII SANITARE OB. 4",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$3270394",
-      "oferta_denumire": "COT 90 GRD. INTERIOR - EXTERIOR PPR 25",
+      "oferta_cod": "$3270242",
+      "oferta_denumire": "REDUCTIE PPR 32-25",
       "oferta_um": "buc",
-      "oferta_cantitate": 5.0
+      "oferta_cantitate": 10.0
     },
     {
       "tip": "ARTICOL_EXTRA",
       "deviz_ref": "",
-      "deviz_denumire": "SPATII VERZI",
+      "deviz_denumire": "ARHITECTURA GRADENE",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "TSH01A1",
-      "oferta_denumire": "DEGAJAREA TERENULUI DE CORPURI STRAINE material: manopera: utilaj: transport:",
+      "oferta_cod": "CE05E1",
+      "oferta_denumire": "INVELITOARE DIN TABLA CUTATA FIXATA CU SURUBURI FILETATE PINA SUB CAP SI PIULITE material: manopera: utilaj: transport:",
       "oferta_um": "mp",
-      "oferta_cantitate": 59.18
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "INSTALATII SANITARE OB. 4",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "SA14B#",
-      "oferta_denumire": "TEAVA MAT PL (PP, PE, PP - R) IMBINARE PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND, D = 20 MM material: manopera: utilaj: transport:",
-      "oferta_um": "ml",
-      "oferta_cantitate": 30.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "CD05C1",
-      "oferta_denumire": "ZIDARIE DIN CARAMIDA TIP GVP LA CONSTR.H < 35M, FORMAT 290X240X138MM, CAL. A material: manopera: utilaj: transport:",
-      "oferta_um": "mc",
-      "oferta_cantitate": 60.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "IMPREJMUIRE TEREN FOTBAL -380 ML",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "TSA12C1",
-      "oferta_denumire": "SAP.MAN. IN GROPI CU LARG.1-1,5M CU SPRIJ.EVAC MAN. IN PAM.CU UMID.NAT. LA ADINC. 0,0- 1,5M, T. TARE material: manopera: utilaj: transport:",
-      "oferta_um": "mc",
-      "oferta_cantitate": 18.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "IMPREJMUIRE TEREN FOTBAL -380 ML",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$3273618",
-      "oferta_denumire": "PLASA GARD IMPLETITA Deviz \"002\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
-      "oferta_um": "mp",
-      "oferta_cantitate": 2280.0
+      "oferta_cantitate": 532.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -6832,53 +6744,9 @@
       "ref_cod": "",
       "ref_denumire": "",
       "oferta_cod": "$2700014",
-      "oferta_denumire": "TUB DE PROTECTIE TIP IPEY / MONOFLEX D = 16 MM Deviz \"006\" - Formular F3 Formular generat cu programul eDevize (www.eDevize.ro)",
+      "oferta_denumire": "TUB DE PROTECTIE TIP IPEY / MONOFLEX D = 16 MM Deviz \"007\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
       "oferta_um": "ml",
-      "oferta_cantitate": 95.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "45000000 UTILITATI-RETELE EXTERIOARE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$3272541",
-      "oferta_denumire": "TUB PROTECTIE CABLU D.110 GOFRAT ALBASTRU DUBLU STRAT 450N L6M Deviz \"003\" - Formular F3",
-      "oferta_um": "m",
-      "oferta_cantitate": 100.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "INSTALATII SANITARE OB. 4",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$3271730",
-      "oferta_denumire": "TEAVA PN20 PPR VERDE DN25",
-      "oferta_um": "m",
-      "oferta_cantitate": 10.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "CD05C1",
-      "oferta_denumire": "ZIDARIE DIN CARAMIDA TIP GVP LA CONSTR.H < 35M, FORMAT 290X240X138MM, CAL. A material: manopera: utilaj: transport:",
-      "oferta_um": "mc",
-      "oferta_cantitate": 120.9
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "INSTALATII ELECTRICE curenti tari OB.4",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "EA02A1",
-      "oferta_denumire": "TUB IZOLANT DE PROTECTIE, ETANS IPE - PVC MONTAT INGROPAT CU D = 16MM material: manopera: utilaj: transport:",
-      "oferta_um": "m",
-      "oferta_cantitate": 95.0
+      "oferta_cantitate": 225.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -6894,17 +6762,6 @@
     {
       "tip": "ARTICOL_EXTRA",
       "deviz_ref": "",
-      "deviz_denumire": "INSTALATII SANITARE OB. 4",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "SA14B#",
-      "oferta_denumire": "TEAVA MAT PL (PP, PE, PP - R) IMBINARE PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND, D = 20 MM material: manopera: utilaj: transport:",
-      "oferta_um": "ml",
-      "oferta_cantitate": 70.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
       "deviz_denumire": "45000000 UTILITATI-RETELE EXTERIOARE",
       "ref_cod": "",
       "ref_denumire": "",
@@ -6912,6 +6769,17 @@
       "oferta_denumire": "CAMIN DUBLUSTRAT PT. APOMETRU CU INSTALATIE 3/4 ' ' SI CAPAC D.550 H.1100MM Deviz \"001\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro) Pagina 1 din 4",
       "oferta_um": "buc",
       "oferta_cantitate": 1.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "INSTALATII SANITARE OB. 4",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$3270394",
+      "oferta_denumire": "COT 90 GRD. INTERIOR - EXTERIOR PPR 25",
+      "oferta_um": "buc",
+      "oferta_cantitate": 5.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -6927,13 +6795,211 @@
     {
       "tip": "ARTICOL_EXTRA",
       "deviz_ref": "",
+      "deviz_denumire": "ARHITECTURA GRADENE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "IZD04D1",
+      "oferta_denumire": "VOPSIRE CU APARAT AER COMPR VOPSEA ULEI PE CONF SICONSTR MET PROFILE 8-12MM 2STRATURI material: manopera: utilaj: transport: Deviz \"003\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "oferta_um": "tona",
+      "oferta_cantitate": 8.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "45000000 UTILITATI-RETELE EXTERIOARE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "W2H04A1",
+      "oferta_denumire": "STRAT NISIP ASEZAT IN SANT PENTRU PROTEJAREA CABLURILOR LA LUCR IN PROF NETIPIZAT material: manopera: utilaj: transport:",
+      "oferta_um": "mc",
+      "oferta_cantitate": 68.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB2",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$2700014",
+      "oferta_denumire": "TUB DE PROTECTIE TIP IPEY / MONOFLEX D = 16 MM Deviz \"009\" - Formular F3 Formular generat cu programuf &Devize (www.eDevize.ro)",
+      "oferta_um": "ml",
+      "oferta_cantitate": 180.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "INSTALATIE VOCE-DATE-OB. 4",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$7701266",
+      "oferta_denumire": "UPS RACKTABIL 1.5 KVA",
+      "oferta_um": "buc",
+      "oferta_cantitate": 1.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "INSTALATIE VOCE-DATE-OB. 4",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$6718506",
+      "oferta_denumire": "BANDA AVERTIZOARE PVC INSCRIPTIONATA PENTRU CABLU TELECOMUNICATII IN SAPATURA 1 MM GROSIME Deviz \"004\" - Formular F3 Formular generat cu programul eDevize (www.eDevize.ro)",
+      "oferta_um": "ml",
+      "oferta_cantitate": 1900.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB4",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "EA02A1",
+      "oferta_denumire": "TUB IZOLANT DE PROTECTIE, ETANS IPE - PVC MONTAT INGROPAT CU D = 16MM material: manopera: utilaj: transport:",
+      "oferta_um": "m",
+      "oferta_cantitate": 200.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "INSTALATII SANITARE OB. 4",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "SA14B#",
+      "oferta_denumire": "TEAVA MAT PL (PP, PE, PP - R) IMBINARE PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND, D = 20 MM material: manopera: utilaj: transport:",
+      "oferta_um": "ml",
+      "oferta_cantitate": 30.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "INSTALATII ELECTRICE curenti tari OB.4",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "EA02A1",
+      "oferta_denumire": "TUB IZOLANT DE PROTECTIE, ETANS IPE - PVC MONTAT INGROPAT CU D = 16MM material: manopera: utilaj: transport:",
+      "oferta_um": "m",
+      "oferta_cantitate": 225.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "CD05C1",
+      "oferta_denumire": "ZIDARIE DIN CARAMIDA TIP GVP LA CONSTR.H < 35M, FORMAT 290X240X138MM, CAL. A material: manopera: utilaj: transport:",
+      "oferta_um": "mc",
+      "oferta_cantitate": 60.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "INSTALATII SANITARE OB. 4",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$3270242",
+      "oferta_denumire": "REDUCTIE PPR 32-25",
+      "oferta_um": "buc",
+      "oferta_cantitate": 1.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "INSTALATII SANITARE OB. 4",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$3271730",
+      "oferta_denumire": "TEAVA PN20 PPR VERDE DN25",
+      "oferta_um": "m",
+      "oferta_cantitate": 40.8
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "ARHITECTURA grupuri sanitare publice",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "CD05C1",
+      "oferta_denumire": "ZIDARIE DIN CARAMIDA TIP GVP LA CONSTR.H < 35M, FORMAT 290X240X138MM, CAL.A material: manopera: utilaj: transport:",
+      "oferta_um": "mc",
+      "oferta_cantitate": 31.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "CD05C1",
+      "oferta_denumire": "ZIDARIE DIN CARAMIDA TIP GVP LA CONSTR.H < 35M, FORMAT 290X240X138MM, CAL. A material: manopera: utilaj: transport:",
+      "oferta_um": "mc",
+      "oferta_cantitate": 120.9
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB2",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "EA02A1",
+      "oferta_denumire": "TUB IZOLANT DE PROTECTIE, ETANS IPE - PVC MONTAT INGROPAT CU D = 16MM material: manopera: utilaj: transport:",
+      "oferta_um": "m",
+      "oferta_cantitate": 180.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
       "deviz_denumire": "INSTALATII SANITARE OB. 4",
       "ref_cod": "",
       "ref_denumire": "",
       "oferta_cod": "$3270394",
       "oferta_denumire": "COT 90 GRD. INTERIOR - EXTERIOR PPR 25",
       "oferta_um": "buc",
-      "oferta_cantitate": 20.0
+      "oferta_cantitate": 25.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "SPATII VERZI",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "TSH01A1",
+      "oferta_denumire": "DEGAJAREA TERENULUI DE CORPURI STRAINE material: manopera: utilaj: transport:",
+      "oferta_um": "mp",
+      "oferta_cantitate": 59.18
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "IMPREJMUIRE TEREN FOTBAL -380 ML",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "TSA12C1",
+      "oferta_denumire": "SAP.MAN. IN GROPI CU LARG.1-1,5M CU SPRIJ.EVAC MAN. IN PAM.CU UMID.NAT. LA ADINC. 0,0- 1,5M, T. TARE material: manopera: utilaj: transport:",
+      "oferta_um": "mc",
+      "oferta_cantitate": 18.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "INSTALATII SANITARE OB. 4",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "SA14B#",
+      "oferta_denumire": "TEAVA MAT PL (PP, PE, PP - R) IMBINARE PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND, D = 20 MM material: manopera: utilaj: transport:",
+      "oferta_um": "ml",
+      "oferta_cantitate": 70.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "INSTALATII ELECTRICE curenti tari OB.4",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$2700014",
+      "oferta_denumire": "TUB DE PROTECTIE TIP IPEY / MONOFLEX D = 16 MM Deviz \"006\" - Formular F3 Formular generat cu programul eDevize (www.eDevize.ro)",
+      "oferta_um": "ml",
+      "oferta_cantitate": 95.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -6955,40 +7021,18 @@
       "oferta_cod": "$3270242",
       "oferta_denumire": "REDUCTIE PPR 32-25",
       "oferta_um": "buc",
-      "oferta_cantitate": 1.0
+      "oferta_cantitate": 15.0
     },
     {
       "tip": "ARTICOL_EXTRA",
       "deviz_ref": "",
-      "deviz_denumire": "ARHITECTURA grupuri sanitare publice",
+      "deviz_denumire": "IMPREJMUIRE TEREN FOTBAL -380 ML",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "CD05C1",
-      "oferta_denumire": "ZIDARIE DIN CARAMIDA TIP GVP LA CONSTR.H < 35M, FORMAT 290X240X138MM, CAL.A material: manopera: utilaj: transport:",
-      "oferta_um": "mc",
-      "oferta_cantitate": 31.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "INSTALATII SANITARE OB. 4",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$3270394",
-      "oferta_denumire": "COT 90 GRD. INTERIOR - EXTERIOR PPR 25",
-      "oferta_um": "buc",
-      "oferta_cantitate": 25.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "INSTALATII SANITARE OB. 4",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "SA14B#",
-      "oferta_denumire": "TEAVA MAT PL (PP, PE, PP - R) IMBINARE PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND, D = 20 MM material: manopera: utilaj: transport:",
-      "oferta_um": "ml",
-      "oferta_cantitate": 70.0
+      "oferta_cod": "$3273618",
+      "oferta_denumire": "PLASA GARD IMPLETITA Deviz \"002\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
+      "oferta_um": "mp",
+      "oferta_cantitate": 2280.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -7010,40 +7054,7 @@
       "oferta_cod": "$3271730",
       "oferta_denumire": "TEAVA PN20 PPR VERDE DN25",
       "oferta_um": "m",
-      "oferta_cantitate": 40.8
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "INSTALATII ELECTRICE curenti tari OB.4",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "EA02A1",
-      "oferta_denumire": "TUB IZOLANT DE PROTECTIE, ETANS IPE - PVC MONTAT INGROPAT CU D = 16MM material: manopera: utilaj: transport:",
-      "oferta_um": "m",
-      "oferta_cantitate": 225.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "INSTALATII ELECTRICE curenti tari OB.4",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$2700014",
-      "oferta_denumire": "TUB DE PROTECTIE TIP IPEY / MONOFLEX D = 16 MM Deviz \"007\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
-      "oferta_um": "ml",
-      "oferta_cantitate": 225.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB5",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "EA02A1",
-      "oferta_denumire": "TUB IZOLANT DE PROTECTIE, ETANS IPE - PVC MONTAT INGROPAT CU D = 16MM material: manopera: utilaj: transport:",
-      "oferta_um": "m",
-      "oferta_cantitate": 100.0
+      "oferta_cantitate": 10.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -7059,17 +7070,6 @@
     {
       "tip": "ARTICOL_EXTRA",
       "deviz_ref": "",
-      "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB2",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$2700014",
-      "oferta_denumire": "TUB DE PROTECTIE TIP IPEY / MONOFLEX D = 16 MM Deviz \"009\" - Formular F3 Formular generat cu programuf &Devize (www.eDevize.ro)",
-      "oferta_um": "ml",
-      "oferta_cantitate": 180.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
       "deviz_denumire": "INSTALATII ELECTRICE curenti tari OB.4",
       "ref_cod": "",
       "ref_denumire": "",
@@ -7081,13 +7081,46 @@
     {
       "tip": "ARTICOL_EXTRA",
       "deviz_ref": "",
-      "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB2",
+      "deviz_denumire": "45000000 UTILITATI-RETELE EXTERIOARE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$3272541",
+      "oferta_denumire": "TUB PROTECTIE CABLU D.110 GOFRAT ALBASTRU DUBLU STRAT 450N L6M Deviz \"003\" - Formular F3",
+      "oferta_um": "m",
+      "oferta_cantitate": 100.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "INSTALATII SANITARE OB. 4",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$3270394",
+      "oferta_denumire": "COT 90 GRD. INTERIOR - EXTERIOR PPR 25",
+      "oferta_um": "buc",
+      "oferta_cantitate": 20.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "INSTALATII ELECTRICE curenti tari OB.4",
       "ref_cod": "",
       "ref_denumire": "",
       "oferta_cod": "EA02A1",
       "oferta_denumire": "TUB IZOLANT DE PROTECTIE, ETANS IPE - PVC MONTAT INGROPAT CU D = 16MM material: manopera: utilaj: transport:",
       "oferta_um": "m",
-      "oferta_cantitate": 180.0
+      "oferta_cantitate": 95.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB5",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "EA02A1",
+      "oferta_denumire": "TUB IZOLANT DE PROTECTIE, ETANS IPE - PVC MONTAT INGROPAT CU D = 16MM material: manopera: utilaj: transport:",
+      "oferta_um": "m",
+      "oferta_cantitate": 100.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -7103,46 +7136,13 @@
     {
       "tip": "ARTICOL_EXTRA",
       "deviz_ref": "",
-      "deviz_denumire": "45000000 UTILITATI-RETELE EXTERIOARE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "W2H04A1",
-      "oferta_denumire": "STRAT NISIP ASEZAT IN SANT PENTRU PROTEJAREA CABLURILOR LA LUCR IN PROF NETIPIZAT material: manopera: utilaj: transport:",
-      "oferta_um": "mc",
-      "oferta_cantitate": 68.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
       "deviz_denumire": "INSTALATII SANITARE OB. 4",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$3270242",
-      "oferta_denumire": "REDUCTIE PPR 32-25",
-      "oferta_um": "buc",
-      "oferta_cantitate": 10.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "ARHITECTURA GRADENE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "IZD04D1",
-      "oferta_denumire": "VOPSIRE CU APARAT AER COMPR VOPSEA ULEI PE CONF SICONSTR MET PROFILE 8-12MM 2STRATURI material: manopera: utilaj: transport: Deviz \"003\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro)",
-      "oferta_um": "tona",
-      "oferta_cantitate": 8.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "ARHITECTURA GRADENE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "CE05E1",
-      "oferta_denumire": "INVELITOARE DIN TABLA CUTATA FIXATA CU SURUBURI FILETATE PINA SUB CAP SI PIULITE material: manopera: utilaj: transport:",
-      "oferta_um": "mp",
-      "oferta_cantitate": 532.0
+      "oferta_cod": "SA14B#",
+      "oferta_denumire": "TEAVA MAT PL (PP, PE, PP - R) IMBINARE PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND, D = 20 MM material: manopera: utilaj: transport:",
+      "oferta_um": "ml",
+      "oferta_cantitate": 70.0
     }
   ],
   "total_neconformitati": 353,
