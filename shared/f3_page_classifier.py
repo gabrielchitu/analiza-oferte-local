@@ -52,8 +52,10 @@ _NON_F3_PATTERNS = [
 # Recapitulatie = pagina de sumar la finalul unui deviz, NU date F3
 _RECAPITULATIE_RE = re.compile(r'\bRecapitulati[ae]?\b', re.IGNORECASE)
 
-# Article code pattern: XX##Y## (e.g. VA02B08, VA03K02, etc.)
-_ARTICLE_CODE_RE = re.compile(r'\b[A-Z]{2}\d{2}[A-Z]\d{2}\b')
+# Article code pattern: matches various normative code formats
+# Examples: VA02B08, CA01J1, ACA10B1, TSC02D11, CD05B1, CE05E1, etc.
+# Matches: 2-5 letters + 1-4 digits + optional letter + 0-2 digits
+_ARTICLE_CODE_RE = re.compile(r'\b[A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}\b')
 
 # NOTĂ: nu defini _DEVIZ_COD_RE — neutilizat, dead code
 
