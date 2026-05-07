@@ -188,7 +188,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CC03C#",
+      "cod": "CC03C",
       "denumire": "Montare plasa sudate la inaltimi mai mici sau egal cu 35m, la placi material: manopera: utilaj: transport: 19.L PLASA SUDATA 6MM 100X100MM 2X5M KG",
       "um": "kg",
       "cantitate": 3630.0,
@@ -596,7 +596,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CC03C#",
+      "cod": "CC03C",
       "denumire": "Montare plasa sudate la inaltimi mai mici sau egal cu 35m, la placi material: manopera: utilaj: transport: 19.L PLASA SUDATA 6MM 100X100MM 2X5M KG",
       "um": "kg",
       "cantitate": 735.0,
@@ -817,7 +817,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "RPCR21A#",
+      "cod": "RPCR21A",
       "denumire": "Vopsitorii interioare cu vopsea lavabila la pereti si tavane cu vopsea lavabila, pe glet de ipsos material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 195.0,
@@ -970,7 +970,7 @@
       "val_transport": 353.38
     },
     {
-      "cod": "CG17B#",
+      "cod": "CG17B",
       "denumire": "Pardos placi gresie ceram patr, dreptungh, hexag, S 60 cmp/buc,incl str material: manopera: utilaj: transport: 17.L CHIT ROSTURI KG 17.L GRESIE PENTRU INTERIOR ANTIDERAPANTA MP. 17.L ADEZIV GRESIE KG",
       "um": "mp",
       "cantitate": 79.0,
@@ -1038,7 +1038,7 @@
       "val_transport": 7.1
     },
     {
-      "cod": "CK25A#",
+      "cod": "CK25A",
       "denumire": "USI PROFILURI MASE PLASTICE, 1 CANAT, SUPR. TOC MAI MIC SAU EGAL 7 MP, INC. ARMATURI SI ACCESORII, MONTATE IN ZID DE ORICE FEL LA C-TII CU H MAI MIC DE 35 M INCLUSIV material: manopera: utilaj: transport: 22.L USA PVC MP.",
       "um": "mp",
       "cantitate": 34.0,
@@ -1055,7 +1055,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK23A#",
+      "cod": "CK23A",
       "denumire": "Ferestre din mase plastice cu unul sau mai multe canaturi, supraf toc mai mare 1.00 mp, la ctii cu H mai mic sau egal mp material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 6.0,
@@ -1072,7 +1072,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK26A#",
+      "cod": "CK26A",
       "denumire": "Glafuri mase plastice, montate la ferestre material: manopera: utilaj: transport: 24.L GLAF INTERIOR DIN PVC ALB CU LATIME DE 20 CM ML.",
       "um": "m",
       "cantitate": 9.0,
@@ -1208,7 +1208,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CE20A#",
+      "cod": "CE20A",
       "denumire": "Sistem de jgheaburi tip brass din tabla protejata anticorosiv material: manopera: utilaj: transport: 32.L @JGHEAB TABLA VOPSITA ELECTROSTATI DE 15 CM M",
       "um": "m",
       "cantitate": 19.0,
@@ -1225,7 +1225,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CE22A#",
+      "cod": "CE22A",
       "denumire": "Sisteme de burlane tip brass din tabla (protejata anticorosiv) material: manopera: utilaj: transport: 33.L @BURLAN DIN TABLA VOPSITA ELECTROSTATIC DE DN=15 CM M",
       "um": "m",
       "cantitate": 7.0,
@@ -1344,7 +1344,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14D#",
+      "cod": "SA14D",
       "denumire": "TEAVA MAT PL (PP, PE, PP-R) IMBINATA PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND, D=32 MM material: manopera: utilaj: transport: 7.L TEAVA PN20 PPR VERDE DN32 M 7.L COT 90 GRD. INTERIOR-EXTERIOR PPR 32 BUC. 7.L TEU EGAL PPR 32 BUC. 7.L REDUCTIE PPR 40-32 BUC.",
       "um": "m",
       "cantitate": 30.0,
@@ -1395,7 +1395,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08B#",
+      "cod": "SB08B",
       "denumire": "TEAVA PE, PP, PP-R PT CANAL, IMBIN CU GARN CAUCIUC, MONT APAR SAU INGROP CUB PARD, DN =40MM material: manopera: utilaj: transport: 10.L TEAVA PN20 PPR VERDE DN40 M",
       "um": "m",
       "cantitate": 20.0,
@@ -1412,7 +1412,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14E#",
+      "cod": "SA14E",
       "denumire": "TEAVA MAT PL (PP. PE, PP-R) IMBINATA PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND,D= 40MM material: manopera: utilaj: transport: 11.L TEAVA PEHD APA, PE80, D40 MM,",
       "um": "m",
       "cantitate": 5.0,
@@ -1446,7 +1446,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07B#",
+      "cod": "SD07B",
       "denumire": "ROBINET DE TRECERE CU VENTIL SI MUFE, CU SAU FARA DESCARCARE, PENTRU TEVI OTEL, D=3 /4 ' material: manopera: utilaj: transport: 13.L ROBINET SFERA APA 3/4\" GIACOMINI DN 20 R 250 BUC",
       "um": "buc",
       "cantitate": 8.0,
@@ -1463,7 +1463,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07C#",
+      "cod": "SD07C",
       "denumire": "ROBINET DE TRECERE CU VENTIL SI MUFE, CU SAU FARA DESCARCARE, PENTRU TEVI OTEL, D= 1' material: manopera: utilaj: transport: 14.L ROBINET SFERA APA 1\" 250 BUC.",
       "um": "buc",
       "cantitate": 3.0,
@@ -1480,7 +1480,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07D#",
+      "cod": "SD07D",
       "denumire": "ROBINET DE TRECERE CU VENTIL SI MUFE, CU SAU FARA DESCARCARE, PENTRU TEVI OTEL,D= 11/4' material: manopera: utilaj: transport: 15.L ROBINET SFERA APA 1\"1/4 R 250 BUC.",
       "um": "buc",
       "cantitate": 4.0,
@@ -1531,7 +1531,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF01C#",
+      "cod": "SF01C",
       "denumire": "EFECT PROBA ETANS PRES INSTAL APA CALDA, RECE, DIN TEAVA PVC (G) SAU PE. PP. PP-R D= 16-110 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 200.0,
@@ -1548,7 +1548,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF05C#",
+      "cod": "SF05C",
       "denumire": "SPALARE INSTAL APARECE SAU CALDA, EXECUTATA DIN TEVI PVC (G) , PE, PP, PP-R,D= 20-75 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 200.0,
@@ -1565,7 +1565,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08A#",
+      "cod": "SB08A",
       "denumire": "TEAVA PE, PP, PP-R PT CANAL, IMBIN CU GARN CAUCIUC MONT APAR SAU INGROP SUB PARD, DN =32 MM material: manopera: utilaj: transport: 20.L TEAVA PP 32, LUNGIME 1 M M",
       "um": "m",
       "cantitate": 10.0,
@@ -1582,7 +1582,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB09A#",
+      "cod": "SB09A",
       "denumire": "PIESE LEG(COT, RED, PIESA CURAT MUFA DUBLA, COMP DILAT) PE, PP, PP-R CANAL IMB GRN CAUC DN32 MM material: manopera: utilaj: transport: 22.L COT 90 32MM, PP-R 80, PRESIUNE: PN 25, VERDE BUC.",
       "um": "buc",
       "cantitate": 10.0,
@@ -1599,7 +1599,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08C#",
+      "cod": "SB08C",
       "denumire": "TEAVA PE, PP, PP-R PT CANAL, IMBIN CU GARN CAUCIUC, MONT APAR SAU INGROP SUB PARD,DN =50 MM material: manopera: utilaj: transport: 23.L TUB 2 MUFE POLIPROPILENA IGNIF, DIAM 50 MM SI L=1000 MM BUC.",
       "um": "m",
       "cantitate": 5.0,
@@ -1616,7 +1616,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08D#",
+      "cod": "SB08D",
       "denumire": "TEAVA PE, PP, PP-R PT CANAL, IMBIN CU GARN CAUCIUC, MONT APAR SAU INGROP SUB PARD, DN =75 MM material: manopera: utilaj: transport: 24.L TEAVA PP CU MUFA D=75 L=1000 M",
       "um": "m",
       "cantitate": 10.0,
@@ -1633,7 +1633,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08E#",
+      "cod": "SB08E",
       "denumire": "TEAVA PE, PP, PP-R PT CANAL, IMBIN CU GARN CAUCIUC, MONT APAR SAU INGROP SUB PARD, DN =110 MM material: manopera: utilaj: transport: 26.L TEAVA DE CANALIZARE KGEM SN4 DIN PVC D= 110X3.2 1 M M",
       "um": "m",
       "cantitate": 35.0,
@@ -1650,7 +1650,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB09E#",
+      "cod": "SB09E",
       "denumire": "PIESE LEG (COT, RED, PIESA CURAT MUFA DUBLA, COMP DILAT) PE, PP, PP-R CANAL IMB GRN CAUC DN=110MM material: manopera: utilaj: transport: 27.L TUB CU MUFA SI GURA DE CURATIRE FONTA D= 100 MM S 1515/5 BUC.",
       "um": "buc",
       "cantitate": 3.0,
@@ -1684,7 +1684,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB28A#",
+      "cod": "SB28A",
       "denumire": "SIFON DE PARDOSEALA DIN POLIPROPILENA, AVAND DIAMETRUL IESIRII DE 50 MM material: manopera: utilaj: transport: 29.L SIFON DE PARDOSEALA DN110 CU IESIRE VERTICALA CU OBTURATOR DE MIROSURI PRIMUS, 123X123MM/115X115MM BUC.",
       "um": "buc",
       "cantitate": 4.0,
@@ -1701,7 +1701,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB27A#",
+      "cod": "SB27A",
       "denumire": "CACIULA VENTIL, TABLA, MONT PE COLOANE AERIS DIN TUBURI FONTA SAU GRESIE CERAM ANTIAC, D=50-150 MM material: manopera: utilaj: transport: 31.L CACIULA VENTILATIE KADH 75MM BUC.",
       "um": "buc",
       "cantitate": 3.0,
@@ -1735,7 +1735,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF02C#",
+      "cod": "SF02C",
       "denumire": "EFECTUARE PROBA FUNCT INSTAL APARECE, DIN TEAVA PVC (G) SAU PE.PP. PP-R D=16-110 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 70.0,
@@ -1769,7 +1769,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF04A#",
+      "cod": "SF04A",
       "denumire": "EF PRB ETANS, FUNCT, INST CANAL DIN TUB FONTA SC, TEVI PVC (U) , PE, PP, PP-R FONTA DUCT.D=100MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 105.0,
@@ -1939,7 +1939,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC04A#",
+      "cod": "SC04A",
       "denumire": "LAVOAR SEMIPOT, PORTEL SAN, INCL PT HAND, TEVI SC PVC, PE CONS FIX PE PERETE ZID CARAM, BCA. material: manopera: utilaj: transport: L LAVOAR PERSOANE CU DISABILITATI BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -1973,7 +1973,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD04A#",
+      "cod": "SD04A",
       "denumire": "BATERIE AMESTEC BRAT BASCUL, STATIVA, PT LAVOAR SAU SPALATOR, INDIF INCHIDERE, INCL PT HAND, D=1/2' material: manopera: utilaj: transport: L BATERIE LAVOAR PERSOANE CU DISABILITATI B?C.",
       "um": "buc",
       "cantitate": 1.0,
@@ -2007,7 +2007,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC12A#",
+      "cod": "SC12A",
       "denumire": "ETAJERA, PORTELAN SANITAR MONTATA PE PERETE DIN ZIDARIE CARAMIDA SAU BCA material: manopera: utilaj: transport: L ETAJERE PORTELAN TIP E2.30 ALB C.1 NI 716 BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -2024,7 +2024,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC13A#",
+      "cod": "SC13A",
       "denumire": "OGLINDA SANIT SEMICRIST, CU MARG SLEF,DE 400×500MM, 500X600 MM, ETC PE PER CARAM SI BCA material: manopera: utilaj: transport: L OGLINDA BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -2041,7 +2041,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC11A#",
+      "cod": "SC11A",
       "denumire": "PORTPROSOP ALAMA NICHEL, BACHEL, ETC, MONT PE PER DIN ZID CARAM SAU BCA, UN PUNCT SPRIJIN material: manopera: utilaj: transport: L DISPENSER INOX SERVETELE HARTIE BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -2058,7 +2058,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC14A#",
+      "cod": "SC14A",
       "denumire": "PORTPAHAR, SAPUNIERA FONTA EM, PORTELAN SANIT, ETC, MONT PE PERETE DE CARAM SAU BCA material: manopera: utilaj: transport: .L SUPORT SAPUN INOX SI CERAMIC ALBA/STICLA MATA BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -2160,7 +2160,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC07A#",
+      "cod": "SC07A",
       "denumire": "VAS CLOS, ECHIP, SEMIPORT, PORT SAN INCL PT HAND, ASEZ PE PARD, REZ APA LA INALT, SEMIINALT, SIF S material: manopera: utilaj: transport: L VAS WC CU CAPAC SI REZERVOR CU BUTON ACTIONARE DUALA PENTRU PERSOANE DIZABILITATI BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -2177,7 +2177,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD05A#",
+      "cod": "SD05A",
       "denumire": "ROBINET REGLAJ ,DREPT SAU COLTAR, MONT INAINTEA ARMATURILOR DE LA OBIECTE SANIT, D=3/8'-1/2' material: manopera: utilaj: transport: L robinet inox 1/2 BUC. L RACORD FLEXIBIL 1/2\" FE-FI 40 CM BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -2296,7 +2296,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "EE09B#",
+      "cod": "EE09B",
       "denumire": "CORP DE ILUMINAT SPECIAL DIFUZANT, PENTRU LAMPI CU VAPORI DE MERCUR, COMPLECT, CU BALAST, MONTAT PE BOLTURI IMPLANTATE material: manopera: utilaj: transport: 8.L CORP DE ILUMINAT , PLAFONIERA SURSA LED, 20W, IP20,APARENT BUC. 8.L CORP ILUMINAT TIP PLAFONIERA ,LED, 20W,CU SE NZOR DE PREZENTA INCORPORAT, APARENT, IP65 BUC. 8.L CORP DE ILUMINAT LED, LINIAR 1200x90, 35W, IP65 BUC.",
       "um": "buc",
       "cantitate": 23.0,
@@ -2330,7 +2330,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "ED03B#",
+      "cod": "ED03B",
       "denumire": "APARAT DE COMUTARE (INTRERUPATOR, COMUTATOR, PRIZA) DE LA 32A LA 63A CU DIBLURI CU EXPANDARE material: manopera: utilaj: transport: 10.L INTRERUPATOR APLICAT ( IP54 ), COD: 414001 T&G BUC. 10.L INTRERUPATOR CAP SCARA IP55 BUC. 10.L PRIZA BIPOLARA SIMPLA CU CONTACT DE PROTECTIE 16A/230V, MONTAJ IN DOZA SI RAMA COMUNA, DIMENSIUNE 2 MODULE, IP20, CU INDICAREA CIRCUITULUI BUC.",
       "um": "buc",
       "cantitate": 44.0,
@@ -2568,7 +2568,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CC03C#",
+      "cod": "CC03C",
       "denumire": "Montare plasa sudate la inaltimi mai mici sau egal cu 35m, la placi material: manopera: utilaj: transport: 21.L PLASA SUDATA 5MM 2X5M (10X10) KG",
       "um": "kg",
       "cantitate": 3040.0,
@@ -2806,7 +2806,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CG08A#",
+      "cod": "CG08A",
       "denumire": "Pardoseli cu covor PVC lipit cu prenadez pe suport existent, curatate, inclusiv pervazurile PVC, Smai mare 16 mp material: manopera: utilaj: transport: 12.L GAZON NATURAL PRIN INSAMANTARE MP.",
       "um": "mp",
       "cantitate": 8404.0,
@@ -3214,7 +3214,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CC03C#",
+      "cod": "CC03C",
       "denumire": "Montare plasa sudate la inaltimi mai mici sau egal cu 35m, la placi material: manopera: utilaj: transport: 20.L PLASA SUDATA 6MM 100X100MM 2X5M KG",
       "um": "kg",
       "cantitate": 735.0,
@@ -3554,7 +3554,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "RPCR21A#",
+      "cod": "RPCR21A",
       "denumire": "Vopsitorii interioare cu vopsea lavabila la pereti si tavane cu vopsea lavabila, pe glet de ipsos material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 591.0,
@@ -3690,7 +3690,7 @@
       "val_transport": 737.85
     },
     {
-      "cod": "CG17B#",
+      "cod": "CG17B",
       "denumire": "Pardos placi gresie ceram patr, dreptungh, hexag, S 60 cmp/buc, incl str material: manopera: utilaj: transport: 17.L CHIT ROSTURI KG 17.L GRESIE PENTRU INTERIOR ANTIDERAPANTA MP. 17.L ADEZIV GRESIE KG",
       "um": "mp",
       "cantitate": 166.0,
@@ -3758,7 +3758,7 @@
       "val_transport": 10.65
     },
     {
-      "cod": "CG01E#",
+      "cod": "CG01E",
       "denumire": "Strat suport pardoseli din ipsos de 3 cm grosime ( sapa autonivelanta ) material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 75.0,
@@ -3792,7 +3792,7 @@
       "val_transport": 53.01
     },
     {
-      "cod": "RPCK14B#",
+      "cod": "RPCK14B",
       "denumire": "Plinte profil PVC , la pereti gata tencuiti, lipire cu Prenadez, imcl. reparare strat suport, S>16 mp material: manopera: utilaj: transport: 24.L plinte flexibila pentru covor PVC ML. 24.L adeziv neoprenic- pintru lipire plinte KG",
       "um": "m",
       "cantitate": 50.0,
@@ -3809,7 +3809,7 @@
       "val_transport": 5.27
     },
     {
-      "cod": "CK25A#",
+      "cod": "CK25A",
       "denumire": "USI PROFILURI MASE PLASTICE, 1 CANAT, SUPR. TOC MAI MIC SAU EGAL 7 MP, INC. ARMATURI SI ACCESORII, MONTATE IN ZID DE ORICE FEL LA C-TII CU H MAI MIC DE 35 M INCLUSIV material: manopera: utilaj: transport: 25.L USA PVC MP.",
       "um": "mp",
       "cantitate": 47.0,
@@ -3843,7 +3843,7 @@
       "val_transport": 1.6
     },
     {
-      "cod": "CK23A#",
+      "cod": "CK23A",
       "denumire": "Ferestre din mase plastice cu unul sau mai multe canaturi, supraf toc mai mare 1.00 mp, la ctii cu H mai mic sau egal mp material: manopera: utilaj: transport: 27.L FERESTRE DIN PROFILE PVC CU GEAM TERMOIZOLANT MP.",
       "um": "m",
       "cantitate": 26.0,
@@ -3860,7 +3860,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK26A#",
+      "cod": "CK26A",
       "denumire": "Glafuri mase plastice, montate la ferestre material: manopera: utilaj: transport: 28.L GLAF INTERIOR DIN PVC ALB CU LATIME DE 20 CM ML.",
       "um": "m",
       "cantitate": 21.0,
@@ -3996,7 +3996,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CE20A#",
+      "cod": "CE20A",
       "denumire": "Sistem de jgheaburi tip brass din tabla protejata anticorosiv material: manopera: utilaj: transport: 36.L @JGHEAB TABLA VOPSITA ELECTROSTATI DE 15 CM M",
       "um": "m",
       "cantitate": 14.0,
@@ -4013,7 +4013,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CE22A#",
+      "cod": "CE22A",
       "denumire": "Sisteme de burlane tip brass din tabla (protejata anticorosiv) material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 14.0,
@@ -4064,7 +4064,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14D#",
+      "cod": "SA14D",
       "denumire": "TEAVA MAT PL (PP, PE, PP-R) IMBINATA PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND, D=32 MM material: manopera: utilaj: transport: 8.L TEAVA PN20 PPR VERDE DN32 M 8.L COT 90 GRD. INTERIOR-EXTERIOR PPR 32 BUC. 8.L TEU EGAL PPR 32 BUC. 8.L REDUCTIE PPR 40-32 BUC.",
       "um": "m",
       "cantitate": 35.0,
@@ -4098,7 +4098,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08B#",
+      "cod": "SB08B",
       "denumire": "TEAVA PE, PP, PP-R PT CANAL, IMBIN CU GARN CAUCIUC, MONT APAR SAU INGROP CUB PARD,DN =40MM material: manopera: utilaj: transport: 11.L TEAVA PN20 PPR VERDE DN40 M",
       "um": "m",
       "cantitate": 20.0,
@@ -4115,7 +4115,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA17D#",
+      "cod": "SA17D",
       "denumire": "TEAVA PP, PE, PP-R IMBIN SUD PRIN POLIFUZ, IN COND DISTRIB LA CLAD LOC SI SOC-CULT, D=50 MM material: manopera: utilaj: transport: 12.L TEAVA PN20 PPR VERDE DN50 M 12.L REDUCTIE PPR 50-40 B?C.",
       "um": "m",
       "cantitate": 10.0,
@@ -4149,7 +4149,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07B#",
+      "cod": "SD07B",
       "denumire": "ROBINET DE TRECERE CU VENTIL SI MUFE, CU SAU FARA DESCARCARE, PENTRU TEVI OTEL, D=3 /4' material: manopera: utilaj: transport: 15.L ROBINET SFERA APA 3/4\" GIACOMINI DN 20 R 250 BUC.",
       "um": "buc",
       "cantitate": 9.0,
@@ -4166,7 +4166,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07C#",
+      "cod": "SD07C",
       "denumire": "ROBINET DE TRECERE CU VENTIL SI MUFE, CU SAU FARA DESCARCARE, PENTRU TEVI OTEL, D= 1' material: manopera: utilaj: transport: 16.L ROBINET SFERA APA 1\" GIACOMINI DN 25 R 250 BUC.",
       "um": "buc",
       "cantitate": 3.0,
@@ -4183,7 +4183,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07D#",
+      "cod": "SD07D",
       "denumire": "ROBINET DE TRECERE CU VENTIL SI MUFE, CU SAU FARA DESCARCARE, PENTRU TEVI OTEL, D= 11/4' material: manopera: utilaj: transport: 17.L ROBINET SFERA APA 1\"1/4 GIACOMINI DN 32 R 250 BUC.",
       "um": "buc",
       "cantitate": 3.0,
@@ -4200,7 +4200,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07E#",
+      "cod": "SD07E",
       "denumire": "ROBINET DE TRECERE CU VENTIL SI MUFE, CU SAU FARA DESCARCATOARE, PENTRU TEVI OTEL, D=11/2' material: manopera: utilaj: transport: 18.L ROBINET SFERA APA 1\"1/2 GIACOMINI DN 40 R 250 BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -4251,7 +4251,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF01C#",
+      "cod": "SF01C",
       "denumire": "EFECT PROBA ETANS PRES INSTAL APA CALDA, RECE, DIN TEAVA PVC (G) SAU PE. PP. PP-R D= 16-110 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 180.0,
@@ -4268,7 +4268,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF05C#",
+      "cod": "SF05C",
       "denumire": "SPALARE INSTAL APA RECE SAU CALDA, EXECUTATA DIN TEVI PVC (G) , PE, PP, PP-R,D= 20-75 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 180.0,
@@ -4285,7 +4285,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08A#",
+      "cod": "SB08A",
       "denumire": "TEAVA PE, PP, PP-R PT CANAL, IMBIN CU GARN CAUCIUC MONT APAR SAU INGROP SUB PARD, DN =32 MM material: manopera: utilaj: transport: 23.L TEAVA PP 32, LUNGIME 1 M M",
       "um": "m",
       "cantitate": 10.0,
@@ -4302,7 +4302,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08C#",
+      "cod": "SB08C",
       "denumire": "TEAVA PE, PP, PP-R PT CANAL, IMBIN CU GARN CAUCIUC, MONT APAR SAU INGROP SUB PARD,DN =50 MM material: manopera: utilaj: transport: 25.L TUB 2 MUFE POLIPROPILENA IGNIF, DIAM 50 MM SI L=1000 MM BUC.",
       "um": "m",
       "cantitate": 5.0,
@@ -4319,7 +4319,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08D#",
+      "cod": "SB08D",
       "denumire": "TEAVA PE, PP, PP-R PT CANAL, IMBIN CU GARN CAUCIUC, MONT APAR SAU INGROP SUB PARD, DN =75 MM material: manopera: utilaj: transport: 26.L TEAVA PP CU MUFA D=75 L=1000 M",
       "um": "m",
       "cantitate": 15.0,
@@ -4336,7 +4336,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08E#",
+      "cod": "SB08E",
       "denumire": "TEAVA PE, PP, PP-R PT CANAL, IMBIN CU GARN CAUCIUC, MONT APAR SAU INGROP SUB PARD, DN =110 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 45.0,
@@ -4353,7 +4353,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB09E#",
+      "cod": "SB09E",
       "denumire": "PIESE LEG (COT, RED, PIESA CURAT MUFA DUBLA, COMP DILAT) PE, PP, PP-R CANAL IMB GRN CAUC DN=110MM material: manopera: utilaj: transport: 29.L TUB CU MUFA SI GURA DE CURATIRE FONTA D= 100 MM S 1515/5 BUC.",
       "um": "buc",
       "cantitate": 5.0,
@@ -4387,7 +4387,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB27A#",
+      "cod": "SB27A",
       "denumire": "CACIULA VENTIL, TABLA, MONT PE COLOANE AERIS DIN TUBURI FONTA SAU GRESIE CERAM ANTIAC, D=50-150 MM material: manopera: utilaj: transport: 31.L CACIULA VENTILATIE KADH 75MM BUC.",
       "um": "buc",
       "cantitate": 2.0,
@@ -4727,7 +4727,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD02A#",
+      "cod": "SD02A",
       "denumire": "BATERIE BAIE PERETI CARAM SAU material: manopera: utilaj: transport: 40.L SISTEM DE DUS, INCLUDE BATERIE DUS, COLOANA DUS SI MATERIALE DE MONTAJ BUC",
       "um": "buc",
       "cantitate": 14.0,
@@ -4778,7 +4778,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "EE09B#",
+      "cod": "EE09B",
       "denumire": "CORP DE ILUMINAT SPECIAL DIFUZANT, PENTRU LAMPI CU VAPORI DE MERCUR, COMPLECT, CU BALAST, MONTAT PE BOLTURI IMPLANTATE material: manopera: utilaj: transport: 8.L CORP DE ILUMINAT ,PLAFONIERA SURSA LED, 20W, IP20,APARENT BUC. 8.L CORP ILUMINAT TIP PLAFONIERA ,LED, 20W,CU SE NZOR DE PREZENTA INCORPORAT, APARENT, IP65 BUC. 8.L CORP DE ILUMINAT LED, LINIAR 1200x90, 35W, IP65 BUC. 8.L CORP DE ILUMINAT LINIAR LED , 1200X90, 36W, IP65,CU KIT EMERGENTA MINIM O ORA BUC.",
       "um": "buc",
       "cantitate": 54.0,
@@ -4812,7 +4812,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "ED03B#",
+      "cod": "ED03B",
       "denumire": "APARAT DE COMUTARE (INTRERUPATOR, COMUTATOR, PRIZA) DE LA 32A LA 63A CU DIBLURI CU EXPANDARE material: manopera: utilaj: transport: 10.L INTRERUPATOR APLICAT ( IP54 ) , COD: 414001 T&G BUC. 10.L INTRERUPATOR CAP SCARA IP55 BUC. 10.L PRIZA BIPOLARA SIMPLA CU CONTACT DE PROTECTIE 16A/230V, MONTAJ IN DOZA SI RAMA COMUNA, DIMENSIUNE 2 MODULE, IP20,CU INDICAREA CIRCUITULUI BUC.",
       "um": "buc",
       "cantitate": 102.0,
@@ -5033,7 +5033,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CC03C#",
+      "cod": "CC03C",
       "denumire": "Montare plasa sudate la inaltimi mai mici sau egal cu 35m, la placi material: manopera: utilaj: transport: 19.L PLASA SUDATA 6MM 100X100MM 2X5M KG",
       "um": "kg",
       "cantitate": 315.0,
@@ -5407,7 +5407,7 @@
       "val_transport": 3.39
     },
     {
-      "cod": "RPCR21A#",
+      "cod": "RPCR21A",
       "denumire": "Vopsitorii interioare cu vopsea lavabila la pereti si tavane cu vopsea lavabila, pe glet de ipsos material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 24.0,
@@ -5441,7 +5441,7 @@
       "val_transport": 138.52
     },
     {
-      "cod": "CG17B#",
+      "cod": "CG17B",
       "denumire": "Pardos placi gresie ceram patr, dreptungh, hexag,S 60 cmp/buc,incl str material: manopera: utilaj: transport: 14.L CHIT ROSTURI KG 14.L GRESIE PENTRU INTERIOR ANTIDERAPANTA MP. 14.L ADEZIV GRESIE KG",
       "um": "mp",
       "cantitate": 24.0,
@@ -5509,7 +5509,7 @@
       "val_transport": 2.66
     },
     {
-      "cod": "CK25A#",
+      "cod": "CK25A",
       "denumire": "USI PROFILURI MASE PLASTICE, 1 CANAT, SUPR. TOC MAI MIC SAU EGAL 7 MP, INC. ARMATURI SI ACCESORII, MONTATE IN ZID DE ORICE FEL LA C-TII CU H MAI MIC DE 35 M INCLUSIV material: manopera: utilaj: transport: 19.L USA PVC MP.",
       "um": "mp",
       "cantitate": 15.0,
@@ -5526,7 +5526,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK23A#",
+      "cod": "CK23A",
       "denumire": "Ferestre din mase plastice cu unul sau mai multe canaturi, supraf toc mai mare 1.00 mp, la ctii cu H mai mic sau egal mp material: manopera: utilaj: transport: 20.L FERESTRE DIN PROFILE PVC CU GEAM TERMOIZOLANT MP.",
       "um": "m",
       "cantitate": 5.0,
@@ -5543,7 +5543,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK26A#",
+      "cod": "CK26A",
       "denumire": "Glafuri mase plastice, montate la ferestre material: manopera: utilaj: transport: 21.L GLAF INTERIOR DIN PVC ALB CU LATIME DE 20 CM ML.",
       "um": "m",
       "cantitate": 9.0,
@@ -5679,7 +5679,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CE20A#",
+      "cod": "CE20A",
       "denumire": "Sistem de jgheaburi tip brass din tabla protejata anticorosiv material: manopera: utilaj: transport: 29.L @JGHEAB TABLA VOPSITA ELECTROSTATI DE 15 CM M",
       "um": "m",
       "cantitate": 7.0,
@@ -5696,7 +5696,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CE22A#",
+      "cod": "CE22A",
       "denumire": "Sisteme de burlane tip brass din tabla (protejata anticorosiv) material: manopera: utilaj: transport: 30.L @BURLAN DIN TABLA VOPSITA ELECTROSTATIC DE DN=15 CM M",
       "um": "m",
       "cantitate": 6.0,
@@ -5747,7 +5747,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14D#",
+      "cod": "SA14D",
       "denumire": "TEAVA MAT PL (PP, PE, PP-R) IMBINATA PRIN SUDURA PRIN POLIFUZIUNE, LA CTII IND, D=32 MM TEAVA PN20 PPR VERDE DN32 material: manopera: utilaj: transport: 8.L M 8.L COT 90 GRD. INTERIOR-EXTERIOR PPR 32 BUC. 8.L TEU EGAL PPR 32 BUC. 8.L REDUCTIE PPR 40-32 BUC.",
       "um": "m",
       "cantitate": 5.0,
@@ -5781,7 +5781,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07B#",
+      "cod": "SD07B",
       "denumire": "ROBINET DE TRECERE CU VENTIL SI MUFE, CU SAU FARA DESCARCARE, PENTRU TEVI OTEL, D=3 /4\"1 material: manopera: utilaj: transport: 12.L ROBINET SFERA APA 1/2\" 250 BUC.",
       "um": "buc",
       "cantitate": 4.0,
@@ -5798,7 +5798,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07C#",
+      "cod": "SD07C",
       "denumire": "ROBINET DE TRECERE CU VENTIL SI MUFE, CU SAU FARA DESCARCARE, PENTRU TEVI OTEL, D= material: manopera: utilaj: transport: 14.L ROBINET SFERA APA 1\" 250 BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -5849,7 +5849,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF01C#",
+      "cod": "SF01C",
       "denumire": "EFECT PROBA ETANS PRES INSTAL APA CALDA, RECE, DIN TEAVA PVC (G) SAU PE. PP. PP-R D= 16-110 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 50.0,
@@ -5866,7 +5866,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF05C#",
+      "cod": "SF05C",
       "denumire": "SPALARE INSTAL APARECE SAU CALDA, EXECUTATA DIN TEVI PVC (G) , PE, PP, PP-R, D= 20-75 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 50.0,
@@ -5883,7 +5883,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08A#",
+      "cod": "SB08A",
       "denumire": "TEAVA PE, PP, PP-R PT CANAL, IMBIN CU GARN CAUCIUC MONT APAR SAU INGROP SUB PARD,DN =32 MM material: manopera: utilaj: transport: 19.L TEAVA PP 32, LUNGIME 1 M M",
       "um": "m",
       "cantitate": 5.0,
@@ -5900,7 +5900,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08B#",
+      "cod": "SB08B",
       "denumire": "TEAVA PE, PP, PP-R PT CANAL, IMBIN CU GARN CAUCIUC, MONT APAR SAU INGROP CUB PARD, DN =40MM material: manopera: utilaj: transport: 20.L TEAVA PP CU MUFA D=40 L=1000 M",
       "um": "m",
       "cantitate": 5.0,
@@ -5917,7 +5917,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB09A#",
+      "cod": "SB09A",
       "denumire": "PIESE LEG (COT, RED, PIESA CURAT MUFA DUBLA, COMP DILAT) PE, PP, PP-R CANAL IMB GRN CAUC",
       "um": "",
       "cantitate": 0.0,
@@ -5951,7 +5951,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB09B#",
+      "cod": "SB09B",
       "denumire": "PIESE LEG (COT, RED, PIESA CURAT MUFA DUBLA, COMP DILAT) PE, PP, PP-R CANAL IMB GRN CAUC DN=40 MM material: manopera: utilaj: transport: 22.L COT PP 40X45 B?C.",
       "um": "buc",
       "cantitate": 10.0,
@@ -5968,7 +5968,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08C#",
+      "cod": "SB08C",
       "denumire": "TEAVA PE, PP, PP-R PT CANAL, IMBIN CU GARN CAUCIUC, MONT APAR SAU INGROP SUB PARD, DN =50 MM material: manopera: utilaj: transport: 23.L TUB 2 MUFE POLIPROPILENA IGNIF, DIAM 50 MM SI L=1000 MM BUC.",
       "um": "m",
       "cantitate": 5.0,
@@ -5985,7 +5985,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB09C#",
+      "cod": "SB09C",
       "denumire": "PIESE LEG (COT, RED, PIESA CURAT MUFA DUBLA, COMP DILAT) PE, PP, PP-R CANAL IMB GRN CAUC DN=50MM material: manopera: utilaj: transport: 24.L COT PP 50X45 BUC.",
       "um": "buc",
       "cantitate": 2.0,
@@ -6002,7 +6002,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08D#",
+      "cod": "SB08D",
       "denumire": "TEAVA PE, PP, PP-R PT CANAL, IMBIN CU GARN CAUCIUC, MONT APAR SAU INGROP SUB PARD, DN =75 MM material: manopera: utilaj: transport: 25.L TEAVA PP CU MUFA D=75 L=1000 M",
       "um": "m",
       "cantitate": 6.0,
@@ -6019,7 +6019,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08E#",
+      "cod": "SB08E",
       "denumire": "TEAVA PE, PP, PP-R PT CANAL, IMBIN CU GARN CAUCIUC, MONT APAR SAU INGROP SUB PARD,DN =110 MM material: manopera: utilaj: transport: 27.L TEAVA DE CANALIZARE KGEM SN4 DIN PVC D= 110x3.2 1 M M",
       "um": "m",
       "cantitate": 20.0,
@@ -6036,7 +6036,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB09E#",
+      "cod": "SB09E",
       "denumire": "PIESE LEG (COT, RED, PIESA CURAT MUFA DUBLA, COMP DILAT) PE, PP, PP-R CANAL IMB GRN CAUC DN=110MM material: manopera: utilaj: transport: 36.L COT 110,45 GRADE PP BUC.",
       "um": "buc",
       "cantitate": 4.0,
@@ -6070,7 +6070,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB28A#",
+      "cod": "SB28A",
       "denumire": "SIFON DE PARDOSEALA DIN POLIPROPILENA, AVAND DIAMETRUL IESIRII DE 50 MM material: manopera: utilaj: transport: 30.L SIFON PARDOSEALA CU INTRARE LATERALE SI IESIRE VERTICALA D=110 MM, BUC.",
       "um": "buc",
       "cantitate": 2.0,
@@ -6087,7 +6087,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB27A#",
+      "cod": "SB27A",
       "denumire": "CACIULA VENTIL, TABLA, MONT PE COLOANE AERIS DIN TUBURI FONTA SAU GRESIE CERAM ANTIAC, D=50-150 MM material: manopera: utilaj: transport: 32.L CACIULA VENTILATIE KADH 75MM BUC.",
       "um": "buc",
       "cantitate": 3.0,
@@ -6274,7 +6274,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC04A#",
+      "cod": "SC04A",
       "denumire": "LAVOAR SEMIPOT, PORTEL SAN, INCL PT HAND, TEVI SC PVC, PE CONS FIX PE PERETE ZID CARAM, BCA. material: manopera: utilaj: transport: L LAVOAR PERSOANE CU DISABILITATI BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -6308,7 +6308,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD04A#",
+      "cod": "SD04A",
       "denumire": "BATERIE AMESTEC BRAT BASCUL, STATIVA, PT LAVOAR SAU SPALATOR, INDIF INCHIDERE, INCL PT HAND, D=1/2' material: manopera: utilaj: transport: L BATERIE LAVOAR PERSOANE CU DISABILITATI BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -6342,7 +6342,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC12A#",
+      "cod": "SC12A",
       "denumire": "ETAJERA, PORTELAN SANITAR MONTATA PE PERETE DIN ZIDARIE CARAMIDA SAU BCA material: manopera: utilaj: transport: L ETAJERE PORTELAN TIP E2.30 ALB C.1 NI 716 B?C.",
       "um": "buc",
       "cantitate": 1.0,
@@ -6359,7 +6359,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC13A#",
+      "cod": "SC13A",
       "denumire": "OGLINDA SANIT SEMICRIST, CU MARG SLEF,DE 400X500MM, 500X600 MM, ETC PE PER CARAM SI BCA material: manopera: utilaj: transport: L OGLINDA BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -6376,7 +6376,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC11A#",
+      "cod": "SC11A",
       "denumire": "PORTPROSOP ALAMA NICHEL, BACHEL, ETC, MONT PE PER DIN ZID CARAM SAU BCA, UN PUNCT SPRIJIN material: manopera: utilaj: transport: L DISPENSER INOX SERVETELE HARTIE BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -6393,7 +6393,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC14A#",
+      "cod": "SC14A",
       "denumire": "PORTPAHAR, SAPUNIERA FONTA EM, PORTELAN SANIT, ETC, MONT PE PERETE DE CARAM SAU BCA material: manopera: utilaj: transport: .L SUPORT SAPUN INOX SI CERAMIC ALBA/STICLA MATA BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -6495,7 +6495,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC07A#",
+      "cod": "SC07A",
       "denumire": "VAS CLOS, ECHIP, SEMIPORT, PORT SAN INCL PT HAND, ASEZ PE PARD, REZ APA LA INALT, SEMIINALT, SIF S material: manopera: utilaj: transport: L VAS WC CU CAPAC SI REZERVOR CU BUTON ACTIONARE DUALA PENTRU PERSOANE DIZABILITATI BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -6512,7 +6512,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD05A#",
+      "cod": "SD05A",
       "denumire": "ROBINET REGLAJ DREPT SAU COLTAR, MONT INAINTEA ARMATURILOR DE LA OBIECTE SANIT, D=3/8'-1/2' material: manopera: utilaj: transport: L robinet inox 1/2 BUC. L RACORD FLEXIBIL 1/2\" FE-FI 40 CM BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -6580,7 +6580,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "EE09B#",
+      "cod": "EE09B",
       "denumire": "CORP DE ILUMINAT SPECIAL DIFUZANT, PENTRU LAMPI CU VAPORI DE MERCUR, COMPLECT, CU BALAST, MONTAT PE BOLTURI IMPLANTATE material: manopera: utilaj: transport: 8.L CORP DE ILUMINAT LED, LINIAR 1200x90, 35W, IP65 BUC. 8.L CORP DE ILUMINAT LED 1×14W, MONTAJ APARENT, IP45, COMPLECT ECHIPAT, PLAFONIERA BUC.",
       "um": "buc",
       "cantitate": 11.0,
@@ -6614,7 +6614,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "ED03B#",
+      "cod": "ED03B",
       "denumire": "APARAT DE COMUTARE (INTRERUPATOR, COMUTATOR, PRIZA) DE LA 32A LA 63A CU DIBLURI CU EXPANDARE material: manopera: utilaj: transport: 10.L INTRERUPATOR APLICAT ( IP54 ) , COD: 414001 T&G BUC. 10.L PRIZA BIPOLARA SIMPLA CU CONTACT DE PROTECTIE 16A/230V, MONTAJ IN DOZA SI RAMA COMUNA, DIMENSIUNE 2 MODULE, IP20,CU INDICAREA CIRCUITULUI BUC.",
       "um": "buc",
       "cantitate": 9.0,
@@ -6665,7 +6665,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SE53A#",
+      "cod": "SE53A",
       "denumire": "CONTOR DE APA CU PALETE, CU RACORDURO OLANDEZE, AVAND DIAMETRUL DE 20-30 MM material: manopera: utilaj: transport: 7.L CONTOR APA RECE MNK 50 CU CADRAN UMED BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -6699,7 +6699,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SE56A#",
+      "cod": "SE56A",
       "denumire": "FILTRU PENTRU APA POTABILA, CU MUFE FILETATE PENTRU MONTAJ PE CONDUCTA DIMENS 1'-2' material: manopera: utilaj: transport: 10.L FILTRU IMPURITATI Y DN65 BUC.",
       "um": "buc",
       "cantitate": 1.0,
@@ -7090,7 +7090,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "W2F03A#",
+      "cod": "W2F03A",
       "denumire": "Corp de iluminat exterior ornamental, pentru o lampa cu vapori de mercur sau sodiu montat pe stalp de metal de buc material: manopera: utilaj: transport: 16.L Corp de iluminat stradal tip LED 50W , P= 50W, IP65,flux 4500 lumeni BUC.",
       "um": "m",
       "cantitate": 38.0,

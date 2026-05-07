@@ -409,7 +409,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CC03C#",
+      "cod": "CC03C",
       "denumire": "Montare plase sudate la inaltimi mai mici sau egale cu 35 m, la placi material: manopera: utilaj: transport:",
       "um": "kg",
       "cantitate": 3630.0,
@@ -1174,7 +1174,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CC03C#",
+      "cod": "CC03C",
       "denumire": "Montare plase sudate la inaltimi mai mici sau egale cu 35 m, la placi material: manopera: utilaj: transport:",
       "um": "kg",
       "cantitate": 735.0,
@@ -1582,7 +1582,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CF15C#",
+      "cod": "CF15C",
       "denumire": "Tencuieli interioare si exterioare sclivisite, executate manual, cu mortar de ciment M 100-T de 0,5 mm grosime, la pereti din beton cu suprafete plane material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 408.0,
@@ -1616,7 +1616,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CI06C#",
+      "cod": "CI06C",
       "denumire": "Placaj din faianta smaltuita, nesmaltuita, mata sau lucioasa cu placi de aceeasi culoare si format, cu dimensiuni de la 15 X 15 CM pana la 30 X 30 CM, executate pe suprafete plane la pereti si stalpi, inclusiv glafurile si muchiile, cu rosturi alternante, in incaperi cu suprafata mai mare de 10 mp fixate cu adeziv pentru montarea placajelor material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 213.0,
@@ -1718,7 +1718,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "RPCR21A#",
+      "cod": "RPCR21A",
       "denumire": "Vopsitorii interioare cu vopsea lavabila la pereti si tavane cu vopsea lavabila , pe glet de ipsos material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 195.0,
@@ -2075,7 +2075,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CG17B#",
+      "cod": "CG17B",
       "denumire": "Pardoseli din placi sau piscoturi de gresie ceramica inclusiv stratul suport din mortar de ciment M 100-T de 3 CM grosime, cu rosturile umplute cu lapte de ciment alb, inclusiv rostuitul si spalatul cu apa tare, executate intr-O singura forma si culoare,in incaperi cu suprafete mai mari de 16 mp .cu placi patrate, dreptunghiulare sau hexagonale, cu suprafata placilor peste 60 cmp/buc material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 79.0,
@@ -2313,7 +2313,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK25A#",
+      "cod": "CK25A",
       "denumire": "Usi profiluri mase plastice, 1 canat,supraf toc <= 7 mp,inclusiv armaturi si accesorii,montate in zid de orice fel la constructii cu H <= 35 M material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 34.0,
@@ -2347,7 +2347,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK23A#",
+      "cod": "CK23A",
       "denumire": "Ferestre din mase plastice cu unul sau mai multe canaturi, suprafata toc <= 1,00 mp,la constructii cu H <= 35M material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 6.0,
@@ -2381,7 +2381,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK26A#",
+      "cod": "CK26A",
       "denumire": "Glafuri, pervaze glafuri mase plastice, montate la ferestre material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 9.0,
@@ -2636,7 +2636,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CE20A#",
+      "cod": "CE20A",
       "denumire": "Sisteme de jgheaburi tip brass din tabla protejata anticorosiv material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 19.0,
@@ -2687,7 +2687,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14B#",
+      "cod": "SA14B",
       "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=20 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 70.0,
@@ -2806,7 +2806,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14C#",
+      "cod": "SA14C",
       "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=25 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 75.0,
@@ -2891,7 +2891,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14D#",
+      "cod": "SA14D",
       "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=32 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 30.0,
@@ -2993,7 +2993,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08B#",
+      "cod": "SB08B",
       "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc,montare apar sau ingrop sub pard, DN=40 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 20.0,
@@ -3027,7 +3027,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14E#",
+      "cod": "SA14E",
       "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=40 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 5.0,
@@ -3061,7 +3061,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07B#",
+      "cod": "SD07B",
       "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=3/4\" material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 8.0,
@@ -3095,7 +3095,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07C#",
+      "cod": "SD07C",
       "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=1\" material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 3.0,
@@ -3129,7 +3129,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07D#",
+      "cod": "SD07D",
       "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=1 1/4 material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 4.0,
@@ -3265,7 +3265,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF01C#",
+      "cod": "SF01C",
       "denumire": "Efectuare proba etans pres instal apa calda,rece,din teava pvc(G) sau pe,pp,pp-R d=16-110 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 200.0,
@@ -3282,7 +3282,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF05C#",
+      "cod": "SF05C",
       "denumire": "Spalare instal apa rece sau calda, executata din tevi pvc (G), pe,pp,pp - R, D= 20 - 75 MM material: manopera: utilaj: transport: Deviz \"226228\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro) Pagina 3 din 12",
       "um": "m",
       "cantitate": 200.0,
@@ -3299,7 +3299,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08A#",
+      "cod": "SB08A",
       "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=32 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 10.0,
@@ -3350,7 +3350,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB09A#",
+      "cod": "SB09A",
       "denumire": "Piese legatura (cot,red,piesa curat mufa dubla, comp dilat)pe,pp,pp-r canal imb grn caucdn=32mm material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 10.0,
@@ -3384,7 +3384,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08C#",
+      "cod": "SB08C",
       "denumire": "Teava pe,pp,pp-r pentru canal,imbin cu garn cauciuc, Montare apar sau ingrop sub pard, dn=50 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 5.0,
@@ -3418,7 +3418,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08D#",
+      "cod": "SB08D",
       "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=75 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 10.0,
@@ -3452,7 +3452,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08E#",
+      "cod": "SB08E",
       "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=110 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 35.0,
@@ -3503,7 +3503,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB09E#",
+      "cod": "SB09E",
       "denumire": "Piese legatura (cot,red,piesa curat mufa dubla, comp dilat)pe,pp,pp-r canal imb grn caucdn=110mm material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 3.0,
@@ -3571,7 +3571,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB28A#",
+      "cod": "SB28A",
       "denumire": "Sifon de pardoseala din polipropilena, avand diametrul iesirii de 50 MM material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 4.0,
@@ -3605,7 +3605,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB27A#",
+      "cod": "SB27A",
       "denumire": "Caciula ventil,tabla,montare pe coloane aeris din tuburi fonta sau gresie ceram antiac,D=50-150MM material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 3.0,
@@ -3673,7 +3673,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF02C#",
+      "cod": "SF02C",
       "denumire": "Efectuare proba funct instal apa rece, din teava pvc(G) sau pe,pp,pp-R d=16-110 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 70.0,
@@ -3724,7 +3724,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF04A#",
+      "cod": "SF04A",
       "denumire": "Efectuare proba etans, funct, Instalatie canal din tub fonta sc,tevi pvc(u),pe,pp,pp-r fonta duct .d <= 100mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 105.0,
@@ -4081,7 +4081,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC04A#",
+      "cod": "SC04A",
       "denumire": "Lavoar semiport, portel san,incl pentru hand,tevi sc pvc,pe cons fix pe perete zid caram,bca. material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -4149,7 +4149,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD04A#",
+      "cod": "SD04A",
       "denumire": "Baterie amestec brat bascul,stativa,pentru lavoar sau spalator, indif inchidere, incl pentru hand,d=1/2 material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -4285,7 +4285,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC12A#",
+      "cod": "SC12A",
       "denumire": "Etajera, portelan sanitar montata pe perete din zidarie caramida sau bca material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -4319,7 +4319,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC13A#",
+      "cod": "SC13A",
       "denumire": "Oglinda sanit semicrist,cu marg slef,de 400 X 500MM,500 X 600 MM,etc pe per caram si bca material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -4336,7 +4336,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC11A#",
+      "cod": "SC11A",
       "denumire": "Portprosop alama nichel,bachel,etc,Montare pe per din zid caram sau bca, un punct sprijin material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -4353,7 +4353,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC14A#",
+      "cod": "SC14A",
       "denumire": "Portpahar,sapuniera fonta EM, portelan sanit, etc,montare pe perete de caram sau bca material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -4608,7 +4608,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC07A#",
+      "cod": "SC07A",
       "denumire": "Vas clos,echip,semiport,port san incl pentru hand,asez pe pard,rez apa la inalt, semiinalt,sif S material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -4659,7 +4659,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD05A#",
+      "cod": "SD05A",
       "denumire": "Robinet reglaj, drepentru sau coltar,montare inaintea armaturilor de la obiecte sanit,D=3/8 -1/2 material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -5203,7 +5203,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "EE09B#",
+      "cod": "EE09B",
       "denumire": "Corp de iluminat special difuzant, pentru lampi implantate cu vapori de mercur, complet, cu balast, montat pe bolturi material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 23.0,
@@ -5339,7 +5339,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "ED03B#",
+      "cod": "ED03B",
       "denumire": "Aparat de comutare (intrerupator, comutator, priza) de la 32a pana la 63a cu dibluri cu expandare material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 44.0,
@@ -6189,7 +6189,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CC03C#",
+      "cod": "CC03C",
       "denumire": "Montare plase sudate la inaltimi mai mici sau egale cu 35 m, la placi material: manopera: utilaj: transport:",
       "um": "kg",
       "cantitate": 3040.0,
@@ -7056,7 +7056,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CG08A#",
+      "cod": "CG08A",
       "denumire": "Pardoseli din materiale plastice montate pe suport existent, curatate, inclusiv pervazurile din PVC, in incaperi cu suprafete mai mari de 16 mp cu covor pvc lipit cu prenadez material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 8404.0,
@@ -8161,7 +8161,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CC03C#",
+      "cod": "CC03C",
       "denumire": "Montare plase sudate la inaltimi mai mici sau egale cu 35 m, la placi material: manopera: utilaj: transport:",
       "um": "kg",
       "cantitate": 735.0,
@@ -8637,7 +8637,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CF15C#",
+      "cod": "CF15C",
       "denumire": "Tencuieli interioare si exterioare sclivisite, executate manual, cu mortar de ciment M 100-T de 0,5 mm grosime, la pereti din beton cu suprafete plane material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 873.0,
@@ -8671,7 +8671,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CI06C#",
+      "cod": "CI06C",
       "denumire": "Placaj din faianta smaltuita, nesmaltuita, mata sau lucioasa cu placi de aceeasi culoare si format, cu dimensiuni de la 15 X 15 CM pana la 30 X 30 CM, executate pe suprafete plane la pereti si stalpi, inclusiv glafurile si muchiile, cu rosturi alternante, in incaperi cu suprafata mai mare de 10 mp fixate cu adeziv pentru montarea placajelor material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 282.0,
@@ -8773,7 +8773,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "RPCR21A1#",
+      "cod": "RPCR21A1",
       "denumire": "Vopsitorii interioare cu vopsea lavabila la pereti si tavane cu vopsea lavabila,pe glet de ipsos material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 591.0,
@@ -9079,7 +9079,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "RPCR21A#",
+      "cod": "RPCR21A",
       "denumire": "Vopsitorii interioare cu vopsea lavabila la pereti si tavane cu vopsea lavabila , pe glet de ipsos material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 241.0,
@@ -9147,7 +9147,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CG17B#",
+      "cod": "CG17B",
       "denumire": "Pardoseli din placi gresie ceramica.cu placi patrate, dreptunghiulare sau hexagonale, cu suprafata placilor peste 60 cmp/buc material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 166.0,
@@ -9385,7 +9385,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CG01E#",
+      "cod": "CG01E",
       "denumire": "Strat suport pentru pardoseli executat din ipsos de 3 CM grosime (sapa autonivelanta) material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 75.0,
@@ -9504,7 +9504,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "RPCK14B#",
+      "cod": "RPCK14B",
       "denumire": "Profil pvc: plinte la pereti gata tencuiti, lipire cu prenadez, incl repar str suport,s>16 mp material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 50.0,
@@ -9555,7 +9555,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK25A#",
+      "cod": "CK25A",
       "denumire": "Usi profiluri mase plastice, 1 canat, supraf toc <= 7 mp,inclusiv armaturi si accesorii,montate in zid de orice fel la constructii cu H <= 35 M material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 47.0,
@@ -9623,7 +9623,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK23A#",
+      "cod": "CK23A",
       "denumire": "Ferestre din mase plastice cu unul sau mai multe canaturi, suprafata toc <= 1,00 mp,la constructii cu H <= 35M material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 26.0,
@@ -9657,7 +9657,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK26A#",
+      "cod": "CK26A",
       "denumire": "Glafuri, pervaze glafuri mase plastice,montate la ferestre material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 21.0,
@@ -9912,7 +9912,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CE20A#",
+      "cod": "CE20A",
       "denumire": "Sisteme de jgheaburi tip brass din tabla protejata anticorosiv material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 14.0,
@@ -9946,7 +9946,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CE22A#",
+      "cod": "CE22A",
       "denumire": "Sisteme de burlane tip brass din tabla ( protejata anticorosiv) material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 14.0,
@@ -10048,7 +10048,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14B#",
+      "cod": "SA14B",
       "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=20 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 70.0,
@@ -10167,7 +10167,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14C#",
+      "cod": "SA14C",
       "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=25 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 40.0,
@@ -10252,7 +10252,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14D#",
+      "cod": "SA14D",
       "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=32 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 35.0,
@@ -10354,7 +10354,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08B#",
+      "cod": "SB08B",
       "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=40 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 20.0,
@@ -10388,7 +10388,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA17D#",
+      "cod": "SA17D",
       "denumire": "Teava pp,pe,pp-R imbin sud prin polifuz, in cond distrib la clad loc si soc-cult, D=50 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 10.0,
@@ -10490,7 +10490,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07B#",
+      "cod": "SD07B",
       "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=3/4\" material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 9.0,
@@ -10524,7 +10524,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07C#",
+      "cod": "SD07C",
       "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=1\" material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 3.0,
@@ -10558,7 +10558,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07D#",
+      "cod": "SD07D",
       "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=1 1/4 material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 3.0,
@@ -10592,7 +10592,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07E#",
+      "cod": "SD07E",
       "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=1 1/2\" material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -10745,7 +10745,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF01C#",
+      "cod": "SF01C",
       "denumire": "Efectuare proba etans pres instal apa calda,rece,din teava pvc(G) sau pe,pp,pp-R d=16-110 MM material: manopera: utilaj: transport: 18 SF05C# - Spalare instal apa rece sau calda,executata din tevi pvc (G), pe,pp,pp - R, D= 20 - 75 MM m material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 180.0,
@@ -10762,7 +10762,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08A#",
+      "cod": "SB08A",
       "denumire": "Teava pe,pp,pp-R pentru canal, imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=32 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 10.0,
@@ -10813,7 +10813,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08C#",
+      "cod": "SB08C",
       "denumire": "Teava pe,pp,pp-r pentru canal,imbin cu garn cauciuc, Montare apar sau ingrop sub pard, dn=50 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 5.0,
@@ -10847,7 +10847,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08D#",
+      "cod": "SB08D",
       "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=75 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 15.0,
@@ -10881,7 +10881,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08E#",
+      "cod": "SB08E",
       "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc,montare apar sau ingrop sub pard, DN=110 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 45.0,
@@ -10932,7 +10932,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB09E#",
+      "cod": "SB09E",
       "denumire": "Piese legatura (cot,red,piesa curat mufa dubla, comp dilat)pe,pp,pp-r canal imb grn caucdn=110mm material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 5.0,
@@ -11017,7 +11017,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB27A#",
+      "cod": "SB27A",
       "denumire": "Caciula ventil, tabla, montare pe coloane aeris din tuburi fonta sau gresie ceram antiac,D=50-150MM material: manopera: utilaj: transport: Deviz \"226428\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro) Pagina 5 din 10",
       "um": "buc",
       "cantitate": 2.0,
@@ -11102,7 +11102,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF05C#",
+      "cod": "SF05C",
       "denumire": "Spalare instal apa rece sau calda, executata din tevi pvc (G), pe,pp,pp - R, D= 20 - 75 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 180.0,
@@ -11833,7 +11833,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD02A#",
+      "cod": "SD02A",
       "denumire": "Baterie baie amestec,cu dus flex sau fix, indif inchid,incl pentru hand,montare pe pereti caram sau bca material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 14.0,
@@ -12343,7 +12343,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "EE09B#",
+      "cod": "EE09B",
       "denumire": "Corp de iluminat special difuzant, pentru lampi cu vapori de mercur, complet, cu balast, montat pe bolturi implantate material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 54.0,
@@ -12496,7 +12496,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "ED03B#",
+      "cod": "ED03B",
       "denumire": "Aparat de comutare (intrerupator, comutator, priza) de la 32a pana la 63a cu dibluri cu expandare material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 102.0,
@@ -13346,7 +13346,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CC03C#",
+      "cod": "CC03C",
       "denumire": "Montare plase sudate la inaltimi mai mici sau egale cu 35 m, la placi material: manopera: utilaj: transport:",
       "um": "kg",
       "cantitate": 315.0,
@@ -13839,7 +13839,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CF15C#",
+      "cod": "CF15C",
       "denumire": "Tencuieli interioare si exterioare sclivisite, executate manual, cu mortar de ciment M 100-T de 0,5 mm grosime, la pereti din beton cu suprafete plane material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 156.0,
@@ -13873,7 +13873,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CI06C#",
+      "cod": "CI06C",
       "denumire": "Placaj din faianta smaltuita, nesmaltuita, mata sau lucioasa cu placi de aceeasi culoare si format, cu dimensiuni de la 15 X 15 CM pana la 30 X 30 CM, executate pe suprafete plane la pereti si stalpi, inclusiv glafurile si muchiile, cu rosturi alternante, in incaperi cu suprafata mai mare de 10 mp fixate cu adeziv pentru montarea placajelor material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 156.0,
@@ -14281,7 +14281,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "RPCR21A#",
+      "cod": "RPCR21A",
       "denumire": "Vopsitorii interioare cu vopsea lavabila la pereti si tavane cu vopsea lavabila , pe glet de ipsos material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 24.0,
@@ -14349,7 +14349,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CG17B#",
+      "cod": "CG17B",
       "denumire": "Pardoseli din placi gresie ceramica.cu placi patrate, dreptunghiulare sau hexagonale, cu suprafata placilor peste 60 cmp/buc material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 24.0,
@@ -14587,7 +14587,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK25A#",
+      "cod": "CK25A",
       "denumire": "Usi profiluri mase plastice, 1 canat, supraf toc <= 7 mp,inclusiv armaturi si accesorii,montate in zid de orice fel la constructii cu H <= 35 M material: manopera: utilaj: transport: Deviz \"226518\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro) Pagina 4 din 7",
       "um": "mp",
       "cantitate": 15.0,
@@ -14621,7 +14621,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK23A#",
+      "cod": "CK23A",
       "denumire": "Ferestre din mase plastice cu unul sau mai multe canaturi, suprafata toc <= 1,00 mp,la constructii cu H <= 35M material: manopera: utilaj: transport:",
       "um": "mp",
       "cantitate": 5.0,
@@ -14655,7 +14655,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK26A#",
+      "cod": "CK26A",
       "denumire": "Glafuri, pervaze glafuri mase plastice,montate la ferestre material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 9.0,
@@ -14910,7 +14910,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CE20A#",
+      "cod": "CE20A",
       "denumire": "Sisteme de jgheaburi tip brass din tabla protejata anticorosiv material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 7.0,
@@ -14944,7 +14944,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CE22A#",
+      "cod": "CE22A",
       "denumire": "Sisteme de burlane tip brass din tabla ( protejata anticorosiv) material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 6.0,
@@ -15063,7 +15063,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14B#",
+      "cod": "SA14B",
       "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=20 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 30.0,
@@ -15182,7 +15182,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14C#",
+      "cod": "SA14C",
       "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=25 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 10.0,
@@ -15267,7 +15267,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14D#",
+      "cod": "SA14D",
       "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=32 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 5.0,
@@ -15420,7 +15420,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07B#",
+      "cod": "SD07B",
       "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=3/4\" material: manopera: utilaj: transport: Deviz \"226528\" - Formular F3 Formular generat cu programul @Devize (www.eDevize.ro) Pagina 2 din 12",
       "um": "buc",
       "cantitate": 4.0,
@@ -15454,7 +15454,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07C#",
+      "cod": "SD07C",
       "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=1\" material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -15573,7 +15573,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF01C#",
+      "cod": "SF01C",
       "denumire": "Efectuare proba etans pres instal apa calda,rece,din teava pvc(G) sau pe,pp,pp-R d=16-110 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 50.0,
@@ -15590,7 +15590,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SF05C#",
+      "cod": "SF05C",
       "denumire": "Spalare instal apa rece sau calda, executata din tevi pvc (G), pe,pp,pp - R, D= 20 - 75 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 50.0,
@@ -15607,7 +15607,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08A#",
+      "cod": "SB08A",
       "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=32 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 5.0,
@@ -15641,7 +15641,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08B#",
+      "cod": "SB08B",
       "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard,DN=40 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 5.0,
@@ -15675,7 +15675,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB09A#",
+      "cod": "SB09A",
       "denumire": "Piese legatura (cot,red,piesa curat mufa dubla,comp dilat)pe,pp,pp-r canal imb grn caucdn=32mm material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 10.0,
@@ -15709,7 +15709,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB09B#",
+      "cod": "SB09B",
       "denumire": "Piese legatura (cot,red,piesa curat mufa dubla, comp dilat)pe,pp,pp-r canal imb grn caucdn=40mm material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 10.0,
@@ -15743,7 +15743,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08C#",
+      "cod": "SB08C",
       "denumire": "Teava pe,pp,pp-r pentru canal,imbin cu garn cauciuc, Montare apar sau ingrop sub pard, dn=50 mm material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 5.0,
@@ -15777,7 +15777,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB09C#",
+      "cod": "SB09C",
       "denumire": "Piese legatura (cot,red,piesa curat mufa dubla, comp dilat)pe,pp,pp-r canal imb grn caucdn=50mm material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 2.0,
@@ -15811,7 +15811,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08D#",
+      "cod": "SB08D",
       "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=75 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 6.0,
@@ -15845,7 +15845,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08E#",
+      "cod": "SB08E",
       "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=110 MM material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 20.0,
@@ -15896,7 +15896,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB09E#",
+      "cod": "SB09E",
       "denumire": "Piese legatura (cot,red,piesa curat mufa dubla, comp dilat)pe,pp,pp-r canal imb grn caucdn=110mm material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 4.0,
@@ -15964,7 +15964,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB28A#",
+      "cod": "SB28A",
       "denumire": "Sifon de pardoseala din polipropilena, avand diametrul iesirii de 50 MM material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 2.0,
@@ -15998,7 +15998,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB27A#",
+      "cod": "SB27A",
       "denumire": "Caciula ventil,tabla,montare pe coloane aeris din tuburi fonta sau gresie ceram antiac,D=50-150MM material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 3.0,
@@ -16457,7 +16457,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC04A#",
+      "cod": "SC04A",
       "denumire": "Lavoar semiport, portel san,incl pentru hand,tevi sc pvc,pe cons fix pe perete zid caram,bca. material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -16525,7 +16525,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD04A#",
+      "cod": "SD04A",
       "denumire": "Baterie amestec brat bascul,stativa, pentru lavoar sau spalator, indif inchidere, incl pentru hand,d=1/2 material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -16661,7 +16661,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC12A#",
+      "cod": "SC12A",
       "denumire": "Etajera, portelan sanitar montata pe perete din zidarie caramida sau bca material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -16695,7 +16695,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC13A#",
+      "cod": "SC13A",
       "denumire": "Oglinda sanit semicrist,cu marg slef,de 400 X 500MM,500 X 600 MM,etc pe per caram si bca material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -16729,7 +16729,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC11A#",
+      "cod": "SC11A",
       "denumire": "Portprosop alama nichel,bachel,etc,Montare pe per din zid caram sau bca, un punct sprijin material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -16746,7 +16746,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC14A#",
+      "cod": "SC14A",
       "denumire": "Portpahar,sapuniera fonta EM,portelan sanit, etc, montare pe perete de caram sau bca material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -17001,7 +17001,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC07A#",
+      "cod": "SC07A",
       "denumire": "Vas clos,echip,semiport,port san incl pentru hand, asez pe pard, rez apa la inalt, semiinalt,sif S material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -17052,7 +17052,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD05A#",
+      "cod": "SD05A",
       "denumire": "Robinet reglaj, drepentru sau coltar,montare inaintea armaturilor de la obiecte sanit, D=3/8 -1/2 material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 1.0,
@@ -17579,7 +17579,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "EE09B#",
+      "cod": "EE09B",
       "denumire": "Corp de iluminat special difuzant, pentru lampi cu vapori de mercur, complet, cu balast, montat pe bolturi implantate material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 11.0,
@@ -17698,7 +17698,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "ED03B#",
+      "cod": "ED03B",
       "denumire": "Aparat de comutare (intrerupator, comutator, priza) de la 32a pana la 63a cu dibluri cu expandare material: manopera: utilaj: transport:",
       "um": "buc",
       "cantitate": 9.0,
@@ -18480,23 +18480,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CC03C",
-      "denumire": "Montare plase sudate la inaltimi mai mici sau egale cu 35 m, la placi",
-      "um": "kg",
-      "cantitate": 3630.0,
-      "deviz": "226108",
-      "deviz_denumire": "STRUCTURA DE REZISTENTA CUPOLA TEREN TENIS",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "TRB05B23",
       "denumire": "Transportul materialelor prin purtat direct, materiale incomode peste 25 Kg distanta 30M",
       "um": "tona",
@@ -18752,23 +18735,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CC03C",
-      "denumire": "Montare plase sudate la inaltimi mai mici sau egale cu 35 m, la placi",
-      "um": "kg",
-      "cantitate": 735.0,
-      "deviz": "226208",
-      "deviz_denumire": "STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare)",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "IZF04B1",
       "denumire": "Strat hidroizolant cald cu carton bit lip mast bittip ... pe supraf oriz sau inclinate pina la 40%",
       "um": "mp.",
@@ -18990,59 +18956,8 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CF15C",
-      "denumire": "Tencuieli interioare si exterioare sclivisite, executate manual, cu mortar de ciment M 100-T de 0,5 mm grosime, la pereti din beton cu suprafete plane",
-      "um": "mp",
-      "cantitate": 408.0,
-      "deviz": "226218",
-      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CI06C",
-      "denumire": "Placaj din faianta smaltuita, nesmaltuita, mata sau lucioasa cu placi de aceeasi culoare si format, cu dimensiuni de la 15 X 15 CM pana la 30 X 30 CM, executate pe suprafete plane la pereti si stalpi, inclusiv glafurile si muchiile, cu rosturi alternante, in incaperi cu suprafata mai mare de 10 mp fixate cu adeziv pentru montarea placajelor",
-      "um": "mp",
-      "cantitate": 213.0,
-      "deviz": "226218",
-      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "PF04A1ASIM",
       "denumire": "STRAT AMORSAJ APLICAT CU PERIA DIN BITUM TAIAT CU WHITE SPIRIT RAFINAT",
-      "um": "mp",
-      "cantitate": 195.0,
-      "deviz": "226218",
-      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "RPCR21A",
-      "denumire": "Vopsitorii interioare cu vopsea lavabila la pereti si tavane cu vopsea lavabila , pe glet de ipsos",
       "um": "mp",
       "cantitate": 195.0,
       "deviz": "226218",
@@ -19194,23 +19109,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CG17B",
-      "denumire": "Pardoseli din placi sau piscoturi de gresie ceramica inclusiv stratul suport din mortar de ciment M 100-T de 3 CM grosime, cu rosturile umplute cu lapte de ciment alb, inclusiv rostuitul si spalatul cu apa tare, executate intr-O singura forma si culoare,in incaperi cu suprafete mai mari de 16 mp .cu placi patrate, dreptunghiulare sau hexagonale, cu suprafata placilor peste 60 cmp/buc",
-      "um": "mp",
-      "cantitate": 79.0,
-      "deviz": "226218",
-      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$3270111",
       "denumire": "Chit rosturi",
       "um": "kg",
@@ -19313,78 +19211,10 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK25A",
-      "denumire": "Usi profiluri mase plastice, 1 canat,supraf toc <= 7 mp,inclusiv armaturi si accesorii,montate in zid de orice fel la constructii cu H <= 35 M",
-      "um": "mp",
-      "cantitate": 34.0,
-      "deviz": "226218",
-      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CK23A",
-      "denumire": "Ferestre din mase plastice cu unul sau mai multe canaturi, suprafata toc <= 1,00 mp,la constructii cu H <= 35M",
-      "um": "mp",
-      "cantitate": 6.0,
-      "deviz": "226218",
-      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CK26A",
-      "denumire": "Glafuri, pervaze glafuri mase plastice, montate la ferestre",
-      "um": "m",
-      "cantitate": 9.0,
-      "deviz": "226218",
-      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$2200012",
       "denumire": "GLAF INTERIOR DIN PVC ALB CU LATIME DE 20 CM",
       "um": "m",
       "cantitate": 9.0,
-      "deviz": "226218",
-      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CE20A",
-      "denumire": "Sisteme de jgheaburi tip brass din tabla protejata anticorosiv",
-      "um": "m",
-      "cantitate": 19.0,
       "deviz": "226218",
       "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
       "is_component": false,
@@ -19551,23 +19381,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14B",
-      "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=20 mm",
-      "um": "m",
-      "cantitate": 70.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$30001",
       "denumire": "APARAT DE SUDURA COPRAX 2204/ /50Hz/700w",
       "um": "ora",
@@ -19585,78 +19398,10 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14C",
-      "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=25 mm",
-      "um": "m",
-      "cantitate": 75.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SA14D",
-      "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=32 mm",
-      "um": "m",
-      "cantitate": 30.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$30001",
       "denumire": "APARAT DE SUDURA COPRAX 2204/ /50Hz/700w",
       "um": "ora",
       "cantitate": 0.5,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB08B",
-      "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc,montare apar sau ingrop sub pard, DN=40 MM",
-      "um": "m",
-      "cantitate": 20.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SA14E",
-      "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=40 mm",
-      "um": "m",
-      "cantitate": 5.0,
       "deviz": "226228",
       "deviz_denumire": "INSTALATII SANITARE OB.2",
       "is_component": false,
@@ -19704,161 +19449,8 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SD07B",
-      "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=3/4\"",
-      "um": "buc",
-      "cantitate": 8.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SD07C",
-      "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=1\"",
-      "um": "buc",
-      "cantitate": 3.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SD07D",
-      "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=1 1/4",
-      "um": "buc",
-      "cantitate": 4.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SF01C",
-      "denumire": "Efectuare proba etans pres instal apa calda,rece,din teava pvc(G) sau pe,pp,pp-R d=16-110 MM",
-      "um": "m",
-      "cantitate": 200.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SF05C",
-      "denumire": "Spalare instal apa rece sau calda, executata din tevi pvc (G), pe,pp,pp - R, D= 20 - 75 MM",
-      "um": "m",
-      "cantitate": 200.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB08A",
-      "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=32 MM",
-      "um": "m",
-      "cantitate": 10.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "SB08B",
       "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard,DN=40 MM",
-      "um": "m",
-      "cantitate": 10.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB09A",
-      "denumire": "Piese legatura (cot,red,piesa curat mufa dubla, comp dilat)pe,pp,pp-r canal imb grn caucdn=32mm",
-      "um": "buc",
-      "cantitate": 10.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB08C",
-      "denumire": "Teava pe,pp,pp-r pentru canal,imbin cu garn cauciuc, Montare apar sau ingrop sub pard, dn=50 mm",
-      "um": "m",
-      "cantitate": 5.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB08D",
-      "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=75 MM",
       "um": "m",
       "cantitate": 10.0,
       "deviz": "226228",
@@ -19891,78 +19483,10 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08E",
-      "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=110 MM",
-      "um": "m",
-      "cantitate": 35.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB09E",
-      "denumire": "Piese legatura (cot,red,piesa curat mufa dubla, comp dilat)pe,pp,pp-r canal imb grn caucdn=110mm",
-      "um": "buc",
-      "cantitate": 3.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB28A",
-      "denumire": "Sifon de pardoseala din polipropilena, avand diametrul iesirii de 50 MM",
-      "um": "buc",
-      "cantitate": 4.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$3275597",
       "denumire": "SIFON DE PARDOSEALA DN 110 CU IESIRE VERTICALA CU OBTURATOR DE MIROSURI PRIMUS, 123X123MM/115X115MM",
       "um": "buc",
       "cantitate": 1.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB27A",
-      "denumire": "Caciula ventil,tabla,montare pe coloane aeris din tuburi fonta sau gresie ceram antiac,D=50-150MM",
-      "um": "buc",
-      "cantitate": 3.0,
       "deviz": "226228",
       "deviz_denumire": "INSTALATII SANITARE OB.2",
       "is_component": false,
@@ -20027,40 +19551,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC04A",
-      "denumire": "Lavoar semiport, portel san,incl pentru hand,tevi sc pvc,pe cons fix pe perete zid caram,bca.",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SD04A",
-      "denumire": "Baterie amestec brat bascul,stativa,pentru lavoar sau spalator, indif inchidere, incl pentru hand,d=1/2",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "SC31A1",
       "denumire": "Ventil de scurgere tip. . .",
       "um": "buc",
@@ -20112,59 +19602,8 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC12A",
-      "denumire": "Etajera, portelan sanitar montata pe perete din zidarie caramida sau bca",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SC13A",
-      "denumire": "Oglinda sanit semicrist,cu marg slef,de 400 X 500MM,500 X 600 MM,etc pe per caram si bca",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$2222224",
       "denumire": "Oglinda",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SC11A",
-      "denumire": "Portprosop alama nichel,bachel,etc,Montare pe per din zid caram sau bca, un punct sprijin",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226228",
@@ -20197,23 +19636,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC14A",
-      "denumire": "Portpahar,sapuniera fonta EM, portelan sanit, etc,montare pe perete de caram sau bca",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "SD12A1",
       "denumire": "Robinet de reglaj,de colt,din alama nichelata,avand D=3/8 sau D=1/2 toli",
       "um": "buc",
@@ -20231,42 +19653,8 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC07A",
-      "denumire": "Vas clos,echip,semiport,port san incl pentru hand,asez pe pard,rez apa la inalt, semiinalt,sif S",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "SB17E1",
       "denumire": "Coturi pvc-u,pentru canalizare,cu imbinare prin lipirela 45;67 1/2;87 1/2 grade,avand d=110 mm",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226228",
-      "deviz_denumire": "INSTALATII SANITARE OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SD05A",
-      "denumire": "Robinet reglaj, drepentru sau coltar,montare inaintea armaturilor de la obiecte sanit,D=3/8 -1/2",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226228",
@@ -20486,44 +19874,10 @@
       "val_transport": 0.0
     },
     {
-      "cod": "EE09B",
-      "denumire": "Corp de iluminat special difuzant, pentru lampi",
-      "um": "buc",
-      "cantitate": 23.0,
-      "deviz": "226268",
-      "deviz_denumire": "INSTALATII ELECTRICE CURENTI TARI OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$6703043",
       "denumire": "CORP DE ILUMINAT LED, LINIAR 1200x90, 35W, IP65",
       "um": "buc",
       "cantitate": 6.0,
-      "deviz": "226268",
-      "deviz_denumire": "INSTALATII ELECTRICE CURENTI TARI OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "ED03B",
-      "denumire": "Aparat de comutare (intrerupator, comutator, priza) de la 32a pana la 63a cu dibluri cu expandare",
-      "um": "buc",
-      "cantitate": 44.0,
       "deviz": "226268",
       "deviz_denumire": "INSTALATII ELECTRICE CURENTI TARI OB.2",
       "is_component": false,
@@ -21013,23 +20367,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CC03C",
-      "denumire": "Montare plase sudate la inaltimi mai mici sau egale cu 35 m, la placi",
-      "um": "kg",
-      "cantitate": 3040.0,
-      "deviz": "226308",
-      "deviz_denumire": "STRUCTURA DE REZISTENTA- (gradene 2 BUC)",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "TRA01A10",
       "denumire": "Transportul rutier al materialelor,semifabricatelor cu autobasculanta pe dist .= 10 km. $",
       "um": "tona",
@@ -21340,23 +20677,6 @@
       "denumire": "Transportul rutier al pamintului sau molozului cu autobasculanta dist .= 10 km $",
       "um": "tona",
       "cantitate": 4792.0,
-      "deviz": "226338",
-      "deviz_denumire": "TEREN FOTBAL",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CG08A",
-      "denumire": "Pardoseli din materiale plastice montate pe suport existent, curatate, inclusiv pervazurile din PVC, in incaperi cu suprafete mai mari de 16 mp cu covor pvc lipit cu prenadez",
-      "um": "mp",
-      "cantitate": 8404.0,
       "deviz": "226338",
       "deviz_denumire": "TEREN FOTBAL",
       "is_component": false,
@@ -21863,23 +21183,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CC03C",
-      "denumire": "Montare plase sudate la inaltimi mai mici sau egale cu 35 m, la placi",
-      "um": "kg",
-      "cantitate": 735.0,
-      "deviz": "226408",
-      "deviz_denumire": "STRUCTURA DE REZISTENTA {vestiare, sala fitness)",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "IZF04B1",
       "denumire": "Strat hidroizolant cald cu carton bit lip mast bittip ... pe supraf oriz sau inclinate pina la 40%",
       "um": "mp.",
@@ -22101,59 +21404,8 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CF15C",
-      "denumire": "Tencuieli interioare si exterioare sclivisite, executate manual, cu mortar de ciment M 100-T de 0,5 mm grosime, la pereti din beton cu suprafete plane",
-      "um": "mp",
-      "cantitate": 873.0,
-      "deviz": "226418",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CI06C",
-      "denumire": "Placaj din faianta smaltuita, nesmaltuita, mata sau lucioasa cu placi de aceeasi culoare si format, cu dimensiuni de la 15 X 15 CM pana la 30 X 30 CM, executate pe suprafete plane la pereti si stalpi, inclusiv glafurile si muchiile, cu rosturi alternante, in incaperi cu suprafata mai mare de 10 mp fixate cu adeziv pentru montarea placajelor",
-      "um": "mp",
-      "cantitate": 282.0,
-      "deviz": "226418",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "PF04A1ASIM",
       "denumire": "Strat amorsaj aplicat cu peria din bitum taiat cu white spirit rafinat",
-      "um": "mp",
-      "cantitate": 591.0,
-      "deviz": "226418",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "RPCR21A1",
-      "denumire": "Vopsitorii interioare cu vopsea lavabila la pereti si tavane cu vopsea lavabila,pe glet de ipsos",
       "um": "mp",
       "cantitate": 591.0,
       "deviz": "226418",
@@ -22271,40 +21523,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "RPCR21A",
-      "denumire": "Vopsitorii interioare cu vopsea lavabila la pereti si tavane cu vopsea lavabila , pe glet de ipsos",
-      "um": "mp",
-      "cantitate": 241.0,
-      "deviz": "226418",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CG17B",
-      "denumire": "Pardoseli din placi gresie ceramica.cu placi patrate, dreptunghiulare sau hexagonale, cu suprafata placilor peste 60 cmp/buc",
-      "um": "mp",
-      "cantitate": 166.0,
-      "deviz": "226418",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$3270111",
       "denumire": "Chit rosturi",
       "um": "kg",
@@ -22407,95 +21625,10 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CG01E",
-      "denumire": "Strat suport pentru pardoseli executat din ipsos de 3 CM grosime (sapa autonivelanta)",
-      "um": "mp",
-      "cantitate": 75.0,
-      "deviz": "226418",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "CG03G2",
       "denumire": "Pardoseli din materiale plastice cu dale flexibiledin pvc de 2MM gros cu pervaz pvc supraf >20mp",
       "um": "mp.",
       "cantitate": 75.0,
-      "deviz": "226418",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "RPCK14B",
-      "denumire": "Profil pvc: plinte la pereti gata tencuiti, lipire cu prenadez, incl repar str suport,s>16 mp",
-      "um": "m",
-      "cantitate": 50.0,
-      "deviz": "226418",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CK25A",
-      "denumire": "Usi profiluri mase plastice, 1 canat, supraf toc <= 7 mp,inclusiv armaturi si accesorii,montate in zid de orice fel la constructii cu H <= 35 M",
-      "um": "mp",
-      "cantitate": 47.0,
-      "deviz": "226418",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CK23A",
-      "denumire": "Ferestre din mase plastice cu unul sau mai multe canaturi, suprafata toc <= 1,00 mp,la constructii cu H <= 35M",
-      "um": "mp",
-      "cantitate": 26.0,
-      "deviz": "226418",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CK26A",
-      "denumire": "Glafuri, pervaze glafuri mase plastice,montate la ferestre",
-      "um": "m",
-      "cantitate": 21.0,
       "deviz": "226418",
       "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
       "is_component": false,
@@ -22526,44 +21659,10 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CE20A",
-      "denumire": "Sisteme de jgheaburi tip brass din tabla protejata anticorosiv",
-      "um": "m",
-      "cantitate": 14.0,
-      "deviz": "226418",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$71100101",
       "denumire": "@JGHEAB TABLA VOPSITA ELECTROSTATIC DE 15 CM",
       "um": "m",
       "cantitate": 14.7,
-      "deviz": "226418",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CE22A",
-      "denumire": "Sisteme de burlane tip brass din tabla ( protejata anticorosiv)",
-      "um": "m",
-      "cantitate": 14.0,
       "deviz": "226418",
       "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
       "is_component": false,
@@ -22628,44 +21727,10 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14B",
-      "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=20 mm",
-      "um": "m",
-      "cantitate": 70.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "AUT3000",
       "denumire": "Aparat de sudura tip \"coprax\" 2204/50hz/700 W",
       "um": "ora",
       "cantitate": 2.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SA14C",
-      "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=25 mm",
-      "um": "m",
-      "cantitate": 40.0,
       "deviz": "226428",
       "deviz_denumire": "INSTALATII SANITARE OB 4",
       "is_component": false,
@@ -22696,23 +21761,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14D",
-      "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=32 mm",
-      "um": "m",
-      "cantitate": 35.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "AUT3000",
       "denumire": "Aparat de sudura tip \"coprax\" 2204/50hz/700 W",
       "um": "ora",
@@ -22730,146 +21778,10 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08B",
-      "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=40 MM",
-      "um": "m",
-      "cantitate": 20.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SA17D",
-      "denumire": "Teava pp,pe,pp-R imbin sud prin polifuz, in cond distrib la clad loc si soc-cult, D=50 MM",
-      "um": "m",
-      "cantitate": 10.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "SA17D",
       "denumire": "Teava pp,pe,pp-R imbin sud prin polifuz, in cond distrib la clad loc si soc-cult, D=50 MM",
       "um": "m",
       "cantitate": 5.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SD07B",
-      "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=3/4\"",
-      "um": "buc",
-      "cantitate": 9.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SD07C",
-      "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=1\"",
-      "um": "buc",
-      "cantitate": 3.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SD07D",
-      "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=1 1/4",
-      "um": "buc",
-      "cantitate": 3.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SD07E",
-      "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=1 1/2\"",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SF01C",
-      "denumire": "Efectuare proba etans pres instal apa calda,rece,din teava pvc(G) sau pe,pp,pp-R d=16-110 MM",
-      "um": "m",
-      "cantitate": 180.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB08A",
-      "denumire": "Teava pe,pp,pp-R pentru canal, imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=32 MM",
-      "um": "m",
-      "cantitate": 10.0,
       "deviz": "226428",
       "deviz_denumire": "INSTALATII SANITARE OB 4",
       "is_component": false,
@@ -22885,40 +21797,6 @@
     {
       "cod": "SB08B",
       "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc,montare apar sau ingrop sub pard, DN=40 MM",
-      "um": "m",
-      "cantitate": 15.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB08C",
-      "denumire": "Teava pe,pp,pp-r pentru canal,imbin cu garn cauciuc, Montare apar sau ingrop sub pard, dn=50 mm",
-      "um": "m",
-      "cantitate": 5.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB08D",
-      "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=75 MM",
       "um": "m",
       "cantitate": 15.0,
       "deviz": "226428",
@@ -22951,78 +21829,10 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SB08E",
-      "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc,montare apar sau ingrop sub pard, DN=110 MM",
-      "um": "m",
-      "cantitate": 45.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB09E",
-      "denumire": "Piese legatura (cot,red,piesa curat mufa dubla, comp dilat)pe,pp,pp-r canal imb grn caucdn=110mm",
-      "um": "buc",
-      "cantitate": 5.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$3274977",
       "denumire": "SIFON DE PARDOSEALA DN 40/50 CU IESIRE VERTICALA CU OBTURATOR DE MIROSURI PRIMUS, 123X123MM/115X115MM",
       "um": "buc",
       "cantitate": 1.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB27A",
-      "denumire": "Caciula ventil, tabla, montare pe coloane aeris din tuburi fonta sau gresie ceram antiac,D=50-150MM",
-      "um": "buc",
-      "cantitate": 2.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SF05C",
-      "denumire": "Spalare instal apa rece sau calda, executata din tevi pvc (G), pe,pp,pp - R, D= 20 - 75 MM",
-      "um": "m",
-      "cantitate": 180.0,
       "deviz": "226428",
       "deviz_denumire": "INSTALATII SANITARE OB 4",
       "is_component": false,
@@ -23057,23 +21867,6 @@
       "denumire": "Robinet de reglaj,de colt,din alama nichelata,avand D=3/8 sau D=1/2 toli",
       "um": "buc",
       "cantitate": 7.0,
-      "deviz": "226428",
-      "deviz_denumire": "INSTALATII SANITARE OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SD02A",
-      "denumire": "Baterie baie amestec,cu dus flex sau fix, indif inchid,incl pentru hand,montare pe pereti caram sau bca",
-      "um": "buc",
-      "cantitate": 14.0,
       "deviz": "226428",
       "deviz_denumire": "INSTALATII SANITARE OB 4",
       "is_component": false,
@@ -23461,44 +22254,10 @@
       "val_transport": 0.0
     },
     {
-      "cod": "EE09B",
-      "denumire": "Corp de iluminat special difuzant, pentru lampi cu vapori de mercur, complet, cu balast, montat pe bolturi implantate",
-      "um": "buc",
-      "cantitate": 54.0,
-      "deviz": "226478",
-      "deviz_denumire": "INSTALATII ELECTRICE CURENTI TARI OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$6703043",
       "denumire": "CORP DE ILUMINAT LED, LINIAR 1200x90, 35W, IP65",
       "um": "buc",
       "cantitate": 29.0,
-      "deviz": "226478",
-      "deviz_denumire": "INSTALATII ELECTRICE CURENTI TARI OB 4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "ED03B",
-      "denumire": "Aparat de comutare (intrerupator, comutator, priza) de la 32a pana la 63a cu dibluri cu expandare",
-      "um": "buc",
-      "cantitate": 102.0,
       "deviz": "226478",
       "deviz_denumire": "INSTALATII ELECTRICE CURENTI TARI OB 4",
       "is_component": false,
@@ -23937,23 +22696,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CC03C",
-      "denumire": "Montare plase sudate la inaltimi mai mici sau egale cu 35 m, la placi",
-      "um": "kg",
-      "cantitate": 315.0,
-      "deviz": "226508",
-      "deviz_denumire": "STRUCTURA DE REZISTENTA(GRUPURI SANITARE PUBLICE)",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "IZF04B1",
       "denumire": "Strat hidroizolant cald cu carton bit lip mast bittip ... pe supraf oriz sau inclinate pina la 40%",
       "um": "mp.",
@@ -24073,40 +22815,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CF15C",
-      "denumire": "Tencuieli interioare si exterioare sclivisite, executate manual, cu mortar de ciment M 100-T de 0,5 mm grosime, la pereti din beton cu suprafete plane",
-      "um": "mp",
-      "cantitate": 156.0,
-      "deviz": "226518",
-      "deviz_denumire": "ARHITECTURA GRUPURI SANITARE PUBLICE",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CI06C",
-      "denumire": "Placaj din faianta smaltuita, nesmaltuita, mata sau lucioasa cu placi de aceeasi culoare si format, cu dimensiuni de la 15 X 15 CM pana la 30 X 30 CM, executate pe suprafete plane la pereti si stalpi, inclusiv glafurile si muchiile, cu rosturi alternante, in incaperi cu suprafata mai mare de 10 mp fixate cu adeziv pentru montarea placajelor",
-      "um": "mp",
-      "cantitate": 156.0,
-      "deviz": "226518",
-      "deviz_denumire": "ARHITECTURA GRUPURI SANITARE PUBLICE",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$2101195",
       "denumire": "Mortar tencuiala M 100 (var hidrat) S 1030",
       "um": "mc",
@@ -24160,40 +22868,6 @@
     {
       "cod": "PF04A1ASIM",
       "denumire": "STRAT AMORSAJ APLICAT CU PERIA DIN BITUM TAIAT CU WHITE SPIRIT RAFINAT",
-      "um": "mp",
-      "cantitate": 24.0,
-      "deviz": "226518",
-      "deviz_denumire": "ARHITECTURA GRUPURI SANITARE PUBLICE",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "RPCR21A",
-      "denumire": "Vopsitorii interioare cu vopsea lavabila la pereti si tavane cu vopsea lavabila , pe glet de ipsos",
-      "um": "mp",
-      "cantitate": 24.0,
-      "deviz": "226518",
-      "deviz_denumire": "ARHITECTURA GRUPURI SANITARE PUBLICE",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CG17B",
-      "denumire": "Pardoseli din placi gresie ceramica.cu placi patrate, dreptunghiulare sau hexagonale, cu suprafata placilor peste 60 cmp/buc",
       "um": "mp",
       "cantitate": 24.0,
       "deviz": "226518",
@@ -24311,57 +22985,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CK25A",
-      "denumire": "Usi profiluri mase plastice, 1 canat, supraf toc <= 7 mp,inclusiv armaturi si accesorii,montate in zid de orice fel la constructii cu H <= 35 M",
-      "um": "mp",
-      "cantitate": 15.0,
-      "deviz": "226518",
-      "deviz_denumire": "ARHITECTURA GRUPURI SANITARE PUBLICE",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CK23A",
-      "denumire": "Ferestre din mase plastice cu unul sau mai multe canaturi, suprafata toc <= 1,00 mp,la constructii cu H <= 35M",
-      "um": "mp",
-      "cantitate": 5.0,
-      "deviz": "226518",
-      "deviz_denumire": "ARHITECTURA GRUPURI SANITARE PUBLICE",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CK26A",
-      "denumire": "Glafuri, pervaze glafuri mase plastice,montate la ferestre",
-      "um": "m",
-      "cantitate": 9.0,
-      "deviz": "226518",
-      "deviz_denumire": "ARHITECTURA GRUPURI SANITARE PUBLICE",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$2200012",
       "denumire": "GLAF INTERIOR DIN PVC ALB CU LATIME DE 20 CM",
       "um": "m",
@@ -24379,44 +23002,10 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CE20A",
-      "denumire": "Sisteme de jgheaburi tip brass din tabla protejata anticorosiv",
-      "um": "m",
-      "cantitate": 7.0,
-      "deviz": "226518",
-      "deviz_denumire": "ARHITECTURA GRUPURI SANITARE PUBLICE",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$71100101",
       "denumire": "@JGHEAB TABLA VOPSITA ELECTROSTATIC DE 15 CM",
       "um": "m",
       "cantitate": 7.0,
-      "deviz": "226518",
-      "deviz_denumire": "ARHITECTURA GRUPURI SANITARE PUBLICE",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CE22A",
-      "denumire": "Sisteme de burlane tip brass din tabla ( protejata anticorosiv)",
-      "um": "m",
-      "cantitate": 6.0,
       "deviz": "226518",
       "deviz_denumire": "ARHITECTURA GRUPURI SANITARE PUBLICE",
       "is_component": false,
@@ -24464,44 +23053,10 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14B",
-      "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=20 mm",
-      "um": "m",
-      "cantitate": 30.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "AUT3000",
       "denumire": "Aparat de sudura tip \"coprax\" 2204/50hz/700 W",
       "um": "ora",
       "cantitate": 1.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SA14C",
-      "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=25 mm",
-      "um": "m",
-      "cantitate": 10.0,
       "deviz": "226528",
       "deviz_denumire": "INSTALATII SANITARE OB 5",
       "is_component": false,
@@ -24532,231 +23087,10 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SA14D",
-      "denumire": "Teava material plastic (pp,pe,pp-r) imbinata prin sudura prin polifuziune, la ctii ind,d=32 mm",
-      "um": "m",
-      "cantitate": 5.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SD07B",
-      "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=3/4\"",
-      "um": "buc",
-      "cantitate": 4.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SD07C",
-      "denumire": "Robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,D=1\"",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SF01C",
-      "denumire": "Efectuare proba etans pres instal apa calda,rece,din teava pvc(G) sau pe,pp,pp-R d=16-110 MM",
-      "um": "m",
-      "cantitate": 50.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SF05C",
-      "denumire": "Spalare instal apa rece sau calda, executata din tevi pvc (G), pe,pp,pp - R, D= 20 - 75 MM",
-      "um": "m",
-      "cantitate": 50.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB08A",
-      "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=32 MM",
-      "um": "m",
-      "cantitate": 5.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB08B",
-      "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard,DN=40 MM",
-      "um": "m",
-      "cantitate": 5.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB09A",
-      "denumire": "Piese legatura (cot,red,piesa curat mufa dubla,comp dilat)pe,pp,pp-r canal imb grn caucdn=32mm",
-      "um": "buc",
-      "cantitate": 10.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB09B",
-      "denumire": "Piese legatura (cot,red,piesa curat mufa dubla, comp dilat)pe,pp,pp-r canal imb grn caucdn=40mm",
-      "um": "buc",
-      "cantitate": 10.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB08C",
-      "denumire": "Teava pe,pp,pp-r pentru canal,imbin cu garn cauciuc, Montare apar sau ingrop sub pard, dn=50 mm",
-      "um": "m",
-      "cantitate": 5.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB09C",
-      "denumire": "Piese legatura (cot,red,piesa curat mufa dubla, comp dilat)pe,pp,pp-r canal imb grn caucdn=50mm",
-      "um": "buc",
-      "cantitate": 2.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB08D",
-      "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=75 MM",
-      "um": "m",
-      "cantitate": 6.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "SB08E",
       "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=110 MM",
       "um": "m",
       "cantitate": 10.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB08E",
-      "denumire": "Teava pe,pp,pp-R pentru canal,imbin cu garn cauciuc, montare apar sau ingrop sub pard, DN=110 MM",
-      "um": "m",
-      "cantitate": 20.0,
       "deviz": "226528",
       "deviz_denumire": "INSTALATII SANITARE OB 5",
       "is_component": false,
@@ -24791,40 +23125,6 @@
       "denumire": "SIFON PARDOSEALA CU INTRARE LATERALE SI IESIRE VERTICALA D= 110 MM",
       "um": "buc",
       "cantitate": 1.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB28A",
-      "denumire": "Sifon de pardoseala din polipropilena, avand diametrul iesirii de 50 MM",
-      "um": "buc",
-      "cantitate": 2.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB27A",
-      "denumire": "Caciula ventil,tabla,montare pe coloane aeris din tuburi fonta sau gresie ceram antiac,D=50-150MM",
-      "um": "buc",
-      "cantitate": 3.0,
       "deviz": "226528",
       "deviz_denumire": "INSTALATII SANITARE OB 5",
       "is_component": false,
@@ -24875,23 +23175,6 @@
       "cod": "SB09E",
       "denumire": "Piese legatura (cot,red,piesa curat mufa dubla, comp dilat)pe,pp,pp-r canal imb grn caucdn=110mm",
       "um": "buc",
-      "cantitate": 4.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SB09E",
-      "denumire": "Piese legatura (cot,red,piesa curat mufa dubla, comp dilat)pe,pp,pp-r canal imb grn caucdn=110mm",
-      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226528",
       "deviz_denumire": "INSTALATII SANITARE OB 5",
@@ -24910,40 +23193,6 @@
       "denumire": "Lavoar portelan F.spatar L12-630MM alb C. 2 N1080",
       "um": "buc",
       "cantitate": 4.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SC04A",
-      "denumire": "Lavoar semiport, portel san,incl pentru hand,tevi sc pvc,pe cons fix pe perete zid caram,bca.",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SD04A",
-      "denumire": "Baterie amestec brat bascul,stativa, pentru lavoar sau spalator, indif inchidere, incl pentru hand,d=1/2",
-      "um": "buc",
-      "cantitate": 1.0,
       "deviz": "226528",
       "deviz_denumire": "INSTALATII SANITARE OB 5",
       "is_component": false,
@@ -25008,76 +23257,8 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC12A",
-      "denumire": "Etajera, portelan sanitar montata pe perete din zidarie caramida sau bca",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SC13A",
-      "denumire": "Oglinda sanit semicrist,cu marg slef,de 400 X 500MM,500 X 600 MM,etc pe per caram si bca",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SC11A",
-      "denumire": "Portprosop alama nichel,bachel,etc,Montare pe per din zid caram sau bca, un punct sprijin",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$2222227",
       "denumire": "DISPENSER INOX SERVETELE HÂRTIE",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SC14A",
-      "denumire": "Portpahar,sapuniera fonta EM,portelan sanit, etc, montare pe perete de caram sau bca",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226528",
@@ -25110,42 +23291,8 @@
       "val_transport": 0.0
     },
     {
-      "cod": "SC07A",
-      "denumire": "Vas clos,echip,semiport,port san incl pentru hand, asez pe pard, rez apa la inalt, semiinalt,sif S",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "SB17E1",
       "denumire": "Coturi pvc-u,pentru canalizare,cu imbinare prin lipirela 45;67 1/2;87 1/2 grade,avand d=110 mm",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "SD05A",
-      "denumire": "Robinet reglaj, drepentru sau coltar,montare inaintea armaturilor de la obiecte sanit, D=3/8 -1/2",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226528",
@@ -25280,44 +23427,10 @@
       "val_transport": 0.0
     },
     {
-      "cod": "EE09B",
-      "denumire": "Corp de iluminat special difuzant, pentru lampi cu vapori de mercur, complet, cu balast, montat pe bolturi implantate",
-      "um": "buc",
-      "cantitate": 11.0,
-      "deviz": "226558",
-      "deviz_denumire": "INSTALATII ELECTRICE CURENTI TARI OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "$6703043",
       "denumire": "CORP DE ILUMINAT LED, LINIAR 1200x90, 35W, IP65",
       "um": "buc",
       "cantitate": 1.0,
-      "deviz": "226558",
-      "deviz_denumire": "INSTALATII ELECTRICE CURENTI TARI OB 5",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "ED03B",
-      "denumire": "Aparat de comutare (intrerupator, comutator, priza) de la 32a pana la 63a cu dibluri cu expandare",
-      "um": "buc",
-      "cantitate": 9.0,
       "deviz": "226558",
       "deviz_denumire": "INSTALATII ELECTRICE CURENTI TARI OB 5",
       "is_component": false,
