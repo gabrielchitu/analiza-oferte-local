@@ -64,6 +64,10 @@ NR_SINGLE_INLINE_RE = re.compile(
 )
 # NR_CRT: integer 1-999 singur pe linie
 NR_CRT_RE = re.compile(r'^(\d{1,3})$')
+# NR_LINKED: articol legat ISDP — "N.L" singur pe linie (ex: "6.L", "8.L")
+NR_LINKED_RE = re.compile(r'^(\d{1,3})\.L\s*$', re.IGNORECASE)
+# COD_NUMERIC_BARE: cod numeric pur 5-8 cifre singur pe linie (articole legate ISDP)
+COD_NUMERIC_BARE_RE = re.compile(r'^(\d{5,8})\s*$')
 # UM: token scurt alfabetic
 UM_RE = re.compile(r'^([A-Z]{1,6})\.?$', re.IGNORECASE)
 # Cantitate cu zecimale — include format cu separator mii: 2,000.000 sau 1.234,56
@@ -202,6 +206,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
 
     last_nr_crt = 0
     waiting_lines = 0   # contor linii în WAITING_ARTICLE
+    _after_linked = False  # True imediat dupa un N.L — asteptam cod numeric bare
 
     def _finalize():
         nonlocal cod, denumire_parts, um, cantitate, preturi
@@ -301,6 +306,18 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         if not line or SKIP_RE.search(line) or _PRICE_LABEL_RE.match(line):
             continue
 
+        # N.L handler: articol legat ISDP — funcționează în orice stare
+        m_linked = NR_LINKED_RE.match(line)
+        if m_linked:
+            if state == _READING:
+                _finalize()
+            last_nr_crt = int(m_linked.group(1))
+            cod = ''; denumire_parts = []; um = ''; cantitate = 0.0; preturi = []
+            state = _WAITING
+            waiting_lines = 0
+            _after_linked = True
+            continue
+
         price_count = len(preturi)
 
         # ── IDLE ─────────────────────────────────────────────────────────────
@@ -348,6 +365,16 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
 
         # ── WAITING_ARTICLE ──────────────────────────────────────────────────
         elif state == _WAITING:
+            # Cod numeric bare (5-8 cifre) dupa N.L — articol legat ISDP
+            if _after_linked:
+                m_bare = COD_NUMERIC_BARE_RE.match(line)
+                if m_bare:
+                    cod = '$' + m_bare.group(1)
+                    denumire_parts = []; um = ''; cantitate = 0.0; preturi = []
+                    state = _READING
+                    waiting_lines = 0
+                    _after_linked = False
+                    continue
             parsed_cod, parsed_den, parsed_um_hint = _try_parse_cod(line)
             if parsed_cod:
                 cod = parsed_cod
@@ -357,6 +384,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 preturi = []
                 state = _READING
                 waiting_lines = 0
+                _after_linked = False
             else:
                 # Verifica si format NR_INLINE (038 2222219) sau single-letter (017 W2F05C01) in WAITING — acelasi handling ca IDLE
                 m_ai = NR_ALPHA_INLINE_RE.match(line)
