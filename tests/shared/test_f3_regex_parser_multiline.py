@@ -130,3 +130,32 @@ def test_single_line_article_no_regression():
     )
     assert article2['um'] == "buc", f"Expected unit BUC, got {article2['um']}"
     assert article2['cantitate'] == 1.0, f"Expected quantity 1.0, got {article2['cantitate']}"
+
+
+def test_bracket_code_in_single_deviz_page_extracted():
+    """
+    Pagina cu un singur articol 'IA22C1 [1]' precedata de header 'NNNNNN pag'.
+    Bug: 'IA22C1 [1]' cadea in denominatia lui $226238 si era pierdut.
+    Fix: check in READING state trebuie sa foloseasca string-ul normalizat.
+    """
+    lines = [
+        "226238 pag",        # header deviz — triggera cod $226238
+        "40",                # numar pagina — cade in preturi ale lui $226238
+        "Formularul F3",     # header text
+        "Lista cu cantitatile de lucrari",
+        "Deviz oferta 226238 MONTAT BOILER OB.2",
+        "001",               # NR_CRT -> WAITING
+        "IA22C1 [1]",        # cod cu bracket — trebuie sa inceapa articol nou
+        "BUC.",
+        "2.000",
+        "MONTARE BOILER",
+    ]
+    articles = extract_articles_regex(lines, "226238", "MONTAT BOILER OB.2")
+
+    cods = [a["cod"] for a in articles]
+    assert "IA22C1" in cods, \
+        f"IA22C1 not extracted — was lost as denomination of skipped $226238. Got: {cods}"
+
+    art = next(a for a in articles if a["cod"] == "IA22C1")
+    assert art["um"] == "buc", f"Expected um='buc', got '{art['um']}'"
+    assert art["cantitate"] == 2.0, f"Expected cantitate=2.0, got {art['cantitate']}"

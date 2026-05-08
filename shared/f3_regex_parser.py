@@ -455,11 +455,13 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # Cod nou cu separator – fără NR_CRT explicit (ex: "30172 - Transport" sau "TRA01A20")
             # Finalizează articolul curent și pornește unul nou
             parsed_cod, parsed_den, parsed_um_hint = _try_parse_cod(line)
-            # Check both code patterns WITH separators and standalone code patterns
-            # This handles cases where same article code appears multiple times in same deviz
+            # Check both code patterns WITH separators and standalone code patterns.
+            # COD_NORM_STANDALONE_RE se verifica pe string-ul normalizat (bracket-uri lipite)
+            # deoarece _try_parse_cod normalizeaza intern "IA22C1 [1]" → "IA22C1[1]".
+            line_norm = re.sub(r'(?<=[A-Z0-9])\s+(\[\d)', r'\1', line, flags=re.IGNORECASE)
             if parsed_cod and (COD_NUMERIC_RE.match(line) or COD_NORM_RE.match(line)
                                or COD_NORM_EXTENDED_RE.match(line) or COD_BREVIAR_RE.match(line)
-                               or COD_NUMERIC_PIPE_RE.match(line) or COD_NORM_STANDALONE_RE.match(line)):
+                               or COD_NUMERIC_PIPE_RE.match(line) or COD_NORM_STANDALONE_RE.match(line_norm)):
                 _finalize()
                 cod = parsed_cod
                 denumire_parts = [parsed_den] if parsed_den else []
