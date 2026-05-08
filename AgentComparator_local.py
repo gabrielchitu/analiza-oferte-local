@@ -34,9 +34,10 @@ def _normalize_cod(cod: str) -> str:
         return re.sub(r'[^A-Z0-9$]', '', cod)
     if re.match(r'^\d+$', cod):
         return '$' + cod
-    cod = cod.replace('#', '1')
+    # Caracterele speciale (#, @, -, etc.) sunt artefacte software/OCR — stripuim.
+    # Codurile valide contin NUMAI [A-Z0-9]. Nu inlocuim # cu 1 (da cod gresit).
     m = re.match(r'^([A-Z]{2,5}\d{2,4}[A-Z]?\d{0,2})', cod)
-    return m.group(1) if m else re.sub(r'[#$@\-\s]', '', cod)
+    return m.group(1) if m else re.sub(r'[^A-Z0-9]', '', cod)
 
 
 def _enrich(neconf: dict, ref_art: dict, oferta_art: dict,
@@ -164,6 +165,7 @@ def match_global(
     neconformitati = []
     matches = []
     matched_oferta_keys = set()
+    matched_by_llm_ref_keys: set = set()
     unmatched_ref = []
 
     # Layer 1: Exact match pe (deviz, cod)
@@ -327,4 +329,6 @@ def match_global(
         f"extra={len([n for n in neconformitati if n['tip']=='ARTICOL_EXTRA'])}, "
         f"similar={len([n for n in neconformitati if n['tip']=='COD_SIMILAR'])}"
     )
-    return neconformitati, matches
+    # Construieste setul cheilor REF match-uite pentru orphan detection
+    matched_ref_keys = matched_oferta_keys | matched_by_llm_ref_keys
+    return neconformitati, matches, matched_ref_keys

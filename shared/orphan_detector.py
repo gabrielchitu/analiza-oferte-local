@@ -1,6 +1,13 @@
 """
-Detecta coduri orphane: cod care apare în deviz diferit în ref vs oferta.
-Exemplu: CK25A categoria 226118 în ref, dar 226113 în oferta → orphan.
+Detecta coduri orphane: cod din REF neacoperit in O2 sub acelasi deviz,
+DAR care exista in O2 sub un deviz diferit.
+
+Semantica: ofertantul a clasificat articolul la alta categorie de lucrari.
+
+API:
+    detect_orphans(ref_articole, oferta_articole, matched_ref_keys=None) -> list
+    matched_ref_keys: set de (deviz, cod) deja match-uite — excluse din detectie.
+                      Daca None, se considera nimic matched (backward compat).
 """
 import logging
 from collections import defaultdict
@@ -8,86 +15,82 @@ from collections import defaultdict
 logger = logging.getLogger(__name__)
 
 
-def detect_orphans(ref_articole: list, oferta_articole: list) -> list:
+def detect_orphans(
+    ref_articole: list,
+    oferta_articole: list,
+    matched_ref_keys: set = None,
+) -> list:
     """
-    Detecta articole cu cod identical dar deviz diferit.
-    
-    Returns: lista de {cod, ref_deviz, oferta_deviz, ref_cant, oferta_cant}
+    Detecta articole din REF nematch-uite al caror cod apare in oferta
+    sub un deviz diferit.
+
+    Algoritm (fara produs cartezian):
+      1. Porneste de la articolele REF NEacoperite: (deviz, cod) not in matched_ref_keys
+      2. Verifica daca codul exista in oferta sub orice alt deviz
+      3. Daca da → ORFAN (deviz gresit in oferta)
+      4. Daca nu → ramane LIPSA (gestionat de matcher principal)
+
+    matched_ref_keys: set((deviz, cod)) deja match-uite. Default=None = nimic matched.
     """
-    # Map: cod -> set of deviz în referință
-    ref_cod_deviz = defaultdict(set)
-    ref_cod_data = {}
-    
-    for art in ref_articole:
-        cod = (art.get('cod') or '').upper()
-        deviz = art.get('deviz', '')
-        if cod and deviz:
-            ref_cod_deviz[cod].add(deviz)
-            key = (cod, deviz)
-            if key not in ref_cod_data:
-                ref_cod_data[key] = art
-    
-    # Map: cod -> set of deviz în oferta
-    oferta_cod_deviz = defaultdict(set)
-    oferta_cod_data = {}
-    
+    if matched_ref_keys is None:
+        matched_ref_keys = set()
+
+    # Index oferta: cod -> set(deviz)
+    oferta_cod_to_devize: dict[str, set] = defaultdict(set)
+    oferta_cod_to_art: dict[tuple, dict] = {}
     for art in oferta_articole:
         cod = (art.get('cod') or '').upper()
         deviz = art.get('deviz', '')
         if cod and deviz:
-            oferta_cod_deviz[cod].add(deviz)
+            oferta_cod_to_devize[cod].add(deviz)
             key = (cod, deviz)
-            if key not in oferta_cod_data:
-                oferta_cod_data[key] = art
-    
-    # Gaseste orphane: cod care apare în ambele dar cu deviz diferit
+            if key not in oferta_cod_to_art:
+                oferta_cod_to_art[key] = art
+
     orphans = []
-    
-    for cod in ref_cod_deviz:
-        if cod not in oferta_cod_deviz:
-            continue  # Cod nu e în oferta deloc
-        
-        ref_devizes = ref_cod_deviz[cod]
-        oferta_devizes = oferta_cod_deviz[cod]
-        
-        # Verifica fiecare combinație
-        for ref_dv in ref_devizes:
-            for oferta_dv in oferta_devizes:
-                if ref_dv != oferta_dv:
-                    # Orphan: cod identical, deviz diferit
-                    ref_key = (cod, ref_dv)
-                    oferta_key = (cod, oferta_dv)
-                    
-                    if ref_key in ref_cod_data and oferta_key in oferta_cod_data:
-                        ref_art = ref_cod_data[ref_key]
-                        oferta_art = oferta_cod_data[oferta_key]
-                        
-                        # Verifica daca cantitate + UM sunt identice (confirma aceeasi lucrare)
-                        if (ref_art.get('cantitate') == oferta_art.get('cantitate') and
-                            ref_art.get('um') == oferta_art.get('um')):
-                            
-                            orphans.append({
-                                'cod': cod,
-                                'ref_deviz': ref_dv,
-                                'ref_denom': ref_art.get('denumire', '')[:50],
-                                'ref_cant': ref_art.get('cantitate', 0),
-                                'ref_um': ref_art.get('um', ''),
-                                'oferta_deviz': oferta_dv,
-                                'oferta_denom': oferta_art.get('denumire', '')[:50],
-                                'oferta_cant': oferta_art.get('cantitate', 0),
-                                'oferta_um': oferta_art.get('um', ''),
-                            })
-    
-    # Deduplica
-    seen = set()
-    unique_orphans = []
-    for orphan in orphans:
-        key = (orphan['cod'], orphan['ref_deviz'], orphan['oferta_deviz'])
-        if key not in seen:
-            unique_orphans.append(orphan)
-            seen.add(key)
-    
-    if unique_orphans:
-        logger.info(f"[ORPHAN] Detectate {len(unique_orphans)} coduri orphane (cod identical, deviz diferit)")
-    
-    return unique_orphans
+    seen: set[tuple] = set()
+
+    for art in ref_articole:
+        cod = (art.get('cod') or '').upper()
+        ref_deviz = art.get('deviz', '')
+        if not cod or not ref_deviz:
+            continue
+
+        ref_key = (ref_deviz, cod)
+
+        # Sari articolele deja match-uite
+        if ref_key in matched_ref_keys:
+            continue
+
+        # Codul exista in oferta sub alt deviz?
+        oferta_devize = oferta_cod_to_devize.get(cod, set())
+        # Excludem devizele ofertă deja consumate de alte match-uri (acelasi cod, alt deviz ref)
+        consumed_devize = {k[0] for k in matched_ref_keys if k[1] == cod}
+        wrong_devize = oferta_devize - {ref_deviz} - consumed_devize
+        if not wrong_devize:
+            continue  # Cod absent total din oferta → LIPSA (nu ORFAN)
+
+        # Genereaza un orfan per deviz gresit (nu produs cartezian)
+        for oferta_dv in sorted(wrong_devize):
+            orphan_key = (cod, ref_deviz, oferta_dv)
+            if orphan_key in seen:
+                continue
+            seen.add(orphan_key)
+
+            oferta_art = oferta_cod_to_art.get((cod, oferta_dv), {})
+            orphans.append({
+                'cod': cod,
+                'ref_deviz': ref_deviz,
+                'ref_denom': art.get('denumire', '')[:50],
+                'ref_cant': art.get('cantitate', 0),
+                'ref_um': art.get('um', ''),
+                'oferta_deviz': oferta_dv,
+                'oferta_denom': oferta_art.get('denumire', '')[:50],
+                'oferta_cant': oferta_art.get('cantitate', 0),
+                'oferta_um': oferta_art.get('um', ''),
+            })
+
+    if orphans:
+        logger.info(f"[ORPHAN] Detectate {len(orphans)} coduri orphane (deviz gresit in oferta)")
+
+    return orphans
