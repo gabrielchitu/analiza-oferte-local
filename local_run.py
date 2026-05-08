@@ -208,6 +208,41 @@ def compare_and_report(
             'motiv': f'Cod {orphan["cod"]}: REF categoriei {orphan["ref_deviz"]} => OFERTA categoriei {orphan["oferta_deviz"]}',
         })
 
+    # Colecteaza devize_extra si devize_lipsa pentru raport
+    from collections import defaultdict as _defaultdict
+    ref_devize_set = {a.get('deviz', '') for a in ref_articles if a.get('deviz')}
+    oferta_devize_set = {a.get('deviz', '') for a in oferta_norm if a.get('deviz')}
+
+    oferta_devize_art_count = _defaultdict(int)
+    for a in oferta_norm:
+        oferta_devize_art_count[a.get('deviz', '')] += 1
+    ref_devize_art_count = _defaultdict(int)
+    for a in ref_articles:
+        ref_devize_art_count[a.get('deviz', '')] += 1
+    ref_devize_den = {}
+    for a in ref_articles:
+        d = a.get('deviz', ''); n = a.get('deviz_denumire', '')
+        if d and n:
+            ref_devize_den[d] = n
+
+    _devize_extra = [
+        {
+            'deviz': d,
+            'denumire': next((a.get('deviz_denumire', '') for a in oferta_norm
+                              if a.get('deviz') == d), ''),
+            'art_count': oferta_devize_art_count[d],
+        }
+        for d in sorted(oferta_devize_set - ref_devize_set - {''})
+    ]
+    _devize_lipsa = [
+        {
+            'deviz': d,
+            'denumire': ref_devize_den.get(d, ''),
+            'art_count': ref_devize_art_count[d],
+        }
+        for d in sorted(ref_devize_set - oferta_devize_set - {''})
+    ]
+
     # Salveaza JSON comparatie
     comparatie_path = OUTPUT_DIR / f"comparatie_oferta_{oferta_nr}.json"
     comparatie_path.write_text(
@@ -232,6 +267,8 @@ def compare_and_report(
         "source_file": oferta_path.name,
         "ofertant": "",
         "neconformitati": neconformitati,
+        "ref_art_count": len(ref_articles),
+        "oferta_art_count": len(oferta_norm),
     }
     comparison_mode = "cu_pret" if include_prices else "fara_pret"
 
@@ -247,7 +284,12 @@ def compare_and_report(
     # Raport DOCX
     docx_path = OUTPUT_DIR / f"Raport_Oferta_{oferta_nr}.docx"
     try:
-        docx_bytes = generate_word(session, comp, comparison_mode=comparison_mode)
+        docx_bytes = generate_word(
+            session, comp,
+            comparison_mode=comparison_mode,
+            devize_extra=_devize_extra,
+            devize_lipsa=_devize_lipsa,
+        )
         docx_path.write_bytes(docx_bytes)
         logger.info(f"  DOCX: {docx_path.name}")
     except Exception as e:
