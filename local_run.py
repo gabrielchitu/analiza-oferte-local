@@ -157,6 +157,7 @@ def compare_and_report(
 ):
     """Compara oferta cu referinta si genereaza raport XLSX + DOCX."""
     from shared.deviz_normalizer import normalize_devize
+    from shared.deviz_mismatch_detector import detect_deviz_mismatches
     from shared.extraction_validator import mark_suspicious_extras
     from shared.orphan_detector import detect_orphans
     from shared.report_excel import generate_excel
@@ -165,6 +166,16 @@ def compare_and_report(
 
     # Normalizeaza devizele ofertei sa corespunda cu cele din referinta
     oferta_norm = normalize_devize(ref_articles, oferta_articles, client, model)
+
+    # Detectare deviz mismatch (devize din oferta cu cod diferit dar articole similare)
+    deviz_mismatches = detect_deviz_mismatches(ref_articles, oferta_norm)
+    if deviz_mismatches:
+        for m in deviz_mismatches:
+            logger.warning(
+                f"  [DEVIZ_MISMATCH] Deviz {m['oferta_deviz']} din oferta (~{m['overlap_score']:.0%} overlap) "
+                f"pare echivalentul lui {m['ref_deviz']} din referinta "
+                f"({m['oferta_art_count']} vs {m['ref_art_count']} articole)"
+            )
 
     # Matching 3 straturi — returneaza si cheile REF match-uite
     neconformitati, matches, matched_ref_keys = match_global(
@@ -205,6 +216,7 @@ def compare_and_report(
             "neconformitati": neconformitati,
             "total_neconformitati": len(neconformitati),
             "matches": len(matches),
+            "deviz_mismatches": deviz_mismatches,
         }, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
