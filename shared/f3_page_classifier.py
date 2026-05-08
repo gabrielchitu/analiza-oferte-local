@@ -20,6 +20,8 @@ _STADIUL_FIZIC_RE = re.compile(
     r'STADIU[L]?\s+FIZIC\s*:\s*(.+)',
     re.IGNORECASE
 )
+# Marker pentru STADIUL FIZIC singur pe linie (continutul devizului e pe linia urmatoare)
+_STADIUL_FIZIC_MARKER_RE = re.compile(r'STADIU[L]?\s+FIZIC\s*:\s*$', re.IGNORECASE)
 
 # "Formularul F3" sau "Formular F3"
 _FORMULAR_F3_RE = re.compile(
@@ -139,17 +141,35 @@ def classify_page_local(page: dict) -> dict:
         if pat.search(full_content):
             return {"label": "NON_F3", "deviz_cod": "", "deviz_den": "", "is_header": False}
 
-    # ── Verifică Recapitulatia în tot conținutul paginii (override după STADIUL FIZIC) ──
-    # O pagină care conține "Recapitulatia:" este o pagina de sumar, NU de date F3,
-    # chiar dacă are STADIUL FIZIC în header (ex: ultima pagina a unui deviz ISDP).
-    if _RECAPITULATIE_RE.search(full_content):
+    # ── Verifică Recapitulatia în tot conținutul paginii ──
+    # O pagina de sumar (fara coduri articol) → NON_F3.
+    # O pagina cu articole SI Recapitulatia la final (ultima pagina deviz) → tratata ca F3.
+    if _RECAPITULATIE_RE.search(full_content) and not _has_article_codes(full_content):
         return {"label": "NON_F3", "deviz_cod": "", "deviz_den": "", "is_header": False}
 
-    # ── Verifică STADIUL FIZIC (ISDP format) — în primele 3 linii ──
-    for line in lines[:3]:
-        m = _STADIUL_FIZIC_RE.match(line.strip())
-        if m:
-            cod, den = _extract_deviz_from_stadiul_fizic(m.group(1))
+    # ── Verifică STADIUL FIZIC — fereastra de 8 linii ──
+    # OCR poate intercala linii extra (ex: 'Beneficiar:') intre 'STADIUL FIZIC:'
+    # si codul deviz. Cautam codul in urmatoarele 8 linii dupa marker.
+    _DEVIZ_COD_IN_LINE_RE = re.compile(
+        r'(?:oferta\s+)?(?:\d{1,3}\s+)?((?=[A-Z0-9]*\d{4})[A-Z0-9]{5,8})',
+        re.IGNORECASE
+    )
+    for i, line in enumerate(lines):
+        m_sf = _STADIUL_FIZIC_RE.match(line.strip())
+        m_sf_marker = _STADIUL_FIZIC_MARKER_RE.match(line.strip())
+        if m_sf or m_sf_marker:
+            # Incearca pe aceeasi linie (continut direct dupa ":")
+            cod, den = ("", "")
+            if m_sf:
+                cod, den = _extract_deviz_from_stadiul_fizic(m_sf.group(1))
+            if not cod:
+                # Cauta codul in fereastra de 8 linii urmatoare (OCR poate intercala junk)
+                for j in range(i + 1, min(i + 8, len(lines))):
+                    m2 = _DEVIZ_COD_IN_LINE_RE.search(lines[j])
+                    if m2:
+                        cod = m2.group(1).upper()
+                        den = ""
+                        break
             return {"label": "F3", "deviz_cod": cod, "deviz_den": den, "is_header": False}
 
     # ── Verifică Stadiul fizic eDevize (cover page) — ÎNAINTE de Formular F3 ──

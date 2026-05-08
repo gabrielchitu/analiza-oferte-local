@@ -81,7 +81,7 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_codes: set = N
     import shared.f3_page_classifier as _clf_module
     _clf_hash = hashlib.md5(
         inspect.getsource(_clf_module).encode()
-    ).hexdigest()[:8]
+    ).hexdigest()[:12]
     checkpoint = CHECKPOINT_DIR / f"{di_path.stem}_page_classes_{_clf_hash}.json"
 
     di = json.loads(di_path.read_text(encoding="utf-8"))
