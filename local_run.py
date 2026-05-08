@@ -66,6 +66,63 @@ def _normalize_deviz_for_filter(cod: str) -> str:
     return (cod or "").replace("U", "0")
 
 
+def _extract_ofertant_name(di_path: Path) -> str:
+    """
+    Extrage numele ofertantului din DI JSON (primele 10 pagini).
+
+    Strategii în ordine de prioritate:
+      A) 'OFERTANT,' singur pe linie → linia/liniile imediat urmatoare
+      B) 'Ofertant: NUME' inline → extrage după ':'
+      C) 'Asociere: NUME' sau 'denumirea Asociere: NUME'
+      D) Fallback: 'Oferta N' din numele fișierului
+    """
+    import re as _re
+    try:
+        di = json.loads(di_path.read_text(encoding="utf-8"))
+    except Exception:
+        return ""
+
+    pages = di.get("pages", [])[:10]
+
+    def _is_company_line(s: str) -> bool:
+        s = s.strip()
+        return bool(s) and (
+            _re.search(r'\bS\.?C\.?\b|\bSRL\b|\bSA\b|\bRA\b|\bAsociere\b|Asocierea', s, _re.I)
+            or (s.isupper() and len(s) > 8)
+            or s.startswith("-")
+        )
+
+    for p in pages:
+        lines = [l.get("content", "") for l in p.get("lines", [])]
+        for i, line in enumerate(lines):
+            ls = line.strip()
+
+            # Pattern A: OFERTANT, singur pe linie
+            if _re.match(r'^OFERTANT\s*[,.]?\s*$', ls, _re.IGNORECASE):
+                parts = []
+                for j in range(i + 1, min(i + 5, len(lines))):
+                    cand = lines[j].strip()
+                    if not cand or _re.match(r'^(Director|Semnatura|Nume|Data\b)', cand, _re.I):
+                        break
+                    parts.append(cand)
+                if parts:
+                    name = " ".join(parts)
+                    name = _re.sub(r'\s+', ' ', name).strip()
+                    return name
+
+            # Pattern B: Ofertant: INLINE_NAME (minim 10 chars)
+            m = _re.match(r'^Ofertant\s*:\s*(.+)', ls, _re.IGNORECASE)
+            if m and len(m.group(1).strip()) > 10:
+                return m.group(1).strip()
+
+            # Pattern C: Asociere: / denumirea Asociere: INLINE_NAME
+            m = _re.search(r'(?:denumirea\s+)?Asociere\s*:\s*(.+)', ls, _re.IGNORECASE)
+            if m and len(m.group(1).strip()) > 8:
+                return m.group(1).strip()
+
+    return ""
+
+
 def extract_document(di_path: Path, client, model: str) -> list:
     """
     Extrage articolele F3 dintr-un DI JSON.
@@ -154,6 +211,7 @@ def compare_and_report(
     client,
     model: str,
     include_prices: bool = False,
+    ofertant_name: str = "",
 ):
     """Compara oferta cu referinta si genereaza raport XLSX + DOCX."""
     from shared.deviz_normalizer import normalize_devize
@@ -265,7 +323,7 @@ def compare_and_report(
     comp = {
         "oferta_nr": oferta_nr,
         "source_file": oferta_path.name,
-        "ofertant": "",
+        "ofertant": ofertant_name or f"Oferta {oferta_nr}",
         "neconformitati": neconformitati,
         "ref_art_count": len(ref_articles),
         "oferta_art_count": len(oferta_norm),
@@ -349,6 +407,9 @@ def main():
             continue
 
         logger.info(f"\n--- Extragere OFERTA {oferta_nr} ---")
+        ofertant_name = _extract_ofertant_name(oferta_path)
+        if ofertant_name:
+            logger.info(f"  Ofertant: {ofertant_name}")
         oferta_articles = extract_document(oferta_path, client, model)
 
         # Populate missing deviz denominations (so reports show work categories)
@@ -371,7 +432,8 @@ def main():
         )
 
         logger.info(f"\n--- Comparare OFERTA {oferta_nr} ---")
-        compare_and_report(ref_articles, oferta_articles, oferta_nr, oferta_path, client, model)
+        compare_and_report(ref_articles, oferta_articles, oferta_nr, oferta_path, client, model,
+                           ofertant_name=ofertant_name)
 
     logger.info("\n" + "=" * 50)
     logger.info("  DONE")

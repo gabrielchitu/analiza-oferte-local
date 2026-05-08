@@ -111,7 +111,7 @@ def _add_deviz_heading(table, deviz_cod: str, deviz_den: str,
     delta_str = f"{delta:+d}" if delta != 0 else "0 ✓"
     den_short = deviz_den[:40] + "..." if len(deviz_den) > 40 else deviz_den
     label = (
-        f"DEVIZ {deviz_cod}"
+        f"Capitol de lucrări {deviz_cod}"
         + (f" — {den_short}" if den_short else "")
         + f"  │  LIPSA: {ref_count}"
         + f"  │  EXTRA: {oferta_count}"
@@ -147,7 +147,7 @@ def _add_quality_alerts(doc, deviz_mismatches: list,
         h.runs[0].font.color.rgb = RED
 
     if deviz_mismatches:
-        doc.add_heading("Deviz Mismatch Detectat", level=2)
+        doc.add_heading("Capitol de lucrări cu cod diferit față de referință (Mismatch)", level=2)
         for m in deviz_mismatches:
             p = doc.add_paragraph(style='List Bullet')
             run = p.add_run(
@@ -164,7 +164,7 @@ def _add_quality_alerts(doc, deviz_mismatches: list,
             )
 
     if devize_extra:
-        doc.add_heading("Devize în ofertă absente din referință", level=2)
+        doc.add_heading("Capitole de lucrări în ofertă, absente din referință", level=2)
         doc.add_paragraph(
             "Aceste devize NU au putut fi comparate cu proiectul. "
             "Verificați dacă sunt lucrări suplimentare sau F3 neextras din referință."
@@ -178,7 +178,7 @@ def _add_quality_alerts(doc, deviz_mismatches: list,
             ).bold = True
 
     if devize_lipsa:
-        doc.add_heading("Devize din referință fără ofertă", level=2)
+        doc.add_heading("Capitole de lucrări din referință neacoperite de ofertă", level=2)
         doc.add_paragraph(
             "Aceste categorii de lucrări din proiect nu au nicio ofertă corespunzătoare."
         )
