@@ -33,10 +33,16 @@ _SECTIUNEA_TEHNICA_RE = re.compile(
     re.IGNORECASE
 )
 
-# eDevize cover page: "Stadiul fizic: NNN XXXXXX NAME"  (lowercase 's')
-# NNN = 1-3 digit chapter, XXXXXX = 6-char code with optional letters
+# eDevize/ISDP cover page: "Stadiul fizic: [NNN] [oferta] XXXXXX NAME"
+# Suporta formate:
+#   eDevize: "Stadiul fizic: 001 226108 STRUCTURA"  (NNN = numar capitol)
+#   ISDP:    "STADIUL FIZIC:\noferta 226108 STRUCTURA"  (oferta keyword)
+#   ISDP:    "STADIUL FIZIC: oferta 226108 STRUCTURA"   (pe aceeasi linie)
+# Lookahead (?=...\d{4}) garanteaza ca deviz_cod contine >= 4 cifre,
+# eliminand capturarea gresita a cuvantului 'oferta' (0 cifre) ca cod.
 _STADIUL_FIZIC_EDEVIZE_RE = re.compile(
-    r'Stadiul\s+fizic\s*:\s*(?:\d{1,3}\s+)?([A-Z0-9]{5,8})\s+(.*)',
+    r'Stadiul\s+fizic\s*:\s*(?:oferta\s+)?(?:\d{1,3}\s+)?'
+    r'((?=[A-Z0-9]*\d{4})[A-Z0-9]{5,8})\s+(.*)',
     re.IGNORECASE
 )
 
