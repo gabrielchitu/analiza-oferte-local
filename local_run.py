@@ -66,14 +66,13 @@ def _normalize_deviz_for_filter(cod: str) -> str:
     return (cod or "").replace("U", "0")
 
 
-def extract_document(di_path: Path, client, model: str, ref_deviz_codes: set = None) -> list:
+def extract_document(di_path: Path, client, model: str) -> list:
     """
     Extrage articolele F3 dintr-un DI JSON.
     Foloseste checkpoint daca exista — sare peste clasificarea LLM (pasul lent).
 
-    Args:
-        ref_deviz_codes: Optional set of valid deviz codes from reference.
-                        If provided, only extract articles from these deviz codes.
+    Extrage TOATE devizele fara filtru. Devizele prezente in oferta dar absente
+    din referinta sunt surfacate ca alerte in raport, nu ascunse.
     """
     from shared.f3_page_classifier import classify_pages
     from shared.f3_extractor import extract_articles_v3
@@ -99,17 +98,6 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_codes: set = N
             encoding="utf-8",
         )
         logger.info(f"  Checkpoint salvat: {checkpoint.name}")
-
-    # Filtrare: doar devize care exista si in referinta (daca ref_deviz_codes e furnizat)
-    if ref_deviz_codes is not None:
-        page_classes_before = len([p for p in page_classes if p.get("is_f3") and not p.get("header_only")])
-        page_classes = [
-            p for p in page_classes
-            if not p.get("is_f3") or p.get("header_only") or _normalize_deviz_for_filter(p.get("deviz_cod", "")) in ref_deviz_codes
-        ]
-        page_classes_after = len([p for p in page_classes if p.get("is_f3") and not p.get("header_only")])
-        if page_classes_before != page_classes_after:
-            logger.info(f"  Filtrare devize: {page_classes_before} → {page_classes_after} pagini F3 (excluse devize din oferta extra)")
 
     f3_count = sum(1 for p in page_classes if p.get("is_f3") and not p.get("header_only"))
     no_deviz = sum(1 for p in page_classes if p.get("is_f3") and not p.get("header_only") and not p.get("deviz_cod"))
@@ -178,16 +166,14 @@ def compare_and_report(
     # Normalizeaza devizele ofertei sa corespunda cu cele din referinta
     oferta_norm = normalize_devize(ref_articles, oferta_articles, client, model)
 
-    # NO deviz reassignment - match strictly by (deviz, cod) pairs
-    # If article code appears in different deviz, it's a DIFFERENT work item
-
-    # Detecta coduri orphane (cod identical, deviz diferit)
-    orphans = detect_orphans(ref_articles, oferta_norm)
-
-    # Matching 3 straturi
-    neconformitati, matches = match_global(
+    # Matching 3 straturi — returneaza si cheile REF match-uite
+    neconformitati, matches, matched_ref_keys = match_global(
         ref_articles, oferta_norm, client, model, include_prices=include_prices
     )
+
+    # Detecta orphane DUPA matching: cod din REF neacoperit dar prezent in O2 sub alt deviz
+    # matched_ref_keys exclude articolele deja acoperite (fara produs cartezian)
+    orphans = detect_orphans(ref_articles, oferta_norm, matched_ref_keys=matched_ref_keys)
 
     # Marcheaza EXTRA suspecte (codul exista in referinta dar cu alta denumire)
     ref_codes_text = " ".join(a.get("cod", "") for a in ref_articles)
@@ -297,11 +283,10 @@ def main():
     )
     logger.info(f"  Salvat: {ref_out.name}")
 
-    # Extrage deviz codurile valide din referinta (pentru a filtra oferte cu devize extra)
     ref_deviz_codes = set(a.get("deviz", "") for a in ref_articles if a.get("deviz"))
-    logger.info(f"  Deviz coduri valide din referinta: {sorted(ref_deviz_codes)}")
+    logger.info(f"  {len(ref_deviz_codes)} devize in referinta")
 
-    # Step 2: Extrage + compara fiecare oferta
+    # Step 2: Extrage + compara fiecare oferta (fara filtru de devize)
     for oferta_path in oferta_paths:
         try:
             oferta_nr = int(oferta_path.stem.replace("di_oferta_", ""))
@@ -310,10 +295,20 @@ def main():
             continue
 
         logger.info(f"\n--- Extragere OFERTA {oferta_nr} ---")
-        oferta_articles = extract_document(oferta_path, client, model, ref_deviz_codes=ref_deviz_codes)
+        oferta_articles = extract_document(oferta_path, client, model)
 
         # Populate missing deviz denominations (so reports show work categories)
         oferta_articles = populate_deviz_denominations(oferta_articles)
+
+        # Identificare devize extra (in oferta dar absente din referinta) — alerta calitate
+        oferta_deviz_codes = set(a.get("deviz", "") for a in oferta_articles if a.get("deviz"))
+        devize_extra = oferta_deviz_codes - ref_deviz_codes - {""}
+        devize_lipsa_din_oferta = ref_deviz_codes - oferta_deviz_codes
+        if devize_extra:
+            logger.warning(f"  ALERTA: {len(devize_extra)} devize in oferta ABSENTE din referinta: {sorted(devize_extra)}")
+            logger.warning(f"  → Posibil F3 neextras din referinta SAU lucrari suplimentare propuse de ofertant")
+        if devize_lipsa_din_oferta:
+            logger.info(f"  {len(devize_lipsa_din_oferta)} devize din referinta NEACOPERITE de oferta: {sorted(devize_lipsa_din_oferta)}")
 
         oferta_out = OUTPUT_DIR / f"oferta_{oferta_nr}.json"
         oferta_out.write_text(
