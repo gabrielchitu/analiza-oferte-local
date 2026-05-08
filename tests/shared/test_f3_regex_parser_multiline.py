@@ -159,3 +159,39 @@ def test_bracket_code_in_single_deviz_page_extracted():
     art = next(a for a in articles if a["cod"] == "IA22C1")
     assert art["um"] == "buc", f"Expected um='buc', got '{art['um']}'"
     assert art["cantitate"] == 2.0, f"Expected cantitate=2.0, got {art['cantitate']}"
+
+
+def test_deviz_number_as_article_code_skipped_when_footer_in_denomination():
+    """
+    Linia '226108 STRUCTURA DE REZISTENTA CUPOLA TEREN TENIS' din headerul
+    paginilor eDevize este parsata ca articol $226108 (COD_NUMERIC_PIPE_RE).
+    Denominatia acumulata contine 'e devize formular f3' din footer-ul paginii.
+
+    Bug: conditia de skip verifica startswith('pag') dar denominatia incepe
+    cu 'structura de rezistenta...'. Articolul $226108 era pastrat cu cant=0.
+    Fix: extindem conditia sa prinda si 'formular f3' / 'e devize' in den.
+    """
+    lines = [
+        "226108 STRUCTURA DE REZISTENTA CUPOLA TEREN TENIS",  # -> $226108
+        "e Devize",           # footer eDevize -> in denominatie
+        "Formular F3",        # footer -> in denominatie
+        "SECTIUNEA TEHNICA",  # header tabel -> in denominatie
+    ]
+    articles = extract_articles_regex(lines, "226108", "STRUCTURA")
+    cods = [a["cod"] for a in articles]
+    assert "$226108" not in cods, (
+        f"$226108 este un cod de capitol (deviz), nu articol — trebuie sarit. "
+        f"Denominatia contine 'e Devize Formular F3' (footer eDevize). Got: {cods}"
+    )
+
+
+def test_deviz_pag_code_skipped_with_pag_denomination():
+    """Cazul original: '226508 pag' → $226508 cu den='pag...' — deja functional."""
+    lines = [
+        "226508 pag",
+        "01",
+        "STRUCTURA DE REZISTENTA",
+    ]
+    articles = extract_articles_regex(lines, "226508", "STRUCTURA")
+    cods = [a["cod"] for a in articles]
+    assert "$226508" not in cods, f"$226508 with 'pag' denomination should be skipped. Got: {cods}"

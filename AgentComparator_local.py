@@ -31,7 +31,11 @@ def _normalize_cod(cod: str) -> str:
     # IZDO4D1 → IZD04D1 (O becomes 0 in PDF)
     cod = cod.replace('O', '0')
     if cod.startswith('$'):
-        return re.sub(r'[^A-Z0-9$]', '', cod)
+        num = re.sub(r'[^0-9]', '', cod[1:])  # extrage doar cifrele
+        if len(num) >= 8:
+            # Codurile de breviar au max 7 cifre; 8+ cifre = cifra OCR in plus → trunchiaza
+            num = num[:7]
+        return '$' + num if num else cod
     if re.match(r'^\d+$', cod):
         return '$' + cod
     # Caracterele speciale (#, @, -, etc.) sunt artefacte software/OCR — stripuim.

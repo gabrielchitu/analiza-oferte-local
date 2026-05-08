@@ -221,9 +221,18 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # Skip token UM capturat gresit ca cod (BUC, MC, MP etc.)
             elif cod.upper() in UM_KNOWN:
                 logger.debug(f"[PARSER] Skip UM capturat ca cod: {cod}")
-            # Skip coduri deviz-sumar: numeric $226XXX cu denumire scurta (pag, deviz antet)
-            elif re.match(r'^\$\d{4,7}$', cod) and den_joined.lower().startswith('pag'):
-                logger.debug(f"[PARSER] Skip deviz-sumar: {cod}")
+            # Skip coduri deviz-sumar: cod numeric pur ($226XXX) cu denominatie care
+            # contine markeri de antet de capitol (pag, formular f3, e devize).
+            # Aceste coduri sunt numere de capitol extrase gresit, nu articole reale.
+            elif re.match(r'^\$\d{4,7}$', cod) and (
+                den_joined.lower().startswith('pag')
+                or re.search(r'formular\s+f3|e\s+devize', den_joined, re.IGNORECASE)
+            ):
+                logger.debug(f"[PARSER] Skip deviz-sumar numeric: {cod}")
+            # Skip orice cod cu footer eDevize in denominatie (ex: S7064 cu den="deviz '226408' - formular f3")
+            # Footer-ul eDevize contine "deviz 'XXXXXX' - Formular F3" care nu este o denumire articol.
+            elif re.search(r"deviz\s+['\"]?\d{5,8}['\"]?\s*[-–]?\s*formular\s+f3", den_joined, re.IGNORECASE):
+                logger.debug(f"[PARSER] Skip cod cu footer eDevize in denominatie: {cod}")
             else:
                 art = _make_article(cod, den_joined, um, cantitate,
                                     preturi, deviz_cod, deviz_den)
