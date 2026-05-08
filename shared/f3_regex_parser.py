@@ -78,6 +78,8 @@ SKIP_RE = re.compile(
     r'Profit|TOTAL\s+GENERAL|TVA|contributie\s+asiguratorie)',
     re.IGNORECASE
 )
+# Etichete de sectiune pret in format eDevize — NU sunt denumire articol
+_PRICE_LABEL_RE = re.compile(r'^(material|manopera|utilaj|transport)\s*:', re.IGNORECASE)
 
 UM_KNOWN = {
     # Volum / masa / lungime
@@ -296,7 +298,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
 
     for raw_line in lines:
         line = raw_line.strip()
-        if not line or SKIP_RE.search(line):
+        if not line or SKIP_RE.search(line) or _PRICE_LABEL_RE.match(line):
             continue
 
         price_count = len(preturi)

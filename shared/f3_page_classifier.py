@@ -158,23 +158,26 @@ def classify_page_local(page: dict) -> dict:
         is_header_only = not _has_article_codes(full_content)
         return {"label": "F3", "deviz_cod": cod, "deviz_den": den, "is_header": is_header_only}
 
+    # ── Verifică SECTIUNEA TEHNICA (eDevize data pages) ──
+    # TREBUIE sa fie INAINTE de FORMULAR_F3: footer-ul eDevize contine
+    # 'Deviz "001" - Formular F3' care ar extrage gresit "001" ca deviz_cod.
+    if _SECTIUNEA_TEHNICA_RE.search(full_content):
+        return {"label": "F3", "deviz_cod": "", "deviz_den": "", "is_header": False}
+
     # ── Verifică Formularul F3 (standard format) ──
     if _FORMULAR_F3_RE.search(full_content):
         # Extrage codul deviz din context (număr înainte de "Formularul F3")
         m = re.search(r'(\d{5,8})\s+pag\s+\d+\s+Formular', full_content, re.IGNORECASE)
         if not m:
-            # Fallback: 'Deviz "226208" - Formular F3' sau 'Deviz "008"' (eDevize last-page format)
-            m = re.search(r'Deviz\s+"(\w+)"', full_content, re.IGNORECASE)
+            # Fallback: 'Deviz "226208" - Formular F3' (eDevize last-page / cover format)
+            # Accepta NUMAI coduri de 5+ caractere pentru a evita numere capitol (001, 002)
+            m = re.search(r'Deviz\s+"([A-Z0-9]{5,8})"', full_content, re.IGNORECASE)
         if not m:
             # Fallback: "Deviz oferta 226108 STRUCTURA..." (Design Studio / format standard)
             m = re.search(r'Deviz\s+oferta\s+([A-Z0-9]{5,8})', full_content, re.IGNORECASE)
         cod = m.group(1) if m else ""
         den = _extract_deviz_name_from_formular_f3(full_content)
         return {"label": "F3", "deviz_cod": cod, "deviz_den": den, "is_header": False}
-
-    # ── Verifică SECTIUNEA TEHNICA (eDevize data pages) ──
-    if _SECTIUNEA_TEHNICA_RE.search(full_content):
-        return {"label": "F3", "deviz_cod": "", "deviz_den": "", "is_header": False}
 
     # ── Verifică eDevize continuation pages (>>> componenta NNN format) ──
     # These are data continuation pages from eDevize documents that contain articles

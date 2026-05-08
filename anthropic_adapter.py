@@ -21,6 +21,32 @@ import re
 logger = logging.getLogger(__name__)
 
 
+def _safe_json_parse(raw: str) -> dict:
+    """Parseaza JSON returnat de LLM, tolerand markdown fences si text extra."""
+    if not raw:
+        return {}
+    # 1. Try direct parse
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        pass
+    # 2. Strip markdown fences: ```json ... ``` sau ``` ... ```
+    m = re.search(r'```(?:json)?\s*([\s\S]+?)\s*```', raw)
+    if m:
+        try:
+            return json.loads(m.group(1))
+        except json.JSONDecodeError:
+            pass
+    # 3. Find first complete {...} block
+    m = re.search(r'\{[\s\S]+\}', raw)
+    if m:
+        try:
+            return json.loads(m.group(0))
+        except json.JSONDecodeError:
+            pass
+    return {}
+
+
 class _Message:
     def __init__(self, content: str):
         self.content = content
@@ -77,16 +103,13 @@ class _Completions:
             )
             content = resp.content[0].text
 
-            # Valideaza JSON daca e cerut
+            # Normalizeaza JSON daca e cerut (strip markdown fences etc.)
             if wants_json:
-                try:
-                    json.loads(content)
-                except json.JSONDecodeError:
-                    m = re.search(r'\{.*\}', content, re.DOTALL)
-                    if m:
-                        content = m.group(0)
-                    else:
-                        logger.warning(f"[Adapter] LLM nu a returnat JSON valid: {content[:200]}")
+                parsed = _safe_json_parse(content)
+                if parsed:
+                    content = json.dumps(parsed, ensure_ascii=False)
+                else:
+                    logger.warning(f"[Adapter] LLM nu a returnat JSON valid: {content[:200]}")
 
             return _Response(content)
 

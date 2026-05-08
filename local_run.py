@@ -16,6 +16,8 @@ Checkpoint: output_AO/checkpoints/di_X_page_classes.json
 
 Configurare: .env cu ANTHROPIC_API_KEY si ANTHROPIC_MODEL
 """
+import hashlib
+import inspect
 import json
 import logging
 import os
@@ -59,6 +61,11 @@ def _build_client():
     return AnthropicAdapter(anthropic.Anthropic(api_key=api_key), model=model), model
 
 
+def _normalize_deviz_for_filter(cod: str) -> str:
+    """Normalizeaza cod deviz pentru comparare cu ref_deviz_codes (U→0, OCR fix)."""
+    return (cod or "").replace("U", "0")
+
+
 def extract_document(di_path: Path, client, model: str, ref_deviz_codes: set = None) -> list:
     """
     Extrage articolele F3 dintr-un DI JSON.
@@ -71,7 +78,11 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_codes: set = N
     from shared.f3_page_classifier import classify_pages
     from shared.f3_extractor import extract_articles_v3
 
-    checkpoint = CHECKPOINT_DIR / f"{di_path.stem}_page_classes.json"
+    import shared.f3_page_classifier as _clf_module
+    _clf_hash = hashlib.md5(
+        inspect.getsource(_clf_module).encode()
+    ).hexdigest()[:8]
+    checkpoint = CHECKPOINT_DIR / f"{di_path.stem}_page_classes_{_clf_hash}.json"
 
     di = json.loads(di_path.read_text(encoding="utf-8"))
     pages = di.get("pages", [])
@@ -94,7 +105,7 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_codes: set = N
         page_classes_before = len([p for p in page_classes if p.get("is_f3") and not p.get("header_only")])
         page_classes = [
             p for p in page_classes
-            if not p.get("is_f3") or p.get("header_only") or p.get("deviz_cod") in ref_deviz_codes
+            if not p.get("is_f3") or p.get("header_only") or _normalize_deviz_for_filter(p.get("deviz_cod", "")) in ref_deviz_codes
         ]
         page_classes_after = len([p for p in page_classes if p.get("is_f3") and not p.get("header_only")])
         if page_classes_before != page_classes_after:
