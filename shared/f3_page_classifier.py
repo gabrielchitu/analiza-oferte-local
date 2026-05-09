@@ -44,9 +44,11 @@ _SECTIUNEA_TEHNICA_RE = re.compile(
 # eliminand capturarea gresita a cuvantului 'oferta' (0 cifre) ca cod.
 _STADIUL_FIZIC_EDEVIZE_RE = re.compile(
     r'Stadiul\s+fizic\s*:\s*(?:oferta\s+)?(?:\d{1,3}\s+)?'
-    r'((?=[A-Z0-9]*\d{4})[A-Z0-9]{5,8})\s+(.*)',
+    r'((?=[A-Z0-9]*\d{3})[A-Z0-9]{5,8})\s+(.*)',
     re.IGNORECASE
 )
+# Nota: \d{3} in loc de \d{4} — coduri ca 226U08 au '226' (3 cifre) + 'U' + '08',
+# deci nu satisfac \d{4}. Codurile scurte (001, 008) sunt excluse prin {5,8} chars.
 
 # eDevize continuation pages: ">>> componenta NNN" format with article data
 # Example: "226228 pag >>> componenta 010 035 SD05A1 BUC. 2.000 ROBINET..."
@@ -157,7 +159,7 @@ def classify_page_local(page: dict) -> dict:
     # OCR poate intercala linii extra (ex: 'Beneficiar:') intre 'STADIUL FIZIC:'
     # si codul deviz. Cautam codul in urmatoarele 8 linii dupa marker.
     _DEVIZ_COD_IN_LINE_RE = re.compile(
-        r'(?:oferta\s+)?(?:\d{1,3}\s+)?((?=[A-Z0-9]*\d{4})[A-Z0-9]{5,8})',
+        r'(?:oferta\s+)?(?:\d{1,3}\s+)?((?=[A-Z0-9]*\d{3})[A-Z0-9]{5,8})',
         re.IGNORECASE
     )
     for i, line in enumerate(lines):
