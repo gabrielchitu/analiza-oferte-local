@@ -141,3 +141,55 @@ def test_edevize_second_article_denomination_clean():
     assert 'material' not in den.lower(), f"'material:' in denomination: '{den}'"
     assert cb01['um'] == 'mp', f"UM wrong: '{cb01['um']}'"
     assert cb01['cantitate'] == 200.0, f"Cantitate wrong: {cb01['cantitate']}"
+
+
+def test_dn32_dimensional_spec_not_extracted_as_article():
+    """
+    'DN32' la final de denominatie (diametrul teavii) nu e articol separat.
+    Cand OCR il split pe linie noua, parserul il vede ca cod nou.
+    """
+    from shared.f3_regex_parser import extract_articles_regex
+    lines = [
+        "5",
+        "3271881 - TEAVA PN20 PPR VERDE",
+        "DN32",       # ← split de OCR, e parte din denominatia teavii
+        "m",
+        "30.600",
+    ]
+    arts = extract_articles_regex(lines, "226228", "SANITARE")
+    cods = [a["cod"] for a in arts]
+    assert "DN32" not in cods, f"DN32 is a pipe diameter spec, not an article. Got: {cods}"
+    assert "$3271881" in cods, f"$3271881 should be extracted. Got: {cods}"
+
+
+def test_s7064_type_code_not_extracted_as_article():
+    """
+    'S7064' e tipul unui material (bitum H 68/75 S7064) — nu articol separat.
+    """
+    from shared.f3_regex_parser import extract_articles_regex
+    lines = [
+        "21",
+        "2600036 - Bitum pt.mat.+lucr.hidroizolatii tip H 68/75",
+        "S7064",      # ← tip/referinta material, OCR split
+        "kg",
+        "45.000",
+    ]
+    arts = extract_articles_regex(lines, "226208", "STRUCTURA")
+    cods = [a["cod"] for a in arts]
+    assert "S7064" not in cods, f"S7064 is a material type code, not an article. Got: {cods}"
+    assert "$2600036" in cods, f"$2600036 should be extracted. Got: {cods}"
+
+
+def test_pn10_pressure_class_not_extracted_as_article():
+    """'PN10' e clasa de presiune (PN = Pressure Nominal), nu articol."""
+    from shared.f3_regex_parser import extract_articles_regex
+    lines = [
+        "8",
+        "3276063 - TEAVA PEHD APA, PE80, D40 MM,",
+        "PN10",       # ← spec presiune, OCR split
+        "m",
+        "5.000",
+    ]
+    arts = extract_articles_regex(lines, "226228", "SANITARE")
+    cods = [a["cod"] for a in arts]
+    assert "PN10" not in cods, f"PN10 is a pressure class spec, not an article. Got: {cods}"

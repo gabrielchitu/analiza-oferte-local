@@ -221,6 +221,17 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # Skip token UM capturat gresit ca cod (BUC, MC, MP etc.)
             elif cod.upper() in UM_KNOWN:
                 logger.debug(f"[PARSER] Skip UM capturat ca cod: {cod}")
+            # Skip coduri de specificatii tehnice: DN32, PN10, S7064, N1080 etc.
+            # Acestea sunt fragmente din denominatia articolului precedent (diametru teava,
+            # clasa presiune, tipul materialului) splituite de OCR pe linii separate.
+            # Pattern: 1-3 litere mari + 2-5 cifre, FARA litera la final.
+            # Codurile normative reale au INTOTDEAUNA litera dupa cifre (CA02A1, TSD04D1).
+            elif re.match(r'^[A-Z]{1,3}\d{2,5}$', cod):
+                logger.debug(f"[PARSER] Skip spec tehnica (DN/PN/tip material): {cod}")
+            # Skip coduri marcatori capitol ISDP: $0001-$0009 (CPV section headers)
+            # Apar la inceputul fiecarui deviz in format ISDP, nu sunt articole reale.
+            elif re.match(r'^\$0{2,}\d$', cod):
+                logger.debug(f"[PARSER] Skip capitol ISDP: {cod}")
             # Skip coduri deviz-sumar: cod numeric pur ($226XXX) cu denominatie care
             # contine markeri de antet de capitol (pag, formular f3, e devize).
             # Aceste coduri sunt numere de capitol extrase gresit, nu articole reale.
