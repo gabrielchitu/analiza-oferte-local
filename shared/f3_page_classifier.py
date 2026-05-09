@@ -147,6 +147,12 @@ def classify_page_local(page: dict) -> dict:
     if _RECAPITULATIE_RE.search(full_content) and not _has_article_codes(full_content):
         return {"label": "NON_F3", "deviz_cod": "", "deviz_den": "", "is_header": False}
 
+    # ── Verifică pagini sumar cu TOTAL GENERAL (fara articole) → NON_F3 ──
+    # Pagini ca "TOTAL GENERAL (fara TVA) / 569,207.79 / TVA..." sunt sumare de deviz,
+    # nu pagini de date F3. Detectam prezenta in primele ~200 chars.
+    if 'TOTAL GENERAL' in full_content[:200] and not _has_article_codes(full_content):
+        return {"label": "NON_F3", "deviz_cod": "", "deviz_den": "", "is_header": False}
+
     # ── Verifică STADIUL FIZIC — fereastra de 8 linii ──
     # OCR poate intercala linii extra (ex: 'Beneficiar:') intre 'STADIUL FIZIC:'
     # si codul deviz. Cautam codul in urmatoarele 8 linii dupa marker.
@@ -203,6 +209,12 @@ def classify_page_local(page: dict) -> dict:
             m = re.search(r'Deviz\s+oferta\s+([A-Z0-9]{5,8})', full_content, re.IGNORECASE)
         cod = m.group(1) if m else ""
         den = _extract_deviz_name_from_formular_f3(full_content)
+        # Daca nu s-a putut extrage codul deviz SI pagina nu are articole
+        # → e o pagina de semnatura/footer eDevize (ex: "Deviz '008' - Formular F3"),
+        # nu o pagina de date F3. O clasificam NON_F3 pentru a evita extragerea
+        # de articole cu deviz="" care devin false EXTRA.
+        if not cod and not _has_article_codes(full_content):
+            return {"label": "NON_F3", "deviz_cod": "", "deviz_den": "", "is_header": False}
         return {"label": "F3", "deviz_cod": cod, "deviz_den": den, "is_header": False}
 
     # ── Verifică eDevize continuation pages (>>> componenta NNN format) ──
