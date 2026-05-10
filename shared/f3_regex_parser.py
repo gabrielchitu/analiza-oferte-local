@@ -66,6 +66,10 @@ NR_SINGLE_INLINE_RE = re.compile(
 NR_CRT_RE = re.compile(r'^(\d{1,3})$')
 # NR_LINKED: articol legat ISDP — "N.L" singur pe linie (ex: "6.L", "8.L")
 NR_LINKED_RE = re.compile(r'^(\d{1,3})\.L\s*$', re.IGNORECASE)
+# BARE_L: standalone "L" marker pe linie (articole legate ISDP in format multi-line)
+BARE_L_RE = re.compile(r'^L\s*$', re.IGNORECASE)
+# DOT_L: ".L" marker pe linie (varianta cu punct prefix - articole legate ISDP in format multi-line)
+DOT_L_RE = re.compile(r'^\.L\s*$', re.IGNORECASE)
 # COD_NUMERIC_BARE: cod numeric pur 5-8 cifre singur pe linie (articole legate ISDP)
 COD_NUMERIC_BARE_RE = re.compile(r'^(\d{5,8})\s*$')
 # UM: token scurt alfabetic
@@ -319,6 +323,11 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             den = m.group(2).strip()
             um_hint = m.group(3).rstrip('.').upper() if m.group(3) else ''
             return cod_raw, den, um_hint
+        # Cod numeric bare (5-8 cifre) singur pe linie — articole care apar standalone
+        # (e.g., 7206121 pe o linie, urmata de UM si cantitate pe liniile urmatoare)
+        m = COD_NUMERIC_BARE_RE.match(s)
+        if m:
+            return '$' + m.group(1), '', ''
         return None, None, ''
 
     for raw_line in lines:
@@ -332,6 +341,32 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             if state == _READING:
                 _finalize()
             last_nr_crt = int(m_linked.group(1))
+            cod = ''; denumire_parts = []; um = ''; cantitate = 0.0; preturi = []
+            state = _WAITING
+            waiting_lines = 0
+            _after_linked = True
+            continue
+        # Bare "L" handler: linked marker on separate line (multi-line format in offer 2)
+        m_bare_l = BARE_L_RE.match(line)
+        if m_bare_l:
+            if state == _READING:
+                _finalize()
+            # Keep last_nr_crt if already set, otherwise use placeholder
+            if not last_nr_crt:
+                last_nr_crt = 1
+            cod = ''; denumire_parts = []; um = ''; cantitate = 0.0; preturi = []
+            state = _WAITING
+            waiting_lines = 0
+            _after_linked = True
+            continue
+        # Dot "L" handler: ".L" marker on separate line (variant with dot prefix)
+        m_dot_l = DOT_L_RE.match(line)
+        if m_dot_l:
+            if state == _READING:
+                _finalize()
+            # Keep last_nr_crt if already set, otherwise use placeholder
+            if not last_nr_crt:
+                last_nr_crt = 1
             cod = ''; denumire_parts = []; um = ''; cantitate = 0.0; preturi = []
             state = _WAITING
             waiting_lines = 0
