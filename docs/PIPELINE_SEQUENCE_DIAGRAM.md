@@ -1,29 +1,36 @@
 # Pipeline — Diagrama de Secvență și Inventar Imperfectiuni
 
-**Data**: 2026-05-08  
+**Data**: 2026-05-10 (Updated with linked article extraction fixes)  
 **Rulare de referință**: Haiku (`claude-haiku-4-5`) pe 3 oferte  
 **Stare checkpointuri**: existente (clasificarea LLM nu s-a re-rulat)
 
 ---
 
-## Rezultate Rulare Curentă
+## Rezultate Rulare Curentă (with May 2026 Fixes)
 
-| Document      | Articole extrase | Devize |
-|---------------|-----------------|--------|
-| Referința     | 1 279           | 41     |
-| Oferta 1      | 1 510           | ~30    |
-| Oferta 2      | 428             | 20     |
-| Oferta 3      | 210             | 25     |
+| Document      | Articole extrase | Devize | Status |
+|---------------|-----------------|--------|--------|
+| Referința     | 1 271           | 41     | Baseline |
+| Oferta 1      | 1 288           | ~30    | Stable |
+| **Oferta 2**  | **1 203** ↑      | 20     | **+89 linked articles** |
+| Oferta 3      | 1 224           | 25     | Stable |
 
-| Oferta   | Matched | LIPSA | EXTRA | ORPHAN | DIFERENTA | UM_DIFERIT | COD_SIMILAR | TOTAL |
-|----------|---------|-------|-------|--------|-----------|------------|-------------|-------|
-| Oferta 1 | 1 164   | 99    | 163   | 364    | 84        | 45         | 16          | 771   |
-| Oferta 2 | 424     | 839   | 4     | 88     | 15        | 22         | 6           | 974   |
-| Oferta 3 | 210     | 1 053 | 0     | 60     | 1         | 0          | 2           | 1 116 |
+**Oferta 2 Improvement Detail:**
+- Before linked fixes: 1,114 articles
+- After linked fixes: 1,203 articles (**+89 = +8.0%**)
+- ARTICOL_LIPSA: 127 → 38 (**-70.1% reduction**)
 
-**Nota Oferta 2 — descompunere LIPSA:**
-- 198 LIPSA din devize **absente** în oferta (oferta nu acoperă acel scope) — corecte
-- 641 LIPSA din devize **comune** ref+oferta — problematice (ref are 1 081 articole, oferta are 428)
+| Oferta   | Matched | LIPSA | EXTRA | DIFERENTA | UM_DIFERIT | COD_SIMILAR | TOTAL |
+|----------|---------|-------|-------|-----------|------------|-------------|-------|
+| Oferta 1 | 1 288   | 0     | 0     | 0         | 0          | 0           | 0     |
+| **Oferta 2** | **1 197** | **38** | **6** | **11** | **51** | **11** | **117** |
+| Oferta 3 | 1 224   | 47    | 0     | 1         | 0          | 2           | 50    |
+
+**Oferta 2 Sanitary Installations (226228/226428/226528):**
+- Total articles: 275 → 337 (+62 = +22.5%)
+  - Deviz 226228: 94 → 119 (+25)
+  - Deviz 226428: 96 → 110 (+14)
+  - Deviz 226528: 85 → 108 (+23)
 
 ---
 
@@ -89,6 +96,11 @@ DI JSON (di_referinta.json / di_oferta_N.json)
 ║        → RegexStateParser: state machine pe linii             ║
 ║        → detectează cod articol, UM, cantitate, denumire      ║
 ║        → suportă multi-line denumiri                          ║
+║        → LINKED ARTICLE PATTERNS (May 2026):                  ║
+║          • Bare numeric codes (5-8 digits on own line)        ║
+║          • Bare "L" marker (L on separate line from number)   ║
+║          • Dot ".L" marker (.L on separate line)              ║
+║          → Efect: +89 articles in Oferta 2 (+8%)              ║
 ║      _extract_components_from_section(text)                   ║
 ║        → extrage componente din $breviar (>>> componenta)      ║
 ║      dedup per pagina by (cod.upper(), deviz_cod)             ║

@@ -1,8 +1,8 @@
-# F3 Table Extraction Implementation Summary
+# F3 Article Extraction Implementation Summary
 
-**Date**: 2026-05-07  
+**Date**: 2026-05-10 (Updated with linked article extraction fixes)  
 **Status**: ✓ Production Ready  
-**Result**: Successfully implemented and validated
+**Result**: All extraction patterns validated; +89 articles from multi-line linked formats
 
 ---
 
@@ -63,18 +63,53 @@ Articles existed in Document Intelligence structured tables but were not being e
 
 ---
 
+## Additional Extraction Fixes (May 10, 2026)
+
+### Linked Article Extraction for Multi-Line Formats
+
+**Problem**: ISDP linked articles in OCR text sometimes split across multiple lines instead of standard single-line format.
+
+**Solution**: Three regex patterns + state machine handlers to recognize:
+
+1. **Bare numeric codes** - Standalone 5-8 digit codes on own line
+   - Pattern: `COD_NUMERIC_BARE_RE = r'^(\d{5,8})\s*$'`
+   - Example code: 7206121
+   - Articles gained: +17
+
+2. **Bare "L" markers** - Linked marker on separate line from article number
+   - Pattern: `BARE_L_RE = r'^L\s*$'`
+   - Structure: Number on one line, "L" on next
+   - Articles gained: +70
+
+3. **Dot ".L" markers** - Dot-prefixed linked marker on separate line
+   - Pattern: `DOT_L_RE = r'^\.L\s*$'`
+   - Structure: Number on one line, ".L" on next
+   - Articles gained: +2
+
+**File**: `shared/f3_regex_parser.py` (35 lines added)  
+**Integration**: Early detection in state machine + fallback in _try_parse_cod()  
+**Documentation**: `docs/IMPLEMENTATION_SPEC_LINKED_ARTICLES.md` (comprehensive guide for reuse)
+
+---
+
 ## Results
 
 ### Extraction Metrics
 
-| Document | Before | After | Change | Status |
-|----------|--------|-------|--------|--------|
-| **Referinta** | - | 469 articles | - | ✓ Baseline |
-| **Oferta 1** | ~83 | 1,288 | +1,150% | ✓ Success |
-| **Oferta 2** | 403 | 403 | 0% | ✓ No tables |
-| **Oferta 3** | 238 | 238 | 0% | ✓ No tables |
+| Document | Before* | After | Change | Status |
+|----------|---------|-------|--------|--------|
+| **Referinta** | - | 1,271 articles | - | ✓ Baseline |
+| **Oferta 1** | 1,288 | 1,288 | 0% | ✓ Stable |
+| **Oferta 2** | 1,114 | **1,203** | **+89 (+8.0%)** | ✓ Linked fixes |
+| **Oferta 3** | 1,224 | 1,224 | 0% | ✓ Stable |
 
-**Note**: Oferta 2 and 3 don't have F3 table structures, only page-based extraction applies.
+*Before linked article fixes (after table extraction)
+
+**Oferta 2 Detail (with linked article fixes):**
+- Sanitary devizes 226228/226428/226528: 275 → 337 articles (+62 = +22.5%)
+- ARTICOL_LIPSA: 127 → 38 (-89 = -70.1% reduction)
+- ARTICOL_EXTRA: Stable
+- Total non-conformities: 199 → 117 (-82)
 
 ### Comparison Results
 
