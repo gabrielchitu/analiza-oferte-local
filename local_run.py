@@ -255,6 +255,7 @@ def compare_and_report(
 
     # Detectare deviz mismatch (devize din oferta cu cod diferit dar articole similare)
     deviz_mismatches = detect_deviz_mismatches(ref_articles, oferta_norm)
+    _deviz_remap: dict = {}  # oferta_deviz → ref_deviz pentru mismatch-uri cu overlap inalt
     if deviz_mismatches:
         for m in deviz_mismatches:
             logger.warning(
@@ -262,6 +263,19 @@ def compare_and_report(
                 f"pare echivalentul lui {m['ref_deviz']} din referinta "
                 f"({m['oferta_art_count']} vs {m['ref_art_count']} articole)"
             )
+            # Remap automat cand overlap e foarte inalt (≥90%): redenumeste codul deviz
+            # in articolele ofertei astfel incat Layer 1 sa le potriveasca cu referinta.
+            # Ofertantul a numerotata devizele diferit (226113 vs 226118) — acelasi continut.
+            if m['overlap_score'] >= 0.9:
+                _deviz_remap[m['oferta_deviz']] = m['ref_deviz']
+
+    if _deviz_remap:
+        for art in oferta_norm:
+            old = art.get('deviz', '')
+            if old in _deviz_remap:
+                art['deviz'] = _deviz_remap[old]
+                art['_deviz_original'] = old  # pastram originalul pt raport
+        logger.info(f"  Remap devize oferta: {_deviz_remap}")
 
     # Matching 3 straturi — returneaza si cheile REF match-uite
     neconformitati, matches, matched_ref_keys = match_global(
