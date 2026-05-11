@@ -58,6 +58,10 @@ NR_ALPHA_INLINE_RE = re.compile(
 NR_NUMERIC_INLINE_RE = re.compile(
     r'^(\d{1,3})\s+(\d{4,8})\s*$'
 )
+# NR_CRT + COD BREVIAR CU $ pe aceeaşi linie (format articol composite ISDP: "010 $16508")
+NR_BREVIAR_INLINE_RE = re.compile(
+    r'^(\d{1,3})\s+(\$\d{4,8}[@]?)\s*$'
+)
 # NR_CRT + COD single-letter pe aceeaşi linie (ex: "017 W2F05C01" sau "017 H1V06H BUC.")
 NR_SINGLE_INLINE_RE = re.compile(
     r'^(\d{1,3})\s+([A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,2})\s*$',
@@ -421,10 +425,11 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             m_ai = NR_ALPHA_INLINE_RE.match(line)
             m_ni = NR_NUMERIC_INLINE_RE.match(line)
             m_si = NR_SINGLE_INLINE_RE.match(line)
-            if m_ai or m_ni or m_si:
-                m = m_ai or m_ni or m_si
+            m_bi = NR_BREVIAR_INLINE_RE.match(line)
+            if m_ai or m_ni or m_si or m_bi:
+                m = m_ai or m_ni or m_si or m_bi
                 last_nr_crt = int(m.group(1))
-                cod = ('$' + m.group(2)) if m_ni else re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m.group(2).upper())
+                cod = (m.group(2) if m_bi else ('$' + m.group(2)) if m_ni else re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m.group(2).upper()))
                 denumire_parts = []
                 # Extrage primul UM valid din tokenii rămași pe linie (grup 3 din NR_ALPHA_INLINE_RE și NR_SINGLE_INLINE_RE)
                 um = ''
@@ -483,10 +488,11 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 m_ai = NR_ALPHA_INLINE_RE.match(line)
                 m_ni = NR_NUMERIC_INLINE_RE.match(line)
                 m_si = NR_SINGLE_INLINE_RE.match(line)
-                if m_ai or m_ni or m_si:
-                    m = m_ai or m_ni or m_si
+                m_bi = NR_BREVIAR_INLINE_RE.match(line)
+                if m_ai or m_ni or m_si or m_bi:
+                    m = m_ai or m_ni or m_si or m_bi
                     last_nr_crt = int(m.group(1))
-                    cod = ('$' + m.group(2)) if m_ni else re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m.group(2).upper())
+                    cod = (m.group(2) if m_bi else ('$' + m.group(2)) if m_ni else re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m.group(2).upper()))
                     denumire_parts = []
                     um = ''
                     if (m_ai or m_si) and m.lastindex >= 3 and m.group(3):
@@ -517,11 +523,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             m_ai = NR_ALPHA_INLINE_RE.match(line)
             m_ni = NR_NUMERIC_INLINE_RE.match(line)
             m_si = NR_SINGLE_INLINE_RE.match(line)
-            if m_ai or m_ni or m_si:
+            m_bi = NR_BREVIAR_INLINE_RE.match(line)
+            if m_ai or m_ni or m_si or m_bi:
                 _finalize()
-                m = m_ai or m_ni or m_si
+                m = m_ai or m_ni or m_si or m_bi
                 last_nr_crt = int(m.group(1))
-                cod = ('$' + m.group(2)) if m_ni else re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m.group(2).upper())
+                cod = (m.group(2) if m_bi else ('$' + m.group(2)) if m_ni else re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m.group(2).upper()))
                 denumire_parts = []
                 # Extrage primul UM valid din tokenii rămași pe linie (grup 3 din NR_ALPHA_INLINE_RE sau NR_SINGLE_INLINE_RE)
                 um = ''
