@@ -16,7 +16,8 @@ logger = logging.getLogger(__name__)
 
 # Cod normativ: TSC35A22, SA14B#, RPCE26C1, CA02A1 etc. (cu – şi descriere)
 # Sufixe acceptate: # > * @ % și [1] [2] ]1 cu optional - trailing
-_COD_SUFFIX = r'(?:[#>*@%]|\[\d*\]|[\[\]]\d*)?[-]?'
+# Include si sufixe designator normativ: ASIM, TSCH (TCB40B1ASIM, TCB40B1TSCH)
+_COD_SUFFIX = r'(?:[#>*@%]|\[\d*\]|[\[\]]\d*|ASIM|TSCH)?[-]?'
 COD_NORM_RE = re.compile(
     r'^([A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?' + _COD_SUFFIX + r')\s*[-–]\s*(.+)',
     re.IGNORECASE
@@ -339,6 +340,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 cod_raw = re.sub(r'[-@%>#*]+$', '', cod_raw)
                 # Strip bracket suffix complet: [1], [1], [1 etc.
                 cod_raw = re.sub(r'\s*\[\d*\]?\s*$', '', cod_raw)
+                # Strip designatori normativi lipiti (ASIM, TSCH): TCB40B1ASIM → TCB40B1
+                cod_raw = re.sub(r'(?:ASIM|TSCH)$', '', cod_raw).strip()
                 return cod_raw, m.group(2).strip(), ''
         # Cod normativ singur pe linie, cu optional tip UM (ASIM etc.) pe aceeași linie
         m = COD_NORM_STANDALONE_RE.match(s)
@@ -346,6 +349,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             cod_raw = m.group(1).strip().upper()
             cod_raw = re.sub(r'[-@%>#*]+$', '', cod_raw)
             cod_raw = re.sub(r'\s*\[\d*\]?\s*$', '', cod_raw)
+            cod_raw = re.sub(r'(?:ASIM|TSCH)$', '', cod_raw).strip()
             um_hint_raw = m.group(2).rstrip('.').upper() if m.group(2) else ''
             # Ignora designatori normativi (ASIM, TSCH etc.) — nu sunt UM reale
             um_hint = um_hint_raw if um_hint_raw and um_hint_raw not in UM_SKIP else ''
