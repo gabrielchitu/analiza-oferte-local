@@ -10,7 +10,7 @@ import logging
 import re
 from collections import defaultdict
 
-from shared.comparator import compare_articles, check_arithmetic
+from shared.comparator import compare_articles, check_arithmetic, _normalize_um
 from shared.article_matcher import match_unmatched_global
 
 logger = logging.getLogger(__name__)
@@ -282,15 +282,23 @@ def match_global(
 
         # Layer 2.5: potrivire deterministă pe similaritate înaltă de cod + denumire.
         # Prinde perechi precum $3275680/$3275630 (1 caracter diferit, OCR)
-        # fără a depinde de LLM. Threshold mai strict decât LLM-ul (0.85 vs 0.75).
-        _SIM_DET = 0.85
+        # fără a depinde de LLM. Threshold 0.80 (cu Jaccard ≥0.4 ca ancora).
+        _SIM_DET = 0.80
 
         def _denom_jaccard(a: str, b: str) -> float:
-            wa = set(re.sub(r'[^a-z0-9]', ' ', (a or '').lower()).split())
-            wb = set(re.sub(r'[^a-z0-9]', ' ', (b or '').lower()).split())
+            def _tok(s: str) -> set:
+                # Normalizeaza separatori intre cifre: 110,45 → 11045, 110x45 → 11045
+                s = re.sub(r'(\d)[,x.\-](\d)', r'\1\2', (s or '').lower())
+                return set(re.sub(r'[^a-z0-9]', ' ', s).split())
+            wa, wb = _tok(a), _tok(b)
             if not wa or not wb:
                 return 0.0
-            return len(wa & wb) / len(wa | wb)
+            inter = len(wa & wb)
+            # Jaccard pur penalizeaza cand oferta e mai detaliata decat referinta.
+            # Folosim max(Jaccard, recall) — daca ref e "continuta" in oferta, e match.
+            jaccard = inter / len(wa | wb)
+            recall  = inter / len(wa)  # proportia cuvintelor ref gasite in oferta
+            return max(jaccard, recall)
 
         from shared.article_matcher import _cod_similarity
         matched_by_llm_ref_keys: set = set()
@@ -345,6 +353,72 @@ def match_global(
 
         still_unmatched_ref = [a for a in still_unmatched_ref
                                if _art_key(a) not in matched_by_llm_ref_keys]
+
+        # Layer 2.6: matching pe UM + cantitate + denumire Jaccard in acelasi deviz.
+        # Prinde perechi cu cod complet diferit (furnizor diferit, variante de produs):
+        #   $7002380 ↔ $7800774 (folie anticondens, acelasi cant+UM)
+        #   AUT3000  ↔ $30001   (aparat de sudura, acelasi cant+UM)
+        #   $3271881 ↔ $327101  (teava pn20, acelasi cant+UM)
+        _DENOM_THRESH_26 = 0.4  # prag mai relaxat — cantitate+UM anchoreaza deja potrivirea
+        det_matched_of_26: set = set()
+        for ref_art in list(still_unmatched_ref):
+            deviz = _deviz_key(ref_art)
+            ref_um = _normalize_um(ref_art.get("um", ""))
+            ref_cant = ref_art.get("cantitate", 0) or 0
+            if ref_cant == 0 and not ref_um:
+                continue  # articole fara cantitate/UM → risc false positive
+
+            best_art, best_score = None, 0.0
+            for ok in list(unmatched_oferta_keys):
+                if ok[0] != deviz:
+                    continue
+                of_art = oferta_map[ok]
+                if id(of_art) in det_matched_of_26:
+                    continue
+                if _normalize_um(of_art.get("um", "")) != ref_um:
+                    continue
+                of_cant = of_art.get("cantitate", 0) or 0
+                # Cantitate trebuie sa fie identica sau apropiata (<1%)
+                if abs(ref_cant - of_cant) > max(abs(ref_cant), abs(of_cant)) * 0.01 + 0.01:
+                    continue
+                dj = _denom_jaccard(ref_art.get("denumire", ""), of_art.get("denumire", ""))
+                if dj > best_score:
+                    best_score, best_art = dj, of_art
+
+            if best_art is None or best_score < _DENOM_THRESH_26:
+                continue
+
+            ref_cod = ref_art.get("cod", "")
+            oferta_key = _art_key(best_art)
+            matched_oferta_keys.add(oferta_key)
+            unmatched_oferta_keys.discard(oferta_key)
+            det_matched_of_26.add(id(best_art))
+            matched_by_llm_ref_keys.add(_art_key(ref_art))
+            deviz_cod = ref_art.get("deviz", "")
+            deviz_den = ref_art.get("deviz_denumire", "")
+            diffs = compare_articles(ref_art, best_art, include_prices=include_prices)
+            if diffs:
+                neconf = {
+                    "tip": "COD_SIMILAR",
+                    "motiv_similaritate": (
+                        f"Cod diferit (produs echivalent): '{ref_cod}' ↔ '{best_art.get('cod','')}'"
+                    ),
+                }
+                _enrich(neconf, ref_art, best_art, deviz_cod, deviz_den)
+                neconformitati.append(neconf)
+                for d in diffs:
+                    _enrich(d, ref_art, best_art, deviz_cod, deviz_den)
+                neconformitati.extend(diffs)
+            matches.append({
+                "ref_cod": ref_cod,
+                "ref_denumire": ref_art.get("denumire", ""),
+                "oferta_cod": best_art.get("cod", ""),
+                "oferta_denumire": best_art.get("denumire", ""),
+            })
+
+        still_unmatched_ref = [a for a in still_unmatched_ref
+                               if _art_key(a) not in matched_by_llm_ref_keys]
+
         # Rebuild oferta_by_deviz fara articolele deja potrivite
         oferta_by_deviz = defaultdict(list)
         for ok in unmatched_oferta_keys:
