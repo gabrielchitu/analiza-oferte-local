@@ -651,19 +651,15 @@ def extract_articles_v3(page_classifications: list) -> list:
         section_text = "\n".join(lines)
         components = _extract_components_from_section(section_text, deviz_cod, deviz_den)
 
-        # Deduplicare: pentru același (cod, deviz_cod) păstrează articolul cu cantitate maximă
-        # Când deviz_cod e gol (pagini orfane promovate de LLM), folosim page_number ca namespace
-        # pentru a evita coliziuni între pagini diferite fără deviz identificat.
+        # Deduplicare: cheia include și cantitatea — același cod cu cantitate diferită în același
+        # deviz reprezintă articole distincte (poziții diferite în deviz), nu duplicat de pagini.
+        # Articolele identice (cod + deviz + cantitate) apar la page-break și sunt deduplicate.
         dedup_namespace = deviz_cod if deviz_cod else f"__page_{pc.get('page_number', 0)}__"
         for art in page_articles + components:
-            key = (art.get("cod", "").upper(), art.get("deviz", dedup_namespace))
+            key = (art.get("cod", "").upper(), art.get("deviz", dedup_namespace), art.get("cantitate", 0))
             if key not in seen:
                 seen[key] = len(all_articles)
                 all_articles.append(art)
-            else:
-                prev = all_articles[seen[key]]
-                if art.get("cantitate", 0) > prev.get("cantitate", 0):
-                    all_articles[seen[key]] = art
 
     logger.info(f"[F3v3] Total: {len(all_articles)} articole extrase (page-aware, fara LLM)")
     return all_articles

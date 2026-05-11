@@ -74,10 +74,11 @@ DOT_L_RE = re.compile(r'^\.L\s*$', re.IGNORECASE)
 COD_NUMERIC_BARE_RE = re.compile(r'^(\d{5,8})\s*$')
 # UM: token scurt alfabetic
 UM_RE = re.compile(r'^([A-Z]{1,6})\.?$', re.IGNORECASE)
-# Cantitate cu zecimale — include format cu separator mii: 2,000.000 sau 1.234,56
-CANT_DECIMAL_RE = re.compile(r'^\d{1,10}(?:[.,]\d{3})*[,.]\d{1,6}$')
+# Cantitate cu zecimale — include format cu separator mii și valori negative.
+# Include si N.DDD (ex: 480.000 = 480.0) — format cu 3 zecimale zero frecvent in devize.
+CANT_DECIMAL_RE = re.compile(r'^-?(?:\d{1,10}(?:[.,]\d{3})*[,.]\d{1,6}|\d{1,10}[.,]\d{1,3})$')
 # Cantitate întreagă (folosit doar când UM deja setat)
-CANT_INT_RE = re.compile(r'^\d{1,6}$')
+CANT_INT_RE = re.compile(r'^-?\d{1,6}$')
 # Preț/valoare numerică (poate conține separator mii)
 PRET_RE = re.compile(r'^[\d.,]+$')
 # Linii de ignorat (sumar, total, etc.)
@@ -185,6 +186,37 @@ def _make_article(cod: str, denumire: str, um: str, cantitate: float,
     return art
 
 
+def _preprocess_compound_um(lines: List[str]) -> List[str]:
+    """
+    Combină un număr bare + UM bare de pe linii consecutive într-o singură linie.
+
+    Rezolvă formatul ofertelor unde '100' și 'mp' apar pe linii separate:
+        ['100', 'mp'] → ['100 mp']
+    Referințele au de obicei '100 MP.' pe o singură linie — rămân neschimbate.
+
+    Heuristică sigură: un număr de 1-4 cifre urmat imediat de o linie cu doar
+    litere UM (mp, mc, buc, etc.) nu poate fi NR_CRT — NR_CRT e urmat de un COD,
+    nu de un token UM standalone.
+    """
+    result = []
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+        if i + 1 < len(lines):
+            next_line = lines[i + 1].strip()
+            if (re.match(r'^\d{1,4}$', line) and
+                    re.match(r'^[A-Za-z]{1,6}\.?$', next_line)):
+                # Verifica ca next_line e un UM valid (nu un cuvant din denumire)
+                um_candidate = re.sub(r'\.', '', next_line).upper()
+                if um_candidate in UM_KNOWN and um_candidate != 'KM':
+                    result.append(f"{line} {next_line}")
+                    i += 2
+                    continue
+        result.append(lines[i])
+        i += 1
+    return result
+
+
 def extract_articles_regex(lines: List[str], deviz_cod: str,
                            deviz_den: str) -> List[Dict]:
     """
@@ -198,6 +230,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
     Returns:
         Lista de articole în formatul standard (compatibil AgentComparator).
     """
+    lines = _preprocess_compound_um(lines)
     articole: List[Dict] = []
     state = _IDLE
 
@@ -228,9 +261,10 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # Skip coduri de specificatii tehnice: DN32, PN10, S7064, N1080 etc.
             # Acestea sunt fragmente din denominatia articolului precedent (diametru teava,
             # clasa presiune, tipul materialului) splituite de OCR pe linii separate.
-            # Pattern: 1-3 litere mari + 2-5 cifre, FARA litera la final.
-            # Codurile normative reale au INTOTDEAUNA litera dupa cifre (CA02A1, TSD04D1).
-            elif re.match(r'^[A-Z]{1,3}\d{2,5}$', cod):
+            # Pattern: 1-2 litere mari + 2-5 cifre, FARA litera la final.
+            # ATENTIE: coduri utilaj cu 3 litere (AUT6753, CMP1234, TRA6101) NU se skipuiesc —
+            # de aceea limita e {1,2}, nu {1,3}.
+            elif re.match(r'^[A-Z]{1,2}\d{2,5}$', cod):
                 logger.debug(f"[PARSER] Skip spec tehnica (DN/PN/tip material): {cod}")
             # Skip coduri marcatori capitol ISDP: $0001-$0009 (CPV section headers)
             # Apar la inceputul fiecarui deviz in format ISDP, nu sunt articole reale.
@@ -514,9 +548,14 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # COD_NORM_STANDALONE_RE se verifica pe string-ul normalizat (bracket-uri lipite)
             # deoarece _try_parse_cod normalizeaza intern "IA22C1 [1]" → "IA22C1[1]".
             line_norm = re.sub(r'(?<=[A-Z0-9])\s+(\[\d)', r'\1', line, flags=re.IGNORECASE)
-            if parsed_cod and (COD_NUMERIC_RE.match(line) or COD_NORM_RE.match(line)
-                               or COD_NORM_EXTENDED_RE.match(line) or COD_BREVIAR_RE.match(line)
-                               or COD_NUMERIC_PIPE_RE.match(line) or COD_NORM_STANDALONE_RE.match(line_norm)):
+            # Respinge COD_NUMERIC_RE când descrierea e pur numerică:
+            # ex. '4741-71' → cod=$4741, den='71' — e continuare de denumire, nu articol nou
+            _numeric_den = (COD_NUMERIC_RE.match(line) and
+                            not re.search(r'[A-Za-z]', parsed_den or ''))
+            if parsed_cod and not _numeric_den and (
+                    COD_NUMERIC_RE.match(line) or COD_NORM_RE.match(line)
+                    or COD_NORM_EXTENDED_RE.match(line) or COD_BREVIAR_RE.match(line)
+                    or COD_NUMERIC_PIPE_RE.match(line) or COD_NORM_STANDALONE_RE.match(line_norm)):
                 _finalize()
                 cod = parsed_cod
                 denumire_parts = [parsed_den] if parsed_den else []
@@ -532,17 +571,18 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 continue
 
             # Format "100 MC." — indicator normativ pe linie separată
-            # Extrage DOAR um-ul; cantitatea reală urmează pe linia următoare
+            # Extrage UM-ul COMPLET inclusiv prefixul numeric (ex: "100 MP", "1000 BUC")
+            # Cantitatea reală urmează pe linia următoare.
             # BUT: skip "NUMBER KM" (always distance spec like "20 KM", never work unit)
             if um == '':
-                m_um_norm = re.match(r'^\d+\s+([A-Z]{1,6})\.?\s*$', line, re.IGNORECASE)
+                m_um_norm = re.match(r'^(\d+)\s+([A-Z]{1,6})\.?\s*$', line, re.IGNORECASE)
                 if m_um_norm:
-                    um_candidate = m_um_norm.group(1).upper()
+                    um_candidate = m_um_norm.group(2).upper()
                     # KM e ÎNTOTDEAUNA specificație de distanță (20 KM, 50 KM), nu unitate de lucru
                     if um_candidate == 'KM':
                         continue
                     if _is_valid_um(um_candidate):
-                        um = um_candidate
+                        um = f"{m_um_norm.group(1)} {um_candidate}"  # "100 MP" nu doar "MP"
                         continue
 
             # Format pipe: "M.C. | 18.144 | BETON MARFA CLASA C8/10" (referinta breviar materiale)

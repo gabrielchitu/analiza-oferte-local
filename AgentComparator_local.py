@@ -38,6 +38,12 @@ def _normalize_cod(cod: str) -> str:
         return '$' + num if num else cod
     if re.match(r'^\d+$', cod):
         return '$' + cod
+    # Coduri normative utilaj cu sufix pur numeric (AUT6753, CMP1234 etc.):
+    # unele oferte omit prefixul si scriu doar numarul (6753 → $6753).
+    # Normalizare: AUT6753 → $6753 = identic cu $6753 din oferta.
+    m_util = re.match(r'^[A-Z]{2,5}(\d{4,5})$', cod)
+    if m_util:
+        return '$' + m_util.group(1)
     # Caracterele speciale (#, @, -, etc.) sunt artefacte software/OCR — stripuim.
     # Codurile valide contin NUMAI [A-Z0-9]. Nu inlocuim # cu 1 (da cod gresit).
     m = re.match(r'^([A-Z]{2,5}\d{2,4}[A-Z]?\d{0,2})', cod)
@@ -161,24 +167,47 @@ def match_global(
                 oferta_dedup.append(a)
                 oferta_seen[key] = True
 
-    ref_map = {_art_key(a): a for a in ref_dedup}
     ref_component_cods = {_normalize_cod(a.get("cod", ""))
                           for a in ref_articole if a.get("is_component")}
-    oferta_map = {_art_key(a): a for a in oferta_dedup}
+
+    # Multimaps: (deviz, cod) → [art, ...] sortat după cantitate.
+    # Același cod poate apărea de N ori în același deviz cu cantități diferite (poziții diferite).
+    ref_by_key: dict = defaultdict(list)
+    for a in ref_dedup:
+        ref_by_key[_art_key(a)].append(a)
+    for lst in ref_by_key.values():
+        lst.sort(key=lambda a: a.get("cantitate", 0) or 0)
+
+    oferta_by_key: dict = defaultdict(list)
+    for a in oferta_dedup:
+        oferta_by_key[_art_key(a)].append(a)
+    for lst in oferta_by_key.values():
+        lst.sort(key=lambda a: a.get("cantitate", 0) or 0)
+
+    # View 1:1 pentru Layer 2/3 (coduri OCR-eronate apar o singură dată în practică)
+    ref_map = {k: v[0] for k, v in ref_by_key.items()}
+    oferta_map = {k: v[0] for k, v in oferta_by_key.items()}
 
     neconformitati = []
     matches = []
     matched_oferta_keys = set()
     matched_by_llm_ref_keys: set = set()
     unmatched_ref = []
+    extra_from_nm: list = []  # instanțe oferta în exces față de ref (N:M)
 
-    # Layer 1: Exact match pe (deviz, cod)
-    for ref_key, ref_art in ref_map.items():
-        deviz_cod = ref_art.get("deviz", "")
-        deviz_den = ref_art.get("deviz_denumire", "")
-        if ref_key in oferta_map:
-            oferta_art = oferta_map[ref_key]
-            matched_oferta_keys.add(ref_key)
+    # Layer 1: N:M exact match pe (deviz, cod) — sortate după cantitate, perechi în ordine.
+    # ref(34.2)↔oferta(34.2), ref(40.0)↔oferta(40.0); excesul → LIPSA/EXTRA.
+    for key, ref_list in ref_by_key.items():
+        oferta_list = oferta_by_key.get(key, [])
+        deviz_cod = ref_list[0].get("deviz", "")
+        deviz_den = ref_list[0].get("deviz_denumire", "")
+
+        if not oferta_list:
+            unmatched_ref.extend(ref_list)
+            continue
+
+        matched_oferta_keys.add(key)
+        for ref_art, oferta_art in zip(ref_list, oferta_list):
             diffs = compare_articles(ref_art, oferta_art, include_prices=include_prices)
             arith = check_arithmetic(oferta_art) if include_prices else []
             for d in diffs + arith:
@@ -190,11 +219,13 @@ def match_global(
                 "oferta_cod": oferta_art.get("cod", ""),
                 "oferta_denumire": oferta_art.get("denumire", ""),
             })
-        else:
-            unmatched_ref.append(ref_art)
+        # Exces ref → ARTICOL_LIPSA
+        unmatched_ref.extend(ref_list[len(oferta_list):])
+        # Exces oferta → ARTICOL_EXTRA
+        extra_from_nm.extend(oferta_list[len(ref_list):])
 
     # Layer 2: Normalized match pe (deviz, normalize(cod))
-    unmatched_oferta_keys = set(oferta_map.keys()) - matched_oferta_keys
+    unmatched_oferta_keys = set(oferta_by_key.keys()) - matched_oferta_keys
     norm_to_oferta_key = {}
     for ok in unmatched_oferta_keys:
         deviz, cod = ok
@@ -215,14 +246,17 @@ def match_global(
             matched_oferta_keys.add(original_oferta_key)
             unmatched_oferta_keys.discard(original_oferta_key)
             del norm_to_oferta_key[norm_key]
-            neconf = {
-                "tip": "COD_SIMILAR",
-                "motiv_similaritate": f"Cod similar: referinta '{ref_cod}', ofertat '{original_oferta_cod}'",
-            }
-            _enrich(neconf, ref_art, oferta_art, deviz_cod, deviz_den)
-            neconformitati.append(neconf)
             diffs = compare_articles(ref_art, oferta_art, include_prices=include_prices)
             arith = check_arithmetic(oferta_art) if include_prices else []
+            # Raporteaza COD_SIMILAR doar daca exista si diferente reale.
+            # Daca normalizarea (O→0, l→1) rezolva complet, e zgomot pur — match silentios.
+            if diffs or arith:
+                neconf = {
+                    "tip": "COD_SIMILAR",
+                    "motiv_similaritate": f"Cod similar: referinta '{ref_cod}', ofertat '{original_oferta_cod}'",
+                }
+                _enrich(neconf, ref_art, oferta_art, deviz_cod, deviz_den)
+                neconformitati.append(neconf)
             for d in diffs + arith:
                 _enrich(d, ref_art, oferta_art, deviz_cod, deviz_den)
             neconformitati.extend(diffs + arith)
@@ -246,11 +280,81 @@ def match_global(
         for ok in unmatched_oferta_keys:
             oferta_by_deviz[ok[0]].append(oferta_map[ok])
 
+        # Layer 2.5: potrivire deterministă pe similaritate înaltă de cod + denumire.
+        # Prinde perechi precum $3275680/$3275630 (1 caracter diferit, OCR)
+        # fără a depinde de LLM. Threshold mai strict decât LLM-ul (0.85 vs 0.75).
+        _SIM_DET = 0.85
+
+        def _denom_jaccard(a: str, b: str) -> float:
+            wa = set(re.sub(r'[^a-z0-9]', ' ', (a or '').lower()).split())
+            wb = set(re.sub(r'[^a-z0-9]', ' ', (b or '').lower()).split())
+            if not wa or not wb:
+                return 0.0
+            return len(wa & wb) / len(wa | wb)
+
+        from shared.article_matcher import _cod_similarity
+        matched_by_llm_ref_keys: set = set()
+        det_matched_oferta_arts: set = set()
+
+        for deviz, ref_list in ref_by_deviz.items():
+            oferta_cands = oferta_by_deviz.get(deviz, [])
+            for ref_art in list(ref_list):
+                ref_cod = ref_art.get("cod", "")
+                best_art, best_score = None, 0.0
+                for of_art in oferta_cands:
+                    if id(of_art) in det_matched_oferta_arts:
+                        continue
+                    cs = _cod_similarity(ref_cod, of_art.get("cod", ""))
+                    if cs < _SIM_DET:
+                        continue
+                    dj = _denom_jaccard(ref_art.get("denumire", ""),
+                                        of_art.get("denumire", ""))
+                    score = cs * 0.6 + dj * 0.4
+                    if score > best_score:
+                        best_score, best_art = score, of_art
+                if best_art is None or _denom_jaccard(
+                        ref_art.get("denumire", ""), best_art.get("denumire", "")) < 0.4:
+                    continue
+                # Potrivire confirmată
+                oferta_key = _art_key(best_art)
+                matched_oferta_keys.add(oferta_key)
+                unmatched_oferta_keys.discard(oferta_key)
+                det_matched_oferta_arts.add(id(best_art))
+                matched_by_llm_ref_keys.add(_art_key(ref_art))
+                deviz_cod = ref_art.get("deviz", "")
+                deviz_den = ref_art.get("deviz_denumire", "")
+                diffs = compare_articles(ref_art, best_art, include_prices=include_prices)
+                if diffs:
+                    neconf = {
+                        "tip": "COD_SIMILAR",
+                        "motiv_similaritate": (
+                            f"Cod similar (OCR): '{ref_cod}' ↔ '{best_art.get('cod','')}'"
+                        ),
+                    }
+                    _enrich(neconf, ref_art, best_art, deviz_cod, deviz_den)
+                    neconformitati.append(neconf)
+                for d in diffs:
+                    _enrich(d, ref_art, best_art, deviz_cod, deviz_den)
+                neconformitati.extend(diffs)
+                matches.append({
+                    "ref_cod": ref_cod,
+                    "ref_denumire": ref_art.get("denumire", ""),
+                    "oferta_cod": best_art.get("cod", ""),
+                    "oferta_denumire": best_art.get("denumire", ""),
+                })
+
+        still_unmatched_ref = [a for a in still_unmatched_ref
+                               if _art_key(a) not in matched_by_llm_ref_keys]
+        # Rebuild oferta_by_deviz fara articolele deja potrivite
+        oferta_by_deviz = defaultdict(list)
+        for ok in unmatched_oferta_keys:
+            oferta_by_deviz[ok[0]].append(oferta_map[ok])
+
         deviz_groups = sorted(ref_by_deviz.keys(), key=lambda d: ("" if d else "\xff"))
 
-        matched_by_llm_ref_keys = set()
         for deviz in deviz_groups:
-            ref_batch = ref_by_deviz[deviz]
+            ref_batch = [a for a in ref_by_deviz[deviz]
+                         if _art_key(a) not in matched_by_llm_ref_keys]
             oferta_candidates = oferta_by_deviz.get(deviz, [])
             if not ref_batch or not oferta_candidates:
                 continue
@@ -275,12 +379,17 @@ def match_global(
                 matched_by_llm_ref_keys.add(_art_key(ref_art))
                 deviz_val = ref_art.get("deviz", "")
                 deviz_den = ref_art.get("deviz_denumire", "")
-                neconf = {
-                    "tip": "COD_SIMILAR",
-                    "motiv_similaritate": fp.get("motiv", "Cod similar identificat automat"),
-                }
-                _enrich(neconf, ref_art, oferta_art, deviz_val, deviz_den)
-                neconformitati.append(neconf)
+                diffs_llm = compare_articles(ref_art, oferta_art, include_prices=include_prices)
+                if diffs_llm:
+                    neconf = {
+                        "tip": "COD_SIMILAR",
+                        "motiv_similaritate": fp.get("motiv", "Cod similar identificat automat"),
+                    }
+                    _enrich(neconf, ref_art, oferta_art, deviz_val, deviz_den)
+                    neconformitati.append(neconf)
+                    for d in diffs_llm:
+                        _enrich(d, ref_art, oferta_art, deviz_val, deviz_den)
+                    neconformitati.extend(diffs_llm)
                 matches.append({
                     "ref_cod": fp_ref_cod,
                     "ref_denumire": ref_art.get("denumire", ""),
@@ -302,19 +411,16 @@ def match_global(
         _enrich(neconf, ref_art, {}, deviz_cod, deviz_den)
         neconformitati.append(neconf)
 
-    # ARTICOL_EXTRA
-    for oferta_key in unmatched_oferta_keys:
-        oferta_art = oferta_map[oferta_key]
+    # ARTICOL_EXTRA — instante neacoperite din oferta (chei nemat-uite + exces N:M)
+    extras_to_report = [a for k in unmatched_oferta_keys for a in oferta_by_key[k]] + extra_from_nm
+    for oferta_art in extras_to_report:
         norm_cod = _normalize_cod(oferta_art.get("cod", ""))
         if norm_cod in ref_component_cods:
             continue
-        # Extract deviz_denumire, truncate if OCR garbage (usually starts with "ARHITECTURA..." but may be followed by "e Devize Formular...")
         deviz_den = oferta_art.get("deviz_denumire", "")
-        # Truncate at "e Devize" boundary (OCR garbage starts there)
         if "e Devize" in deviz_den:
             deviz_den = deviz_den.split("e Devize")[0].strip()
         elif len(deviz_den) > 100:
-            # Fallback: truncate long strings
             deviz_den = deviz_den[:100]
         neconformitati.append({
             "tip": "ARTICOL_EXTRA",
