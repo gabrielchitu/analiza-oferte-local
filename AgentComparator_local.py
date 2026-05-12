@@ -149,10 +149,16 @@ def match_global(
     """
     # Deduplicate by 4-tuple (deviz, cod, um, cantitate) before matching
     # If same article appears multiple times with identical values, keep first occurrence
+    # Filtreaza artefactele breviar: cantitate=0 cu UM gol sau majuscule (template/header)
+    def _is_breviar_artifact(a: dict) -> bool:
+        cant = a.get("cantitate") or 0
+        um = (a.get("um") or "").strip()
+        return cant == 0 and (not um or um == um.upper())
+
     ref_seen = {}
     ref_dedup = []
     for a in ref_articole:
-        if a.get("cod") and not a.get("is_component"):
+        if a.get("cod") and not a.get("is_component") and not _is_breviar_artifact(a):
             key = (a.get("deviz"), a.get("cod"), a.get("um"), a.get("cantitate"))
             if key not in ref_seen:
                 ref_dedup.append(a)
@@ -224,7 +230,10 @@ def match_global(
         # Exces oferta → ARTICOL_EXTRA
         extra_from_nm.extend(oferta_list[len(ref_list):])
 
-    # Layer 2: Normalized match pe (deviz, normalize(cod))
+    # Layer 2: Normalized N:M match pe (deviz, normalize(cod))
+    # Upgrade față de 1:1: grupează toate ref nemat-uite cu același norm_key
+    # și le potrivește N:M cu lista completă din ofertă (ca Layer 1).
+    # Prinde: AUT6752 (ref) ↔ $6752 (oferta), cod normativ cu sufix numeric omis de ofertant.
     unmatched_oferta_keys = set(oferta_by_key.keys()) - matched_oferta_keys
     norm_to_oferta_key = {}
     for ok in unmatched_oferta_keys:
@@ -233,24 +242,33 @@ def match_global(
         if norm not in norm_to_oferta_key:
             norm_to_oferta_key[norm] = ok
 
+    # Grupează ref nemat-uite după norm_key pentru N:M
+    ref_by_norm: dict = defaultdict(list)
     still_unmatched_ref = []
     for ref_art in unmatched_ref:
-        ref_cod = ref_art.get("cod", "")
-        deviz_cod = ref_art.get("deviz", "")
-        deviz_den = ref_art.get("deviz_denumire", "")
-        norm_key = (deviz_cod, _normalize_cod(ref_cod))
+        norm_key = (_deviz_key(ref_art), _normalize_cod(ref_art.get("cod", "")))
         if norm_key in norm_to_oferta_key:
-            original_oferta_key = norm_to_oferta_key[norm_key]
-            oferta_art = oferta_map[original_oferta_key]
-            original_oferta_cod = oferta_art.get("cod", "")
-            matched_oferta_keys.add(original_oferta_key)
-            unmatched_oferta_keys.discard(original_oferta_key)
-            del norm_to_oferta_key[norm_key]
+            ref_by_norm[norm_key].append(ref_art)
+        else:
+            still_unmatched_ref.append(ref_art)
+
+    for norm_key, ref_list in ref_by_norm.items():
+        original_oferta_key = norm_to_oferta_key[norm_key]
+        oferta_list = oferta_by_key[original_oferta_key]
+        matched_oferta_keys.add(original_oferta_key)
+        unmatched_oferta_keys.discard(original_oferta_key)
+        del norm_to_oferta_key[norm_key]
+
+        ref_list.sort(key=lambda a: a.get("cantitate", 0) or 0)
+        deviz_cod = ref_list[0].get("deviz", "")
+        deviz_den = ref_list[0].get("deviz_denumire", "")
+        original_oferta_cod = oferta_list[0].get("cod", "") if oferta_list else ""
+
+        for ref_art, oferta_art in zip(ref_list, oferta_list):
+            ref_cod = ref_art.get("cod", "")
             diffs = compare_articles(ref_art, oferta_art, include_prices=include_prices)
             arith = check_arithmetic(oferta_art) if include_prices else []
-            # Raporteaza COD_SIMILAR doar daca exista si diferente reale.
-            # Daca normalizarea (O→0, l→1) rezolva complet, e zgomot pur — match silentios.
-            if diffs or arith:
+            if ref_cod != original_oferta_cod and (diffs or arith):
                 neconf = {
                     "tip": "COD_SIMILAR",
                     "motiv_similaritate": f"Cod similar: referinta '{ref_cod}', ofertat '{original_oferta_cod}'",
@@ -266,8 +284,9 @@ def match_global(
                 "oferta_cod": original_oferta_cod,
                 "oferta_denumire": oferta_art.get("denumire", ""),
             })
-        else:
-            still_unmatched_ref.append(ref_art)
+        # Exces ref → LIPSA, exces oferta → EXTRA
+        still_unmatched_ref.extend(ref_list[len(oferta_list):])
+        extra_from_nm.extend(oferta_list[len(ref_list):])
 
 
     # Layer 3: LLM fuzzy match per grup deviz
