@@ -86,7 +86,7 @@ BARE_L_RE = re.compile(r'^L\s*$', re.IGNORECASE)
 # DOT_L: ".L" marker pe linie (varianta cu punct prefix - articole legate ISDP in format multi-line)
 DOT_L_RE = re.compile(r'^\.L\s*$', re.IGNORECASE)
 # COD_NUMERIC_BARE: cod numeric pur 5-8 cifre singur pe linie (articole legate ISDP)
-COD_NUMERIC_BARE_RE = re.compile(r'^(\d{5,8})\s*$')
+COD_NUMERIC_BARE_RE = re.compile(r'^(\d{4,8})\s*$')  # 4+ cifre: NR_CRT e max 3 cifre, deci 4 = breviar
 # UM: token scurt alfabetic
 UM_RE = re.compile(r'^([A-Z]{1,6})\.?$', re.IGNORECASE)
 # Cantitate cu zecimale — include format cu separator mii și valori negative.
@@ -585,7 +585,9 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             if parsed_cod and not _numeric_den and (
                     COD_NUMERIC_RE.match(line) or COD_NORM_RE.match(line)
                     or COD_NORM_EXTENDED_RE.match(line) or COD_BREVIAR_RE.match(line)
-                    or COD_NUMERIC_PIPE_RE.match(line) or COD_NORM_STANDALONE_RE.match(line_norm)):
+                    or COD_NUMERIC_PIPE_RE.match(line) or COD_NORM_STANDALONE_RE.match(line_norm)
+                    or COD_NORM_EXTENDED_STANDALONE_RE.match(line_norm)
+                    or COD_NORM_SINGLE_STANDALONE_RE.match(line_norm)):
                 _finalize()
                 cod = parsed_cod
                 denumire_parts = [parsed_den] if parsed_den else []
