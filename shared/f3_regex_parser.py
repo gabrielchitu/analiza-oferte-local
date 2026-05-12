@@ -80,8 +80,8 @@ NR_SINGLE_INLINE_RE = re.compile(
 )
 # NR_CRT: integer 1-999 singur pe linie
 NR_CRT_RE = re.compile(r'^(\d{1,3})$')
-# NR_LINKED: articol legat ISDP — "N.L" singur pe linie (ex: "6.L", "8.L")
-NR_LINKED_RE = re.compile(r'^(\d{1,3})\.L\s*$', re.IGNORECASE)
+# NR_LINKED: articol legat ISDP — "N.L" sau "N.M.L" singur pe linie (ex: "6.L", "11.1.L", "11.2.L")
+NR_LINKED_RE = re.compile(r'^(\d{1,3})(?:\.\d+)?\.L\s*$', re.IGNORECASE)
 # BARE_L: standalone "L" marker pe linie (articole legate ISDP in format multi-line)
 BARE_L_RE = re.compile(r'^L\s*$', re.IGNORECASE)
 # DOT_L: ".L" marker pe linie (varianta cu punct prefix - articole legate ISDP in format multi-line)
@@ -402,7 +402,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             den = m.group(2).strip()
             um_hint = m.group(3).rstrip('.').upper() if m.group(3) else ''
             return cod_raw, den, um_hint
-        # Cod numeric bare (5-8 cifre) singur pe linie — articole care apar standalone
+        # Cod breviar cu $ prefix deja in sursa, singur pe linie (ex: "$16508", "$05021")
+        # Apare in oferte care scriu explicit codul cu $ (fara separator si descriere)
+        m = re.match(r'^(\$\d{4,8}[@]?)\s*$', s)
+        if m:
+            return m.group(1), '', ''
+        # Cod numeric bare (4-8 cifre) singur pe linie — articole care apar standalone
         # (e.g., 7206121 pe o linie, urmata de UM si cantitate pe liniile urmatoare)
         m = COD_NUMERIC_BARE_RE.match(s)
         if m:
