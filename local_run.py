@@ -66,6 +66,15 @@ def _normalize_deviz_for_filter(cod: str) -> str:
     return (cod or "").replace("U", "0")
 
 
+def _checkpoint_path(di_path: Path) -> Path:
+    """Returnează calea checkpoint-ului pentru un document DI."""
+    import shared.f3_page_classifier as _clf_module
+    _clf_hash = hashlib.md5(
+        inspect.getsource(_clf_module).encode()
+    ).hexdigest()[:12]
+    return CHECKPOINT_DIR / f"{di_path.stem}_page_classes_{_clf_hash}.json"
+
+
 def _extract_ofertant_name(di_path: Path) -> str:
     """
     Extrage numele ofertantului din DI JSON (primele 10 pagini).
@@ -259,11 +268,7 @@ def extract_document(di_path: Path, client, model: str) -> list:
     from shared.f3_page_classifier import classify_pages
     from shared.f3_extractor import extract_articles_v3
 
-    import shared.f3_page_classifier as _clf_module
-    _clf_hash = hashlib.md5(
-        inspect.getsource(_clf_module).encode()
-    ).hexdigest()[:12]
-    checkpoint = CHECKPOINT_DIR / f"{di_path.stem}_page_classes_{_clf_hash}.json"
+    checkpoint = _checkpoint_path(di_path)
 
     di = json.loads(di_path.read_text(encoding="utf-8"))
     pages = di.get("pages", [])
