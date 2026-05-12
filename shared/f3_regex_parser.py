@@ -96,10 +96,24 @@ CANT_DECIMAL_RE = re.compile(r'^-?(?:\d{1,10}(?:[.,]\d{3})*[,.]\d{1,6}|\d{1,10}[
 CANT_INT_RE = re.compile(r'^-?\d{1,6}$')
 # Preț/valoare numerică (poate conține separator mii)
 PRET_RE = re.compile(r'^[\d.,]+$')
-# Linii de ignorat (sumar, total, etc.)
+# Linii de ignorat (sumar, total, footer eDevize etc.)
+# Footer-urile eDevize ('Deviz "X" - Formular F3', 'Formular generat', 'Pagina N din M')
+# trebuie skipped in READING state ca sa nu contamineze denominatia articolului curent.
 SKIP_RE = re.compile(
     r'(Cheltuieli\s+directe|Total\s+cheltuieli|Cheltuieli\s+indirecte|'
-    r'Profit|TOTAL\s+GENERAL|TVA|contributie\s+asiguratorie)',
+    r'Profit|TOTAL\s+GENERAL|TVA|contributie\s+asiguratorie|'
+    r'Formular\s+generat\s+cu\s+programul|'
+    r'Pagina\s+\d+\s+din\s+\d+|'
+    r'Deviz\s+["\']?\d+["\']?\s*[-–]?\s*Formular\s+F3)',
+    re.IGNORECASE
+)
+# NR_CRT + COD_NORM/EXTENDED/SINGLE + separator + descriere pe aceeași linie
+# Ex: "6 CA01J1 - TURNARE BETON SIMPLU" (format oferte cu NR+COD+desc inline)
+NR_COD_DESC_RE = re.compile(
+    r'^(\d{1,3})\s+([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?'
+    r'|[A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z]?\d?'
+    r'|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2})'
+    r'(?:[#>*@%]|\[\d*\]|ASIM|TSCH)?[-]?\s*[-–]\s*(.+)$',
     re.IGNORECASE
 )
 # Etichete de sectiune pret in format eDevize — NU sunt denumire articol
@@ -467,18 +481,32 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 state = _WAITING
                 waiting_lines = 0
             else:
-                # Format cod direct fără NR_CRT (ex: "3270513 - BANDA AVERTIZARE...")
-                # Încearcă să parseze ca cod articol direct
-                parsed_cod, parsed_den, parsed_um_hint = _try_parse_cod(line)
-                if parsed_cod:
-                    cod = parsed_cod
-                    denumire_parts = [parsed_den] if parsed_den else []
-                    um = parsed_um_hint
+                # Format "NR COD - DESCRIERE" pe aceeasi linie (ex: "6 CA01J1 - TURNARE BETON")
+                m_ncd = NR_COD_DESC_RE.match(line)
+                if m_ncd:
+                    last_nr_crt = int(m_ncd.group(1))
+                    raw_cod = re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m_ncd.group(2).upper())
+                    raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
+                    cod = raw_cod
+                    denumire_parts = [m_ncd.group(3).strip()] if m_ncd.group(3) else []
+                    um = ''
                     cantitate = 0.0
                     preturi = []
                     state = _READING
                     waiting_lines = 0
-                # altfel ignora orice linie în IDLE
+                else:
+                    # Format cod direct fără NR_CRT (ex: "3270513 - BANDA AVERTIZARE...")
+                    # Încearcă să parseze ca cod articol direct
+                    parsed_cod, parsed_den, parsed_um_hint = _try_parse_cod(line)
+                    if parsed_cod:
+                        cod = parsed_cod
+                        denumire_parts = [parsed_den] if parsed_den else []
+                        um = parsed_um_hint
+                        cantitate = 0.0
+                        preturi = []
+                        state = _READING
+                        waiting_lines = 0
+                    # altfel ignora orice linie în IDLE
 
         # ── WAITING_ARTICLE ──────────────────────────────────────────────────
         elif state == _WAITING:
@@ -529,10 +557,21 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                     last_nr_crt = int(NR_CRT_RE.match(line).group(1))
                     waiting_lines = 0
                 else:
-                    waiting_lines += 1
-                    if waiting_lines >= 3:
-                        # Nu era articol — numărul era altceva (pagină, preț etc.)
-                        state = _IDLE
+                    # Format "NR COD - DESCRIERE" pe aceeasi linie in WAITING
+                    m_ncd = NR_COD_DESC_RE.match(line)
+                    if m_ncd:
+                        last_nr_crt = int(m_ncd.group(1))
+                        raw_cod = re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m_ncd.group(2).upper())
+                        raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
+                        cod = raw_cod
+                        denumire_parts = [m_ncd.group(3).strip()] if m_ncd.group(3) else []
+                        um = ''; cantitate = 0.0; preturi = []
+                        state = _READING; waiting_lines = 0; _after_linked = False
+                    else:
+                        waiting_lines += 1
+                        if waiting_lines >= 3:
+                            # Nu era articol — numărul era altceva (pagină, preț etc.)
+                            state = _IDLE
 
         # ── READING_ARTICLE ──────────────────────────────────────────────────
         elif state == _READING:
@@ -582,6 +621,19 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # ex. '4741-71' → cod=$4741, den='71' — e continuare de denumire, nu articol nou
             _numeric_den = (COD_NUMERIC_RE.match(line) and
                             not re.search(r'[A-Za-z]', parsed_den or ''))
+            # Format "NR COD - DESC" in READING → finalizeaza curent + incepe nou articol
+            m_ncd = NR_COD_DESC_RE.match(line)
+            if m_ncd:
+                _finalize()
+                last_nr_crt = int(m_ncd.group(1))
+                raw_cod = re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m_ncd.group(2).upper())
+                raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
+                cod = raw_cod
+                denumire_parts = [m_ncd.group(3).strip()] if m_ncd.group(3) else []
+                um = ''; cantitate = 0.0; preturi = []
+                state = _READING
+                continue
+
             if parsed_cod and not _numeric_den and (
                     COD_NUMERIC_RE.match(line) or COD_NORM_RE.match(line)
                     or COD_NORM_EXTENDED_RE.match(line) or COD_BREVIAR_RE.match(line)
