@@ -150,11 +150,14 @@ def _reclassify_missed_f3_pages(
     page_classes_heuristic = reclassify_non_f3_pages(page_classes)
 
     # Pasul 2: gaseste paginile schimbate de euristica (is_f3: False → True)
+    # Excludem paginile deja verificate de LLM in run-uri anterioare (flag _reclf_checked)
     original_by_pn = {p["page_number"]: p for p in page_classes}
     candidates = []
     for pc_h in page_classes_heuristic:
         pn = pc_h["page_number"]
         orig = original_by_pn.get(pn, {})
+        if orig.get("_reclf_checked"):
+            continue  # deja verificat de LLM anterior — sarim
         if not orig.get("is_f3") and pc_h.get("is_f3"):
             # Pagina reclasificata de euristica — trimitem la LLM pentru confirmare
             candidates.append(pc_h)
@@ -215,9 +218,24 @@ def _reclassify_missed_f3_pages(
             else:
                 logger.debug(f"  [RECLF] pag{pn}: LLM confirma NON_F3")
 
+    # Marcam toate paginile candidate ca verificate (indiferent de rezultat)
+    # → evitam re-apelul LLM in run-uri viitoare pentru aceleasi pagini
+    checkpoint_needs_save = False
+    page_classes_updated_map = {p["page_number"]: p for p in page_classes_updated}
+    for pc_h in candidates:
+        pn = pc_h["page_number"]
+        if pn in page_classes_updated_map:
+            page_classes_updated_map[pn]["_reclf_checked"] = True
+            checkpoint_needs_save = True
+
     if updated_count == 0:
         logger.info("  [RECLF] LLM a confirmat: nicio pagina suplimentara F3")
-        return page_classes, False
+        if checkpoint_needs_save:
+            checkpoint_path.write_text(
+                json.dumps(page_classes_updated, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+        return page_classes_updated if checkpoint_needs_save else page_classes, False
 
     # Pasul 6: salveaza checkpoint actualizat
     checkpoint_path.write_text(
