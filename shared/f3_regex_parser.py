@@ -16,8 +16,9 @@ logger = logging.getLogger(__name__)
 
 # Cod normativ: TSC35A22, SA14B#, RPCE26C1, CA02A1 etc. (cu – şi descriere)
 # Sufixe acceptate: # > * @ % și [1] [2] ]1 cu optional - trailing
-# Include si sufixe designator normativ: ASIM, TSCH (TCB40B1ASIM, TCB40B1TSCH)
-_COD_SUFFIX = r'(?:[#>*@%]|\[\d*\]|[\[\]]\d*|ASIM|TSCH)?[-]?'
+# Include si sufixe designator normativ: ASIM, TSCH (TCB40B1ASIM, CG08A#ASIM)
+# Permite combinatii: '#' urmat opțional de ASIM/TSCH (ex: CG08A#ASIM)
+_COD_SUFFIX = r'(?:[#>*@%]|\[\d*\]|[\[\]]\d*)?(?:ASIM|TSCH)?[-]?'
 COD_NORM_RE = re.compile(
     r'^([A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?' + _COD_SUFFIX + r')\s*[-–]\s*(.+)',
     re.IGNORECASE
@@ -107,13 +108,15 @@ SKIP_RE = re.compile(
     r'Deviz\s+["\']?\d+["\']?\s*[-–]?\s*Formular\s+F3)',
     re.IGNORECASE
 )
-# NR_CRT + COD_NORM/EXTENDED/SINGLE + separator + descriere pe aceeași linie
-# Ex: "6 CA01J1 - TURNARE BETON SIMPLU" (format oferte cu NR+COD+desc inline)
+# NR_CRT + COD_NORM/EXTENDED/SINGLE/NUMERIC + separator + descriere pe aceeași linie
+# Ex: "6 CA01J1 - TURNARE BETON", "12 CG08A#ASIM - Pardoseli", "10 3274584 - OTEL BETON"
 NR_COD_DESC_RE = re.compile(
-    r'^(\d{1,3})\s+([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?'
+    r'^(\d{1,3})\s+'
+    r'([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?'
     r'|[A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z]?\d?'
-    r'|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2})'
-    r'(?:[#>*@%]|\[\d*\]|ASIM|TSCH)?[-]?\s*[-–]\s*(.+)$',
+    r'|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}'
+    r'|\d{4,8}[@]?)'
+    r'(?:[#>*@%]|\[\d*\]|ASIM|TSCH){0,2}[-]?\s*[-–]\s*(.+)$',
     re.IGNORECASE
 )
 # Etichete de sectiune pret in format eDevize — NU sunt denumire articol
@@ -368,6 +371,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 cod_raw = re.sub(r'\s*\[\d*\]?\s*$', '', cod_raw)
                 # Strip designatori normativi lipiti (ASIM, TSCH): TCB40B1ASIM → TCB40B1
                 cod_raw = re.sub(r'(?:ASIM|TSCH)$', '', cod_raw).strip()
+                cod_raw = re.sub(r'[-@%>#*]+$', '', cod_raw)  # al 2-lea pass: CG08A#ASIM → CG08A
                 return cod_raw, m.group(2).strip(), ''
         # Cod normativ singur pe linie (simple, extended, single-letter) — cu sufixe opționale
         def _parse_standalone(m):
