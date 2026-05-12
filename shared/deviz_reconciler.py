@@ -75,3 +75,87 @@ def _find_deviz_page_range(
             result.append((pn, lines))
 
     return result
+
+
+def reconcile_missing_devize(
+    di_path: Path,
+    missing_codes: set[str],
+    checkpoint_path: Path,
+    existing_articles: list,
+) -> tuple[list, set[str]]:
+    """
+    Pentru fiecare cod din missing_codes, caută devizul în toate paginile di_path.
+    Actualizează checkpoint-ul cu paginile nou clasificate F3.
+
+    Returns:
+        (updated_articles, still_missing_codes)
+        - updated_articles: existing_articles + articolele nou extrase
+        - still_missing_codes: coduri negăsite nicăieri (eroare OCR/parsare)
+    """
+    from shared.f3_extractor import extract_articles_v3
+
+    if not missing_codes:
+        return existing_articles, set()
+
+    if not checkpoint_path.exists():
+        logger.warning(f"  [RECONCILE] Checkpoint lipsă: {checkpoint_path} — skip reconciliere")
+        return existing_articles, set(missing_codes)
+
+    di = json.loads(di_path.read_text(encoding="utf-8"))
+    di_pages = di.get("pages", [])
+    page_classes: list[dict] = json.loads(checkpoint_path.read_text(encoding="utf-8"))
+    pc_by_pn: dict[int, dict] = {pc["page_number"]: pc for pc in page_classes}
+
+    all_articles = list(existing_articles)
+    still_missing: set[str] = set()
+    checkpoint_dirty = False
+
+    for code in sorted(missing_codes):
+        target = code.strip().upper()
+        page_range = _find_deviz_page_range(di_pages, target, pc_by_pn)
+
+        if not page_range:
+            logger.warning(f"  [RECONCILE] Deviz {target} NEGASIT in {di_path.stem}")
+            still_missing.add(code)
+            continue
+
+        pages_to_extract: list[dict] = []
+        for pn, lines in page_range:
+            pc = pc_by_pn.get(pn)
+            if pc is None:
+                pc = {
+                    "page_number": pn, "is_f3": True,
+                    "deviz_cod": target, "deviz_den": "",
+                    "lines": lines, "needs_llm": False, "header_only": False,
+                }
+                page_classes.append(pc)
+                pc_by_pn[pn] = pc
+                checkpoint_dirty = True
+                pages_to_extract.append(pc)
+            elif pc.get("is_f3") and pc.get("deviz_cod", "").upper() == target:
+                pass  # deja clasificat corect — articolele sunt în existing_articles
+            else:
+                pc["is_f3"] = True
+                pc["deviz_cod"] = target
+                pc["header_only"] = False
+                checkpoint_dirty = True
+                pages_to_extract.append(pc)
+
+        if pages_to_extract:
+            new_arts = extract_articles_v3(pages_to_extract)
+            logger.info(
+                f"  [RECONCILE] Deviz {target}: {len(new_arts)} articole gasite"
+                f" pe {len(pages_to_extract)} pagini (din {len(page_range)} total)"
+            )
+            all_articles.extend(new_arts)
+        else:
+            logger.info(f"  [RECONCILE] Deviz {target}: pagini deja extrase — skip")
+
+    if checkpoint_dirty:
+        checkpoint_path.write_text(
+            json.dumps(page_classes, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        logger.info(f"  [RECONCILE] Checkpoint actualizat: {checkpoint_path.name}")
+
+    return all_articles, still_missing
