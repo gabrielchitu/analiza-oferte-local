@@ -23,6 +23,21 @@ _DEVIZ_COD_RE = re.compile(
 )
 
 
+def _page_opens_deviz(lines: list[str], target_re) -> bool:
+    """Verifică dacă pagina conține un header STADIUL FIZIC pentru target_code.
+
+    Caută 'STADIUL FIZIC:' urmat de target_code în fereastra de 8 linii —
+    același comportament ca f3_page_classifier. Previne false pozitive din
+    pagini FORMULAR C6, footer-uri sau totaluri care menționează codul întâmplător.
+    """
+    for i, line in enumerate(lines):
+        if _STADIUL_FIZIC_RE.search(line):
+            window = lines[i: i + 8]
+            if any(target_re.search(ln) for ln in window):
+                return True
+    return False
+
+
 def _find_deviz_page_range(
     di_pages: list[dict],
     target_code: str,
@@ -33,6 +48,9 @@ def _find_deviz_page_range(
 
     Returnează lista de (page_number, lines_as_strings) pentru paginile
     aparținând devizului target_code, în ordine consecutivă.
+
+    Intrarea în interval necesită un header STADIUL FIZIC explicit cu target_code —
+    simpla prezență a codului pe pagină (footer, total, referință) nu este suficientă.
 
     Se oprește când:
     - apare un header "STADIUL FIZIC:" cu un cod diferit
@@ -52,13 +70,14 @@ def _find_deviz_page_range(
     for page in sorted(di_pages, key=lambda p: p.get("page_number", 0)):
         pn = page.get("page_number", 0)
         lines = [ln.get("content", "") for ln in page.get("lines", [])]
-        full_text = " ".join(lines)
 
         if not in_target:
-            if _target_re.search(full_text):
+            # Intrare DOAR dacă pagina are header STADIUL FIZIC cu target_code
+            if _page_opens_deviz(lines, _target_re):
                 in_target = True
                 result.append((pn, lines))
         else:
+            full_text = " ".join(lines)
             # Verifică dacă această pagină deschide un deviz NOU
             if _STADIUL_FIZIC_RE.search(full_text):
                 m = _DEVIZ_COD_RE.search(full_text)

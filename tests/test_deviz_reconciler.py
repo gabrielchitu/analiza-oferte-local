@@ -73,6 +73,18 @@ def test_returns_empty_when_code_not_found():
     assert result == []
 
 
+def test_does_not_enter_on_non_stadiul_fizic_page():
+    """Codul în FORMULAR C6 / footer / total nu triggerhează intrarea în deviz."""
+    pages = [
+        _make_di_page(1, "FORMULAR C6", "Lista consumuri 226100 materiale"),
+        _make_di_page(2, "pag.", "2"),
+        _make_di_page(3, "TOTAL 226100 lei", "valoare totala"),
+        _make_di_page(4, "STADIUL FIZIC: oferta 226200 BETON", "CZ0101A articol 50 mc"),
+    ]
+    result = _find_deviz_page_range(pages, "226100", {})
+    assert result == []  # 226100 apare doar in context non-STADIUL FIZIC
+
+
 def test_stops_at_different_deviz_header():
     """Se oprește când găsește header cu cod diferit."""
     pages = [
