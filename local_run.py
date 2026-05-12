@@ -609,6 +609,7 @@ def main():
                 checkpoint_path=_checkpoint_path(ref_path),
                 existing_articles=ref_articles,
             )
+            ref_articles = populate_deviz_denominations(ref_articles)
             ref_deviz_codes = {a.get("deviz") for a in ref_articles if a.get("deviz")}
             for code in unresolved_extra:
                 logger.error(f"  [RECONCILE] Deviz {code} NEGASIT in referinta — posibila eroare OCR/parsare")
@@ -623,6 +624,7 @@ def main():
                 checkpoint_path=_checkpoint_path(oferta_path),
                 existing_articles=oferta_articles,
             )
+            oferta_articles = populate_deviz_denominations(oferta_articles)
             for code in unresolved_lipsa:
                 logger.error(f"  [RECONCILE] Deviz {code} NEGASIT in oferta {oferta_nr} — posibila eroare OCR/parsare")
 
