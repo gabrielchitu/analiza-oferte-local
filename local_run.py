@@ -123,6 +123,113 @@ def _extract_ofertant_name(di_path: Path) -> str:
     return ""
 
 
+def _reclassify_missed_f3_pages(
+    page_classes: list,
+    di_pages: list,
+    checkpoint_path,
+    client,
+    model: str,
+) -> tuple:
+    """
+    Re-clasificare LLM tintita pentru pagini is_f3=False cu semnal F3 euristic.
+
+    Fluxul:
+    1. Reclassifier euristic identifica candidate (nu apeleaza LLM)
+    2. Filtreaza candidatii: pastreaza numai paginile reclasificate de euristica
+       (exclude paginile deja corecte — evita re-trimiterea la LLM inutila)
+    3. Trimite NUMAI candidatii la LLM in batch
+    4. Actualizeaza page_classes cu raspunsul LLM
+    5. Salveaza checkpoint actualizat (evita re-clasificare la run-uri viitoare)
+
+    Returns: (page_classes_updated, checkpoint_was_updated)
+    """
+    from shared.f3_page_reclassifier import reclassify_non_f3_pages
+    from shared.f3_page_classifier import _classify_pages_llm
+
+    # Pasul 1: identifica candidate euristic (in-memory, fara LLM)
+    page_classes_heuristic = reclassify_non_f3_pages(page_classes)
+
+    # Pasul 2: gaseste paginile schimbate de euristica (is_f3: False → True)
+    original_by_pn = {p["page_number"]: p for p in page_classes}
+    candidates = []
+    for pc_h in page_classes_heuristic:
+        pn = pc_h["page_number"]
+        orig = original_by_pn.get(pn, {})
+        if not orig.get("is_f3") and pc_h.get("is_f3"):
+            # Pagina reclasificata de euristica — trimitem la LLM pentru confirmare
+            candidates.append(pc_h)
+
+    if not candidates:
+        return page_classes, False
+
+    logger.info(
+        f"  [RECLF] {len(candidates)} candidate pagini F3 omise → LLM re-clasificare..."
+    )
+
+    # Pasul 3: pregateste datele DI brute pentru candidate
+    di_pages_by_pn = {p["page_number"]: p for p in di_pages}
+    llm_input = []
+    for pc_h in candidates:
+        pn = pc_h["page_number"]
+        di_page = di_pages_by_pn.get(pn)
+        if di_page is None:
+            continue
+        # Reconstituie liniile brute din DI (mai complete decat cele din checkpoint)
+        lines_raw = [
+            l.get("content", "") if isinstance(l, dict) else str(l)
+            for l in di_page.get("lines", [])
+        ]
+        llm_input.append({
+            "page_number": pn,
+            "lines": lines_raw,
+            "deviz_cod": pc_h.get("deviz_cod", ""),  # hint din euristica
+        })
+
+    if not llm_input:
+        return page_classes, False
+
+    # Pasul 4: apel LLM batch
+    llm_results = _classify_pages_llm(llm_input, client, model)
+    logger.info(
+        f"  [RECLF] LLM a raspuns pentru {len(llm_results)}/{len(llm_input)} pagini"
+    )
+
+    # Pasul 5: actualizeaza page_classes cu rezultatele LLM
+    updated_count = 0
+    page_classes_updated = [dict(pc) for pc in page_classes]
+    for pc in page_classes_updated:
+        pn = pc["page_number"]
+        if pn in llm_results:
+            llm = llm_results[pn]
+            if llm.get("is_f3"):
+                old_f3 = pc.get("is_f3", False)
+                pc["is_f3"] = True
+                pc["header_only"] = False
+                if llm.get("deviz_cod"):
+                    pc["deviz_cod"] = llm["deviz_cod"]
+                if not old_f3:
+                    updated_count += 1
+                    logger.info(
+                        f"  [RECLF] pag{pn}: is_f3=True deviz={pc['deviz_cod']!r} (confirmat LLM)"
+                    )
+            else:
+                logger.debug(f"  [RECLF] pag{pn}: LLM confirma NON_F3")
+
+    if updated_count == 0:
+        logger.info("  [RECLF] LLM a confirmat: nicio pagina suplimentara F3")
+        return page_classes, False
+
+    # Pasul 6: salveaza checkpoint actualizat
+    checkpoint_path.write_text(
+        json.dumps(page_classes_updated, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    logger.info(
+        f"  [RECLF] {updated_count} pagini re-clasificate F3, checkpoint actualizat"
+    )
+    return page_classes_updated, True
+
+
 def extract_document(di_path: Path, client, model: str) -> list:
     """
     Extrage articolele F3 dintr-un DI JSON.
@@ -155,6 +262,12 @@ def extract_document(di_path: Path, client, model: str) -> list:
             encoding="utf-8",
         )
         logger.info(f"  Checkpoint salvat: {checkpoint.name}")
+
+    # Re-clasificare LLM tintita: pagini is_f3=False cu semnal F3 detectat euristic.
+    # Ruleaza NUMAI cand exista astfel de pagini — LLM e apelat doar pentru candidate.
+    page_classes, checkpoint_updated = _reclassify_missed_f3_pages(
+        page_classes, pages, checkpoint, client, model
+    )
 
     f3_count = sum(1 for p in page_classes if p.get("is_f3") and not p.get("header_only"))
     no_deviz = sum(1 for p in page_classes if p.get("is_f3") and not p.get("header_only") and not p.get("deviz_cod"))
