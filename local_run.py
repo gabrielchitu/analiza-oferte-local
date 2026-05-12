@@ -564,6 +564,7 @@ def main():
 
     # Populate missing deviz denominations (so reports show work categories)
     from shared.deviz_namer import populate_deviz_denominations
+    from shared.deviz_reconciler import reconcile_missing_devize
     ref_articles = populate_deviz_denominations(ref_articles)
 
     ref_out = OUTPUT_DIR / "referinta.json"
@@ -597,11 +598,33 @@ def main():
         oferta_deviz_codes = set(a.get("deviz", "") for a in oferta_articles if a.get("deviz"))
         devize_extra = oferta_deviz_codes - ref_deviz_codes - {""}
         devize_lipsa_din_oferta = ref_deviz_codes - oferta_deviz_codes
+
+        # Reconciliere devize_extra: în ofertă dar absente din referință → re-scanăm ref
         if devize_extra:
             logger.warning(f"  ALERTA: {len(devize_extra)} devize in oferta ABSENTE din referinta: {sorted(devize_extra)}")
-            logger.warning(f"  → Posibil F3 neextras din referinta SAU lucrari suplimentare propuse de ofertant")
+            logger.info(f"  → Reconciliere: re-scanam referinta pentru {sorted(devize_extra)}")
+            ref_articles, unresolved_extra = reconcile_missing_devize(
+                di_path=ref_path,
+                missing_codes=devize_extra,
+                checkpoint_path=_checkpoint_path(ref_path),
+                existing_articles=ref_articles,
+            )
+            ref_deviz_codes = {a.get("deviz") for a in ref_articles if a.get("deviz")}
+            for code in unresolved_extra:
+                logger.error(f"  [RECONCILE] Deviz {code} NEGASIT in referinta — posibila eroare OCR/parsare")
+
+        # Reconciliere devize_lipsa: în referință dar absente din ofertă → re-scanăm oferta
         if devize_lipsa_din_oferta:
             logger.info(f"  {len(devize_lipsa_din_oferta)} devize din referinta NEACOPERITE de oferta: {sorted(devize_lipsa_din_oferta)}")
+            logger.info(f"  → Reconciliere: re-scanam oferta {oferta_nr} pentru {sorted(devize_lipsa_din_oferta)}")
+            oferta_articles, unresolved_lipsa = reconcile_missing_devize(
+                di_path=oferta_path,
+                missing_codes=devize_lipsa_din_oferta,
+                checkpoint_path=_checkpoint_path(oferta_path),
+                existing_articles=oferta_articles,
+            )
+            for code in unresolved_lipsa:
+                logger.error(f"  [RECONCILE] Deviz {code} NEGASIT in oferta {oferta_nr} — posibila eroare OCR/parsare")
 
         oferta_out = OUTPUT_DIR / f"oferta_{oferta_nr}.json"
         oferta_out.write_text(
