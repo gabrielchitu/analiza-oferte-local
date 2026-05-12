@@ -37,10 +37,20 @@ COD_BREVIAR_RE = re.compile(r'^(\$[A-Z0-9]{4,})\s*[-–]\s*(.+)', re.IGNORECASE)
 # Cod numeric pur 4-8 cifre cu – şi descriere; acceptă @ suffix
 # 4 cifre: utilaje breviar (1303, 2506); 8 cifre: materiale extinse (22000561)
 COD_NUMERIC_RE = re.compile(r'^(\d{4,8}[@]?)\s*[-–]\s*(.+)')
-# Cod normativ SINGUR pe linie, cu optional tip UM (ASIM etc.) pe aceeași linie
-# Ex: "TCB40A1" sau "TCB40A1 ASIM" (format referinţă deviz)
+# Cod normativ SINGUR pe linie, cu opțional tokeni sufixe (ASIM, BUC. etc.) — max 3
+# Ex: "TCB40A1", "TCB40A1 ASIM", "IA37E1 ASIM BUC." (format referinţă deviz)
 COD_NORM_STANDALONE_RE = re.compile(
-    r'^([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?' + _COD_SUFFIX + r')(?:\s+([A-Z]{1,8}\.?))?\s*$',
+    r'^([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
+    re.IGNORECASE
+)
+# Cod extended SINGUR pe linie: TRI1AA08F1, TRI1AA01C2 (format: 2-5L + 1-2D + 1-3L + 2-4D + opt)
+COD_NORM_EXTENDED_STANDALONE_RE = re.compile(
+    r'^([A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z]?\d?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
+    re.IGNORECASE
+)
+# Cod single-letter complex SINGUR pe linie: W1C01A1, H1V06H (format: L + D + 1-3L + 2-4D + opt)
+COD_NORM_SINGLE_STANDALONE_RE = re.compile(
+    r'^([A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
     re.IGNORECASE
 )
 # Cod numeric cu spaţiu + descriere + optional |UM (format Breviar materiale referinţă)
@@ -264,12 +274,10 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             elif cod.upper() in UM_KNOWN:
                 logger.debug(f"[PARSER] Skip UM capturat ca cod: {cod}")
             # Skip coduri de specificatii tehnice: DN32, PN10, S7064, N1080 etc.
-            # Acestea sunt fragmente din denominatia articolului precedent (diametru teava,
-            # clasa presiune, tipul materialului) splituite de OCR pe linii separate.
-            # Pattern: 1-2 litere mari + 2-5 cifre, FARA litera la final.
-            # ATENTIE: coduri utilaj cu 3 litere (AUT6753, CMP1234, TRA6101) NU se skipuiesc —
-            # de aceea limita e {1,2}, nu {1,3}.
-            elif re.match(r'^[A-Z]{1,2}\d{2,5}$', cod):
+            # Acestea sunt fragmente din denominatia articolului precedent splituite de OCR.
+            # Pattern restrâns: 1-2 litere + 2-3 cifre (DN32, PN10) SAU 1 litera + 4-5 cifre (S7064).
+            # VC1011, SD13A1 (2 litere + 4 cifre) sunt coduri reale — NU se skipuiesc.
+            elif re.match(r'^(?:[A-Z]{1,2}\d{2,3}|[A-Z]\d{4,5})$', cod):
                 logger.debug(f"[PARSER] Skip spec tehnica (DN/PN/tip material): {cod}")
             # Skip coduri marcatori capitol ISDP: $0001-$0009 (CPV section headers)
             # Apar la inceputul fiecarui deviz in format ISDP, nu sunt articole reale.
@@ -347,17 +355,28 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 # Strip designatori normativi lipiti (ASIM, TSCH): TCB40B1ASIM → TCB40B1
                 cod_raw = re.sub(r'(?:ASIM|TSCH)$', '', cod_raw).strip()
                 return cod_raw, m.group(2).strip(), ''
-        # Cod normativ singur pe linie, cu optional tip UM (ASIM etc.) pe aceeași linie
-        m = COD_NORM_STANDALONE_RE.match(s)
-        if m:
+        # Cod normativ singur pe linie (simple, extended, single-letter) — cu sufixe opționale
+        def _parse_standalone(m):
             cod_raw = m.group(1).strip().upper()
             cod_raw = re.sub(r'[-@%>#*]+$', '', cod_raw)
             cod_raw = re.sub(r'\s*\[\d*\]?\s*$', '', cod_raw)
             cod_raw = re.sub(r'(?:ASIM|TSCH)$', '', cod_raw).strip()
-            um_hint_raw = m.group(2).rstrip('.').upper() if m.group(2) else ''
-            # Ignora designatori normativi (ASIM, TSCH etc.) — nu sunt UM reale
-            um_hint = um_hint_raw if um_hint_raw and um_hint_raw not in UM_SKIP else ''
+            # Extrage UM din tokenii sufixe (grup 2 = " ASIM BUC." etc.)
+            um_hint = ''
+            suffix = (m.group(2) or '').strip()
+            for tok in suffix.split():
+                t = re.sub(r'\.', '', tok).upper()
+                if t in UM_KNOWN and t not in UM_SKIP:
+                    um_hint = t
+                    break
             return cod_raw, '', um_hint
+
+        for standalone_re in (COD_NORM_STANDALONE_RE,
+                              COD_NORM_EXTENDED_STANDALONE_RE,
+                              COD_NORM_SINGLE_STANDALONE_RE):
+            m = standalone_re.match(s)
+            if m:
+                return _parse_standalone(m)
         # Cod numeric cu spaţiu + descriere + optional |UM (Breviar materiale)
         m = COD_NUMERIC_PIPE_RE.match(s)
         if m:
