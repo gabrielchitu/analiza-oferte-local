@@ -523,9 +523,9 @@ def generate_word(
 
             # Single summary row at the end of this deviz block (after both normale and extras)
             all_neconf_items = items + extra_items
-            neconf_ref_arts = {nc.get('ref_cod') for nc in all_neconf_items if nc.get('ref_cod')}
-            neconf_count = len(neconf_ref_arts)
-            ref_total = _ref_deviz_totals.get(deviz_cod, 0) or neconf_count
+            # Count EVERY non-conformity record (not unique articles)
+            neconf_count = len(all_neconf_items)
+            ref_total = _ref_deviz_totals.get(deviz_cod, 0)
             offer_total = _oferta_deviz_totals.get(deviz_cod, 0)
             _add_deviz_summary_row(table, row_nr + 1, neconf_count, ref_total, offer_total)
             row_nr += 1
@@ -542,10 +542,11 @@ def generate_word(
                 row_nr += 1
                 _add_neconf_row(table, row_nr, neconf, deviz_map)
 
-            # Summary row for only-extra deviz (ref=0 since no reference baseline for this deviz)
+            # Summary row for only-extra deviz (count all extra records, ref=0 since no reference baseline)
+            extra_count = len(extra_items)
             ref_total = _ref_deviz_totals.get(deviz_cod, 0)
             offer_total = _oferta_deviz_totals.get(deviz_cod, 0)
-            _add_deviz_summary_row(table, row_nr + 1, 0, ref_total, offer_total)
+            _add_deviz_summary_row(table, row_nr + 1, extra_count, ref_total, offer_total)
             row_nr += 1
 
         _set_col_widths(table)
