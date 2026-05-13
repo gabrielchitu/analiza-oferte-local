@@ -30275,8 +30275,8 @@
   },
   {
     "page_number": 165,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226F08",
     "deviz_den": "",
     "lines": [
       "Pag 159",
@@ -30410,7 +30410,9 @@
       "Director General,",
       "Raport generat cu ISDP , www.devize.ro, e-mail: office@intersoft.ro, tel .: 0236.477.007"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false,
+    "_reclf_checked": true
   },
   {
     "page_number": 166,

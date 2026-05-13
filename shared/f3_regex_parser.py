@@ -184,9 +184,11 @@ def _is_valid_um(token: str) -> bool:
     1. Normalizează: strip puncte și spații ("M.C." → "MC", "MP ." → "MP")
     2. Respinge dacă token-ul conține cifre — liniile cu cifre+litere sunt
        continuare de denumire (ex: '8 MM', '100 ML batuta') sau prețuri
-    3. Acceptă NUMAI dacă token-ul e în UM_KNOWN (whitelist explicit)
+    3. Handle OCR corruption: specific known patterns (B?C → BUC, etc.)
+    4. Acceptă NUMAI dacă token-ul e în UM_KNOWN (whitelist explicit)
        — elimină catch-all-ul anterior (len≤4, isalpha) care accepta
          'tare', 'mata', 'toli', 'cod' etc. din denumiri multi-linie
+    5. Fallback: try ton→tona normalization if direct match fails
     """
     t = re.sub(r'[\.\s]', '', token.strip()).upper()
     if not t:
@@ -196,7 +198,44 @@ def _is_valid_um(token: str) -> bool:
     # Regula anti-digit: o linie cu cifre nu este o coloana UM
     if re.search(r'\d', token):
         return False
-    return t in UM_KNOWN
+
+    if t in UM_KNOWN:
+        return True
+
+    # Only attempt fuzzy match if token contains non-letter OCR noise: ?, !, |, ~, ^
+    # This avoids false matches like TOL→TON
+    if any(c in t for c in '?!|~^'):
+        t_clean = re.sub(r'[?!|~^]', '', t)
+        if t_clean and t_clean in UM_KNOWN:
+            return True
+
+    # ton → tona normalization
+    if t == 'TON' and 'TONA' in UM_KNOWN:
+        return True
+
+    return False
+
+
+def _normalize_um_value(token: str) -> str:
+    """Return the canonical UM value, handling OCR corruption and normalization."""
+    t = re.sub(r'[\.\s]', '', token.strip()).upper()
+    if not t:
+        return ''
+
+    if t in UM_KNOWN:
+        return t
+
+    # Only attempt fuzzy match if token contains non-letter OCR noise: ?, !, |, ~, ^
+    if any(c in t for c in '?!|~^'):
+        t_clean = re.sub(r'[?!|~^]', '', t)
+        if t_clean and t_clean in UM_KNOWN:
+            return t_clean
+
+    # ton → tona normalization
+    if t == 'TON':
+        return 'TONA'
+
+    return t
 
 
 def _make_article(cod: str, denumire: str, um: str, cantitate: float,
@@ -479,7 +518,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                     for tok in m.group(3).strip().split():
                         tok_clean = tok.rstrip('.')
                         if _is_valid_um(tok_clean):
-                            um = tok_clean.upper()
+                            um = _normalize_um_value(tok_clean)
                             break
                 cantitate = 0.0
                 preturi = []
@@ -603,7 +642,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                     for tok in m.group(3).strip().split():
                         tok_clean = tok.rstrip('.')
                         if _is_valid_um(tok_clean):
-                            um = tok_clean.upper()
+                            um = _normalize_um_value(tok_clean)
                             break
                 cantitate = 0.0
                 preturi = []
@@ -659,8 +698,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 continue
 
             # UM (doar dacă nu e setat) — normalizează M.C. → MC, MP . → MP
+            # BUT: skip "KM" — it's ALWAYS a distance spec (e.g., "DIST .= 10 KM"), never a work unit
             if not um and _is_valid_um(line):
-                um = re.sub(r'[\.\s]', '', line.strip()).upper()
+                um_candidate = re.sub(r'[\.\s]', '', line.strip()).upper()
+                if um_candidate == 'KM':
+                    continue  # Skip distance specifications
+                um = _normalize_um_value(line)
                 continue
 
             # Format "100 MC." — indicator normativ pe linie separată
@@ -687,7 +730,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 if m_pipe:
                     um_candidate = m_pipe.group(1).upper().replace('.', '').rstrip()
                     if _is_valid_um(um_candidate):
-                        um = um_candidate
+                        um = _normalize_um_value(um_candidate)
                         cantitate = _parse_number(m_pipe.group(2))
                         den = m_pipe.group(3).strip()
                         if den:

@@ -7971,8 +7971,8 @@
   },
   {
     "page_number": 55,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226258",
     "deviz_den": "",
     "lines": [
       "Antet stanga",
@@ -8121,7 +8121,9 @@
       "54",
       "Pagina 1 din 1"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false,
+    "_reclf_checked": true
   },
   {
     "page_number": 56,
@@ -13190,7 +13192,7 @@
   },
   {
     "page_number": 88,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "",
     "deviz_den": "",
     "lines": [
@@ -13299,12 +13301,14 @@
       "Formular generat cu programul @Devize (www.eDevize.ro)",
       "Pagina 2 din 2"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false,
+    "_reclf_checked": true
   },
   {
     "page_number": 89,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226F08",
     "deviz_den": "",
     "lines": [
       "Antet stanga",
@@ -13438,7 +13442,9 @@
       "88",
       "Pagina 1 din 1"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false,
+    "_reclf_checked": true
   },
   {
     "page_number": 90,
@@ -18928,8 +18934,8 @@
   },
   {
     "page_number": 121,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226458",
     "deviz_den": "",
     "lines": [
       "eDevize",
@@ -19082,7 +19088,9 @@
       "120",
       "Pagina 1 din 2"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false,
+    "_reclf_checked": true
   },
   {
     "page_number": 122,
@@ -26067,8 +26075,8 @@
   },
   {
     "page_number": 165,
-    "is_f3": false,
-    "deviz_cod": "",
+    "is_f3": true,
+    "deviz_cod": "226548",
     "deviz_den": "",
     "lines": [
       "Antet stanga",
@@ -26216,7 +26224,9 @@
       "164",
       "Pagina 1 din 1"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false,
+    "_reclf_checked": true
   },
   {
     "page_number": 166,
@@ -29890,7 +29900,7 @@
   },
   {
     "page_number": 190,
-    "is_f3": false,
+    "is_f3": true,
     "deviz_cod": "",
     "deviz_den": "",
     "lines": [
@@ -30031,7 +30041,9 @@
       "Formular generat cu programul @Devize (www.eDevize.ro)",
       "Pagina 5 din 5"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "header_only": false,
+    "_reclf_checked": true
   },
   {
     "page_number": 191,

@@ -20751,7 +20751,8 @@
       "Devize (www.eDevize.ro)",
       "Pagina 2 din 2"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "_reclf_checked": true
   },
   {
     "page_number": 149,
@@ -33384,7 +33385,8 @@
       "Devize (www.eDevize.ro)",
       "Pagina 12 din 12"
     ],
-    "needs_llm": false
+    "needs_llm": false,
+    "_reclf_checked": true
   },
   {
     "page_number": 227,
