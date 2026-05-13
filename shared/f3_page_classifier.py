@@ -195,7 +195,9 @@ def classify_page_local(page: dict) -> dict:
     # ── Verifică SECTIUNEA TEHNICA (eDevize data pages) ──
     # TREBUIE sa fie INAINTE de FORMULAR_F3: footer-ul eDevize contine
     # 'Deviz "001" - Formular F3' care ar extrage gresit "001" ca deviz_cod.
-    if _SECTIUNEA_TEHNICA_RE.search(full_content):
+    # BUT: Pages with "SECTIUNEA TEHNICA" AND article codes should NOT match here
+    # (those are data pages, not just headers). Continue to extract deviz from footer.
+    if _SECTIUNEA_TEHNICA_RE.search(full_content) and not _has_article_codes(full_content):
         return {"label": "F3", "deviz_cod": "", "deviz_den": "", "is_header": False}
 
     # ── Verifică Formularul F3 (standard format) ──
@@ -203,9 +205,9 @@ def classify_page_local(page: dict) -> dict:
         # Extrage codul deviz din context (număr înainte de "Formularul F3")
         m = re.search(r'(\d{5,8})\s+pag\s+\d+\s+Formular', full_content, re.IGNORECASE)
         if not m:
-            # Fallback: 'Deviz "226208" - Formular F3' (eDevize last-page / cover format)
-            # Accepta NUMAI coduri de 5+ caractere pentru a evita numere capitol (001, 002)
-            m = re.search(r'Deviz\s+"([A-Z0-9]{5,8})"', full_content, re.IGNORECASE)
+            # Fallback: 'Deviz "226208" - Formular F3' or 'Deviz "1.1"' (eDevize format)
+            # Accepta coduri de 1-8 caractere (cifre, litere, puncte): "001", "1.1", "226108" etc.
+            m = re.search(r'Deviz\s+"([A-Z0-9.]{1,8})"', full_content, re.IGNORECASE)
         if not m:
             # Fallback: "Deviz oferta 226108 STRUCTURA..." (Design Studio / format standard)
             m = re.search(r'Deviz\s+oferta\s+([A-Z0-9]{5,8})', full_content, re.IGNORECASE)
@@ -264,9 +266,8 @@ def build_page_classifications(pages: list[dict]) -> list[dict]:
         local = classify_page_local(page)
 
         if local["label"] == "NON_F3":
-            # Reset propagare la orice pagină non-F3
-            current_deviz_cod = ""
-            current_deviz_den = ""
+            # Keep current deviz — non-F3 pages (cover, summary, etc.) don't reset deviz context.
+            # Following F3 pages in same deviz can inherit the deviz code.
             results.append({
                 "page_number": page_number, "is_f3": False,
                 "deviz_cod": "", "deviz_den": "",
