@@ -28,6 +28,8 @@ from pathlib import Path
 import anthropic
 from dotenv import load_dotenv
 
+from shared.report_json import generate_json_by_deviz
+
 load_dotenv(override=True)
 
 logging.basicConfig(
@@ -531,7 +533,7 @@ def compare_and_report(
     except Exception as e:
         logger.warning(f"  DOCX failed: {e}")
 
-    return neconformitati
+    return neconformitati, comp
 
 
 def main():
@@ -635,8 +637,19 @@ def main():
         )
 
         logger.info(f"\n--- Comparare OFERTA {oferta_nr} ---")
-        compare_and_report(ref_articles, oferta_articles, oferta_nr, oferta_path, client, model,
-                           ofertant_name=ofertant_name)
+        _, comp = compare_and_report(ref_articles, oferta_articles, oferta_nr, oferta_path, client, model,
+                                     ofertant_name=ofertant_name)
+
+        # Generate JSON report grouped by deviz
+        if comp and comp.get('neconformitati'):
+            session = {"client_name": "", "obiect_investitii": ""}
+            json_report = generate_json_by_deviz(session, comp)
+
+            json_file = OUTPUT_DIR / f"comparatie_deviz_oferta_{oferta_nr}.json"
+            with open(json_file, 'w', encoding='utf-8') as f:
+                json.dump(json_report, f, ensure_ascii=False, indent=2)
+
+            logger.info(f"  JSON by deviz: {json_file.name}")
 
     logger.info("\n" + "=" * 50)
     logger.info("  DONE")
