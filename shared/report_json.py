@@ -69,13 +69,13 @@ def generate_json_by_deviz(session: dict, comp: dict) -> dict:
                            key=lambda x: int(x) if x.isdigit() else float('inf')):
         # Count EVERY non-conformity record (not unique articles)
         neconf_records = deviz_groups_dict[deviz_cod]
-        neconf_count = len(neconf_records)
+        neconf_count = len(ref_articles_by_deviz[deviz_cod])
         deviz_groups.append({
             'deviz_cod': deviz_cod,
             'deviz_denumire': deviz_map.get(deviz_cod, ''),
             'articole_referinta_total': ref_total_by_deviz[deviz_cod],
             'articole_oferta_total': offer_total_by_deviz[deviz_cod],
-            'neconformitati_count': neconf_count,
+            'articole_referinta_neconf': neconf_count,
             'neconformitati': neconf_records
         })
 
