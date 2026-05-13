@@ -571,6 +571,15 @@ def main():
     from shared.deviz_reconciler import reconcile_missing_devize
     ref_articles = populate_deviz_denominations(ref_articles)
 
+    # Filter out hollow articles (no denomination + all zeros)
+    def is_hollow(a):
+        return (not a.get("denumire") and
+                a.get("cantitate", 0) == 0 and
+                a.get("pret_material", 0) == 0 and
+                a.get("pret_manopera", 0) == 0)
+
+    ref_articles = [a for a in ref_articles if not is_hollow(a)]
+
     ref_out = OUTPUT_DIR / "referinta.json"
     ref_out.write_text(
         json.dumps({"articole": ref_articles}, ensure_ascii=False, indent=2),
@@ -637,6 +646,15 @@ def main():
         # or article wasn't found on the correctly-marked pages.
         # Before implementing any transformation, the extraction logic needs investigation.
         logger.info(f"  ⚠️  Analyzer disabled pending investigation of PDF extraction")
+
+        # Filter out hollow articles (no denomination + all zeros)
+        def is_hollow(a):
+            return (not a.get("denumire") and
+                    a.get("cantitate", 0) == 0 and
+                    a.get("pret_material", 0) == 0 and
+                    a.get("pret_manopera", 0) == 0)
+
+        oferta_articles = [a for a in oferta_articles if not is_hollow(a)]
 
         oferta_out = OUTPUT_DIR / f"oferta_{oferta_nr}.json"
         oferta_out.write_text(
