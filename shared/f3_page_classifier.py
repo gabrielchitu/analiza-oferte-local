@@ -85,7 +85,24 @@ def _has_article_codes(full_content: str) -> bool:
 
 
 def _extract_deviz_from_stadiul_fizic(text: str) -> tuple[str, str]:
-    """Din 'STADIUL FIZIC: oferta 226108 STRUCTURA CUPOLA' or 'Stadiul fizic: 001 226108 STRUCTURA CUPOLA' (eDevize)."""
+    """Din 'STADIUL FIZIC: oferta 226108 STRUCTURA CUPOLA' or 'Stadiul fizic: 001 1.1 ARHITECTURA' (eDevize with sub-codes)."""
+    text = text.strip()
+
+    # Pattern 1: Extract short sub-codes like "1.1", "1.2", "2.3" that appear after main code
+    # Format: "001 1.1 ARHITECTURA" or "002 1.2 INSTALATII" → extract "1.1" or "1.2"
+    m = re.search(r'^\d{1,3}\s+([0-9]\.[0-9])\s+', text, re.IGNORECASE)
+    if m:
+        deviz_cod = m.group(1)  # Extract "1.1", "1.2", etc.
+        # Get description after the sub-code
+        rest = re.sub(r'^\d{1,3}\s+[0-9]\.[0-9]\s+', '', text).strip()
+        return deviz_cod, rest
+
+    # Pattern 2: Direct format (no main code) — "1.1 ARHITECTURA"
+    m = re.match(r'([0-9]\.[0-9])\s+(.*)', text, re.IGNORECASE)
+    if m:
+        return m.group(1), m.group(2).strip()
+
+    # Pattern 3: Fallback to original logic for other formats (eDevize with 6-digit codes)
     # Elimina 'oferta' prefix dacă există (ISDP format)
     text = re.sub(r'^(?:oferta\s+)?', '', text.strip(), flags=re.IGNORECASE)
     # Pentru eDevize, elimina prefixul numeric NNN (ex: "001 226108 STRUCTURA" → "226108 STRUCTURA")
@@ -94,6 +111,7 @@ def _extract_deviz_from_stadiul_fizic(text: str) -> tuple[str, str]:
     m = re.match(r'([A-Z0-9]{5,8})\s*(.*)', text, re.IGNORECASE)
     if m:
         return m.group(1).upper(), m.group(2).strip()
+
     return "", text.strip()
 
 
