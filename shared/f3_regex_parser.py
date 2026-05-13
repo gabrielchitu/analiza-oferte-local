@@ -35,9 +35,10 @@ COD_NORM_SINGLE_RE = re.compile(
 )
 # Cod breviar cu $ prefix
 COD_BREVIAR_RE = re.compile(r'^(\$[A-Z0-9]{4,})\s*[-–]\s*(.+)', re.IGNORECASE)
-# Cod numeric pur 4-8 cifre cu – şi descriere; acceptă @ suffix
+# Cod numeric pur 4-8 cifre cu – şi descriere; acceptă @ suffix şi bracket suffix [1], [2], etc.
 # 4 cifre: utilaje breviar (1303, 2506); 8 cifre: materiale extinse (22000561)
-COD_NUMERIC_RE = re.compile(r'^(\d{4,8}[@]?)\s*[-–]\s*(.+)')
+# Exemple: "6715504 - Piesa..." sau "6715504[1] - Piesa..." sau "6715504@ - Piesa..."
+COD_NUMERIC_RE = re.compile(r'^(\d{4,8}(?:[@]|\[\d+\])?)\s*[-–]\s*(.+)')
 # Cod normativ SINGUR pe linie, cu opțional tokeni sufixe (ASIM, BUC. etc.) — max 3
 # Ex: "TCB40A1", "TCB40A1 ASIM", "IA37E1 ASIM BUC." (format referinţă deviz)
 COD_NORM_STANDALONE_RE = re.compile(
@@ -55,9 +56,10 @@ COD_NORM_SINGLE_STANDALONE_RE = re.compile(
     re.IGNORECASE
 )
 # Cod numeric cu spaţiu + descriere + optional |UM (format Breviar materiale referinţă)
-# Ex: "6701362 @COT RACORD WC ORIENTABIL |BUC."
+# Ex: "6701362 @COT RACORD WC ORIENTABIL |BUC." sau "6715504[1] PIESA DE CURATIRE |BUC."
+# Acceptă @ prefix în descriere şi [N] bracket suffix în cod
 COD_NUMERIC_PIPE_RE = re.compile(
-    r'^(\d{4,8})\s+(@?[^\|]{3,}?)(?:\s*\|([A-Z]{1,6}\.?))?\s*$'
+    r'^(\d{4,8}(?:\[\d+\])?)\s+(@?[^\|]{3,}?)(?:\s*\|([A-Z]{1,6}\.?))?\s*$'
 )
 # NR_CRT + COD NORMATIV pe aceeaşi linie, cu optional tokeni UM (ASIM, BUC. etc.)
 # Ex: "024 CK26A#" sau "002 TCB40A1 ASIM" sau "004 ATA01B ASIM BUC."
@@ -115,7 +117,7 @@ NR_COD_DESC_RE = re.compile(
     r'([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?'
     r'|[A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z]?\d?'
     r'|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}'
-    r'|\d{4,8}[@]?)'
+    r'|\d{4,8}(?:[@]|\[\d+\])?)'
     r'(?:[#>*@%]|\[\d*\]|ASIM|TSCH){0,2}[-]?\s*[-–]\s*(.+)$',
     re.IGNORECASE
 )
