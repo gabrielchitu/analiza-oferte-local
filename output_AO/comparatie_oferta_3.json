@@ -2306,27 +2306,26 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
+      "deviz_ref": "226358",
       "deviz_denumire": "",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$7000763",
-      "oferta_denumire": "banda de insertie metalica greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 8.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu director sef proiect ofertant",
-      "oferta_um": "ml",
-      "oferta_cantitate": 3350.0,
+      "oferta_cod": "TRA01A20P",
+      "oferta_denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 20 km",
+      "oferta_um": "tona",
+      "oferta_cantitate": 1132.4,
       "posibil_omis_din_extractie": true
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226218",
+      "deviz_ref": "226428",
       "deviz_denumire": "",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$5858393",
-      "oferta_denumire": "solutie de protectie a lemnului tip",
+      "oferta_cod": "$2199",
+      "oferta_denumire": "buc.",
       "oferta_um": "",
-      "oferta_cantitate": 0.0,
-      "posibil_omis_din_extractie": true
+      "oferta_cantitate": 3.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2349,6 +2348,40 @@
       "oferta_denumire": "buc.",
       "oferta_um": "",
       "oferta_cantitate": 14.28
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226228",
+      "deviz_denumire": "",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$2199",
+      "oferta_denumire": "buc.",
+      "oferta_um": "",
+      "oferta_cantitate": 4.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$7000763",
+      "oferta_denumire": "banda de insertie metalica greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 8.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu director sef proiect ofertant",
+      "oferta_um": "ml",
+      "oferta_cantitate": 3350.0,
+      "posibil_omis_din_extractie": true
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226438",
+      "deviz_denumire": "",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$7000227",
+      "oferta_denumire": ",aterial marunt greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 8.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu director sef proiect ofertant",
+      "oferta_um": "lei",
+      "oferta_cantitate": 123.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2376,52 +2409,6 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "",
-      "deviz_denumire": "",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "W3E06A1",
-      "oferta_denumire": "masurarea tensiunilor de atingere si pas la l.c.",
-      "oferta_um": "buc",
-      "oferta_cantitate": 10.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226358",
-      "deviz_denumire": "",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "TRA01A20P",
-      "oferta_denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 20 km",
-      "oferta_um": "tona",
-      "oferta_cantitate": 1132.4,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226228",
-      "deviz_denumire": "",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$2199",
-      "oferta_denumire": "buc.",
-      "oferta_um": "",
-      "oferta_cantitate": 4.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226428",
-      "deviz_denumire": "",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$2199",
-      "oferta_denumire": "buc.",
-      "oferta_um": "",
-      "oferta_cantitate": 3.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "226518",
       "deviz_denumire": "",
       "ref_cod": "",
@@ -2434,14 +2421,27 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226438",
+      "deviz_ref": "226218",
       "deviz_denumire": "",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$7000227",
-      "oferta_denumire": ",aterial marunt greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 8.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu director sef proiect ofertant",
-      "oferta_um": "lei",
-      "oferta_cantitate": 123.0
+      "oferta_cod": "$5858393",
+      "oferta_denumire": "solutie de protectie a lemnului tip",
+      "oferta_um": "",
+      "oferta_cantitate": 0.0,
+      "posibil_omis_din_extractie": true
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "",
+      "deviz_denumire": "",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "W3E06A1",
+      "oferta_denumire": "masurarea tensiunilor de atingere si pas la l.c.",
+      "oferta_um": "buc",
+      "oferta_cantitate": 10.0,
+      "posibil_omis_din_extractie": true
     },
     {
       "tip": "ARTICOL_EXTRA",

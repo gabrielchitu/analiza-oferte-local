@@ -2156,29 +2156,6 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226218",
-      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$5858393",
-      "oferta_denumire": "solutie de protectie a lemnului tip",
-      "oferta_um": "",
-      "oferta_cantitate": 0.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226458",
-      "deviz_denumire": "",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$1000",
-      "oferta_denumire": "w, prevazut cu termoastat reglabil, inclusiv suporti si accesorii de prindere procent material manopera utilaj transport total recapitulatia: recap 2019: cam 2,25 contributie asiguratorie pentru munca (cam) 2,2500 % total inclusiv cheltuieli directe: 5,0000 % total inclusiv cheltuieli indirecte: 5,0000 % total inclusiv beneficiu: 19,00%",
-      "oferta_um": "buc",
-      "oferta_cantitate": 6.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "226258",
       "deviz_denumire": "",
       "ref_cod": "",
@@ -2190,14 +2167,25 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226308",
-      "deviz_denumire": "STRUCTURA DE REZISTENTA- (graden e 2 BUC)",
+      "deviz_ref": "226548",
+      "deviz_denumire": "",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$2100919",
-      "oferta_denumire": "beton marca c",
-      "oferta_um": "mc",
-      "oferta_cantitate": 70.56
+      "oferta_cod": "$1000",
+      "oferta_denumire": "w, prevazut cu termoastat reglabil, inclusiv suporti si accesorii de prindere procent material manopera utilaj transport total recapitulatia: recap 2019: cam 2,25 contributie asiguratorie pentru munca (cam) 2,2500 % total inclusiv cheltuieli directe: 5,0000 % total inclusiv cheltuieli indirecte: 5,0000 % total inclusiv beneficiu: 19,00% ofertant, sc garden center grup srl si sc roverde landscaping srl director general, raport generat cu isdp , www.devize.ro, e-mail: office@intersoft.ro, tel .: 0236.477.007",
+      "oferta_um": "buc",
+      "oferta_cantitate": 2.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226458",
+      "deviz_denumire": "",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$1000",
+      "oferta_denumire": "w, prevazut cu termoastat reglabil, inclusiv suporti si accesorii de prindere procent material manopera utilaj transport total recapitulatia: recap 2019: cam 2,25 contributie asiguratorie pentru munca (cam) 2,2500 % total inclusiv cheltuieli directe: 5,0000 % total inclusiv cheltuieli indirecte: 5,0000 % total inclusiv beneficiu: 19,00%",
+      "oferta_um": "buc",
+      "oferta_cantitate": 6.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2213,14 +2201,15 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226548",
-      "deviz_denumire": "",
+      "deviz_ref": "226218",
+      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$1000",
-      "oferta_denumire": "w, prevazut cu termoastat reglabil, inclusiv suporti si accesorii de prindere procent material manopera utilaj transport total recapitulatia: recap 2019: cam 2,25 contributie asiguratorie pentru munca (cam) 2,2500 % total inclusiv cheltuieli directe: 5,0000 % total inclusiv cheltuieli indirecte: 5,0000 % total inclusiv beneficiu: 19,00% ofertant, sc garden center grup srl si sc roverde landscaping srl director general, raport generat cu isdp , www.devize.ro, e-mail: office@intersoft.ro, tel .: 0236.477.007",
-      "oferta_um": "buc",
-      "oferta_cantitate": 2.0
+      "oferta_cod": "$5858393",
+      "oferta_denumire": "solutie de protectie a lemnului tip",
+      "oferta_um": "",
+      "oferta_cantitate": 0.0,
+      "posibil_omis_din_extractie": true
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2233,6 +2222,17 @@
       "oferta_um": "",
       "oferta_cantitate": 0.0,
       "posibil_omis_din_extractie": true
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226308",
+      "deviz_denumire": "STRUCTURA DE REZISTENTA- (graden e 2 BUC)",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$2100919",
+      "oferta_denumire": "beton marca c",
+      "oferta_um": "mc",
+      "oferta_cantitate": 70.56
     },
     {
       "tip": "ARTICOL_ORPHAN",
