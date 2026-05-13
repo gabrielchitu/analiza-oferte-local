@@ -67,9 +67,10 @@ _NON_F3_PATTERNS = [
 _RECAPITULATIE_RE = re.compile(r'\bRecapitulati[ae]?\b', re.IGNORECASE)
 
 # Article code pattern: matches various normative code formats
-# Examples: VA02B08, CA01J1, ACA10B1, TSC02D11, CD05B1, CE05E1, etc.
+# Examples: VA02B08, CA01J1, ACA10B1, TSC02D11, CD05B1, CE05E1, L1C25A1, W2F05C01, etc.
 # Matches: 2-5 letters + 1-4 digits + optional letter + 0-2 digits
-_ARTICLE_CODE_RE = re.compile(r'\b[A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}\b')
+# Also matches single-letter codes: L + digit + letters + digits (e.g., L1C25A1, W2F05C01)
+_ARTICLE_CODE_RE = re.compile(r'\b(?:[A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2})\b')
 
 # NOTĂ: nu defini _DEVIZ_COD_RE — neutilizat, dead code
 
@@ -79,9 +80,15 @@ def _extract_lines(page: dict) -> list[str]:
 
 
 def _has_article_codes(full_content: str) -> bool:
-    """Check if page contains article codes (e.g. VA02B08, VA03K02).
+    """Check if page contains article codes (e.g. VA02B08, VA03K02, L1C25A1, $2911).
     Used to distinguish between pure header pages and pages with data."""
-    return bool(_ARTICLE_CODE_RE.search(full_content))
+    # Check for normative/single-letter codes
+    if _ARTICLE_CODE_RE.search(full_content):
+        return True
+    # Check for breviar codes ($XXXX format)
+    if re.search(r'\$[A-Z0-9]{4,8}', full_content):
+        return True
+    return False
 
 
 def _extract_deviz_from_stadiul_fizic(text: str) -> tuple[str, str]:
