@@ -340,6 +340,44 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict) -> None:
         if oferta_um_run: oferta_um_run.font.color.rgb = RED
 
 
+def _add_totals_row(table, row_nr: int, articole_ref_count: int, articole_oferta_count: int):
+    """Add totals row for a deviz showing reference and offer article counts."""
+    row = table.add_row()
+
+    # Column 0: empty (no row number for totals)
+    cells = row.cells
+
+    # Column 1-5: "TOTAL" label
+    cells[1].text = "TOTAL"
+    _style_cell(cells[1], 9, bold=True, color=BLACK)
+    _set_cell_shading(cells[1], GRAY_FILL)
+
+    # Columns 2-5: empty (filler)
+    for i in range(2, 6):
+        cells[i].text = ""
+        _set_cell_shading(cells[i], GRAY_FILL)
+
+    # Column 6: Reference article count (left side)
+    cells[6].text = str(articole_ref_count)
+    _style_cell(cells[6], 9, bold=True, center=True, color=BLACK)
+    _set_cell_shading(cells[6], GRAY_FILL)
+
+    # Column 7: Reference unit (filler)
+    cells[7].text = ""
+    _set_cell_shading(cells[7], GRAY_FILL)
+
+    # Columns 8-10: Offer article count (right side)
+    cells[8].text = ""
+    _set_cell_shading(cells[8], GRAY_FILL)
+
+    cells[9].text = str(articole_oferta_count)
+    _style_cell(cells[9], 9, bold=True, center=True, color=BLACK)
+    _set_cell_shading(cells[9], GRAY_FILL)
+
+    cells[10].text = ""
+    _set_cell_shading(cells[10], GRAY_FILL)
+
+
 def generate_word(
     session: dict,
     comp: dict,
@@ -462,6 +500,16 @@ def generate_word(
             for neconf in items:
                 row_nr += 1
                 _add_neconf_row(table, row_nr, neconf, deviz_map)
+
+            # Add totals row for this deviz
+            # Get article counts from neconf items
+            ref_articles = set(nc.get('ref_cod', '') for nc in items if nc.get('ref_cod', ''))
+            offer_articles = set(nc.get('oferta_cod', '') for nc in items if nc.get('oferta_cod', ''))
+            ref_count = len(ref_articles)
+            offer_count = len(offer_articles)
+            _add_totals_row(table, row_nr + 1, ref_count, offer_count)
+            row_nr += 1
+
             extra_items = extra_per_deviz.get(deviz_cod, [])
             if extra_items:
                 _add_extra_subheader(table)
@@ -476,9 +524,18 @@ def generate_word(
             _add_deviz_heading(table, deviz_cod, deviz_den,
                                ref_count=0, oferta_count=n_extra)
             _add_extra_subheader(table)
-            for neconf in extra_per_deviz[deviz_key]:
+            extra_items = extra_per_deviz[deviz_key]
+            for neconf in extra_items:
                 row_nr += 1
                 _add_neconf_row(table, row_nr, neconf, deviz_map)
+
+            # Add totals row for this only-extra deviz
+            ref_articles = set(nc.get('ref_cod', '') for nc in extra_items if nc.get('ref_cod', ''))
+            offer_articles = set(nc.get('oferta_cod', '') for nc in extra_items if nc.get('oferta_cod', ''))
+            ref_count = len(ref_articles)
+            offer_count = len(offer_articles)
+            _add_totals_row(table, row_nr + 1, ref_count, offer_count)
+            row_nr += 1
 
         _set_col_widths(table)
 
