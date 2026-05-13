@@ -167,7 +167,7 @@ def match_global(
     oferta_seen = {}
     oferta_dedup = []
     for a in oferta_articole:
-        if a.get("cod"):
+        if a.get("cod") and not _is_breviar_artifact(a):
             key = (a.get("deviz"), a.get("cod"), a.get("um"), a.get("cantitate"))
             if key not in oferta_seen:
                 oferta_dedup.append(a)

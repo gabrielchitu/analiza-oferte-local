@@ -73,10 +73,13 @@ def check_extraction_coverage(full_text: str, articole: list, out_key: str) -> d
     return result
 
 
-def mark_suspicious_extras(neconformitati: list, ref_di_text: str) -> list:
+def mark_suspicious_extras(neconformitati: list, ref_di_text: str, ref_articole: list = None) -> list:
     """
     Opțiunea 3: pentru fiecare ARTICOL_EXTRA, verifică dacă codul apare
-    în textul brut DI al referinței. Dacă da → marchează posibil_omis_din_extractie=True.
+    în textul brut DI al referinței ȘI nu este deja extras.
+    Dacă apare în text ȘI nu e în articolele extrase → marchează posibil_omis_din_extractie=True.
+
+    ref_articole: lista articolelor extrase din referință. Dacă provided, exclude codes already extracted.
 
     Returns lista neconformitati cu câmpul adăugat unde e cazul.
     """
@@ -84,15 +87,25 @@ def mark_suspicious_extras(neconformitati: list, ref_di_text: str) -> list:
         return neconformitati
 
     ref_text_upper = ref_di_text.upper()
+
+    # Build set of extracted codes from ref_articole (if provided)
+    extracted_codes = set()
+    if ref_articole:
+        extracted_codes = {(a.get("cod") or "").upper().strip() for a in ref_articole if a.get("cod")}
+
     result = []
     marked = 0
 
     for n in neconformitati:
         if n.get("tip") == "ARTICOL_EXTRA":
             cod = (n.get("oferta_cod") or "").upper().strip()
+            # Mark as possibly omitted only if:
+            # 1. Code appears in reference DI text, AND
+            # 2. Code is NOT already in extracted reference articles (if ref_articole provided)
             if cod and cod in ref_text_upper:
-                n = {**n, "posibil_omis_din_extractie": True}
-                marked += 1
+                if not extracted_codes or cod not in extracted_codes:
+                    n = {**n, "posibil_omis_din_extractie": True}
+                    marked += 1
         result.append(n)
 
     if marked:

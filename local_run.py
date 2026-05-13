@@ -378,6 +378,7 @@ def compare_and_report(
     model: str,
     include_prices: bool = False,
     ofertant_name: str = "",
+    ref_di_json: dict = None,
 ):
     """Compara oferta cu referinta si genereaza raport XLSX + DOCX."""
     from shared.deviz_normalizer import normalize_devize
@@ -425,8 +426,11 @@ def compare_and_report(
     orphans = detect_orphans(ref_articles, oferta_norm, matched_ref_keys=matched_ref_keys)
 
     # Marcheaza EXTRA suspecte (codul exista in referinta dar cu alta denumire)
-    ref_codes_text = " ".join(a.get("cod", "") for a in ref_articles)
-    neconformitati = mark_suspicious_extras(neconformitati, ref_codes_text)
+    # Build ref DI text from JSON if provided, otherwise use empty string
+    ref_di_text = ""
+    if ref_di_json:
+        ref_di_text = json.dumps(ref_di_json, ensure_ascii=False)
+    neconformitati = mark_suspicious_extras(neconformitati, ref_di_text, ref_articole=ref_articles)
 
     # Adauga orphane-le la neconformitati cu tip special
     for orphan in orphans:
@@ -590,6 +594,9 @@ def main():
     ref_deviz_codes = set(a.get("deviz", "") for a in ref_articles if a.get("deviz"))
     logger.info(f"  {len(ref_deviz_codes)} devize in referinta")
 
+    # Load reference DI JSON for validation purposes
+    ref_di_json = json.loads(ref_path.read_text(encoding="utf-8"))
+
     # Step 2: Extrage + compara fiecare oferta (fara filtru de devize)
     for oferta_path in oferta_paths:
         try:
@@ -664,7 +671,7 @@ def main():
 
         logger.info(f"\n--- Comparare OFERTA {oferta_nr} ---")
         _, comp = compare_and_report(ref_articles, oferta_articles, oferta_nr, oferta_path, client, model,
-                                     ofertant_name=ofertant_name)
+                                     ofertant_name=ofertant_name, ref_di_json=ref_di_json)
 
         # Generate JSON report grouped by deviz
         if comp and comp.get('neconformitati'):

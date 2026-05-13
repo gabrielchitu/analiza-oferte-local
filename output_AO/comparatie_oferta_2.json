@@ -2071,90 +2071,12 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.4",
-      "deviz_denumire": "INSTALATII CURENTI TARI",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$5102578",
-      "oferta_denumire": "corp de iluminat casetat, led 48w 600x600mm",
-      "oferta_um": "buc",
-      "oferta_cantitate": 24.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.1",
-      "deviz_denumire": "INSTALATII SANITARE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$7106272",
-      "oferta_denumire": "teava din polietilena pe 80 sdr11 dext = 20mm, pn10 devize (www.edevize.ro)",
-      "oferta_um": "m",
-      "oferta_cantitate": 20.1
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "9.1",
       "deviz_denumire": "MONTAJ ECHIPAMENTE",
       "ref_cod": "",
       "ref_denumire": "",
       "oferta_cod": "IA11A01",
       "oferta_denumire": "montaj pompa de circulatie agent termic",
-      "oferta_um": "buc",
-      "oferta_cantitate": 4.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "3.4",
-      "deviz_denumire": "INSTALATII TERMICE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$4201717",
-      "oferta_denumire": "robinet retinere ventil 2 1/2 pn 6 mufa",
-      "oferta_um": "",
-      "oferta_cantitate": 0.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "3.3",
-      "deviz_denumire": "INSTALATII SANITARE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$4200775",
-      "oferta_denumire": "cada de dus total obiecte sanitare greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă",
-      "oferta_um": "buc",
-      "oferta_cantitate": 5.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.4",
-      "deviz_denumire": "INSTALATII CURENTI TARI",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$5535995",
-      "oferta_denumire": "priza etansa cu contact de protectie, 230v, ip 44",
-      "oferta_um": "buc",
-      "oferta_cantitate": 6.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.3",
-      "deviz_denumire": "INSTALATII SANITARE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$6719451",
-      "oferta_denumire": "teu pehd pentru electrofuz diam ext 32 mm devize (www.edevize.ro)",
-      "oferta_um": "buc",
-      "oferta_cantitate": 28.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.6",
-      "deviz_denumire": "INSTALATII TERMICE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "SA13I",
-      "oferta_denumire": "compensator de dilatare liniar din inox d = 2 ' - cu 4 ghidaje",
       "oferta_um": "buc",
       "oferta_cantitate": 4.0
     },
@@ -2167,89 +2089,7 @@
       "oferta_cod": "CF41B01",
       "oferta_denumire": "tencuiala pe baza de ciment",
       "oferta_um": "mp",
-      "oferta_cantitate": 162.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.3",
-      "deviz_denumire": "INSTALATII SANITARE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$6701167",
-      "oferta_denumire": "teava din polipropilena reticulata pn 16,",
-      "oferta_um": "",
-      "oferta_cantitate": 0.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "3.4",
-      "deviz_denumire": "INSTALATII TERMICE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$4201690",
-      "oferta_denumire": "robinet retinere ventil 1 1/2 pn 6 mufa",
-      "oferta_um": "",
-      "oferta_cantitate": 0.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.3",
-      "deviz_denumire": "INSTALATII SANITARE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$4201872",
-      "oferta_denumire": "robinet sertar pana 2 1/2 pn10 mufa",
-      "oferta_um": "",
-      "oferta_cantitate": 0.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.3",
-      "deviz_denumire": "INSTALATII SANITARE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$6701169",
-      "oferta_denumire": "teava din polipropilena reticulata pn 16,",
-      "oferta_um": "",
-      "oferta_cantitate": 0.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "9.1",
-      "deviz_denumire": "MONTAJ ECHIPAMENTE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "IB17C1",
-      "oferta_denumire": "montare generator de curent, trifazat, diesel, putere 15kva",
-      "oferta_um": "buc",
-      "oferta_cantitate": 1.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "9.1",
-      "deviz_denumire": "MONTAJ ECHIPAMENTE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "IA01D01",
-      "oferta_denumire": "montare aeroterma pe agent termic",
-      "oferta_um": "buc",
-      "oferta_cantitate": 3.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "3.1",
-      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "CD19E04",
-      "oferta_denumire": "placaj gips carton rezistent la foc, grosime 12,5 mm montaj direct pe fata inferioara a capriorilor",
-      "oferta_um": "mp",
-      "oferta_cantitate": 413.0
+      "oferta_cantitate": 162.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2257,231 +2097,10 @@
       "deviz_denumire": "INSTALATII SANITARE",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$4551768",
-      "oferta_denumire": "robinet inchidere - golire 3/4 ', pn16. devize (www.edevize.ro)",
+      "oferta_cod": "$4200775",
+      "oferta_denumire": "cada de dus total obiecte sanitare greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă",
       "oferta_um": "buc",
-      "oferta_cantitate": 12.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "3.4",
-      "deviz_denumire": "INSTALATII TERMICE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$4201688",
-      "oferta_denumire": "robinet retinere ventil 1 1/4 pn 6 mufa",
-      "oferta_um": "",
-      "oferta_cantitate": 0.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "9.1",
-      "deviz_denumire": "MONTAJ ECHIPAMENTE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "RPIA23G",
-      "oferta_denumire": "montat puffer 300 litri",
-      "oferta_um": "buc",
-      "oferta_cantitate": 1.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.3",
-      "deviz_denumire": "INSTALATII SANITARE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$4204111",
-      "oferta_denumire": "bratara tevi instalatii apa si gaze 21/2",
-      "oferta_um": "buc",
-      "oferta_cantitate": 50.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.4",
-      "deviz_denumire": "INSTALATII CURENTI TARI",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "EA02B03",
-      "oferta_denumire": "cablu cupru n2xh 3x 2,5 mmp 100018764[1] - cablu cupru n2xh 3x 2,5 mmp m",
-      "oferta_um": "ml",
-      "oferta_cantitate": 2000.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.3",
-      "deviz_denumire": "INSTALATII SANITARE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$6701168",
-      "oferta_denumire": "teava din polipropilena reticulata pn 16,",
-      "oferta_um": "",
-      "oferta_cantitate": 0.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.3",
-      "deviz_denumire": "INSTALATII SANITARE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$4201304",
-      "oferta_denumire": "baterie monocomanda pentru lavoar / spalator+ accesorii",
-      "oferta_um": "buc",
-      "oferta_cantitate": 18.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "3.4",
-      "deviz_denumire": "INSTALATII TERMICE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$4201705",
-      "oferta_denumire": "robinet retinere ventil 2 pn 6 mufa ni522",
-      "oferta_um": "buc",
-      "oferta_cantitate": 2.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.1",
-      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "CD19E04",
-      "oferta_denumire": "sistem gips - carton de tip norgips cu rezistenta la foc el 30, pentru montarea peretilor despartitori de inaltime maxima 4,4 m si masa de 17 kg / mp, grosime 100 mm, distanta interax 600 mm, cu o structura metalica din profile cw 75 si uw 75 cu placare simpla din placi gkb plus de tip a cu o grosime 12,5 mm, fara umplere cu vata minerala",
-      "oferta_um": "mp",
-      "oferta_cantitate": 1.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.6",
-      "deviz_denumire": "INSTALATII TERMICE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$4204032",
-      "oferta_denumire": "bratara tevi instalatii apa si gaze 3/4",
-      "oferta_um": "buc",
-      "oferta_cantitate": 187.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.3",
-      "deviz_denumire": "INSTALATII SANITARE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$6701166",
-      "oferta_denumire": "teava din polipropilena reticulata pn 16,",
-      "oferta_um": "",
-      "oferta_cantitate": 0.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.1",
-      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "CK01A01",
-      "oferta_denumire": "tamplarie pvc cu panou plin culoare alba",
-      "oferta_um": "mp",
-      "oferta_cantitate": 34.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "3.1",
-      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$8527072",
-      "oferta_denumire": "placi gips-carton cu rez.sporita la foc 25 mm 1250/2000",
-      "oferta_um": "mp",
-      "oferta_cantitate": 1.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.6",
-      "deviz_denumire": "INSTALATII TERMICE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$4201717",
-      "oferta_denumire": "robinet retinere ventil 2 1/2 pn 6 mufa",
-      "oferta_um": "",
-      "oferta_cantitate": 0.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "3.3",
-      "deviz_denumire": "INSTALATII SANITARE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$6701167",
-      "oferta_denumire": "teava din polipropilena reticulata pn 16,",
-      "oferta_um": "",
-      "oferta_cantitate": 0.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "3.4",
-      "deviz_denumire": "INSTALATII TERMICE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$5701583",
-      "oferta_denumire": "convectoradiator seven 600 14 elem cod 30s 0600",
-      "oferta_um": "buc",
-      "oferta_cantitate": 3.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.4",
-      "deviz_denumire": "INSTALATII CURENTI TARI",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "EE09C01",
-      "oferta_denumire": "corp de iluminat siguranta led 9w, montaj aparent, echipat cu kit de emergenta 3 ore, inscriptionat conform locului de montaj 600002128[1] - corp de iluminat siguranta led 9w buc",
-      "oferta_um": "buc",
-      "oferta_cantitate": 24.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.6",
-      "deviz_denumire": "INSTALATII TERMICE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$4201690",
-      "oferta_denumire": "robinet retinere ventil 1 1/2 pn 6 mufa",
-      "oferta_um": "",
-      "oferta_cantitate": 0.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.6",
-      "deviz_denumire": "INSTALATII TERMICE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$4201688",
-      "oferta_denumire": "robinet retinere ventil 1 1/4 pn 6 mufa",
-      "oferta_um": "",
-      "oferta_cantitate": 0.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "9.1",
-      "deviz_denumire": "MONTAJ ECHIPAMENTE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "RCSB15A",
-      "oferta_denumire": "montare sursa suplimentara de incalzire (incalzitor electric 15 kw)",
-      "oferta_um": "buc",
-      "oferta_cantitate": 1.0
+      "oferta_cantitate": 5.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2507,15 +2126,26 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "3.3",
-      "deviz_denumire": "INSTALATII SANITARE",
+      "deviz_ref": "2.1",
+      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$6701166",
-      "oferta_denumire": "teava din polipropilena reticulata pn 16,",
-      "oferta_um": "",
-      "oferta_cantitate": 0.0,
+      "oferta_cod": "CK01A01",
+      "oferta_denumire": "tamplarie pvc cu panou plin culoare alba",
+      "oferta_um": "mp",
+      "oferta_cantitate": 34.0,
       "posibil_omis_din_extractie": true
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "9.1",
+      "deviz_denumire": "MONTAJ ECHIPAMENTE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "IA01D01",
+      "oferta_denumire": "montare aeroterma pe agent termic",
+      "oferta_um": "buc",
+      "oferta_cantitate": 3.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2526,7 +2156,120 @@
       "oferta_cod": "ID03A01",
       "oferta_denumire": "montare pompa caldura inverter incalzire- racire 20 kw",
       "oferta_um": "buc",
-      "oferta_cantitate": 11.0
+      "oferta_cantitate": 11.0,
+      "posibil_omis_din_extractie": true
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.3",
+      "deviz_denumire": "INSTALATII SANITARE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$4204111",
+      "oferta_denumire": "bratara tevi instalatii apa si gaze 21/2",
+      "oferta_um": "buc",
+      "oferta_cantitate": 50.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "3.1",
+      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$8527072",
+      "oferta_denumire": "placi gips-carton cu rez.sporita la foc 25 mm 1250/2000",
+      "oferta_um": "mp",
+      "oferta_cantitate": 1.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.1",
+      "deviz_denumire": "INSTALATII SANITARE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$7106272",
+      "oferta_denumire": "teava din polietilena pe 80 sdr11 dext = 20mm, pn10 devize (www.edevize.ro)",
+      "oferta_um": "m",
+      "oferta_cantitate": 20.1
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "3.1",
+      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "CD19E04",
+      "oferta_denumire": "placaj gips carton rezistent la foc, grosime 12,5 mm montaj direct pe fata inferioara a capriorilor",
+      "oferta_um": "mp",
+      "oferta_cantitate": 413.0,
+      "posibil_omis_din_extractie": true
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "3.3",
+      "deviz_denumire": "INSTALATII SANITARE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$4551768",
+      "oferta_denumire": "robinet inchidere - golire 3/4 ', pn16. devize (www.edevize.ro)",
+      "oferta_um": "buc",
+      "oferta_cantitate": 12.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.6",
+      "deviz_denumire": "INSTALATII TERMICE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$4204032",
+      "oferta_denumire": "bratara tevi instalatii apa si gaze 3/4",
+      "oferta_um": "buc",
+      "oferta_cantitate": 187.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "9.1",
+      "deviz_denumire": "MONTAJ ECHIPAMENTE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "RCSB15A",
+      "oferta_denumire": "montare sursa suplimentara de incalzire (incalzitor electric 15 kw)",
+      "oferta_um": "buc",
+      "oferta_cantitate": 1.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.6",
+      "deviz_denumire": "INSTALATII TERMICE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "SA13I",
+      "oferta_denumire": "compensator de dilatare liniar din inox d = 2 ' - cu 4 ghidaje",
+      "oferta_um": "buc",
+      "oferta_cantitate": 4.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.1",
+      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "CD19E04",
+      "oferta_denumire": "sistem gips - carton de tip norgips cu rezistenta la foc el 30, pentru montarea peretilor despartitori de inaltime maxima 4,4 m si masa de 17 kg / mp, grosime 100 mm, distanta interax 600 mm, cu o structura metalica din profile cw 75 si uw 75 cu placare simpla din placi gkb plus de tip a cu o grosime 12,5 mm, fara umplere cu vata minerala",
+      "oferta_um": "mp",
+      "oferta_cantitate": 1.0,
+      "posibil_omis_din_extractie": true
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "9.1",
+      "deviz_denumire": "MONTAJ ECHIPAMENTE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "IB17C1",
+      "oferta_denumire": "montare generator de curent, trifazat, diesel, putere 15kva",
+      "oferta_um": "buc",
+      "oferta_cantitate": 1.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2541,14 +2284,104 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "9.1",
+      "deviz_denumire": "MONTAJ ECHIPAMENTE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "RPIA23G",
+      "oferta_denumire": "montat puffer 300 litri",
+      "oferta_um": "buc",
+      "oferta_cantitate": 1.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.3",
+      "deviz_denumire": "INSTALATII SANITARE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$6719451",
+      "oferta_denumire": "teu pehd pentru electrofuz diam ext 32 mm devize (www.edevize.ro)",
+      "oferta_um": "buc",
+      "oferta_cantitate": 28.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "2.4",
       "deviz_denumire": "INSTALATII CURENTI TARI",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "EE01C01",
-      "oferta_denumire": "corp de iluminat bitubular, led 18w 60cm",
-      "oferta_um": "",
-      "oferta_cantitate": 0.0
+      "oferta_cod": "$5102578",
+      "oferta_denumire": "corp de iluminat casetat, led 48w 600x600mm",
+      "oferta_um": "buc",
+      "oferta_cantitate": 24.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.3",
+      "deviz_denumire": "INSTALATII SANITARE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$4201304",
+      "oferta_denumire": "baterie monocomanda pentru lavoar / spalator+ accesorii",
+      "oferta_um": "buc",
+      "oferta_cantitate": 18.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "3.4",
+      "deviz_denumire": "INSTALATII TERMICE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$5701583",
+      "oferta_denumire": "convectoradiator seven 600 14 elem cod 30s 0600",
+      "oferta_um": "buc",
+      "oferta_cantitate": 3.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.4",
+      "deviz_denumire": "INSTALATII CURENTI TARI",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$5535995",
+      "oferta_denumire": "priza etansa cu contact de protectie, 230v, ip 44",
+      "oferta_um": "buc",
+      "oferta_cantitate": 6.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "3.4",
+      "deviz_denumire": "INSTALATII TERMICE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$4201705",
+      "oferta_denumire": "robinet retinere ventil 2 pn 6 mufa ni522",
+      "oferta_um": "buc",
+      "oferta_cantitate": 2.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.4",
+      "deviz_denumire": "INSTALATII CURENTI TARI",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "EE09C01",
+      "oferta_denumire": "corp de iluminat siguranta led 9w, montaj aparent, echipat cu kit de emergenta 3 ore, inscriptionat conform locului de montaj 600002128[1] - corp de iluminat siguranta led 9w buc",
+      "oferta_um": "buc",
+      "oferta_cantitate": 24.0,
+      "posibil_omis_din_extractie": true
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.4",
+      "deviz_denumire": "INSTALATII CURENTI TARI",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "EA02B03",
+      "oferta_denumire": "cablu cupru n2xh 3x 2,5 mmp 100018764[1] - cablu cupru n2xh 3x 2,5 mmp m",
+      "oferta_um": "ml",
+      "oferta_cantitate": 2000.0,
+      "posibil_omis_din_extractie": true
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2559,8 +2392,7 @@
       "oferta_cod": "$4321431",
       "oferta_denumire": "termoizolatie polistiren expandat 5cm",
       "oferta_um": "mp",
-      "oferta_cantitate": 235.33,
-      "posibil_omis_din_extractie": true
+      "oferta_cantitate": 235.33
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2571,8 +2403,7 @@
       "oferta_cod": "CI01A02",
       "oferta_denumire": "placaj ceramic - faianta - inclusiv accesorii (chit rosturi si distantiere) si adeziv total finisaje interioare",
       "oferta_um": "mp",
-      "oferta_cantitate": 389.0,
-      "posibil_omis_din_extractie": true
+      "oferta_cantitate": 389.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2583,8 +2414,7 @@
       "oferta_cod": "$2100995",
       "oferta_denumire": "beton de ciment b 400 - bc30 stas 3622",
       "oferta_um": "mc",
-      "oferta_cantitate": 159.0,
-      "posibil_omis_din_extractie": true
+      "oferta_cantitate": 159.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2595,8 +2425,7 @@
       "oferta_cod": "$3200",
       "oferta_denumire": "im, complet echipat, montaj aparent ip20 6000002511 - corp de iluminat bitubular, led 36w 120cm 3200 im, montaj aparent ip20 buc",
       "oferta_um": "buc",
-      "oferta_cantitate": 17.0,
-      "posibil_omis_din_extractie": true
+      "oferta_cantitate": 17.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2607,8 +2436,7 @@
       "oferta_cod": "$2100995",
       "oferta_denumire": "beton de ciment b 400 - bc30 stas 3622",
       "oferta_um": "mc",
-      "oferta_cantitate": 145.0,
-      "posibil_omis_din_extractie": true
+      "oferta_cantitate": 145.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2619,8 +2447,7 @@
       "oferta_cod": "IB05A01",
       "oferta_denumire": "montare ventiloconvector crc 73 carcasat",
       "oferta_um": "buc",
-      "oferta_cantitate": 13.0,
-      "posibil_omis_din_extractie": true
+      "oferta_cantitate": 13.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2631,8 +2458,7 @@
       "oferta_cod": "IB05A01",
       "oferta_denumire": "montare ventiloconvector crc 53 carcasat",
       "oferta_um": "buc",
-      "oferta_cantitate": 15.0,
-      "posibil_omis_din_extractie": true
+      "oferta_cantitate": 15.0
     },
     {
       "tip": "ARTICOL_ORPHAN",
@@ -2785,7 +2611,7 @@
       "motiv": "Cod $4201688: REF categoriei 3.4 => OFERTA categoriei 2.6"
     }
   ],
-  "total_neconformitati": 125,
+  "total_neconformitati": 111,
   "matches": 739,
   "deviz_mismatches": []
 }
