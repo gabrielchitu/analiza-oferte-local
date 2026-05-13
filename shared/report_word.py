@@ -340,37 +340,38 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict) -> None:
         if oferta_um_run: oferta_um_run.font.color.rgb = RED
 
 
-def _add_totals_row(table, row_nr: int, articole_ref_count: int, articole_oferta_count: int):
-    """Add totals row for a deviz showing reference and offer article counts."""
+def _add_deviz_summary_row(table, row_nr: int, neconf_count: int, ref_total: int, offer_total: int):
+    """Add summary footer for a deviz: shows neconformities count and totals."""
     row = table.add_row()
-
-    # Column 0: empty (no row number for totals)
     cells = row.cells
 
-    # Column 1-5: "TOTAL" label
-    cells[1].text = "TOTAL"
+    # Column 1: "SUMAR" label
+    cells[1].text = "SUMAR"
     _style_cell(cells[1], 9, bold=True, color=BLACK)
     _set_cell_shading(cells[1], GRAY_FILL)
 
-    # Columns 2-5: empty (filler)
-    for i in range(2, 6):
+    # Columns 2-5: summary text
+    summary_text = f"Neconformitati: {neconf_count} din {ref_total} articole ref."
+    cells[2].text = summary_text
+    _style_cell(cells[2], 9, bold=True, color=BLACK)
+    _set_cell_shading(cells[2], GRAY_FILL)
+    for i in range(3, 6):
         cells[i].text = ""
         _set_cell_shading(cells[i], GRAY_FILL)
 
-    # Column 6: Reference article count (left side)
-    cells[6].text = str(articole_ref_count)
+    # Column 6: Reference total article count
+    cells[6].text = str(ref_total)
     _style_cell(cells[6], 9, bold=True, center=True, color=BLACK)
     _set_cell_shading(cells[6], GRAY_FILL)
 
-    # Column 7: Reference unit (filler)
+    # Columns 7-8: empty (filler)
     cells[7].text = ""
     _set_cell_shading(cells[7], GRAY_FILL)
-
-    # Columns 8-10: Offer article count (right side)
     cells[8].text = ""
     _set_cell_shading(cells[8], GRAY_FILL)
 
-    cells[9].text = str(articole_oferta_count)
+    # Column 9: Offer total article count
+    cells[9].text = str(offer_total)
     _style_cell(cells[9], 9, bold=True, center=True, color=BLACK)
     _set_cell_shading(cells[9], GRAY_FILL)
 
@@ -439,8 +440,20 @@ def generate_word(
     if not neconformitati:
         doc.add_paragraph("Nicio neconcordanță detectată.")
     else:
-        from collections import Counter
+        from collections import Counter, defaultdict as _dd_total
         from itertools import groupby as _groupby
+
+        # Build per-deviz TOTAL article counts from full article lists (not just non-conforming)
+        _ref_deviz_totals = _dd_total(int)
+        _oferta_deviz_totals = _dd_total(int)
+        for art in comp.get('ref_articles', []):
+            d = art.get('deviz', '')
+            if d:
+                _ref_deviz_totals[d] += 1
+        for art in comp.get('oferta_articles', []):
+            d = art.get('deviz', '')
+            if d:
+                _oferta_deviz_totals[d] += 1
 
         # deviz_map: deviz_cod -> deviz_den
         deviz_map: dict = {}
@@ -501,21 +514,21 @@ def generate_word(
                 row_nr += 1
                 _add_neconf_row(table, row_nr, neconf, deviz_map)
 
-            # Add totals row for this deviz
-            # Get article counts from neconf items
-            ref_articles = set(nc.get('ref_cod', '') for nc in items if nc.get('ref_cod', ''))
-            offer_articles = set(nc.get('oferta_cod', '') for nc in items if nc.get('oferta_cod', ''))
-            ref_count = len(ref_articles)
-            offer_count = len(offer_articles)
-            _add_totals_row(table, row_nr + 1, ref_count, offer_count)
-            row_nr += 1
-
             extra_items = extra_per_deviz.get(deviz_cod, [])
             if extra_items:
                 _add_extra_subheader(table)
                 for neconf in extra_items:
                     row_nr += 1
                     _add_neconf_row(table, row_nr, neconf, deviz_map)
+
+            # Single summary row at the end of this deviz block (after both normale and extras)
+            all_neconf_items = items + extra_items
+            neconf_ref_arts = {nc.get('ref_cod') for nc in all_neconf_items if nc.get('ref_cod')}
+            neconf_count = len(neconf_ref_arts)
+            ref_total = _ref_deviz_totals.get(deviz_cod, 0) or neconf_count
+            offer_total = _oferta_deviz_totals.get(deviz_cod, 0)
+            _add_deviz_summary_row(table, row_nr + 1, neconf_count, ref_total, offer_total)
+            row_nr += 1
 
         for deviz_key in only_extra_devize:
             deviz_cod = str(deviz_key)
@@ -529,12 +542,10 @@ def generate_word(
                 row_nr += 1
                 _add_neconf_row(table, row_nr, neconf, deviz_map)
 
-            # Add totals row for this only-extra deviz
-            ref_articles = set(nc.get('ref_cod', '') for nc in extra_items if nc.get('ref_cod', ''))
-            offer_articles = set(nc.get('oferta_cod', '') for nc in extra_items if nc.get('oferta_cod', ''))
-            ref_count = len(ref_articles)
-            offer_count = len(offer_articles)
-            _add_totals_row(table, row_nr + 1, ref_count, offer_count)
+            # Summary row for only-extra deviz (ref=0 since no reference baseline for this deviz)
+            ref_total = _ref_deviz_totals.get(deviz_cod, 0)
+            offer_total = _oferta_deviz_totals.get(deviz_cod, 0)
+            _add_deviz_summary_row(table, row_nr + 1, 0, ref_total, offer_total)
             row_nr += 1
 
         _set_col_widths(table)

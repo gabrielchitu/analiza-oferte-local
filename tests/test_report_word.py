@@ -25,10 +25,33 @@ def _make_neconf(tip, deviz, ref_cod='CA01A1', ref_den='TEST', ref_um='m',
 
 def _load_doc(comp, mismatches=None, devize_extra=None, devize_lipsa=None):
     session = {'client_name': 'TEST', 'obiect_investitii': ''}
+
+    # Extract devizes from neconformitati to build minimal article lists
+    neconformitati = comp.get('neconformitati', [])
+    devize_from_neconf = {nc.get('deviz_ref') for nc in neconformitati if nc.get('deviz_ref')}
+
+    # Create minimal ref_articles and oferta_articles if not provided
+    ref_articles = comp.get('ref_articles', [])
+    if not ref_articles and devize_from_neconf:
+        ref_articles = [
+            {'deviz': d, 'deviz_denumire': nc.get('deviz_denumire', ''), 'cod': nc.get('ref_cod', '')}
+            for nc in neconformitati if nc.get('deviz_ref')
+            for d in [nc.get('deviz_ref')]
+        ]
+
+    oferta_articles = comp.get('oferta_articles', [])
+    if not oferta_articles and devize_from_neconf:
+        oferta_articles = [
+            {'deviz': nc.get('deviz_ref', ''), 'deviz_denumire': nc.get('deviz_denumire', ''), 'cod': nc.get('oferta_cod', '')}
+            for nc in neconformitati if nc.get('deviz_ref') and nc.get('oferta_cod')
+        ]
+
     comp_full = {
         'oferta_nr': 1, 'source_file': 'test.json', 'ofertant': 'Test SRL',
         **comp,
         'deviz_mismatches': mismatches or [],
+        'ref_articles': ref_articles,
+        'oferta_articles': oferta_articles,
     }
     docx_bytes = generate_word(
         session, comp_full,

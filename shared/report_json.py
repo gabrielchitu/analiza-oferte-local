@@ -7,7 +7,7 @@ def generate_json_by_deviz(session: dict, comp: dict) -> dict:
 
     Args:
         session: session dict with client_name, obiect_investitii
-        comp: comparatie dict with neconformitati, oferta_nr, etc.
+        comp: comparatie dict with neconformitati, oferta_nr, ref_articles, oferta_articles, etc.
 
     Returns:
         dict with structure:
@@ -17,8 +17,9 @@ def generate_json_by_deviz(session: dict, comp: dict) -> dict:
                 {
                     'deviz_cod': '226108',
                     'deviz_denumire': '...',
-                    'articole_referinta': 45,
-                    'articole_oferta': 42,
+                    'articole_referinta_total': 45,
+                    'articole_oferta_total': 42,
+                    'articole_referinta_neconf': 5,
                     'neconformitati': [...]
                 },
                 ...
@@ -28,6 +29,18 @@ def generate_json_by_deviz(session: dict, comp: dict) -> dict:
     from collections import defaultdict
 
     neconformitati = comp.get('neconformitati', [])
+
+    # Build per-deviz TOTAL article counts from full article lists
+    ref_total_by_deviz = defaultdict(int)
+    offer_total_by_deviz = defaultdict(int)
+    for art in comp.get('ref_articles', []):
+        d = art.get('deviz', '')
+        if d:
+            ref_total_by_deviz[d] += 1
+    for art in comp.get('oferta_articles', []):
+        d = art.get('deviz', '')
+        if d:
+            offer_total_by_deviz[d] += 1
 
     # Build deviz map and groups
     deviz_map = {}
@@ -44,7 +57,7 @@ def generate_json_by_deviz(session: dict, comp: dict) -> dict:
 
         deviz_groups_dict[deviz_cod].append(nc)
 
-        # Track unique articles
+        # Track unique articles with non-conformities
         if nc.get('ref_cod', ''):
             ref_articles_by_deviz[deviz_cod].add(nc.get('ref_cod', ''))
         if nc.get('oferta_cod', ''):
@@ -57,8 +70,9 @@ def generate_json_by_deviz(session: dict, comp: dict) -> dict:
         deviz_groups.append({
             'deviz_cod': deviz_cod,
             'deviz_denumire': deviz_map.get(deviz_cod, ''),
-            'articole_referinta': len(ref_articles_by_deviz[deviz_cod]),
-            'articole_oferta': len(offer_articles_by_deviz[deviz_cod]),
+            'articole_referinta_total': ref_total_by_deviz[deviz_cod],
+            'articole_oferta_total': offer_total_by_deviz[deviz_cod],
+            'articole_referinta_neconf': len(ref_articles_by_deviz[deviz_cod]),
             'neconformitati': deviz_groups_dict[deviz_cod]
         })
 

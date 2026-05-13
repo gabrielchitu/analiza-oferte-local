@@ -507,6 +507,8 @@ def compare_and_report(
         "neconformitati": neconformitati,
         "ref_art_count": len(ref_articles),
         "oferta_art_count": len(oferta_norm),
+        "ref_articles": ref_articles,
+        "oferta_articles": oferta_norm,
     }
     comparison_mode = "cu_pret" if include_prices else "fara_pret"
 
