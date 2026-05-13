@@ -632,6 +632,17 @@ def main():
             for code in unresolved_lipsa:
                 logger.error(f"  [RECONCILE] Deviz {code} NEGASIT in oferta {oferta_nr} — posibila eroare OCR/parsare")
 
+        # DYNAMIC DEVIZ PATTERN ANALYZER — detect and normalize deviz codes for this client
+        # Run AFTER reconciliation to see all deviz codes from all sources
+        from shared.deviz_pattern_analyzer import analyze_deviz_pattern, apply_deviz_normalization
+        ref_deviz_set = {a.get("deviz", "") for a in ref_articles if a.get("deviz")}
+        oferta_deviz_set = {a.get("deviz", "") for a in oferta_articles if a.get("deviz")}
+        logger.info(f"  [ANALYZER] Referinta has {len(ref_deviz_set)} devizes: {sorted(ref_deviz_set)}")
+        logger.info(f"  [ANALYZER] Oferta {oferta_nr} has {len(oferta_deviz_set)} devizes: {sorted(oferta_deviz_set)}")
+        pattern, normalizer = analyze_deviz_pattern(ref_deviz_set, oferta_deviz_set)
+        logger.info(f"  [ANALYZER] Detected pattern: {pattern}")
+        oferta_articles = apply_deviz_normalization(oferta_articles, pattern, normalizer, ref_articles=ref_articles)
+
         oferta_out = OUTPUT_DIR / f"oferta_{oferta_nr}.json"
         oferta_out.write_text(
             json.dumps({"articole": oferta_articles}, ensure_ascii=False, indent=2),
