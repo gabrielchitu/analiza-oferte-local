@@ -176,10 +176,13 @@ def classify_page_local(page: dict) -> dict:
     # ── Verifică STADIUL FIZIC — fereastra de 8 linii ──
     # OCR poate intercala linii extra (ex: 'Beneficiar:') intre 'STADIUL FIZIC:'
     # si codul deviz. Cautam codul in urmatoarele 8 linii dupa marker.
+    # Suporta atat coduri lungi (226108) cat si sub-coduri (1.1, 2.1, etc.)
     _DEVIZ_COD_IN_LINE_RE = re.compile(
         r'(?:oferta\s+)?(?:\d{1,3}\s+)?((?=[A-Z0-9]*\d{3})[A-Z0-9]{5,8})',
         re.IGNORECASE
     )
+    # Sub-code pattern for eDevize: "001 1.1 ARHITECTURA" or "1.1 ARHITECTURA"
+    _SUB_CODE_RE = re.compile(r'^\d{1,3}\s+([0-9]\.[0-9])\s+|^([0-9]\.[0-9])\s+')
     for i, line in enumerate(lines):
         m_sf = _STADIUL_FIZIC_RE.match(line.strip())
         m_sf_marker = _STADIUL_FIZIC_MARKER_RE.match(line.strip())
@@ -191,6 +194,16 @@ def classify_page_local(page: dict) -> dict:
             if not cod:
                 # Cauta codul in fereastra de 8 linii urmatoare (OCR poate intercala junk)
                 for j in range(i + 1, min(i + 8, len(lines))):
+                    # First try sub-code pattern (for eDevize with main+sub codes)
+                    m_sub = _SUB_CODE_RE.search(lines[j].strip())
+                    if m_sub:
+                        # Extract sub-code (group 1 or 2 depending on which alternative matched)
+                        cod = m_sub.group(1) or m_sub.group(2)
+                        # Extract description after the sub-code
+                        rest = re.sub(r'^\d{1,3}\s+[0-9]\.[0-9]\s+|^[0-9]\.[0-9]\s+', '', lines[j].strip())
+                        den = rest if rest else ""
+                        break
+                    # Then try long alphanumeric codes (for standard eDevize 226XXX)
                     m2 = _DEVIZ_COD_IN_LINE_RE.search(lines[j])
                     if m2:
                         cod = m2.group(1).upper()
@@ -225,7 +238,17 @@ def classify_page_local(page: dict) -> dict:
         if not m:
             # Fallback: 'Deviz "226208" - Formular F3' or 'Deviz "1.1"' (eDevize format)
             # Accepta coduri de 1-8 caractere (cifre, litere, puncte): "001", "1.1", "226108" etc.
+            # BUT: Only extract if this is an eDevize cover page with STADIUL FIZIC/article codes
+            # Pages without STADIUL FIZIC should return empty deviz to inherit from predecessor.
             m = re.search(r'Deviz\s+"([A-Z0-9.]{1,8})"', full_content, re.IGNORECASE)
+            # If we found "Deviz "XXX"" but this page lacks STADIUL FIZIC, don't use it
+            # (let propagation inherit from cover page)
+            if m:
+                has_stadiul = any("STADIUL" in line.upper() for line in lines)
+                if not has_stadiul and _has_article_codes(full_content):
+                    # This is an eDevize data page without its own STADIUL FIZIC
+                    # Return empty deviz so propagation can inherit from cover page
+                    m = None
         if not m:
             # Fallback: "Deviz oferta 226108 STRUCTURA..." (Design Studio / format standard)
             m = re.search(r'Deviz\s+oferta\s+([A-Z0-9]{5,8})', full_content, re.IGNORECASE)
