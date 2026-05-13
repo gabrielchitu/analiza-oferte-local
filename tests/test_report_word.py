@@ -68,6 +68,12 @@ def test_deviz_section_heading_appears():
             _make_neconf('ARTICOL_LIPSA', '226108', deviz_den='STRUCTURA CUPOLA'),
         ],
         'total_neconformitati': 1, 'matches': 43,
+        'ref_articles': [
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA CUPOLA', 'cod': 'CA01A1'},
+        ],
+        'oferta_articles': [
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA CUPOLA', 'cod': 'CA01A1'},
+        ],
     }
     doc = _load_doc(comp)
     full_text = '\n'.join(p.text for p in doc.paragraphs)
@@ -83,6 +89,14 @@ def test_extra_articles_appear_after_deviz_data():
                          ref_cod='', ref_den=''),
         ],
         'total_neconformitati': 2, 'matches': 43,
+        'ref_articles': [
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA', 'cod': 'AA01A1'},
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA', 'cod': 'CA02A1'},
+        ],
+        'oferta_articles': [
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA', 'cod': 'CA02A1'},
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA', 'cod': 'EXTRA1'},
+        ],
     }
     doc = _load_doc(comp)
     assert len(doc.tables) > 0 or len(doc.paragraphs) > 0
@@ -93,6 +107,8 @@ def test_deviz_mismatch_alert_appears():
     comp = {
         'neconformitati': [],
         'total_neconformitati': 0, 'matches': 100,
+        'ref_articles': [],
+        'oferta_articles': [],
     }
     mismatches = [{'oferta_deviz': '226113', 'ref_deviz': '226118',
                    'overlap_score': 0.88, 'oferta_art_count': 8, 'ref_art_count': 7}]
@@ -107,6 +123,8 @@ def test_devize_extra_alert_appears():
     comp = {
         'neconformitati': [],
         'total_neconformitati': 0, 'matches': 100,
+        'ref_articles': [],
+        'oferta_articles': [],
     }
     devize_extra = [{'deviz': '226728', 'denumire': 'CHELTUIELI CONEXE', 'art_count': 2}]
     doc = _load_doc(comp, devize_extra=devize_extra)
@@ -116,7 +134,13 @@ def test_devize_extra_alert_appears():
 
 def test_empty_neconformitati_generates_valid_doc():
     """Document fara neconformitati se genereaza fara erori."""
-    comp = {'neconformitati': [], 'total_neconformitati': 0, 'matches': 100}
+    comp = {
+        'neconformitati': [],
+        'total_neconformitati': 0,
+        'matches': 100,
+        'ref_articles': [],
+        'oferta_articles': [],
+    }
     doc = _load_doc(comp)
     assert doc is not None
 
@@ -127,6 +151,21 @@ def test_sumar_contains_counts():
         'neconformitati': [_make_neconf('ARTICOL_LIPSA', '226108')],
         'total_neconformitati': 1, 'matches': 42,
         'ref_art_count': 43, 'oferta_art_count': 44,
+        'ref_articles': [
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA', 'cod': 'CA01A1'},
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA', 'cod': 'CA02A1'},
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA', 'cod': 'CA03A1'},
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA', 'cod': 'CA04A1'},
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA', 'cod': 'CA05A1'},
+        ],
+        'oferta_articles': [
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA', 'cod': 'CA01A1'},
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA', 'cod': 'CA02A1'},
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA', 'cod': 'CA03A1'},
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA', 'cod': 'CA04A1'},
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA', 'cod': 'CA05A1'},
+            {'deviz': '226108', 'deviz_denumire': 'STRUCTURA', 'cod': 'CA06A1'},
+        ],
     }
     doc = _load_doc(comp)
     full_text = '\n'.join(p.text for p in doc.paragraphs)
