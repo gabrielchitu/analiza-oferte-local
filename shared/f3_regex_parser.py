@@ -358,9 +358,9 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 logger.debug(f"[PARSER] Skip UM capturat ca cod: {cod}")
             # Skip coduri de specificatii tehnice: DN32, PN10, S7064, N1080 etc.
             # Acestea sunt fragmente din denominatia articolului precedent splituite de OCR.
-            # Pattern restrâns: 1-2 litere + 2-3 cifre (DN32, PN10) SAU 1 litera + 4-5 cifre (S7064).
-            # VC1011, SD13A1 (2 litere + 4 cifre) sunt coduri reale — NU se skipuiesc.
-            elif re.match(r'^(?:[A-Z]{1,2}\d{2,3}|[A-Z]\d{4,5})$', cod):
+            # Pattern restrâns: 1-2 litere + EXACT 2 cifre (DN32, PN10) SAU 1 litera + 4-5 cifre (S7064).
+            # VC1011, SD13A1, SA131 (2+ cifre dupa 2 litere) sunt coduri reale — NU se skipuiesc.
+            elif re.match(r'^(?:[A-Z]{1,2}\d{2}|[A-Z]\d{4,5})$', cod):
                 logger.debug(f"[PARSER] Skip spec tehnica (DN/PN/tip material): {cod}")
             # Skip coduri marcatori capitol ISDP: $0001-$0009 (CPV section headers)
             # Apar la inceputul fiecarui deviz in format ISDP, nu sunt articole reale.
