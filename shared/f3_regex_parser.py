@@ -33,6 +33,12 @@ COD_NORM_SINGLE_RE = re.compile(
     r'^([A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}' + _COD_SUFFIX + r')\s*[-–]\s*(.+)',
     re.IGNORECASE
 )
+# Cod cu prefix single-letter + multi-digit: C003A01, C123B45
+# Matches: Letter + 2-3 digits + Letter + 2 digits (OCR variants of CO03A01 → C003A01)
+COD_SINGLE_MULTIDIGIT_RE = re.compile(
+    r'^([A-Z]\d{2,3}[A-Z]\d{2}' + _COD_SUFFIX + r')\s*[-–]\s*(.+)',
+    re.IGNORECASE
+)
 # Cod breviar cu $ prefix
 COD_BREVIAR_RE = re.compile(r'^(\$[A-Z0-9]{4,})\s*[-–]\s*(.+)', re.IGNORECASE)
 # Cod numeric pur 4-8 cifre cu – şi descriere; acceptă @ suffix şi bracket suffix [1], [2], etc.
@@ -53,6 +59,12 @@ COD_NORM_EXTENDED_STANDALONE_RE = re.compile(
 # Cod single-letter complex SINGUR pe linie: W1C01A1, H1V06H (format: L + D + 1-3L + 2-4D + opt)
 COD_NORM_SINGLE_STANDALONE_RE = re.compile(
     r'^([A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
+    re.IGNORECASE
+)
+# Cod single-letter multi-digit SINGUR pe linie: C003A01, C123B45 (format: L + 2-3D + L + 2D + opt)
+# Handles OCR errors where O→0: CO03A01 → C003A01
+COD_SINGLE_MULTIDIGIT_STANDALONE_RE = re.compile(
+    r'^([A-Z]\d{2,3}[A-Z]\d{2}' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
     re.IGNORECASE
 )
 # Cod numeric cu spaţiu + descriere + optional |UM (format Breviar materiale referinţă)
@@ -426,8 +438,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         s = line.strip()
         # Normalizeaza spatiu inainte de sufix bracket: "IA22C1 [1]" → "IA22C1[1]"
         s = re.sub(r'(?<=[A-Z0-9])\s+(\[\d)', r'\1', s, flags=re.IGNORECASE)
-        # Formate cu separator –: breviar $COD, normativ (2+ litere), single-letter, numeric
-        for pattern in (COD_BREVIAR_RE, COD_NORM_EXTENDED_RE, COD_NORM_RE, COD_NORM_SINGLE_RE, COD_NUMERIC_RE):
+        # Formate cu separator –: breviar $COD, normativ (2+ litere), single-letter, single-multi-digit, numeric
+        for pattern in (COD_BREVIAR_RE, COD_NORM_EXTENDED_RE, COD_NORM_RE, COD_NORM_SINGLE_RE, COD_SINGLE_MULTIDIGIT_RE, COD_NUMERIC_RE):
             m = pattern.match(s)
             if m:
                 cod_raw = m.group(1).strip().upper()
@@ -457,7 +469,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
 
         for standalone_re in (COD_NORM_STANDALONE_RE,
                               COD_NORM_EXTENDED_STANDALONE_RE,
-                              COD_NORM_SINGLE_STANDALONE_RE):
+                              COD_NORM_SINGLE_STANDALONE_RE,
+                              COD_SINGLE_MULTIDIGIT_STANDALONE_RE):
             m = standalone_re.match(s)
             if m:
                 return _parse_standalone(m)
