@@ -1211,17 +1211,6 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226308",
-      "deviz_denumire": "STRUCTURA DE REZISTENTA- (graden e 2 BUC)",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$2100919",
-      "oferta_denumire": "beton marca c",
-      "oferta_um": "mc",
-      "oferta_cantitate": 70.56
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "226478",
       "deviz_denumire": "INSTALATII ELECTRICE curenti tari OB.5",
       "ref_cod": "",
@@ -1230,6 +1219,17 @@
       "oferta_denumire": "cablu cyyf 4×1,5",
       "oferta_um": "m",
       "oferta_cantitate": 306.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226308",
+      "deviz_denumire": "STRUCTURA DE REZISTENTA- (graden e 2 BUC)",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$2100919",
+      "oferta_denumire": "beton marca c",
+      "oferta_um": "mc",
+      "oferta_cantitate": 70.56
     },
     {
       "tip": "ARTICOL_EXTRA",

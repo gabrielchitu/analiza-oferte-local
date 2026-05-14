@@ -467,6 +467,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
     waiting_lines = 0   # contor linii în WAITING_ARTICLE
     _after_linked = False  # True imediat dupa un N.L — asteptam cod numeric bare
 
+
     def _finalize():
         nonlocal cod, denumire_parts, um, cantitate, preturi
         if cod:
@@ -619,7 +620,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
 
     for line_idx, raw_line in enumerate(lines):
         line = raw_line.strip()
-        # Skip empty, price labels, and metadata codes — BUT NOT numeric codes in linked article mode
+            # Skip empty, price labels, and metadata codes — BUT NOT numeric codes in linked article mode
         skip_due_to_filter = SKIP_RE.search(line) or _PRICE_LABEL_RE.match(line)
         if not line or (skip_due_to_filter and not (state == _WAITING and _after_linked)):
             continue
@@ -1054,6 +1055,65 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
     articole = _deduplicate_by_code_suffix(articole)
     if len(articole) < articole_before:
         logger.info(f"[DEDUP] {deviz_cod}: removed {articole_before - len(articole)} suffix-duplicate articles")
+
+    # ADDITIONAL PASS: Remove numeric codes that are pure digit substrings of other numeric codes
+    # in the same deviz, even if cantitate/UM differ. This catches edge cases where OCR extraction
+    # created false substring codes (e.g., "2225" from "2222225" line)
+    articole_before_cleanup = len(articole)
+    numeric_codes = {}  # cod -> list of (idx, article)
+    for idx, art in enumerate(articole):
+        cod = art.get('cod', '').lstrip('$')
+        if cod and cod.isdigit() and 4 <= len(cod) <= 9:
+            if cod not in numeric_codes:
+                numeric_codes[cod] = []
+            numeric_codes[cod].append((idx, art))
+
+    indices_to_remove_cleanup = set()
+    all_numeric_codes = list(numeric_codes.keys())
+
+    for i, cod_i in enumerate(all_numeric_codes):
+        for j, cod_j in enumerate(all_numeric_codes):
+            if i < j and cod_i != cod_j:
+                # Check if cod_i or cod_j is a substring of the other
+                # Keep the longer code, remove the shorter one
+                if cod_i in cod_j:
+                    # cod_i is substring of cod_j; mark cod_i for removal
+                    for idx, _ in numeric_codes[cod_i]:
+                        indices_to_remove_cleanup.add(idx)
+                elif cod_j in cod_i:
+                    # cod_j is substring of cod_i; mark cod_j for removal
+                    for idx, _ in numeric_codes[cod_j]:
+                        indices_to_remove_cleanup.add(idx)
+    # AGGRESSIVE PASS: Remove 4-digit codes that look like OCR fragments of longer codes
+    # Heuristic: if a 4-digit code shares 3+ digits with any 6+ digit code, it's likely a fragment
+    # Examples: '2225' with '2222225', '3270' with '3270501', '7000' with '7000227'
+    for short_cod in [cod for cod in all_numeric_codes if len(cod) == 4]:
+        # Check for similar longer codes (share 3+ consecutive digits, or same first+last digit)
+        found_similar = False
+        for long_cod in all_numeric_codes:
+            if len(long_cod) >= 6:
+                # Check if short_cod appears as substring in long_cod
+                if short_cod in long_cod:
+                    found_similar = True
+                    break
+                # Check if they share first 3 digits (common pattern in OCR errors)
+                if long_cod[:3] == short_cod[:3]:
+                    found_similar = True
+                    break
+                # Check if they share last 3 digits (another common pattern)
+                if len(short_cod) >= 3 and long_cod[-3:] == short_cod[-3:]:
+                    found_similar = True
+                    break
+
+        if found_similar:
+            for idx, _ in numeric_codes[short_cod]:
+                indices_to_remove_cleanup.add(idx)
+            if deviz_cod in ['226228', '226528', '226268', '226438', '226478']:
+                logger.info(f"[CLEANUP-AGGRESSIVE] {deviz_cod}: removing 4-digit code '{short_cod}' (OCR fragment)")
+
+    if indices_to_remove_cleanup:
+        articole = [art for idx, art in enumerate(articole) if idx not in indices_to_remove_cleanup]
+        logger.info(f"[CLEANUP] {deviz_cod}: removed {len(indices_to_remove_cleanup)} substring-numeric articles")
 
     logger.info(f"[PARSER] {deviz_cod}: {len(articole)} articole extrase (regex)")
     return articole

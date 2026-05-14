@@ -703,7 +703,9 @@ def extract_articles_v3(page_classifications: list) -> list:
 
         # Apelează parser o singură dată pe TOATE paginile devizului
         # Aceasta menține last_nr_crt corect pe tot devizul
+
         section_articles = extract_articles_regex(all_lines, deviz_cod, deviz_den)
+
         for art in section_articles:
             art["deviz"] = deviz_cod
             art["deviz_denumire"] = deviz_den
