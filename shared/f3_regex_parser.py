@@ -122,7 +122,21 @@ SKIP_RE = re.compile(
     r'Formular\s+generat\s+cu\s+programul|'
     r'Pagina\s+\d+\s+din\s+\d+|'
     r'Deviz\s+["\']?\d+(?:\.\d+)?["\']?\s*[-–]?\s*Formular\s+F3|'
-    r'^\d+\s+pag|^pag\s|\bpag$)',
+    r'^\d+\s+pag|^pag\s|\bpag$|'
+    r'Lista\s+cu\s+cantitati|'
+    r'Categoria\s+de\s+lucrari|'
+    r'Persoana\s+juridica|'
+    r'Obiectul\s*:|'
+    r'^Deviz\s+oferta|'
+    r'^=\s*$|^NR\.\s+SIMBOL|'
+    r'^CANTITATE$|^PU\s|^GR\.\s+|^SPOR\s|'
+    r'^(MATERIALE|MANOPERA|UTILAJ|TRANSPORT|GREUTATE|TOTAL|ARTICOL)$|'
+    r'^\d{4,8}$|'  # Pure numeric CPV/metadata codes (e.g., "0004", "45000000")
+    r'Cheltuieli\s+(directe|indirecte)|Din\s+care:|'
+    r'Valoare\s+aferenta|'
+    r'PROIECTANT|ORIGEN\s+STUDIE|'
+    r'SIGN\s+|S\.\s+C\.\s+|Artisan|-\s+proiect|424|'
+    r'STE[\-\s]|TARGO|DAMBO)',
     re.IGNORECASE
 )
 # NR_CRT + COD_NORM/EXTENDED/SINGLE/NUMERIC + separator + descriere pe aceeași linie
