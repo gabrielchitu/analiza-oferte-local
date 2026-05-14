@@ -104,7 +104,7 @@
     },
     {
       "cod": "$2100910",
-      "denumire": "beton marfa clasa c10/8 (bc10/b150) devize (www.edevize.ro)",
+      "denumire": "beton marfa clasa c10/8 (bc10/b150) devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mc",
       "cantitate": 18.144,
       "deviz": "226108",
@@ -291,7 +291,7 @@
     },
     {
       "cod": "IFB09C3",
-      "denumire": "strat drenant cu grosimea: 15 cm din pietris",
+      "denumire": "strat drenant cu grosimea: 15 cm din pietris antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mp",
       "cantitate": 600.0,
       "deviz": "226108",
@@ -495,7 +495,7 @@
     },
     {
       "cod": "TRB05B23",
-      "denumire": "transportul materialelor prin purtat direct, materiale incomode peste 25 kg distanta 30m",
+      "denumire": "transportul materialelor prin purtat direct, materiale incomode peste 25 kg distanta 30m antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "tona",
       "cantitate": 15.0,
       "deviz": "226108",
@@ -716,7 +716,7 @@
     },
     {
       "cod": "TRA04A50",
-      "denumire": "transport rutier materiale semifabricate cu autoremorchere cu remorci treiler sub 20t pe dis.50 km.",
+      "denumire": "transport rutier materiale semifabricate cu autoremorchere cu remorci treiler sub 20t pe dis.50 km antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "tona",
       "cantitate": 12.0,
       "deviz": "226108",
@@ -1005,7 +1005,7 @@
     },
     {
       "cod": "$2100912",
-      "denumire": "beton marfa clasa c20/16 (bc20/b250)",
+      "denumire": "beton marfa clasa c20/16 (bc20/b250) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mc",
       "cantitate": 52.416,
       "deviz": "226208",
@@ -1192,7 +1192,7 @@
     },
     {
       "cod": "TRA01A20",
-      "denumire": "transportul rutier al materialelor,semifabricatelor cu autobasculanta pe dist .=",
+      "denumire": "transportul rutier al materialelor,semifabricatelor cu autobasculanta pe dist .= antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "tona",
       "cantitate": 100.0,
       "deviz": "226208",
@@ -1413,7 +1413,7 @@
     },
     {
       "cod": "TRA01A10",
-      "denumire": "transportul rutier al materialelor,semifabricatelor cu autobasculanta pe dist .= 10 km $",
+      "denumire": "transportul rutier al materialelor,semifabricatelor cu autobasculanta pe dist .= 10 km $ antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "tona",
       "cantitate": 7.14,
       "deviz": "226208",
@@ -1617,7 +1617,7 @@
     },
     {
       "cod": "$3273724",
-      "denumire": "beton b 330 c20/25 (0-31)",
+      "denumire": "beton b 330 c20/25 (0-31) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mc",
       "cantitate": 54.432,
       "deviz": "226208",
@@ -1770,7 +1770,7 @@
     },
     {
       "cod": "$6311528",
-      "denumire": "scoaba otel pentru constructii din lemn, latime= 65-90mm, l.200-300 mm greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu",
+      "denumire": "scoaba otel pentru constructii din lemn, latime= 65-90mm, l.200-300 mm greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu antet stanga edevize beneficiar: orasul racar1,jud dambovita executant: proiectant: obiectivul: extindere si modernizare baza sportiva răcari obiectul: 3 amenajari exterioare stadiul fizic:",
       "um": "kg",
       "cantitate": 46.8,
       "deviz": "226208",
@@ -1784,6 +1784,23 @@
       "val_utilaj": 65549.98,
       "pret_transport": 30322.09,
       "val_transport": 5010.34
+    },
+    {
+      "cod": "W1C01A1",
+      "denumire": "asimilat - montare panouri fotovoltaice greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu ofertant devize (www.edevize.ro)",
+      "um": "buc",
+      "cantitate": 1.0,
+      "deviz": "226208",
+      "deviz_denumire": "STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare)",
+      "is_component": false,
+      "pret_material": 42000.0,
+      "val_material": 42000.0,
+      "pret_manopera": 0.0,
+      "val_manopera": 0.0,
+      "pret_utilaj": 42000.0,
+      "val_utilaj": 42000.0,
+      "pret_transport": 0.0,
+      "val_transport": 0.0
     },
     {
       "cod": "CD05C1",
@@ -1974,7 +1991,7 @@
     },
     {
       "cod": "$3270111",
-      "denumire": "chit rosturi",
+      "denumire": "chit rosturi antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "kg",
       "cantitate": 106.5,
       "deviz": "226218",
@@ -2178,7 +2195,7 @@
     },
     {
       "cod": "$3274531",
-      "denumire": "dibluri de polistiren 150 mm",
+      "denumire": "dibluri de polistiren 150 mm antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 1840.0,
       "deviz": "226218",
@@ -2382,7 +2399,7 @@
     },
     {
       "cod": "CF10C1",
-      "denumire": "glet aplicat pe tencuieli interioare driscuite sau pe suprafetele elementelor din beton glet de ipsos la pereti, stalpi si tavane, aplicat manual pe tencuieli interioare driscuite, executat cu pasta de ipsos ;",
+      "denumire": "glet aplicat pe tencuieli interioare driscuite sau pe suprafetele elementelor din beton glet de ipsos la pereti, stalpi si tavane, aplicat manual pe tencuieli interioare driscuite, executat cu pasta de ipsos ; antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mp",
       "cantitate": 79.0,
       "deviz": "226218",
@@ -2671,7 +2688,7 @@
     },
     {
       "cod": "$3270111",
-      "denumire": "chit rosturi",
+      "denumire": "chit rosturi antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "kg",
       "cantitate": 6.8,
       "deviz": "226218",
@@ -2909,7 +2926,7 @@
     },
     {
       "cod": "$22041951",
-      "denumire": "glaf ext tabla vopsita 25 cm, cu picurator si accesorii pe montaj",
+      "denumire": "glaf ext tabla vopsita 25 cm, cu picurator si accesorii pe montaj antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 9.0,
       "deviz": "226218",
@@ -3487,7 +3504,7 @@
     },
     {
       "cod": "SA43E1",
-      "denumire": "bratara pentru fixarea cond otel+pvc de alim cu apa+gaze,montare prin incastrare, cond avand d=1 toli",
+      "denumire": "bratara pentru fixarea cond otel+pvc de alim cu apa+gaze,montare prin incastrare, cond avand d=1 toli antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 75.0,
       "deviz": "226228",
@@ -3946,7 +3963,7 @@
     },
     {
       "cod": "SF05C",
-      "denumire": "spalare instal apa rece sau calda, executata din tevi pvc (g), pe,pp,pp - r, d= 20 - 75 mm",
+      "denumire": "spalare instal apa rece sau calda, executata din tevi pvc (g), pe,pp,pp - r, d= 20 - 75 mm antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 200.0,
       "deviz": "226228",
@@ -4184,7 +4201,7 @@
     },
     {
       "cod": "$3270087",
-      "denumire": "teava de canalizare kgem sn4 din pvc d- 110*3.2 1 m",
+      "denumire": "teava de canalizare kgem sn4 din pvc d- 110*3.2 1 m antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 35.0,
       "deviz": "226228",
@@ -4371,7 +4388,7 @@
     },
     {
       "cod": "$3276843",
-      "denumire": "aerator polipropilena cu membrana tia d=75 mm",
+      "denumire": "aerator polipropilena cu membrana tia d=75 mm antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 3.0,
       "deviz": "226228",
@@ -4779,7 +4796,7 @@
     },
     {
       "cod": "$2222227",
-      "denumire": "dispenser inox servetele hârtie",
+      "denumire": "dispenser inox servetele hârtie antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 9.0,
       "deviz": "226228",
@@ -5000,7 +5017,7 @@
     },
     {
       "cod": "$4201756",
-      "denumire": "robinet trecere lavoar dn 1/2x1/2 cod 41r2718",
+      "denumire": "robinet trecere lavoar dn 1/2x1/2 cod 41r2718 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 2.0,
       "deviz": "226228",
@@ -5221,7 +5238,7 @@
     },
     {
       "cod": "SC16G1",
-      "denumire": "rezervor pentru spalare vas wc,din portelan tip duobloc,montat pe vas",
+      "denumire": "rezervor pentru spalare vas wc,din portelan tip duobloc,montat pe vas antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 4.0,
       "deviz": "226228",
@@ -5425,7 +5442,7 @@
     },
     {
       "cod": "$2222214",
-      "denumire": "vas wc cu capac si rezervor cu buton actionare duala pentru persoane dizabilități",
+      "denumire": "vas wc cu capac si rezervor cu buton actionare duala pentru persoane dizabilități antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226228",
@@ -5629,7 +5646,7 @@
     },
     {
       "cod": "$6718879",
-      "denumire": "cuier baie aminoplast 2 agatatori ni 2199",
+      "denumire": "cuier baie aminoplast 2 agatatori ni 2199 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 4.0,
       "deviz": "226228",
@@ -5918,7 +5935,7 @@
     },
     {
       "cod": "$3273416",
-      "denumire": "radiator electric pe perete, 1000w prevăzut cu termoastat reglabil inclusiv si accesorii de prindere suportii greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu",
+      "denumire": "radiator electric pe perete, 1000w prevăzut cu termoastat reglabil inclusiv si accesorii de prindere suportii greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu antet stanga edevize ofertant devize (www.edevize.ro)",
       "um": "buc",
       "cantitate": 6.0,
       "deviz": "226258",
@@ -6088,7 +6105,7 @@
     },
     {
       "cod": "$2700014",
-      "denumire": "tub de protectie tip ipey/monoflex d=16 devize (www.edevize.ro)",
+      "denumire": "tub de protectie tip ipey/monoflex d=16 devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 225.0,
       "deviz": "226268",
@@ -6343,7 +6360,7 @@
     },
     {
       "cod": "$3273472",
-      "denumire": "priza bipolara simpla cu contact de protectie 16a/230v, montaj in doza sl rama comuna, dimensiune 2 module, ip20, cu indicarea circuitului",
+      "denumire": "priza bipolara simpla cu contact de protectie 16a/230v, montaj in doza sl rama comuna, dimensiune 2 module, ip20, cu indicarea circuitului antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 29.0,
       "deviz": "226268",
@@ -6615,7 +6632,7 @@
     },
     {
       "cod": "$5538123",
-      "denumire": "patchpanel, 8 porturi rj45 echipat",
+      "denumire": "patchpanel, 8 porturi rj45 echipat antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226278",
@@ -6734,7 +6751,7 @@
     },
     {
       "cod": "ATE15R",
-      "denumire": "verificarari pentru: detector deplasare coaxiala, radiala greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu",
+      "denumire": "verificarari pentru: detector deplasare coaxiala, radiala greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu antet stanga edevize ofertant devize (www.edevize.ro)",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226278",
@@ -6921,7 +6938,7 @@
     },
     {
       "cod": "$2700014",
-      "denumire": "tub de protectie tip ipey/monoflex d=16",
+      "denumire": "tub de protectie tip ipey/monoflex d=16 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 180.0,
       "deviz": "226288",
@@ -7006,7 +7023,7 @@
     },
     {
       "cod": "$5700051",
-      "denumire": "material marunt de instalare echipamente greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu",
+      "denumire": "material marunt de instalare echipamente greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu antet stanga edevize ofertant devize (www.edevize.ro)",
       "um": "lei",
       "cantitate": 500.0,
       "deviz": "226288",
@@ -7125,7 +7142,7 @@
     },
     {
       "cod": "$2100910",
-      "denumire": "beton marfa clasa c10/8 (bc10/b150)",
+      "denumire": "beton marfa clasa c10/8 (bc10/b150) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mc",
       "cantitate": 70.56,
       "deviz": "226308",
@@ -7312,7 +7329,7 @@
     },
     {
       "cod": "TSD01D1",
-      "denumire": "imprastierea cu lopata a pamant afinat,strat uniform 10-30cm gros cu sfarim bulg teren teren foarte tare",
+      "denumire": "imprastierea cu lopata a pamant afinat,strat uniform 10-30cm gros cu sfarim bulg teren teren foarte tare antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mc",
       "cantitate": 105.8,
       "deviz": "226308",
@@ -7516,7 +7533,7 @@
     },
     {
       "cod": "TRA01A10",
-      "denumire": "transportul rutier al materialelor,semifabricatelor cu autobasculanta pe dist .= 10 km $",
+      "denumire": "transportul rutier al materialelor,semifabricatelor cu autobasculanta pe dist .= 10 km $ antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "tona",
       "cantitate": 12.14,
       "deviz": "226308",
@@ -7788,7 +7805,7 @@
     },
     {
       "cod": "$63047211",
-      "denumire": "pana otel",
+      "denumire": "pana otel antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "kg",
       "cantitate": 16800.0,
       "deviz": "226308",
@@ -8060,7 +8077,7 @@
     },
     {
       "cod": "$2940094",
-      "denumire": "confectii metalice diverse din profile stâlpi imprejmjire",
+      "denumire": "confectii metalice diverse din profile stâlpi imprejmjire antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "kg",
       "cantitate": 12850.0,
       "deviz": "226318",
@@ -8281,7 +8298,7 @@
     },
     {
       "cod": "IZD04D1",
-      "denumire": "vopsire cu aparat aer compr vopsea ulei pe conf siconstr met profile 8-12mm 2straturi",
+      "denumire": "vopsire cu aparat aer compr vopsea ulei pe conf siconstr met profile 8-12mm 2straturi antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "tona",
       "cantitate": 8.0,
       "deviz": "226328",
@@ -8434,7 +8451,7 @@
     },
     {
       "cod": "$20010472",
-      "denumire": "pamant vegetal devize (www.edevize.ro)",
+      "denumire": "pamant vegetal devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mc",
       "cantitate": 2522.0,
       "deviz": "226338",
@@ -8604,7 +8621,7 @@
     },
     {
       "cod": "$2512006",
-      "denumire": "material fertilizant gazon",
+      "denumire": "material fertilizant gazon antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "kg",
       "cantitate": 555.0,
       "deviz": "226338",
@@ -8774,7 +8791,7 @@
     },
     {
       "cod": "$2100001",
-      "denumire": "pamant vegetal",
+      "denumire": "pamant vegetal antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mc",
       "cantitate": 1775.0,
       "deviz": "226348",
@@ -8995,7 +9012,7 @@
     },
     {
       "cod": "TRA01A20",
-      "denumire": "transportul rutier al materialelor,semifabricatelor cu autobasculanta pe dist .= devize (www.edevize.ro)",
+      "denumire": "transportul rutier al materialelor,semifabricatelor cu autobasculanta pe dist .= devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "tona",
       "cantitate": 170.0,
       "deviz": "226358",
@@ -9182,7 +9199,7 @@
     },
     {
       "cod": "TRB01A29",
-      "denumire": "transportul materialelor cu roaba pe pneuri inc asezare desc asezare grupa 4 distanta 90m $",
+      "denumire": "transportul materialelor cu roaba pe pneuri inc asezare desc asezare grupa 4 distanta 90m $ antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "tona",
       "cantitate": 200.0,
       "deviz": "226358",
@@ -9334,23 +9351,6 @@
       "val_transport": 1273.0
     },
     {
-      "cod": "W1C01A1",
-      "denumire": "asimilat - montare panouri fotovoltaice greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu ofertant devize (www.edevize.ro)",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226208",
-      "deviz_denumire": "STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare)",
-      "is_component": false,
-      "pret_material": 42000.0,
-      "val_material": 42000.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 42000.0,
-      "val_utilaj": 42000.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "TSC18B1",
       "denumire": "sapatura mecanica cu buldozer pe tractor pe senile de 65-80 cp,inclusiv impingerea pamantului pana la 10 m,in: teren catg 2",
       "um": "100 mc",
@@ -9471,7 +9471,7 @@
     },
     {
       "cod": "$2100910",
-      "denumire": "beton marfa clasa c10/8 (bc10/b150)",
+      "denumire": "beton marfa clasa c10/8 (bc10/b150) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mc",
       "cantitate": 15.12,
       "deviz": "226408",
@@ -9675,7 +9675,7 @@
     },
     {
       "cod": "$2200082",
-      "denumire": "pietris ciuruit nespalat de riu 7-30 mm",
+      "denumire": "pietris ciuruit nespalat de riu 7-30 mm antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mc",
       "cantitate": 59.5,
       "deviz": "226408",
@@ -9896,7 +9896,7 @@
     },
     {
       "cod": "$2600036",
-      "denumire": "bitum pt.mat.+lucr.hidroizolatii tip h 68/75 s7064",
+      "denumire": "bitum pt.mat.+lucr.hidroizolatii tip h 68/75 s7064 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "kg",
       "cantitate": 45.0,
       "deviz": "226408",
@@ -10083,7 +10083,7 @@
     },
     {
       "cod": "$3276069",
-      "denumire": "plasa sudata 6 mm 100x100 mm 2x5m",
+      "denumire": "plasa sudata 6 mm 100x100 mm 2x5m antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "kg",
       "cantitate": 53.0,
       "deviz": "226408",
@@ -10253,7 +10253,7 @@
     },
     {
       "cod": "CB47A1",
-      "denumire": "schela metalica tubulara lucrari pe suprafete verticale pina la 30 m inaltime inclusiv ;",
+      "denumire": "schela metalica tubulara lucrari pe suprafete verticale pina la 30 m inaltime inclusiv ; antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mp",
       "cantitate": 470.0,
       "deviz": "226408",
@@ -10372,7 +10372,7 @@
     },
     {
       "cod": "$6311528",
-      "denumire": "scoaba otel pentru constructii din lemn, latime= 65-90mm, l.200-300 mm greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu",
+      "denumire": "scoaba otel pentru constructii din lemn, latime= 65-90mm, l.200-300 mm greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu antet stanga edevize ofertant devize (www.edevize.ro)",
       "um": "kg",
       "cantitate": 55.5,
       "deviz": "226408",
@@ -10576,7 +10576,7 @@
     },
     {
       "cod": "$3270111",
-      "denumire": "chit rosturi",
+      "denumire": "chit rosturi antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "kg",
       "cantitate": 141.0,
       "deviz": "226418",
@@ -10763,7 +10763,7 @@
     },
     {
       "cod": "$3274531",
-      "denumire": "dibluri de polistiren 150 mm",
+      "denumire": "dibluri de polistiren 150 mm antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 3328.0,
       "deviz": "226418",
@@ -10967,7 +10967,7 @@
     },
     {
       "cod": "CF10C1",
-      "denumire": "glet aplicat pe tencuieli interioare driscuite sau pe suprafetele elementelor din beton glet de ipsos la pereti, stalpi si tavane, aplicat manual pe tencuieli interioare driscuite, executat cu pasta de ipsos ;",
+      "denumire": "glet aplicat pe tencuieli interioare driscuite sau pe suprafetele elementelor din beton glet de ipsos la pereti, stalpi si tavane, aplicat manual pe tencuieli interioare driscuite, executat cu pasta de ipsos ; antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mp",
       "cantitate": 241.0,
       "deviz": "226418",
@@ -11256,7 +11256,7 @@
     },
     {
       "cod": "$3270111",
-      "denumire": "chit rosturi",
+      "denumire": "chit rosturi antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "kg",
       "cantitate": 12.0,
       "deviz": "226418",
@@ -11562,7 +11562,7 @@
     },
     {
       "cod": "$6306493",
-      "denumire": "usa pvc",
+      "denumire": "usa pvc antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mp",
       "cantitate": 47.0,
       "deviz": "226418",
@@ -11783,7 +11783,7 @@
     },
     {
       "cod": "$2905981",
-      "denumire": "sipca rasinoase de 28 × 48 mm",
+      "denumire": "sipca rasinoase de 28 × 48 mm antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mc",
       "cantitate": 2.44,
       "deviz": "226418",
@@ -12004,7 +12004,7 @@
     },
     {
       "cod": "CE15D1",
-      "denumire": "glafuri si copertine din tabla zincata de 0,5 mm grosime cu latimea desfasurata intre 30-50 cm, lungimea pana la 2 m, pe un strat de carton bitumat",
+      "denumire": "glafuri si copertine din tabla zincata de 0,5 mm grosime cu latimea desfasurata intre 30-50 cm, lungimea pana la 2 m, pe un strat de carton bitumat antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 37.0,
       "deviz": "226418",
@@ -12514,7 +12514,7 @@
     },
     {
       "cod": "$3276846",
-      "denumire": "teava pehd 80 pentru transport apa potabila, sdr 17, dn 50, pn 10 bar",
+      "denumire": "teava pehd 80 pentru transport apa potabila, sdr 17, dn 50, pn 10 bar antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 5.0,
       "deviz": "226428",
@@ -12718,7 +12718,7 @@
     },
     {
       "cod": "IZH01B1",
-      "denumire": "izolarea cu bete de postav a tevilor cu d de la 1,25-2 toli,inclusiv",
+      "denumire": "izolarea cu bete de postav a tevilor cu d de la 1,25-2 toli,inclusiv antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 180.0,
       "deviz": "226428",
@@ -12939,7 +12939,7 @@
     },
     {
       "cod": "$6720197",
-      "denumire": "tub 2 mufe polipropilena ignif, diam 50 mm si l = 1000 mm",
+      "denumire": "tub 2 mufe polipropilena ignif, diam 50 mm si l = 1000 mm antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 5.0,
       "deviz": "226428",
@@ -13160,7 +13160,7 @@
     },
     {
       "cod": "SB27A",
-      "denumire": "caciula ventil, tabla, montare pe coloane aeris din tuburi fonta sau gresie ceram antiac,d=50-150mm",
+      "denumire": "caciula ventil, tabla, montare pe coloane aeris din tuburi fonta sau gresie ceram antiac,d=50-150mm antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 2.0,
       "deviz": "226428",
@@ -13398,7 +13398,7 @@
     },
     {
       "cod": "$2992112",
-      "denumire": "rigole dus inox",
+      "denumire": "rigole dus inox antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 6.0,
       "deviz": "226428",
@@ -13619,7 +13619,7 @@
     },
     {
       "cod": "$3272003",
-      "denumire": "baterie monocomanda pentru lavoar",
+      "denumire": "baterie monocomanda pentru lavoar antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 9.0,
       "deviz": "226428",
@@ -13806,7 +13806,7 @@
     },
     {
       "cod": "SC18A5",
-      "denumire": "rama pentru vas de closet, din polipropilena cu capac",
+      "denumire": "rama pentru vas de closet, din polipropilena cu capac antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 7.0,
       "deviz": "226428",
@@ -14027,7 +14027,7 @@
     },
     {
       "cod": "$6718879",
-      "denumire": "cuier baie aminoplast 2 agatatori ni 2199",
+      "denumire": "cuier baie aminoplast 2 agatatori ni 2199 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 3.0,
       "deviz": "226428",
@@ -14299,7 +14299,7 @@
     },
     {
       "cod": "VA02B08",
-      "denumire": "canale drepte confectionata pe sant cu perim sect de 400- 700 mm cu sect circ din tabla zinc de 0. 5 mm",
+      "denumire": "canale drepte confectionata pe sant cu perim sect de 400- 700 mm cu sect circ din tabla zinc de 0. 5 mm antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mp",
       "cantitate": 4.5,
       "deviz": "226448",
@@ -14418,7 +14418,7 @@
     },
     {
       "cod": "$5700801",
-      "denumire": "radiator electric montaj pe perete 1500w,prevazut cu termostat reglabil, inclusiv suporti si accesorii de prindere greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu",
+      "denumire": "radiator electric montaj pe perete 1500w,prevazut cu termostat reglabil, inclusiv suporti si accesorii de prindere greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu antet stanga edevize ofertant devize (www.edevize.ro)",
       "um": "buc",
       "cantitate": 9.0,
       "deviz": "226458",
@@ -14707,7 +14707,7 @@
     },
     {
       "cod": "$2700014",
-      "denumire": "tub de protectie tip ipey/monoflex d=16",
+      "denumire": "tub de protectie tip ipey/monoflex d=16 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 1486.0,
       "deviz": "226478",
@@ -14962,7 +14962,7 @@
     },
     {
       "cod": "$3273186",
-      "denumire": "intrerupator cap scara ip55",
+      "denumire": "intrerupator cap scara ip55 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 6.0,
       "deviz": "226478",
@@ -15268,7 +15268,7 @@
     },
     {
       "cod": "$2902090",
-      "denumire": "organizator cablu",
+      "denumire": "organizator cablu antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226488",
@@ -15353,7 +15353,7 @@
     },
     {
       "cod": "ATE15R",
-      "denumire": "verificarari pentru: detector deplasare coaxiala,radiala greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu",
+      "denumire": "verificarari pentru: detector deplasare coaxiala,radiala greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu antet stanga edevize ofertant devize (www.edevize.ro)",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226488",
@@ -15540,7 +15540,7 @@
     },
     {
       "cod": "$2700014",
-      "denumire": "tub de protectie tip ipey/monoflex d=16",
+      "denumire": "tub de protectie tip ipey/monoflex d=16 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 200.0,
       "deviz": "226498",
@@ -15591,7 +15591,7 @@
     },
     {
       "cod": "$5700051",
-      "denumire": "material marunt de instalare echipamente greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu",
+      "denumire": "material marunt de instalare echipamente greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu antet stanga edevize ofertant devize (www.edevize.ro)",
       "um": "lei",
       "cantitate": 500.0,
       "deviz": "226498",
@@ -15727,7 +15727,7 @@
     },
     {
       "cod": "$2100912",
-      "denumire": "beton marfa clasa c20/16 (bc20/b250)",
+      "denumire": "beton marfa clasa c20/16 (bc20/b250) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mc",
       "cantitate": 28.23,
       "deviz": "226508",
@@ -15914,7 +15914,7 @@
     },
     {
       "cod": "TRA01A20",
-      "denumire": "transportul rutier al materialelor,semifabricatelor cu autobasculanta pe dist .=",
+      "denumire": "transportul rutier al materialelor,semifabricatelor cu autobasculanta pe dist .= antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "tona",
       "cantitate": 18.0,
       "deviz": "226508",
@@ -16135,7 +16135,7 @@
     },
     {
       "cod": "TRA01A10",
-      "denumire": "transportul rutier al materialelor,semifabricatelor cu autobasculanta pe dist .= 10 km $",
+      "denumire": "transportul rutier al materialelor,semifabricatelor cu autobasculanta pe dist .= 10 km $ antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "tona",
       "cantitate": 4.53,
       "deviz": "226508",
@@ -16305,7 +16305,7 @@
     },
     {
       "cod": "CB13I1",
-      "denumire": "cofraje pentru beton armat in placi, grinzi si stilpi din panouri refolosibile, cu placaj' de 15 mm grosime la constructii avand inaltimea pana la 20 m inclusiv, la placi si grinzi;",
+      "denumire": "cofraje pentru beton armat in placi, grinzi si stilpi din panouri refolosibile, cu placaj' de 15 mm grosime la constructii avand inaltimea pana la 20 m inclusiv, la placi si grinzi; antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mp",
       "cantitate": 60.0,
       "deviz": "226508",
@@ -16696,7 +16696,7 @@
     },
     {
       "cod": "$3270111",
-      "denumire": "chit rosturi",
+      "denumire": "chit rosturi antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "kg",
       "cantitate": 78.0,
       "deviz": "226518",
@@ -16883,7 +16883,7 @@
     },
     {
       "cod": "$16509",
-      "denumire": "vopsitorie decorativa",
+      "denumire": "vopsitorie decorativa antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mp",
       "cantitate": 120.0,
       "deviz": "226518",
@@ -17104,7 +17104,7 @@
     },
     {
       "cod": "CG01D1",
-      "denumire": "strat suport pentru pardoseli executate din mortar de ciment marca m 100-t de 3 cm grosime, cu suprafata fin driscuita ;",
+      "denumire": "strat suport pentru pardoseli executate din mortar de ciment marca m 100-t de 3 cm grosime, cu suprafata fin driscuita ; antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mp",
       "cantitate": 49.0,
       "deviz": "226518",
@@ -17427,7 +17427,7 @@
     },
     {
       "cod": "CK25A",
-      "denumire": "usi profiluri mase plastice, 1 canat, supraf toc <= 7 mp,inclusiv armaturi si accesorii,montate in zid de orice fel la constructii cu h <= 35 m",
+      "denumire": "usi profiluri mase plastice, 1 canat, supraf toc <= 7 mp,inclusiv armaturi si accesorii,montate in zid de orice fel la constructii cu h <= 35 m antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mp",
       "cantitate": 15.0,
       "deviz": "226518",
@@ -17648,7 +17648,7 @@
     },
     {
       "cod": "RPCI01A1",
-      "denumire": "invelitori de carton bitumat intr-un strat, la constructii existente, batuta in cuie pe astereala, cu carton bitumat ca 300",
+      "denumire": "invelitori de carton bitumat intr-un strat, la constructii existente, batuta in cuie pe astereala, cu carton bitumat ca 300 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mp",
       "cantitate": 56.1,
       "deviz": "226518",
@@ -17869,7 +17869,7 @@
     },
     {
       "cod": "CB47A1",
-      "denumire": "schela metalica tubulara lucrari pe suprafete verticale pina la 30 m inaltime inclusiv ;",
+      "denumire": "schela metalica tubulara lucrari pe suprafete verticale pina la 30 m inaltime inclusiv ; antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mp",
       "cantitate": 120.0,
       "deviz": "226518",
@@ -18294,7 +18294,7 @@
     },
     {
       "cod": "SD07B",
-      "denumire": "robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,d=3/4'",
+      "denumire": "robinet de trecere cu ventil si mufe, cu sau fara descarcare, pentru tevi otel,d=3/4' antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 4.0,
       "deviz": "226528",
@@ -18498,7 +18498,7 @@
     },
     {
       "cod": "$3274178",
-      "denumire": "teava pp 32 lungime 1 m",
+      "denumire": "teava pp 32 lungime 1 m antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 5.0,
       "deviz": "226528",
@@ -18736,7 +18736,7 @@
     },
     {
       "cod": "$3273761",
-      "denumire": "teava pp cu mufa d=110 mm l = 1000",
+      "denumire": "teava pp cu mufa d=110 mm l = 1000 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 10.0,
       "deviz": "226528",
@@ -18923,7 +18923,7 @@
     },
     {
       "cod": "$3273908",
-      "denumire": "caciula ventilație kadh 75mm",
+      "denumire": "caciula ventilație kadh 75mm antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 3.0,
       "deviz": "226528",
@@ -19110,7 +19110,7 @@
     },
     {
       "cod": "$2438407",
-      "denumire": "lavoar portelan f.spatar l12-630mm alb c 2 n1080",
+      "denumire": "lavoar portelan f.spatar l12-630mm alb c 2 n1080 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 4.0,
       "deviz": "226528",
@@ -19348,7 +19348,7 @@
     },
     {
       "cod": "$2222225",
-      "denumire": "dozator sapun lichid din inox 500-700 ml",
+      "denumire": "dozator sapun lichid din inox 500-700 ml antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 4.0,
       "deviz": "226528",
@@ -19569,7 +19569,7 @@
     },
     {
       "cod": "$4202761",
-      "denumire": "sifon alama pentru lavoar 1 s 9611",
+      "denumire": "sifon alama pentru lavoar 1 s 9611 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226528",
@@ -19773,7 +19773,7 @@
     },
     {
       "cod": "$05022",
-      "denumire": "montat wc grup sanitar",
+      "denumire": "montat wc grup sanitar antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 4.0,
       "deviz": "226528",
@@ -19977,7 +19977,7 @@
     },
     {
       "cod": "$2222213",
-      "denumire": "perie wc si suport inox/sticla mata, suspendat de perete",
+      "denumire": "perie wc si suport inox/sticla mata, suspendat de perete antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 4.0,
       "deviz": "226528",
@@ -20368,7 +20368,7 @@
     },
     {
       "cod": "$3273416",
-      "denumire": "radiator electric pe perete, 1000w prevăzut cu termoastat reglabil inclusiv si accesorii de prindere suportii greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu",
+      "denumire": "radiator electric pe perete, 1000w prevăzut cu termoastat reglabil inclusiv si accesorii de prindere suportii greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu antet stanga edevize ofertant devize (www.edevize.ro)",
       "um": "buc",
       "cantitate": 2.0,
       "deviz": "226548",
@@ -20555,7 +20555,7 @@
     },
     {
       "cod": "$2700014",
-      "denumire": "tub de protectie tip ipey/monoflex d=16",
+      "denumire": "tub de protectie tip ipey/monoflex d=16 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 95.0,
       "deviz": "226558",
@@ -20776,7 +20776,7 @@
     },
     {
       "cod": "$3273472",
-      "denumire": "priza bipolara simpla cu contact de protectie 16a/230v, montaj in doza sl rama comuna, dimensiune 2 module, ip20, cu indicarea circuitului",
+      "denumire": "priza bipolara simpla cu contact de protectie 16a/230v, montaj in doza sl rama comuna, dimensiune 2 module, ip20, cu indicarea circuitului antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 5.0,
       "deviz": "226558",
@@ -21031,7 +21031,7 @@
     },
     {
       "cod": "$5538123",
-      "denumire": "patchpanel, 8 porturi rj45 echipat",
+      "denumire": "patchpanel, 8 porturi rj45 echipat antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226568",
@@ -21150,7 +21150,7 @@
     },
     {
       "cod": "ATE15R",
-      "denumire": "verificarari pentru: detector deplasare coaxiala, radiala greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu",
+      "denumire": "verificarari pentru: detector deplasare coaxiala, radiala greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu antet stanga edevize ofertant devize (www.edevize.ro)",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226568",
@@ -21320,7 +21320,7 @@
     },
     {
       "cod": "$2700014",
-      "denumire": "tub de protectie tip ipey/monoflex d=16",
+      "denumire": "tub de protectie tip ipey/monoflex d=16 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 100.0,
       "deviz": "226578",
@@ -21677,7 +21677,7 @@
     },
     {
       "cod": "ACE08A1",
-      "denumire": "umplutura in sant la cond de alim cu apa si canalizare cu: nisip deviz '226u08' - formular f3",
+      "denumire": "umplutura in sant la cond de alim cu apa si canalizare cu: nisip deviz '226u08' - formular f3 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mc",
       "cantitate": 62.0,
       "deviz": "226008",
@@ -21813,7 +21813,7 @@
     },
     {
       "cod": "SF05C",
-      "denumire": "spalare instal apa rece sau calda, executata din tevi pvc (g), pe,pp,pp - r, d= 20 - 75 mm deviz '226u08' - formular f3 devize (www.edevize.ro)",
+      "denumire": "spalare instal apa rece sau calda, executata din tevi pvc (g), pe,pp,pp - r, d= 20 - 75 mm deviz '226u08' - formular f3 devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 345.0,
       "deviz": "226008",
@@ -21966,7 +21966,7 @@
     },
     {
       "cod": "TSC02A11",
-      "denumire": "sapatura mecanica cu excavator pe pneuri de 0.12-0.39 mc,cu comanda hidraulica, in : pamant cu umiditate naturala descarcare in depozit teren catg 1 in conditiile gospodaririi apelor deviz '226u18' - formular f3 devize (www.edevize.ro)",
+      "denumire": "sapatura mecanica cu excavator pe pneuri de 0.12-0.39 mc,cu comanda hidraulica, in : pamant cu umiditate naturala descarcare in depozit teren catg 1 in conditiile gospodaririi apelor deviz '226u18' - formular f3 devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "100 mc",
       "cantitate": 1.4,
       "deviz": "226018",
@@ -22102,7 +22102,7 @@
     },
     {
       "cod": "TRA01A10P",
-      "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist .= 10 km $ deviz '226u18' - formular f3 devize (www.edevize.ro)",
+      "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist .= 10 km $ deviz '226u18' - formular f3 devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "tona",
       "cantitate": 64.98,
       "deviz": "226018",
@@ -22391,7 +22391,7 @@
     },
     {
       "cod": "ACA11D1",
-      "denumire": "montare teava pvc tip 3(m) in pamant, in exteriorulcladirilor, avand dn 110 deviz '226u28' - formular f3",
+      "denumire": "montare teava pvc tip 3(m) in pamant, in exteriorulcladirilor, avand dn 110 deviz '226u28' - formular f3 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 100.0,
       "deviz": "226028",
@@ -22578,7 +22578,7 @@
     },
     {
       "cod": "TSD04D1",
-      "denumire": "compactarea cu maiul de mana a umpluturilor executate in sapaturi orizontale sau inclinate la 1/4, inclusiv udarea fiecarui strat de pamant in parte, avand : 20 cm grosime pamant coeziv deviz '226u28' - formular f3",
+      "denumire": "compactarea cu maiul de mana a umpluturilor executate in sapaturi orizontale sau inclinate la 1/4, inclusiv udarea fiecarui strat de pamant in parte, avand : 20 cm grosime pamant coeziv deviz '226u28' - formular f3 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mc",
       "cantitate": 272.0,
       "deviz": "226028",
@@ -22782,7 +22782,7 @@
     },
     {
       "cod": "EG08B1",
-      "denumire": "conducta de legare la pamint, a instalatiei de paratrasnet sau a instalatiei de protectie prin legarea la pamant, montata in pamant, inclusiv saparea si umplerea santului, conducta fiind din banda de otel zincata, de 40x4 mm, montata in teren tare deviz '226u28' - formular f3",
+      "denumire": "conducta de legare la pamint, a instalatiei de paratrasnet sau a instalatiei de protectie prin legarea la pamant, montata in pamant, inclusiv saparea si umplerea santului, conducta fiind din banda de otel zincata, de 40x4 mm, montata in teren tare deviz '226u28' - formular f3 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 63.0,
       "deviz": "226028",
@@ -22952,7 +22952,7 @@
     },
     {
       "cod": "EH01A1",
-      "denumire": "incercarea cablurilor de energie electrica, de maximum 1 kv deviz '226u28' - formular f3",
+      "denumire": "incercarea cablurilor de energie electrica, de maximum 1 kv deviz '226u28' - formular f3 antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "buc",
       "cantitate": 100.0,
       "deviz": "226028",
@@ -23190,7 +23190,7 @@
     },
     {
       "cod": "$67185061",
-      "denumire": "banda avertizoare pvc inscriptionata pentru cablu telecomunicatii în sapatura 1 mm grosime",
+      "denumire": "banda avertizoare pvc inscriptionata pentru cablu telecomunicatii în sapatura 1 mm grosime antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 1900.0,
       "deviz": "226038",
@@ -23360,7 +23360,7 @@
     },
     {
       "cod": "TSD01D1",
-      "denumire": "imprastierea cu lopata a pamant afinat,strat uniform 10-30cm gros cu sfarim bulg teren teren foarte tare",
+      "denumire": "imprastierea cu lopata a pamant afinat,strat uniform 10-30cm gros cu sfarim bulg teren teren foarte tare antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mc",
       "cantitate": 64.0,
       "deviz": "226038",
@@ -23547,7 +23547,7 @@
     },
     {
       "cod": "$6752",
-      "denumire": "automacara 6- 9,9tf cu brat cu zabrele greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu",
+      "denumire": "automacara 6- 9,9tf cu brat cu zabrele greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu antet stanga edevize ofertant devize (www.edevize.ro)",
       "um": "ora",
       "cantitate": 20.0,
       "deviz": "226718",
@@ -23598,7 +23598,7 @@
     },
     {
       "cod": "TRA02A50",
-      "denumire": "transportul rutier al materialelor,semifabricatelor cu autocamionul pe dist .= 50 greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu",
+      "denumire": "transportul rutier al materialelor,semifabricatelor cu autocamionul pe dist .= 50 greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu antet stanga edevize ofertant devize (www.edevize.ro)",
       "um": "tona",
       "cantitate": 1.0,
       "deviz": "226708",

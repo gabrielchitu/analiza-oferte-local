@@ -410,6 +410,10 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
            SAU (READING_ARTICLE și price_count >= 4)
            SAU (READING_ARTICLE și price_count == 0 și cantitate > 0)
         3. Valoarea >= last_nr_crt sau <= 5 (reset la secțiune nouă)
+
+        PLUS: În IDLE state, reject 2-digit numbers > 5 (probable sub-article markers)
+        Exemple: "21" sau "11" sunt probabil numere de secțiune, nu NR_CRT.
+        Numerele reale de articol sunt 3+ cifre (001-999) sau 1-5 (reset).
         """
         m = NR_CRT_RE.match(line.strip())
         if not m:
@@ -418,6 +422,14 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         if not (1 <= val <= 999):
             return False
         if current_state == _IDLE:
+            # În IDLE, accept numai:
+            # - 3+ cifre (001, 027, etc) care sunt >= last_nr_crt
+            # - 1-5 cifre (reset la secțiune nouă)
+            # Reject 2-digit numbers > 5 (21, 27 etc.) ca suspecte (secțiuni, nu articole)
+            num_digits = len(m.group(1))
+            if num_digits == 2 and val > 5:
+                # "21", "27" etc. sunt probabil numere de secțiune, nu NR_CRT
+                return False
             return val >= last_nr_crt or val <= 5
         if current_state == _READING:
             if price_count >= 4:

@@ -635,8 +635,8 @@ def extract_articles_v3(page_classifications: list) -> list:
     """
     Extrage articole F3 din lista de PageClassification produsă de f3_page_classifier.
 
-    Înlocuiește extract_articles_from_text_v2() în ArticleExtractor v4.0.
-    extract_articles_from_text_v2() rămâne intactă pentru rollback (tag v3.16).
+    Grupează paginile pe deviz ÎNAINTE de extragere, pentru a menține last_nr_crt corect
+    pe parcursul tuturor paginilor aceluiași deviz.
 
     Args:
         page_classifications: output din f3_page_classifier.classify_pages()
@@ -646,51 +646,62 @@ def extract_articles_v3(page_classifications: list) -> list:
         Lista completă de articole + componente din toate paginile F3.
     """
     from shared.f3_regex_parser import extract_articles_regex
+    from collections import defaultdict
 
     all_articles: list = []
     seen: dict = {}  # (cod, deviz_cod) → index în all_articles, pentru deduplicare
 
+    # Grupează paginile F3 pe deviz pentru a menține last_nr_crt corect
+    pages_by_deviz = defaultdict(list)
     for pc in page_classifications:
         if not pc.get("is_f3"):
             continue
         if pc.get("header_only"):
             continue  # pagini cover eDevize — nu conțin articole
 
-        lines = pc.get("lines", [])
         deviz_cod = pc.get("deviz_cod", "")
-        deviz_den = pc.get("deviz_den", "")
-
-        # Normalize deviz code at entry point (226U38 → 226038)
         deviz_cod = _normalize_deviz_cod(deviz_cod)
+        if deviz_cod:
+            pages_by_deviz[deviz_cod].append(pc)
 
-        if not deviz_cod:
-            logger.warning(f"[F3v3] page {pc.get('page_number')} is_f3=True but deviz_cod is empty — dedup key collision risk")
+    # Procesează fiecare deviz cu TOATE paginile sale împreună
+    for deviz_cod, pages_in_deviz in pages_by_deviz.items():
+        # Combină liniile din toate paginile aceluiași deviz
+        all_lines = []
+        deviz_den = ""
+        for pc in pages_in_deviz:
+            lines = pc.get("lines", [])
+            if lines:
+                all_lines.extend(lines)
+            if not deviz_den:
+                deviz_den = pc.get("deviz_den", "")
 
-        if not lines:
+        if not all_lines:
             continue
 
-        # Extrage articole principale via parser regex (neschimbat)
-        page_articles = extract_articles_regex(lines, deviz_cod, deviz_den)
-        for art in page_articles:
-            art["deviz"] = deviz_cod  # deviz_cod já normalizado acima
+        # Apelează parser o singură dată pe TOATE paginile devizului
+        # Aceasta menține last_nr_crt corect pe tot devizul
+        section_articles = extract_articles_regex(all_lines, deviz_cod, deviz_den)
+        for art in section_articles:
+            art["deviz"] = deviz_cod
             art["deviz_denumire"] = deviz_den
             art["is_component"] = False
-            # Normalizeaza DENUMIRE pentru matching (rezolvă OCR variații)
             art["denumire"] = _normalize_denom(art.get("denumire", ""))
 
-        # Extrage componente din $breviar (>>> componenta)
-        section_text = "\n".join(lines)
-        components = _extract_components_from_section(section_text, deviz_cod, deviz_den)
+        # Extrage componente din fiecare pagină (nu le combinăm)
+        for pc in pages_in_deviz:
+            section_text = "\n".join(pc.get("lines", []))
+            components = _extract_components_from_section(section_text, deviz_cod, deviz_den)
+            section_articles.extend(components)
 
-        # Deduplicare: cheia include și cantitatea — același cod cu cantitate diferită în același
-        # deviz reprezintă articole distincte (poziții diferite în deviz), nu duplicat de pagini.
-        # Articolele identice (cod + deviz + cantitate) apar la page-break și sunt deduplicate.
-        dedup_namespace = deviz_cod if deviz_cod else f"__page_{pc.get('page_number', 0)}__"
-        for art in page_articles + components:
-            key = (art.get("cod", "").upper(), art.get("deviz", dedup_namespace), art.get("cantitate", 0))
+        # Deduplicare
+        for art in section_articles:
+            key = (art.get("cod", "").upper(), art.get("deviz", deviz_cod), art.get("cantitate", 0))
             if key not in seen:
                 seen[key] = len(all_articles)
                 all_articles.append(art)
 
-    logger.info(f"[F3v3] Total: {len(all_articles)} articole extrase (page-aware, fara LLM)")
+        logger.info(f"[F3v3] {deviz_cod}: {len(section_articles)} articole extrase (grouped pages)")
+
+    logger.info(f"[F3v3] Total: {len(all_articles)} articole extrase (deviz-grouped, fara LLM)")
     return all_articles
