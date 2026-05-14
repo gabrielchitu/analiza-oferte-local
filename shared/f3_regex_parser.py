@@ -673,10 +673,23 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                         um = ''; cantitate = 0.0; preturi = []
                         state = _READING; waiting_lines = 0; _after_linked = False
                     else:
-                        waiting_lines += 1
-                        if waiting_lines >= 3:
-                            # Nu era articol — numărul era altceva (pagină, preț etc.)
-                            state = _IDLE
+                        # Format "NRCOD* - DESC" (concatenated NR+CODE, no separator) in WAITING
+                        # Handles OCR artifacts where whitespace was lost: "3CF41B01* - Tencuiala..."
+                        m_concat = NR_COD_CONCAT_RE.match(line)
+                        if m_concat:
+                            last_nr_crt = int(m_concat.group(1))
+                            raw_cod = (m_concat.group(2) + (m_concat.group(3) or '')).upper()
+                            raw_cod = re.sub(r'[-@%>#*^]+$|\s*\[\d*\]?\s*$', '', raw_cod)
+                            raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
+                            cod = raw_cod
+                            denumire_parts = [m_concat.group(4).strip()] if m_concat.group(4) else []
+                            um = ''; cantitate = 0.0; preturi = []
+                            state = _READING; waiting_lines = 0; _after_linked = False
+                        else:
+                            waiting_lines += 1
+                            if waiting_lines >= 3:
+                                # Nu era articol — numărul era altceva (pagină, preț etc.)
+                                state = _IDLE
 
         # ── READING_ARTICLE ──────────────────────────────────────────────────
         elif state == _READING:
