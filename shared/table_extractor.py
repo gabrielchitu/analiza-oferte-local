@@ -49,7 +49,8 @@ def _parse_article_cell(cell_content: str) -> tuple:
         return None, None
 
     # Match: "CODE - DENOMINATION"
-    m = re.match(r'^(\$?\d{4,8}|[A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2})\s*[-–]\s*(.+)',
+    # Supports: multi-letter codes (CA01A1) and single-letter codes (W3H18C1)
+    m = re.match(r'^(\$?\d{4,8}|[A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2})\s*[-–]\s*(.+)',
                  cell_content.strip(), re.IGNORECASE)
     if m:
         code = m.group(1).upper()
