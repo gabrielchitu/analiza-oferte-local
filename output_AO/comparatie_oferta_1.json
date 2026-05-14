@@ -759,6 +759,17 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226028",
+      "deviz_denumire": "",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$7319524",
+      "oferta_denumire": "electrod teava zincata 76,1x4,5",
+      "oferta_um": "m",
+      "oferta_cantitate": 128.52
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "226478",
       "deviz_denumire": "",
       "ref_cod": "",
@@ -767,6 +778,28 @@
       "oferta_denumire": "cablu cyyf 4x1,5 mmp",
       "oferta_um": "m",
       "oferta_cantitate": 306.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226518",
+      "deviz_denumire": "ARHITECTURA grupuri sanitare publice",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$7800859",
+      "oferta_denumire": "vopsea lavabila acrilica",
+      "oferta_um": "kg",
+      "oferta_cantitate": 12.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226528",
+      "deviz_denumire": "INSTALATII SANITARE OB.5",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "SD13A1",
+      "oferta_denumire": "robinet trec cu ventil si mufe, pentru tevi otel cu d= 1/2 sau d= 3/8 toli",
+      "oferta_um": "buc",
+      "oferta_cantitate": 4.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -782,39 +815,6 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226028",
-      "deviz_denumire": "",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$7319524",
-      "oferta_denumire": "electrod teava zincata 76,1x4,5",
-      "oferta_um": "m",
-      "oferta_cantitate": 128.52
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226218",
-      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$7800859",
-      "oferta_denumire": "vopsea lavabila acrilica",
-      "oferta_um": "kg",
-      "oferta_cantitate": 39.5
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226528",
-      "deviz_denumire": "INSTALATII SANITARE OB.5",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "SD13A1",
-      "oferta_denumire": "robinet trec cu ventil si mufe, pentru tevi otel cu d= 1/2 sau d= 3/8 toli",
-      "oferta_um": "buc",
-      "oferta_cantitate": 4.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "226358",
       "deviz_denumire": "",
       "ref_cod": "",
@@ -826,17 +826,6 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226358",
-      "deviz_denumire": "",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "TRA01A20P",
-      "oferta_denumire": "transportul rutier al pamantului sau molozului cu autobasculanta dist .= 20 km",
-      "oferta_um": "tona",
-      "oferta_cantitate": 1132.4
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "226208",
       "deviz_denumire": "STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare)",
       "ref_cod": "",
@@ -845,6 +834,17 @@
       "oferta_denumire": "asimilat - montare panouri fotovoltaice greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu ofertant devize (www.edevize.ro)",
       "oferta_um": "buc",
       "oferta_cantitate": 1.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226358",
+      "deviz_denumire": "",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "TRA01A20P",
+      "oferta_denumire": "transportul rutier al pamantului sau molozului cu autobasculanta dist .= 20 km",
+      "oferta_um": "tona",
+      "oferta_cantitate": 1132.4
     },
     {
       "tip": "ARTICOL_EXTRA",

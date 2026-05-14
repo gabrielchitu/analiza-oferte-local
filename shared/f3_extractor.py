@@ -651,6 +651,28 @@ def extract_articles_v3(page_classifications: list) -> list:
     all_articles: list = []
     seen: dict = {}  # (cod, deviz_cod) → index în all_articles, pentru deduplicare
 
+    # Inherit missing deviz_cod from previous F3 pages (continuation pages)
+    # When a page is marked is_f3=True but has blank deviz_cod, inherit from last F3 page
+    last_deviz_cod = ""
+    last_deviz_den = ""
+    for pc in page_classifications:
+        if not pc.get("is_f3"):
+            continue
+        if pc.get("header_only"):
+            continue
+
+        deviz_cod = pc.get("deviz_cod", "")
+        if deviz_cod:
+            # This page has explicit deviz, update last_deviz
+            deviz_cod = _normalize_deviz_cod(deviz_cod)
+            last_deviz_cod = deviz_cod
+            last_deviz_den = pc.get("deviz_den", "")
+        elif last_deviz_cod and not deviz_cod:
+            # This page has blank deviz but is F3 — inherit from previous
+            pc["deviz_cod"] = last_deviz_cod
+            if not pc.get("deviz_den"):
+                pc["deviz_den"] = last_deviz_den
+
     # Grupează paginile F3 pe deviz pentru a menține last_nr_crt corect
     pages_by_deviz = defaultdict(list)
     for pc in page_classifications:
