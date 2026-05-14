@@ -127,10 +127,12 @@ def _deviz_key(art: dict) -> str:
 def _art_key(art: dict) -> tuple:
     """Cheia compusa (deviz, cod) pentru un articol.
 
-    Now uses (deviz_code, cod) which is reliable and matches across
+    Now uses (deviz_code, normalized_cod) which is reliable and matches across
     reference and oferta without OCR variation issues.
+    Normalized cod strips special characters (^, #, @, etc.) so matching works
+    even when reference has "CK01A01^" and offer has "CK01A01".
     """
-    return (_deviz_key(art), (art.get("cod") or "").strip())
+    return (_deviz_key(art), _normalize_cod(art.get("cod") or ""))
 
 
 def match_global(
