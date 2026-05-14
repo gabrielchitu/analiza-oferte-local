@@ -35,6 +35,11 @@ def _observatie_text(neconf: dict) -> str:
     }
     if tip == "ARTICOL_LIPSA":
         return "Articol lipsă din ofertă"
+    if tip == "ARTICOL_DEVIZ_DIFERIT":
+        motiv = neconf.get("motiv", "")
+        if motiv:
+            return f"Articol în deviz diferit: {motiv}"
+        return "Articol în deviz diferit din referință"
     if tip == "ARTICOL_EXTRA":
         return "Articol suplimentar în ofertă (nu există în referință)"
     if tip == "UM_DIFERIT":

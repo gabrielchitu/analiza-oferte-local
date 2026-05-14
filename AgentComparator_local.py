@@ -580,16 +580,45 @@ def match_global(
         still_unmatched_ref = [a for a in still_unmatched_ref
                                if _art_key(a) not in matched_by_llm_ref_keys]
 
-    # ARTICOL_LIPSA
+    # Build map of article codes to devizes in offer (for cross-deviz checking)
+    offer_art_by_cod = defaultdict(list)
+    for oferta_art in oferta_articole:
+        cod = clean_code(oferta_art.get("cod", ""))
+        if cod:
+            offer_art_by_cod[cod].append(oferta_art)
+
+    # ARTICOL_LIPSA or ARTICOL_DEVIZ_DIFERIT
     for ref_art in still_unmatched_ref:
+        ref_cod = clean_code(ref_art.get("cod", ""))
         deviz_cod = ref_art.get("deviz", "")
         deviz_den = ref_art.get("deviz_denumire", "")
-        neconf = {
-            "tip": "ARTICOL_LIPSA",
-            "oferta_cod": "", "oferta_denumire": "", "oferta_um": "", "oferta_cantitate": "",
-        }
-        _enrich(neconf, ref_art, {}, deviz_cod, deviz_den)
-        neconformitati.append(neconf)
+
+        # Check if article exists in offer but in a different deviz
+        offer_arts_with_code = offer_art_by_cod.get(ref_cod, [])
+        offer_in_different_deviz = [a for a in offer_arts_with_code if a.get("deviz") != deviz_cod]
+
+        if offer_in_different_deviz:
+            # Article exists in offer but in different deviz(es)
+            # Report all instances to help user understand the discrepancy
+            for oferta_art in offer_in_different_deviz:
+                neconf = {
+                    "tip": "ARTICOL_DEVIZ_DIFERIT",
+                    "oferta_cod": oferta_art.get("cod", ""),
+                    "oferta_denumire": oferta_art.get("denumire", ""),
+                    "oferta_um": oferta_art.get("um", ""),
+                    "oferta_cantitate": oferta_art.get("cantitate", ""),
+                    "motiv": f"Articol {ref_cod} este in deviz {oferta_art.get('deviz')} (oferta) in loc de {deviz_cod} (referinta)"
+                }
+                _enrich(neconf, ref_art, oferta_art, deviz_cod, deviz_den)
+                neconformitati.append(neconf)
+        else:
+            # Article truly missing from offer
+            neconf = {
+                "tip": "ARTICOL_LIPSA",
+                "oferta_cod": "", "oferta_denumire": "", "oferta_um": "", "oferta_cantitate": "",
+            }
+            _enrich(neconf, ref_art, {}, deviz_cod, deviz_den)
+            neconformitati.append(neconf)
 
     # ARTICOL_EXTRA — instante neacoperite din oferta (chei nemat-uite + exces N:M)
     extras_to_report = [a for k in unmatched_oferta_keys for a in oferta_by_key[k]] + extra_from_nm
