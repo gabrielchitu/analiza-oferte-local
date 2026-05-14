@@ -366,6 +366,15 @@ def extract_document(di_path: Path, client, model: str) -> list:
 
         logger.info(f"  {len(articles_from_tables)} articole din tabele, {len(articles)} total dupa merge")
 
+    # Apply final deduplication for code suffix duplicates (e.g., $0156 vs $3270156)
+    # This handles cases where line extraction and table extraction both produce articles
+    # with the same deviz/cantitate/um but different (suffix-related) codes
+    from shared.f3_regex_parser import _deduplicate_by_code_suffix
+    articles_before = len(articles)
+    articles = _deduplicate_by_code_suffix(articles)
+    if len(articles) < articles_before:
+        logger.info(f"  Final deduplication: removed {articles_before - len(articles)} suffix-duplicate articles")
+
     return articles
 
 

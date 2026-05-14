@@ -347,6 +347,63 @@ def _preprocess_compound_um(lines: List[str]) -> List[str]:
     return result
 
 
+def _deduplicate_by_code_suffix(articole: List[Dict]) -> List[Dict]:
+    """
+    Deduplicates articles where one code is a suffix of another (same deviz, cantitate, um).
+
+    Example: $0853 is suffix of $2100853 — keep the longer code, remove the suffix variant.
+    Handles $ prefix: strips $ before comparing numeric suffixes.
+
+    Args:
+        articole: list of article dicts with fields: cod, deviz, cantitate, um, etc.
+
+    Returns:
+        Deduplicated list with suffix-duplicates removed.
+    """
+    from collections import defaultdict
+
+    # Group by (deviz, cantitate, um) to find candidates for deduplication
+    groups = defaultdict(list)
+    for idx, art in enumerate(articole):
+        key = (art.get('deviz', ''), art.get('cantitate', 0.0), art.get('um', ''))
+        groups[key].append((idx, art))
+
+    # Mark indices to remove
+    indices_to_remove = set()
+
+    for key, group in groups.items():
+        # Only check groups with multiple articles
+        if len(group) < 2:
+            continue
+
+        # Check each pair in the group for suffix relationship
+        for i in range(len(group)):
+            for j in range(i + 1, len(group)):
+                idx_i, art_i = group[i]
+                idx_j, art_j = group[j]
+
+                cod_i = art_i.get('cod', '')
+                cod_j = art_j.get('cod', '')
+
+                if not cod_i or not cod_j or cod_i == cod_j:
+                    continue
+
+                # Strip $ prefix for suffix comparison (breviar codes)
+                cod_i_cmp = cod_i.lstrip('$')
+                cod_j_cmp = cod_j.lstrip('$')
+
+                # Check if one code is a suffix of the other
+                if cod_i_cmp.endswith(cod_j_cmp):
+                    # cod_i is longer, cod_j is suffix → remove j (shorter)
+                    indices_to_remove.add(idx_j)
+                elif cod_j_cmp.endswith(cod_i_cmp):
+                    # cod_j is longer, cod_i is suffix → remove i (shorter)
+                    indices_to_remove.add(idx_i)
+
+    # Return articles excluding marked indices
+    return [art for idx, art in enumerate(articole) if idx not in indices_to_remove]
+
+
 def extract_articles_regex(lines: List[str], deviz_cod: str,
                            deviz_den: str) -> List[Dict]:
     """
@@ -948,6 +1005,13 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
     # Finalizează ultimul articol
     if state == _READING:
         _finalize()
+
+    # Deduplication: remove articles where code is suffix of another (e.g., $0853 vs $2100853)
+    # Same deviz, cantitate, UM but different codes → keep longest code
+    articole_before = len(articole)
+    articole = _deduplicate_by_code_suffix(articole)
+    if len(articole) < articole_before:
+        logger.info(f"[DEDUP] {deviz_cod}: removed {articole_before - len(articole)} suffix-duplicate articles")
 
     logger.info(f"[PARSER] {deviz_cod}: {len(articole)} articole extrase (regex)")
     return articole

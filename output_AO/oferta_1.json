@@ -2381,23 +2381,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$0853",
-      "denumire": "placa rbi 12,5 mm",
-      "um": "mp",
-      "cantitate": 82.16,
-      "deviz": "226218",
-      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
-      "is_component": false,
-      "pret_material": 17.0,
-      "val_material": 1396.72,
-      "pret_manopera": 13.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "CF10C1",
       "denumire": "glet aplicat pe tencuieli interioare driscuite sau pe suprafetele elementelor din beton glet de ipsos la pereti, stalpi si tavane, aplicat manual pe tencuieli interioare driscuite, executat cu pasta de ipsos ; antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mp",
@@ -10949,23 +10932,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$0853",
-      "denumire": "placa rbi 12,5 mm",
-      "um": "mp",
-      "cantitate": 250.64,
-      "deviz": "226418",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "is_component": false,
-      "pret_material": 17.0,
-      "val_material": 4260.88,
-      "pret_manopera": 13.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "CF10C1",
       "denumire": "glet aplicat pe tencuieli interioare driscuite sau pe suprafetele elementelor din beton glet de ipsos la pereti, stalpi si tavane, aplicat manual pe tencuieli interioare driscuite, executat cu pasta de ipsos ; antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mp",
@@ -17001,23 +16967,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$0853",
-      "denumire": "placa rbi 12,5 mm",
-      "um": "mp",
-      "cantitate": 24.96,
-      "deviz": "226518",
-      "deviz_denumire": "ARHITECTURA GRUPURI SANITARE PUBLICE",
-      "is_component": false,
-      "pret_material": 17.0,
-      "val_material": 10.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "CF10C1",
       "denumire": "glet aplicat pe tencuieli interioare driscuite sau pe suprafetele elementelor din beton glet de ipsos la pereti, stalpi si tavane, aplicat manual pe tencuieli interioare driscuite, executat cu pasta de ipsos ;",
       "um": "mp",
@@ -17048,23 +16997,6 @@
       "val_manopera": 0.0,
       "pret_utilaj": 1.41,
       "val_utilaj": 33.83,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "$0156",
-      "denumire": "amorsa pentru vopsea lavabila",
-      "um": "kg",
-      "cantitate": 2.4,
-      "deviz": "226518",
-      "deviz_denumire": "ARHITECTURA GRUPURI SANITARE PUBLICE",
-      "is_component": false,
-      "pret_material": 15.0,
-      "val_material": 36.0,
-      "pret_manopera": 12.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
       "pret_transport": 0.0,
       "val_transport": 0.0
     },
