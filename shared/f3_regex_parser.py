@@ -520,7 +520,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             return '$' + m.group(1), '', ''
         return None, None, ''
 
-    for raw_line in lines:
+    for line_idx, raw_line in enumerate(lines):
         line = raw_line.strip()
         if not line or SKIP_RE.search(line) or _PRICE_LABEL_RE.match(line):
             continue
@@ -782,7 +782,17 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 continue
 
             # NR_CRT nou (bare) → finalizează articolul curent
-            if _is_nr_crt(line, _READING, price_count, cantitate):
+            # SPECIAL CASE: Accept bare "NR_CRT" in READING even if incomplete (no UM/Qty yet)
+            # This handles the "split format" where code is on separate line (e.g., "001" then "EF03D1")
+            m_bare_nr = NR_CRT_RE.match(line)
+            if m_bare_nr and (not cod or cantitate == 0.0):
+                # If we have NO code or NO quantity yet, treat bare NR as the start of a split-format article
+                _finalize()
+                last_nr_crt = int(m_bare_nr.group(1))
+                state = _WAITING
+                waiting_lines = 0
+                continue
+            elif _is_nr_crt(line, _READING, price_count, cantitate):
                 _finalize()
                 last_nr_crt = int(NR_CRT_RE.match(line).group(1))
                 state = _WAITING
