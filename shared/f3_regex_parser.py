@@ -121,7 +121,8 @@ SKIP_RE = re.compile(
     r'Profit|TOTAL\s+GENERAL|TVA|contributie\s+asiguratorie|'
     r'Formular\s+generat\s+cu\s+programul|'
     r'Pagina\s+\d+\s+din\s+\d+|'
-    r'Deviz\s+["\']?\d+(?:\.\d+)?["\']?\s*[-–]?\s*Formular\s+F3)',
+    r'Deviz\s+["\']?\d+(?:\.\d+)?["\']?\s*[-–]?\s*Formular\s+F3|'
+    r'^\d+\s+pag|^pag\s|\bpag$)',
     re.IGNORECASE
 )
 # NR_CRT + COD_NORM/EXTENDED/SINGLE/NUMERIC + separator + descriere pe aceeași linie
