@@ -124,6 +124,17 @@ NR_COD_DESC_RE = re.compile(
     r'(?:[#>*@%]|\[\d*\]|ASIM|TSCH){0,2}[-]?\s*[-–]\s*(.+)$',
     re.IGNORECASE
 )
+# NR_CRT directly concatenated with CODE (no separator): "3CF41B01* - Tencuiala..."
+# Handles cases where OCR didn't preserve whitespace between NR_CRT and code
+NR_COD_CONCAT_RE = re.compile(
+    r'^(\d{1,3})'
+    r'([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?'
+    r'|[A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z]?\d?'
+    r'|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}'
+    r'|\d{4,8})'
+    r'([#>*@%^]?)\s*[-–]\s*(.+)$',
+    re.IGNORECASE
+)
 # Etichete de sectiune pret in format eDevize — NU sunt denumire articol
 _PRICE_LABEL_RE = re.compile(r'^(material|manopera|utilaj|transport)\s*:', re.IGNORECASE)
 
@@ -574,17 +585,32 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                     state = _READING
                     waiting_lines = 0
                 else:
-                    # Format cod direct fără NR_CRT (ex: "3270513 - BANDA AVERTIZARE...")
-                    # Încearcă să parseze ca cod articol direct
-                    parsed_cod, parsed_den, parsed_um_hint = _try_parse_cod(line)
-                    if parsed_cod:
-                        cod = parsed_cod
-                        denumire_parts = [parsed_den] if parsed_den else []
-                        um = parsed_um_hint
+                    # Format "NRCOD* - DESCRIERE" (concatenated, no separator)
+                    m_concat = NR_COD_CONCAT_RE.match(line)
+                    if m_concat:
+                        last_nr_crt = int(m_concat.group(1))
+                        raw_cod = (m_concat.group(2) + (m_concat.group(3) or '')).upper()
+                        raw_cod = re.sub(r'[-@%>#*^]+$|\s*\[\d*\]?\s*$', '', raw_cod)
+                        raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
+                        cod = raw_cod
+                        denumire_parts = [m_concat.group(4).strip()] if m_concat.group(4) else []
+                        um = ''
                         cantitate = 0.0
                         preturi = []
                         state = _READING
                         waiting_lines = 0
+                    else:
+                        # Format cod direct fără NR_CRT (ex: "3270513 - BANDA AVERTIZARE...")
+                        # Încearcă să parseze ca cod articol direct
+                        parsed_cod, parsed_den, parsed_um_hint = _try_parse_cod(line)
+                        if parsed_cod:
+                            cod = parsed_cod
+                            denumire_parts = [parsed_den] if parsed_den else []
+                            um = parsed_um_hint
+                            cantitate = 0.0
+                            preturi = []
+                            state = _READING
+                            waiting_lines = 0
                     # altfel ignora orice linie în IDLE
 
         # ── WAITING_ARTICLE ──────────────────────────────────────────────────
@@ -718,6 +744,21 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
                 cod = raw_cod
                 denumire_parts = [m_ncd.group(3).strip()] if m_ncd.group(3) else []
+                um = ''; cantitate = 0.0; preturi = []
+                state = _READING
+                continue
+
+            # Format "NRCOD* - DESC" (concatenated NR+CODE, no separator) in READING
+            # Handles OCR artifacts where whitespace was lost: "3CF41B01* - Tencuiala..."
+            m_concat = NR_COD_CONCAT_RE.match(line)
+            if m_concat:
+                _finalize()
+                last_nr_crt = int(m_concat.group(1))
+                raw_cod = (m_concat.group(2) + (m_concat.group(3) or '')).upper()
+                raw_cod = re.sub(r'[-@%>#*^]+$|\s*\[\d*\]?\s*$', '', raw_cod)
+                raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
+                cod = raw_cod
+                denumire_parts = [m_concat.group(4).strip()] if m_concat.group(4) else []
                 um = ''; cantitate = 0.0; preturi = []
                 state = _READING
                 continue
