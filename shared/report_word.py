@@ -327,6 +327,8 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict) -> None:
         for cell in row: _set_cell_shading(cell, YELLOW_FILL)
     if tip == "COD_SIMILAR":
         for cell in row: _set_cell_shading(cell, ORANGE_FILL)
+    if tip == "ARTICOL_LIPSA":
+        for cell in row: _set_cell_shading(cell, "FFB3B3")  # Light red for missing articles
     if tip == "ARTICOL_EXTRA":
         for cell in row: _set_cell_shading(cell, YELLOW_FILL)
     if tip == "ARTICOL_ORPHAN":
