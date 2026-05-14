@@ -52,6 +52,9 @@ def _normalize_cod(cod: str) -> str:
     cod = (cod or "").strip().upper()
     # OCR fix: lowercase 'l' often confused with digit '1'
     cod = cod.replace('l', '1').replace('L', '1')
+    # OCR fix: letter 'I' often confused with digit '1' — normalize I to 1
+    # SA13I# vs SA131# should be treated as identical
+    cod = cod.replace('I', '1')
     # OCR fix: letter 'O' often confused with digit '0' — normalize to '0'
     # IZDO4D1 → IZD04D1 (O becomes 0 in PDF)
     cod = cod.replace('O', '0')

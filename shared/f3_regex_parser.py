@@ -121,7 +121,7 @@ NR_COD_DESC_RE = re.compile(
     r'|[A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z]?\d?'
     r'|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}'
     r'|\d{4,8}(?:[@]|\[\d+\])?)'
-    r'(?:[#>*@%]|\[\d*\]|ASIM|TSCH){0,2}[-]?\s*[-–]\s*(.+)$',
+    r'(?:[#>*@%^+]|\[\d*\]|ASIM|TSCH){0,2}[-]?\s*[-–]\s*(.+)$',
     re.IGNORECASE
 )
 # NR_CRT directly concatenated with CODE (no separator): "3CF41B01* - Tencuiala..."
@@ -753,7 +753,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             if m_ncd:
                 _finalize()
                 last_nr_crt = int(m_ncd.group(1))
-                raw_cod = re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m_ncd.group(2).upper())
+                raw_cod = re.sub(r'[-@%>#*^]+$|\s*\[\d*\]?\s*$', '', m_ncd.group(2).upper())
                 raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
                 cod = raw_cod
                 denumire_parts = [m_ncd.group(3).strip()] if m_ncd.group(3) else []
