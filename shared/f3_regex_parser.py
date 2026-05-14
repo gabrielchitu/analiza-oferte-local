@@ -694,8 +694,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 continue
 
             # Cod nou cu separator – fără NR_CRT explicit (ex: "30172 - Transport" sau "TRA01A20")
-            # Finalizează articolul curent și pornește unul nou
+            # BUT: if current article is incomplete (no UM/Qty), treat it as denomination continuation
+            # Example: "D20mm" after "6701166 - Teava..." should be description, not new code
             parsed_cod, parsed_den, parsed_um_hint = _try_parse_cod(line)
+            if parsed_cod and um == '' and cantitate == 0.0:
+                # Current article is incomplete — treat this as denomination continuation, not new code
+                parsed_cod = None
             # Check both code patterns WITH separators and standalone code patterns.
             # COD_NORM_STANDALONE_RE se verifica pe string-ul normalizat (bracket-uri lipite)
             # deoarece _try_parse_cod normalizeaza intern "IA22C1 [1]" → "IA22C1[1]".
