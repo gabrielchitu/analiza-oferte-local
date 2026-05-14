@@ -543,9 +543,11 @@ def generate_word(
                 row_nr += 1
                 _add_neconf_row(table, row_nr, neconf, deviz_map)
 
-            # Summary row (ref=0 since no reference baseline for this deviz)
+            # Summary row: use actual ref/oferta totals from full article lists
+            ref_total = _ref_deviz_totals.get(deviz_cod, 0)
             offer_total = _oferta_deviz_totals.get(deviz_cod, 0)
-            _add_deviz_summary_row(table, row_nr + 1, 0, 0, offer_total)
+            neconf_count = len(extra_items)  # count of extra articles only
+            _add_deviz_summary_row(table, row_nr + 1, neconf_count, ref_total, offer_total)
             row_nr += 1
 
         _set_col_widths(table)
