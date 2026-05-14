@@ -521,11 +521,11 @@ def generate_word(
                     row_nr += 1
                     _add_neconf_row(table, row_nr, neconf, deviz_map)
 
-            # Single summary row at the end of this deviz block (after both normale and extras)
+            # Single summary row at the end of this deviz block
             all_neconf_items = items + extra_items
-            # Count EVERY non-conformity record (not unique articles)
-            neconf_count = len(all_neconf_items)
-            ref_total = _ref_deviz_totals.get(deviz_cod, 0)
+            neconf_ref_arts = {nc.get('ref_cod') for nc in all_neconf_items if nc.get('ref_cod')}
+            neconf_count = len(neconf_ref_arts)
+            ref_total = _ref_deviz_totals.get(deviz_cod, 0) or neconf_count
             offer_total = _oferta_deviz_totals.get(deviz_cod, 0)
             _add_deviz_summary_row(table, row_nr + 1, neconf_count, ref_total, offer_total)
             row_nr += 1
