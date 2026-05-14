@@ -98,56 +98,44 @@ Article code W3H18C1 exists in the offer PDF at position 93, but is not extracte
 
 ---
 
-## Issue 3: 5858393 Not Extracted from Deviz 226218
+## Issue 3: 5858393 Not Extracted from Deviz 226218 — **RESOLVED**
 
 ### Description
 
-Article code 5858393 exists in the reference PDF (deviz 226218) but is not being extracted. The article is visible in the PDF but missing from the final extraction output.
+Article code 5858393 from deviz 226218 was not being extracted due to BARE_L_RE pattern interfering with UM detection.
 
-### Current Behavior
+### Root Cause
 
-**PDF Content (Page 30, Lines 44-47):**
+The BARE_L_RE pattern (line 102: `^L\s*$`) was designed to match linked article markers (N.L format), but it also matched "L" when appearing as a Unit of Measure (liter).
+
+When parsing article "031 5858393":
+1. Line "031 5858393" → state = READING, code = $5858393
+2. Line "L" → matched BARE_L_RE pattern
+3. Article finalized prematurely (line 604-605) **before UM detection could run**
+4. Result: Hollow article (no UM/quantity), filtered out
+
+### Solution
+
+Modified BARE_L_RE check (line 603) to skip when in READING state with incomplete article:
+```python
+if m_bare_l and not (state == _READING and cod and not um):
+    # Only treat "L" as linked marker if NOT reading incomplete article
 ```
-031 5858393         (NR_CRT + numeric code)
-L                   (UM: liter)
-317.700             (price/quantity)
-Solutie de protectie a lemnului tip  (denomination: wood protection solution)
-```
 
-**Extraction Status:**
-- NR_NUMERIC_INLINE_RE pattern matches "031 5858393" correctly
-- Article is extracted as **hollow**:
-  - Code: $5858393 ✓
-  - UM: (empty) ✗
-  - Quantity: 0.0 ✗
-  - Denomination: (empty) ✗
-- Hollow article is filtered out before final output
-- Result: 5858393 **NOT present** in reference.json
+This allows "L" to be processed as UM by the detection code at line 928-933.
 
-### Root Cause Analysis
+### Verification
 
-1. **Pattern Matching:** Works correctly (NR_NUMERIC_INLINE_RE matches)
-2. **State Transition:** Article enters READING state after code extraction
-3. **UM Detection Failure:** Line "L" is not being recognized as UM despite:
-   - "L" is in UM_KNOWN list
-   - _is_valid_um("L") returns True
-   - Code path at line 928-933 should trigger
-4. **Result:** Article finalized without UM/quantity/denomination data, then filtered
+**After Fix (2026-05-14):**
+- Code: $5858393 ✓
+- UM: l (liter) ✓
+- Quantity: 317.7 ✓
+- Denomination: solutie de protectie a lemnului tip ✓
+- Article **now present** in reference.json with deviz 226218
 
-### Example Code Pattern
+### Files Modified
 
-Similar numeric codes that **DO** extract correctly:
-- $2100833, $2100843, $2100853, $2101131, etc.
-
-### Files Involved
-
-- `shared/f3_regex_parser.py::extract_articles_regex()` — UM detection (lines 928-933)
-- `shared/f3_regex_parser.py::_is_valid_um()` — UM validation logic
-- `local_run.py::extract_document()` — article filtering/finalization
-
-### Current Decision
-
-**Documented for investigation** — Likely state machine or condition issue preventing UM capture for this specific format. Similar to the now-fixed bare-integer quantity issue (Issue from 2026-05-14 session).
+- `shared/f3_regex_parser.py:603-604` — Added condition to BARE_L_RE check
 
 ---
 
