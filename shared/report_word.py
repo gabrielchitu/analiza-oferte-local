@@ -534,19 +534,16 @@ def generate_word(
             deviz_cod = str(deviz_key)
             deviz_den = deviz_map.get(deviz_cod, "")
             n_extra = extra_by_deviz.get(deviz_cod, 0)
-            _add_deviz_heading(table, deviz_cod, deviz_den,
-                               ref_count=0, oferta_count=n_extra)
+            _add_deviz_heading(table, deviz_cod, deviz_den, ref_count=0, oferta_count=n_extra)
             _add_extra_subheader(table)
             extra_items = extra_per_deviz[deviz_key]
             for neconf in extra_items:
                 row_nr += 1
                 _add_neconf_row(table, row_nr, neconf, deviz_map)
 
-            # Summary row for only-extra deviz (count all extra records, ref=0 since no reference baseline)
-            extra_count = len(extra_items)
-            ref_total = _ref_deviz_totals.get(deviz_cod, 0)
+            # Summary row (ref=0 since no reference baseline for this deviz)
             offer_total = _oferta_deviz_totals.get(deviz_cod, 0)
-            _add_deviz_summary_row(table, row_nr + 1, extra_count, ref_total, offer_total)
+            _add_deviz_summary_row(table, row_nr + 1, 0, 0, offer_total)
             row_nr += 1
 
         _set_col_widths(table)
