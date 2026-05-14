@@ -16,20 +16,31 @@ from shared.article_matcher import match_unmatched_global
 logger = logging.getLogger(__name__)
 
 
+def _strip_special_chars(cod: str) -> str:
+    """
+    Strips special characters (^, #, @, -, etc.) from code without aggressive replacements.
+    Safe for matching codes like "CK01A01^" → "CK01A01"
+    Does NOT apply OCR replacements (O→0, l→1) which break valid codes like "CO01A01"
+    """
+    cod = (cod or "").strip().upper()
+    # Only remove actual special characters, keep alphanumeric and $
+    return re.sub(r'[^A-Z0-9$]', '', cod)
+
+
 def _normalize_cod(cod: str) -> str:
     """
     Extrage codul de baza, ignorand sufixele OCR/variante (#, -, @, ASIM etc.).
     Breviar propriu ($01063) — pastreaza prefixul $ + digits.
     Cod normativ (SA14B#, RPCR21A#-) — extrage doar baza standard.
-    Handles OCR confusion: lowercase 'l' (letter L) → '1' (digit one).
-    OCR confusion: letter 'O' → '0' (digit zero) and vice versa.
+
+    Special characters (^, #, @, etc.) should be stripped via _strip_special_chars BEFORE calling this.
     """
     cod = (cod or "").strip().upper()
     # OCR fix: lowercase 'l' often confused with digit '1'
-    cod = cod.replace('l', '1').replace('L', '1')
-    # OCR fix: letter 'O' often confused with digit '0' — normalize to '0'
-    # IZDO4D1 → IZD04D1 (O becomes 0 in PDF)
-    cod = cod.replace('O', '0')
+    # Only apply to lowercase 'l' which is clearly an OCR error (uppercase L is part of valid codes)
+    cod = cod.replace('l', '1')
+    # NOTE: Removed O→0 replacement as it breaks valid codes like CO01A01
+    # Codes with special characters should be handled via _strip_special_chars before normalization
     if cod.startswith('$'):
         num = re.sub(r'[^0-9]', '', cod[1:])  # extrage doar cifrele
         if len(num) >= 8:
@@ -127,12 +138,12 @@ def _deviz_key(art: dict) -> str:
 def _art_key(art: dict) -> tuple:
     """Cheia compusa (deviz, cod) pentru un articol.
 
-    Now uses (deviz_code, normalized_cod) which is reliable and matches across
-    reference and oferta without OCR variation issues.
-    Normalized cod strips special characters (^, #, @, etc.) so matching works
-    even when reference has "CK01A01^" and offer has "CK01A01".
+    Uses (deviz_code, cod_stripped) for exact Layer 1 matching.
+    Special character handling is done in Layer 2 normalization and Layer 3 fuzzy matching.
     """
-    return (_deviz_key(art), _normalize_cod(art.get("cod") or ""))
+    # Only strip whitespace, don't apply OCR normalization which breaks valid codes
+    # (e.g., CO01A01 should NOT become C001A01)
+    return (_deviz_key(art), (art.get("cod") or "").strip())
 
 
 def match_global(
@@ -240,7 +251,9 @@ def match_global(
     norm_to_oferta_key = {}
     for ok in unmatched_oferta_keys:
         deviz, cod = ok
-        norm = (deviz, _normalize_cod(cod))
+        # Strip special characters first (safe), then apply aggressive OCR normalization
+        cod_stripped = _strip_special_chars(cod)
+        norm = (deviz, _normalize_cod(cod_stripped))
         if norm not in norm_to_oferta_key:
             norm_to_oferta_key[norm] = ok
 
@@ -248,7 +261,8 @@ def match_global(
     ref_by_norm: dict = defaultdict(list)
     still_unmatched_ref = []
     for ref_art in unmatched_ref:
-        norm_key = (_deviz_key(ref_art), _normalize_cod(ref_art.get("cod", "")))
+        cod_stripped = _strip_special_chars(ref_art.get("cod", ""))
+        norm_key = (_deviz_key(ref_art), _normalize_cod(cod_stripped))
         if norm_key in norm_to_oferta_key:
             ref_by_norm[norm_key].append(ref_art)
         else:
