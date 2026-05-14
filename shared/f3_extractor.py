@@ -96,6 +96,10 @@ Exista doua tipuri de coduri valide pentru SIMBOL_ARTICOL:
 
 Reguli IMPORTANTE:
 - Extrage AMBELE tipuri de articole: coduri normative SI coduri cu $ (articole proprii)
+- SUB-ARTICOLE CU MARKER DECIMAL: Liniile cu numere precum "23.1", "61.1", "52.1" sunt markeri de SUB-ARTICOLE
+  distincte (nu sunt comentarii sau variante). Fiecare marker decimal introduce un ARTICOL NOU cu cod, UM si
+  cantitate proprii. Exemplu: "23" (articol IZF13A01 cu cant=175) urmat de "23.1" (articol 4321431 cu cant=176.75)
+  sunt DOI articoli separati si trebuie amandoi extrasi.
 - ARTICOLE LA LIMITE DE PAGINA: Articolele pot fi urmate direct de footer (Deviz "X.X" - Formular F3, Pagina N din M).
   Ignora footer-ul dar PASTREAZA articolul complet cu codul, UM si cantitate.
   Exemplu: "2100995 - Beton...\nmc\n8.100\nDeviz "2.2" - Formular F3" → extrage 2100995 cu UM=mc, cant=8.100
