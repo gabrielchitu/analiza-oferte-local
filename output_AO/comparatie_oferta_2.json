@@ -1705,27 +1705,6 @@
       "oferta_cantitate": "",
       "deviz_ref": "2.1",
       "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
-      "ref_cod": "CO03A01",
-      "ref_denumire": "dop de bitum",
-      "ref_um": "ml",
-      "ref_cantitate": 320.0,
-      "ref_pret_material": 0.0,
-      "ref_pret_manopera": 0.0,
-      "ref_pret_utilaj": 0.0,
-      "ref_pret_transport": 0.0,
-      "ref_val_material": 0.0,
-      "ref_val_manopera": 0.0,
-      "ref_val_utilaj": 0.0,
-      "ref_val_transport": 0.0
-    },
-    {
-      "tip": "ARTICOL_LIPSA",
-      "oferta_cod": "",
-      "oferta_denumire": "",
-      "oferta_um": "",
-      "oferta_cantitate": "",
-      "deviz_ref": "2.1",
-      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
       "ref_cod": "W3H18C1",
       "ref_denumire": "profil de inchidere atic - zincat, vopsit culoare ral 9003, latime: 300 mm, inclusiv accesorii de montaj conf specificatiilor producatorului montaj flotant.",
       "ref_um": "ml",
@@ -1997,28 +1976,6 @@
       "deviz_denumire": "MONTAJ ECHIPAMENTE",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "RCSB15A",
-      "oferta_denumire": "montare sursa suplimentara de incalzire (incalzitor electric 15 kw)",
-      "oferta_um": "buc",
-      "oferta_cantitate": 1.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "9.1",
-      "deviz_denumire": "MONTAJ ECHIPAMENTE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "RPIA23G",
-      "oferta_denumire": "montat puffer 300 litri",
-      "oferta_um": "buc",
-      "oferta_cantitate": 1.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "9.1",
-      "deviz_denumire": "MONTAJ ECHIPAMENTE",
-      "ref_cod": "",
-      "ref_denumire": "",
       "oferta_cod": "ACA09A05",
       "oferta_denumire": "montare filtru magnetita tip hx 1' 1/4",
       "oferta_um": "buc",
@@ -2030,10 +1987,43 @@
       "deviz_denumire": "MONTAJ ECHIPAMENTE",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "IA01D01",
-      "oferta_denumire": "montare aeroterma pe agent termic",
+      "oferta_cod": "IA11A01",
+      "oferta_denumire": "montaj pompa de circulatie agent termic",
       "oferta_um": "buc",
-      "oferta_cantitate": 3.0
+      "oferta_cantitate": 4.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "3.1",
+      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$8527072",
+      "oferta_denumire": "placi gips-carton cu rez.sporita la foc 25 mm 1250/2000",
+      "oferta_um": "mp",
+      "oferta_cantitate": 1.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "9.1",
+      "deviz_denumire": "MONTAJ ECHIPAMENTE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "IB17C1",
+      "oferta_denumire": "montare generator de curent, trifazat, diesel, putere 15kva",
+      "oferta_um": "buc",
+      "oferta_cantitate": 1.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "9.1",
+      "deviz_denumire": "MONTAJ ECHIPAMENTE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "RCSB15A",
+      "oferta_denumire": "montare sursa suplimentara de incalzire (incalzitor electric 15 kw)",
+      "oferta_um": "buc",
+      "oferta_cantitate": 1.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2059,13 +2049,13 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "3.1",
-      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
+      "deviz_ref": "9.1",
+      "deviz_denumire": "MONTAJ ECHIPAMENTE",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$8527072",
-      "oferta_denumire": "placi gips-carton cu rez.sporita la foc 25 mm 1250/2000",
-      "oferta_um": "mp",
+      "oferta_cod": "RPIA23G",
+      "oferta_denumire": "montat puffer 300 litri",
+      "oferta_um": "buc",
       "oferta_cantitate": 1.0
     },
     {
@@ -2074,21 +2064,10 @@
       "deviz_denumire": "MONTAJ ECHIPAMENTE",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "IA11A01",
-      "oferta_denumire": "montaj pompa de circulatie agent termic",
+      "oferta_cod": "IA01D01",
+      "oferta_denumire": "montare aeroterma pe agent termic",
       "oferta_um": "buc",
-      "oferta_cantitate": 4.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "9.1",
-      "deviz_denumire": "MONTAJ ECHIPAMENTE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "IB17C1",
-      "oferta_denumire": "montare generator de curent, trifazat, diesel, putere 15kva",
-      "oferta_um": "buc",
-      "oferta_cantitate": 1.0
+      "oferta_cantitate": 3.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2113,7 +2092,7 @@
       "oferta_cantitate": 15.0
     }
   ],
-  "total_neconformitati": 78,
-  "matches": 898,
+  "total_neconformitati": 77,
+  "matches": 899,
   "deviz_mismatches": []
 }

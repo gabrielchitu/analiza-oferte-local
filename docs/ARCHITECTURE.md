@@ -1,7 +1,7 @@
 # Arhitectura și Logica Codului — Analizator Oferte Constructii
 
-**Ultima actualizare:** 2026-05-12  
-**Tag stabil:** `V2_2026.06.12`
+**Ultima actualizare:** 2026-05-14  
+**Tag stabil:** `v4` (2026-05-14) — Report reorganization, deviz-grouped summaries, LIPSA highlighting
 
 ---
 

@@ -1361,6 +1361,23 @@
       "val_transport": 0.0
     },
     {
+      "cod": "C003A01",
+      "denumire": "dop de bitum devize (www.edevize.ro)",
+      "um": "ml",
+      "cantitate": 320.0,
+      "deviz": "2.1",
+      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
+      "is_component": false,
+      "pret_material": 2882.0,
+      "val_material": 0.0,
+      "pret_manopera": 0.0,
+      "val_manopera": 0.0,
+      "pret_utilaj": 0.0,
+      "val_utilaj": 0.0,
+      "pret_transport": 0.0,
+      "val_transport": 0.0
+    },
+    {
       "cod": "RCSH10C",
       "denumire": "profil decorativ tip ancadrament din duropolimer sau polistiren cu densitate mare acoperit cu rasini sintetice",
       "um": "ml",
