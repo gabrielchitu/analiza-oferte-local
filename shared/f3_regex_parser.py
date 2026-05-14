@@ -82,6 +82,8 @@ NR_SINGLE_INLINE_RE = re.compile(
 )
 # NR_CRT: integer 1-999 singur pe linie
 NR_CRT_RE = re.compile(r'^(\d{1,3})$')
+# NR_SUBITEM: decimal sub-article marker (ex: "34.1", "23.1" in breviar tables)
+NR_SUBITEM_RE = re.compile(r'^(\d{1,3}\.\d{1})$')
 # NR_LINKED: articol legat ISDP — "N.L" sau "N.M.L" singur pe linie (ex: "6.L", "11.1.L", "11.2.L")
 NR_LINKED_RE = re.compile(r'^(\d{1,3})(?:\.\d+)?\.L\s*$', re.IGNORECASE)
 # BARE_L: standalone "L" marker pe linie (articole legate ISDP in format multi-line)
@@ -159,6 +161,17 @@ def _is_price_line(line):
     # or common price indicators
     price_pattern = r'^\s*\d+[.,]\d{2}\s*$|RON|EUR|USD|lei|\$|€'
     return bool(re.search(price_pattern, line.strip()))
+
+
+def _is_model_reference(line: str) -> bool:
+    """
+    Check if a line is a model/reference number (like 'ni522', 'MF100', etc.)
+    that should be skipped — it's not a denomination, UM, or quantity.
+
+    Pattern: 2-3 letters followed by 2-4 digits, no spaces.
+    Examples: ni522, MF100, TX50, etc.
+    """
+    return bool(re.match(r'^[A-Z]{2,3}\d{2,4}$', line.strip(), re.IGNORECASE))
 
 
 def _parse_number(s: str) -> float:
@@ -498,6 +511,21 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             _after_linked = True
             continue
 
+        # NR_SUBITEM handler: decimal sub-article marker like "34.1", "23.1"
+        # These appear in breviar tables as sub-items under a main article
+        m_subitem = NR_SUBITEM_RE.match(line)
+        if m_subitem:
+            if state == _READING:
+                _finalize()
+            # Extract base article number from "34.1" → 34
+            subitem_str = m_subitem.group(1)
+            base_nr = int(subitem_str.split('.')[0])
+            last_nr_crt = base_nr
+            cod = ''; denumire_parts = []; um = ''; cantitate = 0.0; preturi = []
+            state = _WAITING
+            waiting_lines = 0
+            continue
+
         price_count = len(preturi)
 
         # ── IDLE ─────────────────────────────────────────────────────────────
@@ -650,6 +678,11 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 preturi = []
                 state = _READING
                 waiting_lines = 0
+                continue
+
+            # Skip model/reference numbers (like "ni522", "MF100") that appear between
+            # article description and actual UM — they're not denomination text
+            if _is_model_reference(line):
                 continue
 
             # NR_CRT nou (bare) → finalizează articolul curent
