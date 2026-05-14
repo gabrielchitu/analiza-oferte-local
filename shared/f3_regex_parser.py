@@ -136,7 +136,12 @@ SKIP_RE = re.compile(
     r'Valoare\s+aferenta|'
     r'PROIECTANT|ORIGEN\s+STUDIE|'
     r'SIGN\s+|S\.\s+C\.\s+|Artisan|-\s+proiect|424|'
-    r'STE[\-\s]|TARGO|DAMBO)',
+    r'STE[\-\s]|TARGO|DAMBO|'
+    r'\d{3}-?rev[/\s]+\d{4}|'  # Project version codes like "424-rev/2024" or "424 rev 2024"
+    r'[A-Z\s]*S\.R\.L\.|[A-Z]{2,}\s+SRL|'  # Company names with SRL/S.R.L.
+    r'(?:proiect|project)\s+(?:initial|inițial|integral|actualizat|updated)|'  # Project status phrases
+    r'-\s+(?:proiect|project)|'  # "- proiect..." lines from watermarks
+    r'(?:design|studio|solutions?)(?:\s+|\.)*s\.?r\.?l\.?)',  # Design/studio company names
     re.IGNORECASE
 )
 # NR_CRT + COD_NORM/EXTENDED/SINGLE/NUMERIC + separator + descriere pe aceeași linie
@@ -782,11 +787,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 continue
 
             # NR_CRT nou (bare) → finalizează articolul curent
-            # SPECIAL CASE: Accept bare "NR_CRT" in READING even if incomplete (no UM/Qty yet)
+            # SPECIAL CASE: Accept bare "NR_CRT" in READING only if NO CODE YET
             # This handles the "split format" where code is on separate line (e.g., "001" then "EF03D1")
+            # BUT: if we already have a code but missing quantity, treat the number as quantity, not new NR_CRT
             m_bare_nr = NR_CRT_RE.match(line)
-            if m_bare_nr and (not cod or cantitate == 0.0):
-                # If we have NO code or NO quantity yet, treat bare NR as the start of a split-format article
+            if m_bare_nr and not cod:
+                # If we have NO code yet, treat bare NR as the start of a split-format article
                 _finalize()
                 last_nr_crt = int(m_bare_nr.group(1))
                 state = _WAITING
@@ -908,6 +914,13 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 if not _is_nr_crt(line, _READING, price_count, cantitate):
                     cantitate = float(val)
                     continue
+
+            # Trailing decimal zeros on separate line (e.g., "306" then "000" → 306.000)
+            # Format split: cantidad integer on one line, decimals on next (page breaks, watermarks)
+            if cantitate > 0.0 and um and line == '000':
+                # Concatenate trailing zeros to form decimal: 306 + "000" → 306.000
+                cantitate = float(f"{int(cantitate)}.000")
+                continue
 
             # Preț/valoare numerică
             if PRET_RE.match(line) and not _is_nr_crt(line, _READING, price_count, cantitate):
