@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 # Sufixe acceptate: # > * @ % și [1] [2] ]1 cu optional - trailing
 # Include si sufixe designator normativ: ASIM, TSCH (TCB40B1ASIM, CG08A#ASIM)
 # Permite combinatii: '#' urmat opțional de ASIM/TSCH (ex: CG08A#ASIM)
-_COD_SUFFIX = r'(?:[#>*@%]|\[\d*\]|[\[\]]\d*)?(?:ASIM|TSCH)?[-]?'
+_COD_SUFFIX = r'(?:[#>*@%^]|\[\d*\]|[\[\]]\d*)?(?:ASIM|TSCH)?[-]?'
 COD_NORM_RE = re.compile(
     r'^([A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?' + _COD_SUFFIX + r')\s*[-–]\s*(.+)',
     re.IGNORECASE
@@ -406,18 +406,18 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             m = pattern.match(s)
             if m:
                 cod_raw = m.group(1).strip().upper()
-                # Strip trailing artifacts: -, >, *, @, %, #
-                cod_raw = re.sub(r'[-@%>#*]+$', '', cod_raw)
+                # Strip trailing artifacts: -, >, *, @, %, #, ^
+                cod_raw = re.sub(r'[-@%>#*^]+$', '', cod_raw)
                 # Strip bracket suffix complet: [1], [1], [1 etc.
                 cod_raw = re.sub(r'\s*\[\d*\]?\s*$', '', cod_raw)
                 # Strip designatori normativi lipiti (ASIM, TSCH): TCB40B1ASIM → TCB40B1
                 cod_raw = re.sub(r'(?:ASIM|TSCH)$', '', cod_raw).strip()
-                cod_raw = re.sub(r'[-@%>#*]+$', '', cod_raw)  # al 2-lea pass: CG08A#ASIM → CG08A
+                cod_raw = re.sub(r'[-@%>#*^]+$', '', cod_raw)  # al 2-lea pass: CG08A#ASIM → CG08A
                 return cod_raw, m.group(2).strip(), ''
         # Cod normativ singur pe linie (simple, extended, single-letter) — cu sufixe opționale
         def _parse_standalone(m):
             cod_raw = m.group(1).strip().upper()
-            cod_raw = re.sub(r'[-@%>#*]+$', '', cod_raw)
+            cod_raw = re.sub(r'[-@%>#*^]+$', '', cod_raw)
             cod_raw = re.sub(r'\s*\[\d*\]?\s*$', '', cod_raw)
             cod_raw = re.sub(r'(?:ASIM|TSCH)$', '', cod_raw).strip()
             # Extrage UM din tokenii sufixe (grup 2 = " ASIM BUC." etc.)
@@ -535,7 +535,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 m_ncd = NR_COD_DESC_RE.match(line)
                 if m_ncd:
                     last_nr_crt = int(m_ncd.group(1))
-                    raw_cod = re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m_ncd.group(2).upper())
+                    raw_cod = re.sub(r'[-@%>#*^]+$|\s*\[\d*\]?\s*$', '', m_ncd.group(2).upper())
                     raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
                     cod = raw_cod
                     denumire_parts = [m_ncd.group(3).strip()] if m_ncd.group(3) else []
@@ -611,7 +611,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                     m_ncd = NR_COD_DESC_RE.match(line)
                     if m_ncd:
                         last_nr_crt = int(m_ncd.group(1))
-                        raw_cod = re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m_ncd.group(2).upper())
+                        raw_cod = re.sub(r'[-@%>#*^]+$|\s*\[\d*\]?\s*$', '', m_ncd.group(2).upper())
                         raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
                         cod = raw_cod
                         denumire_parts = [m_ncd.group(3).strip()] if m_ncd.group(3) else []
