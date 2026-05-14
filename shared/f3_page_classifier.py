@@ -114,8 +114,9 @@ def _extract_deviz_from_stadiul_fizic(text: str) -> tuple[str, str]:
     text = re.sub(r'^(?:oferta\s+)?', '', text.strip(), flags=re.IGNORECASE)
     # Pentru eDevize, elimina prefixul numeric NNN (ex: "001 226108 STRUCTURA" → "226108 STRUCTURA")
     text = re.sub(r'^\d{1,3}\s+', '', text.strip())
-    # Cauta codul (primul token de 5-8 alfanumerice)
-    m = re.match(r'([A-Z0-9]{5,8})\s*(.*)', text, re.IGNORECASE)
+    # Cauta codul (primul token de 5-8 alfanumerice care contine cel putin o cifra)
+    # Evita matching de cuvinte pure (ex: "DINTRE") prin cerinta de cel putin una cifra
+    m = re.match(r'((?=.*\d)[A-Z0-9]{5,8})\s*(.*)', text, re.IGNORECASE)
     if m:
         return m.group(1).upper(), m.group(2).strip()
 

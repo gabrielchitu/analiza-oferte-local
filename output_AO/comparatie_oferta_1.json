@@ -543,6 +543,36 @@
     },
     {
       "tip": "COD_SIMILAR",
+      "motiv_similaritate": "Cod similar: referinta '$2222224', ofertat '$22222242'",
+      "deviz_ref": "226528",
+      "deviz_denumire": "INSTALATII SANITARE OB.5",
+      "ref_cod": "$2222224",
+      "ref_denumire": "oglinda",
+      "ref_um": "buc",
+      "ref_cantitate": 1.0,
+      "ref_pret_material": 0.0,
+      "ref_pret_manopera": 0.0,
+      "ref_pret_utilaj": 0.0,
+      "ref_pret_transport": 0.0,
+      "ref_val_material": 0.0,
+      "ref_val_manopera": 0.0,
+      "ref_val_utilaj": 0.0,
+      "ref_val_transport": 0.0,
+      "oferta_cod": "$22222242",
+      "oferta_denumire": "oglinda cu rama aluminiu",
+      "oferta_um": "buc",
+      "oferta_cantitate": 4.0,
+      "oferta_pret_material": 286.96,
+      "oferta_pret_manopera": 0.0,
+      "oferta_pret_utilaj": 0.0,
+      "oferta_pret_transport": 0.0,
+      "oferta_val_material": 1147.82,
+      "oferta_val_manopera": 0.0,
+      "oferta_val_utilaj": 0.0,
+      "oferta_val_transport": 0.0
+    },
+    {
+      "tip": "COD_SIMILAR",
       "motiv_similaritate": "Cod similar: referinta '$2222213', ofertat '$22222131'",
       "deviz_ref": "226528",
       "deviz_denumire": "INSTALATII SANITARE OB.5",
@@ -567,6 +597,36 @@
       "oferta_pret_utilaj": 0.0,
       "oferta_pret_transport": 0.0,
       "oferta_val_material": 0.0,
+      "oferta_val_manopera": 0.0,
+      "oferta_val_utilaj": 0.0,
+      "oferta_val_transport": 0.0
+    },
+    {
+      "tip": "COD_SIMILAR",
+      "motiv_similaritate": "Cod similar (OCR): '$2222224' ↔ '$22222241'",
+      "deviz_ref": "226528",
+      "deviz_denumire": "INSTALATII SANITARE OB.5",
+      "ref_cod": "$2222224",
+      "ref_denumire": "oglinda",
+      "ref_um": "buc",
+      "ref_cantitate": 4.0,
+      "ref_pret_material": 0.0,
+      "ref_pret_manopera": 0.0,
+      "ref_pret_utilaj": 0.0,
+      "ref_pret_transport": 0.0,
+      "ref_val_material": 0.0,
+      "ref_val_manopera": 0.0,
+      "ref_val_utilaj": 0.0,
+      "ref_val_transport": 0.0,
+      "oferta_cod": "$22222241",
+      "oferta_denumire": "oglinda",
+      "oferta_um": "buc",
+      "oferta_cantitate": 1.0,
+      "oferta_pret_material": 286.96,
+      "oferta_pret_manopera": 0.0,
+      "oferta_pret_utilaj": 0.0,
+      "oferta_pret_transport": 0.0,
+      "oferta_val_material": 286.96,
       "oferta_val_manopera": 0.0,
       "oferta_val_utilaj": 0.0,
       "oferta_val_transport": 0.0
@@ -699,6 +759,17 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226478",
+      "deviz_denumire": "",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$3270501",
+      "oferta_denumire": "cablu cyyf 4x1,5 mmp",
+      "oferta_um": "m",
+      "oferta_cantitate": 306.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "226728",
       "deviz_denumire": "ORG. SANTIER- CONTAINER",
       "ref_cod": "",
@@ -708,28 +779,6 @@
       "oferta_um": "lei",
       "oferta_cantitate": 30000.0,
       "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226358",
-      "deviz_denumire": "",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$22100100",
-      "oferta_denumire": "profil fagure ecologic",
-      "oferta_um": "mp",
-      "oferta_cantitate": 2000.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226418",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$7800859",
-      "oferta_denumire": "vopsea lavabila acrilica",
-      "oferta_um": "kg",
-      "oferta_cantitate": 120.5
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -744,6 +793,17 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226218",
+      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$7800859",
+      "oferta_denumire": "vopsea lavabila acrilica",
+      "oferta_um": "kg",
+      "oferta_cantitate": 39.5
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "226528",
       "deviz_denumire": "INSTALATII SANITARE OB.5",
       "ref_cod": "",
@@ -755,25 +815,14 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226208",
-      "deviz_denumire": "STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare)",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "W1C01A1",
-      "oferta_denumire": "asimilat - montare panouri fotovoltaice greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu ofertant devize (www.edevize.ro)",
-      "oferta_um": "buc",
-      "oferta_cantitate": 1.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226478",
+      "deviz_ref": "226358",
       "deviz_denumire": "",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$3270501",
-      "oferta_denumire": "cablu cyyf 4x1,5 mmp",
-      "oferta_um": "m",
-      "oferta_cantitate": 306.0
+      "oferta_cod": "$22100100",
+      "oferta_denumire": "profil fagure ecologic",
+      "oferta_um": "mp",
+      "oferta_cantitate": 2000.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -785,6 +834,17 @@
       "oferta_denumire": "transportul rutier al pamantului sau molozului cu autobasculanta dist .= 20 km",
       "oferta_um": "tona",
       "oferta_cantitate": 1132.4
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226208",
+      "deviz_denumire": "STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare)",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "W1C01A1",
+      "oferta_denumire": "asimilat - montare panouri fotovoltaice greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă 2.2500 % 10.0000 % beneficiu 5.0000 % t4 = t3 + beneficiu ofertant devize (www.edevize.ro)",
+      "oferta_um": "buc",
+      "oferta_cantitate": 1.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -824,7 +884,7 @@
       "motiv": "Cod W1C01A1: REF categoriei 226F08 => OFERTA categoriei 226208"
     }
   ],
-  "total_neconformitati": 35,
+  "total_neconformitati": 37,
   "matches": 1378,
   "deviz_mismatches": [
     {

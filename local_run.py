@@ -375,6 +375,26 @@ def extract_document(di_path: Path, client, model: str) -> list:
     if len(articles) < articles_before:
         logger.info(f"  Final deduplication: removed {articles_before - len(articles)} suffix-duplicate articles")
 
+    # Filter out articles with fake/invalid deviz codes (e.g., "DINTRE" from marketing text extraction)
+    # These are articles that were extracted from pages without a proper deviz_cod assignment
+    # Keep only articles with valid deviz codes (numeric/alphanumeric, 3-8 chars, containing digits)
+    invalid_deviz = []
+    articles_filtered = []
+    for art in articles:
+        deviz = art.get("deviz", "")
+        # Valid deviz: non-empty, contains at least one digit, 3-8 chars (matches real deviz patterns)
+        # E.g.: "226108", "001", "1.1", "226U18" are valid
+        # Invalid: pure words like "DINTRE", "COMPETITIVE", etc.
+        if deviz and len(deviz) >= 3 and len(deviz) <= 8 and any(c.isdigit() for c in deviz):
+            articles_filtered.append(art)
+        else:
+            invalid_deviz.append(deviz)
+
+    if len(invalid_deviz) > 0:
+        invalid_count = len([a for a in articles if a.get("deviz", "") in set(invalid_deviz)])
+        logger.info(f"  Filtered out {invalid_count} articles with invalid deviz codes: {set(invalid_deviz)}")
+    articles = articles_filtered
+
     return articles
 
 
