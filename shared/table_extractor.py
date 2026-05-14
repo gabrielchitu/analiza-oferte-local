@@ -77,9 +77,9 @@ def extract_articles_from_tables(tables: List[Dict], deviz_cod: str, deviz_den: 
     """
     Extract articles from F3 format tables.
 
-    Expects tables with structure:
-    - Header: Nr. | Capitol de lucrari | U.M. | Cantitate | Price | Total
-    - Data rows: 1 | CODE - NAME | UM | QTY | price | total
+    Handles two formats:
+    - Format 1 (Reference): Nr. | CODE - NAME | U.M. | Cantitate | Price | Total
+    - Format 2 (Oferta 2): Nr. | CODE | NAME | U.M. | Cantitate | Price | Total
 
     Args:
         tables: List of table dicts from DI JSON
@@ -112,6 +112,7 @@ def extract_articles_from_tables(tables: List[Dict], deviz_cod: str, deviz_den: 
         col_capitol = None
         col_um = None
         col_cant = None
+        col_denom = None  # For format 2 where code and denom are separate
 
         for col_idx, header in header_row.items():
             if 'NR' in header or header == '0':
@@ -126,6 +127,17 @@ def extract_articles_from_tables(tables: List[Dict], deviz_cod: str, deviz_den: 
         if col_capitol is None or col_um is None or col_cant is None:
             continue
 
+        # Handle case where header has empty columns before actual content
+        # Some tables have header col 1 empty, col 2 = "CAPITOLUL", but data in col 1 = code, col 2 = denom
+        # Check if column before capitol is empty (has no header content)
+        code_col = col_capitol
+        has_empty_header_before = False
+        if col_capitol > 0:
+            prev_header = header_row.get(col_capitol - 1, '')
+            if not prev_header or prev_header.strip() == '':
+                has_empty_header_before = True
+                code_col = col_capitol - 1
+
         # Extract data rows (skip header rows 0, 1, 2)
         rows = {}
         for cell in cells:
@@ -137,13 +149,47 @@ def extract_articles_from_tables(tables: List[Dict], deviz_cod: str, deviz_den: 
                 rows[row_idx] = {}
             rows[row_idx][cell.get('column_index')] = cell.get('content', '')
 
+        # Detect format 2: Check if code and denom are in separate columns
+        # This happens when code is in code_col and denom in the next column
+        is_format_2 = False
+        col_denom = None
+
+        if rows and code_col is not None:
+            first_row = rows.get(min(rows.keys())) if rows else {}
+            next_col = code_col + 1
+
+            # Format 2 case 1: empty header before capitol, code in code_col, denom in code_col+1
+            if has_empty_header_before and next_col in first_row and first_row[next_col].strip():
+                is_format_2 = True
+                col_denom = next_col
+            # Format 2 case 2: code_col at capitol but denom in col_capitol+1 (DI parser split)
+            elif code_col == col_capitol and next_col not in header_row and next_col in first_row and first_row[next_col].strip():
+                is_format_2 = True
+                col_denom = next_col
+
         # Process each article row (rows with article codes)
         for row_idx in sorted(rows.keys()):
             row_data = rows[row_idx]
 
-            # Column 1 has article code + denomination
-            capitol_cell = row_data.get(col_capitol, '')
-            code, denom = _parse_article_cell(capitol_cell)
+            code = None
+            denom = None
+
+            if is_format_2 and col_denom is not None:
+                # Format 2: Code and denomination in separate columns
+                code_cell = row_data.get(code_col, '').strip() if code_col is not None else ''
+                denom_cell = row_data.get(col_denom, '').strip()
+
+                # Extract code (clean OCR artifacts)
+                if code_cell:
+                    code = _clean_article_code(code_cell.upper())
+
+                # Use denomination as-is
+                if code and denom_cell:
+                    denom = denom_cell
+            else:
+                # Format 1: Combined "CODE - DENOMINATION" in col_capitol
+                capitol_cell = row_data.get(col_capitol, '')
+                code, denom = _parse_article_cell(capitol_cell)
 
             if not code:
                 continue
@@ -217,30 +263,43 @@ def extract_articles_from_tables_smart(tables: List[Dict]) -> List[Dict]:
         if not cells:
             continue
 
-        # Look for "Stadiul fizic:" pattern in row 5, col 0
-        is_metadata = False
-        stadiul_cell = None
+        deviz_found = None
 
+        # Format 1 (Reference): "Stadiul fizic:" in row 5, col 0 → deviz in row 5, col 1
         for cell in cells:
             if cell.get('row_index') == 5 and cell.get('column_index') == 0:
                 content = cell.get('content', '').strip()
                 if 'STADIUL' in content.upper():
-                    is_metadata = True
+                    # Extract deviz from row 5, col 1
+                    for c in cells:
+                        if c.get('row_index') == 5 and c.get('column_index') == 1:
+                            content = c.get('content', '').strip()
+                            # Parse "226U18 CANALIZARE"
+                            m = re.match(r'^([A-Z0-9]{5,8})\s+(.+)$', content)
+                            if m:
+                                deviz_cod = _normalize_deviz_cod_table(m.group(1).upper())
+                                deviz_den = m.group(2).strip()
+                                deviz_found = (deviz_cod, deviz_den)
+                                logger.debug(f"[TABLE] Tabel {table_idx}: Metadata (format 1) deviz {deviz_cod}")
+                            break
                     break
 
-        if is_metadata:
-            # Extract deviz from row 5, col 1
+        # Format 2 (Oferta 2): "oferta XXXXX" pattern in ANY cell
+        if not deviz_found:
             for cell in cells:
-                if cell.get('row_index') == 5 and cell.get('column_index') == 1:
-                    content = cell.get('content', '').strip()
-                    # Parse "226U18 CANALIZARE"
-                    m = re.match(r'^([A-Z0-9]{5,8})\s+(.+)$', content)
+                content = cell.get('content', '').strip().upper()
+                if 'OFERTA' in content:
+                    # Parse "oferta 226238 MONTAT BOILER"
+                    m = re.search(r'oferta\s+([A-Z0-9]{5,8})\s+(.+)', content, re.IGNORECASE)
                     if m:
                         deviz_cod = _normalize_deviz_cod_table(m.group(1).upper())
                         deviz_den = m.group(2).strip()
-                        metadata_to_deviz[table_idx] = (deviz_cod, deviz_den)
-                        logger.debug(f"[TABLE] Tabel {table_idx}: Metadata deviz {deviz_cod} - {deviz_den}")
+                        deviz_found = (deviz_cod, deviz_den)
+                        logger.debug(f"[TABLE] Tabel {table_idx}: Metadata (format 2 - oferta) deviz {deviz_cod}")
                         break
+
+        if deviz_found:
+            metadata_to_deviz[table_idx] = deviz_found
 
     # Second pass: Find F3 data tables and extract articles
     processed_tables = set()
@@ -253,10 +312,10 @@ def extract_articles_from_tables_smart(tables: List[Dict]) -> List[Dict]:
         if table_idx in processed_tables:
             continue
 
-        # Check if this is an F3 data table (6 columns, "SECTIUNEA TEHNICA" in row 0)
+        # Check if this is an F3 data table ("SECTIUNEA TEHNICA" in row 0, any column)
         is_f3_data = False
         for cell in cells:
-            if cell.get('row_index') == 0 and cell.get('column_index') == 0:
+            if cell.get('row_index') == 0:
                 content = cell.get('content', '').strip()
                 if 'SECTIUNEA' in content.upper():
                     is_f3_data = True

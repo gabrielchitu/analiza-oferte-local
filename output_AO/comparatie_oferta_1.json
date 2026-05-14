@@ -68,14 +68,14 @@
     {
       "tip": "DIFERENTA_CAMP",
       "camp": "cantitate",
-      "ref": 26.0,
+      "ref": 0.0,
       "oferta": 4240.0,
       "deviz_ref": "226208",
       "deviz_denumire": "STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare)",
       "ref_cod": "CC02C1",
       "ref_denumire": "montare armat la constr h<35m din bare in grinzi si stilpi d<18mm placi d<10mm cu dist din plas",
       "ref_um": "kg",
-      "ref_cantitate": 26.0,
+      "ref_cantitate": 0.0,
       "ref_pret_material": 0.0,
       "ref_pret_manopera": 0.0,
       "ref_pret_utilaj": 0.0,
@@ -196,14 +196,14 @@
     {
       "tip": "DIFERENTA_CAMP",
       "camp": "cantitate",
-      "ref": 3.0,
+      "ref": 0.0,
       "oferta": 650.0,
       "deviz_ref": "226268",
       "deviz_denumire": "INSTALATII ELECTRICE tari OB.2 curenti",
       "ref_cod": "$3270431",
       "ref_denumire": "cablu cyyf 3x2,5",
       "ref_um": "m",
-      "ref_cantitate": 3.0,
+      "ref_cantitate": 0.0,
       "ref_pret_material": 0.0,
       "ref_pret_manopera": 0.0,
       "ref_pret_utilaj": 0.0,
@@ -759,14 +759,14 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226028",
-      "deviz_denumire": "",
+      "deviz_ref": "226418",
+      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$7319524",
-      "oferta_denumire": "electrod teava zincata 76,1x4,5",
-      "oferta_um": "m",
-      "oferta_cantitate": 128.52
+      "oferta_cod": "$7800859",
+      "oferta_denumire": "vopsea lavabila acrilica",
+      "oferta_um": "kg",
+      "oferta_cantitate": 120.5
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -781,26 +781,14 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226218",
-      "deviz_denumire": "ARHITECTURA teren tenis si grupuri sanitare",
+      "deviz_ref": "226478",
+      "deviz_denumire": "",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$7800859",
-      "oferta_denumire": "vopsea lavabila acrilica",
-      "oferta_um": "kg",
-      "oferta_cantitate": 39.5
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226728",
-      "deviz_denumire": "ORG. SANTIER- CONTAINER",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "CHELT",
-      "oferta_denumire": "cheltuieli conexe organizare santier",
-      "oferta_um": "lei",
-      "oferta_cantitate": 30000.0,
-      "posibil_omis_din_extractie": true
+      "oferta_cod": "$3270501",
+      "oferta_denumire": "cablu cyyf 4x1,5 mmp",
+      "oferta_um": "m",
+      "oferta_cantitate": 306.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -826,17 +814,6 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226418",
-      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$5858393",
-      "oferta_denumire": "solutie de protectie a lemnului tip",
-      "oferta_um": "l",
-      "oferta_cantitate": 377.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "226358",
       "deviz_denumire": "",
       "ref_cod": "",
@@ -845,6 +822,29 @@
       "oferta_denumire": "profil fagure ecologic",
       "oferta_um": "mp",
       "oferta_cantitate": 2000.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226728",
+      "deviz_denumire": "ORG. SANTIER- CONTAINER",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "CHELT",
+      "oferta_denumire": "cheltuieli conexe organizare santier",
+      "oferta_um": "lei",
+      "oferta_cantitate": 30000.0,
+      "posibil_omis_din_extractie": true
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226028",
+      "deviz_denumire": "",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$7319524",
+      "oferta_denumire": "electrod teava zincata 76,1x4,5",
+      "oferta_um": "m",
+      "oferta_cantitate": 128.52
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -885,7 +885,7 @@
     }
   ],
   "total_neconformitati": 37,
-  "matches": 1376,
+  "matches": 1378,
   "deviz_mismatches": [
     {
       "oferta_deviz": "226113",
