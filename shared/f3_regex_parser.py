@@ -599,20 +599,23 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             _after_linked = True
             continue
         # Bare "L" handler: linked marker on separate line (multi-line format in offer 2)
-        # BUT: skip this if we're reading an incomplete article — "L" is likely the UM (liter)
         m_bare_l = BARE_L_RE.match(line)
-        if m_bare_l and not (state == _READING and cod and not um):
-            # Only treat "L" as linked marker if NOT in READING state with incomplete article
-            if state == _READING:
-                _finalize()
-            # Keep last_nr_crt if already set, otherwise use placeholder
-            if not last_nr_crt:
-                last_nr_crt = 1
-            cod = ''; denumire_parts = []; um = ''; cantitate = 0.0; preturi = []
-            state = _WAITING
-            waiting_lines = 0
-            _after_linked = True
-            continue
+        if m_bare_l:
+            # Skip if we're reading an incomplete article — "L" is likely the UM (liter)
+            if state == _READING and cod and not um:
+                # Let it fall through to UM detection instead of treating as linked marker
+                pass  # Don't finalize, let UM detection handle it
+            else:
+                if state == _READING:
+                    _finalize()
+                # Keep last_nr_crt if already set, otherwise use placeholder
+                if not last_nr_crt:
+                    last_nr_crt = 1
+                cod = ''; denumire_parts = []; um = ''; cantitate = 0.0; preturi = []
+                state = _WAITING
+                waiting_lines = 0
+                _after_linked = True
+                continue
         # Dot "L" handler: ".L" marker on separate line (variant with dot prefix)
         m_dot_l = DOT_L_RE.match(line)
         if m_dot_l:
@@ -846,11 +849,11 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 continue
 
             # NR_CRT nou (bare) → finalizează articolul curent
-            # Only treat bare integer as NR_CRT if we have NO CODE yet.
-            # If we have a code, let quantity/other checks handle the integer first.
+            # Treat bare integer as new article if NO CODE or quantity is ZERO
+            # This allows both oferta 2 format (code without UM) and reference format to work
             m_bare_nr = NR_CRT_RE.match(line)
-            if m_bare_nr and not cod:
-                # If we have NO code yet, treat bare NR as the start of a split-format article
+            if m_bare_nr and (not cod or cantitate == 0.0):
+                # If we have NO code or NO quantity yet, treat bare NR as new article start
                 _finalize()
                 last_nr_crt = int(m_bare_nr.group(1))
                 state = _WAITING
