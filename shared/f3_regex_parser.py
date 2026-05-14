@@ -44,7 +44,9 @@ COD_BREVIAR_RE = re.compile(r'^(\$[A-Z0-9]{4,})\s*[-–]\s*(.+)', re.IGNORECASE)
 # Cod numeric pur 4-8 cifre cu – şi descriere; acceptă @ suffix şi bracket suffix [1], [2], etc.
 # 4 cifre: utilaje breviar (1303, 2506); 8 cifre: materiale extinse (22000561)
 # Exemple: "6715504 - Piesa..." sau "6715504[1] - Piesa..." sau "6715504@ - Piesa..."
-COD_NUMERIC_RE = re.compile(r'^(\d{4,9}(?:[@]|\[\d+\])?)\s*[-–]\s*(.+)')
+# IMPORTANT: (?!\d) negative lookahead ensures we match COMPLETE numeric codes, not substrings
+# of longer digit sequences (e.g., won't match "22121" in "22222121 - DESC")
+COD_NUMERIC_RE = re.compile(r'^(\d{4,9})(?!\d)(?:[@]|\[\d+\])?\s*[-–]\s*(.+)')
 # Cod normativ SINGUR pe linie, cu opțional tokeni sufixe (ASIM, BUC. etc.) — max 3
 # Ex: "TCB40A1", "TCB40A1 ASIM", "IA37E1 ASIM BUC." (format referinţă deviz)
 COD_NORM_STANDALONE_RE = re.compile(
@@ -103,7 +105,8 @@ BARE_L_RE = re.compile(r'^L\s*$', re.IGNORECASE)
 # DOT_L: ".L" marker pe linie (varianta cu punct prefix - articole legate ISDP in format multi-line)
 DOT_L_RE = re.compile(r'^\.L\s*$', re.IGNORECASE)
 # COD_NUMERIC_BARE: cod numeric pur 5-8 cifre singur pe linie (articole legate ISDP)
-COD_NUMERIC_BARE_RE = re.compile(r'^(\d{4,9})\s*$')  # 4+ cifre: NR_CRT e max 3 cifre, deci 4 = breviar
+# (?!\d) negative lookahead prevents matching substrings of longer digit sequences
+COD_NUMERIC_BARE_RE = re.compile(r'^(\d{4,9})(?!\d)\s*$')  # 4+ cifre: NR_CRT e max 3 cifre, deci 4 = breviar
 # UM: token scurt alfabetic
 UM_RE = re.compile(r'^([A-Z]{1,6})\.?$', re.IGNORECASE)
 # Cantitate cu zecimale — include format cu separator mii și valori negative.
@@ -362,14 +365,14 @@ def _deduplicate_by_code_suffix(articole: List[Dict]) -> List[Dict]:
     """
     from collections import defaultdict
 
-    # Group by (deviz, cantitate, um) to find candidates for deduplication
+    # Mark indices to remove
+    indices_to_remove = set()
+
+    # PASS 1: Group by (deviz, cantitate, um) for standard deduplication
     groups = defaultdict(list)
     for idx, art in enumerate(articole):
         key = (art.get('deviz', ''), art.get('cantitate', 0.0), art.get('um', ''))
         groups[key].append((idx, art))
-
-    # Mark indices to remove
-    indices_to_remove = set()
 
     for key, group in groups.items():
         # Only check groups with multiple articles
@@ -398,6 +401,36 @@ def _deduplicate_by_code_suffix(articole: List[Dict]) -> List[Dict]:
                     indices_to_remove.add(idx_j)
                 elif cod_j_cmp.endswith(cod_i_cmp):
                     # cod_j is longer, cod_i is suffix → remove i (shorter)
+                    indices_to_remove.add(idx_i)
+
+    # PASS 2: Check numeric code suffixes in same deviz, even with different cantitate/um
+    # This handles edge cases where extraction creates partial numeric codes (e.g., "22121" from "22222121")
+    # with different detected quantities/units due to parsing differences
+    by_deviz = defaultdict(list)
+    for idx, art in enumerate(articole):
+        if idx not in indices_to_remove:
+            by_deviz[art.get('deviz', '')].append((idx, art))
+
+    for deviz, group in by_deviz.items():
+        if len(group) < 2:
+            continue
+
+        for i in range(len(group)):
+            for j in range(i + 1, len(group)):
+                idx_i, art_i = group[i]
+                idx_j, art_j = group[j]
+
+                cod_i = art_i.get('cod', '').lstrip('$')
+                cod_j = art_j.get('cod', '').lstrip('$')
+
+                # Only check numeric codes (all digits)
+                if not (cod_i.isdigit() and cod_j.isdigit() and cod_i != cod_j):
+                    continue
+
+                # Remove numeric suffix codes: if one numeric code ends with another
+                if cod_i.endswith(cod_j) and 4 <= len(cod_j) <= 9:
+                    indices_to_remove.add(idx_j)
+                elif cod_j.endswith(cod_i) and 4 <= len(cod_i) <= 9:
                     indices_to_remove.add(idx_i)
 
     # Return articles excluding marked indices
