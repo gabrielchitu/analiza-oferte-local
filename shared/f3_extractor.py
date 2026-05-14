@@ -96,6 +96,9 @@ Exista doua tipuri de coduri valide pentru SIMBOL_ARTICOL:
 
 Reguli IMPORTANTE:
 - Extrage AMBELE tipuri de articole: coduri normative SI coduri cu $ (articole proprii)
+- ARTICOLE LA LIMITE DE PAGINA: Articolele pot fi urmate direct de footer (Deviz "X.X" - Formular F3, Pagina N din M).
+  Ignora footer-ul dar PASTREAZA articolul complet cu codul, UM si cantitate.
+  Exemplu: "2100995 - Beton...\nmc\n8.100\nDeviz "2.2" - Formular F3" → extrage 2100995 cu UM=mc, cant=8.100
 - Ignora TOATE liniile care incep cu ">>> componenta" - acestea sunt sub-componente, NU articole separate
 - Ignora linia "- DESCRIERE:" si tot ce urmeaza pana la urmatorul articol principal
 - Ignora randurile de sumar (Cheltuieli directe, Total cheltuieli, Cheltuieli indirecte, Profit, TOTAL GENERAL, TVA)
@@ -242,19 +245,43 @@ def _split_into_deviz_sections(full_text: str) -> list:
 
 
 def _chunk_text(text: str, max_chars: int = 12000) -> List[str]:
-    """Imparte textul in chunk-uri, rupand la newline."""
+    """Imparte textul in chunk-uri, rupand la newline, fara a rupe articole.
+
+    Evita ruperea in mijlocul articolelor care au structura:
+      NR_CRT/COD
+      UM
+      CANTITATE
+      [DENUMIRE...]
+    """
     if len(text) <= max_chars:
         return [text]
+
     chunks = []
-    while text:
-        if len(text) <= max_chars:
-            chunks.append(text)
-            break
-        split_at = text.rfind('\n', 0, max_chars)
-        if split_at <= 0:
-            split_at = max_chars
-        chunks.append(text[:split_at])
-        text = text[split_at:].lstrip('\n')
+    lines = text.split('\n')
+    current_chunk_lines = []
+    current_chunk_size = 0
+
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        line_size = len(line) + 1  # +1 for newline
+
+        # Daca linia curenta ar depasi limita
+        if current_chunk_size + line_size > max_chars and current_chunk_lines:
+            # Finalizare chunk anterior (dar nu pe linie de cod/UM/cant incomplete)
+            # Incearca sa nu iei pe jumatatile un articol
+            chunks.append('\n'.join(current_chunk_lines))
+            current_chunk_lines = []
+            current_chunk_size = 0
+            continue
+
+        current_chunk_lines.append(line)
+        current_chunk_size += line_size
+        i += 1
+
+    if current_chunk_lines:
+        chunks.append('\n'.join(current_chunk_lines))
+
     return chunks
 
 
