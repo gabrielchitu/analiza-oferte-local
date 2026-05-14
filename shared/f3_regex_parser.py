@@ -599,8 +599,10 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             _after_linked = True
             continue
         # Bare "L" handler: linked marker on separate line (multi-line format in offer 2)
+        # BUT: skip this if we're reading an incomplete article — "L" is likely the UM (liter)
         m_bare_l = BARE_L_RE.match(line)
-        if m_bare_l:
+        if m_bare_l and not (state == _READING and cod and not um):
+            # Only treat "L" as linked marker if NOT in READING state with incomplete article
             if state == _READING:
                 _finalize()
             # Keep last_nr_crt if already set, otherwise use placeholder
