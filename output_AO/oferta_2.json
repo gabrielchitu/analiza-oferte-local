@@ -3202,7 +3202,7 @@
       "um": "buc",
       "cantitate": 2.0,
       "deviz": "226238",
-      "deviz_denumire": "MONTAT BOILER OB.2",
+      "deviz_denumire": "",
       "is_component": false,
       "pret_material": 276.53,
       "val_material": 553.06,
@@ -4643,8 +4643,8 @@
     },
     {
       "cod": "CP58B1",
-      "denumire": "1 montare scaune tribuna b?c.",
-      "um": "",
+      "denumire": "montare scaune tribuna",
+      "um": "b?c",
       "cantitate": 660.0,
       "deviz": "226328",
       "deviz_denumire": "ARHITECTURA GRADENE",
@@ -7976,7 +7976,7 @@
     {
       "cod": "VC1011",
       "denumire": "montat aparat aer conditionat",
-      "um": "buc",
+      "um": "buc ",
       "cantitate": 3.0,
       "deviz": "226468",
       "deviz_denumire": "INST. CLIMATIZARE OB.4",
@@ -8605,10 +8605,10 @@
     {
       "cod": "CA0131",
       "denumire": "turnare beton simplu in straturi de 5- 20cm pt.egalizari la constructii edilitare (apeducte, canale",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 24.0,
       "deviz": "226508",
-      "deviz_denumire": "STRUCTURA DE REZISTENTA (GRUPURI)",
+      "deviz_denumire": "STRUCTURA DE REZISTENTA (grupuri)",
       "is_component": false,
       "pret_material": 0.0,
       "val_material": 0.0,
@@ -13176,9 +13176,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100910",
+      "cod": "$2100910",
       "denumire": "beton marfa clasa c8/10",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 18.14,
       "deviz": "226108",
       "deviz_denumire": "STRUCTURA DE REZISTENTA CUPOLA",
@@ -13193,9 +13193,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100912",
+      "cod": "$2100912",
       "denumire": "beton marca clasa c16/20",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 55.44,
       "deviz": "226108",
       "deviz_denumire": "STRUCTURA DE REZISTENTA CUPOLA",
@@ -13210,9 +13210,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3999988",
+      "cod": "$3999988",
       "denumire": "prelata speciala antivant , rezistent foc, la umiditate si mucegai",
-      "um": "mp.",
+      "um": "mp",
       "cantitate": 1256.0,
       "deviz": "226118",
       "deviz_denumire": "ARHITECTURA -TEREN TENIS ACOPERI",
@@ -13227,9 +13227,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "6306431",
+      "cod": "$6306431",
       "denumire": "usi din pvc",
-      "um": "mp.",
+      "um": "mp",
       "cantitate": 7.0,
       "deviz": "226118",
       "deviz_denumire": "ARHITECTURA -TEREN TENIS ACOPERI",
@@ -13244,9 +13244,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2941123",
+      "cod": "$2941123",
       "denumire": "plasa textila 2 mm pentru cupole teren",
-      "um": "mp.",
+      "um": "mp",
       "cantitate": 1256.0,
       "deviz": "226118",
       "deviz_denumire": "ARHITECTURA -TEREN TENIS ACOPERI",
@@ -13261,9 +13261,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100910",
+      "cod": "$2100910",
       "denumire": "beton marfa clasa c8/10",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 10.08,
       "deviz": "226208",
       "deviz_denumire": "STRUCTURA DE REZISTENTA (VESTIAR)",
@@ -13278,9 +13278,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100912",
+      "cod": "$2100912",
       "denumire": "beton marca clasa c16/20",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 52.42,
       "deviz": "226208",
       "deviz_denumire": "STRUCTURA DE REZISTENTA (VESTIAR)",
@@ -13295,9 +13295,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2101171",
+      "cod": "$2101171",
       "denumire": "mortar de zidarie m 50 s 1030",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 8.41,
       "deviz": "226218",
       "deviz_denumire": "ARHITECTURA TEREN TENIS SI",
@@ -13312,9 +13312,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2101171",
+      "cod": "$2101171",
       "denumire": "mortar de zidarie m 50 s 1030",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 3.6,
       "deviz": "226218",
       "deviz_denumire": "ARHITECTURA TEREN TENIS SI",
@@ -13329,9 +13329,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2101195",
+      "cod": "$2101195",
       "denumire": "mortar tencuiala m 100 (var hidratat) s 1030",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 7.34,
       "deviz": "226218",
       "deviz_denumire": "ARHITECTURA TEREN TENIS SI",
@@ -13346,7 +13346,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3276725",
+      "cod": "$3276725",
       "denumire": "tinci pt tencuieli fine",
       "um": "kg",
       "cantitate": 2040.0,
@@ -13363,9 +13363,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2401678",
+      "cod": "$2401678",
       "denumire": "faianta",
-      "um": "mp.",
+      "um": "mp",
       "cantitate": 223.65,
       "deviz": "226218",
       "deviz_denumire": "ARHITECTURA TEREN TENIS SI",
@@ -13380,7 +13380,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100833",
+      "cod": "$2100833",
       "denumire": "adeziv faianta",
       "um": "kg",
       "cantitate": 1065.0,
@@ -13397,7 +13397,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270111",
+      "cod": "$3270111",
       "denumire": "chit rosturi",
       "um": "kg",
       "cantitate": 106.5,
@@ -13414,9 +13414,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "7206121",
+      "cod": "$7206121",
       "denumire": "@cot conector pexal m-fi 20 x 1/2' cod 67100914",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 20.0,
       "deviz": "226228",
       "deviz_denumire": "INSTALATII SANITARE OB.2",
@@ -13431,9 +13431,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "7206160",
+      "cod": "$7206160",
       "denumire": "@teu pexal mmm 20 cod 67101115",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 20.0,
       "deviz": "226228",
       "deviz_denumire": "INSTALATII SANITARE OB.2",
@@ -13448,7 +13448,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270225",
+      "cod": "$3270225",
       "denumire": "teava ppr pn 16 pentru apa calda 20x2.8",
       "um": "m",
       "cantitate": 71.4,
@@ -13465,9 +13465,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270235",
+      "cod": "$3270235",
       "denumire": "reductie pentru tevi din polietilena interior ppr - exterior ppr 25-20",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 10.0,
       "deviz": "226228",
       "deviz_denumire": "INSTALATII SANITARE OB.2",
@@ -13482,7 +13482,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3271730",
+      "cod": "$3271730",
       "denumire": "teava pn20 ppr verde dn25",
       "um": "m",
       "cantitate": 76.5,
@@ -13499,9 +13499,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270394",
+      "cod": "$3270394",
       "denumire": "cot 90 grd interior-exterior ppr 25",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 25.0,
       "deviz": "226228",
       "deviz_denumire": "INSTALATII SANITARE OB.2",
@@ -13516,9 +13516,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270242",
+      "cod": "$3270242",
       "denumire": "reductie ppr 32-25",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 15.0,
       "deviz": "226228",
       "deviz_denumire": "INSTALATII SANITARE OB.2",
@@ -13533,26 +13533,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "IA22C1 [1]",
-      "denumire": "montare boiler",
-      "um": "buc",
-      "cantitate": 2.0,
-      "deviz": "226238",
-      "deviz_denumire": "MONTAT BOILER OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "3270546",
+      "cod": "$3270546",
       "denumire": "ventilator baie d=100mm, model : 'eol 100t' timer",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "226248",
       "deviz_denumire": "INSTALATII VENTILATIE OB.2",
@@ -13567,9 +13550,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "7002221",
+      "cod": "$7002221",
       "denumire": "grila ventilatie dn110 mm",
-      "um": "b?c.",
+      "um": "b?c",
       "cantitate": 4.0,
       "deviz": "226248",
       "deviz_denumire": "INSTALATII VENTILATIE OB.2",
@@ -13584,9 +13567,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2997173",
+      "cod": "$2997173",
       "denumire": "grila transfer cu izolare fonica, aluminiu montat in usa 300x200, inclusiv contrarama",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "226248",
       "deviz_denumire": "INSTALATII VENTILATIE OB.2",
@@ -13601,9 +13584,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "7000777",
+      "cod": "$7000777",
       "denumire": "tubulatura circulara rigida d=100 neizolata, inclusiv piese speciala si suporti",
-      "um": "ml.",
+      "um": "ml",
       "cantitate": 15.0,
       "deviz": "226248",
       "deviz_denumire": "INSTALATII VENTILATIE OB.2",
@@ -13618,9 +13601,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2937005",
+      "cod": "$2937005",
       "denumire": "radiator electric pe perete, 500w, prevazut cu termoastat reglabil, inclusiv suportii",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 12.0,
       "deviz": "226258",
       "deviz_denumire": "INSTALATII DE INCALZIRE OB.2",
@@ -13635,9 +13618,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3273416",
+      "cod": "$3273416",
       "denumire": "radiator electric pe perete, 1000 w, prevazut cu termoastat reglabil, inclusiv suporti si accesorii de prindere",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 6.0,
       "deviz": "226258",
       "deviz_denumire": "INSTALATII DE INCALZIRE OB.2",
@@ -13652,59 +13635,8 @@
       "val_transport": 0.0
     },
     {
-      "cod": "TCB40A1 ASIM",
-      "denumire": "aparat telegr teleim transmit autom receptor perforator (manual) pt: abonat (telex)",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "226278",
-      "deviz_denumire": "INSTALATIE VOCE-DATE-OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "2955015",
+      "cod": "$2955015",
       "denumire": "cabinet 18u, montat pe perete, usa din sticla cu rama metalica, panouri laterale detasabile, kit suport",
-      "um": "buc.",
-      "cantitate": 1.0,
-      "deviz": "226278",
-      "deviz_denumire": "INSTALATIE VOCE-DATE-OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "2905212",
-      "denumire": "unitate 4 ventilatoare cu termostate si intrerupator",
-      "um": "buc.",
-      "cantitate": 1.0,
-      "deviz": "226278",
-      "deviz_denumire": "INSTALATIE VOCE-DATE-OB.2",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "ATA01B ASIM",
-      "denumire": "montarea aparatelor in panouri, dulapuri, cutii, aparent sau ingropat cu greutatea:",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226278",
@@ -13720,9 +13652,26 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2905014",
+      "cod": "$2905212",
+      "denumire": "unitate 4 ventilatoare cu termostate si intrerupator",
+      "um": "buc",
+      "cantitate": 1.0,
+      "deviz": "226278",
+      "deviz_denumire": "INSTALATIE VOCE-DATE-OB.2",
+      "is_component": false,
+      "pret_material": 0.0,
+      "val_material": 0.0,
+      "pret_manopera": 0.0,
+      "val_manopera": 0.0,
+      "pret_utilaj": 0.0,
+      "val_utilaj": 0.0,
+      "pret_transport": 0.0,
+      "val_transport": 0.0
+    },
+    {
+      "cod": "$2905014",
       "denumire": "switch mediaconvector dimensiune 1u",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226278",
       "deviz_denumire": "INSTALATIE VOCE-DATE-OB.2",
@@ -13737,9 +13686,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2600000",
+      "cod": "$2600000",
       "denumire": "switch 8 porturi rj45",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226278",
       "deviz_denumire": "INSTALATIE VOCE-DATE-OB.2",
@@ -13754,9 +13703,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "5538123",
+      "cod": "$5538123",
       "denumire": "patchpanel 8 porturi rj45 echipat",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226278",
       "deviz_denumire": "INSTALATIE VOCE-DATE-OB.2",
@@ -13771,9 +13720,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2955018",
+      "cod": "$2955018",
       "denumire": "digital video recorder 16 canale",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "226288",
       "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB2",
@@ -13788,9 +13737,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2955019",
+      "cod": "$2955019",
       "denumire": "hard disk stocare imagini 2 tb",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "226288",
       "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB2",
@@ -13805,9 +13754,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "5700023",
+      "cod": "$5700023",
       "denumire": "camera video color all-in-one de exterior",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 8.0,
       "deviz": "226288",
       "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB2",
@@ -13822,9 +13771,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "5700054",
+      "cod": "$5700054",
       "denumire": "camera video interior, color, varifocala, alimentare 220v",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 5.0,
       "deviz": "226288",
       "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB2",
@@ -13839,7 +13788,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270808",
+      "cod": "$3270808",
       "denumire": "cablu date ftp 5e 4 x 2 x awg24/1",
       "um": "m",
       "cantitate": 180.0,
@@ -13856,9 +13805,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2700014",
+      "cod": "$2700014",
       "denumire": "tub de protectie tip ipey/monoflex d=16 mm",
-      "um": "ml.",
+      "um": "ml",
       "cantitate": 180.0,
       "deviz": "226288",
       "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB2",
@@ -13873,9 +13822,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "7302051",
+      "cod": "$7302051",
       "denumire": "tablou electric (vestiar) , confectii metalice, ysa cu yale, ip54, montaj aparent, complet echipat",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226268",
       "deviz_denumire": "INSTALATII ELECTRICE CURENTI",
@@ -13890,7 +13839,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270431",
+      "cod": "$3270431",
       "denumire": "cablu cyyf 3x2,5",
       "um": "m",
       "cantitate": 650.0,
@@ -13907,7 +13856,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270501",
+      "cod": "$3270501",
       "denumire": "cablu cyyf 4x1,5",
       "um": "m",
       "cantitate": 150.0,
@@ -13924,7 +13873,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270430",
+      "cod": "$3270430",
       "denumire": "cablu cyyf 3x1 5",
       "um": "m",
       "cantitate": 550.0,
@@ -13941,9 +13890,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2700014",
+      "cod": "$2700014",
       "denumire": "tub de protectie tip ipey/monoflex d=16 mm",
-      "um": "ml.",
+      "um": "ml",
       "cantitate": 225.0,
       "deviz": "226268",
       "deviz_denumire": "INSTALATII ELECTRICE CURENTI",
@@ -13958,7 +13907,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100919",
+      "cod": "$2100919",
       "denumire": "beton marca c",
       "um": "mc",
       "cantitate": 70.56,
@@ -13975,9 +13924,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100912",
+      "cod": "$2100912",
       "denumire": "beton marca clasa c16/20",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 120.96,
       "deviz": "226308",
       "deviz_denumire": "STRUCTURA DE REZISTENTA- (GRADEN)",
@@ -13992,9 +13941,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100911",
+      "cod": "$2100911",
       "denumire": "beton marca clasa c15/12 (bc15/b200)",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 18.14,
       "deviz": "226318",
       "deviz_denumire": "IMPREJMUIRE TEREN FOTBAL - 380 ML",
@@ -14009,7 +13958,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3274584",
+      "cod": "$3274584",
       "denumire": "otel beton bst500 8 mm",
       "um": "kg",
       "cantitate": 330.0,
@@ -14026,7 +13975,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2940094",
+      "cod": "$2940094",
       "denumire": "confectii metalice diverse din profile stalpi imprejmuire",
       "um": "kg",
       "cantitate": 12850.0,
@@ -14043,9 +13992,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3273618",
+      "cod": "$3273618",
       "denumire": "plasa gard impletita",
-      "um": "mp.",
+      "um": "mp",
       "cantitate": 2280.0,
       "deviz": "226318",
       "deviz_denumire": "IMPREJMUIRE TEREN FOTBAL - 380 ML",
@@ -14060,9 +14009,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3644857",
+      "cod": "$3644857",
       "denumire": "panou cutat zincat",
-      "um": "mp.",
+      "um": "mp",
       "cantitate": 590.52,
       "deviz": "226328",
       "deviz_denumire": "ARHITECTURA GRADENE",
@@ -14077,9 +14026,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2950019",
+      "cod": "$2950019",
       "denumire": "tabla perforata",
-      "um": "mp.",
+      "um": "mp",
       "cantitate": 577.19,
       "deviz": "226328",
       "deviz_denumire": "ARHITECTURA GRADENE",
@@ -14094,24 +14043,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CP58B1-1",
-      "denumire": "montare scaune tribuna",
-      "um": "b?c.",
-      "cantitate": 660.0,
-      "deviz": "226328",
-      "deviz_denumire": "ARHITECTURA GRADENE",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "3276982",
+      "cod": "$3276982",
       "denumire": "teava rectangulara 6m 70x40x4",
       "um": "m",
       "cantitate": 1314.0,
@@ -14128,9 +14060,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100001",
+      "cod": "$2100001",
       "denumire": "pamant vegetal",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 2522.0,
       "deviz": "226338",
       "deviz_denumire": "TEREN FOTBAL",
@@ -14145,7 +14077,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "TRA01A10?",
+      "cod": "TRA01A10",
       "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist .= 10 km",
       "um": "tona",
       "cantitate": 3373.37,
@@ -14162,9 +14094,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100001",
+      "cod": "$2100001",
       "denumire": "pamant vegetal",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 1775.0,
       "deviz": "226348",
       "deviz_denumire": "SPATII VERZI",
@@ -14179,7 +14111,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "TRA01A20?",
+      "cod": "TRA01A20",
       "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist .= 20 km",
       "um": "tona",
       "cantitate": 3373.26,
@@ -14196,7 +14128,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "TRA01A20?",
+      "cod": "TRA01A20",
       "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist .= 20 km",
       "um": "tona",
       "cantitate": 1132.4,
@@ -14213,9 +14145,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2200056",
+      "cod": "$2200056",
       "denumire": "pietris concasat -sort 4-8 mm",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 100.0,
       "deviz": "226358",
       "deviz_denumire": "ALEI PIETONALE SI CAROSABILE",
@@ -14230,7 +14162,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100696",
+      "cod": "$2100696",
       "denumire": "var bulgari pentru constructii tip 2 vrac, s 146",
       "um": "kg",
       "cantitate": 6240.0,
@@ -14247,9 +14179,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100910",
+      "cod": "$2100910",
       "denumire": "beton marfa clasa c8/10",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 15.12,
       "deviz": "226408",
       "deviz_denumire": "STRUCTURA DE REZISTENTA (VESTIAR)",
@@ -14264,9 +14196,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2101171",
+      "cod": "$2101171",
       "denumire": "mortar de zidarie m 50 s 1030",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 16.93,
       "deviz": "226418",
       "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST",
@@ -14281,9 +14213,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2101171",
+      "cod": "$2101171",
       "denumire": "mortar de zidarie m 50 s 1030",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 9.16,
       "deviz": "226418",
       "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST",
@@ -14298,9 +14230,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2101195",
+      "cod": "$2101195",
       "denumire": "mortar tencuiala m 100 (var hidratat) s 1030",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 15.71,
       "deviz": "226418",
       "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST",
@@ -14315,7 +14247,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3276725",
+      "cod": "$3276725",
       "denumire": "tinci pt tencuieli fine",
       "um": "kg",
       "cantitate": 4365.0,
@@ -14332,7 +14264,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2401678",
+      "cod": "$2401678",
       "denumire": "faianta",
       "um": "mp",
       "cantitate": 296.1,
@@ -14349,7 +14281,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100833",
+      "cod": "$2100833",
       "denumire": "adeziv faianta",
       "um": "kg",
       "cantitate": 1410.0,
@@ -14366,7 +14298,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270111",
+      "cod": "$3270111",
       "denumire": "chit rosturi",
       "um": "kg",
       "cantitate": 141.0,
@@ -14383,7 +14315,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270225",
+      "cod": "$3270225",
       "denumire": "teava ppr pn 16 pentru apa calda 20x2.8",
       "um": "m",
       "cantitate": 71.4,
@@ -14400,9 +14332,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "7206121",
+      "cod": "$7206121",
       "denumire": "@cot conector pexal m-fi 20 x 1/2' cod",
-      "um": "buc .",
+      "um": "buc ",
       "cantitate": 20.0,
       "deviz": "226428",
       "deviz_denumire": "INSTALATII SANITARE OB.4",
@@ -14417,9 +14349,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "7206160",
+      "cod": "$7206160",
       "denumire": "@teu pexal mmm 20 cod 67101115",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 20.0,
       "deviz": "226428",
       "deviz_denumire": "INSTALATII SANITARE OB.4",
@@ -14434,9 +14366,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270235",
+      "cod": "$3270235",
       "denumire": "reductie pentru tevi din polietilena interior ppr - exterior ppr 25-20",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 10.0,
       "deviz": "226428",
       "deviz_denumire": "INSTALATII SANITARE OB.4",
@@ -14451,7 +14383,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3271730",
+      "cod": "$3271730",
       "denumire": "teava pn20 ppr verde dn25",
       "um": "m",
       "cantitate": 40.8,
@@ -14468,9 +14400,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270394",
+      "cod": "$3270394",
       "denumire": "cot 90 grd interior-exterior ppr 25",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 20.0,
       "deviz": "226428",
       "deviz_denumire": "INSTALATII SANITARE OB.4",
@@ -14485,9 +14417,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270242",
+      "cod": "$3270242",
       "denumire": "reductie ppr 32-25",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 10.0,
       "deviz": "226428",
       "deviz_denumire": "INSTALATII SANITARE OB.4",
@@ -14502,9 +14434,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270546",
+      "cod": "$3270546",
       "denumire": "ventilator baie d=100mm, model : 'eol 100?' timer",
-      "um": "b?c.",
+      "um": "b?c",
       "cantitate": 3.0,
       "deviz": "226448",
       "deviz_denumire": "INSTALATII VENTILATIE OB.4",
@@ -14519,9 +14451,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3272502",
+      "cod": "$3272502",
       "denumire": "ventilator baie silent-100cz - d=100 - 230v - 95 m3/h - soler palau",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226448",
       "deviz_denumire": "INSTALATII VENTILATIE OB.4",
@@ -14536,9 +14468,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "7002221",
+      "cod": "$7002221",
       "denumire": "grila ventilatie dn110 mm",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226448",
       "deviz_denumire": "INSTALATII VENTILATIE OB.4",
@@ -14553,9 +14485,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2997228",
+      "cod": "$2997228",
       "denumire": "grila exterioare cu jaluzele fixe,dn125, cu jaluzele anti-ploaie si plasa antiinsecte",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "226448",
       "deviz_denumire": "INSTALATII VENTILATIE OB.4",
@@ -14570,9 +14502,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2997173",
+      "cod": "$2997173",
       "denumire": "grila transfer cu izolare fonica, aluminiu montat in usa 300x200, inclusiv contrarama",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "226448",
       "deviz_denumire": "INSTALATII VENTILATIE OB.4",
@@ -14587,9 +14519,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "5700801",
+      "cod": "$5700801",
       "denumire": "radiator electric montaj pe perete 1500w, prevazut cu termoastal reglabil, inclusiv suporti si accesorii de prindere",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 9.0,
       "deviz": "226458",
       "deviz_denumire": "INSTALATII INCALZIRE OB.4",
@@ -14604,9 +14536,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2937005",
+      "cod": "$2937005",
       "denumire": "radiator electric pe perete, 500w, prevazut cu termoastat reglabil, inclusiv suportii",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 12.0,
       "deviz": "226458",
       "deviz_denumire": "INSTALATII INCALZIRE OB.4",
@@ -14621,9 +14553,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3273416",
+      "cod": "$3273416",
       "denumire": "radiator electric pe perete, 1000 w, prevazut cu termoastat reglabil, inclusiv suporti si accesorii de prindere",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 6.0,
       "deviz": "226458",
       "deviz_denumire": "INSTALATII INCALZIRE OB.4",
@@ -14638,26 +14570,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "VC1011 [2]",
-      "denumire": "montat aparat aer conditionat",
-      "um": "buc .",
-      "cantitate": 3.0,
-      "deviz": "226468",
-      "deviz_denumire": "INST. CLIMATIZARE OB.4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "2000005",
+      "cod": "$2000005",
       "denumire": "suport aparat aer conditionat",
-      "um": "buc .",
+      "um": "buc ",
       "cantitate": 1.0,
       "deviz": "226468",
       "deviz_denumire": "INST. CLIMATIZARE OB.4",
@@ -14672,7 +14587,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3272370",
+      "cod": "$3272370",
       "denumire": "teava din cupru colac 1/4 (6,35 mm) pentru aer conditionat",
       "um": "m",
       "cantitate": 18.0,
@@ -14689,7 +14604,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3272371",
+      "cod": "$3272371",
       "denumire": "teava cupru colac 50 m izolata 3/8 mm) pentru aer conditionat",
       "um": "m",
       "cantitate": 18.0,
@@ -14706,7 +14621,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "7322835",
+      "cod": "$7322835",
       "denumire": "freon",
       "um": "kg",
       "cantitate": 3.0,
@@ -14723,25 +14638,8 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2955015",
+      "cod": "$2955015",
       "denumire": "cabinet 18u, montat pe perete, usa din sticla cu rama metalica, panouri laterale detasabile, kit suport",
-      "um": "buc.",
-      "cantitate": 1.0,
-      "deviz": "226488",
-      "deviz_denumire": "INSTALATIE VOCE-DATE-OB.4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "TCB40A1 ASIM",
-      "denumire": "aparat telegr teleim transmit autom receptor perforator (manual) pt: abonat",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226488",
@@ -14757,25 +14655,8 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2905212",
+      "cod": "$2905212",
       "denumire": "unitate 4 ventilatoare cu termostate si intrerupator",
-      "um": "buc.",
-      "cantitate": 1.0,
-      "deviz": "226488",
-      "deviz_denumire": "INSTALATIE VOCE-DATE-OB.4",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "ATA01B ASIM",
-      "denumire": "montarea aparatelor in panouri, dulapuri, cutii, aparent sau ingropat cu greutatea:",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226488",
@@ -14791,9 +14672,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2905014",
+      "cod": "$2905014",
       "denumire": "switch mediaconvector dimensiune 1u",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226488",
       "deviz_denumire": "INSTALATIE VOCE-DATE-OB.4",
@@ -14808,9 +14689,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2600000",
+      "cod": "$2600000",
       "denumire": "switch 8 porturi rj45",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226488",
       "deviz_denumire": "INSTALATIE VOCE-DATE-OB.4",
@@ -14825,9 +14706,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "5538123",
+      "cod": "$5538123",
       "denumire": "patchpanel 8 porturi rj45 echipat",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226488",
       "deviz_denumire": "INSTALATIE VOCE-DATE-OB.4",
@@ -14842,9 +14723,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2955018",
+      "cod": "$2955018",
       "denumire": "digital video recorder 16 canale",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "226498",
       "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB4",
@@ -14859,9 +14740,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2955019",
+      "cod": "$2955019",
       "denumire": "hard disk stocare imagini 2 tb",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "226498",
       "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB4",
@@ -14876,9 +14757,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "5700023",
+      "cod": "$5700023",
       "denumire": "camera video color all-in-one de exterior",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 9.0,
       "deviz": "226498",
       "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB4",
@@ -14893,9 +14774,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "5700054",
+      "cod": "$5700054",
       "denumire": "camera video interior, color, varifocala, alimentare 220v",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 7.0,
       "deviz": "226498",
       "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB4",
@@ -14910,7 +14791,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270808",
+      "cod": "$3270808",
       "denumire": "cablu date ftp 5e 4 x 2 x awg24/1",
       "um": "m",
       "cantitate": 200.0,
@@ -14927,9 +14808,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2700014",
+      "cod": "$2700014",
       "denumire": "tub de protectie tip ipey/monoflex d=16 mm",
-      "um": "ml.",
+      "um": "ml",
       "cantitate": 200.0,
       "deviz": "226498",
       "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB4",
@@ -14944,9 +14825,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "7302053",
+      "cod": "$7302053",
       "denumire": "tablou electric secundar, ip54, confectii metalice, usa yala, montaj aparent, echipat",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226478",
       "deviz_denumire": "INSTALATII ELECTRICE CURENTI",
@@ -14961,7 +14842,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270431",
+      "cod": "$3270431",
       "denumire": "cablu cyyf 3x2,5",
       "um": "m",
       "cantitate": 1805.0,
@@ -14978,7 +14859,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270501",
+      "cod": "$3270501",
       "denumire": "cablu cyyf 4×1,5",
       "um": "m",
       "cantitate": 306.0,
@@ -14995,7 +14876,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270430",
+      "cod": "$3270430",
       "denumire": "cablu cyyf 3x1 5",
       "um": "m",
       "cantitate": 1479.0,
@@ -15012,9 +14893,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2700014",
+      "cod": "$2700014",
       "denumire": "tub de protectie tip ipey/monoflex d=16 mm",
-      "um": "ml.",
+      "um": "ml",
       "cantitate": 1486.0,
       "deviz": "226478",
       "deviz_denumire": "INSTALATII ELECTRICE CURENTI",
@@ -15029,9 +14910,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100910",
+      "cod": "$2100910",
       "denumire": "beton marfa clasa c8/10",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 24.2,
       "deviz": "226508",
       "deviz_denumire": "STRUCTURA DE REZISTENTA (GRUPURI)",
@@ -15046,9 +14927,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100912",
+      "cod": "$2100912",
       "denumire": "beton marca clasa c16/20",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 28.23,
       "deviz": "226508",
       "deviz_denumire": "STRUCTURA DE REZISTENTA (GRUPURI)",
@@ -15063,9 +14944,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2101171",
+      "cod": "$2101171",
       "denumire": "mortar de zidarie m 50 s 1030",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 4.34,
       "deviz": "226518",
       "deviz_denumire": "ARHITECTURA GRUPURI SANITARE",
@@ -15080,9 +14961,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2101171",
+      "cod": "$2101171",
       "denumire": "mortar de zidarie m 50 s 1030",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 1.2,
       "deviz": "226518",
       "deviz_denumire": "ARHITECTURA GRUPURI SANITARE",
@@ -15097,9 +14978,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2101195",
+      "cod": "$2101195",
       "denumire": "mortar tencuiala m 100 (var hidratat) s 1030",
-      "um": "m.c.",
+      "um": "mc",
       "cantitate": 2.81,
       "deviz": "226518",
       "deviz_denumire": "ARHITECTURA GRUPURI SANITARE",
@@ -15114,7 +14995,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3276725",
+      "cod": "$3276725",
       "denumire": "tinci pt tencuieli fine",
       "um": "kg",
       "cantitate": 780.0,
@@ -15131,9 +15012,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2401678",
+      "cod": "$2401678",
       "denumire": "faianta",
-      "um": "mp.",
+      "um": "mp",
       "cantitate": 163.8,
       "deviz": "226518",
       "deviz_denumire": "ARHITECTURA GRUPURI SANITARE",
@@ -15148,7 +15029,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2100833",
+      "cod": "$2100833",
       "denumire": "adeziv faianta",
       "um": "kg",
       "cantitate": 780.0,
@@ -15165,7 +15046,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270111",
+      "cod": "$3270111",
       "denumire": "chit rosturi",
       "um": "kg",
       "cantitate": 78.0,
@@ -15182,7 +15063,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270225",
+      "cod": "$3270225",
       "denumire": "teava ppr pn 16 pentru apa calda 20x2.8",
       "um": "m",
       "cantitate": 30.6,
@@ -15199,9 +15080,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "7206121",
+      "cod": "$7206121",
       "denumire": "@cot conector pexal m-fi 20 x 1/2' cod",
-      "um": "buc .",
+      "um": "buc ",
       "cantitate": 10.0,
       "deviz": "226528",
       "deviz_denumire": "INSTALATII SANITARE OB.5",
@@ -15216,9 +15097,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270233",
+      "cod": "$3270233",
       "denumire": "teu egal ppr 20x20",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 15.0,
       "deviz": "226528",
       "deviz_denumire": "INSTALATII SANITARE OB.5",
@@ -15233,9 +15114,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270235",
+      "cod": "$3270235",
       "denumire": "reductie pentru tevi din polietilena interior ppr - exterior ppr 25-20",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 5.0,
       "deviz": "226528",
       "deviz_denumire": "INSTALATII SANITARE OB.5",
@@ -15250,7 +15131,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3271730",
+      "cod": "$3271730",
       "denumire": "teava pn20 ppr verde dn25",
       "um": "m",
       "cantitate": 10.0,
@@ -15267,9 +15148,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270394",
+      "cod": "$3270394",
       "denumire": "cot 90 grd interior-exterior ppr 25",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 5.0,
       "deviz": "226528",
       "deviz_denumire": "INSTALATII SANITARE OB.5",
@@ -15284,9 +15165,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270242",
+      "cod": "$3270242",
       "denumire": "reductie ppr 32-25",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226528",
       "deviz_denumire": "INSTALATII SANITARE OB.5",
@@ -15301,9 +15182,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2937005",
+      "cod": "$2937005",
       "denumire": "radiator electric pe perete, 500w, prevazut cu termoastat reglabil, inclusiv suportii",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "226548",
       "deviz_denumire": "INSTALATII TERMICE",
@@ -15318,9 +15199,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3273416",
+      "cod": "$3273416",
       "denumire": "radiator electric pe perete, 1000 w, prevazut cu termoastat reglabil, inclusiv suporti si accesorii de prindere",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "226548",
       "deviz_denumire": "INSTALATII TERMICE",
@@ -15335,9 +15216,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2955018",
+      "cod": "$2955018",
       "denumire": "digital video recorder 16 canale",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226578",
       "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB5",
@@ -15352,9 +15233,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2955019",
+      "cod": "$2955019",
       "denumire": "hard disk stocare imagini 2 tb",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "226578",
       "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB5",
@@ -15369,9 +15250,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "5700023",
+      "cod": "$5700023",
       "denumire": "camera video color all-in-one de exterior",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 10.0,
       "deviz": "226578",
       "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB5",
@@ -15386,7 +15267,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270808",
+      "cod": "$3270808",
       "denumire": "cablu date ftp 5e 4 x 2 x awg24/1",
       "um": "m",
       "cantitate": 100.0,
@@ -15403,9 +15284,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2700014",
+      "cod": "$2700014",
       "denumire": "tub de protectie tip ipey/monoflex d=16 mm",
-      "um": "ml.",
+      "um": "ml",
       "cantitate": 100.0,
       "deviz": "226578",
       "deviz_denumire": "SISTEM SUPRAVEGHEREA VIDEO -OB5",
@@ -15420,9 +15301,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2955015",
+      "cod": "$2955015",
       "denumire": "cabinet 18u, montat pe perete, usa din sticla cu rama metalica, panouri laterale detasabile, kit suport",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226568",
       "deviz_denumire": "INSTALATIE VOCE-DATE-OB.5",
@@ -15437,9 +15318,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2905212",
+      "cod": "$2905212",
       "denumire": "unitate 4 ventilatoare cu termostate si intrerupator",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226568",
       "deviz_denumire": "INSTALATIE VOCE-DATE-OB.5",
@@ -15454,9 +15335,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2905014",
+      "cod": "$2905014",
       "denumire": "switch mediaconvector dimensiune 1u",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226568",
       "deviz_denumire": "INSTALATIE VOCE-DATE-OB.5",
@@ -15471,9 +15352,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2600000",
+      "cod": "$2600000",
       "denumire": "switch 8 porturi rj45",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226568",
       "deviz_denumire": "INSTALATIE VOCE-DATE-OB.5",
@@ -15488,9 +15369,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "5538123",
+      "cod": "$5538123",
       "denumire": "patchpanel 8 porturi rj45 echipat",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226568",
       "deviz_denumire": "INSTALATIE VOCE-DATE-OB.5",
@@ -15505,9 +15386,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "7302053",
+      "cod": "$7302053",
       "denumire": "tablou electric secundar, ip54, confectii metalice, usa yala, montaj aparent, echipat",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226558",
       "deviz_denumire": "INSTALATII ELECTRICE CURENTI",
@@ -15522,9 +15403,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "7312921",
+      "cod": "$7312921",
       "denumire": "tablou electric general teg1",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "226558",
       "deviz_denumire": "INSTALATII ELECTRICE CURENTI",
@@ -15539,7 +15420,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270563",
+      "cod": "$3270563",
       "denumire": "cablu cyyf 5x10",
       "um": "m",
       "cantitate": 10.0,
@@ -15556,7 +15437,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270431",
+      "cod": "$3270431",
       "denumire": "cablu cyyf 3x2,5",
       "um": "m",
       "cantitate": 125.0,
@@ -15573,7 +15454,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270430",
+      "cod": "$3270430",
       "denumire": "cablu cyyf 3x1 5",
       "um": "m",
       "cantitate": 95.0,
@@ -15590,9 +15471,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2700014",
+      "cod": "$2700014",
       "denumire": "tub de protectie tip ipey/monoflex d=16 mm",
-      "um": "ml.",
+      "um": "ml",
       "cantitate": 95.0,
       "deviz": "226558",
       "deviz_denumire": "INSTALATII ELECTRICE CURENTI",
@@ -15607,7 +15488,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3276650",
+      "cod": "$3276650",
       "denumire": "teava pehd 80 pentru transport apa potabila, sdr 17, dn 32, pn 10 bar",
       "um": "m",
       "cantitate": 31.5,
@@ -15624,7 +15505,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3276850",
+      "cod": "$3276850",
       "denumire": "teava pehd 80 pentru transport apa potabila, sdr 17, dn 40, pn 10 bar",
       "um": "m",
       "cantitate": 220.5,
@@ -15641,7 +15522,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3276846",
+      "cod": "$3276846",
       "denumire": "teava pehd 80 pentru transport apa potabila, sdr 17, dn 50, pn 10 bar",
       "um": "m",
       "cantitate": 5.0,
@@ -15658,7 +15539,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3276844",
+      "cod": "$3276844",
       "denumire": "teava pehd 80 pentru transport apa potabila, sdr 17, dn 63, pn 10 bar",
       "um": "m",
       "cantitate": 105.0,
@@ -15675,7 +15556,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3274594",
+      "cod": "$3274594",
       "denumire": "camin dublustrat pt apometru cu instalatie 3/4' si capac d.550 h.1100mm",
       "um": "buc",
       "cantitate": 1.0,
@@ -15692,7 +15573,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270476",
+      "cod": "$3270476",
       "denumire": "teava pvc-kg 110x3.0x1000",
       "um": "m",
       "cantitate": 188.5,
@@ -15709,9 +15590,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270000",
+      "cod": "$3270000",
       "denumire": "camin pvc basic line d=1000 mm, alcatuit din bazin colectare, inel intermedial, piesa superioara, inel beton",
-      "um": "buc.",
+      "um": "buc",
       "cantitate": 8.0,
       "deviz": "226018",
       "deviz_denumire": "CANALIZARE",
@@ -15726,24 +15607,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "DE26A1 [2]",
-      "denumire": "banda de semnalizare",
-      "um": "m",
-      "cantitate": 198.0,
-      "deviz": "226018",
-      "deviz_denumire": "CANALIZARE",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "3270513",
+      "cod": "$3270513",
       "denumire": "banda avertizare <kompactkit> canal 11, 5cmx 0,17mm",
       "um": "m",
       "cantitate": 198.0,
@@ -15760,24 +15624,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "TCC23B1 ASIM",
-      "denumire": "instalatie de tv in circuit inchis: monitor videocamontare",
-      "um": "buc",
-      "cantitate": 15.0,
-      "deviz": "226038",
-      "deviz_denumire": "TELECOMUNICATII",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "2428909",
+      "cod": "$2428909",
       "denumire": "camera video exterior",
       "um": "buc",
       "cantitate": 15.0,
@@ -15794,7 +15641,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270808",
+      "cod": "$3270808",
       "denumire": "cablu date ftp 5e 4 x 2 x awg24/1",
       "um": "m",
       "cantitate": 1530.0,
@@ -15811,7 +15658,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3271458",
+      "cod": "$3271458",
       "denumire": "cablu fibra optica multitub / tkf - 24 fibre 4000n rp, singel mode",
       "um": "m",
       "cantitate": 408.0,
@@ -15828,7 +15675,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3270538",
+      "cod": "$3270538",
       "denumire": "tub protectie cablu d 40 gofrat albastru dublu strat",
       "um": "m",
       "cantitate": 510.0,
@@ -15845,8 +15692,8 @@
       "val_transport": 0.0
     },
     {
-      "cod": "TCB40A1 ASIM",
-      "denumire": "aparat telegr teleim transmit autom receptor perforator (manual) pt: abonat",
+      "cod": "$7701266",
+      "denumire": "ups racktabil 1.5 kva",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "226038",
@@ -15862,43 +15709,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "7701266",
-      "denumire": "ups racktabil 1.5 kva",
-      "um": "buc.",
-      "cantitate": 1.0,
-      "deviz": "226038",
-      "deviz_denumire": "TELECOMUNICATII",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "DF26A1 [2]",
-      "denumire": "banda de semnalizare",
-      "um": "m",
-      "cantitate": 1900.0,
-      "deviz": "226038",
-      "deviz_denumire": "TELECOMUNICATII",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "6718506",
+      "cod": "$6718506",
       "denumire": "banda avertizoare pvc inscriptionata pentru cablu telecomunicatii in sapatura 1 mm grosime",
-      "um": "ml.",
+      "um": "ml",
       "cantitate": 1900.0,
       "deviz": "226038",
       "deviz_denumire": "TELECOMUNICATII",
@@ -15913,26 +15726,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "DF26A1[2]",
-      "denumire": "banda de semnalizare",
-      "um": "m",
-      "cantitate": 3350.0,
-      "deviz": "226368",
-      "deviz_denumire": "INSTALATIE IRIGATIE SPATII VERZI",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "7000763",
+      "cod": "$7000763",
       "denumire": "banda de insertie metalica",
-      "um": "ml.",
+      "um": "ml",
       "cantitate": 3350.0,
       "deviz": "226368",
       "deviz_denumire": "INSTALATIE IRIGATIE SPATII VERZI",
@@ -15947,9 +15743,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "2946062",
+      "cod": "$2946062",
       "denumire": "folie pvc inscriptionat, pentru avertizare cablu sub tensiune",
-      "um": "ml.",
+      "um": "ml",
       "cantitate": 850.0,
       "deviz": "226028",
       "deviz_denumire": "ALIMENTARE CU E.E. SI ILUMINAT",
@@ -15964,7 +15760,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3275680",
+      "cod": "$3275680",
       "denumire": "cabluri electrice cyaby-f 3x95+50, 71760471360100, icme ecab",
       "um": "m",
       "cantitate": 100.0,
@@ -15981,7 +15777,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "3272541",
+      "cod": "$3272541",
       "denumire": "tub protectie cablu d 110 gofrat albastru dublu strat 450n l6m",
       "um": "m",
       "cantitate": 100.0,
@@ -15998,26 +15794,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "CL08B1 [7]",
-      "denumire": "montare baraca",
-      "um": "tona",
-      "cantitate": 2.0,
-      "deviz": "226718",
-      "deviz_denumire": "ORG.SANTIER- CONTAINER",
-      "is_component": false,
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "7000367",
+      "cod": "$7000367",
       "denumire": "baraca tip container, izolat termic",
-      "um": "buc .",
+      "um": "buc ",
       "cantitate": 2.0,
       "deviz": "226718",
       "deviz_denumire": "ORG.SANTIER- CONTAINER",
@@ -16032,9 +15811,9 @@
       "val_transport": 0.0
     },
     {
-      "cod": "4104443",
+      "cod": "$4104443",
       "denumire": "costul inchirieri wc ecologic",
-      "um": "zi.",
+      "um": "zi",
       "cantitate": 730.0,
       "deviz": "226708",
       "deviz_denumire": "ORG SANTIER- MONTARE WC ECOLOGIC",

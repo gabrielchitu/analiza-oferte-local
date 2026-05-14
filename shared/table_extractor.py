@@ -179,9 +179,22 @@ def extract_articles_from_tables(tables: List[Dict], deviz_cod: str, deviz_den: 
                 code_cell = row_data.get(code_col, '').strip() if code_col is not None else ''
                 denom_cell = row_data.get(col_denom, '').strip()
 
-                # Extract code (clean OCR artifacts)
+                # Extract code from code_cell (may contain extra text like "[1]" or "ASIM")
+                code = None
                 if code_cell:
-                    code = _clean_article_code(code_cell.upper())
+                    # Try to extract just the code part, ignoring trailing artifacts
+                    # Match: numeric codes (2100910) or alphanumeric codes (IA22C1, TCB40A1)
+                    m = re.match(r'^(\$?\d{4,8}|[A-Z]{1,3}\d{1,4}[A-Z]?\d{0,2})\b', code_cell.upper())
+                    if m:
+                        code = m.group(1)
+                        # Add $ prefix to numeric codes (like _parse_article_cell does)
+                        if re.match(r'^\d+$', code):
+                            code = '$' + code
+                    else:
+                        # Fallback: clean and use entire cell
+                        code = _clean_article_code(code_cell.upper())
+                        if code and re.match(r'^\d+$', code):
+                            code = '$' + code
 
                 # Use denomination as-is
                 if code and denom_cell:
@@ -194,8 +207,9 @@ def extract_articles_from_tables(tables: List[Dict], deviz_cod: str, deviz_den: 
             if not code:
                 continue
 
-            # Get UM
+            # Get UM and normalize (remove dots: "m.c." → "mc")
             um = row_data.get(col_um, '').strip().upper()
+            um = um.replace('.', '')  # Remove dots: M.C. → MC, m.c. → mc
             if not um or um in ('0', '1', '2', '3', '4', '5'):
                 um = ''
 
