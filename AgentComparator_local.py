@@ -161,6 +161,64 @@ def _art_key(art: dict) -> tuple:
     return (_deviz_key(art), clean_code(art.get("cod") or ""))
 
 
+def _deduplicate_neconformitati(neconformitati: list) -> list:
+    """
+    Remove duplicate non-conformities for the same (deviz, ref_cod, oferta_cod) pair.
+
+    When the same article pair appears multiple times with different issue types,
+    keep only the primary (most important) one. Priority order:
+    1. COD_SIMILAR (code difference detected)
+    2. ARTICOL_ORPHAN (article in wrong deviz)
+    3. Others (DIFERENTA_CAMP, etc)
+
+    This handles cases like:
+    - ref $3274270 ↔ oferta $32742701: reported as both COD_SIMILAR + DIFERENTA_CAMP
+    - Should keep only COD_SIMILAR (the root cause), discard DIFERENTA_CAMP
+    """
+    if not neconformitati:
+        return neconformitati
+
+    # Priority map for issue types (higher number = higher priority, kept)
+    priority = {
+        'COD_SIMILAR': 3,
+        'ARTICOL_ORPHAN': 2,
+        'DIFERENTA_CAMP': 1,
+        'UM_DIFERIT': 1,
+        'ARTICOL_LIPSA': 0,
+        'ARTICOL_EXTRA': 0,
+    }
+
+    # Group by (deviz, ref_cod, oferta_cod)
+    seen = {}
+    result = []
+
+    for nc in neconformitati:
+        deviz = nc.get('deviz', '')
+        ref_cod = nc.get('ref_cod', '')
+        oferta_cod = nc.get('oferta_cod', '')
+        tip = nc.get('tip', '')
+        key = (deviz, ref_cod, oferta_cod)
+
+        if key not in seen:
+            # First occurrence: add and track
+            seen[key] = (tip, nc)
+            result.append(nc)
+        else:
+            # Seen before: keep only if this has higher priority
+            prev_tip, prev_nc = seen[key]
+            curr_priority = priority.get(tip, 0)
+            prev_priority = priority.get(prev_tip, 0)
+
+            if curr_priority > prev_priority:
+                # Replace with higher priority
+                result.remove(prev_nc)
+                seen[key] = (tip, nc)
+                result.append(nc)
+            # else: keep the previous one (already higher or equal priority)
+
+    return result
+
+
 def match_global(
     ref_articole: list,
     oferta_articole: list,
@@ -554,6 +612,10 @@ def match_global(
             "oferta_um": oferta_art.get("um", ""),
             "oferta_cantitate": oferta_art.get("cantitate", ""),
         })
+
+    # Deduplicate non-conformities for the same (deviz, ref_cod, oferta_cod) pair
+    # When same pair appears multiple times with different tips, keep only the primary one
+    neconformitati = _deduplicate_neconformitati(neconformitati)
 
     logger.info(
         f"[COMP] matched={len(matches)}, "
