@@ -15,10 +15,10 @@ logger = logging.getLogger(__name__)
 # ── Regex-uri ────────────────────────────────────────────────────────────────
 
 # Cod normativ: TSC35A22, SA14B#, RPCE26C1, CA02A1 etc. (cu – şi descriere)
-# Sufixe acceptate: # > * @ % și [1] [2] ]1 cu optional - trailing
+# Sufixe acceptate: # > * @ % ^ + și [1] [2] ]1 cu optional - trailing
 # Include si sufixe designator normativ: ASIM, TSCH (TCB40B1ASIM, CG08A#ASIM)
 # Permite combinatii: '#' urmat opțional de ASIM/TSCH (ex: CG08A#ASIM)
-_COD_SUFFIX = r'(?:[#>*@%^]|\[\d*\]|[\[\]]\d*)?(?:ASIM|TSCH)?[-]?'
+_COD_SUFFIX = r'(?:[#>*@%^+]|\[\d*\]|[\[\]]\d*)?(?:ASIM|TSCH)?[-]?'
 COD_NORM_RE = re.compile(
     r'^([A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?' + _COD_SUFFIX + r')\s*[-–]\s*(.+)',
     re.IGNORECASE
