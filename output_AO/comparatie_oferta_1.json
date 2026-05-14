@@ -759,36 +759,14 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226028",
+      "deviz_ref": "226358",
       "deviz_denumire": "",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$7319524",
-      "oferta_denumire": "electrod teava zincata 76,1x4,5",
-      "oferta_um": "m",
-      "oferta_cantitate": 128.52
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226478",
-      "deviz_denumire": "",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$3270501",
-      "oferta_denumire": "cablu cyyf 4x1,5 mmp",
-      "oferta_um": "m",
-      "oferta_cantitate": 306.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226518",
-      "deviz_denumire": "ARHITECTURA grupuri sanitare publice",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$7800859",
-      "oferta_denumire": "vopsea lavabila acrilica",
-      "oferta_um": "kg",
-      "oferta_cantitate": 12.0
+      "oferta_cod": "TRA01A20P",
+      "oferta_denumire": "transportul rutier al pamantului sau molozului cu autobasculanta dist .= 20 km",
+      "oferta_um": "tona",
+      "oferta_cantitate": 1132.4
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -803,26 +781,25 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226728",
-      "deviz_denumire": "ORG. SANTIER- CONTAINER",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "CHELT",
-      "oferta_denumire": "cheltuieli conexe organizare santier",
-      "oferta_um": "lei",
-      "oferta_cantitate": 30000.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "226358",
+      "deviz_ref": "226478",
       "deviz_denumire": "",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$22100100",
-      "oferta_denumire": "profil fagure ecologic",
-      "oferta_um": "mp",
-      "oferta_cantitate": 2000.0
+      "oferta_cod": "$3270501",
+      "oferta_denumire": "cablu cyyf 4x1,5 mmp",
+      "oferta_um": "m",
+      "oferta_cantitate": 306.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226028",
+      "deviz_denumire": "",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$7319524",
+      "oferta_denumire": "electrod teava zincata 76,1x4,5",
+      "oferta_um": "m",
+      "oferta_cantitate": 128.52
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -841,10 +818,33 @@
       "deviz_denumire": "",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "TRA01A20P",
-      "oferta_denumire": "transportul rutier al pamantului sau molozului cu autobasculanta dist .= 20 km",
-      "oferta_um": "tona",
-      "oferta_cantitate": 1132.4
+      "oferta_cod": "$22100100",
+      "oferta_denumire": "profil fagure ecologic",
+      "oferta_um": "mp",
+      "oferta_cantitate": 2000.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226418",
+      "deviz_denumire": "ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$7800859",
+      "oferta_denumire": "vopsea lavabila acrilica",
+      "oferta_um": "kg",
+      "oferta_cantitate": 120.5
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "226728",
+      "deviz_denumire": "ORG. SANTIER- CONTAINER",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "CHELT",
+      "oferta_denumire": "cheltuieli conexe organizare santier",
+      "oferta_um": "lei",
+      "oferta_cantitate": 30000.0,
+      "posibil_omis_din_extractie": true
     },
     {
       "tip": "ARTICOL_EXTRA",
