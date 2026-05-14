@@ -584,7 +584,9 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
 
     for line_idx, raw_line in enumerate(lines):
         line = raw_line.strip()
-        if not line or SKIP_RE.search(line) or _PRICE_LABEL_RE.match(line):
+        # Skip empty, price labels, and metadata codes — BUT NOT numeric codes in linked article mode
+        skip_due_to_filter = SKIP_RE.search(line) or _PRICE_LABEL_RE.match(line)
+        if not line or (skip_due_to_filter and not (state == _WAITING and _after_linked)):
             continue
 
         # N.L handler: articol legat ISDP — funcționează în orice stare
