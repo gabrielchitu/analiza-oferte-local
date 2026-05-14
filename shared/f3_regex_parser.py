@@ -787,9 +787,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 continue
 
             # NR_CRT nou (bare) → finalizează articolul curent
-            # SPECIAL CASE: Accept bare "NR_CRT" in READING only if NO CODE YET
-            # This handles the "split format" where code is on separate line (e.g., "001" then "EF03D1")
-            # BUT: if we already have a code but missing quantity, treat the number as quantity, not new NR_CRT
+            # Only treat bare integer as NR_CRT if we have NO CODE yet.
+            # If we have a code, let quantity/other checks handle the integer first.
             m_bare_nr = NR_CRT_RE.match(line)
             if m_bare_nr and not cod:
                 # If we have NO code yet, treat bare NR as the start of a split-format article
@@ -806,16 +805,20 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 continue
 
             # Cod nou cu separator – fără NR_CRT explicit (ex: "30172 - Transport" sau "TRA01A20")
-            # BUT: if current article is incomplete (no UM/Qty), treat it as denomination continuation
-            # Example: "D20mm" after "6701166 - Teava..." should be description, not new code
+            # BUT: if current article is incomplete (no UM/Qty), usually treat as denomination continuation
+            # EXCEPT: if code matches a STRONG pattern (standalone), it's likely a new article
             parsed_cod, parsed_den, parsed_um_hint = _try_parse_cod(line)
-            if parsed_cod and um == '' and cantitate == 0.0:
-                # Current article is incomplete — treat this as denomination continuation, not new code
+            line_norm = re.sub(r'(?<=[A-Z0-9])\s+(\[\d)', r'\1', line, flags=re.IGNORECASE)
+            is_strong_code = (COD_NORM_STANDALONE_RE.match(line_norm) or
+                             COD_NORM_EXTENDED_STANDALONE_RE.match(line_norm) or
+                             COD_NORM_SINGLE_STANDALONE_RE.match(line_norm) or
+                             COD_NUMERIC_BARE_RE.match(line))
+            if parsed_cod and um == '' and cantitate == 0.0 and not is_strong_code:
+                # Current article is incomplete AND code is weak pattern → treat as denomination continuation
+                # But strong patterns (standalone codes) start new articles
                 parsed_cod = None
             # Check both code patterns WITH separators and standalone code patterns.
-            # COD_NORM_STANDALONE_RE se verifica pe string-ul normalizat (bracket-uri lipite)
-            # deoarece _try_parse_cod normalizeaza intern "IA22C1 [1]" → "IA22C1[1]".
-            line_norm = re.sub(r'(?<=[A-Z0-9])\s+(\[\d)', r'\1', line, flags=re.IGNORECASE)
+            # (line_norm already computed above)
             # Respinge COD_NUMERIC_RE când descrierea e pur numerică:
             # ex. '4741-71' → cod=$4741, den='71' — e continuare de denumire, nu articol nou
             _numeric_den = (COD_NUMERIC_RE.match(line) and
