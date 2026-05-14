@@ -98,6 +98,59 @@ Article code W3H18C1 exists in the offer PDF at position 93, but is not extracte
 
 ---
 
+## Issue 3: 5858393 Not Extracted from Deviz 226218
+
+### Description
+
+Article code 5858393 exists in the reference PDF (deviz 226218) but is not being extracted. The article is visible in the PDF but missing from the final extraction output.
+
+### Current Behavior
+
+**PDF Content (Page 30, Lines 44-47):**
+```
+031 5858393         (NR_CRT + numeric code)
+L                   (UM: liter)
+317.700             (price/quantity)
+Solutie de protectie a lemnului tip  (denomination: wood protection solution)
+```
+
+**Extraction Status:**
+- NR_NUMERIC_INLINE_RE pattern matches "031 5858393" correctly
+- Article is extracted as **hollow**:
+  - Code: $5858393 ✓
+  - UM: (empty) ✗
+  - Quantity: 0.0 ✗
+  - Denomination: (empty) ✗
+- Hollow article is filtered out before final output
+- Result: 5858393 **NOT present** in reference.json
+
+### Root Cause Analysis
+
+1. **Pattern Matching:** Works correctly (NR_NUMERIC_INLINE_RE matches)
+2. **State Transition:** Article enters READING state after code extraction
+3. **UM Detection Failure:** Line "L" is not being recognized as UM despite:
+   - "L" is in UM_KNOWN list
+   - _is_valid_um("L") returns True
+   - Code path at line 928-933 should trigger
+4. **Result:** Article finalized without UM/quantity/denomination data, then filtered
+
+### Example Code Pattern
+
+Similar numeric codes that **DO** extract correctly:
+- $2100833, $2100843, $2100853, $2101131, etc.
+
+### Files Involved
+
+- `shared/f3_regex_parser.py::extract_articles_regex()` — UM detection (lines 928-933)
+- `shared/f3_regex_parser.py::_is_valid_um()` — UM validation logic
+- `local_run.py::extract_document()` — article filtering/finalization
+
+### Current Decision
+
+**Documented for investigation** — Likely state machine or condition issue preventing UM capture for this specific format. Similar to the now-fixed bare-integer quantity issue (Issue from 2026-05-14 session).
+
+---
+
 ## Recommended Next Steps
 
 ### For Issue #1 (NS001):
@@ -110,9 +163,18 @@ Article code W3H18C1 exists in the offer PDF at position 93, but is not extracte
 2. Implement safe merge of table-extracted articles with line-based articles
 3. Add comprehensive deduplication tests
 
+### For Issue #3 (5858393):
+1. Add detailed logging to UM detection code path (line 928-933)
+2. Trace state machine transitions for this specific article format
+3. Compare with similar working codes ($2100843, etc.) to identify divergence
+4. May be related to bare-integer quantity parsing fix — review condition logic
+
 ---
 
 ## Session References
 
-- **v4 Release Session (2026-05-14):** Initial identification of both issues
+- **v4 Release Session (2026-05-14):** Initial identification of issues #1 and #2
+- **Session 2026-05-14 (continued):** 
+  - Fixed: Truncation deduplication ($0156 vs $3270156, etc.)
+  - Identified: Issue #3 (5858393 extraction failure)
 - **Memory:** `/Users/gabrielchitu/.claude/projects/-Users-gabrielchitu-analiza-oferte-local/memory/v4-session-summary.md`
