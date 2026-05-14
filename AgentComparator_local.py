@@ -16,31 +16,45 @@ from shared.article_matcher import match_unmatched_global
 logger = logging.getLogger(__name__)
 
 
-def _strip_special_chars(cod: str) -> str:
+def clean_code(cod: str) -> str:
     """
-    Strips special characters (^, #, @, -, etc.) from code without aggressive replacements.
-    Safe for matching codes like "CK01A01^" → "CK01A01"
-    Does NOT apply OCR replacements (O→0, l→1) which break valid codes like "CO01A01"
+    GENERAL SOLUTION: Clean code by removing artifact characters.
+
+    Removes: ^, #, @, -, etc. (formatting artifacts)
+    Preserves: $prefix, A-Z, 0-9
+
+    Examples:
+      CK01A01^     → CK01A01
+      SA14B#       → SA14B
+      CO01A01      → CO01A01 (unchanged, valid code)
+      $2911        → $2911 (unchanged)
+      ID03A01-     → ID03A01
+
+    Use this function CONSISTENTLY when comparing codes across reference and offer.
     """
-    cod = (cod or "").strip().upper()
-    # Only remove actual special characters, keep alphanumeric and $
-    return re.sub(r'[^A-Z0-9$]', '', cod)
+    if not cod:
+        return cod
+
+    cod = str(cod).strip().upper()
+    # Remove artifact characters: ^, #, @, -, [, ], (, ), etc.
+    # Keep only: letters (A-Z), digits (0-9), and $ prefix
+    cleaned = re.sub(r'[^A-Z0-9$]', '', cod)
+    return cleaned
 
 
 def _normalize_cod(cod: str) -> str:
     """
-    Extrage codul de baza, ignorand sufixele OCR/variante (#, -, @, ASIM etc.).
-    Breviar propriu ($01063) — pastreaza prefixul $ + digits.
-    Cod normativ (SA14B#, RPCR21A#-) — extrage doar baza standard.
+    DEPRECATED: Use clean_code() instead for general code cleaning.
 
-    Special characters (^, #, @, etc.) should be stripped via _strip_special_chars BEFORE calling this.
+    This function applies aggressive transformations that break valid codes.
+    Kept for backward compatibility with Layer 2 fuzzy matching only.
     """
     cod = (cod or "").strip().upper()
     # OCR fix: lowercase 'l' often confused with digit '1'
-    # Only apply to lowercase 'l' which is clearly an OCR error (uppercase L is part of valid codes)
-    cod = cod.replace('l', '1')
-    # NOTE: Removed O→0 replacement as it breaks valid codes like CO01A01
-    # Codes with special characters should be handled via _strip_special_chars before normalization
+    cod = cod.replace('l', '1').replace('L', '1')
+    # OCR fix: letter 'O' often confused with digit '0' — normalize to '0'
+    # IZDO4D1 → IZD04D1 (O becomes 0 in PDF)
+    cod = cod.replace('O', '0')
     if cod.startswith('$'):
         num = re.sub(r'[^0-9]', '', cod[1:])  # extrage doar cifrele
         if len(num) >= 8:
@@ -138,12 +152,10 @@ def _deviz_key(art: dict) -> str:
 def _art_key(art: dict) -> tuple:
     """Cheia compusa (deviz, cod) pentru un articol.
 
-    Uses (deviz_code, cod_stripped) for exact Layer 1 matching.
-    Special character handling is done in Layer 2 normalization and Layer 3 fuzzy matching.
+    Uses (deviz_code, cleaned_cod) where cleaned_cod removes artifact characters.
+    This ensures codes like CK01A01^ and CK01A01 match correctly.
     """
-    # Only strip whitespace, don't apply OCR normalization which breaks valid codes
-    # (e.g., CO01A01 should NOT become C001A01)
-    return (_deviz_key(art), (art.get("cod") or "").strip())
+    return (_deviz_key(art), clean_code(art.get("cod") or ""))
 
 
 def match_global(
@@ -251,9 +263,8 @@ def match_global(
     norm_to_oferta_key = {}
     for ok in unmatched_oferta_keys:
         deviz, cod = ok
-        # Strip special characters first (safe), then apply aggressive OCR normalization
-        cod_stripped = _strip_special_chars(cod)
-        norm = (deviz, _normalize_cod(cod_stripped))
+        # Use clean_code which handles artifact character removal
+        norm = (deviz, _normalize_cod(clean_code(cod)))
         if norm not in norm_to_oferta_key:
             norm_to_oferta_key[norm] = ok
 
@@ -261,8 +272,7 @@ def match_global(
     ref_by_norm: dict = defaultdict(list)
     still_unmatched_ref = []
     for ref_art in unmatched_ref:
-        cod_stripped = _strip_special_chars(ref_art.get("cod", ""))
-        norm_key = (_deviz_key(ref_art), _normalize_cod(cod_stripped))
+        norm_key = (_deviz_key(ref_art), _normalize_cod(clean_code(ref_art.get("cod", ""))))
         if norm_key in norm_to_oferta_key:
             ref_by_norm[norm_key].append(ref_art)
         else:

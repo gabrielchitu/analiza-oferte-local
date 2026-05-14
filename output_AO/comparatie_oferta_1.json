@@ -1975,25 +1975,26 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "3.3",
+      "deviz_denumire": "INSTALATII SANITARE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$4200775",
+      "oferta_denumire": "cada de dus total obiecte sanitare greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă",
+      "oferta_um": "buc",
+      "oferta_cantitate": 5.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "9.1",
       "deviz_denumire": "MONTAJ ECHIPAMENTE",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "RPIA23G",
-      "oferta_denumire": "montat puffer 300 litri",
+      "oferta_cod": "ID03A01",
+      "oferta_denumire": "montare pompa caldura inverter incalzire- racire 20 kw",
       "oferta_um": "buc",
-      "oferta_cantitate": 1.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.6",
-      "deviz_denumire": "INSTALATII TERMICE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$4204032",
-      "oferta_denumire": "bratara tevi instalatii apa si gaze 3/4",
-      "oferta_um": "buc",
-      "oferta_cantitate": 187.0
+      "oferta_cantitate": 11.0,
+      "posibil_omis_din_extractie": true
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2008,14 +2009,127 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "9.1",
-      "deviz_denumire": "MONTAJ ECHIPAMENTE",
+      "deviz_ref": "3.1",
+      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "IB17C1",
-      "oferta_denumire": "montare generator de curent , trifazat, diesel, putere 15 kva",
+      "oferta_cod": "CD19E04",
+      "oferta_denumire": "placaj gips carton rezistent la foc, grosime 12,5 mm montaj direct pe fata inferioara a capriorilor",
+      "oferta_um": "mp",
+      "oferta_cantitate": 413.0,
+      "posibil_omis_din_extractie": true
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.1",
+      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "CD19E04",
+      "oferta_denumire": "sistem gips - carton de tip norgips cu rezistenta la foc el 30, pentru montarea peretilor despartitori de inaltime maxima 4,4 m si masa de 17 kg / mp, grosime 100 mm, distanta interax 600 mm, cu o structura metalica din profile cw 75 si uw 75 cu placare simpla din placi gkb plus de tip a cu o grosime 12,5 mm, fara umplere cu vata minerala",
+      "oferta_um": "mp",
+      "oferta_cantitate": 1.0,
+      "posibil_omis_din_extractie": true
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "3.4",
+      "deviz_denumire": "INSTALATII TERMICE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$5701583",
+      "oferta_denumire": "convectoradiator seven 600 14 elem cod 3os 0600",
       "oferta_um": "buc",
-      "oferta_cantitate": 1.0
+      "oferta_cantitate": 3.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.3",
+      "deviz_denumire": "INSTALATII SANITARE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$4204111",
+      "oferta_denumire": "bratara tevi instalatii apa si gaze 21/2",
+      "oferta_um": "buc",
+      "oferta_cantitate": 50.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.4",
+      "deviz_denumire": "INSTALATII CURENTI TARI",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$5102578",
+      "oferta_denumire": "corp de iluminat casetat, led 48w 600x600mm",
+      "oferta_um": "buc",
+      "oferta_cantitate": 24.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.4",
+      "deviz_denumire": "INSTALATII CURENTI TARI",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$5535995",
+      "oferta_denumire": "priza etansa cu contact de protectie, 230v, ip 44",
+      "oferta_um": "buc",
+      "oferta_cantitate": 6.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "3.3",
+      "deviz_denumire": "INSTALATII SANITARE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$4551768",
+      "oferta_denumire": "robinet inchidere - golire 3/4 ', pn16.",
+      "oferta_um": "buc",
+      "oferta_cantitate": 12.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.4",
+      "deviz_denumire": "INSTALATII CURENTI TARI",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$5206685",
+      "oferta_denumire": "clema de cabluri, pentru 10 conductori",
+      "oferta_um": "buc",
+      "oferta_cantitate": 200.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.6",
+      "deviz_denumire": "INSTALATII TERMICE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "$4204032",
+      "oferta_denumire": "bratara tevi instalatii apa si gaze 3/4",
+      "oferta_um": "buc",
+      "oferta_cantitate": 187.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.4",
+      "deviz_denumire": "INSTALATII CURENTI TARI",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "EE09C01",
+      "oferta_denumire": "corp de iluminat siguranta led 9w, montaj aparent, echipat cu kit de emergenta 3 ore, inscriptionat conform locului de montaj 600002128[1] - corp de iluminat siguranta led 9w buc",
+      "oferta_um": "buc",
+      "oferta_cantitate": 24.0,
+      "posibil_omis_din_extractie": true
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "2.6",
+      "deviz_denumire": "INSTALATII TERMICE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "SA13I",
+      "oferta_denumire": "compensator de dilatare liniar din inox d = 2 ' - cu 4 ghidaje",
+      "oferta_um": "buc",
+      "oferta_cantitate": 4.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2023,21 +2137,10 @@
       "deviz_denumire": "MONTAJ ECHIPAMENTE",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "IA13XA",
-      "oferta_denumire": "montaj recuperator de caldura min 185 mc/h",
+      "oferta_cod": "IA01D01",
+      "oferta_denumire": "montare aeroterma pe agent termic",
       "oferta_um": "buc",
-      "oferta_cantitate": 1.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "9.1",
-      "deviz_denumire": "MONTAJ ECHIPAMENTE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "IA13XA",
-      "oferta_denumire": "montaj recuperator de caldura min.1100 mc/h, necarcasat greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu ofertant, asocierea manelli constructii generale srl",
-      "oferta_um": "buc",
-      "oferta_cantitate": 2.0
+      "oferta_cantitate": 3.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2064,26 +2167,14 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.1",
-      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "CD19E04",
-      "oferta_denumire": "sistem gips - carton de tip norgips cu rezistenta la foc el 30, pentru montarea peretilor despartitori de inaltime maxima 4,4 m si masa de 17 kg / mp, grosime 100 mm, distanta interax 600 mm, cu o structura metalica din profile cw 75 si uw 75 cu placare simpla din placi gkb plus de tip a cu o grosime 12,5 mm, fara umplere cu vata minerala",
-      "oferta_um": "mp",
-      "oferta_cantitate": 1.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "2.3",
       "deviz_denumire": "INSTALATII SANITARE",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$4204111",
-      "oferta_denumire": "bratara tevi instalatii apa si gaze 21/2",
+      "oferta_cod": "$4201304",
+      "oferta_denumire": "baterie monocomanda pentru lavoar / spalator+ accesorii",
       "oferta_um": "buc",
-      "oferta_cantitate": 50.0
+      "oferta_cantitate": 18.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2091,21 +2182,10 @@
       "deviz_denumire": "MONTAJ ECHIPAMENTE",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "IA11A01",
-      "oferta_denumire": "montaj pompa de circulatie agent termic",
+      "oferta_cod": "IA13XA",
+      "oferta_denumire": "montaj recuperator de caldura min 185 mc/h",
       "oferta_um": "buc",
-      "oferta_cantitate": 4.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.6",
-      "deviz_denumire": "INSTALATII TERMICE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "SA13I",
-      "oferta_denumire": "compensator de dilatare liniar din inox d = 2 ' - cu 4 ghidaje",
-      "oferta_um": "buc",
-      "oferta_cantitate": 4.0
+      "oferta_cantitate": 1.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2113,55 +2193,10 @@
       "deviz_denumire": "MONTAJ ECHIPAMENTE",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "IA01D01",
-      "oferta_denumire": "montare aeroterma pe agent termic",
+      "oferta_cod": "IA13XA",
+      "oferta_denumire": "montaj recuperator de caldura min.1100 mc/h, necarcasat greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu ofertant, asocierea manelli constructii generale srl",
       "oferta_um": "buc",
-      "oferta_cantitate": 3.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.4",
-      "deviz_denumire": "INSTALATII CURENTI TARI",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$5102578",
-      "oferta_denumire": "corp de iluminat casetat, led 48w 600x600mm",
-      "oferta_um": "buc",
-      "oferta_cantitate": 24.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.4",
-      "deviz_denumire": "INSTALATII CURENTI TARI",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "EE09C01",
-      "oferta_denumire": "corp de iluminat siguranta led 9w, montaj aparent, echipat cu kit de emergenta 3 ore, inscriptionat conform locului de montaj 600002128[1] - corp de iluminat siguranta led 9w buc",
-      "oferta_um": "buc",
-      "oferta_cantitate": 24.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.4",
-      "deviz_denumire": "INSTALATII CURENTI TARI",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$5535995",
-      "oferta_denumire": "priza etansa cu contact de protectie, 230v, ip 44",
-      "oferta_um": "buc",
-      "oferta_cantitate": 6.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.4",
-      "deviz_denumire": "INSTALATII CURENTI TARI",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$5206685",
-      "oferta_denumire": "clema de cabluri, pentru 10 conductori",
-      "oferta_um": "buc",
-      "oferta_cantitate": 200.0
+      "oferta_cantitate": 2.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2176,25 +2211,36 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "2.3",
-      "deviz_denumire": "INSTALATII SANITARE",
+      "deviz_ref": "9.1",
+      "deviz_denumire": "MONTAJ ECHIPAMENTE",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$4201304",
-      "oferta_denumire": "baterie monocomanda pentru lavoar / spalator+ accesorii",
+      "oferta_cod": "RPIA23G",
+      "oferta_denumire": "montat puffer 300 litri",
       "oferta_um": "buc",
-      "oferta_cantitate": 18.0
+      "oferta_cantitate": 1.0
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.1",
-      "deviz_denumire": "INSTALATII SANITARE",
+      "deviz_ref": "9.1",
+      "deviz_denumire": "MONTAJ ECHIPAMENTE",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$7106272",
-      "oferta_denumire": "teava din polietilena pe 80 sdr11 dext = 20mm, pn10 devize (www.edevize.ro)",
-      "oferta_um": "m",
-      "oferta_cantitate": 20.1
+      "oferta_cod": "IB17C1",
+      "oferta_denumire": "montare generator de curent , trifazat, diesel, putere 15 kva",
+      "oferta_um": "buc",
+      "oferta_cantitate": 1.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "9.1",
+      "deviz_denumire": "MONTAJ ECHIPAMENTE",
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "IA11A01",
+      "oferta_denumire": "montaj pompa de circulatie agent termic",
+      "oferta_um": "buc",
+      "oferta_cantitate": 4.0
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -2221,60 +2267,14 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "3.4",
-      "deviz_denumire": "INSTALATII TERMICE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$5701583",
-      "oferta_denumire": "convectoradiator seven 600 14 elem cod 3os 0600",
-      "oferta_um": "buc",
-      "oferta_cantitate": 3.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "3.1",
-      "deviz_denumire": "ARHITECTURA - LUCRARI NOI",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "CD19E04",
-      "oferta_denumire": "placaj gips carton rezistent la foc, grosime 12,5 mm montaj direct pe fata inferioara a capriorilor",
-      "oferta_um": "mp",
-      "oferta_cantitate": 413.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "9.1",
-      "deviz_denumire": "MONTAJ ECHIPAMENTE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "ID03A01",
-      "oferta_denumire": "montare pompa caldura inverter incalzire- racire 20 kw",
-      "oferta_um": "buc",
-      "oferta_cantitate": 11.0,
-      "posibil_omis_din_extractie": true
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "3.3",
+      "deviz_ref": "4.1",
       "deviz_denumire": "INSTALATII SANITARE",
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "$4200775",
-      "oferta_denumire": "cada de dus total obiecte sanitare greutate materiale (tone) ore manopera material manopera utilaj transport total recapitulatie valoare material manopera utilaj transport total contribuția asiguratorie pentru muncă",
-      "oferta_um": "buc",
-      "oferta_cantitate": 5.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "3.3",
-      "deviz_denumire": "INSTALATII SANITARE",
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "$4551768",
-      "oferta_denumire": "robinet inchidere - golire 3/4 ', pn16.",
-      "oferta_um": "buc",
-      "oferta_cantitate": 12.0
+      "oferta_cod": "$7106272",
+      "oferta_denumire": "teava din polietilena pe 80 sdr11 dext = 20mm, pn10 devize (www.edevize.ro)",
+      "oferta_um": "m",
+      "oferta_cantitate": 20.1
     },
     {
       "tip": "ARTICOL_EXTRA",
