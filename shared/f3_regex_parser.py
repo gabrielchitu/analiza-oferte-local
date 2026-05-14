@@ -578,7 +578,15 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             if m_ai or m_ni or m_si or m_bi:
                 m = m_ai or m_ni or m_si or m_bi
                 last_nr_crt = int(m.group(1))
-                cod = (m.group(2) if m_bi else ('$' + m.group(2)) if m_ni else re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m.group(2).upper()))
+                if m_bi:
+                    cod = m.group(2)
+                elif m_ni:
+                    cod = '$' + m.group(2)
+                else:
+                    raw_cod = m.group(2).upper()
+                    raw_cod = re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', raw_cod)
+                    raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
+                    cod = raw_cod
                 denumire_parts = []
                 # Extrage primul UM valid din tokenii rămași pe linie (grup 3 din NR_ALPHA_INLINE_RE și NR_SINGLE_INLINE_RE)
                 um = ''
@@ -670,14 +678,22 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 if m_ai or m_ni or m_si or m_bi:
                     m = m_ai or m_ni or m_si or m_bi
                     last_nr_crt = int(m.group(1))
-                    cod = (m.group(2) if m_bi else ('$' + m.group(2)) if m_ni else re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m.group(2).upper()))
+                    if m_bi:
+                        cod = m.group(2)
+                    elif m_ni:
+                        cod = '$' + m.group(2)
+                    else:
+                        raw_cod = m.group(2).upper()
+                        raw_cod = re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', raw_cod)
+                        raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
+                        cod = raw_cod
                     denumire_parts = []
                     um = ''
                     if (m_ai or m_si) and m.lastindex >= 3 and m.group(3):
                         for tok in m.group(3).strip().split():
                             tok_clean = tok.rstrip('.')
                             if _is_valid_um(tok_clean):
-                                um = tok_clean.upper()
+                                um = _normalize_um_value(tok_clean)
                                 break
                     cantitate = 0.0
                     preturi = []
