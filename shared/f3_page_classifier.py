@@ -597,7 +597,7 @@ def classify_pages(
     pages: list[dict],
     openai_client,
     deployment: str,
-) -> list[dict]:
+) -> tuple[list[dict], dict]:
     """
     Pipeline complet de clasificare pagini.
 
@@ -608,9 +608,11 @@ def classify_pages(
        — extrage deviz_cod pentru orice format, indiferent de soft
     3. Gardă zero-F3 (warning dacă niciuna nu e F3)
 
-    Returns: list[dict] cu is_f3, deviz_cod, deviz_den, lines, page_number
+    Returns: tuple of (results, checkpoint)
+        results: list[dict] cu is_f3, deviz_cod, deviz_den, lines, page_number
+        checkpoint: dict with deviz mapping and metadata
     """
-    results = build_page_classifications(pages)
+    results, checkpoint = build_page_classifications(pages)
 
     # Marcăm și paginile F3 fără deviz_cod ca needs_llm (LLM extrage codul)
     for r in results:
@@ -642,4 +644,4 @@ def classify_pages(
         logger.warning("[PC] zero F3 pages found in document — extracție va returna []")
 
     logger.info(f"[PC] Clasificare completă: {f3_count}/{len(results)} pagini F3")
-    return results
+    return results, checkpoint

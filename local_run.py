@@ -77,6 +77,23 @@ def _checkpoint_path(di_path: Path) -> Path:
     return CHECKPOINT_DIR / f"{di_path.stem}_page_classes_{_clf_hash}.json"
 
 
+def _save_checkpoint(checkpoint: dict, di_path: Path) -> Path:
+    """Save deviz checkpoint to checkpoint directory."""
+    import shared.f3_page_classifier as _clf_module
+
+    # Get classifier hash (same as page classes checkpoint)
+    _clf_hash = hashlib.md5(
+        inspect.getsource(_clf_module).encode()
+    ).hexdigest()[:12]
+
+    checkpoint_path = CHECKPOINT_DIR / f"{di_path.stem}_deviz_mapping_{_clf_hash}.json"
+
+    with open(checkpoint_path, "w") as f:
+        json.dump(checkpoint, f, indent=2, ensure_ascii=False)
+
+    return checkpoint_path
+
+
 def _extract_ofertant_name(di_path: Path) -> str:
     """
     Extrage numele ofertantului din DI JSON (primele 10 pagini).
@@ -259,18 +276,23 @@ def _reclassify_missed_f3_pages(
     return page_classes_updated, True
 
 
-def extract_document(di_path: Path, client, model: str) -> list:
+def extract_document(di_path: Path, client, model: str) -> tuple[list, dict | None]:
     """
     Extrage articolele F3 dintr-un DI JSON.
     Foloseste checkpoint daca exista — sare peste clasificarea LLM (pasul lent).
 
     Extrage TOATE devizele fara filtru. Devizele prezente in oferta dar absente
     din referinta sunt surfacate ca alerte in raport, nu ascunse.
+
+    Returns: tuple of (articles, checkpoint_data)
+        articles: list of extracted articles
+        checkpoint_data: dict with deviz mapping and metadata (or None if from cached checkpoint)
     """
     from shared.f3_page_classifier import classify_pages
     from shared.f3_extractor import extract_articles_v3
 
     checkpoint = _checkpoint_path(di_path)
+    checkpoint_data = None
 
     di = json.loads(di_path.read_text(encoding="utf-8"))
     pages = di.get("pages", [])
@@ -281,7 +303,7 @@ def extract_document(di_path: Path, client, model: str) -> list:
         page_classes = json.loads(checkpoint.read_text(encoding="utf-8"))
     else:
         logger.info(f"  Clasificare pagini cu LLM (poate dura 2-5 min)...")
-        page_classes = classify_pages(pages, client, model)
+        page_classes, checkpoint_data = classify_pages(pages, client, model)
         checkpoint.write_text(
             json.dumps(page_classes, ensure_ascii=False, indent=2),
             encoding="utf-8",
@@ -395,7 +417,7 @@ def extract_document(di_path: Path, client, model: str) -> list:
         logger.info(f"  Filtered out {invalid_count} articles with invalid deviz codes: {set(invalid_deviz)}")
     articles = articles_filtered
 
-    return articles
+    return articles, checkpoint_data
 
 
 def compare_and_report(
@@ -597,7 +619,12 @@ def main():
 
     # Step 1: Extrage referinta
     logger.info("\n--- Extragere REFERINTA ---")
-    ref_articles = extract_document(ref_path, client, model)
+    ref_articles, ref_checkpoint_data = extract_document(ref_path, client, model)
+
+    # Save deviz checkpoint after reference extraction
+    if ref_checkpoint_data:
+        ref_checkpoint_path = _save_checkpoint(ref_checkpoint_data, ref_path)
+        logger.info(f"   Checkpoint: {ref_checkpoint_path}")
 
     # Populate missing deviz denominations (so reports show work categories)
     from shared.deviz_namer import populate_deviz_denominations
@@ -638,7 +665,12 @@ def main():
         ofertant_name = _extract_ofertant_name(oferta_path)
         if ofertant_name:
             logger.info(f"  Ofertant: {ofertant_name}")
-        oferta_articles = extract_document(oferta_path, client, model)
+        oferta_articles, oferta_checkpoint_data = extract_document(oferta_path, client, model)
+
+        # Save deviz checkpoint after offer extraction
+        if oferta_checkpoint_data:
+            oferta_checkpoint_path = _save_checkpoint(oferta_checkpoint_data, oferta_path)
+            logger.info(f"   Checkpoint: {oferta_checkpoint_path}")
 
         # Populate missing deviz denominations (so reports show work categories)
         oferta_articles = populate_deviz_denominations(oferta_articles)
