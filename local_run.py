@@ -398,16 +398,18 @@ def extract_document(di_path: Path, client, model: str) -> tuple[list, dict | No
         logger.info(f"  Final deduplication: removed {articles_before - len(articles)} suffix-duplicate articles")
 
     # Filter out articles with fake/invalid deviz codes (e.g., "DINTRE" from marketing text extraction)
-    # These are articles that were extracted from pages without a proper deviz_cod assignment
-    # Keep only articles with valid deviz codes (numeric/alphanumeric, 3-8 chars, containing digits)
+    # Accept most codes that were extracted by the parser, including:
+    # - Numeric codes: "226108", "07", "19"
+    # - Compound codes: "4.1-01", "4.3-02"
+    # - Word codes: "CAMIN", "CAMINE" (Obiectul names from new format documents)
+    # Reject only: very long codes (>20 chars = likely OCR garbage)
     invalid_deviz = []
     articles_filtered = []
     for art in articles:
         deviz = art.get("deviz", "")
-        # Valid deviz: non-empty, contains at least one digit, 3-8 chars (matches real deviz patterns)
-        # E.g.: "226108", "001", "1.1", "226U18" are valid
-        # Invalid: pure words like "DINTRE", "COMPETITIVE", etc.
-        if deviz and len(deviz) >= 3 and len(deviz) <= 8 and any(c.isdigit() for c in deviz):
+        # Valid deviz: non-empty, 2-20 chars (covers all legitimate formats)
+        # The parser already did most filtering, so we're mainly rejecting obvious OCR garbage
+        if deviz and len(deviz) >= 2 and len(deviz) <= 20:
             articles_filtered.append(art)
         else:
             invalid_deviz.append(deviz)
