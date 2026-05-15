@@ -146,6 +146,72 @@ def _extract_deviz_from_stadiul_fizic(text: str) -> tuple[str, str]:
     return "", text.strip()
 
 
+def _extract_compound_deviz(lines: list[str]) -> tuple[str, dict]:
+    """
+    Extract deviz code using three-tier priority:
+    1. Explicit "Deviz Oferta XXXX" (highest priority)
+    2. Compound: "Obiectul" + "Categoria de lucrari" → "X.X-YY"
+    3. Empty fallback (use inheritance or existing logic)
+
+    Args:
+        lines: List of page line content strings
+
+    Returns:
+        Tuple of (deviz_cod, extraction_metadata)
+        Where deviz_cod is "" if no code found
+        And extraction_metadata contains:
+            - extraction_method: "explicit" | "compound" | "none"
+            - obiectul: {"number": str, "description": str} or None
+            - categoria: {"number": str, "description": str} or None
+    """
+    full_content = " ".join(lines)
+
+    # Tier 1: Check for explicit "Deviz Oferta" (highest priority)
+    m = _DEVIZ_OFERTA_RE.search(full_content)
+    if m:
+        cod = m.group(1).upper()
+        return cod, {
+            "extraction_method": "explicit",
+            "source": "Deviz Oferta",
+            "obiectul": None,
+            "categoria": None
+        }
+
+    # Tier 2: Try compound extraction from Obiectul + Categoria
+    m_obj = _OBIECTUL_RE.search(full_content)
+    m_cat = _CATEGORIA_RE.search(full_content)
+
+    if m_obj and m_cat:
+        obj_num = m_obj.group(1).strip()
+        obj_desc = m_obj.group(2).strip() if m_obj.group(2) else ""
+        cat_num = m_cat.group(1).strip()
+        cat_desc = m_cat.group(2).strip() if m_cat.group(2) else ""
+
+        # Construct compound code
+        deviz_cod = f"{obj_num}-{cat_num}"
+
+        return deviz_cod, {
+            "extraction_method": "compound",
+            "source": "Obiectul-Categoria",
+            "obiectul": {
+                "number": obj_num,
+                "description": obj_desc
+            },
+            "categoria": {
+                "number": cat_num,
+                "description": cat_desc
+            }
+        }
+
+    # Tier 3: Fallback — no compound code found
+    return "", {
+        "extraction_method": "none",
+        "source": None,
+        "obiectul": None,
+        "categoria": None
+    }
+
+
 def _extract_deviz_name_from_formular_f3(full_content: str) -> str:
     """Extrage denumirea devizului din pagina Formular F3.
 
