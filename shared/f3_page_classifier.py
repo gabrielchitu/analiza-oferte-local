@@ -267,170 +267,115 @@ def _extract_deviz_name_from_formular_f3(full_content: str) -> str:
 
 def classify_page_local(page: dict) -> dict:
     """
-    Clasifică o pagină DI JSON fără LLM.
+    Classify a DI JSON page without LLM. Two-phase algorithm:
+    Phase A: Fast non-F3 detection
+    Phase B: F3 detection and grouping key extraction
 
     Returns:
         {
-            "label": "F3" | "NON_F3" | "AMBIGUOUS",
-            "deviz_cod": str,   # ex: "226108" (doar pentru F3)
-            "deviz_den": str,   # ex: "STRUCTURA DE REZISTENTA CUPOLA"
-            "is_header": bool,  # True dacă pagina e cover/header pentru devizul următor
+          "label": "F3" | "NON_F3" | "AMBIGUOUS",
+          "deviz_cod": str,        # compound, explicit, partial sentinel, or ''
+          "deviz_den": str,
+          "is_header": bool,
+          "extraction_method": str,  # 'compound'|'explicit'|'partial'|'none'
+          "obiectul": dict | None,   # {'num': str, 'text': str}
+          "categoria": dict | None,
         }
     """
     lines = _extract_lines(page)
     if not lines:
-        return {"label": "AMBIGUOUS", "deviz_cod": "", "deviz_den": "", "is_header": False}
+        return {
+            "label": "AMBIGUOUS",
+            "deviz_cod": "",
+            "deviz_den": "",
+            "is_header": False,
+            "extraction_method": "none",
+            "obiectul": None,
+            "categoria": None,
+        }
 
-    full_content = " ".join(lines)
+    full = " ".join(lines)
 
-    # ── Verifică semnale non-F3 ──
+    # ── Phase A: NON_F3 detection (fast early exits) ──────────────────────────
+
     for pat in _NON_F3_PATTERNS:
-        if pat.search(full_content):
-            return {"label": "NON_F3", "deviz_cod": "", "deviz_den": "", "is_header": False}
+        if pat.search(full):
+            return _non_f3()
 
-    # ── Verifică Recapitulatia în tot conținutul paginii ──
-    # O pagina de sumar (fara coduri articol) → NON_F3.
-    # O pagina cu articole SI Recapitulatia la final (ultima pagina deviz) → tratata ca F3.
-    if _RECAPITULATIE_RE.search(full_content) and not _has_article_codes(full_content):
-        return {"label": "NON_F3", "deviz_cod": "", "deviz_den": "", "is_header": False}
+    # Summary pages without article codes
+    if _RECAPITULATIE_RE.search(full) and not _has_article_codes(full):
+        return _non_f3()
 
-    # ── Verifică pagini sumar cu TOTAL GENERAL (fara articole) → NON_F3 ──
-    # Pagini ca "TOTAL GENERAL (fara TVA) / 569,207.79 / TVA..." sunt sumare de deviz,
-    # nu pagini de date F3. Detectam prezenta in primele ~200 chars.
-    if 'TOTAL GENERAL' in full_content[:200] and not _has_article_codes(full_content):
-        return {"label": "NON_F3", "deviz_cod": "", "deviz_den": "", "is_header": False}
+    if "TOTAL GENERAL" in full[:200] and not _has_article_codes(full):
+        return _non_f3()
 
-    # ── Verifică STADIUL FIZIC — fereastra de 8 linii ──
-    # OCR poate intercala linii extra (ex: 'Beneficiar:') intre 'STADIUL FIZIC:'
-    # si codul deviz. Cautam codul in urmatoarele 8 linii dupa marker.
-    # Suporta atat coduri lungi (226108) cat si sub-coduri (1.1, 2.1, etc.)
-    _DEVIZ_COD_IN_LINE_RE = re.compile(
-        r'(?:oferta\s+)?(?:\d{1,3}\s+)?((?=[A-Z0-9]*\d{3})[A-Z0-9]{5,8})',
-        re.IGNORECASE
-    )
-    # Sub-code pattern for eDevize: "001 1.1 ARHITECTURA" or "1.1 ARHITECTURA"
-    _SUB_CODE_RE = re.compile(r'^\d{1,3}\s+([0-9]\.[0-9])\s+|^([0-9]\.[0-9])\s+')
-    for i, line in enumerate(lines):
-        m_sf = _STADIUL_FIZIC_RE.match(line.strip())
-        m_sf_marker = _STADIUL_FIZIC_MARKER_RE.match(line.strip())
-        if m_sf or m_sf_marker:
-            # Incearca pe aceeasi linie (continut direct dupa ":")
-            cod, den = ("", "")
-            if m_sf:
-                cod, den = _extract_deviz_from_stadiul_fizic(m_sf.group(1))
-            if not cod:
-                # Cauta codul in fereastra de 8 linii urmatoare (OCR poate intercala junk)
-                for j in range(i + 1, min(i + 8, len(lines))):
-                    # First try sub-code pattern (for eDevize with main+sub codes)
-                    m_sub = _SUB_CODE_RE.search(lines[j].strip())
-                    if m_sub:
-                        # Extract sub-code (group 1 or 2 depending on which alternative matched)
-                        cod = m_sub.group(1) or m_sub.group(2)
-                        # Extract description after the sub-code
-                        rest = re.sub(r'^\d{1,3}\s+[0-9]\.[0-9]\s+|^[0-9]\.[0-9]\s+', '', lines[j].strip())
-                        den = rest if rest else ""
-                        break
-                    # Then try long alphanumeric codes (for standard eDevize 226XXX)
-                    m2 = _DEVIZ_COD_IN_LINE_RE.search(lines[j])
-                    if m2:
-                        cod = m2.group(1).upper()
-                        den = ""
-                        break
-            return {"label": "F3", "deviz_cod": cod, "deviz_den": den, "is_header": False}
+    # ── Phase B: F3 detection ─────────────────────────────────────────────────
 
-    # ── Verifică Stadiul fizic eDevize (cover page) — ÎNAINTE de Formular F3 ──
-    # OCR poate împărți "Stadiul fizic: 226108 STRUCTURA" pe două linii separate →
-    # folosim search în full_content (linii joined) nu match per linie.
-    m = _STADIUL_FIZIC_EDEVIZE_RE.search(full_content)
-    if m:
-        cod = m.group(1).upper()
-        den = m.group(2).strip()
-        # Only mark as header if page has NO article codes.
-        # If page contains article codes (VA02B08, etc.), it's data not pure header.
-        is_header_only = not _has_article_codes(full_content)
-        return {"label": "F3", "deviz_cod": cod, "deviz_den": den, "is_header": is_header_only}
+    is_f3 = False
+    is_header = False
 
-    # ── Verifică SECTIUNEA TEHNICA (eDevize data pages) ──
-    # TREBUIE sa fie INAINTE de FORMULAR_F3: footer-ul eDevize contine
-    # 'Deviz "001" - Formular F3' care ar extrage gresit "001" ca deviz_cod.
-    # BUT: Pages with "SECTIUNEA TEHNICA" AND article codes should NOT match here
-    # (those are data pages, not just headers). Continue to extract deviz from footer.
-    if _SECTIUNEA_TEHNICA_RE.search(full_content) and not _has_article_codes(full_content):
-        return {"label": "F3", "deviz_cod": "", "deviz_den": "", "is_header": False}
+    # B1: explicit F3 markers
+    if _FORMULAR_F3_RE.search(full) or _SECTIUNEA_TEHNICA_RE.search(full):
+        is_f3 = True
 
-    # ── Verifică Formularul F3 (standard format) ──
-    if _FORMULAR_F3_RE.search(full_content):
-        # Try compound extraction first (if not already extracted)
-        compound_cod, compound_meta = _extract_compound_deviz(lines)
-        if compound_cod and compound_meta["extraction_method"] == "compound":
-            # Use compound code and store metadata
-            den = ""
-            if compound_meta.get("categoria"):
-                den = compound_meta["categoria"].get("description", "")
-            return {
-                "label": "F3",
-                "deviz_cod": compound_cod,
-                "deviz_den": den,
-                "is_header": False,
-                "extraction_method": "compound",
-                "metadata": compound_meta
-            }
+    # B2: STADIUL FIZIC (any form) — detection only, not code extraction
+    if not is_f3:
+        if _STADIUL_FIZIC_RE.search(full) or _STADIUL_FIZIC_MARKER_RE.search("\n".join(lines)):
+            is_f3 = True
 
-        # Extrage codul deviz din context (număr înainte de "Formularul F3")
-        m = re.search(r'(\d{5,8})\s+pag\s+\d+\s+Formular', full_content, re.IGNORECASE)
-        if not m:
-            # Fallback: 'Deviz "226208" - Formular F3' or 'Deviz "1.1"' (eDevize format)
-            # Accepta coduri de 1-8 caractere (cifre, litere, puncte): "001", "1.1", "226108" etc.
-            # BUT: Only extract if this is an eDevize cover page with STADIUL FIZIC/article codes
-            # Pages without STADIUL FIZIC should return empty deviz to inherit from predecessor.
-            m = re.search(r'Deviz\s+"([A-Z0-9.]{1,8})"', full_content, re.IGNORECASE)
-            # If we found "Deviz "XXX"" but this page lacks STADIUL FIZIC, don't use it
-            # (let propagation inherit from cover page)
-            if m:
-                has_stadiul = any("STADIUL" in line.upper() for line in lines)
-                if not has_stadiul and _has_article_codes(full_content):
-                    # This is an eDevize data page without its own STADIUL FIZIC
-                    # Return empty deviz so propagation can inherit from cover page
-                    m = None
-        if not m:
-            # Fallback: "Deviz oferta 226108 STRUCTURA..." (Design Studio / format standard)
-            m = re.search(r'Deviz\s+oferta\s+([A-Z0-9]{5,8})', full_content, re.IGNORECASE)
-        cod = m.group(1) if m else ""
-        den = _extract_deviz_name_from_formular_f3(full_content)
-        # Daca nu s-a putut extrage codul deviz SI pagina nu are articole
-        # → e o pagina de semnatura/footer eDevize (ex: "Deviz '008' - Formular F3"),
-        # nu o pagina de date F3. O clasificam NON_F3 pentru a evita extragerea
-        # de articole cu deviz="" care devin false EXTRA.
-        if not cod and not _has_article_codes(full_content):
-            return {"label": "NON_F3", "deviz_cod": "", "deviz_den": "", "is_header": False}
-        return {"label": "F3", "deviz_cod": cod, "deviz_den": den, "is_header": False, "extraction_method": "explicit"}
+    # B3: eDevize continuation pages (>>> componenta + article codes)
+    if not is_f3:
+        if _EDEVIZE_CONTINUATION_RE.search(full) and _has_article_codes(full):
+            is_f3 = True
 
-    # ── Verifică eDevize continuation pages (>>> componenta NNN format) ──
-    # These are data continuation pages from eDevize documents that contain articles
-    # but lack standard F3 headers. Example: "226228 pag >>> componenta 010 035 SD05A1 BUC..."
-    if _EDEVIZE_CONTINUATION_RE.search(full_content) and _has_article_codes(full_content):
-        # Extract deviz code from page (format: "226228 pag" or similar)
-        m = re.search(r'\b(\d{6})\s+pag', full_content, re.IGNORECASE)
-        cod = m.group(1) if m else ""
-        return {"label": "F3", "deviz_cod": cod, "deviz_den": "", "is_header": False}
+    # B4: eDevize paged format ('XXXXXX pag' in first 150 chars)
+    if not is_f3:
+        m = re.search(r"\b([A-Z0-9]{6})\s+pag\b", full, re.IGNORECASE)
+        if m and m.start() < 150:
+            is_f3 = True
 
-    # ── Verifică continuation pages cu pattern "NNNN pag" (zonder >>> marker) ──
-    # Pages like "226U08 pag 170 011 TSD04D1..." sau "226358 pag 079..."
-    # These have deviz code marker at start of page (first ~150 chars).
-    # NOTA: garda _has_article_codes() e ELIMINATA intentionat — paginile cu
-    # articole numerice pure ($6716997 etc.) nu contin coduri alfanumerice, deci
-    # _has_article_codes() returna False si pagina era clasificata gresit AMBIGUOUS.
-    # Prezenta "NNNNNN pag" in primele 150 chars e suficient de specifica.
-    m = re.search(r'\b([A-Z0-9]{6})\s+pag\b', full_content, re.IGNORECASE)
-    if m:
-        pos = m.start()
-        content_before = full_content[:pos]
-        # Pattern should appear early (within ~150 chars = ~3-4 lines)
-        if len(content_before) < 150:
-            cod = m.group(1)
-            return {"label": "F3", "deviz_cod": cod, "deviz_den": "", "is_header": False}
+    # B5: eDevize cover page (Stadiul fizic: [optional prefix] CODE DESCRIPTION)
+    if not is_f3:
+        m = _STADIUL_FIZIC_EDEVIZE_RE.search(full)
+        if m:
+            is_f3 = True
+            is_header = not _has_article_codes(full)
 
-    return {"label": "AMBIGUOUS", "deviz_cod": "", "deviz_den": "", "is_header": False}
+    if not is_f3:
+        return {
+            "label": "AMBIGUOUS",
+            "deviz_cod": "",
+            "deviz_den": "",
+            "is_header": False,
+            "extraction_method": "none",
+            "obiectul": None,
+            "categoria": None,
+        }
+
+    # ── Phase C: Grouping key extraction (same logic for ALL F3 pages) ────────
+
+    key = _extract_grouping_key(lines)
+
+    # Special guard: Formular F3 with no key AND no article codes
+    # = eDevize signature/footer page (e.g., 'Deviz "07" - Formular F3')
+    if key["method"] == "none" and not _has_article_codes(full):
+        return _non_f3()
+
+    deviz_den = ""
+    if key.get("categoria"):
+        deviz_den = key["categoria"].get("text", "")
+    elif key.get("obiectul"):
+        deviz_den = key["obiectul"].get("text", "")
+
+    return {
+        "label": "F3",
+        "deviz_cod": key["deviz_cod"],
+        "deviz_den": deviz_den,
+        "is_header": is_header,
+        "extraction_method": key["method"],
+        "obiectul": key.get("obiectul"),
+        "categoria": key.get("categoria"),
+    }
 
 
 def _build_deviz_checkpoint(results: list[dict], document_type: str, source_path: str) -> dict:
@@ -460,10 +405,19 @@ def _build_deviz_checkpoint(results: list[dict], document_type: str, source_path
             deviz_groups[deviz_cod] = {
                 "deviz_cod": deviz_cod,
                 "extraction_method": pc.get("extraction_method", "unknown"),
-                "metadata": pc.get("metadata", {}),
+                # Enrich with obiectul/categoria if available (first page in group sets it)
+                "obiectul": pc.get("obiectul"),
+                "categoria": pc.get("categoria"),
                 "article_count": 0,
-                "pages": []
+                "pages": [],
             }
+        else:
+            # Later pages in same group: fill in missing obiectul/categoria if available
+            grp = deviz_groups[deviz_cod]
+            if not grp.get("obiectul") and pc.get("obiectul"):
+                grp["obiectul"] = pc["obiectul"]
+            if not grp.get("categoria") and pc.get("categoria"):
+                grp["categoria"] = pc["categoria"]
 
         page_num = pc.get("page_number", 0)
         if page_num not in deviz_groups[deviz_cod]["pages"]:
@@ -490,13 +444,20 @@ def _build_deviz_checkpoint(results: list[dict], document_type: str, source_path
     return checkpoint
 
 
-def build_page_classifications(pages: list[dict]) -> tuple[list[dict], dict]:
+def build_page_classifications(
+    pages: list[dict],
+    document_type: str = "unknown",
+    source_path: str = "",
+) -> tuple[list[dict], dict]:
     """
-    Clasifică toate paginile unui document și propagă devizul (eDevize format).
+    Classify all pages and propagate deviz codes.
+    Partial sentinel keys are propagated during this phase;
+    LLM resolution (Phase 2) replaces them with compound keys.
 
     Returns: tuple of (results, checkpoint)
         results: list[dict] cu câmpuri:
-            page_number, is_f3, deviz_cod, deviz_den, lines, needs_llm
+            page_number, is_f3, deviz_cod, deviz_den, lines, needs_llm,
+            extraction_method, obiectul, categoria
         checkpoint: dict with deviz mapping and metadata
     """
     results = []
@@ -508,14 +469,21 @@ def build_page_classifications(pages: list[dict]) -> tuple[list[dict], dict]:
         page_number = page.get("page_number", 0)
         local = classify_page_local(page)
 
+        base = {
+            "page_number": page_number,
+            "lines": lines,
+            "needs_llm": False,
+            "header_only": False,
+            # Propagate metadata for checkpoint enrichment
+            "extraction_method": local.get("extraction_method", "none"),
+            "obiectul": local.get("obiectul"),
+            "categoria": local.get("categoria"),
+        }
+
         if local["label"] == "NON_F3":
             # Keep current deviz — non-F3 pages (cover, summary, etc.) don't reset deviz context.
             # Following F3 pages in same deviz can inherit the deviz code.
-            results.append({
-                "page_number": page_number, "is_f3": False,
-                "deviz_cod": "", "deviz_den": "",
-                "lines": lines, "needs_llm": False,
-            })
+            results.append({**base, "is_f3": False, "deviz_cod": "", "deviz_den": ""})
 
         elif local["label"] == "F3":
             if local["deviz_cod"]:
@@ -527,35 +495,39 @@ def build_page_classifications(pages: list[dict]) -> tuple[list[dict], dict]:
             if local.get("is_header"):
                 # Pagina de header nu conține articole — nu o transmitem extractor-ului
                 results.append({
-                    "page_number": page_number, "is_f3": True,
-                    "deviz_cod": current_deviz_cod, "deviz_den": current_deviz_den,
-                    "lines": lines, "needs_llm": False,
+                    **base,
+                    "is_f3": True,
+                    "deviz_cod": current_deviz_cod,
+                    "deviz_den": current_deviz_den,
                     "header_only": True,
                 })
             else:
                 # Pagina F3 data: dacă nu are deviz (orfană), trimite la LLM
                 needs_llm = not current_deviz_cod
                 results.append({
-                    "page_number": page_number, "is_f3": True,
-                    "deviz_cod": current_deviz_cod, "deviz_den": current_deviz_den,
-                    "lines": lines, "needs_llm": needs_llm,
-                    "header_only": False,
+                    **base,
+                    "is_f3": True,
+                    "deviz_cod": current_deviz_cod,
+                    "deviz_den": current_deviz_den,
+                    "needs_llm": needs_llm,
                 })
 
         else:  # AMBIGUOUS
             # Pagina ambiguă → trimitem la LLM
             # Reset propagare — nu știm ce urmează
             results.append({
-                "page_number": page_number, "is_f3": False,  # default, LLM poate schimba
-                "deviz_cod": current_deviz_cod, "deviz_den": current_deviz_den,
-                "lines": lines, "needs_llm": True,
+                **base,
+                "is_f3": False,  # default, LLM poate schimba
+                "deviz_cod": current_deviz_cod,
+                "deviz_den": current_deviz_den,
+                "needs_llm": True,
             })
             current_deviz_cod = ""
             current_deviz_den = ""
 
     # Build and return checkpoint data alongside results
     # (checkpoint will be saved by caller)
-    checkpoint = _build_deviz_checkpoint(results, "reference", "")
+    checkpoint = _build_deviz_checkpoint(results, document_type, source_path)
     return results, checkpoint
 
 
@@ -622,10 +594,157 @@ def _classify_pages_llm(
         return {}
 
 
+def _resolve_partial_keys_with_llm(
+    page_classes: list[dict],
+    ref_deviz_groups: list[dict],
+    openai_client,
+    deployment: str,
+) -> list[dict]:
+    """
+    Rezolvă "__partial__" sentinele prin potrivire LLM.
+
+    Pentru fiecare pagină cu deviz_cod = "__partial__:{obj_text}:{cat_text}":
+    - Colectează perechile unice (obj_text, cat_text)
+    - Trimite la LLM cu lista devizurilor de referință
+    - LLM încearcă să potrivească textele cu devizurile existente
+    - Înlocuiește sentinelele cu codurile rezolvate
+
+    Args:
+        page_classes: list[dict] cu paginile clasificate
+        ref_deviz_groups: list[dict] cu deviz_groups din checkpoint-ul referinței
+        openai_client: Anthropic client
+        deployment: Model ID
+
+    Returns:
+        list[dict] cu page_classes actualizate (sentinele înlocuite cu coduri rezolvate)
+    """
+    # Colectează pagini cu partial keys
+    partial_pages = [
+        p for p in page_classes
+        if p.get("deviz_cod", "").startswith("__partial__")
+    ]
+
+    if not partial_pages:
+        return page_classes
+
+    # Colectează perechile unice (obj_text, cat_text) din partial keys
+    unique_pairs = {}
+    for p in partial_pages:
+        obj = p.get("obiectul", {}) or {}
+        cat = p.get("categoria", {}) or {}
+        obj_text = obj.get("text", "")
+        cat_text = cat.get("text", "")
+
+        # Create key for deduplication
+        pair_key = (obj_text, cat_text)
+        if pair_key not in unique_pairs:
+            unique_pairs[pair_key] = {"obiectul": obj_text, "categoria": cat_text}
+
+    logger.info(
+        f"[LLM-PARTIAL] {len(unique_pairs)} unique (obiectul, categoria) pairs → LLM resolution"
+    )
+
+    # Build reference deviz groups for LLM context
+    ref_groups_for_llm = []
+    for grp in ref_deviz_groups:
+        obj_dict = grp.get("obiectul") or {}
+        cat_dict = grp.get("categoria") or {}
+        ref_groups_for_llm.append({
+            "deviz_cod": grp.get("deviz_cod", ""),
+            "extraction_method": grp.get("extraction_method", ""),
+            "obiectul": obj_dict.get("text", ""),
+            "categoria": cat_dict.get("text", ""),
+        })
+
+    # LLM system prompt for partial resolution
+    system_prompt = """\
+You are matching construction work section descriptions from an offer document to reference section codes.
+The reference uses compound codes like "4.1-03" or explicit codes like "226348".
+The offer uses plain text without numeric prefixes.
+
+For each offer (obiectul, categoria) pair, find the best matching reference deviz_cod by semantic similarity.
+Match on key terms (architect work, electrical work, plumbing, etc.) and context clues.
+If multiple references match, prefer the most specific.
+If no reasonable match exists, return "NONE".
+
+Return ONLY valid JSON with no other text:
+{"matches": [{"obiectul": "...", "categoria": "...", "deviz_cod": "4.1-03"}, ...]}
+
+Each input pair must appear exactly once in the output."""
+
+    # Build LLM payload
+    user_payload = {
+        "reference_deviz_groups": ref_groups_for_llm,
+        "offer_pairs_to_match": list(unique_pairs.values()),
+    }
+
+    try:
+        resp = openai_client.chat.completions.create(
+            model=deployment,
+            temperature=0.0,
+            response_format={"type": "json_object"},
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": json.dumps(user_payload, ensure_ascii=False)},
+            ],
+            max_tokens=2000,
+        )
+        raw = json.loads(resp.choices[0].message.content)
+        matches = raw.get("matches", [])
+
+        # Build mapping: (obj_text, cat_text) → deviz_cod
+        match_map = {}
+        for m in matches:
+            key = (m.get("obiectul", ""), m.get("categoria", ""))
+            deviz_cod = m.get("deviz_cod", "NONE")
+            match_map[key] = deviz_cod if deviz_cod != "NONE" else None
+
+        logger.info(f"[LLM-PARTIAL] LLM resolved {len([x for x in match_map.values() if x])} / {len(unique_pairs)} pairs")
+
+    except Exception as e:
+        logger.warning(f"[LLM-PARTIAL] LLM resolution failed: {e} — using fallback")
+        match_map = {}
+
+    # Update page_classes: replace partial sentinels with resolved codes
+    resolved_count = 0
+    fallback_count = 0
+
+    for p in page_classes:
+        if not p.get("deviz_cod", "").startswith("__partial__"):
+            continue
+
+        obj = p.get("obiectul", {}) or {}
+        cat = p.get("categoria", {}) or {}
+        obj_text = obj.get("text", "")
+        cat_text = cat.get("text", "")
+
+        pair_key = (obj_text, cat_text)
+        resolved_cod = match_map.get(pair_key)
+
+        if resolved_cod:
+            p["deviz_cod"] = resolved_cod
+            p["extraction_method"] = "partial_resolved"
+            resolved_count += 1
+        else:
+            # Fallback: use first word of categoria text, max 20 chars
+            fallback = (cat_text.split()[0] if cat_text else obj_text.split()[0] if obj_text else "UNKNOWN")[:20]
+            p["deviz_cod"] = fallback
+            p["extraction_method"] = "partial_fallback"
+            fallback_count += 1
+
+    logger.info(
+        f"[LLM-PARTIAL] Resolution complete: {resolved_count} LLM-matched, {fallback_count} fallback"
+    )
+
+    return page_classes
+
+
 def classify_pages(
     pages: list[dict],
     openai_client,
     deployment: str,
+    document_type: str = "unknown",
+    source_path: str = "",
 ) -> tuple[list[dict], dict]:
     """
     Pipeline complet de clasificare pagini.
@@ -641,7 +760,7 @@ def classify_pages(
         results: list[dict] cu is_f3, deviz_cod, deviz_den, lines, page_number
         checkpoint: dict with deviz mapping and metadata
     """
-    results, checkpoint = build_page_classifications(pages)
+    results, checkpoint = build_page_classifications(pages, document_type, source_path)
 
     # Marcăm și paginile F3 fără deviz_cod ca needs_llm (LLM extrage codul)
     for r in results:
