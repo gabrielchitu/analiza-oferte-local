@@ -976,7 +976,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 continue
 
             # Format "100 MC." — indicator normativ pe linie separată
-            # Extrage UM-ul COMPLET inclusiv prefixul numeric (ex: "100 MP", "1000 BUC")
+            # Extrage doar UM-ul (nu prefixul numeric care este doar metadata)
+            # Prefixul numeric (100, 99, 82 etc.) nu este parte a unității de măsură
             # Cantitatea reală urmează pe linia următoare.
             # BUT: skip "NUMBER KM" (always distance spec like "20 KM", never work unit)
             if um == '':
@@ -987,7 +988,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                     if um_candidate == 'KM':
                         continue
                     if _is_valid_um(um_candidate):
-                        um = f"{m_um_norm.group(1)} {um_candidate}"  # "100 MP" nu doar "MP"
+                        um = _normalize_um_value(um_candidate)  # Extract only the unit part, not the prefix
                         continue
 
             # Format pipe: "M.C. | 18.144 | BETON MARFA CLASA C8/10" (referinta breviar materiale)
