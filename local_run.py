@@ -650,12 +650,30 @@ def main():
     ref_articles, ref_checkpoint_data = extract_document(ref_path, client, model)
 
     # Extract reference deviz groups for LLM partial key resolution
+    # Load from either fresh checkpoint_data or from saved checkpoint file
     ref_deviz_groups = []
+    ref_checkpoint_path = None
+
     if ref_checkpoint_data:
+        # Fresh classification — checkpoint data returned
         ref_deviz_groups = ref_checkpoint_data.get("deviz_groups", [])
         ref_checkpoint_path = _save_checkpoint(ref_checkpoint_data, ref_path)
         logger.info(f"   Checkpoint: {ref_checkpoint_path}")
-        logger.info(f"   {len(ref_deviz_groups)} deviz groups in reference checkpoint")
+    else:
+        # Cached classification — look for existing deviz checkpoint in directory
+        # Need to find the actual checkpoint file (with hash-based name)
+        matching_checkpoints = list(CHECKPOINT_DIR.glob(f"{ref_path.stem}_deviz_mapping_*.json"))
+        if matching_checkpoints:
+            ref_checkpoint_path = matching_checkpoints[0]  # Use first match
+            try:
+                ref_checkpoint_data = json.loads(ref_checkpoint_path.read_text(encoding="utf-8"))
+                ref_deviz_groups = ref_checkpoint_data.get("deviz_groups", [])
+                logger.info(f"   Checkpoint loaded from cache: {ref_checkpoint_path.name}")
+            except Exception as e:
+                logger.warning(f"   Failed to load checkpoint: {e}")
+
+    if ref_deviz_groups:
+        logger.info(f"   {len(ref_deviz_groups)} deviz groups available for LLM resolution")
 
     # Populate missing deviz denominations (so reports show work categories)
     from shared.deviz_namer import populate_deviz_denominations
