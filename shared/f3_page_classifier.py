@@ -89,10 +89,11 @@ _OBIECTUL_RE = re.compile(
 )
 
 # Tier 2b: Extract Categoria de lucrari / Stadiul fizic
-# Patterns: "Categoria de lucrari: 03 Arhitectura", "Stadiul fizic: 03 Arhitectura"
+# Patterns: "Categoria de lucrari: 03 Arhitectura", "Stadiul fizic: 1 Lucrari", "Stadiul fizic: 0120 VESTIAR"
 # Captures: (category_number, description)
+# Note: Accepts 1-4 digit codes (01, 1, 03, 0120, etc.)
 _CATEGORIA_RE = re.compile(
-    r'(?:Categoria\s+de\s+lucrari|Stadiul\s+fizic)\s*:\s*([0-9]{2,4})\s*(.+?)(?=\n|Lista|OBSE|$)',
+    r'(?:Categoria\s+de\s+lucrari|Stadiul\s+fizic)\s*:\s*([0-9]{1,4})\s*(.+?)(?=\n|Lista|OBSE|$)',
     re.IGNORECASE
 )
 
