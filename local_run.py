@@ -519,6 +519,7 @@ def compare_and_report(
             'tip': 'ARTICOL_ORPHAN',
             'deviz_ref': orphan['ref_deviz'],
             'deviz_denumire': f'REF:{orphan["ref_deviz"]} vs OFERTA:{orphan["oferta_deviz"]}',
+            'is_component': orphan.get('is_component', False),
             'ref_cod': orphan['cod'],
             'ref_denumire': orphan['ref_denom'],
             'ref_um': orphan['ref_um'],
@@ -568,6 +569,7 @@ def compare_and_report(
 
     # Salveaza JSON comparatie
     comparatie_path = OUTPUT_DIR / f"comparatie_oferta_{oferta_nr}.json"
+    logger.debug(f"DEBUG: Before JSON save, neconformitati has {len(neconformitati)} items")
     comparatie_path.write_text(
         json.dumps({
             "oferta_nr": oferta_nr,

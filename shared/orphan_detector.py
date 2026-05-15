@@ -84,6 +84,7 @@ def detect_orphans(
                 'ref_denom': art.get('denumire', '')[:50],
                 'ref_cant': art.get('cantitate', 0),
                 'ref_um': art.get('um', ''),
+                'is_component': art.get('is_component', False),
                 'oferta_deviz': oferta_dv,
                 'oferta_denom': oferta_art.get('denumire', '')[:50],
                 'oferta_cant': oferta_art.get('cantitate', 0),
