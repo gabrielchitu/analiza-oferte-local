@@ -276,7 +276,7 @@ def _reclassify_missed_f3_pages(
     return page_classes_updated, True
 
 
-def extract_document(di_path: Path, client, model: str) -> tuple[list, dict | None]:
+def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list | None = None) -> tuple[list, dict | None]:
     """
     Extrage articolele F3 dintr-un DI JSON.
     Foloseste checkpoint daca exista — sare peste clasificarea LLM (pasul lent).
@@ -284,11 +284,17 @@ def extract_document(di_path: Path, client, model: str) -> tuple[list, dict | No
     Extrage TOATE devizele fara filtru. Devizele prezente in oferta dar absente
     din referinta sunt surfacate ca alerte in raport, nu ascunse.
 
+    Args:
+        di_path: Path to DI JSON file
+        client: Anthropic client
+        model: Model ID
+        ref_deviz_groups: Optional list of reference deviz groups (for LLM partial key resolution)
+
     Returns: tuple of (articles, checkpoint_data)
         articles: list of extracted articles
         checkpoint_data: dict with deviz mapping and metadata (or None if from cached checkpoint)
     """
-    from shared.f3_page_classifier import classify_pages
+    from shared.f3_page_classifier import classify_pages, _resolve_partial_keys_with_llm
     from shared.f3_extractor import extract_articles_v3
 
     checkpoint = _checkpoint_path(di_path)
@@ -309,6 +315,26 @@ def extract_document(di_path: Path, client, model: str) -> tuple[list, dict | No
             encoding="utf-8",
         )
         logger.info(f"  Checkpoint salvat: {checkpoint.name}")
+
+    # LLM resolution of partial keys (missing numeric prefixes in Obiectul/Categoria)
+    # Only applies when reference deviz groups are available
+    has_partial = any(
+        p.get("deviz_cod", "").startswith("__partial__")
+        for p in page_classes
+    )
+    if has_partial and ref_deviz_groups:
+        logger.info(f"  Rezolvare chei partiale cu LLM...")
+        page_classes = _resolve_partial_keys_with_llm(
+            page_classes, ref_deviz_groups, client, model
+        )
+        # Overwrite checkpoint with resolved keys
+        checkpoint.write_text(
+            json.dumps(page_classes, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        logger.info(f"  Checkpoint actualizat cu chei rezolvate")
+    elif has_partial:
+        logger.warning(f"  Chei partiale detectate dar fara referinta — articolele pot fi grupate gresit")
 
     # Re-clasificare LLM tintita: pagini is_f3=False cu semnal F3 detectat euristic.
     # Ruleaza NUMAI cand exista astfel de pagini — LLM e apelat doar pentru candidate.
@@ -623,10 +649,13 @@ def main():
     logger.info("\n--- Extragere REFERINTA ---")
     ref_articles, ref_checkpoint_data = extract_document(ref_path, client, model)
 
-    # Save deviz checkpoint after reference extraction
+    # Extract reference deviz groups for LLM partial key resolution
+    ref_deviz_groups = []
     if ref_checkpoint_data:
+        ref_deviz_groups = ref_checkpoint_data.get("deviz_groups", [])
         ref_checkpoint_path = _save_checkpoint(ref_checkpoint_data, ref_path)
         logger.info(f"   Checkpoint: {ref_checkpoint_path}")
+        logger.info(f"   {len(ref_deviz_groups)} deviz groups in reference checkpoint")
 
     # Populate missing deviz denominations (so reports show work categories)
     from shared.deviz_namer import populate_deviz_denominations
@@ -667,7 +696,7 @@ def main():
         ofertant_name = _extract_ofertant_name(oferta_path)
         if ofertant_name:
             logger.info(f"  Ofertant: {ofertant_name}")
-        oferta_articles, oferta_checkpoint_data = extract_document(oferta_path, client, model)
+        oferta_articles, oferta_checkpoint_data = extract_document(oferta_path, client, model, ref_deviz_groups=ref_deviz_groups)
 
         # Save deviz checkpoint after offer extraction
         if oferta_checkpoint_data:
