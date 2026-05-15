@@ -461,12 +461,14 @@ def _build_deviz_checkpoint(results: list[dict], document_type: str, source_path
     return checkpoint
 
 
-def build_page_classifications(pages: list[dict]) -> list[dict]:
+def build_page_classifications(pages: list[dict]) -> tuple[list[dict], dict]:
     """
     Clasifică toate paginile unui document și propagă devizul (eDevize format).
 
-    Returns: list[dict] cu câmpuri:
-        page_number, is_f3, deviz_cod, deviz_den, lines, needs_llm
+    Returns: tuple of (results, checkpoint)
+        results: list[dict] cu câmpuri:
+            page_number, is_f3, deviz_cod, deviz_den, lines, needs_llm
+        checkpoint: dict with deviz mapping and metadata
     """
     results = []
     current_deviz_cod = ""
@@ -522,7 +524,10 @@ def build_page_classifications(pages: list[dict]) -> list[dict]:
             current_deviz_cod = ""
             current_deviz_den = ""
 
-    return results
+    # Build and return checkpoint data alongside results
+    # (checkpoint will be saved by caller)
+    checkpoint = _build_deviz_checkpoint(results, "reference", "")
+    return results, checkpoint
 
 
 # ─── LLM batch ──────────────────────────────────────────────────────
