@@ -160,69 +160,85 @@ def _extract_deviz_from_stadiul_fizic(text: str) -> tuple[str, str]:
     return "", text.strip()
 
 
-def _extract_compound_deviz(lines: list[str]) -> tuple[str, dict]:
-    """
-    Extract deviz code using three-tier priority:
-    1. Explicit "Deviz Oferta XXXX" (highest priority)
-    2. Compound: "Obiectul" + "Categoria de lucrari" → "X.X-YY"
-    3. Empty fallback (use inheritance or existing logic)
+def _non_f3() -> dict:
+    """Helper: return a canonical NON_F3 result."""
+    return {
+        "label": "NON_F3",
+        "deviz_cod": "",
+        "deviz_den": "",
+        "is_header": False,
+        "extraction_method": "none",
+        "obiectul": None,
+        "categoria": None,
+    }
 
-    Args:
-        lines: List of page line content strings
+
+def _extract_grouping_key(lines: list[str]) -> dict:
+    """
+    Extract the grouping key for a page's deviz section.
+
+    Priority:
+    1. Explicit 'Deviz Oferta XXXXX' (5-8 chars) → 'explicit'
+    2. Obiectul (numeric) + Categoria/Stadiul (numeric) → 'compound', deviz_cod='X.Y-NN'
+    3. Obiectul (text) + Categoria/Stadiul (text), both present → 'partial'
+       deviz_cod = provisional sentinel '__partial__:{obj_text[:40]}:{cat_text[:40]}'
+    4. Nothing extractable → 'none', deviz_cod=''
 
     Returns:
-        Tuple of (deviz_cod, extraction_metadata)
-        Where deviz_cod is "" if no code found
-        And extraction_metadata contains:
-            - extraction_method: "explicit" | "compound" | "none"
-            - obiectul: {"number": str, "description": str} or None
-            - categoria: {"number": str, "description": str} or None
+        {
+          'method': 'explicit'|'compound'|'partial'|'none',
+          'deviz_cod': str,       # compound/explicit: real key; partial: sentinel; none: ''
+          'obiectul':  {'num': str, 'text': str} | None,
+          'categoria': {'num': str, 'text': str} | None,
+        }
     """
-    full_content = " ".join(lines)
+    full = " ".join(lines)
 
-    # Tier 1: Check for explicit "Deviz Oferta" (highest priority)
-    m = _DEVIZ_OFERTA_RE.search(full_content)
+    # Priority 1: Explicit 'Deviz Oferta XXXXX' (5-8 alphanum chars)
+    m = _DEVIZ_OFERTA_RE.search(full)
     if m:
-        cod = m.group(1).upper()
-        return cod, {
-            "extraction_method": "explicit",
-            "source": "Deviz Oferta",
+        return {
+            "method": "explicit",
+            "deviz_cod": m.group(1).upper(),
             "obiectul": None,
-            "categoria": None
+            "categoria": None,
         }
 
-    # Tier 2: Try compound extraction from Obiectul + Categoria
-    m_obj = _OBIECTUL_RE.search(full_content)
-    m_cat = _CATEGORIA_RE.search(full_content)
+    # Priority 2 + 3: Try Obiectul + Categoria with optional numeric prefix
+    m_obj = _OBIECTUL_OPT_RE.search(full)
+    m_cat = _CATEGORIA_OPT_RE.search(full)
 
-    if m_obj and m_cat:
-        obj_num = m_obj.group(1).strip()
-        obj_desc = m_obj.group(2).strip() if m_obj.group(2) else ""
-        cat_num = m_cat.group(1).strip()
-        cat_desc = m_cat.group(2).strip() if m_cat.group(2) else ""
+    obj_num = m_obj.group(1).strip() if m_obj else ""
+    obj_text = m_obj.group(2).strip() if m_obj else ""
+    cat_num = m_cat.group(1).strip() if m_cat else ""
+    cat_text = m_cat.group(2).strip() if m_cat else ""
 
-        # Construct compound code
+    # Both numeric parts present → compound key
+    if obj_num and cat_num:
         deviz_cod = f"{obj_num}-{cat_num}"
-
-        return deviz_cod, {
-            "extraction_method": "compound",
-            "source": "Obiectul-Categoria",
-            "obiectul": {
-                "number": obj_num,
-                "description": obj_desc
-            },
-            "categoria": {
-                "number": cat_num,
-                "description": cat_desc
-            }
+        return {
+            "method": "compound",
+            "deviz_cod": deviz_cod,
+            "obiectul": {"num": obj_num, "text": obj_text},
+            "categoria": {"num": cat_num, "text": cat_text},
         }
 
-    # Tier 3: Fallback — no compound code found
-    return "", {
-        "extraction_method": "none",
-        "source": None,
+    # Both text parts present (at least) but numeric missing → partial
+    if obj_text or cat_text:
+        sentinel = f"__partial__{obj_text[:40]}:{cat_text[:40]}"
+        return {
+            "method": "partial",
+            "deviz_cod": sentinel,
+            "obiectul": {"num": obj_num, "text": obj_text},
+            "categoria": {"num": cat_num, "text": cat_text},
+        }
+
+    # Nothing useful
+    return {
+        "method": "none",
+        "deviz_cod": "",
         "obiectul": None,
-        "categoria": None
+        "categoria": None,
     }
 
 
