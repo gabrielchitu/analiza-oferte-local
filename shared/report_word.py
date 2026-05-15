@@ -13,6 +13,7 @@ BLACK = RGBColor(0x00, 0x00, 0x00)
 YELLOW_FILL = "FFFF99"
 ORANGE_FILL = "FFB347"
 GRAY_FILL = "D9D9D9"
+SUBCOMP_GRAY_FILL = "E8E8E8"  # Light gray for subcomponents
 
 # Column widths in cm (total ~24cm for landscape A4 with 2cm margins)
 COL_WIDTHS_CM = [0.7, 3.0, 1.5, 3.5, 0.8, 1.2, 1.5, 3.5, 0.8, 1.2, 6.3]
@@ -100,6 +101,19 @@ def _set_col_widths(table):
     for i, w in enumerate(COL_WIDTHS_CM):
         for cell in table.columns[i].cells:
             cell.width = Cm(w)
+
+
+def _get_subcomponent_style():
+    """Return style dict for subcomponent rows: light gray background."""
+    return {
+        'background_color': SUBCOMP_GRAY_FILL,  # Light gray
+        'indent': 0.2,  # inches
+    }
+
+
+def _get_subcomponent_badge():
+    """Return text badge for subcomponent marking."""
+    return '[Subcomponent]'
 
 
 def _add_deviz_heading(table, deviz_cod: str, deviz_den: str,
@@ -278,6 +292,7 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict) -> None:
     tip  = neconf.get("tip", "")
     camp = neconf.get("camp", "")
     is_suspect = bool(neconf.get("suspect"))
+    is_subcomp = neconf.get('is_component', False)
 
     row[0].paragraphs[0].add_run(str(row_nr))
 
@@ -288,7 +303,10 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict) -> None:
     deviz_display = f"{deviz_cod} - {deviz_den}" if deviz_den else str(deviz_cod)
     row[1].paragraphs[0].add_run(deviz_display).bold = True
 
-    cod_run = row[2].paragraphs[0].add_run(str(neconf.get("ref_cod", "")))
+    # Add badge to code column for subcomponents
+    badge = _get_subcomponent_badge() if is_subcomp else ''
+    code_text = f"{badge} {neconf.get('ref_cod', '')}" if is_subcomp else str(neconf.get("ref_cod", ""))
+    cod_run = row[2].paragraphs[0].add_run(code_text)
     cod_run.bold = True
     cod_run.font.size = Pt(9)
 
@@ -296,6 +314,11 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict) -> None:
     if len(denom) > 50:
         denom = denom[:47] + "..."
     row[3].paragraphs[0].add_run(denom)
+
+    # Add indentation to denomination for subcomponents
+    if is_subcomp:
+        paragraph = row[3].paragraphs[0]
+        paragraph.paragraph_format.left_indent = Pt(18)  # 18 points indent
 
     ref_um_run   = row[4].paragraphs[0].add_run(str(neconf.get("ref_um", "")))
     ref_cant_run = row[5].paragraphs[0].add_run(str(neconf.get("ref_cantitate", "")))
@@ -309,6 +332,11 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict) -> None:
         if len(oferta_denom) > 50:
             oferta_denom = oferta_denom[:47] + "..."
         row[7].paragraphs[0].add_run(oferta_denom)
+
+        # Add indentation to offer denomination for subcomponents
+        if is_subcomp:
+            paragraph = row[7].paragraphs[0]
+            paragraph.paragraph_format.left_indent = Pt(18)  # 18 points indent
         oferta_um_run   = row[8].paragraphs[0].add_run(str(neconf.get("oferta_um", "")))
         oferta_cant_run = row[9].paragraphs[0].add_run(str(neconf.get("oferta_cantitate", "")))
 
@@ -322,6 +350,11 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict) -> None:
 
     for cell in row:
         _style_cell(cell, 8)
+
+    # Apply gray background for subcomponents first
+    if is_subcomp:
+        for cell in row:
+            _set_cell_shading(cell, SUBCOMP_GRAY_FILL)
 
     if is_suspect:
         for cell in row: _set_cell_shading(cell, YELLOW_FILL)
