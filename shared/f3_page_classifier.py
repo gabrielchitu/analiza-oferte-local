@@ -330,6 +330,22 @@ def classify_page_local(page: dict) -> dict:
 
     # ── Verifică Formularul F3 (standard format) ──
     if _FORMULAR_F3_RE.search(full_content):
+        # Try compound extraction first (if not already extracted)
+        compound_cod, compound_meta = _extract_compound_deviz(lines)
+        if compound_cod and compound_meta["extraction_method"] == "compound":
+            # Use compound code and store metadata
+            den = ""
+            if compound_meta.get("categoria"):
+                den = compound_meta["categoria"].get("description", "")
+            return {
+                "label": "F3",
+                "deviz_cod": compound_cod,
+                "deviz_den": den,
+                "is_header": False,
+                "extraction_method": "compound",
+                "metadata": compound_meta
+            }
+
         # Extrage codul deviz din context (număr înainte de "Formularul F3")
         m = re.search(r'(\d{5,8})\s+pag\s+\d+\s+Formular', full_content, re.IGNORECASE)
         if not m:
@@ -357,7 +373,7 @@ def classify_page_local(page: dict) -> dict:
         # de articole cu deviz="" care devin false EXTRA.
         if not cod and not _has_article_codes(full_content):
             return {"label": "NON_F3", "deviz_cod": "", "deviz_den": "", "is_header": False}
-        return {"label": "F3", "deviz_cod": cod, "deviz_den": den, "is_header": False}
+        return {"label": "F3", "deviz_cod": cod, "deviz_den": den, "is_header": False, "extraction_method": "explicit"}
 
     # ── Verifică eDevize continuation pages (>>> componenta NNN format) ──
     # These are data continuation pages from eDevize documents that contain articles
