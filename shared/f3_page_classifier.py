@@ -97,6 +97,18 @@ _CATEGORIA_RE = re.compile(
     re.IGNORECASE
 )
 
+# Text-optional variants — numeric prefix is optional (0 or more digits)
+# Used in Phase 1 grouping key extraction for documents without numeric codes (e.g., offers)
+_OBIECTUL_OPT_RE = re.compile(
+    r'Obiectul\s*:\s*([0-9.]*)\s*(.+?)(?=Categoria|Stadiul|Beneficiar|Nr\.|Lista|\n|$)',
+    re.IGNORECASE
+)
+_CATEGORIA_OPT_RE = re.compile(
+    r'(?:Categoria\s+de\s+lucrari|Stadiul\s+fizic)\s*:\s*([0-9]{0,4})\s*(.+?)'
+    r'(?=Beneficiar|Nr\.|Lista|OBSE|Executant|Proiectant|Formular|e\s+Devize|\n|$)',
+    re.IGNORECASE
+)
+
 # NOTĂ: nu defini _DEVIZ_COD_RE — neutilizat, dead code
 
 
