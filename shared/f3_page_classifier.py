@@ -72,6 +72,29 @@ _RECAPITULATIE_RE = re.compile(r'\bRecapitulati[ae]?\b', re.IGNORECASE)
 # Also matches single-letter codes: L + digit + letters + digits (e.g., L1C25A1, W2F05C01)
 _ARTICLE_CODE_RE = re.compile(r'\b(?:[A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2})\b')
 
+# Tier 1: Explicit "Deviz Oferta XXXX" — highest priority
+# Patterns: "Deviz oferta 226238", "Deviz Oferta 226238", "Deviz oferta 226U38"
+_DEVIZ_OFERTA_RE = re.compile(
+    r'Deviz\s+[Oo]ferta\s+([A-Z0-9]{5,8})',
+    re.IGNORECASE
+)
+
+# Tier 2a: Extract Obiectul (Object/Section number)
+# Patterns: "Obiectul: 4.1 Cladire camin", "Obiectul: 0002 VESTIAR TEREN"
+# Captures: (number, description)
+_OBIECTUL_RE = re.compile(
+    r'Obiectul\s*:\s*([0-9.]+)\s*(.+?)(?=\n|Categoria|Stadiul|$)',
+    re.IGNORECASE
+)
+
+# Tier 2b: Extract Categoria de lucrari / Stadiul fizic
+# Patterns: "Categoria de lucrari: 03 Arhitectura", "Stadiul fizic: 03 Arhitectura"
+# Captures: (category_number, description)
+_CATEGORIA_RE = re.compile(
+    r'(?:Categoria\s+de\s+lucrari|Stadiul\s+fizic)\s*:\s*([0-9]{2,4})\s*(.+?)(?=\n|Lista|OBSE|$)',
+    re.IGNORECASE
+)
+
 # NOTĂ: nu defini _DEVIZ_COD_RE — neutilizat, dead code
 
 
