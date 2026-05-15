@@ -231,6 +231,15 @@ output_AO/
 2. Add semantic clustering of reference deviz groups
 3. Implement confidence scoring for matches
 
+### 6. Subcomponent Detection & Flexible Matching
+- **Why**: Construction articles often have sub-articles/specifications without quantity/UM data; need flexible comparison strategies
+- **How**: Detect subcomponents via explicit markers (>>> componenta, .L suffix) and hierarchy rules (1.1 under 1). Mark with `is_component: True`.
+- **User Control**: `--comp-mode {strict|lenient}` parameter controls matching:
+  - `strict` (default): Validate (cod, UM, cant) for all articles including subcomponents
+  - `lenient`: Code-only matching for incomplete subcomponents; full validation otherwise
+- **Reporting**: DOCX shows subcomponents with [Subcomponent] badge, gray background, indentation
+- **Benefit**: Adapts to client extraction practices; single flag controls behavior across all documents
+
 ---
 
 ## Known Limitations & Future Work
