@@ -225,6 +225,7 @@ def match_global(
     openai_client,
     deployment: str,
     include_prices: bool = False,
+    comp_mode: str = 'strict',
 ) -> tuple:
     """
     3-layer matching (Layer 1 exact, Layer 2 normalized, Layer 2.5 cross-deviz, Layer 3 LLM).

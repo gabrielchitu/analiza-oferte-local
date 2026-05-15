@@ -16,6 +16,7 @@ Checkpoint: output_AO/checkpoints/di_X_page_classes.json
 
 Configurare: .env cu ANTHROPIC_API_KEY si ANTHROPIC_MODEL
 """
+import argparse
 import hashlib
 import inspect
 import json
@@ -458,6 +459,7 @@ def compare_and_report(
     include_prices: bool = False,
     ofertant_name: str = "",
     ref_di_json: dict = None,
+    comp_mode: str = 'strict',
 ):
     """Compara oferta cu referinta si genereaza raport XLSX + DOCX."""
     from shared.deviz_normalizer import normalize_devize
@@ -497,7 +499,7 @@ def compare_and_report(
 
     # Matching 3 straturi — returneaza si cheile REF match-uite
     neconformitati, matches, matched_ref_keys = match_global(
-        ref_articles, oferta_norm, client, model, include_prices=include_prices
+        ref_articles, oferta_norm, client, model, include_prices=include_prices, comp_mode=comp_mode
     )
 
     # Detecta orphane DUPA matching: cod din REF neacoperit dar prezent in O2 sub alt deviz
@@ -622,6 +624,16 @@ def compare_and_report(
 
 
 def main():
+    # Parse CLI arguments
+    parser = argparse.ArgumentParser(description="Analizator local oferte constructii")
+    parser.add_argument(
+        '--comp-mode',
+        choices=['strict', 'lenient'],
+        default='strict',
+        help='Subcomponent matching mode: strict (validate cant+UM) or lenient (existence-only for incomplete subcomponents)'
+    )
+    args = parser.parse_args()
+
     logger.info("=" * 50)
     logger.info("  Analizator Local Oferte Constructii")
     logger.info("=" * 50)
@@ -781,7 +793,7 @@ def main():
 
         logger.info(f"\n--- Comparare OFERTA {oferta_nr} ---")
         _, comp = compare_and_report(ref_articles, oferta_articles, oferta_nr, oferta_path, client, model,
-                                     ofertant_name=ofertant_name, ref_di_json=ref_di_json)
+                                     ofertant_name=ofertant_name, ref_di_json=ref_di_json, comp_mode=args.comp_mode)
 
         # Generate JSON report grouped by deviz
         if comp and comp.get('neconformitati'):
