@@ -100,6 +100,12 @@ NR_SINGLE_INLINE_RE = re.compile(
 NR_CRT_RE = re.compile(r'^(\d{1,3})$')
 # NR_SUBITEM: decimal sub-article marker (ex: "34.1", "23.1" in breviar tables)
 NR_SUBITEM_RE = re.compile(r'^(\d{1,3}\.\d{1})$')
+# Subcomponent explicit markers (>>> componenta 0C1, >>> component 002)
+SUBCOMP_EXPLICIT_MARKER_RE = re.compile(r'>>>\s*component[a-z]?\s+', re.IGNORECASE)
+# Subcomponent suffix pattern (.L continuation: 17.L, 19.L, etc.)
+SUBCOMP_SUFFIX_RE = re.compile(r'^(\d+)\.L$', re.IGNORECASE)
+# Hierarchy pattern (1.1, 2.3, etc. under parent 1, 2)
+HIERARCHY_CODE_RE = re.compile(r'^(\d+)\.(\d+)$')
 # NR_LINKED: articol legat ISDP — "N.L" sau "N.M.L" singur pe linie (ex: "6.L", "11.1.L", "11.2.L")
 NR_LINKED_RE = re.compile(r'^(\d{1,3})(?:\.\d+)?\.L\s*$', re.IGNORECASE)
 # BARE_L: standalone "L" marker pe linie (articole legate ISDP in format multi-line)
@@ -303,7 +309,7 @@ def _normalize_um_value(token: str) -> str:
 
 
 def _make_article(cod: str, denumire: str, um: str, cantitate: float,
-                  preturi: list, deviz_cod: str, deviz_den: str) -> Dict:
+                  preturi: list, deviz_cod: str, deviz_den: str, is_component: bool = False) -> Dict:
     """Construiește dict articol în formatul standard."""
     fields = ['pret_material', 'val_material', 'pret_manopera', 'val_manopera',
               'pret_utilaj', 'val_utilaj', 'pret_transport', 'val_transport']
@@ -314,7 +320,7 @@ def _make_article(cod: str, denumire: str, um: str, cantitate: float,
         'cantitate': cantitate,
         'deviz': deviz_cod,
         'deviz_denumire': deviz_den,
-        'is_component': False,
+        'is_component': is_component,
     }
     for i, field in enumerate(fields):
         art[field] = preturi[i] if i < len(preturi) else 0.0
@@ -439,6 +445,35 @@ def _deduplicate_by_code_suffix(articole: List[Dict]) -> List[Dict]:
     return [art for idx, art in enumerate(articole) if idx not in indices_to_remove]
 
 
+def _detect_subcomponent(cod: str, last_cod: str, line_text: str) -> bool:
+    """
+    Detect if a code is a subcomponent based on three patterns:
+    1. Explicit marker: line contains '>>> componenta'
+    2. Suffix pattern: code ends with .L (e.g., 17.L)
+    3. Hierarchy: code is N.M format (e.g., 1.1) and last_cod was N
+    """
+    if not cod:
+        return False
+
+    # Pattern 1: Explicit marker in original line
+    if SUBCOMP_EXPLICIT_MARKER_RE.search(line_text):
+        return True
+
+    # Pattern 2: .L suffix (e.g., 17.L)
+    if SUBCOMP_SUFFIX_RE.match(cod):
+        return True
+
+    # Pattern 3: Hierarchy (1.1 under parent 1, 2.3 under parent 2)
+    hier_match = HIERARCHY_CODE_RE.match(cod)
+    if hier_match:
+        parent_id = hier_match.group(1)
+        # Check if last_cod matches parent pattern (e.g., just "1" or "2")
+        if last_cod and re.match(rf'^{re.escape(parent_id)}$', last_cod):
+            return True
+
+    return False
+
+
 def extract_articles_regex(lines: List[str], deviz_cod: str,
                            deviz_den: str) -> List[Dict]:
     """
@@ -466,10 +501,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
     last_nr_crt = 0
     waiting_lines = 0   # contor linii în WAITING_ARTICLE
     _after_linked = False  # True imediat dupa un N.L — asteptam cod numeric bare
+    last_article_cod = ''
+    explicit_component_marker = False  # True when we just saw >>> componenta marker
 
 
     def _finalize():
-        nonlocal cod, denumire_parts, um, cantitate, preturi
+        nonlocal cod, denumire_parts, um, cantitate, preturi, last_article_cod, explicit_component_marker
         if cod:
             # Coduri numerice pure → adaugă prefix $
             if re.match(r'^\d+$', cod):
@@ -504,10 +541,13 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             elif re.search(r"deviz\s+['\"]?\d{5,8}['\"]?\s*[-–]?\s*formular\s+f3", den_joined, re.IGNORECASE):
                 logger.debug(f"[PARSER] Skip cod cu footer eDevize in denominatie: {cod}")
             else:
+                is_subcomp = explicit_component_marker or _detect_subcomponent(cod, last_article_cod, ' '.join(denumire_parts))
                 art = _make_article(cod, den_joined, um, cantitate,
-                                    preturi, deviz_cod, deviz_den)
+                                    preturi, deviz_cod, deviz_den, is_component=is_subcomp)
                 articole.append(art)
                 logger.debug(f"[PARSER] Articol finalizat: {cod} ({um}, {cantitate})")
+                last_article_cod = cod if not is_subcomp else last_article_cod
+                explicit_component_marker = False  # Reset after use
         cod = ''
         denumire_parts = []
         um = ''
@@ -687,6 +727,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
 
         # ── IDLE ─────────────────────────────────────────────────────────────
         if state == _IDLE:
+            # Detectează marker explicit >>> componenta/component și setează flag pentru articolul următor (în IDLE state)
+            if line.startswith('>>>'):
+                if SUBCOMP_EXPLICIT_MARKER_RE.match(line):
+                    explicit_component_marker = True
+                continue
+
             # Format referinţă deviz: "024 CK26A#" sau "024 2200012" (NR+COD pe linie)
             # sau "002 TCB40A1 ASIM" sau "004 ATA01B ASIM BUC." (cu tokeni UM pe aceeași linie)
             # sau "017 W2F05C01 BUC." (NR + single-letter cod)
@@ -1031,8 +1077,10 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 preturi.append(_parse_number(line))
                 continue
 
-            # Ignoră linii >>> componenta (procesate separat de _extract_components_from_section)
+            # Detectează marker explicit >>> componenta/component și setează flag pentru articolul următor
             if line.startswith('>>>'):
+                if SUBCOMP_EXPLICIT_MARKER_RE.match(line):
+                    explicit_component_marker = True
                 continue
 
             # Orice altă linie text → continuare denumire (multi-line)
