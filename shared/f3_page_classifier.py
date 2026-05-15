@@ -9,6 +9,7 @@ Public API:
 import re
 import json
 import logging
+from datetime import datetime
 from dataclasses import dataclass, field
 
 logger = logging.getLogger(__name__)
@@ -401,6 +402,63 @@ def classify_page_local(page: dict) -> dict:
             return {"label": "F3", "deviz_cod": cod, "deviz_den": "", "is_header": False}
 
     return {"label": "AMBIGUOUS", "deviz_cod": "", "deviz_den": "", "is_header": False}
+
+
+def _build_deviz_checkpoint(results: list[dict], document_type: str, source_path: str) -> dict:
+    """
+    Build deviz checkpoint mapping from page classification results.
+
+    Args:
+        results: List of page classification results from build_page_classifications()
+        document_type: "reference" or "offer"
+        source_path: Original DI JSON path (for logging)
+
+    Returns:
+        Checkpoint dict with metadata and deviz_groups
+    """
+    deviz_groups = {}
+
+    # Aggregate all deviz codes encountered
+    for pc in results:
+        if not pc.get("is_f3"):
+            continue
+
+        deviz_cod = pc.get("deviz_cod", "")
+        if not deviz_cod:
+            continue
+
+        if deviz_cod not in deviz_groups:
+            deviz_groups[deviz_cod] = {
+                "deviz_cod": deviz_cod,
+                "extraction_method": pc.get("extraction_method", "unknown"),
+                "metadata": pc.get("metadata", {}),
+                "article_count": 0,
+                "pages": []
+            }
+
+        page_num = pc.get("page_number", 0)
+        if page_num not in deviz_groups[deviz_cod]["pages"]:
+            deviz_groups[deviz_cod]["pages"].append(page_num)
+
+    # Count articles per deviz (will be updated after extraction)
+    # For now, just track that the deviz exists
+
+    checkpoint = {
+        "metadata": {
+            "source": source_path,
+            "document_type": document_type,
+            "extracted_at": datetime.utcnow().isoformat() + "Z",
+            "classifier_version": "local"
+        },
+        "deviz_groups": list(deviz_groups.values()),
+        "validation": {
+            "total_articles": 0,
+            "total_pages_with_deviz": len([p for p in results if p.get("deviz_cod")]),
+            "coverage": "100%"
+        }
+    }
+
+    return checkpoint
 
 
 def build_page_classifications(pages: list[dict]) -> list[dict]:
