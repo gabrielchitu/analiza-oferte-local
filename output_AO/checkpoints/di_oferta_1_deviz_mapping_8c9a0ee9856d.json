@@ -1,0 +1,152 @@
+{
+  "metadata": {
+    "source": "",
+    "document_type": "reference",
+    "extracted_at": "2026-05-15T07:40:39.163805Z",
+    "classifier_version": "local"
+  },
+  "deviz_groups": [
+    {
+      "deviz_cod": "07",
+      "extraction_method": "unknown",
+      "metadata": {},
+      "article_count": 0,
+      "pages": [
+        38,
+        39,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        67,
+        68,
+        69,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        79,
+        81,
+        82,
+        83
+      ]
+    },
+    {
+      "deviz_cod": "17",
+      "extraction_method": "unknown",
+      "metadata": {},
+      "article_count": 0,
+      "pages": [
+        84,
+        85,
+        86,
+        87
+      ]
+    },
+    {
+      "deviz_cod": "19",
+      "extraction_method": "unknown",
+      "metadata": {},
+      "article_count": 0,
+      "pages": [
+        88,
+        89,
+        90,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113
+      ]
+    },
+    {
+      "deviz_cod": "03",
+      "extraction_method": "unknown",
+      "metadata": {},
+      "article_count": 0,
+      "pages": [
+        114,
+        115,
+        116,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124
+      ]
+    },
+    {
+      "deviz_cod": "06",
+      "extraction_method": "unknown",
+      "metadata": {},
+      "article_count": 0,
+      "pages": [
+        125,
+        126,
+        127,
+        128,
+        130,
+        131,
+        133,
+        135,
+        136,
+        137,
+        139,
+        140,
+        141,
+        142,
+        144,
+        146,
+        147,
+        148
+      ]
+    }
+  ],
+  "validation": {
+    "total_articles": 0,
+    "total_pages_with_deviz": 97,
+    "coverage": "100%"
+  }
+}
