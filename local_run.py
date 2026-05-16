@@ -468,7 +468,15 @@ def compare_and_report(
     from shared.orphan_detector import detect_orphans
     from shared.report_excel import generate_excel
     from shared.report_word import generate_word
+    from shared.deviz_matcher import match_devize_by_denomination, remap_devize_in_articles
     from AgentComparator_local import match_global
+
+    # Phase 1: Match devize by denomination (fallback when code extraction fails)
+    # Only applies when offer devizes don't match reference devizes
+    deviz_mapping = match_devize_by_denomination(ref_articles, oferta_articles)
+    if deviz_mapping:
+        oferta_articles = remap_devize_in_articles(oferta_articles, deviz_mapping)
+        logger.info(f"  [DEVIZ_MATCHER] Applied deviz mapping: {deviz_mapping}")
 
     # Normalizeaza devizele ofertei sa corespunda cu cele din referinta
     oferta_norm = normalize_devize(ref_articles, oferta_articles, client, model)
