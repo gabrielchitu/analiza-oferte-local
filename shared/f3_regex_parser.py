@@ -112,6 +112,8 @@ NR_SUBITEM_RE = re.compile(r'^(\d{1,3}\.\d{1})$')
 SUBCOMP_EXPLICIT_MARKER_RE = re.compile(r'>>>\s*component[a-z]?\s+', re.IGNORECASE)
 # Subcomponent suffix pattern (.L continuation: 17.L, 19.L, etc.)
 SUBCOMP_SUFFIX_RE = re.compile(r'^(\d+)\.L$', re.IGNORECASE)
+# Prefixed subcomponent format (MANECIU): L:PREFIX -NUMBER:CODE (ex: L:SL30 -0001:2452958)
+SUBCOMP_PREFIXED_RE = re.compile(r'L\s*:\s*([A-Z0-9]+)\s*-\s*([A-Z0-9]*)\s*:\s*([0-9A-Z]+)', re.IGNORECASE)
 # Hierarchy pattern (1.1, 2.3, etc. under parent 1, 2)
 HIERARCHY_CODE_RE = re.compile(r'^(\d+)\.(\d+)$')
 # NR_LINKED: articol legat ISDP — "N.L" sau "N.M.L" singur pe linie (ex: "6.L", "11.1.L", "11.2.L")
@@ -316,8 +318,23 @@ def _normalize_um_value(token: str) -> str:
     return t
 
 
+def _extract_subcomponent_codes(text: str) -> list:
+    """Extract subcomponent codes from denomination text using prefixed format.
+
+    Format: L:PREFIX -NUMBER:CODE (ex: L:SL30 -0001:2452958)
+    Extracts only the code (group 3).
+    """
+    codes = []
+    for match in re.finditer(SUBCOMP_PREFIXED_RE, text):
+        code = match.group(3).strip().upper()
+        if code:
+            codes.append(code)
+    return codes
+
+
 def _make_article(cod: str, denumire: str, um: str, cantitate: float,
-                  preturi: list, deviz_cod: str, deviz_den: str, is_component: bool = False) -> Dict:
+                  preturi: list, deviz_cod: str, deviz_den: str, is_component: bool = False,
+                  subcomponents: list = None) -> Dict:
     """Construiește dict articol în formatul standard."""
     fields = ['pret_material', 'val_material', 'pret_manopera', 'val_manopera',
               'pret_utilaj', 'val_utilaj', 'pret_transport', 'val_transport']
@@ -329,6 +346,7 @@ def _make_article(cod: str, denumire: str, um: str, cantitate: float,
         'deviz': deviz_cod,
         'deviz_denumire': deviz_den,
         'is_component': is_component,
+        'subcomponents': subcomponents or [],
     }
     for i, field in enumerate(fields):
         art[field] = preturi[i] if i < len(preturi) else 0.0
@@ -550,10 +568,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 logger.debug(f"[PARSER] Skip cod cu footer eDevize in denominatie: {cod}")
             else:
                 is_subcomp = explicit_component_marker or _detect_subcomponent(cod, last_article_cod, ' '.join(denumire_parts))
+                subcomp_codes = _extract_subcomponent_codes(den_joined)
                 art = _make_article(cod, den_joined, um, cantitate,
-                                    preturi, deviz_cod, deviz_den, is_component=is_subcomp)
+                                    preturi, deviz_cod, deviz_den, is_component=is_subcomp,
+                                    subcomponents=subcomp_codes)
                 articole.append(art)
-                logger.debug(f"[PARSER] Articol finalizat: {cod} ({um}, {cantitate})")
+                logger.debug(f"[PARSER] Articol finalizat: {cod} ({um}, {cantitate}), subcomponents: {subcomp_codes}")
                 last_article_cod = cod if not is_subcomp else last_article_cod
                 explicit_component_marker = False  # Reset after use
         cod = ''
