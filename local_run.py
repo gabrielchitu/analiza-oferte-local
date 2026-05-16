@@ -640,8 +640,10 @@ def compare_and_report(
     )
 
     # Detecta orphane DUPA matching: cod din REF neacoperit dar prezent in O2 sub alt deviz
-    # matched_ref_keys exclude articolele deja acoperite (fara produs cartezian)
-    orphans = detect_orphans(ref_articles, oferta_norm, matched_ref_keys=matched_ref_keys)
+    # DISABLED: Orphan detection is incorrect — matching should be on (deviz, cod) PAIR not just cod.
+    # If (deviz_ref, cod) not in offer, it's ARTICOL_LIPSA, not ORPHAN.
+    # orphans = detect_orphans(ref_articles, oferta_norm, matched_ref_keys=matched_ref_keys)
+    orphans = []
 
     # Marcheaza EXTRA suspecte (codul exista in referinta dar cu alta denumire)
     # Build ref DI text from JSON if provided, otherwise use empty string
