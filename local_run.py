@@ -305,14 +305,24 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
     pages = di.get("pages", [])
     logger.info(f"  {di_path.name}: {len(pages)} pagini DI")
 
+    checkpoint_data = {}  # Metadata like subcomponent_format
     if checkpoint.exists():
         logger.info(f"  Checkpoint gasit — sare peste clasificare LLM")
-        page_classes = json.loads(checkpoint.read_text(encoding="utf-8"))
+        ckpt = json.loads(checkpoint.read_text(encoding="utf-8"))
+        # Support both old format (list) and new format (dict with page_classes + metadata)
+        if isinstance(ckpt, list):
+            page_classes = ckpt
+        else:
+            page_classes = ckpt.get("page_classes", ckpt.get("results", []))
+            checkpoint_data = ckpt.get("metadata", {})
     else:
         logger.info(f"  Clasificare pagini cu LLM (poate dura 2-5 min)...")
         page_classes, checkpoint_data = classify_pages(pages, client, model)
         checkpoint.write_text(
-            json.dumps(page_classes, ensure_ascii=False, indent=2),
+            json.dumps({
+                "page_classes": page_classes,
+                "metadata": checkpoint_data
+            }, ensure_ascii=False, indent=2),
             encoding="utf-8",
         )
         logger.info(f"  Checkpoint salvat: {checkpoint.name}")
@@ -328,9 +338,12 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
         page_classes = _resolve_partial_keys_with_llm(
             page_classes, ref_deviz_groups, client, model
         )
-        # Overwrite checkpoint with resolved keys
+        # Overwrite checkpoint with resolved keys, preserve metadata
         checkpoint.write_text(
-            json.dumps(page_classes, ensure_ascii=False, indent=2),
+            json.dumps({
+                "page_classes": page_classes,
+                "metadata": checkpoint_data
+            }, ensure_ascii=False, indent=2),
             encoding="utf-8",
         )
         logger.info(f"  Checkpoint actualizat cu chei rezolvate")
@@ -460,6 +473,7 @@ def compare_and_report(
     ofertant_name: str = "",
     ref_di_json: dict = None,
     comp_mode: str = 'strict',
+    checkpoint_data: dict = None,
 ):
     """Compara oferta cu referinta si genereaza raport XLSX + DOCX."""
     from shared.deviz_normalizer import normalize_devize
@@ -477,6 +491,18 @@ def compare_and_report(
     if deviz_mapping:
         oferta_articles = remap_devize_in_articles(oferta_articles, deviz_mapping)
         logger.info(f"  [DEVIZ_MATCHER] Applied deviz mapping: {deviz_mapping}")
+
+    # Phase 2: Subcomponent code extraction and matching (optional, based on detected format)
+    if checkpoint_data and checkpoint_data.get("subcomponent_format"):
+        subcomp_fmt = checkpoint_data["subcomponent_format"]
+        fmt_name = subcomp_fmt.get("name", "unknown")
+        if fmt_name != "unknown":
+            logger.info(f"  [SUBCOMP_PHASE2] Detected format: {fmt_name} (confidence={subcomp_fmt.get('confidence', 0):.2f})")
+            # TODO: Implement subcomponent matching Phase 2 here
+            # This would involve:
+            # 1. Building subcomponent lookup from reference articles
+            # 2. Extracting subcomponent codes from offer articles
+            # 3. Matching offer subcomponents against reference
 
     # Normalizeaza devizele ofertei sa corespunda cu cele din referinta
     oferta_norm = normalize_devize(ref_articles, oferta_articles, client, model)
@@ -803,7 +829,8 @@ def main():
 
         logger.info(f"\n--- Comparare OFERTA {oferta_nr} ---")
         _, comp = compare_and_report(ref_articles, oferta_articles, oferta_nr, oferta_path, client, model,
-                                     ofertant_name=ofertant_name, ref_di_json=ref_di_json, comp_mode=args.comp_mode)
+                                     ofertant_name=ofertant_name, ref_di_json=ref_di_json, comp_mode=args.comp_mode,
+                                     checkpoint_data=checkpoint_data)
 
         # Generate JSON report grouped by deviz
         if comp and comp.get('neconformitati'):

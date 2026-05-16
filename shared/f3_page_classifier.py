@@ -739,6 +739,28 @@ Each input pair must appear exactly once in the output."""
     return page_classes
 
 
+def _get_subcomponent_sample(results: list, pages: list) -> str:
+    """
+    Extract a sample of text containing subcomponents for format detection.
+
+    Returns first 3 F3 pages' text concatenated.
+    """
+    f3_pages = [r for r in results if r.get("is_f3")][:3]
+    if not f3_pages:
+        return ""
+
+    samples = []
+    for page_info in f3_pages:
+        page_num = page_info.get("page_number")
+        for page in pages:
+            if page.get("page_number") == page_num:
+                lines = [l.get("content", "") for l in page.get("lines", [])]
+                samples.append(" ".join(lines))
+                break
+
+    return " ".join(samples[:3])
+
+
 def classify_pages(
     pages: list[dict],
     openai_client,
@@ -790,6 +812,18 @@ def classify_pages(
     f3_count = sum(1 for r in results if r["is_f3"])
     if f3_count == 0:
         logger.warning("[PC] zero F3 pages found in document — extracție va returna []")
+
+    # Detect subcomponent format (added to checkpoint for extraction phase)
+    from shared.subcomponent_formats import detect_subcomponent_format
+    subcomp_sample = _get_subcomponent_sample(results, pages)
+    if subcomp_sample:
+        subcomp_format = detect_subcomponent_format(subcomp_sample)
+        checkpoint["subcomponent_format"] = {
+            "format": subcomp_format["format"].value if subcomp_format["format"] else "unknown",
+            "confidence": subcomp_format["confidence"],
+            "name": subcomp_format.get("name", "unknown")
+        }
+        logger.info(f"[PC] Detected subcomponent format: {subcomp_format.get('name')} (confidence={subcomp_format['confidence']:.2f})")
 
     logger.info(f"[PC] Clasificare completă: {f3_count}/{len(results)} pagini F3")
     return results, checkpoint
