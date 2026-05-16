@@ -122,7 +122,12 @@ def reconcile_missing_devize(
 
     di = json.loads(di_path.read_text(encoding="utf-8"))
     di_pages = di.get("pages", [])
-    page_classes: list[dict] = json.loads(checkpoint_path.read_text(encoding="utf-8"))
+    ckpt = json.loads(checkpoint_path.read_text(encoding="utf-8"))
+    # Support both old format (list) and new format (dict with page_classes key)
+    if isinstance(ckpt, list):
+        page_classes = ckpt
+    else:
+        page_classes = ckpt.get("page_classes", [])
     pc_by_pn: dict[int, dict] = {pc["page_number"]: pc for pc in page_classes}
 
     all_articles = list(existing_articles)
