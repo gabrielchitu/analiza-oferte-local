@@ -850,14 +850,17 @@ def main():
     from shared.deviz_reconciler import reconcile_missing_devize
     ref_articles = populate_deviz_denominations(ref_articles)
 
-    # Filter out hollow articles (no denomination + all zeros)
-    def is_hollow(a):
-        return (not a.get("denumire") and
-                a.get("cantitate", 0) == 0 and
-                a.get("pret_material", 0) == 0 and
-                a.get("pret_manopera", 0) == 0)
+    # Filter out TRULY INVALID articles (missing code entirely)
+    # Keep articles with valid codes but missing denom/UM/qty — they are PARSE FAILURES
+    # that should match against offers if codes align
+    def is_truly_invalid(a):
+        """Article is invalid only if it has NO CODE (unable to parse anything useful)."""
+        return not a.get("cod", "").strip()
 
-    ref_articles = [a for a in ref_articles if not is_hollow(a)]
+    invalid_count = sum(1 for a in ref_articles if is_truly_invalid(a))
+    ref_articles = [a for a in ref_articles if not is_truly_invalid(a)]
+    if invalid_count > 0:
+        logger.info(f"  Removed {invalid_count} articles with no code (truly unparseable)")
 
     ref_out = OUTPUT_DIR / "referinta.json"
     ref_out.write_text(
@@ -928,20 +931,17 @@ def main():
             for code in unresolved_lipsa:
                 logger.error(f"  [RECONCILE] Deviz {code} NEGASIT in oferta {oferta_nr} — posibila eroare OCR/parsare")
 
-        # ⚠️  ANALYZER DISABLED - PDF extraction issues need fixing first
-        # Articles with main codes (001-008) indicate pages weren't properly classified
-        # or article wasn't found on the correctly-marked pages.
-        # Before implementing any transformation, the extraction logic needs investigation.
-        logger.info(f"  ⚠️  Analyzer disabled pending investigation of PDF extraction")
+        # Filter out TRULY INVALID articles (missing code entirely)
+        # Keep articles with valid codes but missing denom/UM/qty — they are PARSE FAILURES
+        # that should match against reference if codes align
+        def is_truly_invalid(a):
+            """Article is invalid only if it has NO CODE (unable to parse anything useful)."""
+            return not a.get("cod", "").strip()
 
-        # Filter out hollow articles (no denomination + all zeros)
-        def is_hollow(a):
-            return (not a.get("denumire") and
-                    a.get("cantitate", 0) == 0 and
-                    a.get("pret_material", 0) == 0 and
-                    a.get("pret_manopera", 0) == 0)
-
-        oferta_articles = [a for a in oferta_articles if not is_hollow(a)]
+        invalid_count = sum(1 for a in oferta_articles if is_truly_invalid(a))
+        oferta_articles = [a for a in oferta_articles if not is_truly_invalid(a)]
+        if invalid_count > 0:
+            logger.info(f"  Removed {invalid_count} articles with no code (truly unparseable)")
 
         oferta_out = OUTPUT_DIR / f"oferta_{oferta_nr}.json"
         oferta_out.write_text(
