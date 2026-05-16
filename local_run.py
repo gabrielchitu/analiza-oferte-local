@@ -462,6 +462,48 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
     return articles, checkpoint_data
 
 
+def _track_subcomponent_anomalies(
+    oferta_articles: list,
+    ref_lookup: dict,
+    fmt_info: dict
+) -> list:
+    """
+    Track subcomponent codes in offer that don't match reference.
+
+    Returns list of anomalies:
+        {
+            'deviz': str,
+            'cod': str,
+            'subcomp_code': str,
+            'type': 'SUBCOMP_EXTRA' (in offer but not in ref)
+        }
+    """
+    anomalies = []
+
+    if not ref_lookup.get("codes"):
+        return anomalies
+
+    ref_codes = ref_lookup["codes"]
+
+    for art in oferta_articles:
+        art_text = str(art.get("deviz_denumire", "")) + " " + str(art.get("denumire", ""))
+
+        # Use the format info to extract codes
+        from shared.subcomponent_extractor import extract_subcomponent_codes_from_text
+        codes = extract_subcomponent_codes_from_text(art_text, fmt_info)
+
+        for code in codes:
+            if code not in ref_codes:
+                anomalies.append({
+                    "deviz": art.get("deviz"),
+                    "cod": art.get("cod"),
+                    "subcomp_code": code,
+                    "type": "SUBCOMP_EXTRA"
+                })
+
+    return anomalies
+
+
 def compare_and_report(
     ref_articles: list,
     oferta_articles: list,
@@ -493,16 +535,77 @@ def compare_and_report(
         logger.info(f"  [DEVIZ_MATCHER] Applied deviz mapping: {deviz_mapping}")
 
     # Phase 2: Subcomponent code extraction and matching (optional, based on detected format)
+    subcomp_stats = {"detected": False, "format": "unknown", "confidence": 0.0}
+    subcomp_anomalies = []  # Will be populated if subcomponent anomalies found
     if checkpoint_data and checkpoint_data.get("subcomponent_format"):
+        from shared.subcomponent_formats import SubcomponentFormat, SUBCOMPONENT_PATTERNS
+        from shared.subcomponent_extractor import (
+            build_subcomponent_lookup,
+            extract_subcomponent_codes_from_text
+        )
+
         subcomp_fmt = checkpoint_data["subcomponent_format"]
+        fmt_str = subcomp_fmt.get("format", "unknown")
         fmt_name = subcomp_fmt.get("name", "unknown")
-        if fmt_name != "unknown":
-            logger.info(f"  [SUBCOMP_PHASE2] Detected format: {fmt_name} (confidence={subcomp_fmt.get('confidence', 0):.2f})")
-            # TODO: Implement subcomponent matching Phase 2 here
-            # This would involve:
-            # 1. Building subcomponent lookup from reference articles
-            # 2. Extracting subcomponent codes from offer articles
-            # 3. Matching offer subcomponents against reference
+        confidence = subcomp_fmt.get("confidence", 0.0)
+
+        if fmt_str != "unknown" and confidence >= 0.70:
+            subcomp_stats["detected"] = True
+            subcomp_stats["format"] = fmt_str
+            subcomp_stats["confidence"] = confidence
+
+            logger.info(f"  [SUBCOMP_PHASE2] Format: {fmt_name} (confidence={confidence:.2f})")
+
+            # Build reference lookup from articles
+            ref_lookup = build_subcomponent_lookup(
+                " ".join(str(a.get("deviz_denumire", "")) for a in ref_articles),
+                {
+                    "format": SubcomponentFormat(fmt_str),
+                    "regex": SUBCOMPONENT_PATTERNS[SubcomponentFormat(fmt_str)]["regex"],
+                    "code_group": SUBCOMPONENT_PATTERNS[SubcomponentFormat(fmt_str)]["code_group"]
+                }
+            )
+
+            if ref_lookup["codes"]:
+                logger.info(f"  [SUBCOMP_PHASE2] Reference: {ref_lookup['lines_matched']} subcomponent codes found ({', '.join(sorted(list(ref_lookup['codes'])[:5]))}...)")
+
+                # Build format_info for anomaly tracking
+                fmt_info = {
+                    "format": SubcomponentFormat(fmt_str),
+                    "regex": SUBCOMPONENT_PATTERNS[SubcomponentFormat(fmt_str)]["regex"],
+                    "code_group": SUBCOMPONENT_PATTERNS[SubcomponentFormat(fmt_str)]["code_group"]
+                }
+
+                # Track anomalies: subcomponent codes in offer but not in reference
+                subcomp_anomalies = _track_subcomponent_anomalies(oferta_articles, ref_lookup, fmt_info)
+
+                if subcomp_anomalies:
+                    logger.warning(f"  [SUBCOMP_PHASE2] Found {len(subcomp_anomalies)} articles with unknown subcomponent codes")
+                    subcomp_stats["anomalies"] = len(subcomp_anomalies)
+                    # Log first few anomalies
+                    for anom in subcomp_anomalies[:3]:
+                        logger.debug(f"    - {anom['cod']}: subcomp code {anom['subcomp_code']}")
+                else:
+                    logger.info(f"  [SUBCOMP_PHASE2] All subcomponent codes match reference")
+                    subcomp_stats["anomalies"] = 0
+
+                # Extract from offer articles (for statistics)
+                offer_subcomp_codes = {}
+                for art in oferta_articles:
+                    art_text = str(art.get("deviz_denumire", "")) + " " + str(art.get("denumire", ""))
+                    codes = extract_subcomponent_codes_from_text(art_text, fmt_info)
+                    if codes:
+                        art_key = (art.get("deviz"), art.get("cod"))
+                        offer_subcomp_codes[art_key] = codes
+
+                if offer_subcomp_codes:
+                    logger.info(f"  [SUBCOMP_PHASE2] Offer: {len(offer_subcomp_codes)} articles with subcomponent codes")
+                    subcomp_stats["ref_codes"] = len(ref_lookup["codes"])
+                    subcomp_stats["offer_articles"] = len(offer_subcomp_codes)
+            else:
+                logger.debug(f"  [SUBCOMP_PHASE2] No reference subcomponent codes found")
+        else:
+            logger.debug(f"  [SUBCOMP_PHASE2] Format confidence too low ({confidence:.2f}) or unknown, skipping")
 
     # Normalizeaza devizele ofertei sa corespunda cu cele din referinta
     oferta_norm = normalize_devize(ref_articles, oferta_articles, client, model)
@@ -564,6 +667,25 @@ def compare_and_report(
             'oferta_um': orphan['oferta_um'],
             'oferta_cantitate': orphan['oferta_cant'],
             'motiv': f'Cod {orphan["cod"]}: REF categoriei {orphan["ref_deviz"]} => OFERTA categoriei {orphan["oferta_deviz"]}',
+        })
+
+    # Adauga anomalii subcomponente la neconformitati (Phase 2)
+    for anom in subcomp_anomalies:
+        neconformitati.append({
+            'tip': 'SUBCOMP_EXTRA',
+            'deviz_ref': anom['deviz'],
+            'deviz_denumire': f'Subcomponent anomaly',
+            'is_component': True,
+            'ref_cod': f"SUBCOMP:{anom['subcomp_code']}",
+            'ref_denumire': f"Unknown subcomponent code {anom['subcomp_code']}",
+            'ref_um': '',
+            'ref_cantitate': 0,
+            'oferta_cod': anom['cod'],
+            'oferta_denom': anom['subcomp_code'],
+            'oferta_denumire': f"Subcomponent code {anom['subcomp_code']}",
+            'oferta_um': '',
+            'oferta_cantitate': 0,
+            'motiv': f'Articol {anom["cod"]}: contains subcomponent code {anom["subcomp_code"]} not found in reference',
         })
 
     # Colecteaza devize_extra si devize_lipsa pentru raport
