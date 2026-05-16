@@ -662,8 +662,61 @@ def match_global(
         neconformitati.append(neconf)
 
     # ARTICOL_EXTRA — instante neacoperite din oferta (chei nemat-uite + exces N:M)
+    # But first, try to fuzzy match by denomination
+    from difflib import SequenceMatcher
+
+    def _normalize_denom(s):
+        return (s or "").lower().strip()
+
+    def _denom_similarity(d1, d2):
+        """Fuzzy match denomination strings."""
+        n1 = _normalize_denom(d1)
+        n2 = _normalize_denom(d2)
+        if not n1 or not n2 or len(n1) < 3 or len(n2) < 3:
+            return 0.0
+        return SequenceMatcher(None, n1, n2).ratio()
+
     extras_to_report = [a for k in unmatched_oferta_keys for a in oferta_by_key[k]] + extra_from_nm
+
+    # Try fuzzy matching extras to reference by denomination
+    fuzzy_matched = set()
     for oferta_art in extras_to_report:
+        oferta_cod = oferta_art.get("cod", "")
+        oferta_denom = oferta_art.get("denumire", "")
+
+        if not oferta_denom or len(oferta_denom) < 3:
+            continue
+
+        # Find best denomination match in reference
+        best_match = None
+        best_score = 0
+        for ref_art in ref_dedup:
+            ref_denom = ref_art.get("denumire", "")
+            if not ref_denom:
+                continue
+            score = _denom_similarity(oferta_denom, ref_denom)
+            if score > best_score:
+                best_score = score
+                best_match = ref_art
+
+        # If fuzzy match found with reasonable score, mark as match instead of extra
+        if best_match and best_score >= 0.45:  # Threshold: 45% similarity
+            fuzzy_matched.add(id(oferta_art))
+            match = {
+                "ref_cod": best_match.get("cod", ""),
+                "ref_denom": best_match.get("denumire", ""),
+                "oferta_cod": oferta_cod,
+                "oferta_denom": oferta_denom,
+                "fuzzy_match_score": best_score,
+                "deviz": oferta_art.get("deviz", ""),
+            }
+            matches.append(match)
+            logger.debug(f"[FUZZ] Fuzzy matched by denom: {oferta_cod} → {best_match.get('cod', '')} (score={best_score:.2f})")
+
+    for oferta_art in extras_to_report:
+        if id(oferta_art) in fuzzy_matched:
+            continue  # Skip, already fuzzy matched
+
         norm_cod = _normalize_cod(oferta_art.get("cod", ""))
         if norm_cod in ref_component_cods:
             continue
