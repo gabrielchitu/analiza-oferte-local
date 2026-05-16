@@ -47,6 +47,14 @@ COD_BREVIAR_RE = re.compile(r'^(\$[A-Z0-9]{4,})\s*[-–]\s*(.+)', re.IGNORECASE)
 # IMPORTANT: (?!\d) negative lookahead ensures we match COMPLETE numeric codes, not substrings
 # of longer digit sequences (e.g., won't match "22121" in "22222121 - DESC")
 COD_NUMERIC_RE = re.compile(r'^(\d{4,9})(?!\d)(?:[@]|\[\d+\])?\s*[-–]\s*(.+)')
+# Cod format: DIGIT-LETTER-DIGIT (ex: 00106B011, 001C012) — articole cu cod mixt din breviar
+# Format: 3-5 cifre + 1 litera + 1-3 cifre, optional cu separator și descriere
+COD_DIGIT_LETTER_DIGIT_RE = re.compile(r'^(\d{3,5}[A-Z]\d{1,3})(?!\d)\s*[-–]\s*(.+)', re.IGNORECASE)
+# Cod DIGIT-LETTER-DIGIT SINGUR pe linie: 00106B011, 001C012 (format: 3-5D + L + 1-3D, standalone)
+COD_DIGIT_LETTER_DIGIT_STANDALONE_RE = re.compile(
+    r'^(\d{3,5}[A-Z]\d{1,3})(?!\d)((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
+    re.IGNORECASE
+)
 # Cod normativ SINGUR pe linie, cu opțional tokeni sufixe (ASIM, BUC. etc.) — max 3
 # Ex: "TCB40A1", "TCB40A1 ASIM", "IA37E1 ASIM BUC." (format referinţă deviz)
 COD_NORM_STANDALONE_RE = re.compile(
@@ -603,8 +611,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         s = line.strip()
         # Normalizeaza spatiu inainte de sufix bracket: "IA22C1 [1]" → "IA22C1[1]"
         s = re.sub(r'(?<=[A-Z0-9])\s+(\[\d)', r'\1', s, flags=re.IGNORECASE)
-        # Formate cu separator –: breviar $COD, normativ (2+ litere), single-letter, single-multi-digit, numeric
-        for pattern in (COD_BREVIAR_RE, COD_NORM_EXTENDED_RE, COD_NORM_RE, COD_NORM_SINGLE_RE, COD_SINGLE_MULTIDIGIT_RE, COD_NUMERIC_RE):
+        # Formate cu separator –: breviar $COD, normativ (2+ litere), single-letter, single-multi-digit, digit-letter-digit, numeric
+        for pattern in (COD_BREVIAR_RE, COD_NORM_EXTENDED_RE, COD_NORM_RE, COD_NORM_SINGLE_RE, COD_SINGLE_MULTIDIGIT_RE, COD_DIGIT_LETTER_DIGIT_RE, COD_NUMERIC_RE):
             m = pattern.match(s)
             if m:
                 cod_raw = m.group(1).strip().upper()
@@ -632,7 +640,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                     break
             return cod_raw, '', um_hint
 
-        for standalone_re in (COD_NORM_STANDALONE_RE,
+        for standalone_re in (COD_DIGIT_LETTER_DIGIT_STANDALONE_RE,
+                              COD_NORM_STANDALONE_RE,
                               COD_NORM_EXTENDED_STANDALONE_RE,
                               COD_NORM_SINGLE_STANDALONE_RE,
                               COD_SINGLE_MULTIDIGIT_STANDALONE_RE):
