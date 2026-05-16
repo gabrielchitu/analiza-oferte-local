@@ -1,6 +1,6 @@
 # Subcomponent Format Detection - Phase 2 Implementation Summary
 
-## Status: ✅ COMPLETE AND INTEGRATED
+## Status: ✅ COMPLETE - BOTH FORMAT DETECTION AND MATCHING IMPLEMENTED
 
 ### What Was Implemented
 
@@ -66,61 +66,126 @@ SPORTIVA RACARI (MARKER) → code=3271283 ✓
 ### Files Modified
 
 1. **shared/subcomponent_formats.py** (created Phase 2)
-   - Fixed PREFIXED pattern regex
+   - Fixed PREFIXED pattern regex to allow alphanumeric codes
 
 2. **shared/f3_page_classifier.py** (modified Phase 2)
    - Added format detection to `classify_pages()`
+   - Stores detection results in checkpoint metadata
 
-3. **local_run.py** (modified Phase 2)
-   - Enhanced checkpoint save/load with metadata
+3. **shared/subcomponent_extractor.py** (created Phase 2)
+   - Utility functions for code extraction and lookup building
+
+4. **local_run.py** (modified Phase 2)
+   - Enhanced checkpoint save/load with metadata structure
    - Added `checkpoint_data` parameter to `compare_and_report()`
-   - Added Phase 2 placeholder for subcomponent matching
+   - Implemented `_track_subcomponent_anomalies()` helper function
+   - Added Phase 2 subcomponent matching logic
+   - Integrated anomalies into neconformitati report
+   - Added debug logging for anomaly tracking
 
-### Next Steps for Phase 2 Continuation
+### Phase 2 Matching Implementation ✅
 
-When ready to implement actual subcomponent matching:
+**Location**: `compare_and_report()` in local_run.py
 
-1. In `compare_and_report()` Phase 2 section:
-   - Call `build_subcomponent_lookup()` on reference articles
-   - Extract subcomponent codes from offer articles using detected format
-   - Build matches using format-specific extraction
+**Workflow**:
+1. **Reference Lookup Building**
+   - Concatenates deviz_denumire fields from all reference articles
+   - Uses detected format to extract all reference subcomponent codes
+   - Returns set of valid codes: `{'6110532', '6110533', ...}`
 
-2. Integration point example:
-   ```python
-   from shared.subcomponent_extractor import (
-       build_subcomponent_lookup,
-       extract_subcomponent_codes_from_text
-   )
-   
-   # Build reference lookup
-   ref_lookup = build_subcomponent_lookup(ref_text, format_info)
-   
-   # Extract codes from offer articles
-   for article in oferta_articles:
-       codes = extract_subcomponent_codes_from_text(
-           article.get("raw_text", ""),
-           format_info
-       )
-   ```
+2. **Offer Code Extraction**
+   - For each offer article, concatenates deviz_denumire + denumire
+   - Uses detected format to extract subcomponent codes from article text
+   - Tracks which articles have subcomponent codes
 
-3. The format_info from checkpoint_data is ready to pass:
-   ```python
-   format_info = {
-       "format": checkpoint_data["subcomponent_format"]["format"],
-       "regex": SUBCOMPONENT_PATTERNS[format]["regex"],
-       "code_group": SUBCOMPONENT_PATTERNS[format]["code_group"]
-   }
-   ```
+3. **Anomaly Detection**
+   - Helper function `_track_subcomponent_anomalies()` compares offer codes against reference
+   - Identifies codes in offer that don't exist in reference
+   - Returns list of anomalies with article info and code
+
+4. **Neconformitati Report Integration**
+   - Each anomaly becomes a SUBCOMP_EXTRA entry in neconformitati
+   - Includes article code, subcomponent code, and reason
+   - Flagged as component issue (is_component: True)
+
+**Example output**:
+```
+[SUBCOMP_PHASE2] Detected format: Prefixed (MANECIU format) (confidence=0.95)
+[SUBCOMP_PHASE2] Reference: 2 subcomponent codes found (6110532, 6110533...)
+[SUBCOMP_PHASE2] Offer: 1 articles with subcomponent codes
+[SUBCOMP_PHASE2] Found 1 articles with unknown subcomponent codes
+  - OFF002: subcomp code 6110534
+```
+
+**Neconformitati Entry Created**:
+```json
+{
+  "tip": "SUBCOMP_EXTRA",
+  "oferta_cod": "OFF002",
+  "oferta_denom": "6110534",
+  "motiv": "Articol OFF002: contains subcomponent code 6110534 not found in reference"
+}
+```
+
+**Confidence Threshold**: Matching only runs if format confidence >= 0.70
+
+### Testing & Verification
+
+✅ **Pattern Matching Verified**
+- PREFIXED: Correctly detects and extracts codes like "6110532"
+- SIMPLE: Correctly detects and extracts codes like "2100995"
+- MARKER: Correctly detects and extracts codes like "3271283"
+
+✅ **Anomaly Tracking Verified**
+- Helper function correctly identifies codes in offer not in reference
+- Test case: Reference has {6110532, 6110533}, Offer has {6110532, 6110534}
+- Result: 1 anomaly correctly detected for code 6110534
+
+✅ **End-to-End Integration Verified**
+- Checkpoint metadata persists across save/load cycles
+- Phase 2 receives format info correctly
+- Anomalies are tracked and stored for report generation
+- SUBCOMP_EXTRA entries added to neconformitati list
+
+✅ **Syntax Verified**
+- No import errors
+- All helper functions compile correctly
+- Integration with existing code validated
 
 ### Architecture Notes
 
 - **Two-phase approach**: 
-  - Phase 1: Deviz denomination matching (already done)
-  - Phase 2: Subcomponent code extraction and matching (infrastructure ready)
+  - Phase 1: Deviz denomination matching (completed)
+  - Phase 2: Subcomponent code extraction and matching (completed)
 
 - **Format detection strategy**:
-  - Fast path: Hardcoded pattern matching (current implementation)
-  - Slow path: LLM fallback (implemented but not activated)
+  - Fast path: Hardcoded pattern matching (3 patterns for known clients)
+  - Slow path: LLM fallback (implemented but optional)
 
 - **Checkpoint caching**: Format detection is expensive (scans first 3 F3 pages), results cached in checkpoint
+
+- **Confidence threshold**: Matching only activates when format confidence >= 0.70
+
+### Future Enhancements
+
+1. **LLM Fallback for Unknown Formats**
+   - Current: Use LLM only when hardcoded patterns don't match
+   - Can be activated by calling `analyze_format_with_llm()` in Phase 2
+
+2. **Subcomponent Quantity/UM Validation**
+   - Track qty and UM of subcomponents (if available)
+   - Flag discrepancies similar to main articles
+
+3. **Subcomponent Hierarchy Tracking**
+   - Some formats have hierarchical relationships (parent → subcomponent)
+   - Could validate that all children of a subcomponent are present
+
+4. **Machine Learning for Format Discovery**
+   - Learn format patterns per client to improve detection
+   - Build knowledge base of client-specific patterns
+
+5. **Report Enhancements**
+   - Group subcomponent anomalies by deviz
+   - Add subcomponent summary statistics to Excel reports
+   - Highlight critical subcomponent mismatches
 
