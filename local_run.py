@@ -952,7 +952,7 @@ def main():
         logger.info(f"\n--- Comparare OFERTA {oferta_nr} ---")
         _, comp = compare_and_report(ref_articles, oferta_articles, oferta_nr, oferta_path, client, model,
                                      ofertant_name=ofertant_name, ref_di_json=ref_di_json, comp_mode=args.comp_mode,
-                                     checkpoint_data=checkpoint_data)
+                                     checkpoint_data=oferta_checkpoint_data)
 
         # Generate JSON report grouped by deviz
         if comp and comp.get('neconformitati'):
