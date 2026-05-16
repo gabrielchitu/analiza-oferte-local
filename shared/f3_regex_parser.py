@@ -191,7 +191,7 @@ _PRICE_LABEL_RE = re.compile(r'^(material|manopera|utilaj|transport)\s*:', re.IG
 
 UM_KNOWN = {
     # Volum / masa / lungime
-    'BUC', 'MC', 'ML', 'MP', 'MPC', 'KG', 'T', 'TO', 'TON', 'TONA', 'G', 'MG',
+    'BUC', 'BUCATA', 'MC', 'ML', 'MP', 'MPC', 'KG', 'T', 'TO', 'TON', 'TONA', 'G', 'MG',
     'L', 'M', 'H', 'CM', 'DM', 'KM',
     # Electric
     'KW', 'KWH', 'KVA', 'W',
@@ -623,7 +623,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 # Strip designatori normativi lipiti (ASIM, TSCH): TCB40B1ASIM → TCB40B1
                 cod_raw = re.sub(r'(?:ASIM|TSCH)$', '', cod_raw).strip()
                 cod_raw = re.sub(r'[-@%>#*^+]+$', '', cod_raw)  # al 2-lea pass: CG08A#ASIM → CG08A
-                return cod_raw, m.group(2).strip(), ''
+                den = m.group(2).strip()
+                # Reject weak patterns (COD_NORM_RE, COD_NORM_EXTENDED_RE) if denomination is very short
+                # Ex: "COL4-A" has denomination "A" (1 char) — likely part of "VAS CLOSET COL4-A"
+                if pattern in (COD_NORM_RE, COD_NORM_EXTENDED_RE, COD_NORM_SINGLE_RE) and len(den) < 3:
+                    continue
+                return cod_raw, den, ''
         # Cod normativ singur pe linie (simple, extended, single-letter) — cu sufixe opționale
         def _parse_standalone(m):
             cod_raw = m.group(1).strip().upper()
@@ -1006,7 +1011,13 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 state = _READING
                 continue
 
-            if parsed_cod and not _numeric_den and (
+            # Dacă găsim un cod nou: FINALIZEAZĂ articolul curent DOAR dacă e COMPLET (are UM și Qty)
+            # SAU dacă codul e STRONG pattern (standalone). Evită finalizarea pe pattern-uri slabe
+            # (ex: "COL4-A" din "VAS CLOSET COL4-A" ar trebui să rămână denominație).
+            is_strong = (COD_NORM_STANDALONE_RE.match(line_norm) or
+                        COD_NORM_EXTENDED_STANDALONE_RE.match(line_norm) or
+                        COD_NORM_SINGLE_STANDALONE_RE.match(line_norm))
+            if parsed_cod and not _numeric_den and (um != '' or cantitate != 0.0 or is_strong) and (
                     COD_NUMERIC_RE.match(line) or COD_NORM_RE.match(line)
                     or COD_NORM_EXTENDED_RE.match(line) or COD_BREVIAR_RE.match(line)
                     or COD_NUMERIC_PIPE_RE.match(line) or COD_NORM_STANDALONE_RE.match(line_norm)
