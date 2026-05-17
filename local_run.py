@@ -959,6 +959,16 @@ def main():
             # reassign it to the reference's deviz (preference over denomination matching)
             oferta_articles = remap_devize_by_code_preference(oferta_articles, ref_articles, deviz_mapping)
 
+        # Filter out malformed articles: $ prefix + empty description (OCR extraction errors)
+        before_filter = len(oferta_articles)
+        oferta_articles = [
+            a for a in oferta_articles
+            if not (a.get('cod', '').startswith('$') and not a.get('descriere', '').strip())
+        ]
+        filtered_count = before_filter - len(oferta_articles)
+        if filtered_count > 0:
+            logger.info(f"  [FILTER] Removed {filtered_count} malformed articles ($ prefix + empty description)")
+
         oferta_out = OUTPUT_DIR / f"oferta_{oferta_nr}.json"
         oferta_out.write_text(
             json.dumps({"articole": oferta_articles}, ensure_ascii=False, indent=2),
