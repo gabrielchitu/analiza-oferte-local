@@ -4315,18 +4315,6 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.1-04",
-      "deviz_denumire": "Arhitectura - eligibile tip I",
-      "is_component": false,
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "QCK04A01",
-      "oferta_denumire": "tavan/plafon fals - gips- carton 244,71 mp",
-      "oferta_um": "mp",
-      "oferta_cantitate": 24.47
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
@@ -4339,27 +4327,15 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.1-15",
-      "deviz_denumire": "Echipam el tablouri tip I",
+      "deviz_ref": "4.1-04",
+      "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "W1SI07C",
-      "oferta_denumire": "montare paratråsnet tip pda ioniflash mach 2, raza de protecție 4om, nivel de protecție iv procent material recapitulatia: recapitulatie lukas contributie asiguratorie pentru munca (cam) 1 euro = executant, director general, raport generat cu isdp , www.devize.ro, e-mail: office@intersoft.ro, tel .: 0236.477.007 obiectiv: executie lucrari 'creștere a eficienței energetice în cadrul căminului cultural maneciu, judetul prahova' instalatii incinta sanitara tip iii neeligibil stadiul fizic: echipam gos apa ext beneficiar: comuna maneciu executant: 8/15/2024 sectiunea tehnica sectiunea financiara nr capitolul de lucrari u.m cantitatea pretul unitar (exclusiv totalul",
-      "oferta_um": "buc",
-      "oferta_cantitate": 1.0
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.1-14",
-      "deviz_denumire": "Inst electrice ilum tip I",
-      "is_component": false,
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "S474",
-      "oferta_denumire": "40 11/2 zn",
-      "oferta_um": "buc",
-      "oferta_cantitate": 0.26
+      "oferta_cod": "QCK04A01",
+      "oferta_denumire": "tavan/plafon fals - gips- carton 244,71 mp",
+      "oferta_um": "mp",
+      "oferta_cantitate": 24.47
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -4396,6 +4372,30 @@
       "oferta_denumire": "40 11/2 zn",
       "oferta_um": "buc",
       "oferta_cantitate": 0.05
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.1-15",
+      "deviz_denumire": "Echipam el tablouri tip I",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "W1SI07C",
+      "oferta_denumire": "montare paratråsnet tip pda ioniflash mach 2, raza de protecție 4om, nivel de protecție iv procent material recapitulatia: recapitulatie lukas contributie asiguratorie pentru munca (cam) 1 euro = executant, director general, raport generat cu isdp , www.devize.ro, e-mail: office@intersoft.ro, tel .: 0236.477.007 obiectiv: executie lucrari 'creștere a eficienței energetice în cadrul căminului cultural maneciu, judetul prahova' instalatii incinta sanitara tip iii neeligibil stadiul fizic: echipam gos apa ext beneficiar: comuna maneciu executant: 8/15/2024 sectiunea tehnica sectiunea financiara nr capitolul de lucrari u.m cantitatea pretul unitar (exclusiv totalul",
+      "oferta_um": "buc",
+      "oferta_cantitate": 1.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.1-14",
+      "deviz_denumire": "Inst electrice ilum tip I",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "S474",
+      "oferta_denumire": "40 11/2 zn",
+      "oferta_um": "buc",
+      "oferta_cantitate": 0.26
     },
     {
       "tip": "ARTICOL_EXTRA",

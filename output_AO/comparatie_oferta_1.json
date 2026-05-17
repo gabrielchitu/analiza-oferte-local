@@ -3094,18 +3094,6 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.1-05",
-      "deviz_denumire": "Inst electrice tip I",
-      "is_component": false,
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "TRB05B1F",
-      "oferta_denumire": "transp prin purtare directa al tone antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
-      "oferta_um": "",
-      "oferta_cantitate": 1.6
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
@@ -3131,18 +3119,6 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.1-13",
-      "deviz_denumire": "Instalatii sanitare tip II",
-      "is_component": false,
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "TRB05B25",
-      "oferta_denumire": "transportul materialelor prin purtat 50m $ tone antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
-      "oferta_um": "",
-      "oferta_cantitate": 2.5
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "4.1-04",
       "deviz_denumire": "Parcare",
       "is_component": false,
@@ -3152,6 +3128,30 @@
       "oferta_denumire": "transportul rutier al betonului - mortarului cu auto betoniera de 5,5 mc dist 30 km $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu director sef proiect ofertant, sc global electro construct srl devize (www.edevize.ro)",
       "oferta_um": "",
       "oferta_cantitate": 9.7
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.1-05",
+      "deviz_denumire": "Inst electrice tip I",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "TRB05B1F",
+      "oferta_denumire": "transp prin purtare directa al tone antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
+      "oferta_um": "",
+      "oferta_cantitate": 1.6
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.1-13",
+      "deviz_denumire": "Instalatii sanitare tip II",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "TRB05B25",
+      "oferta_denumire": "transportul materialelor prin purtat 50m $ tone antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
+      "oferta_um": "",
+      "oferta_cantitate": 2.5
     },
     {
       "tip": "ARTICOL_EXTRA",
