@@ -251,8 +251,10 @@ def remap_devize_by_code_preference(oferta_articles: list, ref_articles: list, d
     """
     Apply article-level code-based deviz correction to offer articles.
 
-    If an offer article's code exists in reference, reassign it to the reference's deviz
-    instead of using the denomination-based deviz mapping.
+    Only corrects articles with UNRESOLVED devizes (partial sentinels or missing devizes).
+    Preserves numeric deviz codes that came from correct page classification, even if
+    the code appears in multiple devizes in reference. This prevents consolidation of
+    multi-deviz articles that were correctly extracted on different pages.
 
     Args:
         oferta_articles: Articles to update
@@ -272,8 +274,11 @@ def remap_devize_by_code_preference(oferta_articles: list, ref_articles: list, d
         code = (art.get('cod') or '').strip()
         current_deviz = (art.get('deviz') or '').strip()
 
-        # If code exists in reference and differs from current deviz, apply correction
-        if code and code in code_to_ref_deviz:
+        # Only apply code-based correction for articles with UNRESOLVED devizes
+        # (partial sentinels starting with __partial__ or missing devizes)
+        is_unresolved = not current_deviz or current_deviz.startswith('__partial__')
+
+        if code and is_unresolved and code in code_to_ref_deviz:
             ref_deviz = code_to_ref_deviz[code]
             if ref_deviz != current_deviz:
                 new_art = {**art, 'deviz': ref_deviz}
@@ -288,15 +293,15 @@ def remap_devize_by_code_preference(oferta_articles: list, ref_articles: list, d
                 code_corrections += 1
                 if code_corrections <= 5:  # Log first few corrections
                     logger.info(
-                        f"[DM-CODE] Code {code}: corrected deviz "
-                        f"{current_deviz} → {ref_deviz} (code exists in reference)"
+                        f"[DM-CODE] Code {code}: corrected unresolved deviz "
+                        f"{current_deviz} → {ref_deviz}"
                     )
                 continue
 
         result.append(art)
 
     if code_corrections > 0:
-        logger.info(f"[DM-CODE] Applied code-based corrections to {code_corrections} articles")
+        logger.info(f"[DM-CODE] Applied code-based corrections to {code_corrections} articles (unresolved devizes only)")
 
     return result
 

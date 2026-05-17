@@ -404,7 +404,7 @@
       "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 15 km $ tone",
       "um": "",
       "cantitate": 159.53,
-      "deviz": "4.1-04",
+      "deviz": "4.1-01",
       "deviz_denumire": "Terasam desf conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -416,8 +416,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-01"
+      "val_transport": 0.0
     },
     {
       "cod": "TSD16B1",
@@ -443,7 +442,7 @@
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autobasculanta pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 4.21,
-      "deviz": "5.1-1",
+      "deviz": "4.1-01",
       "deviz_denumire": "Terasam desf conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -455,8 +454,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-01"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA05A05",
@@ -1527,7 +1525,7 @@
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autobasculanta pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 33.03,
-      "deviz": "5.1-1",
+      "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -1539,15 +1537,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-04"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA05A05",
       "denumire": "transport rutier materiale, semifabricate cu autove hic speciale (cisterna, beton etc) pe dist.de 5 km $ tone",
       "um": "",
       "cantitate": 3.44,
-      "deviz": "4.1-01",
+      "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -1559,8 +1556,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-04"
+      "val_transport": 0.0
     },
     {
       "cod": "CO01A1",
@@ -1738,7 +1734,7 @@
       "denumire": "ferestre tamplarie pvc cu minim 5 camere, clasa a geam tripan culoare gri antracit, low e - argon - float - argon - low e,",
       "um": "mp",
       "cantitate": 66.91,
-      "deviz": "4.1-04",
+      "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
@@ -1750,8 +1746,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-03"
+      "val_transport": 0.0
     },
     {
       "cod": "CK08A",
@@ -1777,7 +1772,7 @@
       "denumire": "tamplarie pvc, 5 camere, geam triplu termoizolant, low - e - usi exterioare panou inferior pvc ; sistem de autoinchidere bara antipanica",
       "um": "mp",
       "cantitate": 16.19,
-      "deviz": "4.1-04",
+      "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
@@ -1789,15 +1784,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-03"
+      "val_transport": 0.0
     },
     {
       "cod": "CK25A",
       "denumire": "us - c usa simpla prevazuta cu sistem de autoinchide re: tamplarie din metal ; culoare gri antracit",
       "um": "mp",
       "cantitate": 6.24,
-      "deviz": "4.1-04",
+      "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
@@ -1809,8 +1803,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-03"
+      "val_transport": 0.0
     },
     {
       "cod": "CK21A",
@@ -2140,7 +2133,7 @@
       "denumire": "balustrada exterior (hp =. 90 m)",
       "um": "m",
       "cantitate": 7.3,
-      "deviz": "4.1-04",
+      "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
@@ -2152,15 +2145,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-03"
+      "val_transport": 0.0
     },
     {
       "cod": "RCSO48B",
       "denumire": "mana curenta exterior (hp =. 90 m)",
       "um": "m",
       "cantitate": 5.85,
-      "deviz": "4.1-04",
+      "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
@@ -2172,8 +2164,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-03"
+      "val_transport": 0.0
     },
     {
       "cod": "CD07H1",
@@ -2503,7 +2494,7 @@
       "denumire": "sapa 3cm",
       "um": "mp",
       "cantitate": 101.2,
-      "deviz": "4.1-04",
+      "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
@@ -2515,8 +2506,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-03"
+      "val_transport": 0.0
     },
     {
       "cod": "RCSE10A",
@@ -2618,7 +2608,7 @@
       "denumire": "incarcare mat gr.c - ambalate, sub 10kg, deplas prin p urtare pina la 10m, fragil teren vagon categ.3 * $ tone",
       "um": "",
       "cantitate": 93.46,
-      "deviz": "4.1-04",
+      "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
@@ -2630,15 +2620,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-03"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA02A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 93.46,
-      "deviz": "4.1-04",
+      "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
@@ -2650,15 +2639,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-03"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC12C6",
       "denumire": "descarcare mat gr c - ambalate, sub 10kg deplas prin purtare pina la 10m, fragil vagon - teren categ 3 * $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu director sef proiect ofertant, sc global electro construct srl devize (www.edevize.ro)",
       "um": "",
       "cantitate": 93.46,
-      "deviz": "4.1-04",
+      "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
@@ -2670,8 +2658,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-03"
+      "val_transport": 0.0
     },
     {
       "cod": "EC02A",
@@ -3286,7 +3273,7 @@
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 1.6,
-      "deviz": "4.1-04",
+      "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
       "is_component": false,
       "parent_code": null,
@@ -3298,15 +3285,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-05"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC01C6",
       "denumire": "incarcare mat, deplas prin purtare pina la 10m, fra gil teren vagon categ.3 * $ tone",
       "um": "",
       "cantitate": 1.6,
-      "deviz": "4.1-04",
+      "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
       "is_component": false,
       "parent_code": null,
@@ -3318,15 +3304,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-05"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC12C6",
       "denumire": "descarcare mat deplas prin purtare pina la 10m, fra gil vagon - teren categ 3 * $ tone",
       "um": "",
       "cantitate": 1.6,
-      "deviz": "4.1-04",
+      "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
       "is_component": false,
       "parent_code": null,
@@ -3338,8 +3323,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-05"
+      "val_transport": 0.0
     },
     {
       "cod": "TRB05B1F",
@@ -3422,7 +3406,7 @@
       "denumire": "incarcarea materialelor, grupa a - grele si marunte, p rin trans pina la 10m teren - vagon categ 3 $ tone",
       "um": "",
       "cantitate": 1.2,
-      "deviz": "4.1-04",
+      "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
       "is_component": false,
       "parent_code": null,
@@ -3434,15 +3418,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-05"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA01A15P",
       "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 15 km $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu devize (www.edevize.ro)",
       "um": "",
       "cantitate": 1.2,
-      "deviz": "4.1-04",
+      "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
       "is_component": false,
       "parent_code": null,
@@ -3454,8 +3437,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-05"
+      "val_transport": 0.0
     },
     {
       "cod": "EE07XA",
@@ -3766,7 +3748,7 @@
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu devize (www.edevize.ro)",
       "um": "",
       "cantitate": 0.9,
-      "deviz": "4.1-04",
+      "deviz": "4.1-07",
       "deviz_denumire": "Instal el paratrasn - tip III",
       "is_component": false,
       "parent_code": null,
@@ -3778,8 +3760,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-07"
+      "val_transport": 0.0
     },
     {
       "cod": "RPIA52E",
@@ -3843,7 +3824,7 @@
       "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 15 km $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu devize (www.edevize.ro)",
       "um": "",
       "cantitate": 3.5,
-      "deviz": "4.1-04",
+      "deviz": "4.1-09",
       "deviz_denumire": "Instalatii termice desf tipII",
       "is_component": false,
       "parent_code": null,
@@ -3855,8 +3836,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-09"
+      "val_transport": 0.0
     },
     {
       "cod": "RPCG12C1",
@@ -5307,7 +5287,7 @@
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 3.5,
-      "deviz": "4.1-04",
+      "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
       "is_component": false,
       "parent_code": null,
@@ -5319,8 +5299,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-10"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AA08A1",
@@ -6733,7 +6712,7 @@
       "denumire": "transportul materialelor prin purtat direct materi ale comode sub 25 kg distanta 50m $ tone",
       "um": "",
       "cantitate": 2.5,
-      "deviz": "4.1-10",
+      "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
@@ -6745,8 +6724,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-13"
+      "val_transport": 0.0
     },
     {
       "cod": "TRB05B25",
@@ -6810,7 +6788,7 @@
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km tone",
       "um": "",
       "cantitate": 2.5,
-      "deviz": "4.1-04",
+      "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
@@ -6822,15 +6800,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-13"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA01A15P",
       "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 15 km $ tone",
       "um": "",
       "cantitate": 1.5,
-      "deviz": "4.1-04",
+      "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
@@ -6842,8 +6819,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-13"
+      "val_transport": 0.0
     },
     {
       "cod": "TRB05A25",
@@ -6888,7 +6864,7 @@
       "denumire": "teava de cupru izolata 35x1.5 mm conducte pentru sistemul solar",
       "um": "m",
       "cantitate": 20.0,
-      "deviz": "4.1-10",
+      "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipl",
       "is_component": false,
       "parent_code": null,
@@ -6900,8 +6876,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-11"
+      "val_transport": 0.0
     },
     {
       "cod": "ID11C1",
@@ -7098,7 +7073,7 @@
       "denumire": "filtru de impuritati tip y ø 2 ' a",
       "um": "buc",
       "cantitate": 1.0,
-      "deviz": "4.1-13",
+      "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipl",
       "is_component": false,
       "parent_code": null,
@@ -7110,8 +7085,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-11"
+      "val_transport": 0.0
     },
     {
       "cod": "FI06A1",
@@ -7137,7 +7111,7 @@
       "denumire": "transportul materialelor prin purtat direct materi ale incomode sub 25 kg distanta 50m $ tone",
       "um": "",
       "cantitate": 1.0,
-      "deviz": "4.1-13",
+      "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipl",
       "is_component": false,
       "parent_code": null,
@@ -7149,15 +7123,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-11"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AA01C1",
       "denumire": "incarcarea materialelor, grupa a - grele si marunte, p rin aruncare rampa sau teren - auto categ 1 $ tone",
       "um": "",
       "cantitate": 1.0,
-      "deviz": "4.1-13",
+      "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipl",
       "is_component": false,
       "parent_code": null,
@@ -7169,15 +7142,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-11"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC13B1",
       "denumire": "descarcare mat gr c - ambalate 10- 50 kg, deplas prin purtare pina la 10m asezare vagon - rampa categ 1 $ tone",
       "um": "",
       "cantitate": 1.0,
-      "deviz": "4.1-13",
+      "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipl",
       "is_component": false,
       "parent_code": null,
@@ -7189,15 +7161,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-11"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA02A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă",
       "um": "",
       "cantitate": 1.0,
-      "deviz": "4.1-04",
+      "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipl",
       "is_component": false,
       "parent_code": null,
@@ -7209,8 +7180,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-11"
+      "val_transport": 0.0
     },
     {
       "cod": "SA04A",
@@ -7711,7 +7681,7 @@
       "denumire": "incarcare mat.gr.c - ambalate, sub 10kg, deplas prin p urtare pina la 10m, fragil teren - vagon categ 3 * $ tone antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "",
       "cantitate": 1.9,
-      "deviz": "4.1-04",
+      "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
       "is_component": false,
       "parent_code": null,
@@ -7723,15 +7693,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-14"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA02A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 1.9,
-      "deviz": "4.1-04",
+      "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
       "is_component": false,
       "parent_code": null,
@@ -7743,15 +7712,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-14"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC12C6",
       "denumire": "descarcare mat gr c - ambalate, sub 10kg deplas prin purtare pina la 10m, fragil vagon - teren categ 3 * $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu (19.00%) director sef proiect ofertant, sc global electro construct srl devize (www.edevize.ro)",
       "um": "",
       "cantitate": 1.9,
-      "deviz": "4.1-04",
+      "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
       "is_component": false,
       "parent_code": null,
@@ -7763,8 +7731,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-14"
+      "val_transport": 0.0
     },
     {
       "cod": "EC09A1",
@@ -7790,7 +7757,7 @@
       "denumire": "cablu nhxh fe180 / e90 3x1.5 mmp",
       "um": "m",
       "cantitate": 50.0,
-      "deviz": "5.1-1",
+      "deviz": "4.1-08",
       "deviz_denumire": "Inst detectie incendiu tipIII",
       "is_component": false,
       "parent_code": null,
@@ -7802,15 +7769,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-08"
+      "val_transport": 0.0
     },
     {
       "cod": "EA02A2",
       "denumire": "montaj tub de protectie rigid cu intarziere la pr opagarea focului, fara halogen 20 mm asimilat",
       "um": "m",
       "cantitate": 350.0,
-      "deviz": "4.1-05",
+      "deviz": "4.1-08",
       "deviz_denumire": "Inst detectie incendiu tipIII",
       "is_component": false,
       "parent_code": null,
@@ -7822,15 +7788,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-08"
+      "val_transport": 0.0
     },
     {
       "cod": "EA02A2",
       "denumire": "tub de protectie flexibil copex cu intarziere la p ropagarea focului, fara halogen 20mm",
       "um": "m",
       "cantitate": 100.0,
-      "deviz": "4.1-05",
+      "deviz": "4.1-08",
       "deviz_denumire": "Inst detectie incendiu tipIII",
       "is_component": false,
       "parent_code": null,
@@ -7842,8 +7807,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-08"
+      "val_transport": 0.0
     },
     {
       "cod": "EF10A1",
@@ -7945,7 +7909,7 @@
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 0.5,
-      "deviz": "4.1-04",
+      "deviz": "4.1-08",
       "deviz_denumire": "Inst detectie incendiu tipIII",
       "is_component": false,
       "parent_code": null,
@@ -7957,8 +7921,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-08"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AA08F2",
@@ -8079,7 +8042,7 @@
       "denumire": "montare cos de fum din inox, dn200 mm, h = 10 m asim cu tiraj natural, q = 100-110 kw, dn200mm, a",
       "um": "buc",
       "cantitate": 1.0,
-      "deviz": "4.1-04",
+      "deviz": "4.1-16",
       "deviz_denumire": "Echipamente HVAC tip I",
       "is_component": false,
       "parent_code": null,
@@ -8091,8 +8054,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-16"
+      "val_transport": 0.0
     },
     {
       "cod": "IA37A",
@@ -8555,7 +8517,7 @@
       "denumire": "cofraj scari noi acces",
       "um": "mp",
       "cantitate": 4.79,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -8567,15 +8529,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC01C6",
       "denumire": "incarcare mat.gr.c - ambalate, sub 10kg, deplas prin p urtare pina la 10m, fragil teren vagon categ 3 * $ tone antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "",
       "cantitate": 1.7,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -8587,15 +8548,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA02A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 1.7,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -8607,15 +8567,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC12C6",
       "denumire": "descarcare mat.gr.c - ambalate, sub 10kg deplas.prin purtare pina la 10m, fragil vagon - teren categ 3 * $ tone",
       "um": "",
       "cantitate": 1.7,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -8627,8 +8586,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "CA02J1",
@@ -8673,7 +8631,7 @@
       "denumire": "cofraj cadre bordare goluri si centuri din beton a rmat",
       "um": "mp",
       "cantitate": 18.76,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -8685,8 +8643,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "CZ0303C1",
@@ -8807,7 +8764,7 @@
       "denumire": "cofraj centuri noi din beton armat pe zona de refa cere a planseului",
       "um": "mp",
       "cantitate": 26.78,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -8819,8 +8776,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "CA02J1",
@@ -8903,7 +8859,7 @@
       "denumire": "cofraj placa noua din beton armat",
       "um": "mp",
       "cantitate": 102.95,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -8915,8 +8871,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "RCSJ27D",
@@ -8942,7 +8897,7 @@
       "denumire": "incarcare mat.gr.c - ambalate, sub 10kg, deplas prin p urtare pina la 10m, fragil teren vagon categ.3 * $ tone",
       "um": "",
       "cantitate": 6.44,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -8954,15 +8909,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA02A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 6.44,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -8974,15 +8928,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC12C6",
       "denumire": "descarcare mat.gr c - ambalate, sub 10kg deplas prin purtare pina la 10m, fragil vagon - teren categ 3 * $ tone",
       "um": "",
       "cantitate": 6.44,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -8994,8 +8947,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "CA02J1",
@@ -9078,7 +9030,7 @@
       "denumire": "cofraje din panouri refolosibile din scinduri la constructii cu h < 20m la placi si grinzi",
       "um": "mp",
       "cantitate": 58.31,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -9090,15 +9042,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC01C6",
       "denumire": "incarcare mat gr.c - ambalate, sub 10kg, deplas prin p urtare pina la 10m, fragil teren vagon categ.3 * $ tone",
       "um": "",
       "cantitate": 1.4,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -9110,15 +9061,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA02A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 1.4,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -9130,15 +9080,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC12C6",
       "denumire": "descarcare mat.gr.c - ambalate, sub 10kg deplas prin purtare pina la 10m, fragil vagon - teren categ 3 * $ tone",
       "um": "",
       "cantitate": 1.4,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -9150,8 +9099,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "RPCK01A",
@@ -9215,7 +9163,7 @@
       "denumire": "incarcare mat gr.c - ambalate, sub 10kg, deplas prin p urtare pina la 10m, fragil teren - vagon categ 3 * $ tone",
       "um": "",
       "cantitate": 1.35,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -9227,15 +9175,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC12C6",
       "denumire": "descarcare mat.gr.c - ambalate, sub 10kg deplas.prin purtare pina la 10m, fragil vagon - teren categ 3 * $ tone",
       "um": "",
       "cantitate": 1.35,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -9247,15 +9194,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA02A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu (19.00%) director sef proiect ofertant, sc global electro construct srl devize (www.edevize.ro)",
       "um": "",
       "cantitate": 1.35,
-      "deviz": "4.1-04",
+      "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
@@ -9267,8 +9213,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-02"
+      "val_transport": 0.0
     },
     {
       "cod": "VB10B",
@@ -9313,7 +9258,7 @@
       "denumire": "grila introducere, montaj pe tubulatura circulara, registru de reglaj: 600x150mm a",
       "um": "buc",
       "cantitate": 13.0,
-      "deviz": "4.1-10",
+      "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
       "is_component": false,
       "parent_code": null,
@@ -9325,8 +9270,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-12"
+      "val_transport": 0.0
     },
     {
       "cod": "EA12A1",
@@ -9485,7 +9429,7 @@
       "denumire": "colier de prindere pentru tubulatura circulara 100 a",
       "um": "buc",
       "cantitate": 2.0,
-      "deviz": "4.1-07",
+      "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
       "is_component": false,
       "parent_code": null,
@@ -9497,15 +9441,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-12"
+      "val_transport": 0.0
     },
     {
       "cod": "EI12XA",
       "denumire": "colier de prindere pentru tubulatura circulara 200 a",
       "um": "buc",
       "cantitate": 3.0,
-      "deviz": "4.1-07",
+      "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
       "is_component": false,
       "parent_code": null,
@@ -9517,8 +9460,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-12"
+      "val_transport": 0.0
     },
     {
       "cod": "VC23B1",
@@ -9791,7 +9733,7 @@
       "denumire": "conf si mont tevii de protectie, otel pt instal., neagra, la trecerea conduct prin plansee d = 1 1/4 ' a",
       "um": "buc",
       "cantitate": 15.0,
-      "deviz": "4.1-13",
+      "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
       "is_component": false,
       "parent_code": null,
@@ -9803,8 +9745,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-12"
+      "val_transport": 0.0
     },
     {
       "cod": "VC27A",
@@ -9830,7 +9771,7 @@
       "denumire": "transportul materialelor prin purtat direct materi ale comode sub 25 kg distanta 50m $ tone",
       "um": "",
       "cantitate": 2.3,
-      "deviz": "4.1-10",
+      "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
       "is_component": false,
       "parent_code": null,
@@ -9842,15 +9783,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-12"
+      "val_transport": 0.0
     },
     {
       "cod": "TRB05B25",
       "denumire": "transportul materialelor prin purtat 50m $ tone",
       "um": "",
       "cantitate": 2.3,
-      "deviz": "4.1-13",
+      "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
       "is_component": false,
       "parent_code": null,
@@ -9862,15 +9802,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-12"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC01C6",
       "denumire": "incarcare mat.gr.c - ambalate, sub 10kg, deplas prin p urtare pina la 10m, fragil teren vagon categ.3 * $ tone",
       "um": "",
       "cantitate": 2.3,
-      "deviz": "4.1-04",
+      "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
       "is_component": false,
       "parent_code": null,
@@ -9882,15 +9821,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-12"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA02A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 2.3,
-      "deviz": "4.1-04",
+      "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
       "is_component": false,
       "parent_code": null,
@@ -9902,15 +9840,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-12"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC12C6",
       "denumire": "descarcare mat gr c - ambalate, sub 10kg deplas prin purtare pina la 10m, fragil vagon - teren categ 3 * $ tone",
       "um": "",
       "cantitate": 2.3,
-      "deviz": "4.1-04",
+      "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
       "is_component": false,
       "parent_code": null,
@@ -9922,8 +9859,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.1-12"
+      "val_transport": 0.0
     },
     {
       "cod": "RPIZF03A",
@@ -10044,7 +9980,7 @@
       "denumire": "transport rutier materiale, semifabricate cu autove hic speciale (cisterna, beton etc) pe dist.de 5 km $ tone devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "",
       "cantitate": 2.94,
-      "deviz": "4.1-01",
+      "deviz": "4.3-01",
       "deviz_denumire": "Terasamente apa",
       "is_component": false,
       "parent_code": null,
@@ -10056,15 +9992,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-01"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA01A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autobasculanta pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 61.67,
-      "deviz": "5.1-1",
+      "deviz": "4.3-01",
       "deviz_denumire": "Terasamente apa",
       "is_component": false,
       "parent_code": null,
@@ -10076,8 +10011,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-01"
+      "val_transport": 0.0
     },
     {
       "cod": "TRB01B15",
@@ -10198,7 +10132,7 @@
       "denumire": "transport rutier materiale, semifabricate cu autove hic.speciale (cisterna, beton etc) pe dist.de 5 km $ tone devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "",
       "cantitate": 9.8,
-      "deviz": "4.1-01",
+      "deviz": "4.3-01",
       "deviz_denumire": "Terasamente apa",
       "is_component": false,
       "parent_code": null,
@@ -10210,15 +10144,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-01"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA01A10P",
       "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 10 km $ tone",
       "um": "",
       "cantitate": 62.64,
-      "deviz": "4.1-01",
+      "deviz": "4.3-01",
       "deviz_denumire": "Terasamente apa",
       "is_component": false,
       "parent_code": null,
@@ -10230,8 +10163,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-01"
+      "val_transport": 0.0
     },
     {
       "cod": "TSD02B1",
@@ -10276,7 +10208,7 @@
       "denumire": "sapat.mec.cu exc.de 0,41-0,7 mc in pam.cu umiditat e natural desc.dep teren cat 4",
       "um": "mc",
       "cantitate": 0.5,
-      "deviz": "4.3-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10288,15 +10220,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TSA04D1",
       "denumire": "sap man in spatii limit sub 1m cu sprij.si evac.ma n.in pam.cu umid.nat la adinc 0,0-1,5m t.f tare m cub",
       "um": "",
       "cantitate": 44.0,
-      "deviz": "4.3-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10308,15 +10239,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TSE02C1",
       "denumire": "finisarea manuala a platformelor, in t.tare",
       "um": "mp",
       "cantitate": 0.66,
-      "deviz": "4.3-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10328,15 +10258,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "ACE08A1",
       "denumire": "umplutura in sant la cond de alim cu apa si canali zare cu: nisip $ m cub",
       "um": "",
       "cantitate": 34.0,
-      "deviz": "4.3-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10348,15 +10277,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TSD04XA",
       "denumire": "compactarea cu maiul de mina a umplut in strat.ori z.sau incl 1/4, udarea strat 10cm gros pam necoeziv m cub",
       "um": "",
       "cantitate": 34.0,
-      "deviz": "4.3-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10368,15 +10296,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA05A05",
       "denumire": "transport rutier materiale, semifabricate cu autove hic.speciale (cisterna, beton etc) pe dist.de 5 km $ tone devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "",
       "cantitate": 3.4,
-      "deviz": "4.1-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10388,15 +10315,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA01A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autobasculanta pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 71.32,
-      "deviz": "5.1-1",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10408,15 +10334,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TRB01B15",
       "denumire": "transportul materialelor cu roaba pe pneuri inc ar uncare desc aruncare grupa 1-3 distanta 50m $ tone",
       "um": "",
       "cantitate": 71.32,
-      "deviz": "4.3-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10428,15 +10353,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TSD01C1",
       "denumire": "imprastierea cu lopata a pamint.afinat, strat unifo rm 10-30cm.gros cu sfarim bulg teren tare m cub",
       "um": "",
       "cantitate": 10.0,
-      "deviz": "4.3-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10448,15 +10372,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TSD02A1",
       "denumire": "imprast pamint afinat provenit din ter.cat.1 sau 2 cu buld de 65-80cp in strat cu gros.de 15-20cm",
       "um": "mc",
       "cantitate": 0.36,
-      "deviz": "4.3-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10468,15 +10391,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TSD04C1",
       "denumire": "compactarea cu mai.de mina a umplut execut pe stra t.cu udarea fiec.strat de 20cm gros.t.necoeziv m cub",
       "um": "",
       "cantitate": 10.0,
-      "deviz": "4.3-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10488,15 +10410,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TSD06A1",
       "denumire": "compactare cu placa vibrat.de 0,7t umplutura pamin t necoezin in strat de 20-30cm",
       "um": "mc",
       "cantitate": 0.36,
-      "deviz": "4.3-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10508,15 +10429,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TSD14A1",
       "denumire": "udarea cu autocist.de 5-8t cu disp.de strop str m cub",
       "um": "",
       "cantitate": 3.6,
-      "deviz": "4.3-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10528,15 +10448,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA05A05",
       "denumire": "transport rutier materiale, semifabricate cu autove hic speciale (cisterna, beton etc) pe dist.de 5 km $ tone devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "",
       "cantitate": 4.58,
-      "deviz": "4.1-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10548,15 +10467,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA01A10P",
       "denumire": "transportul rutie al pamintului sau mo ozului cu autobasculanta dist = 10 km $ tone",
       "um": "",
       "cantitate": 86.65,
-      "deviz": "4.1-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10568,15 +10486,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TSD02B1",
       "denumire": "imprast pamint afinat provenit din ter.cat.1 sau 2 cu buld de 65-80cp in strat.cu gros de 21-30cm",
       "um": "mc",
       "cantitate": 0.48,
-      "deviz": "4.3-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10588,15 +10505,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "TSA24A1",
       "denumire": "epuizarea mec.a apei din sap.in teren cu infiltr.puternice cu motopompa de apa de 6,6-12kw greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu director sef proiect ofertant, sc global electro construct srl devize (www.edevize.ro)",
       "um": "ore",
       "cantitate": 2.0,
-      "deviz": "4.3-01",
+      "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
       "is_component": false,
       "parent_code": null,
@@ -10608,8 +10524,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-02"
+      "val_transport": 0.0
     },
     {
       "cod": "ACD04C1",
@@ -10730,7 +10645,7 @@
       "denumire": "incarcare mat., deplas prin purtare pina la 10m, fr agil teren vagon categ.3 * $ tone",
       "um": "",
       "cantitate": 19.5,
-      "deviz": "4.1-04",
+      "deviz": "4.3-03",
       "deviz_denumire": "Camine canal menajer 7b",
       "is_component": false,
       "parent_code": null,
@@ -10742,15 +10657,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-03"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA02A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 19.5,
-      "deviz": "4.1-04",
+      "deviz": "4.3-03",
       "deviz_denumire": "Camine canal menajer 7b",
       "is_component": false,
       "parent_code": null,
@@ -10762,15 +10676,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-03"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC13B1",
       "denumire": "descarcare mat.deplas prin purtare pina la 10m ase zare vagon rampa categ 1 $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu devize (www.edevize.ro)",
       "um": "",
       "cantitate": 19.5,
-      "deviz": "4.1-13",
+      "deviz": "4.3-03",
       "deviz_denumire": "Camine canal menajer 7b",
       "is_component": false,
       "parent_code": null,
@@ -10782,8 +10695,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-03"
+      "val_transport": 0.0
     },
     {
       "cod": "SE53A",
@@ -10828,7 +10740,7 @@
       "denumire": "filtru impuritati cu flanse, fonta, tip ' y ' 1 1/4 ' a",
       "um": "buc",
       "cantitate": 1.0,
-      "deviz": "4.1-13",
+      "deviz": "4.3-05",
       "deviz_denumire": "Instalatii camin apometru",
       "is_component": false,
       "parent_code": null,
@@ -10840,8 +10752,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-05"
+      "val_transport": 0.0
     },
     {
       "cod": "SA33A1",
@@ -10886,7 +10797,7 @@
       "denumire": "trecere + etansare protectie conducta la trecere pr in elemente de constructie",
       "um": "m",
       "cantitate": 1.0,
-      "deviz": "4.1-12",
+      "deviz": "4.3-05",
       "deviz_denumire": "Instalatii camin apometru",
       "is_component": false,
       "parent_code": null,
@@ -10898,15 +10809,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-05"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA02A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 0.3,
-      "deviz": "4.1-04",
+      "deviz": "4.3-05",
       "deviz_denumire": "Instalatii camin apometru",
       "is_component": false,
       "parent_code": null,
@@ -10918,8 +10828,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-05"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC02D2",
@@ -11116,7 +11025,7 @@
       "denumire": "apometru dn 1 ' a",
       "um": "buc",
       "cantitate": 1.0,
-      "deviz": "4.3-05",
+      "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
       "is_component": false,
       "parent_code": null,
@@ -11128,8 +11037,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-06"
+      "val_transport": 0.0
     },
     {
       "cod": "SD18A1",
@@ -11307,7 +11215,7 @@
       "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 2 1/2 ii",
       "um": "m",
       "cantitate": 12.0,
-      "deviz": "4.1-14",
+      "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
       "is_component": false,
       "parent_code": null,
@@ -11319,8 +11227,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-06"
+      "val_transport": 0.0
     },
     {
       "cod": "SA04E",
@@ -11441,7 +11348,7 @@
       "denumire": "bratari pt fixarea tevi otel la inst incalz.sau ga ze mont in zid.caram sau beton d = 1 1/2 toli $ a",
       "um": "buc",
       "cantitate": 2.0,
-      "deviz": "4.1-10",
+      "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
       "is_component": false,
       "parent_code": null,
@@ -11453,8 +11360,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-06"
+      "val_transport": 0.0
     },
     {
       "cod": "IC35K1",
@@ -11594,7 +11500,7 @@
       "denumire": "spalarea instalatiei de apa, executata din teava d e otel zincata, d = 3/8 ' - 2 ' devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "m",
       "cantitate": 18.0,
-      "deviz": "4.1-14",
+      "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
       "is_component": false,
       "parent_code": null,
@@ -11606,8 +11512,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-06"
+      "val_transport": 0.0
     },
     {
       "cod": "RPSF11A",
@@ -11633,7 +11538,7 @@
       "denumire": "incarcare mat., deplas prin purtare pina la 10m, fr agil teren vagon categ.3 * $ tone",
       "um": "",
       "cantitate": 0.6,
-      "deviz": "4.1-04",
+      "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
       "is_component": false,
       "parent_code": null,
@@ -11645,15 +11550,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-06"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA02A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 0.6,
-      "deviz": "4.1-04",
+      "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
       "is_component": false,
       "parent_code": null,
@@ -11665,15 +11569,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-06"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC12C6",
       "denumire": "descarcare mat deplas prin purtare pina la 10m, fra gil vagon - teren categ 3 * $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu devize (www.edevize.ro)",
       "um": "",
       "cantitate": 0.6,
-      "deviz": "4.1-04",
+      "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
       "is_component": false,
       "parent_code": null,
@@ -11685,8 +11588,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-06"
+      "val_transport": 0.0
     },
     {
       "cod": "SA14J",
@@ -11788,7 +11690,7 @@
       "denumire": "etansare rezistenta la foc la trecerile instalatii lor",
       "um": "m",
       "cantitate": 2.0,
-      "deviz": "4.1-12",
+      "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
       "is_component": false,
       "parent_code": null,
@@ -11800,8 +11702,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-07"
+      "val_transport": 0.0
     },
     {
       "cod": "ACA20C1",
@@ -11865,7 +11766,7 @@
       "denumire": "efectuarea probei de functionare a instalatiei de apa rece, cu teava din d = 16-160 mm asimilat pentru peid toate diametrele zeci m",
       "um": "",
       "cantitate": 140.0,
-      "deviz": "4.1-13",
+      "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
       "is_component": false,
       "parent_code": null,
@@ -11877,15 +11778,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-07"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA02A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 2.1,
-      "deviz": "4.1-04",
+      "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
       "is_component": false,
       "parent_code": null,
@@ -11897,15 +11797,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-07"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC02D2",
       "denumire": "incarcare mat.gr.c - ambalate, 10-50 kg deplas prin p urtare pina la 10m, arunc rampa, teren - auto ctg.2 $ tone",
       "um": "",
       "cantitate": 2.1,
-      "deviz": "4.3-05",
+      "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
       "is_component": false,
       "parent_code": null,
@@ -11917,15 +11816,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-07"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC13B5",
       "denumire": "descarcare mat.gr.c - ambalate, 10- 50 kg deplas prin purtare pina la 10m, asezare vagon - teren categ 2 * $ tone",
       "um": "",
       "cantitate": 2.1,
-      "deviz": "4.3-05",
+      "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
       "is_component": false,
       "parent_code": null,
@@ -11937,15 +11835,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-07"
+      "val_transport": 0.0
     },
     {
       "cod": "TRB01C13",
       "denumire": "transportul materialelor cu roaba pe pneuri inc ar uncare desc rasturnare grup1-3 distanta 30m $ tone",
       "um": "",
       "cantitate": 2.1,
-      "deviz": "4.3-05",
+      "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
       "is_component": false,
       "parent_code": null,
@@ -11957,15 +11854,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-07"
+      "val_transport": 0.0
     },
     {
       "cod": "TRB05A24",
       "denumire": "transportul materialelor prin purtat direct materi ale incomode sub 25 kg distanta 40m $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă",
       "um": "",
       "cantitate": 2.1,
-      "deviz": "4.3-05",
+      "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
       "is_component": false,
       "parent_code": null,
@@ -11977,15 +11873,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-07"
+      "val_transport": 0.0
     },
     {
       "cod": "00605A6",
       "denumire": "teava pvc cu mufa si garnitura pt.canalizare exter ioara gravitationala d = 110 mm, l = 6 m 65 m sn 4 a",
       "um": "buc",
       "cantitate": 11.0,
-      "deviz": "4.1-13",
+      "deviz": "4.3-08",
       "deviz_denumire": "Conducte canal incinta",
       "is_component": false,
       "parent_code": null,
@@ -11997,8 +11892,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-08"
+      "val_transport": 0.0
     },
     {
       "cod": "00605C6",
@@ -12081,7 +11975,7 @@
       "denumire": "instalare banda semnalizare conducta",
       "um": "",
       "cantitate": 0.1,
-      "deviz": "4.3-07",
+      "deviz": "4.3-08",
       "deviz_denumire": "Conducte canal incinta",
       "is_component": false,
       "parent_code": null,
@@ -12093,8 +11987,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-08"
+      "val_transport": 0.0
     },
     {
       "cod": "SF05D1",
@@ -12120,7 +12013,7 @@
       "denumire": "transportul materialelor prin purtat direct materi ale incomode sub 25 kg distanta 40m $ tone",
       "um": "",
       "cantitate": 2.1,
-      "deviz": "4.3-05",
+      "deviz": "4.3-08",
       "deviz_denumire": "Conducte canal incinta",
       "is_component": false,
       "parent_code": null,
@@ -12132,15 +12025,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-08"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC13B1",
       "denumire": "descarcare mat., deplas prin purtare pina la 10m as ezare vagon - rampa categ 1 $ tone",
       "um": "",
       "cantitate": 2.1,
-      "deviz": "4.1-13",
+      "deviz": "4.3-08",
       "deviz_denumire": "Conducte canal incinta",
       "is_component": false,
       "parent_code": null,
@@ -12152,15 +12044,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-08"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA02A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 2.1,
-      "deviz": "4.1-04",
+      "deviz": "4.3-08",
       "deviz_denumire": "Conducte canal incinta",
       "is_component": false,
       "parent_code": null,
@@ -12172,15 +12063,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-08"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC01C6",
       "denumire": "incarcare mat, deplas prin purtare pina la 10m, fra gil teren vagon categ.3 * $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă",
       "um": "",
       "cantitate": 2.1,
-      "deviz": "4.1-04",
+      "deviz": "4.3-08",
       "deviz_denumire": "Conducte canal incinta",
       "is_component": false,
       "parent_code": null,
@@ -12192,8 +12082,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-08"
+      "val_transport": 0.0
     },
     {
       "cod": "IA37D1",
@@ -12314,7 +12203,7 @@
       "denumire": "transportul rutier al betonului - mortarului cu auto betoniera de 5,5 mc dist 25 km $ camin electrovane cv2 1,5x2, 0x2, 0m tone",
       "um": "",
       "cantitate": 14.64,
-      "deviz": "4.1-02",
+      "deviz": "4.3-04",
       "deviz_denumire": "Camin vane 1 b 1,9x1,9x1,5m",
       "is_component": false,
       "parent_code": null,
@@ -12326,8 +12215,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-04"
+      "val_transport": 0.0
     },
     {
       "cod": "CZ0302X1",
@@ -12391,7 +12279,7 @@
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ armatura camin electrovane cv2 1,5x2, 0x2, 0m tone",
       "um": "",
       "cantitate": 1.2,
-      "deviz": "4.1-04",
+      "deviz": "4.3-04",
       "deviz_denumire": "Camin vane 1 b 1,9x1,9x1,5m",
       "is_component": false,
       "parent_code": null,
@@ -12403,8 +12291,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-04"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AH03E1",
@@ -12525,7 +12412,7 @@
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ camin electrovane cv2 1,5x2, 0x2, 0m tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu director sef proiect ofertant, sc global electro construct srl devize (www.edevize.ro)",
       "um": "",
       "cantitate": 0.35,
-      "deviz": "4.1-04",
+      "deviz": "4.3-04",
       "deviz_denumire": "Camin vane 1 b 1,9x1,9x1,5m",
       "is_component": false,
       "parent_code": null,
@@ -12537,8 +12424,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.3-04"
+      "val_transport": 0.0
     },
     {
       "cod": "TSA02F1",
@@ -12564,7 +12450,7 @@
       "denumire": "umplutura pamant compactat dr = 95 % m cub",
       "um": "",
       "cantitate": 103.4,
-      "deviz": "4.1-01",
+      "deviz": "4.2-1",
       "deviz_denumire": "Terasamente",
       "is_component": false,
       "parent_code": null,
@@ -12576,15 +12462,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-1"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA05A05",
       "denumire": "transport rutier materiale, semifabricate cu autove hic.speciale (cisterna, beton etc) pe dist.de 5 km $ tone",
       "um": "",
       "cantitate": 10.34,
-      "deviz": "4.1-01",
+      "deviz": "4.2-1",
       "deviz_denumire": "Terasamente",
       "is_component": false,
       "parent_code": null,
@@ -12596,15 +12481,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-1"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA01A10P",
       "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 10 km $ tone",
       "um": "",
       "cantitate": 177.21,
-      "deviz": "4.1-01",
+      "deviz": "4.2-1",
       "deviz_denumire": "Terasamente",
       "is_component": false,
       "parent_code": null,
@@ -12616,15 +12500,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-1"
+      "val_transport": 0.0
     },
     {
       "cod": "TSD02XB",
       "denumire": "imprastierea pam din ter.cat i - ii, cu buldeze pe tr ctor senile 65-80cp, in straturi gros.de 21-30 cm devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "mc",
       "cantitate": 0.98,
-      "deviz": "4.1-01",
+      "deviz": "4.2-1",
       "deviz_denumire": "Terasamente",
       "is_component": false,
       "parent_code": null,
@@ -12636,15 +12519,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-1"
+      "val_transport": 0.0
     },
     {
       "cod": "TSD16B1",
       "denumire": "pietris compactat dr = 95 % m cub",
       "um": "",
       "cantitate": 12.64,
-      "deviz": "4.1-01",
+      "deviz": "4.2-1",
       "deviz_denumire": "Terasamente",
       "is_component": false,
       "parent_code": null,
@@ -12656,15 +12538,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-1"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA01A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autobasculanta pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 28.16,
-      "deviz": "5.1-1",
+      "deviz": "4.2-1",
       "deviz_denumire": "Terasamente",
       "is_component": false,
       "parent_code": null,
@@ -12676,15 +12557,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-1"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA05A05",
       "denumire": "transport rutier materiale, semifabricate cu autove hic.speciale (cisterna, beton etc) pe dist.de 5 km $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu director sef proiect ofertant, sc global electro construct srl",
       "um": "",
       "cantitate": 1.26,
-      "deviz": "4.1-01",
+      "deviz": "4.2-1",
       "deviz_denumire": "Terasamente",
       "is_component": false,
       "parent_code": null,
@@ -12696,15 +12576,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-1"
+      "val_transport": 0.0
     },
     {
       "cod": "RCSE40A",
       "denumire": "montaj straturi izolatoare din: folie polietilena",
       "um": "mp",
       "cantitate": 44.7,
-      "deviz": "4.1-02",
+      "deviz": "4.2-2",
       "deviz_denumire": "Structura",
       "is_component": false,
       "parent_code": null,
@@ -12716,8 +12595,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-2"
+      "val_transport": 0.0
     },
     {
       "cod": "IZF05A2",
@@ -12743,7 +12621,7 @@
       "denumire": "beton c12 / 15 egalizare m cub",
       "um": "",
       "cantitate": 2.17,
-      "deviz": "4.1-02",
+      "deviz": "4.2-2",
       "deviz_denumire": "Structura",
       "is_component": false,
       "parent_code": null,
@@ -12755,15 +12633,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-2"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA06A25",
       "denumire": "transportul rutier al betonului - mortarului cu auto betoniera de 5,5 mc dist = 25 km $ tone",
       "um": "",
       "cantitate": 5.31,
-      "deviz": "4.1-02",
+      "deviz": "4.2-2",
       "deviz_denumire": "Structura",
       "is_component": false,
       "parent_code": null,
@@ -12775,15 +12652,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-2"
+      "val_transport": 0.0
     },
     {
       "cod": "CA05B",
       "denumire": "turnare beton armat c25 / 30 m cub",
       "um": "",
       "cantitate": 19.54,
-      "deviz": "4.1-02",
+      "deviz": "4.2-2",
       "deviz_denumire": "Structura",
       "is_component": false,
       "parent_code": null,
@@ -12795,15 +12671,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-2"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA06A25",
       "denumire": "transportul rutier al betonului - mortarului cu auto betoniera de 5,5 mc dist 25 km $ tone",
       "um": "",
       "cantitate": 47.88,
-      "deviz": "4.1-02",
+      "deviz": "4.2-2",
       "deviz_denumire": "Structura",
       "is_component": false,
       "parent_code": null,
@@ -12815,15 +12690,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-2"
+      "val_transport": 0.0
     },
     {
       "cod": "CC01C1",
       "denumire": "montare armaturi din otel beton in fundatii conti nue, placi de radiere, cu dist din mase plastice",
       "um": "kg",
       "cantitate": 2074.0,
-      "deviz": "4.1-02",
+      "deviz": "4.2-2",
       "deviz_denumire": "Structura",
       "is_component": false,
       "parent_code": null,
@@ -12835,15 +12709,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-2"
+      "val_transport": 0.0
     },
     {
       "cod": "CZ0303C1",
       "denumire": "armatura bst500s",
       "um": "kg",
       "cantitate": 2074.0,
-      "deviz": "4.1-02",
+      "deviz": "4.2-2",
       "deviz_denumire": "Structura",
       "is_component": false,
       "parent_code": null,
@@ -12855,15 +12728,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-2"
+      "val_transport": 0.0
     },
     {
       "cod": "CB01A1",
       "denumire": "cofraje",
       "um": "mp",
       "cantitate": 81.83,
-      "deviz": "4.1-02",
+      "deviz": "4.2-2",
       "deviz_denumire": "Structura",
       "is_component": false,
       "parent_code": null,
@@ -12875,15 +12747,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-2"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC01C6",
       "denumire": "incarcare mat.gr.c - ambalate, sub 10kg, deplas prin p urtare pina la 10m, fragil teren vagon categ.3 * $ tone",
       "um": "",
       "cantitate": 3.95,
-      "deviz": "4.1-04",
+      "deviz": "4.2-2",
       "deviz_denumire": "Structura",
       "is_component": false,
       "parent_code": null,
@@ -12895,15 +12766,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-2"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA02A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 3.95,
-      "deviz": "4.1-04",
+      "deviz": "4.2-2",
       "deviz_denumire": "Structura",
       "is_component": false,
       "parent_code": null,
@@ -12915,15 +12785,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-2"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC12C6",
       "denumire": "descarcare mat gr c - ambalate, sub 10kg deplas prin purtare pina la 10m, fragil vagon - teren categ 3 * $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă devize (www.edevize.ro)",
       "um": "",
       "cantitate": 3.95,
-      "deviz": "4.1-04",
+      "deviz": "4.2-2",
       "deviz_denumire": "Structura",
       "is_component": false,
       "parent_code": null,
@@ -12935,8 +12804,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.2-2"
+      "val_transport": 0.0
     },
     {
       "cod": "OD12D",
@@ -12981,7 +12849,7 @@
       "denumire": "transportul rutier al pamintului sau molozului cu autobasculanta dist = 10 km $ tone",
       "um": "",
       "cantitate": 271.62,
-      "deviz": "4.1-01",
+      "deviz": "4.4-1",
       "deviz_denumire": "Terasamente",
       "is_component": false,
       "parent_code": null,
@@ -12993,8 +12861,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.4-1"
+      "val_transport": 0.0
     },
     {
       "cod": "TSD03A1",
@@ -13058,7 +12925,7 @@
       "denumire": "strat agreg nat (balast) cilindr cu funct rezist fil trant izol aerisire antcap cu asternere manuala balast 20cm m cub",
       "um": "",
       "cantitate": 69.0,
-      "deviz": "4.1-04",
+      "deviz": "4.4-2",
       "deviz_denumire": "Parcare",
       "is_component": false,
       "parent_code": null,
@@ -13070,15 +12937,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.4-2"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA01A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autobasculanta pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 153.58,
-      "deviz": "5.1-1",
+      "deviz": "4.4-2",
       "deviz_denumire": "Parcare",
       "is_component": false,
       "parent_code": null,
@@ -13090,15 +12956,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.4-2"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA05A05",
       "denumire": "transport rutier materiale, semifabricate cu autove hic speciale (cisterna, beton etc) pe dist.de 5 km $ tone",
       "um": "",
       "cantitate": 16.0,
-      "deviz": "4.1-01",
+      "deviz": "4.4-2",
       "deviz_denumire": "Parcare",
       "is_component": false,
       "parent_code": null,
@@ -13110,8 +12975,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.4-2"
+      "val_transport": 0.0
     },
     {
       "cod": "DA12B1",
@@ -13137,7 +13001,7 @@
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autobasculanta pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 97.7,
-      "deviz": "5.1-1",
+      "deviz": "4.4-2",
       "deviz_denumire": "Parcare",
       "is_component": false,
       "parent_code": null,
@@ -13149,15 +13013,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.4-2"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA05A05",
       "denumire": "transport rutier materiale, semifabricate cu autove hic speciale (cisterna, beton, etc) pe dist.de 5 km $ tone devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
       "um": "",
       "cantitate": 4.14,
-      "deviz": "4.1-01",
+      "deviz": "4.4-2",
       "deviz_denumire": "Parcare",
       "is_component": false,
       "parent_code": null,
@@ -13169,8 +13032,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.4-2"
+      "val_transport": 0.0
     },
     {
       "cod": "DB01A1",
@@ -13234,7 +13096,7 @@
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autobasculanta pe dist = 25 km $ tone",
       "um": "",
       "cantitate": 49.68,
-      "deviz": "5.1-1",
+      "deviz": "4.4-2",
       "deviz_denumire": "Parcare",
       "is_component": false,
       "parent_code": null,
@@ -13246,8 +13108,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.4-2"
+      "val_transport": 0.0
     },
     {
       "cod": "DE09C",
@@ -13292,7 +13153,7 @@
       "denumire": "incarcarea materialelor, grupa a - grele si marunte, p rin tran pina la 10m rampa sau teren - auto categ.2 $ tone",
       "um": "",
       "cantitate": 4.85,
-      "deviz": "4.1-08",
+      "deviz": "4.4-2",
       "deviz_denumire": "Parcare",
       "is_component": false,
       "parent_code": null,
@@ -13304,8 +13165,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.4-2"
+      "val_transport": 0.0
     },
     {
       "cod": "TRI1AC13A5",
@@ -13350,7 +13210,7 @@
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 30 km $ tone",
       "um": "",
       "cantitate": 4.85,
-      "deviz": "4.1-04",
+      "deviz": "4.4-2",
       "deviz_denumire": "Parcare",
       "is_component": false,
       "parent_code": null,
@@ -13362,15 +13222,14 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.4-2"
+      "val_transport": 0.0
     },
     {
       "cod": "TRA06A30",
       "denumire": "transportul rutier al betonului - mortarului cu auto betoniera de 5,5 mc dist 30 km $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu director sef proiect ofertant, sc global electro construct srl devize (www.edevize.ro)",
       "um": "",
       "cantitate": 9.7,
-      "deviz": "4.1-04",
+      "deviz": "4.4-2",
       "deviz_denumire": "Parcare",
       "is_component": false,
       "parent_code": null,
@@ -13382,8 +13241,7 @@
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
-      "val_transport": 0.0,
-      "_deviz_original": "4.4-2"
+      "val_transport": 0.0
     }
   ]
 }

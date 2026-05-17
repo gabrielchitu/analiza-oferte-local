@@ -129,34 +129,50 @@ def _has_article_codes(full_content: str) -> bool:
 
 
 def _extract_deviz_from_stadiul_fizic(text: str) -> tuple[str, str]:
-    """Din 'STADIUL FIZIC: oferta 226108 STRUCTURA CUPOLA' or 'Stadiul fizic: 001 1.1 ARHITECTURA' (eDevize with sub-codes)."""
-    text = text.strip()
+    """
+    Extract deviz code from STADIUL FIZIC line.
 
-    # Pattern 1: Extract short sub-codes like "1.1", "1.2", "2.3" that appear after main code
-    # Format: "001 1.1 ARHITECTURA" or "002 1.2 INSTALATII" → extract "1.1" or "1.2"
+    Supports multiple formats:
+    - eDevize with sub-codes: "001 1.1 ARHITECTURA"
+    - Text denomination: "Terasam desf conexe tip II"
+    - Simple text: "Arhitectura", "Instalatii termice"
+
+    Uses deviz_catalog to map text denominations to numeric codes.
+    """
+    from shared.deviz_catalog import find_deviz_for_text, extract_stadiul_fizic
+
+    text = text.strip()
+    if not text:
+        return "", ""
+
+    # Pattern 1: eDevize format with sub-codes like "1.1", "1.2"
+    # Format: "001 1.1 ARHITECTURA" or "002 1.2 INSTALATII"
     m = re.search(r'^\d{1,3}\s+([0-9]\.[0-9])\s+', text, re.IGNORECASE)
     if m:
         deviz_cod = m.group(1)  # Extract "1.1", "1.2", etc.
-        # Get description after the sub-code
         rest = re.sub(r'^\d{1,3}\s+[0-9]\.[0-9]\s+', '', text).strip()
         return deviz_cod, rest
 
-    # Pattern 2: Direct format (no main code) — "1.1 ARHITECTURA"
+    # Pattern 2: Direct eDevize format (no main code) — "1.1 ARHITECTURA"
     m = re.match(r'([0-9]\.[0-9])\s+(.*)', text, re.IGNORECASE)
     if m:
         return m.group(1), m.group(2).strip()
 
-    # Pattern 3: Fallback to original logic for other formats (eDevize with 6-digit codes)
-    # Elimina 'oferta' prefix dacă există (ISDP format)
-    text = re.sub(r'^(?:oferta\s+)?', '', text.strip(), flags=re.IGNORECASE)
-    # Pentru eDevize, elimina prefixul numeric NNN (ex: "001 226108 STRUCTURA" → "226108 STRUCTURA")
-    text = re.sub(r'^\d{1,3}\s+', '', text.strip())
-    # Cauta codul (primul token de 5-8 alfanumerice care contine cel putin o cifra)
-    # Evita matching de cuvinte pure (ex: "DINTRE") prin cerinta de cel putin una cifra
-    m = re.match(r'((?=.*\d)[A-Z0-9]{5,8})\s*(.*)', text, re.IGNORECASE)
+    # Pattern 3: TRY DEVIZ CATALOG FIRST
+    # Extract numeric deviz code from text using catalog (handles "Ins electrice", "Instalatii termice", etc.)
+    numeric_code = find_deviz_for_text(text)
+    if numeric_code:
+        return numeric_code, text  # Return the numeric code and original text as denomination
+
+    # Pattern 4: Fallback to original logic for other formats (eDevize with 6-digit codes)
+    text_normalized = re.sub(r'^(?:oferta\s+)?', '', text.strip(), flags=re.IGNORECASE)
+    text_normalized = re.sub(r'^\d{1,3}\s+', '', text_normalized.strip())
+
+    m = re.match(r'((?=.*\d)[A-Z0-9]{5,8})\s*(.*)', text_normalized, re.IGNORECASE)
     if m:
         return m.group(1).upper(), m.group(2).strip()
 
+    # If nothing matches but text exists, still return it (might be useful for denomination)
     return "", text.strip()
 
 
