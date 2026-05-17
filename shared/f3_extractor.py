@@ -48,6 +48,58 @@ def _normalize_denom(text: str) -> str:
     return text.strip()
 
 
+def _normalize_um(um: str) -> str:
+    """Normalize unit of measure for comparison.
+
+    Handles common variations:
+    - m, mc → standardize as "m2" (square meters are same)
+    - buc, bucata → "buc" (pieces)
+    - ml, litru → ml
+    - empty/None → "" (preserve empty)
+    """
+    if not um:
+        return ""
+
+    um = um.lower().strip()
+
+    # Area measurements: m and mc (milimetric) are both area units
+    if um in ('m', 'mc', 'm²', 'm2'):
+        return 'm2'
+
+    # Pieces
+    if um in ('buc', 'bucata', 'buc.', 'bucati'):
+        return 'buc'
+
+    # Volume/Liquid
+    if um in ('ml', 'litru', 'l', 'ltr'):
+        return 'ml'
+
+    # Tonage
+    if um in ('tona', 'ton', 't', 'kg'):
+        return 'tona'
+
+    # Length
+    if um in ('m', 'meter', 'mt'):
+        return 'm'
+
+    return um
+
+
+def normalize_units_in_articles(articles: list) -> list:
+    """Normalize unit of measure across all articles.
+
+    Applies _normalize_um to each article's 'um' field.
+    """
+    result = []
+    for art in articles:
+        um = art.get('um', '')
+        normalized_um = _normalize_um(um)
+        if normalized_um != um:
+            art = {**art, 'um': normalized_um}
+        result.append(art)
+    return result
+
+
 def inherit_component_quantities(articles: list) -> list:
     """Apply quantity inheritance for components.
 
@@ -781,6 +833,9 @@ def extract_articles_v3(page_classifications: list) -> list:
     # Apply quantity and unit inheritance for components
     all_articles = inherit_component_quantities(all_articles)
     all_articles = inherit_component_units(all_articles)
+
+    # Normalize unit of measure (m→m2, mc→m2, buc→buc, etc.)
+    all_articles = normalize_units_in_articles(all_articles)
 
     logger.info(f"[F3v3] Total: {len(all_articles)} articole extrase (deviz-grouped, fara LLM)")
     return all_articles

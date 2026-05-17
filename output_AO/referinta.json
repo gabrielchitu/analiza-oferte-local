@@ -60,7 +60,7 @@
     {
       "cod": "EC03A1",
       "denumire": "cablu energie montat cu scoabe pe console fix.cu d ibluri metal cond .< 10 mmp.",
-      "um": "m",
+      "um": "m2",
       "cantitate": 50.0,
       "deviz": "5.1-1",
       "deviz_denumire": "Lucrari de constructii",
@@ -155,7 +155,7 @@
     {
       "cod": "CO04B1",
       "denumire": "montaj imprejmuiri din panouri gard opac organizar e de santier dotare constructor",
-      "um": "m",
+      "um": "m2",
       "cantitate": 82.0,
       "deviz": "5.1-1",
       "deviz_denumire": "Lucrari de constructii",
@@ -193,7 +193,7 @@
     {
       "cod": "DF10A1",
       "denumire": "montarea panou identificare investitie",
-      "um": "m",
+      "um": "m2",
       "cantitate": 1.0,
       "deviz": "5.1-1",
       "deviz_denumire": "Lucrari de constructii",
@@ -212,7 +212,7 @@
     {
       "cod": "RPGD11A",
       "denumire": "sapatura perimetrala adancime 50cm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 18.88,
       "deviz": "4.1-01",
       "deviz_denumire": "Terasam desf conexe tip II",
@@ -231,7 +231,7 @@
     {
       "cod": "RCSA06A",
       "denumire": "umplutura pamant compactat dr=95%",
-      "um": "m",
+      "um": "m2",
       "cantitate": 5.61,
       "deviz": "4.1-01",
       "deviz_denumire": "Terasam desf conexe tip II",
@@ -307,7 +307,7 @@
     {
       "cod": "RPCT09H1",
       "denumire": "spargerea partiala cu mijloace mec si manuala a el ementelor de cons.din bet.arm.si simplu exec.fin * spargere rampa veche ce se reface",
-      "um": "m",
+      "um": "m2",
       "cantitate": 2.16,
       "deviz": "4.1-01",
       "deviz_denumire": "Terasam desf conexe tip II",
@@ -345,7 +345,7 @@
     {
       "cod": "RPCT04B1",
       "denumire": "desfacere zidarie pentru realizare gol usa la part er si etaj",
-      "um": "m",
+      "um": "m2",
       "cantitate": 4.79,
       "deviz": "4.1-01",
       "deviz_denumire": "Terasam desf conexe tip II",
@@ -402,7 +402,7 @@
     {
       "cod": "RPCT09H1",
       "denumire": "spargerea planseului din b.a pentru realizare gol desfumare tra01a15₽ 82 tone transportul rutier al pamintului sau molozului cu autobasculanta dist .= 15 km tsc35xa1 93 sute mc de 0,5-0,99mc la dist < 10m pamint din teren cat1 moloz ₼ formular f3 executant 0413 obiectiv01 obi4.1",
-      "um": "m",
+      "um": "m2",
       "cantitate": 5.86,
       "deviz": "4.1-01",
       "deviz_denumire": "Terasam desf conexe tip II",
@@ -440,7 +440,7 @@
     {
       "cod": "TSD16B1",
       "denumire": "pietris compactat dr=95%",
-      "um": "m",
+      "um": "m2",
       "cantitate": 1.89,
       "deviz": "4.1-01",
       "deviz_denumire": "Terasam desf conexe tip II",
@@ -573,7 +573,7 @@
     {
       "cod": "RCSN15A",
       "denumire": "desfacere pazie/sageac",
-      "um": "m",
+      "um": "m2",
       "cantitate": 200.16,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -592,7 +592,7 @@
     {
       "cod": "RPIZE17B",
       "denumire": "desfacere jgheaburi",
-      "um": "m",
+      "um": "m2",
       "cantitate": 170.0,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -687,7 +687,7 @@
     {
       "cod": "RCSI41A",
       "denumire": "demont glafuri, sorturi burlane jgheaburi",
-      "um": "m",
+      "um": "m2",
       "cantitate": 120.15,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -884,7 +884,7 @@
     {
       "cod": "RCSO48A",
       "denumire": "balustrada metalica exterior, mana curenta dubla, h=90cm, h=60cm l: lrc28a -m : 9101181 - balustrada metalica galvanizata h=0.90m",
-      "um": "m",
+      "um": "m2",
       "cantitate": 7.3,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -905,7 +905,7 @@
     {
       "cod": "RCSO48B",
       "denumire": "mana curenta exterior l: lrc03a -m : 7800823 -mana curenta dreapta din tv de otel 1 1/4' si ol lamin",
-      "um": "m",
+      "um": "m2",
       "cantitate": 5.85,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -988,7 +988,7 @@
     {
       "cod": "CG15XC",
       "denumire": "plinta placi ceramice-min 10 cm l: 10124 -m : 2202406 - plinta placi ceramice-min 10 cm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 229.63,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -1220,7 +1220,7 @@
     {
       "cod": "RME15A",
       "denumire": "reconditionare balustrada interior (hp= . 90 m)",
-      "um": "m",
+      "um": "m2",
       "cantitate": 18.3,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -1239,7 +1239,7 @@
     {
       "cod": "CD25B",
       "denumire": "zidarie completare goluri tamplarie interioara us i si ferestre 1, 95+4, 16mc 00301c 02 mp tencuiala pe tavan",
-      "um": "m",
+      "um": "m2",
       "cantitate": 6.12,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -1466,7 +1466,7 @@
     {
       "cod": "01842A11",
       "denumire": "profil metalic protectie perete l:la018b1-0001: 8660160 -ipsos imbinari timp lucru mediu nida profes (sac 5kg) l:la018c5-0001 : 8660091 -profil protectie colt al 24x24",
-      "um": "m",
+      "um": "m2",
       "cantitate": 26.27,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -1488,7 +1488,7 @@
     {
       "cod": "CG06C",
       "denumire": "profil de trecere intre finisaje l: lc61d -m : 3519671 -profil de mascare pvc",
-      "um": "m",
+      "um": "m2",
       "cantitate": 12.0,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -1588,7 +1588,7 @@
     {
       "cod": "DA06A1",
       "denumire": "strat agreg nat (balast) cilindr cu funct rezist fil trant izol aerisire antcap cu asternere manuala 10 cm 148, 18 mp trotuar de garda",
-      "um": "m",
+      "um": "m2",
       "cantitate": 14.82,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -1704,7 +1704,7 @@
     {
       "cod": "RCSE33A",
       "denumire": "umplerea rosturilor dintre trotuar si soclu cladir ii cu bitum tip d",
-      "um": "m",
+      "um": "m2",
       "cantitate": 148.18,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -1723,7 +1723,7 @@
     {
       "cod": "DE10XA",
       "denumire": "borduri mici prefabric.din beton cu sect 10x15cm p t incadr spatii verzi pe fund.bet de 10x20cm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 148.18,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -1904,7 +1904,7 @@
     {
       "cod": "CK26A",
       "denumire": "glafuri interioare pvc",
-      "um": "m",
+      "um": "m2",
       "cantitate": 41.5,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -1923,7 +1923,7 @@
     {
       "cod": "CE10XA",
       "denumire": "glaf ext din tabla prevopsita",
-      "um": "m",
+      "um": "m2",
       "cantitate": 41.5,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -1942,7 +1942,7 @@
     {
       "cod": "01311A1",
       "denumire": "banda etansare tamplarie",
-      "um": "m",
+      "um": "m2",
       "cantitate": 213.9,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -1961,7 +1961,7 @@
     {
       "cod": "RPCN15C",
       "denumire": "profil cu picurator tamplarie",
-      "um": "m",
+      "um": "m2",
       "cantitate": 52.37,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2163,7 +2163,7 @@
     {
       "cod": "RPCN15C",
       "denumire": "profil aluminiu termosistem pentru exterior cu pic urator",
-      "um": "m",
+      "um": "m2",
       "cantitate": 131.45,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2182,7 +2182,7 @@
     {
       "cod": "RCSO48A",
       "denumire": "balustrada exterior (hp= . 90 m) l: lrc28a -m : 9101181 -balustrada metalica galvanizata h=0.90m",
-      "um": "m",
+      "um": "m2",
       "cantitate": 7.3,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2203,7 +2203,7 @@
     {
       "cod": "RCSO48B",
       "denumire": "mana curenta exterior (hp= . 90 m) l: lrc03a -m : 7800826 -mana curenta curba din prof tv .ol 1 1/4' si ol laminat",
-      "um": "m",
+      "um": "m2",
       "cantitate": 5.85,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2224,7 +2224,7 @@
     {
       "cod": "CD07H1",
       "denumire": "umplere cu zidarie goluri de ferestre, zidarie bca 30cm refacere perete pod 3,42+1,46 mc",
-      "um": "m",
+      "um": "m2",
       "cantitate": 3.42,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2243,7 +2243,7 @@
     {
       "cod": "CD07G2",
       "denumire": "refacere perete pod, zidarie bca 30cm l: 10174 -0150:2101509 -mortar de ciment m100-t n formular f3 executunt0413 obiectiv01 obi4.1 cate 03",
-      "um": "m",
+      "um": "m2",
       "cantitate": 1.46,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2383,7 +2383,7 @@
     {
       "cod": "RPCI21A1",
       "denumire": "jgheaburi din tabla zincata vopsite in camp electr ostatic, profil semi-rotund, diametru 12cm;",
-      "um": "m",
+      "um": "m2",
       "cantitate": 150.85,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2402,7 +2402,7 @@
     {
       "cod": "RPCI25A1",
       "denumire": "burlane din tabla zincata vopsite in camp electros tatic, profil semi-rotund, diametru 10cm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 70.04,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2421,7 +2421,7 @@
     {
       "cod": "RPCN15C",
       "denumire": "profil picurator pazie prevopsita, culoare gri",
-      "um": "m",
+      "um": "m2",
       "cantitate": 150.85,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2644,7 +2644,7 @@
     {
       "cod": "CE15C1",
       "denumire": "glaf metalic l: 10174 -0150:2101509 -mortar de ciment m100-t",
-      "um": "m",
+      "um": "m2",
       "cantitate": 30.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2727,7 +2727,7 @@
     {
       "cod": "EC02A",
       "denumire": "cablu c2xaby-f 3x95+50 mmp cabluri, tablouri electrice l: el15 -m : 4807411 -cablu c2xaby-f 3x95+50 mmp",
-      "um": "m",
+      "um": "m2",
       "cantitate": 45.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -2748,7 +2748,7 @@
     {
       "cod": "EC02A",
       "denumire": "cablu c2xaby-f 5x4 mmp l: el15 -m : 0000846 -cablu c2xaby-f 5x4 mmp",
-      "um": "m",
+      "um": "m2",
       "cantitate": 50.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -2769,7 +2769,7 @@
     {
       "cod": "EC05A",
       "denumire": "cablu n2xh 5x6 mmp l: el15 -m : 9003038 -cablu n2xh 5x6 mmp",
-      "um": "m",
+      "um": "m2",
       "cantitate": 15.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -2790,7 +2790,7 @@
     {
       "cod": "EC05A",
       "denumire": "cablu n2xh 5x16 mmp l: el15 -m : 3001285 - cablu n2xh 5x16 mmp",
-      "um": "m",
+      "um": "m2",
       "cantitate": 20.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -2811,7 +2811,7 @@
     {
       "cod": "EC05A",
       "denumire": "cablu nhxh fe180/e90 5x16 mmp l:el15 -m : 123520 -cablu nhxh fe180/e90 5x16 mmp",
-      "um": "m",
+      "um": "m2",
       "cantitate": 90.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -2851,7 +2851,7 @@
     {
       "cod": "EA02A3",
       "denumire": "tub ipey 25 mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 60.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -2870,7 +2870,7 @@
     {
       "cod": "EA02B1",
       "denumire": "tub ipey 32 mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 20.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -2889,7 +2889,7 @@
     {
       "cod": "W2K02H",
       "denumire": "tub gofrat 50 mm asim",
-      "um": "m",
+      "um": "m2",
       "cantitate": 100.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -2908,7 +2908,7 @@
     {
       "cod": "EC05A",
       "denumire": "cablu n2xh 3x1. 5mmp iluminat, prize, forta l: el15 -m : 596385 -cablu n2xh 3x1.5 un=1 kv",
-      "um": "m",
+      "um": "m2",
       "cantitate": 2500.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -2929,7 +2929,7 @@
     {
       "cod": "EC05A",
       "denumire": "cablu n2xh 4x1.5mmp l: el15 -m : 9007029 -cablu n2xh 4x1.5mmp",
-      "um": "m",
+      "um": "m2",
       "cantitate": 100.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -2950,7 +2950,7 @@
     {
       "cod": "EC05A",
       "denumire": "cablu n2xh 3x2.5mmp l: el15 -m : 596380 -cablu n2xh 3x2.5 un=1 kv",
-      "um": "m",
+      "um": "m2",
       "cantitate": 1500.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -2971,7 +2971,7 @@
     {
       "cod": "EC06C",
       "denumire": "cablu n2xh 5x2.5mmp l:el24 -m : 9007036 - cablu n2xh 5x2.5mmp",
-      "um": "m",
+      "um": "m2",
       "cantitate": 80.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -2992,7 +2992,7 @@
     {
       "cod": "EC06C",
       "denumire": "cablu utp cat 6a l:el24 -m : 1100106 -cablu utp categ 6a ₼ executant0413 obiectiv01 obi4.1 c'ate 05 formular f3",
-      "um": "m",
+      "um": "m2",
       "cantitate": 450.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3013,7 +3013,7 @@
     {
       "cod": "EA02A2",
       "denumire": "tub ipey 20 mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 3500.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3032,7 +3032,7 @@
     {
       "cod": "EA02A2",
       "denumire": "tub riflat 20 mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 500.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3051,7 +3051,7 @@
     {
       "cod": "EA02A3",
       "denumire": "tub riflat 25 mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 80.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3070,7 +3070,7 @@
     {
       "cod": "EA02A2",
       "denumire": "tub riflat metalic 25 mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 50.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3445,7 +3445,7 @@
     {
       "cod": "RPED18F",
       "denumire": "demontare cabl instal aparent (pe dibluri sau conso le) sect = 120-300mmp, pt.circ forta si lumina",
-      "um": "m",
+      "um": "m2",
       "cantitate": 5000.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3699,7 +3699,7 @@
     {
       "cod": "EB08BI",
       "denumire": "platbanda olzn 25x4mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 70.0,
       "deviz": "4.1-07",
       "deviz_denumire": "Instal el paratrasn - tip III",
@@ -3718,7 +3718,7 @@
     {
       "cod": "EB08D1",
       "denumire": "platbanda olzn 40x4mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 120.0,
       "deviz": "4.1-07",
       "deviz_denumire": "Instal el paratrasn - tip III",
@@ -3737,7 +3737,7 @@
     {
       "cod": "EC04A1",
       "denumire": "cablu vlpy 16mmp l: 12007 -m : 9000044 -cablu vlpy 16mmp",
-      "um": "m",
+      "um": "m2",
       "cantitate": 10.0,
       "deviz": "4.1-07",
       "deviz_denumire": "Instal el paratrasn - tip III",
@@ -3948,7 +3948,7 @@
     {
       "cod": "RPCG12C1",
       "denumire": "racord din inox la cosul de fum 0200 mm instalatii termice incalzire",
-      "um": "m",
+      "um": "m2",
       "cantitate": 3.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4121,7 +4121,7 @@
     {
       "cod": "VC22XB",
       "denumire": "dispoz.de sust +ancorare (consola, cadru, ancoraj) pt aparate, canale, etc.din ol profil gr=5-10 kg/buc",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 300.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4140,7 +4140,7 @@
     {
       "cod": "IC35B",
       "denumire": "tv poliet armata inalta dens., poliprop armata /nea rm d=20mm mont.la leg.corp inc.la inst.inc.centr l: il19 -0002:6716501 -teava polipropilena cu folie al (pp-al) dn=20mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 370.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4161,7 +4161,7 @@
     {
       "cod": "IC35C",
       "denumire": "tv poliet.armata inalta dens , poliprop.armata /nea rm d=25mm mont.la leg.corp inc.la inst inc centr l:il19 -0003:6716502 -teava polipropilena cu folie al (pp-al) dn=25mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 100.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4182,7 +4182,7 @@
     {
       "cod": "IC35D",
       "denumire": "tv poliet.armata inalta dens., poliprop.armata /nea rm d=32mm mont.la leg.corp inc.la inst.inc centr l: il19 -0004:6716503 -teava polipropilena cu folie al (pp-al) dn=32mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 140.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4203,7 +4203,7 @@
     {
       "cod": "IC36D",
       "denumire": "tv poliet.armata de inalta densit , poliprop armata /nearmata d=40mm mont.in col.la inst.inc centr l: il19 -0005: 6716504 - teava polipropilena cu folie al (pp-al) dn=40mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 55.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4224,7 +4224,7 @@
     {
       "cod": "IC36F",
       "denumire": "tv poliet.armata de inalta densit , poliprop.armata /nearmata d=63mm mont.in col.la inst.inc centr l: il19 -0007: 6716506 -teava polipropilena cu folie al (pp-al) dn=63mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 25.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4432,7 +4432,7 @@
     {
       "cod": "RPIF09C",
       "denumire": "izolarea conductelor cu tuburi de elastomer cu gro simea de 9 mm, pt conducte dn20 l: il15a -0013:2608118 -termoizolatie speciala (mansoane) pt teava de 9 x 22mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 370.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4453,7 +4453,7 @@
     {
       "cod": "RPIF09C",
       "denumire": "izolarea conductelor cu tuburi de elastomer cu gro simea de 9 mm, pt conducte dn25 l: il15a -0014:2608119 -termoizolatie speciala (mansoane) pt teava de 9 x 28mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 100.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4474,7 +4474,7 @@
     {
       "cod": "RPIF09C",
       "denumire": "izolarea conductelor cu tuburi de elastomer cu gro simea de 9mm, pt conducte dn32 l:il15a -0015:2608120 -termoizolatie speciala (mansoane) pt teava de 9 x 35mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 140.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4495,7 +4495,7 @@
     {
       "cod": "RPIF09C",
       "denumire": "izolatia conductelor cu mansoane de iz speciala, i ntroduse pe conducte, diametrul 40 mm l:il15a -0016:2608121 -termoizolatie speciala (mansoane) pt teava de 9 x 42mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 55.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4516,7 +4516,7 @@
     {
       "cod": "RPIF09C",
       "denumire": "izolarea conductelor cu tuburi de elastomer cu gro simea de 13 mm, pt conducte dn63 l: il15a -0030:2608135 -termoizolatie speciala (mansoane) pt teava de 13x 64mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 25.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4670,7 +4670,7 @@
     {
       "cod": "SA08A1",
       "denumire": "teava otel sud long.pt inst.zn+fil+mufa mont.const r ind+loc+soc.c la distrib in canale d= 1/2 tol l: 11418 -0028:3306338 - teava inst zinc filet m - 15 ( 1/2) ol 32 1 s 7656",
-      "um": "m",
+      "um": "m2",
       "cantitate": 2.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4691,7 +4691,7 @@
     {
       "cod": "SA08C1",
       "denumire": "teava otel sud.long.pt.inst.zn+fil+mufa mont.const r ind+loc+soc.c la distrib in canale d=1 toli l: 11418 - 0031:3306352 - teava inst zinc filet m - 25 (1 ) ol 32 1 s 7656 ₼ formular f3 executant0413 obiectiv01 obi4.1 cate 10",
-      "um": "m",
+      "um": "m2",
       "cantitate": 15.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4712,7 +4712,7 @@
     {
       "cod": "SA08D1",
       "denumire": "teava otel sud.long.pt.inst.zn+fil+mufa mont.const r ind+loc+soc.c la distrib.in canale d=1 1/4 toli l: 11418 -0032:3306364 -teava inst zinc filet m - 32 (1 1/4) ol 32 1 s 7656",
-      "um": "m",
+      "um": "m2",
       "cantitate": 5.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4733,7 +4733,7 @@
     {
       "cod": "SA08E1",
       "denumire": "teava otel sud.long.pt.inst zn+fil+mufa mont.const r ind+loc+soc.c la distrib in canale d=1 1/2 toli l: 11418 -0033:3306376 - teava inst zinc filet m - 40 (1 1/2) ol 32 1 s 7656",
-      "um": "m",
+      "um": "m2",
       "cantitate": 10.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4754,7 +4754,7 @@
     {
       "cod": "SA08F1",
       "denumire": "teava otel sud.long.pt.inst.zn+fil+mufa mont.const r ind+loc+soc.c la distrib.in canale d=2 toli l: 11418 -0043:3306273 -teava inst zinc filet ui - 50 (2 ) ol 32 1 s 7656",
-      "um": "m",
+      "um": "m2",
       "cantitate": 20.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4874,7 +4874,7 @@
     {
       "cod": "RPACH28A",
       "denumire": "spalarea cu apa potabila a instalatiei",
-      "um": "m",
+      "um": "m2",
       "cantitate": 742.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4893,7 +4893,7 @@
     {
       "cod": "RPIE04D1",
       "denumire": "efectuare probe de etanseitate la presiune a insta latiei",
-      "um": "m",
+      "um": "m2",
       "cantitate": 742.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4912,7 +4912,7 @@
     {
       "cod": "RPIE05A1",
       "denumire": "efectuare probe de dilatare - contractare a instal atiei",
-      "um": "m",
+      "um": "m2",
       "cantitate": 742.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4950,7 +4950,7 @@
     {
       "cod": "FE03A1",
       "denumire": "traseu frigorific din teava de cupru 6.35 mm preiz olata climatizare teava cupru pentru trasee frigorifice",
-      "um": "m",
+      "um": "m2",
       "cantitate": 5.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4969,7 +4969,7 @@
     {
       "cod": "FE03B1",
       "denumire": "traseu frigorific din teava de cupru 9.52 mm preiz olata",
-      "um": "m",
+      "um": "m2",
       "cantitate": 5.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4988,7 +4988,7 @@
     {
       "cod": "FE03C2",
       "denumire": "traseu frigorific din teava de cupru 12, 7 mm preiz olata teava cupru pentru traseele circuitelor frigorific a formular f3 executant0413 obiectiv01 obi4.1 cate 10",
-      "um": "m",
+      "um": "m2",
       "cantitate": 5.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5007,7 +5007,7 @@
     {
       "cod": "FE03C2",
       "denumire": "traseu frigorific din teava de cupru 15.9 mm preiz olata teava cupru pentru traseele circuitelor frigorific",
-      "um": "m",
+      "um": "m2",
       "cantitate": 10.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5026,7 +5026,7 @@
     {
       "cod": "FE03D1",
       "denumire": "traseu frigorific din teava de cupru 22.1 mm preiz olata teava cupru pentru traseele circuitelor frigorific",
-      "um": "m",
+      "um": "m2",
       "cantitate": 10.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5045,7 +5045,7 @@
     {
       "cod": "FE03D4",
       "denumire": "traseu frigorific din teava de cupru 32 mm preizol ata teava cupru pentru traseele circuitelor frigorific",
-      "um": "m",
+      "um": "m2",
       "cantitate": 10.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5064,7 +5064,7 @@
     {
       "cod": "FE03E1",
       "denumire": "traseu frigorific din teava de cupru 34.9 mm preiz olata teava cupru pentru traseele circuitelor frigorific",
-      "um": "m",
+      "um": "m2",
       "cantitate": 10.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5163,7 +5163,7 @@
     {
       "cod": "RPEI19K",
       "denumire": "cablu myym 2x1, 5 pentru termostate l: el24b -m : 2000017 -cablu myym 2x1, 5 pentru termostate",
-      "um": "m",
+      "um": "m2",
       "cantitate": 200.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5222,7 +5222,7 @@
     {
       "cod": "VC22XB",
       "denumire": "material marunt si confectii metalice asim n formular f3 executant0413 obiectiv01 obi4.1 cate 10",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 100.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5302,7 +5302,7 @@
     {
       "cod": "SA11H1",
       "denumire": "teava pvc neplastif.tip g mont.la constr industr in conducte de distributie d=110 mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 10.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5849,7 +5849,7 @@
     {
       "cod": "SA15B",
       "denumire": "teava mat plastic pp-r al, d=20mm conducta ppr-al 020x1, 9 mm l:sl05 -0030: 6717087 -tuburi din polipropilena, avind diametrul exterior 20mm l:sl06b -0066: 6719485 -cot din polipropilena, avind diametrul 20 mm l:sl06c -0074 : 6719493 -teu din polipropilena, avind diametrul 20 mm l: slu01 -0001:0003000 - aparat de sudura prin polifuziune si electrofuziune-coprax",
-      "um": "m",
+      "um": "m2",
       "cantitate": 190.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5873,7 +5873,7 @@
     {
       "cod": "SA15B",
       "denumire": "teava mat plastic pp-r al, d=25mm conducta ppr-a1 025x2, 3 mm l:sl05 -0031:6717088 -tuburi din polipropilena, avind diametrul exterior 25mm l: sl06b -0067:6719486 -cot din polipropilena, avind diametrul 25 mm l:sl06c -0031:6719450 -teu din polietilena, (pehd) , electrofuziune d= 25mm l: slu01 -0001: 0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax",
-      "um": "m",
+      "um": "m2",
       "cantitate": 75.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5897,7 +5897,7 @@
     {
       "cod": "SA16C",
       "denumire": "teava din material plastic pp-r al d=32mm conducta ppr-a1 032x3, 0 mm l: sl05 -0032 : 6717089 -tuburi din polipropilena, avind diametrul exterior 32mm l: sl06a -0060:6719479 -mufa din polipropilena avind diametrul exterior 32 mm l: sl06b -0068: 6719487 -cot din polipropilena, avind diametrul 32 mm l: sl06c -0076: 6719495 - teu din polipropilena, avind diametrul 32 mm l: slu01 - 0001: 0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax - formular f3 executan/0413 obiectiv01 obi4.1 cate 13",
-      "um": "m",
+      "um": "m2",
       "cantitate": 25.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5922,7 +5922,7 @@
     {
       "cod": "SA16D",
       "denumire": "teava din material plastic pp-r al d=40mm conducta ppr-a1 040x3, 7 mm l: sl05 -0033:6717090 -tuburi din polipropilena, avind diametrul exterior 40mm l: sl06a -0061: 6719480 -mufa din polipropilena avind diametrul exterior 40 mm l:sl06b -0069:6719488 -cot din polipropilena, avind diametrul 40 mm l: sl06c -0077: 6719496 -teu din polipropilena, avind diametrul 40 mm l: sl06e -0101:6719520 -reductie din polipropilena, avind diametrul 40 * 25 mm l: slu01 -0001:0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax",
-      "um": "m",
+      "um": "m2",
       "cantitate": 45.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5948,7 +5948,7 @@
     {
       "cod": "SA16E",
       "denumire": "teava din material plastic ppr-al, d=50mm conducta ppr-a1 050x4, 6 mm l:sl05 -0034:6717091 -tuburi din polipropilena, avind diametrul exterior 50mm l: slu01 -0001:0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax",
-      "um": "m",
+      "um": "m2",
       "cantitate": 5.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5970,7 +5970,7 @@
     {
       "cod": "RPSF09A",
       "denumire": "izolatie elastomerica cu grosime 9mm teava 20 mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 190.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5989,7 +5989,7 @@
     {
       "cod": "RPSF09A",
       "denumire": "izolatie elastomerica cu grosime 9mm teava 25 mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 75.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6008,7 +6008,7 @@
     {
       "cod": "RPSF09A",
       "denumire": "izolatie elastomerica cu grosime 9mm teava 32 mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 25.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6027,7 +6027,7 @@
     {
       "cod": "RPSF09A",
       "denumire": "izolatie elastomerica cu grosime 9mm teava 40 mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 45.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6046,7 +6046,7 @@
     {
       "cod": "RPSF09A",
       "denumire": "izolatie elastomerica cu grosime 9mm teava 50 mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 5.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6294,7 +6294,7 @@
     {
       "cod": "SF01C",
       "denumire": "efectuarea probei de etanseitate la presiune a ins tal apa, exec.cu cond pvc d=16-110mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 345.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6313,7 +6313,7 @@
     {
       "cod": "SF02C",
       "denumire": "efectuarea probei de functionare a instalatiei de apa rece, cu teava din pvc, d= 16-110 mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 34.5,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6332,7 +6332,7 @@
     {
       "cod": "SF05C",
       "denumire": "spalarea instalatiei de apa, executata din teava d e material plastic (pvc-g, pe, pp, pp-r) , d=20-75mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 345.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6351,7 +6351,7 @@
     {
       "cod": "SB08A",
       "denumire": "teava din mat plastic, pp , d= 32mm l: sl12 -0021:6720178 -tub fara mufa, polipropilena ignifuga., d32, l5000mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 45.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6372,7 +6372,7 @@
     {
       "cod": "SB08B",
       "denumire": "teava din mat plastic, pp , d= 40mm l: sl12 -0003: 6720160 -tub cu mufa pt canalizare, polipropilena ig , d40, l500",
-      "um": "m",
+      "um": "m2",
       "cantitate": 8.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6393,7 +6393,7 @@
     {
       "cod": "SB08C",
       "denumire": "teava din mat plastic, pp , d= 50mm l: sl12 -0040:6720197 -tub cu 2 mufe, polipropilena ignifuga., d50, l1000mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 47.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6414,7 +6414,7 @@
     {
       "cod": "SB08E",
       "denumire": "teava din mat plastic, pp , d=110mm l: sl12 -0025: 6720182 -tub fara mufa, polipropilena ignifuga., d110, l5000mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 60.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6790,7 +6790,7 @@
     {
       "cod": "SB30A",
       "denumire": "suporti pt sustinerea conductelor pentru canaliza re, avind greutate de pina la 2 kg l: sl44g -0017:3401827 -otel rotund laminat la cald s 333 ol37-1k d= 20",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 200.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6811,7 +6811,7 @@
     {
       "cod": "SB30B",
       "denumire": "suporti pt sustinerea conductelor pentru canaliza re, avind greutate de 2.1 - 10 kg l: sl44g -0017:3401827 -otel rotund laminat la cald s 333 ol37-1k d= 20 n formular f3 executant0413 obiectiv01 obi4.1 cate 13",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 200.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6927,7 +6927,7 @@
     {
       "cod": "SF04B",
       "denumire": "efectuarea probei de etanseitate si fuctionare a i nstalatiei de canalizare (indiferent mat ) , d=>100mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 16.6,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -7098,7 +7098,7 @@
     {
       "cod": "FE03E1",
       "denumire": "teava de cupru izolata 35x1.5 mm conducte pentru sistemul solar",
-      "um": "m",
+      "um": "m2",
       "cantitate": 20.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -7437,7 +7437,7 @@
     {
       "cod": "SA04A",
       "denumire": "teava din otel zn pt instalatii, 1/2 ' pentru g oliri instalatii de stingere cu hidranti interiori l: sl01 -0001:3306041 -teava inst zinc nefil.m - 15( 1/2) ol 32 1 s 7656",
-      "um": "m",
+      "um": "m2",
       "cantitate": 3.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7458,7 +7458,7 @@
     {
       "cod": "SA04G",
       "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 2 1/2' l:sl01 -0007:3306106 -teava inst.zinc nefil.m - 65 (2 1/2) ol 32 1 s 7656 l: sl02a -0033 : 4114287 -reductie fonta maleabila n4 s 477 65x 50 zn f2 l:sl02b -0061:4115580 -teu fonta mal b1 s476 dn= 65 21/2 zn l:sl02c -0075: 4118013 -cot fonta maleabila a1",
-      "um": "m",
+      "um": "m2",
       "cantitate": 60.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7524,7 +7524,7 @@
     {
       "cod": "SA04F",
       "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 2 ' l: sl01 -0006:3306091 - teava inst zinc nefil.m - 50(2 ) ol 32 1 s 7656 l: sl02a -0024 : 4114172 -reductie fonta maleabila n4 s 477 50x 25 zn f2 l: sl02b -0058: 4115554 -teu fonta mal b1 s476 dn= 50 2 zn l: sl02c -0077:4118037 -cot fonta maleabila a1",
-      "um": "m",
+      "um": "m2",
       "cantitate": 65.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7792,7 +7792,7 @@
     {
       "cod": "RPIF12A",
       "denumire": "grunduirea si vopsirea conductelor de instalatii, 2 straturi, vopsea ulei, diametrul exterior < 60 mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 32.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7811,7 +7811,7 @@
     {
       "cod": "RCSR27C1",
       "denumire": "vopsirea cu email alchidic (culoare rosie) , pe con ducte cu ø > 34 mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 32.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7830,7 +7830,7 @@
     {
       "cod": "SFO1A",
       "denumire": "efectuarea probei de etanseitate la presiune a ins tal apa, exec.cu cond.ol.pt instal, zn., 3/8'-2",
-      "um": "m",
+      "um": "m2",
       "cantitate": 125.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7849,7 +7849,7 @@
     {
       "cod": "SF02A",
       "denumire": "efectuarea probei de functionare a instalatiei de apa rece, cu cond.ol.pt.instal., zn, d=3/8' - 2'",
-      "um": "m",
+      "um": "m2",
       "cantitate": 6.5,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7868,7 +7868,7 @@
     {
       "cod": "SF05A",
       "denumire": "spalarea instalatiei de apa, executata din teava d e otel zincata, d= 3/8' - 2'",
-      "um": "m",
+      "um": "m2",
       "cantitate": 125.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7887,7 +7887,7 @@
     {
       "cod": "SF04A",
       "denumire": "efectuarea probei de etanseitate si fuctionare a i nstalatiei de canalizare (indiferent mat ) , d =< 100mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 6.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7927,7 +7927,7 @@
     {
       "cod": "SA46D1",
       "denumire": "torcretare conducta ol-zn f 2''",
-      "um": "m",
+      "um": "m2",
       "cantitate": 10.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -8024,7 +8024,7 @@
     {
       "cod": "EC09A1",
       "denumire": "montaj cablu tip jeh (st) h-fe180/e30 2x2x0.8 mmp tr aseu detectie incendiu",
-      "um": "m",
+      "um": "m2",
       "cantitate": 450.0,
       "deviz": "4.1-08",
       "deviz_denumire": "Inst detectie incendiu tipIII",
@@ -8043,7 +8043,7 @@
     {
       "cod": "EC03A1",
       "denumire": "cablu nhxh fe180/e90 3x1.5 mmp l: 12007 -m : 111144 -cablu nhxh fe180/e90 3x1.5 mmp",
-      "um": "m",
+      "um": "m2",
       "cantitate": 50.0,
       "deviz": "4.1-08",
       "deviz_denumire": "Inst detectie incendiu tipIII",
@@ -8064,7 +8064,7 @@
     {
       "cod": "EA02A2",
       "denumire": "montaj tub de protectie rigid cu intarziere la pr opagarea focului, fara halogen 20 mm asimilat",
-      "um": "m",
+      "um": "m2",
       "cantitate": 350.0,
       "deviz": "4.1-08",
       "deviz_denumire": "Inst detectie incendiu tipIII",
@@ -8083,7 +8083,7 @@
     {
       "cod": "EA02A2",
       "denumire": "tub de protectie flexibil copex cu intarziere la p ropagarea focului, fara halogen 20mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 100.0,
       "deviz": "4.1-08",
       "deviz_denumire": "Inst detectie incendiu tipIII",
@@ -8626,7 +8626,7 @@
     {
       "cod": "RPCB02E",
       "denumire": "beton c12/15 in fundatii simple la scari noi acce s infrastructura l: lc02 -0019:2100911 -beton marfa clasa c15/12 (bc15/b200)",
-      "um": "m",
+      "um": "m2",
       "cantitate": 1.92,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -8666,7 +8666,7 @@
     {
       "cod": "CA05B",
       "denumire": "turnare beton armat c25/30 fundatii fundatii noi scari noi acces l: lc02 -0024:2100916 -beton marfa clasa c30/25 (bc30/b400) l: lcuola -0012 : 2394 - vibrator de adincime",
-      "um": "m",
+      "um": "m2",
       "cantitate": 2.6,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -8688,7 +8688,7 @@
     {
       "cod": "CZ0303C1",
       "denumire": "armatura bst500s fundatii fundatii noi scari noi acces",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 190.0,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -8707,7 +8707,7 @@
     {
       "cod": "CC01C1",
       "denumire": "montare armaturi din otel beton in fundatii conti nue, placi de radiere, cu dist din mase plastice",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 190.0,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -8745,7 +8745,7 @@
     {
       "cod": "CA05B",
       "denumire": "beton c25/30 pardoseala (10cm grosime) scari noi a cces l: lc02 -0024:2100916 -beton marfa clasa c30/25 (bc30/b400)",
-      "um": "m",
+      "um": "m2",
       "cantitate": 1.72,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -8766,7 +8766,7 @@
     {
       "cod": "RCSD08A",
       "denumire": "plase sudate sppb in pardoseala scari noi acces l: lrc13 -0009:2000846 -plase sudate tip 105 gq 106 (25, 0 kg/buc) ol 37-1n",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 340.0,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -8863,7 +8863,7 @@
     {
       "cod": "CA02J1",
       "denumire": "beton armat c25/30 cadre bordare goluri si centuri din beton armat parter si etaj l:10173 -0232:2100916 -beton marfa clasa c30/25 (bc30/b400)",
-      "um": "m",
+      "um": "m2",
       "cantitate": 2.07,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -8903,7 +8903,7 @@
     {
       "cod": "CZ0303C1",
       "denumire": "confectionare armaturi pt beton armatura bst500s bordare goluri noi la parter si etaj",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 291.1,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -8922,7 +8922,7 @@
     {
       "cod": "CC02C1",
       "denumire": "montare armat la constr h<35m din bare in grinzi si stilpi d<18mm placi d<10mm cu dist din plastic",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 291.1,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -8941,7 +8941,7 @@
     {
       "cod": "CA02J1",
       "denumire": "beton armat c25/30 centuri noi din beton armat pe zona de refacere a planseului l: 10173 -0232:2100916 -beton marfa clasa c30/25 (bc30/b400)",
-      "um": "m",
+      "um": "m2",
       "cantitate": 5.81,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -8962,7 +8962,7 @@
     {
       "cod": "CZ0303C1",
       "denumire": "armatura bst500s centuri noi din beton armat pe zo na de refacere a planseului",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 880.75,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -8981,7 +8981,7 @@
     {
       "cod": "CC02C1",
       "denumire": "montare armat la constr h<35m din bare in grinzi si stilpi d<18mm placi d<10mm cu dist din plastic",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 880.75,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -9038,7 +9038,7 @@
     {
       "cod": "CZ0303C1",
       "denumire": "armatura bst500s placa noua din beton armat",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 2194.0,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -9057,7 +9057,7 @@
     {
       "cod": "CC02C1",
       "denumire": "montare armat la constr h<35m din bare in grinzi si stilpi d<18mm placi d<10mm cu dist din plastic ₼ formular f3 executant0413 obiectiv01 obi4.1 cate 02",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 2194.0,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -9095,7 +9095,7 @@
     {
       "cod": "RCSJ27D",
       "denumire": "mortar pe baza de ciment - injectare fisuri in per eti din zidarie la parter l: lrc60 -m : 2018770 -mortar uscat adeziv zidarie ytong, 30 kg/mc",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 50.0,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -9135,7 +9135,7 @@
     {
       "cod": "CA02J1",
       "denumire": "turnare beton armat c25/30 atice noi din b.a l:10173 -0232:2100916 -beton marfa clasa c30/25 (bc30/b400)",
-      "um": "m",
+      "um": "m2",
       "cantitate": 4.04,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -9175,7 +9175,7 @@
     {
       "cod": "CZ0303C1",
       "denumire": "confectionare armatura bst500s atice noi din b.a.",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 279.0,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -9194,7 +9194,7 @@
     {
       "cod": "CC02C1",
       "denumire": "montare armat la constr h<35m din bare in grinzi si stilpi d<18mm placi d<10mm cu dist din plastic",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 279.0,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -9308,7 +9308,7 @@
     {
       "cod": "IZB05B2",
       "denumire": "fibra de carbon 30cm tip panza cu adeziv 15,12 kg adeziv",
-      "um": "m",
+      "um": "m2",
       "cantitate": 75.6,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -9327,7 +9327,7 @@
     {
       "cod": "RCSP14A",
       "denumire": "piese consola laminata realizare streasina antifoc asim incl electrozi 21.6 grund#%",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 718.92,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -9441,7 +9441,7 @@
     {
       "cod": "EA12A1",
       "denumire": "montaj tubulatura circulara",
-      "um": "m",
+      "um": "m2",
       "cantitate": 9.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9498,7 +9498,7 @@
     {
       "cod": "EA12A1",
       "denumire": "montaj tubulatura circulara",
-      "um": "m",
+      "um": "m2",
       "cantitate": 108.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9631,7 +9631,7 @@
     {
       "cod": "VC23B1",
       "denumire": "confectionare dispoz sust-ancor pt.aparate canale piese spec.din otel prof.greut/buc 5- 10 kg.",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 150.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9688,7 +9688,7 @@
     {
       "cod": "EI06XA",
       "denumire": "acoperirea cu mort.de cim.a tub.de protec si a con d punte (intenc) 1-2 tuburi d pina 50mm, mont paral",
-      "um": "m",
+      "um": "m2",
       "cantitate": 16.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9707,7 +9707,7 @@
     {
       "cod": "CE26A",
       "denumire": "etanseizare strapungeri pereti, plansee, rezistent e la foc 32 buc asim l: lc09b -0012: 6102827 l: lc67i -0063 : 6100334 -chit de etansare mapesil ac - solutie tip citom polimerica",
-      "um": "m",
+      "um": "m2",
       "cantitate": 32.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9866,7 +9866,7 @@
     {
       "cod": "IC19XB",
       "denumire": "suporti si dispozitive de fixare pt.sustinere cole ct .- distrib., boilere, apar., etc.greut 11-65 kg/buc l: 11317 -0028:3700687 -banda din otel lam cald",
-      "um": "m",
+      "um": "m2",
       "cantitate": 42.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -10079,7 +10079,7 @@
     {
       "cod": "TSC03D1",
       "denumire": "sapat.mec.cu exc.de 0, 41-0,7 mc in pam.cu umiditat e natural desc.dep teren cat 4",
-      "um": "mc",
+      "um": "m2",
       "cantitate": 0.7,
       "deviz": "4.3-01",
       "deviz_denumire": "Terasamente apa",
@@ -10098,7 +10098,7 @@
     {
       "cod": "TSA04D1",
       "denumire": "sap.man in spatii limit.sub 1m cu sprij.si evac ma n.in pam.cu umid.nat.la adinc 0, 0-1,5m t.f tare",
-      "um": "m",
+      "um": "m2",
       "cantitate": 62.8,
       "deviz": "4.3-01",
       "deviz_denumire": "Terasamente apa",
@@ -10136,7 +10136,7 @@
     {
       "cod": "ACE08A1",
       "denumire": "umplutura in sant.la cond.de alim.cu apa si canali zare cu: nisip",
-      "um": "m",
+      "um": "m2",
       "cantitate": 29.4,
       "deviz": "4.3-01",
       "deviz_denumire": "Terasamente apa",
@@ -10155,7 +10155,7 @@
     {
       "cod": "TSD04XA",
       "denumire": "compactarea cu maiul de mina a umplut in strat ori z sau incl 1/4, udarea strat 10cm gros . pam necoeziv",
-      "um": "m",
+      "um": "m2",
       "cantitate": 29.4,
       "deviz": "4.3-01",
       "deviz_denumire": "Terasamente apa",
@@ -10231,7 +10231,7 @@
     {
       "cod": "TSD01C1",
       "denumire": "imprastierea cu lopata a pamint.afinat, strat unifo rm 10-30cm.gros cu sfarim bulg teren tare",
-      "um": "m",
+      "um": "m2",
       "cantitate": 22.0,
       "deviz": "4.3-01",
       "deviz_denumire": "Terasamente apa",
@@ -10250,7 +10250,7 @@
     {
       "cod": "TSD02A1",
       "denumire": "imprast.pamint afinat provenit din ter.cat.1 sau 2 cu buld.de 65-80cp in strat.cu gros.de 15-20cm",
-      "um": "mc",
+      "um": "m2",
       "cantitate": 0.76,
       "deviz": "4.3-01",
       "deviz_denumire": "Terasamente apa",
@@ -10269,7 +10269,7 @@
     {
       "cod": "TSD04C1",
       "denumire": "compactarea cu mai.de mina a umplut.execut.pe stra t.cu udarea fiec strat de 20cm gros t.necoeziv",
-      "um": "m",
+      "um": "m2",
       "cantitate": 22.0,
       "deviz": "4.3-01",
       "deviz_denumire": "Terasamente apa",
@@ -10288,7 +10288,7 @@
     {
       "cod": "TSD06A1",
       "denumire": "compactare cu placa vibrat.de 0, 7t umplutura pamin t necoezin in strat de 20-30cm n formular f3 executant0413 obiectiv01 obi4.3",
-      "um": "mc",
+      "um": "m2",
       "cantitate": 0.76,
       "deviz": "4.3-01",
       "deviz_denumire": "Terasamente apa",
@@ -10326,7 +10326,7 @@
     {
       "cod": "TSD14A1",
       "denumire": "udarea cu autocist.de 5-8t cu disp.de strop str.",
-      "um": "m",
+      "um": "m2",
       "cantitate": 7.6,
       "deviz": "4.3-01",
       "deviz_denumire": "Terasamente apa",
@@ -10383,7 +10383,7 @@
     {
       "cod": "TSD02B1",
       "denumire": "imprast pamint afinat provenit din ter.cat.1 sau 2 cu buld.de 65-80cp in strat.cu gros.de 21-30cm pamant excedentar",
-      "um": "mc",
+      "um": "m2",
       "cantitate": 0.348,
       "deviz": "4.3-01",
       "deviz_denumire": "Terasamente apa",
@@ -10421,7 +10421,7 @@
     {
       "cod": "TSC03D1",
       "denumire": "sapat.mec.cu exc.de 0, 41-0, 7 mc in pam.cu umiditat e natural desc.dep teren cat 4",
-      "um": "mc",
+      "um": "m2",
       "cantitate": 0.5,
       "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
@@ -10440,7 +10440,7 @@
     {
       "cod": "TSA04D1",
       "denumire": "sap.man in spatii limit.sub 1m cu sprij.si evac ma n.in pam.cu umid.nat.la adinc 0, 0-1,5m t.f tare",
-      "um": "m",
+      "um": "m2",
       "cantitate": 44.0,
       "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
@@ -10478,7 +10478,7 @@
     {
       "cod": "ACE08A1",
       "denumire": "umplutura in sant.la cond.de alim.cu apa si canali zare cu: nisip",
-      "um": "m",
+      "um": "m2",
       "cantitate": 34.0,
       "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
@@ -10497,7 +10497,7 @@
     {
       "cod": "TSD04XA",
       "denumire": "compactarea cu maiul de mina a umplut.in strat.ori z sau incl 1/4, udarea strat 10cm gros pam.necoeziv",
-      "um": "m",
+      "um": "m2",
       "cantitate": 34.0,
       "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
@@ -10573,7 +10573,7 @@
     {
       "cod": "TSD01C1",
       "denumire": "imprastierea cu lopata a pamint.afinat, strat unifo rm 10-30cm.gros cu sfarim bulg teren tare",
-      "um": "m",
+      "um": "m2",
       "cantitate": 10.0,
       "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
@@ -10611,7 +10611,7 @@
     {
       "cod": "TSD04C1",
       "denumire": "compactarea cu mai.de mina a umplut execut pe stra t.cu udarea fiec strat de 20cm gros . t.necoeziv",
-      "um": "m",
+      "um": "m2",
       "cantitate": 10.0,
       "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
@@ -10630,7 +10630,7 @@
     {
       "cod": "TSD06A1",
       "denumire": "compactare cu placa vibrat.de 0, 7t umplutura pamin t necoezin in strat de 20-30cm ₼ formular f3 executant0413 obiectiv01 obi4.3 cate 02",
-      "um": "mc",
+      "um": "m2",
       "cantitate": 0.36,
       "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
@@ -10649,7 +10649,7 @@
     {
       "cod": "TSD14A1",
       "denumire": "udarea cu autocist.de 5-8t cu disp.de strop str.",
-      "um": "m",
+      "um": "m2",
       "cantitate": 3.6,
       "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
@@ -10687,7 +10687,7 @@
     {
       "cod": "TSD02B1",
       "denumire": "imprast pamint afinat provenit din ter cat.1 sau 2 cu buld.de 65-80cp in strat.cu gros.de 21-30cm pamant excedentar",
-      "um": "mc",
+      "um": "m2",
       "cantitate": 0.4814,
       "deviz": "4.3-02",
       "deviz_denumire": "Terasam canal",
@@ -10765,7 +10765,7 @@
     {
       "cod": "ACD07A1",
       "denumire": "elemente la camine stas cu h>2 m cuprinzind: cos ac 60 cm l: 10174 -0150:2101509 -mortar de ciment m100-t",
-      "um": "m",
+      "um": "m2",
       "cantitate": 4.2,
       "deviz": "4.3-03",
       "deviz_denumire": "Camine canal menajer 7b",
@@ -10786,7 +10786,7 @@
     {
       "cod": "ACD07D1",
       "denumire": "elemente la camine stas cu h>2 m cuprinzind: aducer ea la cota din beton simplu monolit 20 cm l: 10173 -0228:2100912 -beton marfa clasa c20/16 (bc20/b250) l: 10174 -0150:2101509 -mortar de ciment m100-t",
-      "um": "m",
+      "um": "m2",
       "cantitate": 1.4,
       "deviz": "4.3-03",
       "deviz_denumire": "Camine canal menajer 7b",
@@ -11008,7 +11008,7 @@
     {
       "cod": "CE26A",
       "denumire": "trecere+etansare protectie conducta la trecere pr in elemente de constructie 2 buc l:lc09b -0015:6102830 -chituri cu masticuri polimerice tip l: lc67i -0063: 6100334 -solutie tip citom polimerica",
-      "um": "m",
+      "um": "m2",
       "cantitate": 1.0,
       "deviz": "4.3-05",
       "deviz_denumire": "Instalatii camin apometru",
@@ -11125,7 +11125,7 @@
     {
       "cod": "FE06C4",
       "denumire": "distribuitor hidranti dn 160 mm, l = 1,25 m, intra ri dn100 1 stut dn 50 alimentare apa 1 stut golire asim1b",
-      "um": "m",
+      "um": "m2",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11455,7 +11455,7 @@
     {
       "cod": "SA04G",
       "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 2 1/2' l: sl01 -0007:3306106 -teava inst.zinc nefil.m - 65(2 1/2) ol 32 1 s 7656 l: sl02a -0030: 4114251 -reductie fonta maleabila n4 s 477 65x 32 zn f3 l: sl02b -0061: 4115580 -teu fonta mal b1 s476 dn= 65 21/2 zn l: sl02c -0079:4118051 -cot fonta maleabila a1 s474 dn 65 21/2 zn l: sl02d -0116:4120248 -mufa fonta maleabila m2",
-      "um": "m",
+      "um": "m2",
       "cantitate": 12.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11501,7 +11501,7 @@
     {
       "cod": "SA04E",
       "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 1 1/2 ' l: sl01 -0014:3306376 -teava inst.zinc filet m - 40(1 1/2) ol 32 1 s 7656 l: sl02a -0010:4114005 -reductie fonta maleabila n4 s 477 32x 25 zn fi l: sl02b -0056: 4115528 -teu fonta mal b1 s476 dn= 40 11/2 zn l: sl02c -0075: 4118013 -cot fonta maleabila a1 s474 dn 40 11/2 zn l: sl02d -0112:4120200 -mufa fonta maleabila m2",
-      "um": "m",
+      "um": "m2",
       "cantitate": 2.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11545,7 +11545,7 @@
     {
       "cod": "SA04C",
       "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 1 ' l: sl01 -0003:3306065 -teava inst.zinc nefil.m - 25 (1 ) ol 32 1 s 7656 l: sl02a -0005:4113908 -reductie fonta maleabila n4 s 477 25x 15 zn f2 l:sl02b -0052: 4115451 -teu fonta mal b1 s476 dn= 25 1 zn l: sl02c -0071: 4117954 -cot fonta maleabila az",
-      "um": "m",
+      "um": "m2",
       "cantitate": 2.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11590,7 +11590,7 @@
     {
       "cod": "SA19B",
       "denumire": "teava din material plastic pe, , d= 25mm l : sl05 -0022 : 6717079 -teava polietilena inalta densitate, pe100, pn16, dext 25mm l: sl06a -0002 : 6719421 -mufa polietilena, inalta densitate, electrofuziune, d=25mm l: slu01 -0001:0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax",
-      "um": "m",
+      "um": "m2",
       "cantitate": 2.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11813,7 +11813,7 @@
     {
       "cod": "CL21A1",
       "denumire": "montarea confectiilor metalice diverse inglobate in beton l: 10107 -0001:6309886 -confectii metalice inglobate in beton",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 10.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11834,7 +11834,7 @@
     {
       "cod": "SF01B",
       "denumire": "efectuarea probei de etanseitate la presiune a ins tal apa, exec.cu cond.ol pt instal, zn., 1'-2'",
-      "um": "m",
+      "um": "m2",
       "cantitate": 18.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11853,7 +11853,7 @@
     {
       "cod": "SF05A",
       "denumire": "spalarea instalatiei de apa, executata din teava d e otel zincata, d= 3/8' - 2'",
-      "um": "m",
+      "um": "m2",
       "cantitate": 18.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11948,7 +11948,7 @@
     {
       "cod": "SA14J",
       "denumire": "teava din material plastic pe, d=110mm l: sl05 -0020:6717077 -teava polietilena inalta densitate, pe100, pn10, dext 110 l: sl06a -0009: 6719428 -mufa polietilena, inalta densitate, electrofuziune, d=110 l: sl06b -0016: 6719435 -cot polietilena, inalta densitate, electrofuziune, d=110 l: slu01 -0001:0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax",
-      "um": "m",
+      "um": "m2",
       "cantitate": 2.0,
       "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
@@ -11972,7 +11972,7 @@
     {
       "cod": "SA14H",
       "denumire": "teava din material plastic pe, d=75mm l: sl05 -0027: 6717084 - teava polietilena inalta densitate, pe100, pn16, dext 75mm l: sl06a -0007:6719426 -mufa polietilena, inalta densitate, electrofuziune, d=75mm l:sl06b -0014:6719433 -cot polietilena, inalta densitate, electrofuziune, d=75mm l: slu01 -0001 : 0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax",
-      "um": "m",
+      "um": "m2",
       "cantitate": 34.0,
       "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
@@ -11996,7 +11996,7 @@
     {
       "cod": "SA14F",
       "denumire": "teava din material plastic pe, d=50mm l: sl05 -0025: 6717082 -teava polietilena inalta densitate, pe100, pn16, dext.50mm l: sl06a -mufa polietilena, inalta densitate, electrofuziune, d=50mm l: sl06b -0012: 6719431 -cot polietilena, inalta densitate, electrofuziune, d=50mm l: sl06c -0034: 6719453 -teu din polietilena, (pehd), electrofuziune d= 50mm l: slu01 -0001: 0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax",
-      "um": "m",
+      "um": "m2",
       "cantitate": 104.0,
       "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
@@ -12058,7 +12058,7 @@
     {
       "cod": "CE26A",
       "denumire": "etansare rezistenta la foc la trecerile instalatii lor l: lc09b -0007:6102822 -chit de etansare rost keracolor grosso l: lc67i -0063 : 6100334 - solutie tip citom polimerica",
-      "um": "m",
+      "um": "m2",
       "cantitate": 2.0,
       "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
@@ -12118,7 +12118,7 @@
     {
       "cod": "ACE07C1",
       "denumire": "spalarea si desinfectarea conductelor de alimentar e cu apa avind dn 100",
-      "um": "m",
+      "um": "m2",
       "cantitate": 1.4,
       "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
@@ -12137,7 +12137,7 @@
     {
       "cod": "SF02C",
       "denumire": "efectuarea probei de functionare a instalatiei de apa rece, cu teava din d= 16-160 mm asimilat pentru peid toate diametrele",
-      "um": "m",
+      "um": "m2",
       "cantitate": 140.0,
       "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
@@ -12373,7 +12373,7 @@
     {
       "cod": "SF05D1",
       "denumire": "efectuarea probei de etans.la pres si spalat cond de apa, din tub fonta pres.avind d=250-300mm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 95.0,
       "deviz": "4.3-08",
       "deviz_denumire": "Conducte canal incinta",
@@ -12530,7 +12530,7 @@
     {
       "cod": "CA03B",
       "denumire": "bet turnat in fundatii, zid de sprijin pereti sub c ota 0 prep cu centr de bet c10/8 (bc10/bc150) camin electrovane - cv2 1, 5x2, 0x2, 0m",
-      "um": "m",
+      "um": "m2",
       "cantitate": 0.6,
       "deviz": "4.3-04",
       "deviz_denumire": "Camin vane 1 b 1,9x1,9x1,5m",
@@ -12549,7 +12549,7 @@
     {
       "cod": "CA01G",
       "denumire": "preparare bet cu centrala de betoane si punere in opera cu mijl.clasice cl.c30/25 (bc30/b400) camin electrovane - cv2 1,5x2, 0x2, 0m",
-      "um": "m",
+      "um": "m2",
       "cantitate": 5.5,
       "deviz": "4.3-04",
       "deviz_denumire": "Camin vane 1 b 1,9x1,9x1,5m",
@@ -12587,7 +12587,7 @@
     {
       "cod": "CZ0302X1",
       "denumire": "confect armaturi pt.beton armat la constuctii spe- camin electrovane - cv2 1, 5x2, 0x2, 0m",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 25.0,
       "deviz": "4.3-04",
       "deviz_denumire": "Camin vane 1 b 1,9x1,9x1,5m",
@@ -12606,7 +12606,7 @@
     {
       "cod": "CZ0302Y1",
       "denumire": "confect armaturi pt.beton armat la constuctii spe- camin electrovane - cv2 1, 5x2, 0x2, om",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 647.0,
       "deviz": "4.3-04",
       "deviz_denumire": "Camin vane 1 b 1,9x1,9x1,5m",
@@ -12625,7 +12625,7 @@
     {
       "cod": "CC01A1",
       "denumire": "montare armaturi din otel beton d<18mm in fundatii izolate cu distantieri din mase plastice camin electrovane - cv2 1,5x2, 0x2, 0m",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 672.0,
       "deviz": "4.3-04",
       "deviz_denumire": "Camin vane 1 b 1,9x1,9x1,5m",
@@ -12720,7 +12720,7 @@
     {
       "cod": "CL12XC",
       "denumire": "confectii metalice diverse : piese inglobate total s au partial in beton camin electrovane - cv2 1,5x2,0x2, 0m l: 10105 -0024 : 6305074 -console din profile si table",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 80.0,
       "deviz": "4.3-04",
       "deviz_denumire": "Camin vane 1 b 1,9x1,9x1,5m",
@@ -12821,7 +12821,7 @@
     {
       "cod": "TSA02F1",
       "denumire": "sap.man in spatii limit.sub 1m cu taluz vert.nespr .in pam.coez.mij.si f.coez adinc .< 1, 5m t tare",
-      "um": "m",
+      "um": "m2",
       "cantitate": 201.85,
       "deviz": "4.2-1",
       "deviz_denumire": "Terasamente",
@@ -12840,7 +12840,7 @@
     {
       "cod": "RCSA06A",
       "denumire": "umplutura pamant compactat dr=95%",
-      "um": "m",
+      "um": "m2",
       "cantitate": 103.4,
       "deviz": "4.2-1",
       "deviz_denumire": "Terasamente",
@@ -12897,7 +12897,7 @@
     {
       "cod": "TSD02XB",
       "denumire": "imprastierea pam.din ter.cat i-ii, cu buldeze pe tr ctor senile 65-80cp, in straturi gros.de 21-30 cm",
-      "um": "mc",
+      "um": "m2",
       "cantitate": 0.9845,
       "deviz": "4.2-1",
       "deviz_denumire": "Terasamente",
@@ -12916,7 +12916,7 @@
     {
       "cod": "TSD16B1",
       "denumire": "pietris compactat dr=95%",
-      "um": "m",
+      "um": "m2",
       "cantitate": 12.64,
       "deviz": "4.2-1",
       "deviz_denumire": "Terasamente",
@@ -13070,7 +13070,7 @@
     {
       "cod": "CC01C1",
       "denumire": "montare armaturi din otel beton in fundatii conti nue, placi de radiere, cu dist din mase plastice",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 2074.0,
       "deviz": "4.2-2",
       "deviz_denumire": "Structura",
@@ -13089,7 +13089,7 @@
     {
       "cod": "CZ0303C1",
       "denumire": "armatura bst500s",
-      "um": "kg",
+      "um": "tona",
       "cantitate": 2074.0,
       "deviz": "4.2-2",
       "deviz_denumire": "Structura",
@@ -13298,7 +13298,7 @@
     {
       "cod": "DA06A1",
       "denumire": "strat agreg nat (balast) cilindr cu funct rezist fil trant izol aerisire antcap cu asternere manuala balast 20cm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 69.0,
       "deviz": "4.4-2",
       "deviz_denumire": "Parcare",
@@ -13355,7 +13355,7 @@
     {
       "cod": "DA12B1",
       "denumire": "strat fund reprof p sparta pt drum cu asternere mecanica exec cu impanare fara innoroire piatra sparta 12cm",
-      "um": "m",
+      "um": "m2",
       "cantitate": 41.4,
       "deviz": "4.4-2",
       "deviz_denumire": "Parcare",
@@ -13507,7 +13507,7 @@
     {
       "cod": "DE10A1",
       "denumire": "borduri prefabricate din beton pt trotuare 20 x 25 cm, pe fundatie din beton 30 x 15 cm l: 10173 -0228:2100912 -beton marfa clasa c20/16 (bc20/b250)",
-      "um": "m",
+      "um": "m2",
       "cantitate": 132.0,
       "deviz": "4.4-2",
       "deviz_denumire": "Parcare",
