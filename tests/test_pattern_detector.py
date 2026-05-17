@@ -47,3 +47,29 @@ def test_detect_pattern_dragomiresti():
     assert result is not None
     assert result["pattern_name"] == "DRAGOMIRESTI"
     assert result["confidence"] >= 0.30
+
+
+def test_generate_pattern_template_with_llm():
+    """Generate pattern template from unknown format using LLM."""
+    from unittest.mock import patch
+
+    unknown_text = """1 UNKNOWN - NEW FORMAT WITH UNKNOWN NOTATION X 1.00
+some unique indicators
+that don't match known patterns"""
+
+    mock_template = {
+        "name": "UNKNOWN_NEW",
+        "description": "Auto-generated from unknown format",
+        "parent_indicators": ["^\\d+\\s+[A-Z]"],
+        "component_indicators": [],
+        "quantity_rule": "inherit_from_parent"
+    }
+
+    with patch('shared.pattern_detector.generate_pattern_with_llm',
+               return_value=mock_template):
+        result = pattern_detector.generate_pattern_template(
+            unknown_text,
+            pattern_name="UNKNOWN_NEW"
+        )
+        assert result["name"] == "UNKNOWN_NEW"
+        assert "parent_indicators" in result

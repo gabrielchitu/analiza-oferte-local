@@ -68,7 +68,67 @@ def detect_pattern(chapter_text: str, min_confidence: float = 0.70) -> Optional[
             "extraction_rules": best_match.get("extraction_rules", {})
         }
 
+    # No match found - generate new pattern with LLM
+    logger.warning(f"No known pattern matched (best={best_score:.2f}), "
+                   "attempting to generate template with LLM...")
+
+    new_template = generate_pattern_template(chapter_text)
+    save_generated_pattern(new_template)
+
+    return {
+        "pattern_name": new_template["name"],
+        "confidence": 0.50,  # Generated templates start with lower confidence
+        "extraction_rules": new_template.get("extraction_rules", {})
+    }
+
+
+def generate_pattern_with_llm(chapter_text: str) -> Optional[Dict]:
+    """Generate pattern template using LLM analysis.
+
+    This is a placeholder that can be replaced with actual LLM integration.
+    """
+    # This would call actual LLM in production
+    # For now, return None to indicate LLM is not available
     return None
+
+
+def generate_pattern_template(chapter_text: str, pattern_name: str = None) -> Dict:
+    """Generate pattern template for unknown format using LLM.
+
+    Args:
+        chapter_text: Full chapter text to analyze
+        pattern_name: Optional custom name for pattern
+
+    Returns:
+        New pattern template dict
+    """
+    if not pattern_name:
+        pattern_name = f"AUTO_GEN_{len(load_pattern_library().get('patterns', []))+1}"
+
+    # Try LLM-based generation
+    template = generate_pattern_with_llm(chapter_text)
+
+    if template:
+        template["name"] = pattern_name
+        return template
+
+    # Fallback: return minimal template
+    logger.warning(f"LLM template generation unavailable, using fallback for {pattern_name}")
+    return {
+        "name": pattern_name,
+        "description": "Fallback template (LLM unavailable)",
+        "parent_indicators": ["^\\d+\\s+[A-Z]"],
+        "component_indicators": [],
+        "quantity_rule": "inherit_from_parent"
+    }
+
+
+def save_generated_pattern(template: Dict) -> None:
+    """Add generated pattern to pattern library."""
+    library = load_pattern_library()
+    library["patterns"].append(template)
+    save_pattern_library(library)
+    logger.info(f"Saved new pattern: {template['name']}")
 
 
 def _calculate_pattern_confidence(lines: List[str], pattern: Dict) -> float:
