@@ -490,23 +490,29 @@ def _deduplicate_by_code_suffix(articole: List[Dict]) -> List[Dict]:
     return [art for idx, art in enumerate(articole) if idx not in indices_to_remove]
 
 
-def _detect_subcomponent(cod: str, last_cod: str, line_text: str) -> bool:
-    """
-    Detect if a code is a subcomponent based on three patterns:
+def _detect_subcomponent(cod: str, last_cod: str, line_text: str) -> tuple:
+    """Detect if a code is a subcomponent and return parent code if found.
+
+    Returns:
+        (is_component: bool, parent_cod: Optional[str])
+
+    Patterns:
     1. Explicit marker: line contains '>>> componenta'
     2. Suffix pattern: code ends with .L (e.g., 17.L)
     3. Hierarchy: code is N.M format (e.g., 1.1) and last_cod was N
+    4. Prefix: L: marker in line
+    5. Section headers: material:, manopera:, etc.
     """
     if not cod:
-        return False
+        return (False, None)
 
     # Pattern 1: Explicit marker in original line
     if SUBCOMP_EXPLICIT_MARKER_RE.search(line_text):
-        return True
+        return (True, last_cod) if last_cod else (False, None)
 
     # Pattern 2: .L suffix (e.g., 17.L)
     if SUBCOMP_SUFFIX_RE.match(cod):
-        return True
+        return (True, last_cod) if last_cod else (False, None)
 
     # Pattern 3: Hierarchy (1.1 under parent 1, 2.3 under parent 2)
     hier_match = HIERARCHY_CODE_RE.match(cod)
@@ -514,9 +520,17 @@ def _detect_subcomponent(cod: str, last_cod: str, line_text: str) -> bool:
         parent_id = hier_match.group(1)
         # Check if last_cod matches parent pattern (e.g., just "1" or "2")
         if last_cod and re.match(rf'^{re.escape(parent_id)}$', last_cod):
-            return True
+            return (True, last_cod)
 
-    return False
+    # Pattern 4: Prefix in line (L: marker)
+    if re.search(r'^\s*L:\s*[A-Z0-9]+\s+-', line_text):
+        return (True, last_cod) if last_cod else (False, None)
+
+    # Pattern 5: After section headers (material:, manopera:, etc.)
+    if re.search(r'(material|manopera|utilaj|transport):\s*$', line_text, re.IGNORECASE):
+        return (True, last_cod) if last_cod else (False, None)
+
+    return (False, None)
 
 
 def extract_articles_regex(lines: List[str], deviz_cod: str,
@@ -586,10 +600,17 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             elif re.search(r"deviz\s+['\"]?\d{5,8}['\"]?\s*[-–]?\s*formular\s+f3", den_joined, re.IGNORECASE):
                 logger.debug(f"[PARSER] Skip cod cu footer eDevize in denominatie: {cod}")
             else:
-                is_subcomp = explicit_component_marker or _detect_subcomponent(cod, last_article_cod, ' '.join(denumire_parts))
+                is_subcomp_detected, parent_cod = _detect_subcomponent(cod, last_article_cod, ' '.join(denumire_parts))
+                is_subcomp = explicit_component_marker or is_subcomp_detected
                 subcomp_codes = _extract_subcomponent_codes(den_joined)
+
+                # Use parent_cod from detection if not already marked explicitly
+                if explicit_component_marker and not parent_cod:
+                    parent_cod = last_article_cod
+
                 art = _make_article(cod, den_joined, um, cantitate,
                                     preturi, deviz_cod, deviz_den, is_component=is_subcomp,
+                                    parent_code=parent_cod,
                                     subcomponents=subcomp_codes)
                 articole.append(art)
                 logger.debug(f"[PARSER] Articol finalizat: {cod} ({um}, {cantitate}), subcomponents: {subcomp_codes}")

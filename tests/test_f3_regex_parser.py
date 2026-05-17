@@ -2,6 +2,14 @@
 from shared import f3_regex_parser
 
 
+def test_extract_components_from_denomination():
+    """Extract subcomponent codes from parent denomination."""
+    denom = "teava din material plastic pe, d=110mm l: sl05 -0020:6717077 -teava polietilena"
+
+    codes = f3_regex_parser._extract_subcomponent_codes(denom)
+    assert "6717077" in codes
+
+
 def test_make_article_with_parent_code():
     """Article can have parent_code for component tracking."""
     art = f3_regex_parser._make_article(
