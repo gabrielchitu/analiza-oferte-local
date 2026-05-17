@@ -15,6 +15,8 @@ import logging
 from typing import List, Dict, Tuple
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+from shared.pattern_detector import detect_pattern, load_pattern_library
+
 logger = logging.getLogger(__name__)
 
 
@@ -700,6 +702,16 @@ def extract_articles_v3(page_classifications: list) -> list:
 
         if not all_lines:
             continue
+
+        # Pass 1: Detect pattern from chapter sample
+        sample_text = "\n".join(all_lines[:min(50, len(all_lines))])
+        detected = detect_pattern(sample_text)
+
+        if detected:
+            logger.info(f"[PATTERN] {deviz_cod}: Detected {detected['pattern_name']} "
+                       f"(confidence={detected['confidence']:.2f})")
+        else:
+            logger.warning(f"[PATTERN] {deviz_cod}: No pattern detected, using standard extraction")
 
         # Apelează parser o singură dată pe TOATE paginile devizului
         # Aceasta menține last_nr_crt corect pe tot devizul
