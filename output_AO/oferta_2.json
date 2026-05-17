@@ -121,7 +121,7 @@
       "_deviz_original": "Terasam"
     },
     {
-      "cod": "RPCS18A+",
+      "cod": "RPCS18A",
       "denumire": "desfaceri trotuare perimetrale din beton",
       "um": "mp",
       "cantitate": 388.1,
@@ -701,7 +701,7 @@
       "_deviz_original": "Structura"
     },
     {
-      "cod": "CA05B+",
+      "cod": "CA05B",
       "denumire": "turnare beton armat c25/30 fundatii fundatii noi scari noi acces",
       "um": "mc",
       "cantitate": 2.6,
@@ -801,7 +801,7 @@
       "_deviz_original": "Structura"
     },
     {
-      "cod": "CA05B+",
+      "cod": "CA05B",
       "denumire": "beton c25/30 pardoseala (10cm grosime) scari noi acces",
       "um": "mc",
       "cantitate": 1.72,
@@ -1561,7 +1561,7 @@
       "_deviz_original": "Structura"
     },
     {
-      "cod": "CA05B+",
+      "cod": "CA05B",
       "denumire": "turnare beton armat c25/30",
       "um": "mc",
       "cantitate": 19.54,
@@ -1681,11 +1681,11 @@
       "_deviz_original": "Structura"
     },
     {
-      "cod": "CK23A+",
+      "cod": "CK23A",
       "denumire": "ferestre tamplarie pvc cu minim 5 camere, clasa a geam tripan culoare gri antracit, low e-argon-float-argon-low e",
       "um": "mp",
       "cantitate": 66.91,
-      "deviz": "4.1-03",
+      "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
@@ -1701,7 +1701,7 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "CK08A+",
+      "cod": "CK08A",
       "denumire": "fereastra ei-90', tamplarie metalica; culoare gri antracit; clasa a ?i geam tripan 4-16-4-16-4 low e argon-float-argon- low e; r'min>0,87 m2k/w.",
       "um": "mp",
       "cantitate": 4.75,
@@ -1721,11 +1721,11 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "CK25A+",
+      "cod": "CK25A",
       "denumire": "tamplarie pvc, 5 camere, geam triplu termoizolant, low-e-usi exterioare panou inferior pvc; sistem de autoinchidere bara antipanica",
       "um": "mp",
       "cantitate": 16.19,
-      "deviz": "4.1-03",
+      "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
@@ -1761,7 +1761,7 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "CK21A+",
+      "cod": "CK21A",
       "denumire": "us-c usa dubla prevazuta cu sistem de autoinchider e si bara antipanica; tamplarie aluminiu ei15 culoare gri antracit; geam clar tripan cu straturi",
       "um": "mp",
       "cantitate": 6.39,
@@ -1841,7 +1841,7 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "RPCN15C+",
+      "cod": "RPCN15C",
       "denumire": "profil cu picurator tamplarie",
       "um": "m",
       "cantitate": 52.37,
@@ -1961,7 +1961,7 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "IZC06A+",
+      "cod": "IZC06A",
       "denumire": "hidroizolatie bituminoasa pensulabila-soclu",
       "um": "mp",
       "cantitate": 105.16,
@@ -1981,7 +1981,7 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "IZF71B+",
+      "cod": "IZF71B",
       "denumire": "montaj termoizolatie - polistiren extrudat 10cm soclu inclusiv adeziv bituminos",
       "um": "mp",
       "cantitate": 105.16,
@@ -2041,7 +2041,7 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "RPCN15C+",
+      "cod": "RPCN15C",
       "denumire": "profil aluminiu termosistem pentru exterior cu picurator stadiul fizic: arhitectura - eligibile tip i",
       "um": "m",
       "cantitate": 131.45,
@@ -2161,7 +2161,7 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "RPCE54A+",
+      "cod": "RPCE54A",
       "denumire": "folie anticondens cu strat de ventilare lucrari la nivelul invelitorii",
       "um": "mp",
       "cantitate": 807.11,
@@ -2201,7 +2201,7 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "CN52A+",
+      "cod": "CN52A",
       "denumire": "tratament lemn - ignifugare cu soluție magma fires top sbp10, 2 straturi manual stadiul fizic: arhitectura - eligibile tip i",
       "um": "mp",
       "cantitate": 807.11,
@@ -2221,7 +2221,7 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "CN53A+",
+      "cod": "CN53A",
       "denumire": "tratament lemn -prot insecto -fungicida cu soluție woodprotect 611, 2 straturi prin pulverizare",
       "um": "mp",
       "cantitate": 807.11,
@@ -2301,7 +2301,7 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "RPCN15C+",
+      "cod": "RPCN15C",
       "denumire": "profil picurator pazie prevopsita, culoare gri",
       "um": "m",
       "cantitate": 150.85,
@@ -2381,7 +2381,7 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "IZF109A01+",
+      "cod": "IZF109A01",
       "denumire": "vata minerala bazaltica 30cm",
       "um": "mp",
       "cantitate": 101.2,
@@ -2421,7 +2421,7 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "RPCE28A+",
+      "cod": "RPCE28A",
       "denumire": "hidroizolatie din 2 straturi de mastic bituminos+1 strat amorsa armata cu plasa din fibre de sticla",
       "um": "mp",
       "cantitate": 134.76,
@@ -2501,7 +2501,7 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "RPCE07B+",
+      "cod": "RPCE07B",
       "denumire": "strat de bariera contra vaporilor cu folie de polietilena montata prin asezare",
       "um": "mp",
       "cantitate": 1134.76,
@@ -2961,11 +2961,11 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "IZC05C+",
+      "cod": "IZC05C",
       "denumire": "hidroizolatie pensulabila bituminoasa- platforme a cces",
       "um": "mp",
       "cantitate": 17.42,
-      "deviz": "4.1-03",
+      "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
@@ -3061,7 +3061,7 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "CF12A01+",
+      "cod": "CF12A01",
       "denumire": "tencuiala pe zidarie refacere finisaje interioare in zonele de interven",
       "um": "mp",
       "cantitate": 741.26,
@@ -3221,11 +3221,11 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "RPCG30C+",
+      "cod": "RPCG30C",
       "denumire": "sistem compartimentare pereti hpl pe picioruse asim",
       "um": "mp",
       "cantitate": 17.68,
-      "deviz": "4.1-03",
+      "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
@@ -3321,7 +3321,7 @@
       "_deviz_original": "Arhitectura"
     },
     {
-      "cod": "CN01C+",
+      "cod": "CN01C",
       "denumire": "vopsea lavabila tavan",
       "um": "mp",
       "cantitate": 562.56,
@@ -8661,7 +8661,7 @@
       "_deviz_original": "Instalatii"
     },
     {
-      "cod": "IZD06A+",
+      "cod": "IZD06A",
       "denumire": "izolație vata minerala caserata d=20mm",
       "um": "mp",
       "cantitate": 170.0,
@@ -8681,7 +8681,7 @@
       "_deviz_original": "Instalatii"
     },
     {
-      "cod": "IZD06B+",
+      "cod": "IZD06B",
       "denumire": "izolație vata minerala d=50mm",
       "um": "mp",
       "cantitate": 130.0,
@@ -12181,7 +12181,7 @@
       "_deviz_original": "Camin"
     },
     {
-      "cod": "CA01G+",
+      "cod": "CA01G",
       "denumire": "preparare bet cu centrala de betoane si punere in opera cu mijl.clasice cl.c30/25(bc30/b400) cămin electrovane - cv2 1,5x2,0x2,om",
       "um": "mc",
       "cantitate": 5.5,

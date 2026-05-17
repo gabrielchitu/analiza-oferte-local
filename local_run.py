@@ -947,6 +947,15 @@ def main():
         if invalid_count > 0:
             logger.info(f"  Removed {invalid_count} articles with no code (truly unparseable)")
 
+        # Normalize article codes FIRST: remove trailing '+' suffix (OCR artifacts)
+        # Some extracted codes have '+' appended (e.g., IZC05C+, RPCG30C+) that don't match referinta
+        # This must happen BEFORE code-based deviz correction so codes can be found in reference map
+        articles_with_plus = [a for a in oferta_articles if '+' in a.get('cod', '')]
+        if articles_with_plus:
+            for art in articles_with_plus:
+                art['cod'] = art['cod'].rstrip('+')
+            logger.info(f"  [NORMALIZE] Removed '+' suffix from {len(articles_with_plus)} article codes")
+
         # Apply deviz code remapping for OFERTA before saving
         # This handles text-only devizes (e.g. "Arhitectura") → numeric codes (e.g. "4.1-03")
         from shared.deviz_matcher import match_devize_by_denomination, remap_devize_in_articles, remap_devize_by_code_preference
