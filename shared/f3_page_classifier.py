@@ -239,8 +239,21 @@ def _extract_grouping_key(lines: list[str]) -> dict:
             "categoria": {"num": cat_num, "text": cat_text},
         }
 
-    # Both text parts present (at least) but numeric missing → partial
+    # Both text parts present (at least) but numeric missing → try catalog first
     if obj_text or cat_text:
+        from shared.deviz_catalog import find_deviz_for_text
+
+        # Try catalog lookup on cat_text first (most specific), then obj_text
+        catalog_code = find_deviz_for_text(cat_text) or find_deviz_for_text(obj_text)
+        if catalog_code:
+            return {
+                "method": "catalog_resolved",
+                "deviz_cod": catalog_code,
+                "obiectul": {"num": obj_num, "text": obj_text},
+                "categoria": {"num": cat_num, "text": cat_text},
+            }
+
+        # Fallback to partial sentinel
         sentinel = f"__partial__{obj_text[:40]}:{cat_text[:40]}"
         return {
             "method": "partial",

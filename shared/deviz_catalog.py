@@ -7,12 +7,19 @@ Used to resolve ambiguous page-level text to precise numeric deviz codes.
 
 # Mapping: deviz_denomination (from page text) → numeric_code
 # These come from analyzing referinta deviz structure
+# NOTE: Longer keys are matched first (substring matching), so order specificity: longer first
 DEVIZ_BY_DENOMINATION = {
     # Terasamente
     "terasam desf conexe": "4.1-01",
+    "terasam canal": "4.1-01",
     "structura conexe": "4.1-02",
+    "structura": "4.1-02",
+
+    # Arhitectura (eligibili is more common, so it's default for ambiguous "Arhitectura")
+    "arhitectura - eligibili": "4.1-03",
+    "arhitectura eligibili": "4.1-03",
     "arhitectura conexe": "4.1-04",
-    "terasamente": "4.2-1",
+    "arhitectura": "4.1-03",
 
     # Instalații electrice
     "inst electrice tip": "4.1-05",
@@ -23,10 +30,13 @@ DEVIZ_BY_DENOMINATION = {
     "inst detectie incendiu": "4.1-08",
 
     # Instalații termice și sanitare
+    "inst sanit hidranti": "4.1-13",
     "instalatii termice": "4.1-09",
     "instalatii hvac": "4.1-10",
     "inst apa calda": "4.1-11",
     "instalatii ventilatii": "4.1-12",
+    "inst sanitare gosp": "4.1-13",
+    "instalatii sanitare gosp": "4.1-13",
     "instalatii sanitare": "4.1-13",
 
     # Echipamente
@@ -37,11 +47,21 @@ DEVIZ_BY_DENOMINATION = {
     "echipam detect inc": "4.1-20",
     "echipam el paratras": "4.1-21",
 
-    # Utilitari și speciale
+    # Utilitari și speciale - incinta
+    "instalatii incinta": "4.3-01",
+
+    # Utilitari - camine
     "camine canal": "4.3-03",
+    "camin": "4.3-04",
+
+    # Utilitari - conducte
     "conducte apa": "4.3-07",
     "conducte canal": "4.3-08",
+
+    # Parcare
     "parcare": "4.4-2",
+
+    # Lucrari
     "lucrari": "5.1-1",
 }
 

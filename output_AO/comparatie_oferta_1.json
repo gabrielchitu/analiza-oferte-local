@@ -253,7 +253,7 @@
       "ref_val_utilaj": 0.0,
       "ref_val_transport": 0.0,
       "oferta_cod": "TRI1AC12C6",
-      "oferta_denumire": "descarcare mat.gr.c - ambalate, sub 10kg deplas prin purtare pina la 10m, fragil vagon - teren categ.3 * $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă",
+      "oferta_denumire": "descarcare mat.gr.c - ambalate, sub 10kg deplas prin purtare pina la 10m, fragil vagon - teren categ.3 * $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă antet stanga edevize recapitulatie valoare material beneficiu t4 = t3 + beneficiu director sef proiect ofertant, sc global electro construct srl devize (www.edevize.ro)",
       "oferta_um": "",
       "oferta_cantitate": 5.45,
       "oferta_pret_material": 0.0,
@@ -979,14 +979,14 @@
       "ref_val_utilaj": 0.0,
       "ref_val_transport": 0.0,
       "oferta_cod": "TRA02A25",
-      "oferta_denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ camin electrovane cv2 1,5x2, 0x2, 0m tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu director sef proiect ofertant, sc global electro construct srl devize (www.edevize.ro)",
+      "oferta_denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ camin electrovane cv2 1,5x2, 0x2, 0m tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu director sef proiect ofertant, sc global electro construct srl devize (www.edevize.ro) antet stanga edevize beneficiar: primaria comunei maneciu executant: pro infra build obiectivul: scn1156659_01 crestere eficientei energetice in cadrul caminului cultural maneciu, judetul prahova 4.2 rezistenta gosp apa tip iii e devize formular f4 nr denumirea u.m cantitatea pretul unitar - lei - valoarea - lei - nr fisa tehnica",
       "oferta_um": "",
       "oferta_cantitate": 0.35,
       "oferta_pret_material": 0.0,
       "oferta_pret_manopera": 0.0,
       "oferta_pret_utilaj": 0.0,
       "oferta_pret_transport": 0.0,
-      "oferta_val_material": 0.0,
+      "oferta_val_material": 1.0,
       "oferta_val_manopera": 0.0,
       "oferta_val_utilaj": 0.0,
       "oferta_val_transport": 0.0
@@ -1158,6 +1158,66 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.3-08",
+      "deviz_denumire": "Conducte canal incinta",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "TRI1AC01C6",
+      "oferta_denumire": "incarcare mat, deplas prin purtare pina la 10m, fra gil teren vagon categ.3 * $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă antet stanga edevize recapitulatie valoare material beneficiu t4 = t3 + beneficiu director sef proiect ofertant, sc global electro construct srl devize (www.edevize.ro)",
+      "oferta_um": "",
+      "oferta_cantitate": 2.1
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.1-03",
+      "deviz_denumire": "Arhitectura - eligibile tip I",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "TRI1AC12C6",
+      "oferta_denumire": "descarcare mat gr c - ambalate, sub 10kg deplas prin purtare pina la 10m, fragil vagon - teren categ 3 * $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu director sef proiect ofertant, sc global electro construct srl devize (www.edevize.ro)",
+      "oferta_um": "",
+      "oferta_cantitate": 93.46
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.1-11",
+      "deviz_denumire": "Inst apa cald panou solar tipI",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "TRA02A25",
+      "oferta_denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist = 25 km $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă antet stanga edevize recapitulatie valoare material beneficiu t4 = t3 + beneficiu director sef proiect ofertant, sc global electro construct srl devize (www.edevize.ro)",
+      "oferta_um": "",
+      "oferta_cantitate": 1.0
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.2-2",
+      "deviz_denumire": "Structura",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "RPCB02E",
+      "oferta_denumire": "beton c12 / 15 egalizare m cub",
+      "oferta_um": "",
+      "oferta_cantitate": 2.17
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.3-05",
+      "deviz_denumire": "Instalatii camin apometru",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "TRB05A24",
+      "oferta_denumire": "transportul materialelor prin purtat direct materi ale incomode sub 25 kg distanta 40m $ tone greutate materiale (tone) ore manopera material recapitulatie valoare material antet stanga edevize recapitulatie valoare material contribuția asiguratorie pentru muncă beneficiu t4 = t3 + beneficiu director sef proiect ofertant, sc global electro construct srl devize (www.edevize.ro)",
+      "oferta_um": "",
+      "oferta_cantitate": 0.3
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
@@ -1195,18 +1255,6 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.2-2",
-      "deviz_denumire": "Structura",
-      "is_component": false,
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "RPCB02E",
-      "oferta_denumire": "beton c12 / 15 egalizare m cub",
-      "oferta_um": "",
-      "oferta_cantitate": 2.17
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
@@ -1230,7 +1278,7 @@
       "oferta_cantitate": 756.39
     }
   ],
-  "total_neconformitati": 42,
-  "matches": 689,
+  "total_neconformitati": 46,
+  "matches": 683,
   "deviz_mismatches": []
 }
