@@ -193,7 +193,7 @@ _PRICE_LABEL_RE = re.compile(r'^(material|manopera|utilaj|transport)\s*:', re.IG
 
 UM_KNOWN = {
     # Volum / masa / lungime
-    'BUC', 'BUCATA', 'MC', 'ML', 'MP', 'MPC', 'KG', 'T', 'TO', 'TON', 'TONA', 'G', 'MG',
+    'BUC', 'BUCATA', 'BUCAT', 'MC', 'ML', 'MP', 'MPC', 'KG', 'T', 'TO', 'TON', 'TONA', 'G', 'MG',
     'L', 'M', 'H', 'CM', 'DM', 'KM',
     # Electric
     'KW', 'KWH', 'KVA', 'W',
@@ -303,6 +303,9 @@ def _normalize_um_value(token: str) -> str:
         return ''
 
     if t in UM_KNOWN:
+        # Normalize partial/variant forms
+        if t == 'BUCAT':  # OCR split: BUCATA → BUCAT (A on next line)
+            return 'BUC'
         return t
 
     # Only attempt fuzzy match if token contains non-letter OCR noise: ?, !, |, ~, ^
