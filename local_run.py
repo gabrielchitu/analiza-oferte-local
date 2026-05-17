@@ -277,7 +277,7 @@ def _reclassify_missed_f3_pages(
     return page_classes_updated, True
 
 
-def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list | None = None) -> tuple[list, dict | None]:
+def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list | None = None, reference_articles: list | None = None) -> tuple[list, dict | None]:
     """
     Extrage articolele F3 dintr-un DI JSON.
     Foloseste checkpoint daca exista — sare peste clasificarea LLM (pasul lent).
@@ -290,6 +290,7 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
         client: Anthropic client
         model: Model ID
         ref_deviz_groups: Optional list of reference deviz groups (for LLM partial key resolution)
+        reference_articles: Optional list of reference articles (for dynamic deviz text mapping)
 
     Returns: tuple of (articles, checkpoint_data)
         articles: list of extracted articles
@@ -317,7 +318,7 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
             checkpoint_data = ckpt.get("metadata", {})
     else:
         logger.info(f"  Clasificare pagini cu LLM (poate dura 2-5 min)...")
-        page_classes, checkpoint_data = classify_pages(pages, client, model)
+        page_classes, checkpoint_data = classify_pages(pages, client, model, reference_articles=reference_articles)
         checkpoint.write_text(
             json.dumps({
                 "page_classes": page_classes,
@@ -891,7 +892,7 @@ def main():
         ofertant_name = _extract_ofertant_name(oferta_path)
         if ofertant_name:
             logger.info(f"  Ofertant: {ofertant_name}")
-        oferta_articles, oferta_checkpoint_data = extract_document(oferta_path, client, model, ref_deviz_groups=ref_deviz_groups)
+        oferta_articles, oferta_checkpoint_data = extract_document(oferta_path, client, model, ref_deviz_groups=ref_deviz_groups, reference_articles=ref_articles)
 
         # Save deviz checkpoint after offer extraction
         if oferta_checkpoint_data:

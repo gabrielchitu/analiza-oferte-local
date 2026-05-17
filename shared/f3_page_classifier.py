@@ -189,23 +189,27 @@ def _non_f3() -> dict:
     }
 
 
-def _extract_grouping_key(lines: list[str]) -> dict:
+def _extract_grouping_key(lines: list[str], deviz_text_map: dict = None) -> dict:
     """
     Extract the grouping key for a page's deviz section.
 
     Priority:
     1. Explicit 'Deviz Oferta XXXXX' (5-8 chars) → 'explicit'
     2. Obiectul (numeric) + Categoria/Stadiul (numeric) → 'compound', deviz_cod='X.Y-NN'
-    3. Obiectul (text) + Categoria/Stadiul (text), both present → 'partial'
-       deviz_cod = provisional sentinel '__partial__:{obj_text[:40]}:{cat_text[:40]}'
-    4. Nothing extractable → 'none', deviz_cod=''
+    3. Obiectul (text) + Categoria/Stadiul (text), match against reference → 'reference_matched'
+    4. Obiectul (text) + Categoria/Stadiul (text), no match → 'partial' sentinel
+    5. Nothing extractable → 'none', deviz_cod=''
+
+    Args:
+        lines: Page lines
+        deviz_text_map: Dynamic map from reference data (deviz → list of texts)
 
     Returns:
         {
-          'method': 'explicit'|'compound'|'partial'|'none',
-          'deviz_cod': str,       # compound/explicit: real key; partial: sentinel; none: ''
-          'obiectul':  {'num': str, 'text': str} | None,
-          'categoria': {'num': str, 'text': str} | None,
+          'method': str,          # 'explicit'|'compound'|'reference_matched'|'partial'|'none'
+          'deviz_cod': str,       # numeric code or sentinel
+          'obiectul': dict | None,
+          'categoria': dict | None,
         }
     """
     full = " ".join(lines)
@@ -239,21 +243,23 @@ def _extract_grouping_key(lines: list[str]) -> dict:
             "categoria": {"num": cat_num, "text": cat_text},
         }
 
-    # Both text parts present (at least) but numeric missing → try catalog first
+    # Both text parts present (at least) but numeric missing → try reference match
     if obj_text or cat_text:
         from shared.deviz_catalog import find_deviz_for_text
 
-        # Try catalog lookup on cat_text first (most specific), then obj_text
-        catalog_code = find_deviz_for_text(cat_text) or find_deviz_for_text(obj_text)
-        if catalog_code:
-            return {
-                "method": "catalog_resolved",
-                "deviz_cod": catalog_code,
-                "obiectul": {"num": obj_num, "text": obj_text},
-                "categoria": {"num": cat_num, "text": cat_text},
-            }
+        # Try matching against actual reference texts
+        if deviz_text_map:
+            # Try cat_text first (more specific), then obj_text
+            ref_deviz = find_deviz_for_text(cat_text, deviz_text_map) or find_deviz_for_text(obj_text, deviz_text_map)
+            if ref_deviz:
+                return {
+                    "method": "reference_matched",
+                    "deviz_cod": ref_deviz,
+                    "obiectul": {"num": obj_num, "text": obj_text},
+                    "categoria": {"num": cat_num, "text": cat_text},
+                }
 
-        # Fallback to partial sentinel
+        # Fallback to partial sentinel if no reference map or no match
         sentinel = f"__partial__{obj_text[:40]}:{cat_text[:40]}"
         return {
             "method": "partial",
@@ -294,19 +300,23 @@ def _extract_deviz_name_from_formular_f3(full_content: str) -> str:
     return ""
 
 
-def classify_page_local(page: dict) -> dict:
+def classify_page_local(page: dict, deviz_text_map: dict = None) -> dict:
     """
     Classify a DI JSON page without LLM. Two-phase algorithm:
     Phase A: Fast non-F3 detection
     Phase B: F3 detection and grouping key extraction
 
+    Args:
+        page: DI JSON page object
+        deviz_text_map: Dynamic map from reference (deviz → list of texts)
+
     Returns:
         {
           "label": "F3" | "NON_F3" | "AMBIGUOUS",
-          "deviz_cod": str,        # compound, explicit, partial sentinel, or ''
+          "deviz_cod": str,        # numeric code, explicit, sentinel, or ''
           "deviz_den": str,
           "is_header": bool,
-          "extraction_method": str,  # 'compound'|'explicit'|'partial'|'none'
+          "extraction_method": str,  # 'compound'|'explicit'|'reference_matched'|'partial'|'none'
           "obiectul": dict | None,   # {'num': str, 'text': str}
           "categoria": dict | None,
         }
@@ -383,7 +393,7 @@ def classify_page_local(page: dict) -> dict:
 
     # ── Phase C: Grouping key extraction (same logic for ALL F3 pages) ────────
 
-    key = _extract_grouping_key(lines)
+    key = _extract_grouping_key(lines, deviz_text_map)
 
     # Special guard: Formular F3 with no key AND no article codes
     # = eDevize signature/footer page (e.g., 'Deviz "07" - Formular F3')
@@ -477,11 +487,18 @@ def build_page_classifications(
     pages: list[dict],
     document_type: str = "unknown",
     source_path: str = "",
+    deviz_text_map: dict = None,
 ) -> tuple[list[dict], dict]:
     """
     Classify all pages and propagate deviz codes.
     Partial sentinel keys are propagated during this phase;
     LLM resolution (Phase 2) replaces them with compound keys.
+
+    Args:
+        pages: List of DI JSON pages
+        document_type: "reference" or "offer"
+        source_path: Original file path
+        deviz_text_map: Dynamic map from reference data (deviz → texts)
 
     Returns: tuple of (results, checkpoint)
         results: list[dict] cu câmpuri:
@@ -496,7 +513,7 @@ def build_page_classifications(
     for page in pages:
         lines = _extract_lines(page)
         page_number = page.get("page_number", 0)
-        local = classify_page_local(page)
+        local = classify_page_local(page, deviz_text_map)
 
         base = {
             "page_number": page_number,
@@ -796,22 +813,39 @@ def classify_pages(
     deployment: str,
     document_type: str = "unknown",
     source_path: str = "",
+    reference_articles: list | None = None,
 ) -> tuple[list[dict], dict]:
     """
     Pipeline complet de clasificare pagini.
 
     1. Clasificare locală + propagare deviz (build_page_classifications)
        Paginile F3 fără deviz_cod (regex nu a găsit) sunt marcate needs_llm=True.
+       Foloseste deviz_text_map din reference articles pentru dynamic matching.
     2. LLM batch pentru toate paginile cu needs_llm=True:
        — clasifică (AMBIGUOUS → F3/NON_F3)
        — extrage deviz_cod pentru orice format, indiferent de soft
     3. Gardă zero-F3 (warning dacă niciuna nu e F3)
 
+    Args:
+        pages: List of DI pages
+        openai_client: Client for LLM
+        deployment: LLM deployment/model
+        document_type: "reference" or "offer"
+        source_path: Source file path
+        reference_articles: Optional list of reference articles for dynamic deviz mapping
+
     Returns: tuple of (results, checkpoint)
         results: list[dict] cu is_f3, deviz_cod, deviz_den, lines, page_number
         checkpoint: dict with deviz mapping and metadata
     """
-    results, checkpoint = build_page_classifications(pages, document_type, source_path)
+    # Build dynamic deviz text map from reference articles if available
+    deviz_text_map = None
+    if reference_articles:
+        from shared.deviz_catalog import build_deviz_text_map
+        deviz_text_map = build_deviz_text_map(reference_articles)
+        logger.info(f"[PC] Built dynamic deviz map from {len(reference_articles)} reference articles")
+
+    results, checkpoint = build_page_classifications(pages, document_type, source_path, deviz_text_map)
 
     # Marcăm și paginile F3 fără deviz_cod ca needs_llm (LLM extrage codul)
     for r in results:

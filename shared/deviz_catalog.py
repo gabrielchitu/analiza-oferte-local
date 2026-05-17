@@ -1,90 +1,95 @@
 """
-Deviz Catalog — Maps deviz denominations to numeric codes.
+Deviz Matcher — Dynamically matches deviz denominations from reference data.
 
-This is the source of truth for all deviz mappings extracted from referinta.
-Used to resolve ambiguous page-level text to precise numeric deviz codes.
+Instead of using a hardcoded catalog, extracts actual denomination texts
+from reference articles and uses them to classify pages in offers.
 """
 
-# Mapping: deviz_denomination (from page text) → numeric_code
-# These come from analyzing referinta deviz structure
-# NOTE: Longer keys are matched first (substring matching), so order specificity: longer first
-DEVIZ_BY_DENOMINATION = {
-    # Terasamente
-    "terasam desf conexe": "4.1-01",
-    "terasam canal": "4.1-01",
-    "structura conexe": "4.1-02",
-    "structura": "4.1-02",
+from difflib import SequenceMatcher
+import logging
 
-    # Arhitectura (eligibili is more common, so it's default for ambiguous "Arhitectura")
-    "arhitectura - eligibili": "4.1-03",
-    "arhitectura eligibili": "4.1-03",
-    "arhitectura conexe": "4.1-04",
-    "arhitectura": "4.1-03",
-
-    # Instalații electrice
-    "inst electrice tip": "4.1-05",
-    "inst electrice ilum": "4.1-06",
-
-    # Instalații speciale
-    "instal el paratrás": "4.1-07",
-    "inst detectie incendiu": "4.1-08",
-
-    # Instalații termice și sanitare
-    "inst sanit hidranti": "4.1-13",
-    "instalatii termice": "4.1-09",
-    "instalatii hvac": "4.1-10",
-    "inst apa calda": "4.1-11",
-    "instalatii ventilatii": "4.1-12",
-    "inst sanitare gosp": "4.1-13",
-    "instalatii sanitare gosp": "4.1-13",
-    "instalatii sanitare": "4.1-13",
-
-    # Echipamente
-    "echipam el tablouri": "4.1-15",
-    "echipamente hvac": "4.1-16",
-    "echipam apa calda": "4.1-17",
-    "echipam panouri solare": "4.1-18",
-    "echipam detect inc": "4.1-20",
-    "echipam el paratras": "4.1-21",
-
-    # Utilitari și speciale - incinta
-    "instalatii incinta": "4.3-01",
-
-    # Utilitari - camine
-    "camine canal": "4.3-03",
-    "camin": "4.3-04",
-
-    # Utilitari - conducte
-    "conducte apa": "4.3-07",
-    "conducte canal": "4.3-08",
-
-    # Parcare
-    "parcare": "4.4-2",
-
-    # Lucrari
-    "lucrari": "5.1-1",
-}
+logger = logging.getLogger(__name__)
 
 
-def find_deviz_for_text(text: str) -> str | None:
+def build_deviz_text_map(reference_articles: list) -> dict:
     """
-    Find numeric deviz code for a given text denomination.
-
-    Args:
-        text: Text from "STADIUL FIZIC" or similar page header
+    Build a map of deviz codes to their denomination texts from reference data.
 
     Returns:
-        Numeric deviz code (e.g., "4.1-01") or None if not found
+        {
+            'deviz_code': {
+                'texts': [list of unique denomination texts],
+                'count': total articles
+            }
+        }
     """
-    if not text:
+    deviz_map = {}
+
+    for art in reference_articles:
+        deviz = (art.get('deviz') or '').strip()
+        denom = (art.get('deviz_denumire') or '').strip()
+
+        if not deviz:
+            continue
+
+        if deviz not in deviz_map:
+            deviz_map[deviz] = {'texts': set(), 'count': 0}
+
+        deviz_map[deviz]['count'] += 1
+        if denom:
+            deviz_map[deviz]['texts'].add(denom.lower())
+
+    # Convert sets to sorted lists for consistent matching
+    for deviz in deviz_map:
+        deviz_map[deviz]['texts'] = sorted(list(deviz_map[deviz]['texts']))
+
+    logger.info(f"[DEVIZ-MAP] Built dynamic map from {len(reference_articles)} reference articles")
+    logger.info(f"[DEVIZ-MAP] Devizes: {sorted(deviz_map.keys())}")
+
+    return deviz_map
+
+
+def _text_similarity(text_a: str, text_b: str) -> float:
+    """Calculate similarity between two texts (0.0 to 1.0)."""
+    if not text_a or not text_b:
+        return 0.0
+    return SequenceMatcher(None, text_a.lower(), text_b.lower()).ratio()
+
+
+def find_deviz_for_text(text: str, deviz_text_map: dict) -> str | None:
+    """
+    Find numeric deviz code by matching text against reference denominations.
+
+    Args:
+        text: Text from page (e.g., "Arhitectura - eligibili tip I")
+        deviz_text_map: Map built from reference data via build_deviz_text_map()
+
+    Returns:
+        Numeric deviz code (e.g., "4.1-03") or None if no good match
+    """
+    if not text or not deviz_text_map:
         return None
 
     text_lower = text.lower().strip()
+    best_deviz = None
+    best_score = 0.0
 
-    # Exact substring match (longer matches first, better specificity)
-    for denom_key in sorted(DEVIZ_BY_DENOMINATION.keys(), key=len, reverse=True):
-        if denom_key in text_lower:
-            return DEVIZ_BY_DENOMINATION[denom_key]
+    # Try each deviz's texts
+    for deviz, info in deviz_text_map.items():
+        for ref_text in info['texts']:
+            # Exact substring match (highest priority)
+            if ref_text in text_lower or text_lower in ref_text:
+                return deviz
+
+            # Fuzzy match
+            score = _text_similarity(text_lower, ref_text)
+            if score > best_score:
+                best_score = score
+                best_deviz = deviz
+
+    # Return best match if above threshold
+    if best_score >= 0.65:
+        return best_deviz
 
     return None
 
