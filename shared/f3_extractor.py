@@ -48,6 +48,45 @@ def _normalize_denom(text: str) -> str:
     return text.strip()
 
 
+def inherit_component_quantities(articles: list) -> list:
+    """Apply quantity inheritance for components.
+
+    If component has quantity=0 and parent has quantity > 0,
+    component inherits parent's quantity.
+    """
+    # Build parent lookup
+    parents = {a["cod"]: a for a in articles if not a.get("is_component")}
+
+    result = []
+    for art in articles:
+        if art.get("is_component") and art.get("cantitate", 0) == 0:
+            parent_cod = art.get("parent_code")
+            if parent_cod and parent_cod in parents:
+                parent_qty = parents[parent_cod].get("cantitate", 0)
+                if parent_qty > 0:
+                    art = {**art, "cantitate": parent_qty}
+        result.append(art)
+
+    return result
+
+
+def inherit_component_units(articles: list) -> list:
+    """Apply unit inheritance for components without explicit unit."""
+    parents = {a["cod"]: a for a in articles if not a.get("is_component")}
+
+    result = []
+    for art in articles:
+        if art.get("is_component") and not art.get("um"):
+            parent_cod = art.get("parent_code")
+            if parent_cod and parent_cod in parents:
+                parent_um = parents[parent_cod].get("um", "")
+                if parent_um:
+                    art = {**art, "um": parent_um}
+        result.append(art)
+
+    return result
+
+
 # Pattern 1 (priority): "Deviz oferta XXXX DENUMIRE"
 _DEVIZ_OFERTA_RE = re.compile(
     r'Deviz\s+oferta\s+([A-Z0-9]+)\s+(.*)',
@@ -738,6 +777,10 @@ def extract_articles_v3(page_classifications: list) -> list:
                 all_articles.append(art)
 
         logger.info(f"[F3v3] {deviz_cod}: {len(section_articles)} articole extrase (grouped pages)")
+
+    # Apply quantity and unit inheritance for components
+    all_articles = inherit_component_quantities(all_articles)
+    all_articles = inherit_component_units(all_articles)
 
     logger.info(f"[F3v3] Total: {len(all_articles)} articole extrase (deviz-grouped, fara LLM)")
     return all_articles
