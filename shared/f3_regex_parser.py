@@ -1065,8 +1065,10 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # Extrage doar UM-ul (nu prefixul numeric care este doar metadata)
             # Prefixul numeric (100, 99, 82 etc.) nu este parte a unității de măsură
             # Cantitatea reală urmează pe linia următoare.
+            # Suportă și format "99 ZECI MP" unde ZECI este descriptor (tens/groups) nu UM
             # BUT: skip "NUMBER KM" (always distance spec like "20 KM", never work unit)
             if um == '':
+                # Try format: NUMBER UNIT (e.g., "100 MC")
                 m_um_norm = re.match(r'^(\d+)\s+([A-Z]{1,6})\.?\s*$', line, re.IGNORECASE)
                 if m_um_norm:
                     um_candidate = m_um_norm.group(2).upper()
@@ -1075,6 +1077,20 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                         continue
                     if _is_valid_um(um_candidate):
                         um = _normalize_um_value(um_candidate)  # Extract only the unit part, not the prefix
+                        continue
+                # Try format: NUMBER QUALIFIER UNIT (e.g., "99 ZECI MP")
+                # QUALIFIER can be: ZECI (tens), SUTE (hundreds), PERECHE, SET, etc. — descriptors not units
+                m_um_qual = re.match(r'^(\d+)\s+([A-Z]{1,6})\s+([A-Z]{1,6})\.?\s*$', line, re.IGNORECASE)
+                if m_um_qual:
+                    # Try second part as UM first (more likely), then first part
+                    um_candidate = m_um_qual.group(3).upper()
+                    if _is_valid_um(um_candidate):
+                        um = _normalize_um_value(um_candidate)
+                        continue
+                    # If group 3 isn't UM, try group 2
+                    um_candidate = m_um_qual.group(2).upper()
+                    if _is_valid_um(um_candidate):
+                        um = _normalize_um_value(um_candidate)
                         continue
 
             # Format pipe: "M.C. | 18.144 | BETON MARFA CLASA C8/10" (referinta breviar materiale)
