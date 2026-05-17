@@ -529,10 +529,12 @@ def compare_and_report(
 
     # Phase 1: Match devize by denomination (fallback when code extraction fails)
     # Only applies when offer devizes don't match reference devizes
-    deviz_mapping = match_devize_by_denomination(ref_articles, oferta_articles)
-    if deviz_mapping:
-        oferta_articles = remap_devize_in_articles(oferta_articles, deviz_mapping)
-        logger.info(f"  [DEVIZ_MATCHER] Applied deviz mapping: {deviz_mapping}")
+    # Skip if already remapped (check for articles with _deviz_original marker)
+    if not any(a.get('_deviz_original') for a in oferta_articles):
+        deviz_mapping = match_devize_by_denomination(ref_articles, oferta_articles)
+        if deviz_mapping:
+            oferta_articles = remap_devize_in_articles(oferta_articles, deviz_mapping)
+            logger.info(f"  [DEVIZ_MATCHER] Applied deviz mapping: {deviz_mapping}")
 
     # Phase 2: Subcomponent code extraction and matching (optional, based on detected format)
     subcomp_stats = {"detected": False, "format": "unknown", "confidence": 0.0}
@@ -944,6 +946,18 @@ def main():
         oferta_articles = [a for a in oferta_articles if not is_truly_invalid(a)]
         if invalid_count > 0:
             logger.info(f"  Removed {invalid_count} articles with no code (truly unparseable)")
+
+        # Apply deviz code remapping for OFERTA before saving
+        # This handles text-only devizes (e.g. "Arhitectura") → numeric codes (e.g. "4.1-03")
+        from shared.deviz_matcher import match_devize_by_denomination, remap_devize_in_articles, remap_devize_by_code_preference
+        deviz_mapping = match_devize_by_denomination(ref_articles, oferta_articles)
+        if deviz_mapping:
+            oferta_articles = remap_devize_in_articles(oferta_articles, deviz_mapping)
+            logger.info(f"  [DEVIZ_MAPPER] Remapped {len([a for a in oferta_articles if a.get('_deviz_original')])} articles: {deviz_mapping}")
+
+            # Apply code-based correction: if an article's code exists in reference,
+            # reassign it to the reference's deviz (preference over denomination matching)
+            oferta_articles = remap_devize_by_code_preference(oferta_articles, ref_articles, deviz_mapping)
 
         oferta_out = OUTPUT_DIR / f"oferta_{oferta_nr}.json"
         oferta_out.write_text(

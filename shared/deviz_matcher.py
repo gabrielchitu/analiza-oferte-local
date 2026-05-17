@@ -116,13 +116,30 @@ def _extract_deviz_prefix(deviz_code: str) -> str:
     return first_word
 
 
+def _build_ref_code_to_deviz_map(ref_articles: list) -> dict:
+    """Build map of article codes to their reference devizes.
+
+    Returns:
+        {code: deviz, ...} mapping for quick code lookup
+    """
+    code_to_deviz = {}
+    for art in ref_articles:
+        code = (art.get('cod') or '').strip()
+        deviz = (art.get('deviz') or '').strip()
+        if code and deviz:
+            # Store first encountered deviz for this code
+            if code not in code_to_deviz:
+                code_to_deviz[code] = deviz
+    return code_to_deviz
+
+
 def match_devize_by_denomination(ref_articles: list, oferta_articles: list,
                                  min_similarity: float = 0.70) -> dict:
     """
     Match offer devizes to reference devizes using denomination as fallback.
 
     Strategy:
-    1. Build reference map (deviz → denomination)
+    1. Build reference map (deviz → denomination) and code→deviz map
     2. For each offer deviz:
        a. Try exact match on code
        b. If not found, try exact match on denomination
@@ -146,6 +163,9 @@ def match_devize_by_denomination(ref_articles: list, oferta_articles: list,
     if not ref_map:
         logger.warning("[DM] No reference devizes to match against")
         return {}
+
+    # Build map of article codes to their reference devizes
+    code_to_ref_deviz = _build_ref_code_to_deviz_map(ref_articles)
 
     # Group offer articles by deviz
     oferta_by_deviz = defaultdict(list)
@@ -225,6 +245,60 @@ def match_devize_by_denomination(ref_articles: list, oferta_articles: list,
 
     logger.info(f"[DM] Matched {len(mapping)}/{len(oferta_by_deviz)} offer devizes")
     return mapping
+
+
+def remap_devize_by_code_preference(oferta_articles: list, ref_articles: list, deviz_mapping: dict) -> list:
+    """
+    Apply article-level code-based deviz correction to offer articles.
+
+    If an offer article's code exists in reference, reassign it to the reference's deviz
+    instead of using the denomination-based deviz mapping.
+
+    Args:
+        oferta_articles: Articles to update
+        ref_articles: Reference articles (for code lookup)
+        deviz_mapping: Initial deviz mapping {oferta_deviz: ref_deviz}
+
+    Returns:
+        Updated articles with code-based deviz corrections applied
+    """
+    # Build code → reference deviz map
+    code_to_ref_deviz = _build_ref_code_to_deviz_map(ref_articles)
+
+    result = []
+    code_corrections = 0
+
+    for art in oferta_articles:
+        code = (art.get('cod') or '').strip()
+        current_deviz = (art.get('deviz') or '').strip()
+
+        # If code exists in reference and differs from current deviz, apply correction
+        if code and code in code_to_ref_deviz:
+            ref_deviz = code_to_ref_deviz[code]
+            if ref_deviz != current_deviz:
+                new_art = {**art, 'deviz': ref_deviz}
+                # Mark original if it was from denomination mapping
+                if current_deviz in deviz_mapping and deviz_mapping[current_deviz] == ref_deviz:
+                    if '_deviz_denomination_mapped' not in new_art:
+                        new_art['_deviz_denomination_mapped'] = current_deviz
+                elif '_deviz_original' not in new_art:
+                    # Mark both the text deviz and the denomination-mapped deviz
+                    new_art['_deviz_original'] = art.get('_deviz_original', current_deviz)
+                result.append(new_art)
+                code_corrections += 1
+                if code_corrections <= 5:  # Log first few corrections
+                    logger.info(
+                        f"[DM-CODE] Code {code}: corrected deviz "
+                        f"{current_deviz} → {ref_deviz} (code exists in reference)"
+                    )
+                continue
+
+        result.append(art)
+
+    if code_corrections > 0:
+        logger.info(f"[DM-CODE] Applied code-based corrections to {code_corrections} articles")
+
+    return result
 
 
 def remap_devize_in_articles(articles: list, mapping: dict) -> list:
