@@ -19,6 +19,56 @@ SUBCOMP_GRAY_FILL = "E8E8E8"  # Light gray for subcomponents
 COL_WIDTHS_CM = [0.7, 3.0, 1.5, 3.5, 0.8, 1.2, 1.5, 3.5, 0.8, 1.2, 6.3]
 
 
+def _group_articles_by_parent(articles: list) -> list:
+    """Group component articles under their parent articles.
+
+    Returns list of dicts:
+    [
+        {
+            "parent": {...article...},
+            "components": [{...article...}, ...]
+        }
+    ]
+    """
+    result = []
+    parents_dict = {}
+
+    # Separate parents and components
+    for art in articles:
+        if not art.get("is_component"):
+            parents_dict[art["cod"]] = {
+                "parent": art,
+                "components": []
+            }
+        else:
+            parent_cod = art.get("parent_code")
+            if parent_cod and parent_cod in parents_dict:
+                parents_dict[parent_cod]["components"].append(art)
+
+    # Build result preserving order
+    seen_parents = set()
+    for art in articles:
+        if not art.get("is_component") and art["cod"] not in seen_parents:
+            result.append(parents_dict[art["cod"]])
+            seen_parents.add(art["cod"])
+
+    return result
+
+
+def _format_article_with_hierarchy(article: dict, parent_code: str = None) -> str:
+    """Format article text with component hierarchy information.
+
+    For components, includes [COMPONENT] prefix and parent reference.
+    """
+    cod = article.get("cod", "")
+    is_component = article.get("is_component", False)
+
+    if is_component:
+        parent_ref = f" (parent: {parent_code})" if parent_code else ""
+        return f"[COMPONENT] {cod}{parent_ref}"
+    return cod
+
+
 def _observatie_text(neconf: dict) -> str:
     """Return human-readable Romanian observation text for a nonconformity."""
     tip = neconf.get("tip", "")
