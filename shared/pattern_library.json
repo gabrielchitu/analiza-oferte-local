@@ -1,0 +1,36 @@
+{
+  "patterns": [
+    {
+      "name": "MANECIU",
+      "description": "Prefixed subcomponent format with L: marker",
+      "confidence_threshold": 0.70,
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z0-9]+"
+      ],
+      "component_indicators": [
+        {
+          "pattern": "^L:\\s*[A-Z0-9]+\\s+-",
+          "type": "prefix",
+          "description": "L:SL05 -0020:6717077 format"
+        }
+      ],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "DRAGOMIRESTI",
+      "description": "Dotted hierarchy numbering (1.1, 1.2 under 1)",
+      "confidence_threshold": 0.70,
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z0-9]+"
+      ],
+      "component_indicators": [
+        {
+          "pattern": "^\\d+\\.\\d+\\s+",
+          "type": "hierarchy",
+          "description": "Dotted numbering for hierarchy"
+        }
+      ],
+      "quantity_rule": "inherit_from_parent"
+    }
+  ]
+}
