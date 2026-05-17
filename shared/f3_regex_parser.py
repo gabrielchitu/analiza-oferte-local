@@ -336,9 +336,24 @@ def _extract_subcomponent_codes(text: str) -> list:
 
 
 def _make_article(cod: str, denumire: str, um: str, cantitate: float,
-                  preturi: list, deviz_cod: str, deviz_den: str, is_component: bool = False,
+                  preturi: list, deviz_cod: str, deviz_den: str,
+                  is_component: bool = False,
+                  parent_code: str = None,
                   subcomponents: list = None) -> Dict:
-    """Construiește dict articol în formatul standard."""
+    """Create article dict with component tracking.
+
+    Args:
+        cod: Article code
+        denumire: Article denomination
+        um: Unit of measure
+        cantitate: Quantity
+        preturi: [price_material, price_manopera, price_utilaj, price_transport]
+        deviz_cod: Budget/section code
+        deviz_den: Budget denomination
+        is_component: Whether this is a subcomponent
+        parent_code: Code of parent article (null for parents, filled for components)
+        subcomponents: List of subcomponent codes (for parent articles only)
+    """
     fields = ['pret_material', 'val_material', 'pret_manopera', 'val_manopera',
               'pret_utilaj', 'val_utilaj', 'pret_transport', 'val_transport']
     art = {
@@ -349,6 +364,7 @@ def _make_article(cod: str, denumire: str, um: str, cantitate: float,
         'deviz': deviz_cod,
         'deviz_denumire': deviz_den,
         'is_component': is_component,
+        'parent_code': parent_code,
         'subcomponents': subcomponents or [],
     }
     for i, field in enumerate(fields):
