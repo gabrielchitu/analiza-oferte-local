@@ -3,7 +3,7 @@
     {
       "cod": "A091",
       "denumire": "montare si demontare, transport container santier tip birou sau tip vestiare muncitori",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "5.1-1",
       "deviz_denumire": "Lucrari de constructii",
@@ -21,7 +21,7 @@
     {
       "cod": "SC16D1",
       "denumire": "montare si demontare, transport grup sanitar santi er",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "5.1-1",
       "deviz_denumire": "Lucrari de constructii",
@@ -39,7 +39,7 @@
     {
       "cod": "EF02C1",
       "denumire": "tablou electric pe schelet met.cu masca mont peret e sau in nisa, tabloul cu supr.de 0, 91-1, 50mp",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "5.1-1",
       "deviz_denumire": "Lucrari de constructii",
@@ -75,7 +75,7 @@
     {
       "cod": "ACB05A",
       "denumire": "montarea cismelelor de apa publice, simple, cu furtun spalare vehicule punct de apa pt spalat roti dotare constructor",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "5.1-1",
       "deviz_denumire": "Lucrari de constructii",
@@ -93,7 +93,7 @@
     {
       "cod": "ACE12C1",
       "denumire": "montare contor de apa cu palete avind d 30 mm dotare constructor",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "5.1-1",
       "deviz_denumire": "Lucrari de constructii",
@@ -111,7 +111,7 @@
     {
       "cod": "CL23B",
       "denumire": "montare avizier dotare constructor",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "5.1-1",
       "deviz_denumire": "Lucrari de constructii",
@@ -165,7 +165,7 @@
     {
       "cod": "LCD05XA",
       "denumire": "poarta pietonala si auto dotare constructor",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "5.1-1",
       "deviz_denumire": "Lucrari de constructii",
@@ -669,7 +669,7 @@
     {
       "cod": "CO15A",
       "denumire": "desfacere sobe asim spor demontare",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 6.0,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -687,7 +687,7 @@
     {
       "cod": "CD10F",
       "denumire": "demolare hornuri asim",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 5.0,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -1433,7 +1433,7 @@
     {
       "cod": "CD10E",
       "denumire": "refacere cos de fum - oficiu alimentar asim l: lc47f -0007: 7800743 -baza colectoare condens ceramica d=30 cm termotecnica l: lc47g -0007: 7800750 -palarie cos ceramic d=30 cm termotecnica",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -1920,7 +1920,7 @@
     {
       "cod": "CE16E1",
       "denumire": "trapa acces pod 90x90cm- rezistenta la foc 30min u ei 30",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -1938,7 +1938,7 @@
     {
       "cod": "EF12C1",
       "denumire": "usa acces pod 80 x 114cm- rezistenta la foc 45mi, cu autoinchidere uei - 45-c asim l: 12044 -0009: 6306743 -usa acces pod 80 x 114cm- rezistenta la foc 45m",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -1958,7 +1958,7 @@
     {
       "cod": "CE16D1",
       "denumire": "td trapa desfumare, tamplarie metalica; culoare gr i antracit; clasa a 6,32 mp actionata automat prin centrala de detectie",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2245,7 +2245,7 @@
     {
       "cod": "CK30A",
       "denumire": "elemente de ventilare pod- tabla asim",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 10.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2952,7 +2952,7 @@
     {
       "cod": "ED01B",
       "denumire": "intrerupator etans 10a, 230v , montaj ingropat , i",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -2970,7 +2970,7 @@
     {
       "cod": "ED01B",
       "denumire": "comutator 10a/230v, ip20, montaj ingropat l:el18 -0029: 5526152 -comutator etans, 10a, 230v, montaj ingropat , ip20",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 5.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -2990,7 +2990,7 @@
     {
       "cod": "ED01B",
       "denumire": "intrerupator cap scara , 10a/230v , montaj ingropa t , ip20 l: el18 -m : 1500162 - intrerupator cap scara 10a/230v, st, doza aparat, ip 20",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3010,7 +3010,7 @@
     {
       "cod": "ED08A1",
       "denumire": "priza bipolara simpla cu contact de protectie 16a/ 230v, ip 20, montaj ingropat l: 12017 -0002:5536169 -priza simpla cu contact protectie 16a/230v, ip20",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 83.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3030,7 +3030,7 @@
     {
       "cod": "ED08A1",
       "denumire": "priza bipolara cu contact protectie 16a/230v, mon taj ingropat, ip44 l:12017 -0007:5536171 -priza bipolaracu contact protectie 16a/230v, montaj ingropa",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 13.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3050,7 +3050,7 @@
     {
       "cod": "ED08E1",
       "denumire": "priza utp cat 6a l: 12017 -0005:5536030 -priza utp cat 6a",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 19.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3070,7 +3070,7 @@
     {
       "cod": "EF06A",
       "denumire": "racordarea conductoarelor din al sau cu., la borne (ap , motoare, tablouri) , s.cond <= 50 mmp, incl.",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 25.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3088,7 +3088,7 @@
     {
       "cod": "W1S23B",
       "denumire": "capete terminale de interior pentru cablu cu 5 con ductoare",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 14.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3106,7 +3106,7 @@
     {
       "cod": "W1S23D",
       "denumire": "capete terminale de interior pentru cablu tip eyy- j 4x95mmp, 1kv",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 6.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3124,7 +3124,7 @@
     {
       "cod": "W1S23E",
       "denumire": "capete terminale de interior pentru cablu tip eyy- j 1x70mmp, 1kv",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3142,7 +3142,7 @@
     {
       "cod": "EA14A",
       "denumire": "doza aparat l:el03 -0008: 7319034 -doza patrata",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 133.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3162,7 +3162,7 @@
     {
       "cod": "EA16A",
       "denumire": "doza legatura 105x105x50 mm l:el03h -0002 : 7318987 -doza de derivatie pt.cabluri sau tevi inst tip:nbu pg16",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 100.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3182,7 +3182,7 @@
     {
       "cod": "W1MM06A",
       "denumire": "verificarea si incercarea circuitelor electrice",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 10.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3290,7 +3290,7 @@
     {
       "cod": "RPEF19D1",
       "denumire": "demontare corp ilum simplu plafoniera metalica*",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 200.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3308,7 +3308,7 @@
     {
       "cod": "RPEE24A",
       "denumire": "demont.aparat el unipolare (intrerup, comutat, prize pt.desfiintare /inlocuire, buton act.distanta)",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 100.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -3362,7 +3362,7 @@
     {
       "cod": "EE07XA",
       "denumire": "montaj corp de iluminat",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 215.0,
       "deviz": "4.1-06",
       "deviz_denumire": "Inst electrice ilum tip I",
@@ -3380,7 +3380,7 @@
     {
       "cod": "RPEF19C",
       "denumire": "senzor crepuscular l: el21z1 -m : 9002013 -senzor crepuscular",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-06",
       "deviz_denumire": "Inst electrice ilum tip I",
@@ -3400,7 +3400,7 @@
     {
       "cod": "RPEF19C",
       "denumire": "montare detector miscare",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 5.0,
       "deviz": "4.1-06",
       "deviz_denumire": "Inst electrice ilum tip I",
@@ -3418,7 +3418,7 @@
     {
       "cod": "EI03XB",
       "denumire": "racordarea fara papuci a cond.cu si al cu sec sub 16mmp la tabl.cond.cu sec.sub 4mmp, lung peste1, 5m etichete l: 14005 -0001:7309883 -colier pt.priza brans.dn 100 l : 90051 -0001 : 7321166 -eticheta din alama cu inscrip.pt instalati automatizar",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 215.0,
       "deviz": "4.1-06",
       "deviz_denumire": "Inst electrice ilum tip I",
@@ -3439,7 +3439,7 @@
     {
       "cod": "EI01XB",
       "denumire": "dibluri si puncte de fixare diblu din material pla stic l: 90308 -0002: 6719263 -diblu pvc marimea 2 nii-1030-75",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 215.0,
       "deviz": "4.1-06",
       "deviz_denumire": "Inst electrice ilum tip I",
@@ -3459,7 +3459,7 @@
     {
       "cod": "EH10XA",
       "denumire": "verificarea instalatiilor de iluminat, constind din verificarea circuitelor de iluminat",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 215.0,
       "deviz": "4.1-06",
       "deviz_denumire": "Inst electrice ilum tip I",
@@ -3477,7 +3477,7 @@
     {
       "cod": "EH10XB",
       "denumire": "verificarea instalatiilor de iluminat, constind din verificarea corp iluminat contrib asig munca % total chelt directe io = % x to po = % x (to+io) vo = to+io+po pro infra build cieta comerciala pro build ah ilfov - romania ₼",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 215.0,
       "deviz": "4.1-06",
       "deviz_denumire": "Inst electrice ilum tip I",
@@ -3495,7 +3495,7 @@
     {
       "cod": "EI12XA",
       "denumire": "suport platbanda acoperis",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 12.0,
       "deviz": "4.1-07",
       "deviz_denumire": "Instal el paratrasn - tip III",
@@ -3569,7 +3569,7 @@
     {
       "cod": "RPEH03",
       "denumire": "piesa cu eclisa de separatie",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "4.1-07",
       "deviz_denumire": "Instal el paratrasn - tip III",
@@ -3587,7 +3587,7 @@
     {
       "cod": "WIR11A",
       "denumire": "imbinarea prizei de legare la pamint cu suruburi g alvanizate m12x40",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "4.1-07",
       "deviz_denumire": "Instal el paratrasn - tip III",
@@ -3605,7 +3605,7 @@
     {
       "cod": "WIP08A",
       "denumire": "verificarea prizelor de pamint pt lucrari de insta latii electrice la constructii",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-07",
       "deviz_denumire": "Instal el paratrasn - tip III",
@@ -3623,7 +3623,7 @@
     {
       "cod": "W1LSV02A",
       "denumire": "verificarea rezistentei de dispersie a prizei de p amant",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-07",
       "deviz_denumire": "Instal el paratrasn - tip III",
@@ -3641,7 +3641,7 @@
     {
       "cod": "EG09B1",
       "denumire": "prot.cond.cobor.lungime 1,8m.exec cornier aripi eg .30x3 0x4mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-07",
       "deviz_denumire": "Instal el paratrasn - tip III",
@@ -3677,7 +3677,7 @@
     {
       "cod": "RPIA52E",
       "denumire": "demontare echipamente centrala termica (cazane, po mpe ... )",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-09",
       "deviz_denumire": "Instalatii termice desf tipII",
@@ -3695,7 +3695,7 @@
     {
       "cod": "RPIA48I",
       "denumire": "demontare materiale in centrala termica (tevi, ar maturi, suporti, canal fum ... )",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-09",
       "deviz_denumire": "Instalatii termice desf tipII",
@@ -3713,7 +3713,7 @@
     {
       "cod": "IB06XB",
       "denumire": "demontare materiale si echipamente (tevi, radiatoa re, aparate aer conditionat, ansamblu asim",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-09",
       "deviz_denumire": "Instalatii termice desf tipII",
@@ -3767,7 +3767,7 @@
     {
       "cod": "IA44A",
       "denumire": "contor energie termica ø 2' (dn50mm)",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 7.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -3785,7 +3785,7 @@
     {
       "cod": "00612D6",
       "denumire": "kit fixare calorifere asimilat",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 39.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -3803,7 +3803,7 @@
     {
       "cod": "IB06A",
       "denumire": "radiatoare din otel, monobloc avand lungimea de pa na la 1000 mm, inclusiv",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -3821,7 +3821,7 @@
     {
       "cod": "IB06B",
       "denumire": "radiatoare din otel, monobloc avand lungimea de 10 01 -1500 mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 7.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -3839,7 +3839,7 @@
     {
       "cod": "IB06C",
       "denumire": "radiatoare din otel, monobloc avand lungimea de 15 01 -2000 mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 8.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -3875,7 +3875,7 @@
     {
       "cod": "ID01XA",
       "denumire": "robinet cu ventil, cu dublu reglaj, de colt, pt inst incalzire centrala, diametrul nominal de 1/2' tur retur l: 11314 -0003 : 4202735 -robinete cu dublu reglaj pt.radiatoare 1/2' fc n formular f3 executant0413 obiectiv01 obi4.1 cate 10",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 78.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -3895,7 +3895,7 @@
     {
       "cod": "FG02A1",
       "denumire": "montaj robinet cu cap termostat, cu dispozitiv de siguranta anti-vandalism",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 39.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4031,7 +4031,7 @@
     {
       "cod": "IC38A",
       "denumire": "racord trecere ppr 020mm/ol 1/2' l:il20 -0016: 6719916 -adaptor din polipropilena, filet interior, d=20- 1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 50.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4051,7 +4051,7 @@
     {
       "cod": "IC38F",
       "denumire": "racord trecere ppr 063mm/ol 2' l: il20 -m : 8811856 -trecere sudata pehd/ol d 63/ 2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4071,7 +4071,7 @@
     {
       "cod": "IC38A",
       "denumire": "piesa racord (fiting) poliprop.cu 2 imbin imbinata prin polifusiune cu tv poliprop armata dext<20mm l:il20 -0030: 6719930 -cot la 90gr din polipropilena, filet int., d=20-1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 30.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4091,7 +4091,7 @@
     {
       "cod": "IC38B",
       "denumire": "piesa racord (fiting) poliprop.cu 2 imbin imbinata prin polifusiune cu tv poliprop armata dext=25mm l: il20 -0032:6719932 -cot la 90gr din polipropilena, filet int., d=25-1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 10.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4111,7 +4111,7 @@
     {
       "cod": "IC38C",
       "denumire": "piesa racord (fiting) poliprop.cu 2 imbin imbinata prin polifusiune cu tv poliprop.armata dext=32mm l:il20 -0034: 6719934 -cot la 90gr din polipropilena, filet int., d=32-1'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4131,7 +4131,7 @@
     {
       "cod": "IC38D",
       "denumire": "piesa racord (fiting) poliprop.cu 2 imbin imbinata prin polifusiune cu tv poliprop armata dext=40mm l: il20 -0035: 6719935 -cot la 90gr din polipropilena, filet int., d=40-1 1/4'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4151,7 +4151,7 @@
     {
       "cod": "IC38E",
       "denumire": "piesa racord (fiting) poliprop.cu 2 imbin imbinata prin polifusiune cu tv poliprop armata dext=50mm l: il20 -0102: 6719489 - cot din polipropilena, avind diametrul 50 mm - ₼ formular f3 executant0413 obiectiv01 obi4.1 cate 10",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4171,7 +4171,7 @@
     {
       "cod": "IC38F",
       "denumire": "piesa racord (fiting) poliprop.cu 2 imbin imbinata prin polifusiune cu tv poliprop.armata dext=63mm l: il20 -0103: 6719490 -cot din polipropilena, avind diametrul 63 mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 6.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4191,7 +4191,7 @@
     {
       "cod": "IC39DI",
       "denumire": "confectionarea si montarea tevii de protectie la t recerea conductelor prin plansee d=1 1/2 '-2 1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 50.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4309,7 +4309,7 @@
     {
       "cod": "IC35D1",
       "denumire": "bratari pt.fixarea tevi.otel la inst.incalz sau ga ze mont.in zid caram sau beton d=3/4 toli",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 250.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4327,7 +4327,7 @@
     {
       "cod": "IC35E1",
       "denumire": "bratari pt.fixarea tevi.otel la inst.incalz sau ga ze mont.in zid caram sau beton d=1 toli",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 70.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4345,7 +4345,7 @@
     {
       "cod": "IC35F1",
       "denumire": "bratari pt.fixarea tevi.otel la inst.incalz sau ga ze mont.in zid caram.sau beton d=1 1/4 toli",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 80.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4363,7 +4363,7 @@
     {
       "cod": "IC35G1",
       "denumire": "bratari pt fixarea tevi.otel la inst.incalz sau ga ze mont.in zid caram sau beton d=1 1/2 toli",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 25.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4381,7 +4381,7 @@
     {
       "cod": "IC35H1",
       "denumire": "bratari pt fixarea tevi.otel la inst.incalz sau ga ze mont.in zid caram sau beton d=2",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 5.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4399,7 +4399,7 @@
     {
       "cod": "IC35I1",
       "denumire": "bratari pt fixarea tevi.otel la inst.incalz sau ga ze mont.in zid caram.sau beton d=2 1/2 toli",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 15.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4417,7 +4417,7 @@
     {
       "cod": "IC35H1",
       "denumire": "bratari pt fixarea tevi.otel la inst.incalz sau ga ze mont in zid caram sau beton d=2 toli",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 14.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4535,7 +4535,7 @@
     {
       "cod": "IC49A",
       "denumire": "ansamblu format din aerisitor automat, stut sudabi l pe teava de otel, robinet fluture dn15 l: il24 -m : 9001220 -ansamblu format din aerisitor automat, stut robinet 1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4555,7 +4555,7 @@
     {
       "cod": "ID14B1",
       "denumire": "robinet de golire cu cep, dop si portfurtun dn 15 l: 11314 -m : 4500889 -robinet golire cep dop + portfurtun dn 1/2",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4575,7 +4575,7 @@
     {
       "cod": "RPCU20A1",
       "denumire": "astupare cu mortar var-ciment a gaurilor in zidari e",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 50.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4593,7 +4593,7 @@
     {
       "cod": "TCB14B1",
       "denumire": "automatizare in ct asim",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4611,7 +4611,7 @@
     {
       "cod": "ATE11J",
       "denumire": "verificare si punere in functiune centrala termica asim",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4827,7 +4827,7 @@
     {
       "cod": "00612D6",
       "denumire": "refnet indice de capacitate <200 asim l:la006n6-0003 : 8817768",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4847,7 +4847,7 @@
     {
       "cod": "00612D6",
       "denumire": "refnet indice de capacitate <640 l: la006n6-0007: 8817772",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4867,7 +4867,7 @@
     {
       "cod": "00612D5",
       "denumire": "kit de conexiune multimodul 2 unitati ext",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4885,7 +4885,7 @@
     {
       "cod": "FG02A1",
       "denumire": "controller tip termostat unitati interioare asim",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 7.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4923,7 +4923,7 @@
     {
       "cod": "W3G02A1",
       "denumire": "legaturi electrice incl cabluri comanda si control pt conectare contollere asim",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4941,7 +4941,7 @@
     {
       "cod": "ATC01C",
       "denumire": "automatizare asim",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4977,7 +4977,7 @@
     {
       "cod": "VD01B",
       "denumire": "verificare si punere in functiune instalatie venti lare",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -4995,7 +4995,7 @@
     {
       "cod": "VB19A",
       "denumire": "grila evacuare dn 110 mm instalatii ventilatii l: lv04p -m : 8809696 -grila evacuare dn 110 mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5015,7 +5015,7 @@
     {
       "cod": "VB20A",
       "denumire": "grila de transfer 300x100 mm montata in foaia usii l: lv04s -m :8000643 -grila de transfer 300x100 mm montata in foaia usii",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5053,7 +5053,7 @@
     {
       "cod": "SB17E1",
       "denumire": "cot pvc dn 110 mm 90 gr l: 11432 -0019:6712409 -cot pvc tip u la 87 gr.30m dn 110 nii 2167",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5073,7 +5073,7 @@
     {
       "cod": "SB17E1",
       "denumire": "cot pvc dn 110/ mm 45 gr l: 11432 -0005:6712265 -cot pvc tip u la 45 grade dn 110 nii 2167",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5165,7 +5165,7 @@
     {
       "cod": "RPIA47C",
       "denumire": "demontare instalatii si conducte existente asim",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5183,7 +5183,7 @@
     {
       "cod": "SC06A",
       "denumire": "spalator din inox montare în consola ventil 011/2' , sifon tip butelie l:sl12c -0002:672015t -tub cu mufa pt canalizare, polipropilena ig., d40, l250 l: sl25a -0005:4202797 -sifon pt lavoar tip butelie alama 1 1/4' s 9611 l: sl25b -0020:4203325 -ventil scurgere lavoar.spalator 1 1/2 fara rac s9610 l: sl25c -0030:4203557 - consola brat dublu emailata 420mm cal 1 l: sl28 -0004:4200349 - spalator dublu din inox",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5207,7 +5207,7 @@
     {
       "cod": "SD04A",
       "denumire": "baterie amestecatoare stativa pt spalator, indifer ent modul de inchidere, d=1/2' l: sl41 -0011: 4201432 -baterie amest.spalat.am 1/2toli 4309 fara perl.",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5227,7 +5227,7 @@
     {
       "cod": "SC04A",
       "denumire": "lavoar din semiportelan, portelan sanitar etc - (in cl pt .handicapati) console pe zidarie l: sl12a -0004:672016d -tub cu mufa pt canalizare, polipropilena ig., d40, l750 l: sl24 -0001:2308542 -lavoar din ceramica cu etajera, semipicior suspendat l: sl25a -0002:4202761 -sifon alama pt lavoar 1' s 9611 l: sl25b - 0021: 4203337 -ventil scurgere lavoar, spalator 1' cu racord s9610 l:sl25c - 0030: 4203557 -consola brat dublu emailata 420mm cal.1 s 3343",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 12.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5251,7 +5251,7 @@
     {
       "cod": "SD04A",
       "denumire": "baterie amestecatoare stativa pt lavoar sau spala tor, indiferent modul de inchidere, d=1/2' l: sl41 - 0010 : 4201420 -baterie amest.baie fonta 1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 12.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5271,7 +5271,7 @@
     {
       "cod": "SD01XA",
       "denumire": "robinet de serviciu simplu cu diametrul de 1/2' robinet pentru lavoar avind diametrul de 1/2' spal l: 11411 -0009:4202204 -robinet simplu serv cromat 1/2' garn detas c501h s4124 l: 11414 -0002:4203985 -rozeta metalica pt mascare 1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 26.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5292,7 +5292,7 @@
     {
       "cod": "SC13A",
       "denumire": "oglinda sanitara, semicristal-marginile slefuite, 50 0*600mm etc, perete din zidarie sau b.c.a l: sl35 -0003:2506085 -oglinda cristal dreptunghiulara",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 14.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5312,7 +5312,7 @@
     {
       "cod": "SC14A",
       "denumire": "sapuniera din fonta emailata portelan sanitar, pere te din zidarie sau b.c.a.",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 12.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5330,7 +5330,7 @@
     {
       "cod": "SE59A",
       "denumire": "distribuitor prosoape de hartie l: sl44d -m : 8808622 -distribuitor servetele, de perete l: sl44i -0005: 6313318 -diblu metalic cu autofrezare pt surub m 10 n formular f3 executant0413 obiectiv 01 obi4.1 cate 13",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 12.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5351,7 +5351,7 @@
     {
       "cod": "SC07A",
       "denumire": "vas closet complet echipat, portelan etc., rezervor mont la inaltime; semiinaltime, sifon tip s l: sl12 -0005:6720162 -tub cu mufa pt.canalizare, polipropilena ig , d40, l1000 l: sl25e -0001: 2949482 -rama vas closet placaj fag tip b c.2 cu capac s 3489 l: sl29 -0012: 2443476 -vas closet col4-a portelan alb c 1 s 2066 l:sl30 -0001:2452958 -rezervor wc r 2 semiinaltime alb c.1 s 9441",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 9.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5374,7 +5374,7 @@
     {
       "cod": "SC15A",
       "denumire": "porthirtie, din fonta emailata-mat plastic-portelan , pe perete din caramida-bca l: sl37 -0016:4200357 - porthartie cu capac, cromat",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 9.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5394,7 +5394,7 @@
     {
       "cod": "SD01A",
       "denumire": "robinet de serviciu , de cortar dn 3/8' wc robinet de colt f 3/8' - racord wc+pisoar l:sl25g -0033:4203935 -rozeta metalica pt.tevi simb.492 d 1 toli cromata l: sl41 -0020: 4201937 -robinet rezerv wc am colt 3/8' semiinaltime 3 s2377",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 12.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5415,7 +5415,7 @@
     {
       "cod": "SC09A",
       "denumire": "pisoar din portelan sanitar mntat pe perete din zi darie de caramida sau b.c.a l: sl12b -0021:672017r -tub fara mufa, polipropilena ignifuga., d32, l5000mm l: sl31 -0003:2451423 - pisoar portelan tip v3 alb c.1 s 2383",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5436,7 +5436,7 @@
     {
       "cod": "SD02A",
       "denumire": "baterie amestecatoare pt.baie, cu dus flexibil sau fix, indiferent inchidere, pe pereti zidarie / bca l: sl41 -0006:4201389 -baterie amest.baie alama 1/2' dus flex st pl f.bc s8732",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5456,7 +5456,7 @@
     {
       "cod": "SD13A1",
       "denumire": "robinet cu sfera 15 mm f1/2' l: 11411 -m : 0006288 -robinet de trecere cu sfera 1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 9.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5476,7 +5476,7 @@
     {
       "cod": "SD13A1",
       "denumire": "robinet cu sfera, dn20 mm 3/4' l: 11411 -0056: 4202462 -robinet trec fonta 3/4' a vent+mufa",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 12.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5496,7 +5496,7 @@
     {
       "cod": "SD13D1",
       "denumire": "robinet cu sfera, 1 1/4' 32 mm l: 11411 -m : 0007019 -robinet dn 1%'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5516,7 +5516,7 @@
     {
       "cod": "SD13D1",
       "denumire": "robinet cu sfera, 1 1/2' 40 mm l: 11411 -m : 0002997 -robinet cu sfera 1 1/2",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5536,7 +5536,7 @@
     {
       "cod": "SE56A",
       "denumire": "kit anticalcar f1 1/4' l: sl44c -0040:7322057 -kit anticalcar f1 1/4'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5762,7 +5762,7 @@
     {
       "cod": "SA33B",
       "denumire": "conf si mont tevii de protectie, otel pt instal . neagra, la trecerea conduct prin plansee d=1 1/4' l: sl47 -0003: 3304859 -teava inst neagra nefil.m - 32 (1 1/4) ol 32 1 s 7656",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 12.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5782,7 +5782,7 @@
     {
       "cod": "SA37B",
       "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d= 3/4' l: sl07 -0002: 4204044 -bratari tevi instalatii apa si gaze 3/4'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 120.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5802,7 +5802,7 @@
     {
       "cod": "SA37C",
       "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d= 1' l: sl07 -0005: 4204070 -bratari tevi instalatii apa si gaze 1 '",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 60.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5822,7 +5822,7 @@
     {
       "cod": "SA37D",
       "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d=1 1/4' l: sl07 -0006:4204082 -bratari tevi instalatii apa si gaze 1 '1/4'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 15.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5842,7 +5842,7 @@
     {
       "cod": "SA37E",
       "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d=1 1/2' l: sl07 -0007:4204094 bratari tevi instalatii apa si gaze 1 1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 30.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5862,7 +5862,7 @@
     {
       "cod": "SA37F",
       "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d= 2' l: sl07 -0008: 4204109 -bratari tevi instalatii apa si gaze 2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5882,7 +5882,7 @@
     {
       "cod": "02012A1",
       "denumire": "cot la 90gr din ppr-al @ 20x1.9mm - trecere ppr-ol 1/2'' ₼ formular f3 executant0413 obiectiv01 obi4.1 cate 13",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 24.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5900,7 +5900,7 @@
     {
       "cod": "00604C04",
       "denumire": "trecere ppr ø50mm/ol1 1/2' l: la006e3-0013: 8812025 -racord compresiune tip fe d 50 x 1' 1/2",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5920,7 +5920,7 @@
     {
       "cod": "00604C04",
       "denumire": "racord trecere ppr 040mm/ol1 1/4' l: la006e3-0009: 8812020 -racord compresiune tip fe d 40 x 1' 1/4",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 8.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5940,7 +5940,7 @@
     {
       "cod": "00604C02",
       "denumire": "racord trecere ppr 025mm/ol 3/4' l: la006e3-0003 : 8812014 -racord compresiune tip fe d 25 x 3/4'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 5.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -5960,7 +5960,7 @@
     {
       "cod": "00604C01",
       "denumire": "racord trecere ppr 020mm/ol 1/2' l: la006e3-0001:8812011 -racord compresiune tip fe d 20 x 1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 5.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6114,7 +6114,7 @@
     {
       "cod": "00605A6",
       "denumire": "teava pvc d = 110 mm, l = 6 m 6 m l: la006f1-0005 : 8816474 -teava pvc cu mufa si garnit sn2/sdr51 d=110x2, 2mm l=6m",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6134,7 +6134,7 @@
     {
       "cod": "SA37D",
       "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d=1 1/4' l: sl07 -0006:4204082 -bratari tevi instalatii apa si gaze 1'1/4'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 40.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6154,7 +6154,7 @@
     {
       "cod": "SA37E",
       "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d=1 1/2' l: sl07 -0007:4204094 -bratari tevi instalatii apa si gaze 1 1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 5.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6174,7 +6174,7 @@
     {
       "cod": "SA37F",
       "denumire": "bratara pt fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d= 2' l: sl07 -0008:4204109 -bratari tevi instalatii apa si gaze 2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 25.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6194,7 +6194,7 @@
     {
       "cod": "SA37I",
       "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d= 4' l: sl07 -0011: 4204135 -bratari tevi instalatii apa si gaze 4 '",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 25.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6214,7 +6214,7 @@
     {
       "cod": "SB09E",
       "denumire": "cot polipropilena ignifuga 0110mm la 45 l: sl13a -m : 8818805 -cot pp alb d 110 mm; 45 grd ₥ formular f3 executant0413 obiectiv01 obi4.1 cate 13",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 44.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6234,7 +6234,7 @@
     {
       "cod": "SB09E",
       "denumire": "cot polipropilena ignifuga 0110mm la 90 l: sl13a -m : 1100670 -cot din polipropilena ignifugata d =110 mm, la 90grade",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6254,7 +6254,7 @@
     {
       "cod": "SB10E",
       "denumire": "cot pvc-kg ø110mm la 45 l: sl13b -m : 1100677 -cot din pvc-kg, pentru canalizare, avand d = 110 mm, la",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6274,7 +6274,7 @@
     {
       "cod": "SB09C",
       "denumire": "cot polipropilena ignifuga 050mm la 45 l : sl13a -0014:6721013 -cot pt instalatii de canalizare, polipropilena, d=50mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 28.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6294,7 +6294,7 @@
     {
       "cod": "SB09C",
       "denumire": "cot polipropilena ignifuga ø50mm la 90 l: sl13a -m : 1100209 -cot polipropilena pt canalizare la 90 grd d.50mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 12.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6314,7 +6314,7 @@
     {
       "cod": "SB09B",
       "denumire": "cot polipropilena ignifuga 040mm la 45 l : sl13a -m : 1002125 -cot din polipropilena ignifugata d =40 mm, la 45grade",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 9.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6334,7 +6334,7 @@
     {
       "cod": "SB09B",
       "denumire": "cot polipropilena ignifuga 040mm la 90 l: sl13a -0013:6721012 -cot pt instalatii de canalizare, polipropilena, d=40mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6354,7 +6354,7 @@
     {
       "cod": "SB09A",
       "denumire": "cot polipropilena ignifuga 032mm la 45 l: sl13a -m : 6712127 -cot inst canal polipropil ignifuga, d= 32 mm, 45 gr.",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 13.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6374,7 +6374,7 @@
     {
       "cod": "SB09A",
       "denumire": "cot polipropilena ignifuga 032mm la 90 l: sl13a -0012: 6721011 -cot pt instalatii de canalizare, polipropilena, d=32mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 6.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6394,7 +6394,7 @@
     {
       "cod": "SB09E",
       "denumire": "montaj ramificatii tip y 45 gr",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 35.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6412,7 +6412,7 @@
     {
       "cod": "SB06A",
       "denumire": "teu la 45° polipropilena ignifuga 032/32/32mm l: sl11 -m : 8813498 -teu gri ppr pn20 sdr6 d.32 (m 429533)",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 5.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6432,7 +6432,7 @@
     {
       "cod": "SB09E",
       "denumire": "reductie polipropilena ignifuga 0110/50mm l : sl13a -m : 8819012 -reductie excentrica triplus d.110/50",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 6.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6492,7 +6492,7 @@
     {
       "cod": "SB21C1",
       "denumire": "piesa de curatire pvc-u, pt canalizare, cu imbinare prin lipire avind d=110 mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 9.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6528,7 +6528,7 @@
     {
       "cod": "SB44B1",
       "denumire": "sifon de pardoseala din fonta emailata avind d= 50 mm, simplu",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 8.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6546,7 +6546,7 @@
     {
       "cod": "SB44F1",
       "denumire": "sifon de pardoseala din fonta emailata avind d=100 mm, simplu",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6564,7 +6564,7 @@
     {
       "cod": "SB50A1",
       "denumire": "rigola de dus cu lungime variabila 0,50-0,80 m asim",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -6762,7 +6762,7 @@
     {
       "cod": "ID11C1",
       "denumire": "robinet cu sfera ø 2' l: 11314 -m : 9000831 -robinet cu flanse si sfera dn 50 mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 7.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -6782,7 +6782,7 @@
     {
       "cod": "ID11B2",
       "denumire": "robinet cu sfera ø 1 1/2' l: 11314 -m : 9100195 -robinet de trecere cu sfera cu tija d: 40 mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 6.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -6802,7 +6802,7 @@
     {
       "cod": "ID11B1",
       "denumire": "robinet cu sfera ø 1 1/4' l:11314 -m :0007019 -robinet dn 112'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -6822,7 +6822,7 @@
     {
       "cod": "ID11A3",
       "denumire": "robinet cu sfera ø 1' l: 11314 -m : 0006289 -robinet cu sfera ø 1'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -6842,7 +6842,7 @@
     {
       "cod": "FF07B1",
       "denumire": "purjor automat de aerisire 1/2' +rs %' asim",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 6.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -6860,7 +6860,7 @@
     {
       "cod": "IA24B1",
       "denumire": "supapa de siguranta cu d: 3/4' '",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -6878,7 +6878,7 @@
     {
       "cod": "IA24A1",
       "denumire": "supapa de siguranta din alama cu d: 1/2''",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -6896,7 +6896,7 @@
     {
       "cod": "ID14D1",
       "denumire": "clapet de retinere ø 2' l: 11314 -m :8813017 -clapet retinere oriz fi-fi d.2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -6916,7 +6916,7 @@
     {
       "cod": "ID14D1",
       "denumire": "clapet de retinere ø 1 1/2' l: 11314 -m :1100068 -clapeta sens dn 40",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -6936,7 +6936,7 @@
     {
       "cod": "ID14C1",
       "denumire": "clapet de retinere ø 1 1/4' l: 11314 -m : 8813015 -clapet retinere oriz fi-fi d.1' 1/4",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -6956,7 +6956,7 @@
     {
       "cod": "SE56A",
       "denumire": "filtru de impuritati tip y ø 2' l: sl44c -m : 000510 -filtru y 2' '",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -6976,7 +6976,7 @@
     {
       "cod": "FI06A1",
       "denumire": "proba la functionare si punere funct instalatie d e preparare apa calda menajera asim",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -7172,7 +7172,7 @@
     {
       "cod": "02012A1",
       "denumire": "cot pehd75/90 gr",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7190,7 +7190,7 @@
     {
       "cod": "SD17A",
       "denumire": "hidrant interior, pentru cladiri, cu diametrul de 2', in nise (cutie de hidrant cu rama) cheie racord tip 'b-c' robinet hidrant dn2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 9.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7208,7 +7208,7 @@
     {
       "cod": "IC41B",
       "denumire": "bratara ptr.fixarea cond d =2 ' 50 mm l:il21 -0008: 4204109 -bratari tevi instalatii apa si gaze 2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 30.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7228,7 +7228,7 @@
     {
       "cod": "IC41C",
       "denumire": "bratara 2 1/2' 65 mm l:il21 -0009: 4204111 -bratari tevi instalatii apa si gaze 2'1/2",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 28.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7248,7 +7248,7 @@
     {
       "cod": "GD15A",
       "denumire": "manson antifoc dn 2 1/2'' (trecere pereti rezisten ti la foc) l:gl01a -m : 9000115 -manson antifoc dn 2 1/2'' (trecere pereti rezistenti la foc)",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7268,7 +7268,7 @@
     {
       "cod": "GD15A",
       "denumire": "manson antifoc dn 2'' (trecere pereti rezistenti l a foc) l: glo1a -m :9000116 -manson antifoc dn 2'' (trecere pereti rezistenti la foc) n formular f3 executant0413 obiectiv01 obi4.1 cate 14",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7288,7 +7288,7 @@
     {
       "cod": "SD13F1",
       "denumire": "robinet de trecere cu sfera; cu mufe filetate, tij a de manevra 65 mm l: 11411 -m : 9000707 -vana automata dn 11/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7308,7 +7308,7 @@
     {
       "cod": "SD13G1",
       "denumire": "clapet de retinere dn 2 1/2'' l: 11411 -m :8813028 -clapet retinere vert fi-fi d.2' 1/2",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7328,7 +7328,7 @@
     {
       "cod": "SD19XA",
       "denumire": "racord storz tip 'a' pentru alimentare masina de p ompieri, complet echipat, racord infundat dn100",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7346,7 +7346,7 @@
     {
       "cod": "SD19XB",
       "denumire": "racord storz tip 'b' pentru alimentare masina de p ompieri, inclusiv racord infundat dn100",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7364,7 +7364,7 @@
     {
       "cod": "SD19B",
       "denumire": "robinet de golire dn 3/4' l: sl42 -m : 0001349 -robinet 3/4'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7384,7 +7384,7 @@
     {
       "cod": "TFD01A1",
       "denumire": "manometru cu robinet 1/2'' l: 11507 -0008: 7328267 -manometru cu rob control",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7512,7 +7512,7 @@
     {
       "cod": "00602G01",
       "denumire": "adaptor flansa pehd75/ol2 1/2' l: la006b1-m : 1101007 -adaptor flansa pehd75/ol2 1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7550,7 +7550,7 @@
     {
       "cod": "IA07XD",
       "denumire": "etansare la foc pentru goluri si deschideri pentru instalatii",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7568,7 +7568,7 @@
     {
       "cod": "IC44A",
       "denumire": "confect., montarea si cimentarea tevii de protectie la trecerea cond prin ziduri 1'-2' l: il08 -0004:3304847 -teava inst.neagra nefil.m - 25 (1 ) ol 32 1 s 7656",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -7698,7 +7698,7 @@
     {
       "cod": "EF10A1",
       "denumire": "cleme metalice prindere tub, rezistente la foc e90 asimilat l: 12001 -m :3335968 -cleme metalice prindere tub, rezistente la foc e90",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 450.0,
       "deviz": "4.1-08",
       "deviz_denumire": "Inst detectie incendiu tipIII",
@@ -7718,7 +7718,7 @@
     {
       "cod": "ATD43XC",
       "denumire": "etichete si inscriptionari etichete din plumb poasonate montate pentru marcarea cablurilor",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 65.0,
       "deviz": "4.1-08",
       "deviz_denumire": "Inst detectie incendiu tipIII",
@@ -7736,7 +7736,7 @@
     {
       "cod": "EH01A1",
       "denumire": "incercarea cablurilor de energie electrica de maxi mum 1 kv.",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-08",
       "deviz_denumire": "Inst detectie incendiu tipIII",
@@ -7754,7 +7754,7 @@
     {
       "cod": "EB08XD",
       "denumire": "sistem etansare antifoc",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "4.1-08",
       "deviz_denumire": "Inst detectie incendiu tipIII",
@@ -7826,7 +7826,7 @@
     {
       "cod": "ATA05XA",
       "denumire": "montarea tablouri electrice tablou teg si tablou t ect",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 7.0,
       "deviz": "4.1-15",
       "deviz_denumire": "Echipam el tablouri tip I",
@@ -7844,7 +7844,7 @@
     {
       "cod": "EF07XA",
       "denumire": "pregatirea tablourilor electrice pentru punere sub tensiune",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 7.0,
       "deviz": "4.1-15",
       "deviz_denumire": "Echipam el tablouri tip I",
@@ -7862,7 +7862,7 @@
     {
       "cod": "EH05A",
       "denumire": "incercarea tabloului de distributie, comanda, protec tie, semnalizare : tablou din cutii capsulate",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 7.0,
       "deviz": "4.1-15",
       "deviz_denumire": "Echipam el tablouri tip I",
@@ -7880,7 +7880,7 @@
     {
       "cod": "TCD11B1",
       "denumire": "montaj grup electrogen 25 kva inclusiv panou de au tomatizare si control, autonomie minim 8 ore contrib asig munca % total chelt directe io = % x to po = % x (to+io) vo = to+io+po simula comercial pro infra build infra build exl 4ºv . roma",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-15",
       "deviz_denumire": "Echipam el tablouri tip I",
@@ -7898,7 +7898,7 @@
     {
       "cod": "RPIA28B1",
       "denumire": "montare cazan apa calda cu functionare pe combusti bil solid cu gazeificare, q = 100-110 kw asim achizitia in f4 echip termice",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-16",
       "deviz_denumire": "Echipamente HVAC tip I",
@@ -7916,7 +7916,7 @@
     {
       "cod": "CD10F",
       "denumire": "montare cos de fum din inox, dn200 mm, h = 10 m asim cu tiraj natural, q = 100-110 kw, dn200mm,",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-16",
       "deviz_denumire": "Echipamente HVAC tip I",
@@ -7934,7 +7934,7 @@
     {
       "cod": "IA37A",
       "denumire": "montaj pompe circulatie (recirculatie) agent termi c echip termice l:il08 -0005:3304859 -teava inst.neagra nefil.m - 32 (1 1/4) ol 32 1 s 7656 l:il09k -0132:4122246 -racord olan.et.pla fil int ext u2 s482 dn 32 11/4",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 5.0,
       "deviz": "4.1-16",
       "deviz_denumire": "Echipamente HVAC tip I",
@@ -7955,7 +7955,7 @@
     {
       "cod": "RPIA28C1",
       "denumire": "montare recuperator de caldura echip climatizare si ventilatie",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-16",
       "deviz_denumire": "Echipamente HVAC tip I",
@@ -7973,7 +7973,7 @@
     {
       "cod": "RPIA90C1",
       "denumire": "montaj baterie electrica p = 6 kw, u = 400 v, mont ate pe unitatile de recuperare pentru preincalzire asim climatizare si ventilatie",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-16",
       "deviz_denumire": "Echipamente HVAC tip I",
@@ -7991,7 +7991,7 @@
     {
       "cod": "VC01C1",
       "denumire": "montare ventilator baie q = 95 mc/h, h = 35 pa climatizare si ventilatie contrib asig munca % total chelt directe io = % x to po = % x (to+io) vo = to+io+por societas pro proiectand ra buil pro infra build r.c low român n",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-16",
       "deviz_denumire": "Echipamente HVAC tip I",
@@ -8009,7 +8009,7 @@
     {
       "cod": "IA22D1",
       "denumire": "montaj boiler v = 500 litri, avand o serpentina de la cazan si una de la panourile solare, dar si rezistenta electrica",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-17",
       "deviz_denumire": "Echipam apa calda tip I",
@@ -8027,7 +8027,7 @@
     {
       "cod": "IA22F1",
       "denumire": "montaj puffer acumulare energie cu v = 1000 litri, intrare de la cazan si de la panouri solare",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-17",
       "deviz_denumire": "Echipam apa calda tip I",
@@ -8045,7 +8045,7 @@
     {
       "cod": "FA14A1",
       "denumire": "montaj vas de expansiune capacit 12 - 150 l contrib asig munca % total chelt directe io = % x to po = % x (to+io) vo = to+io+po comercial pro infra build pro infra build fev . românia -",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-17",
       "deviz_denumire": "Echipam apa calda tip I",
@@ -8063,7 +8063,7 @@
     {
       "cod": "WISI07C",
       "denumire": "montare paratrasnet tip pda ioniflash mach 2, raza de protectie 40m, nivel de protectie iv contrib asig munca % total chelt directe io = % x to po = % x (to+io) vo = to+io po la comercială pro infra build usa build lfov - românia",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-21",
       "deviz_denumire": "Echipam el paratras tip III",
@@ -8081,7 +8081,7 @@
     {
       "cod": "M1B12B1",
       "denumire": "montaj modul pompare, umplere si expansiune montat pe grup colectori solari boiler si puffere contrib asig munca % total chelt directe io = % x to po = % x (to+io) vo = to+ io+po faciala pro projectant pro infra build roma ₼",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-18",
       "deviz_denumire": "Echipam panouri solare tip I",
@@ -8099,7 +8099,7 @@
     {
       "cod": "L2G07A1",
       "denumire": "cabluri curent continuu asim",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-19",
       "deviz_denumire": "Echipam el fotovoltaice tip I",
@@ -8117,7 +8117,7 @@
     {
       "cod": "EF05A",
       "denumire": "soclu detectori cu izolatori l : el20m -0003:5536787 - soclu detectori cu izolatori",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 33.0,
       "deviz": "4.1-20",
       "deviz_denumire": "Echipam detect inc tip III",
@@ -8137,7 +8137,7 @@
     {
       "cod": "ED10F1",
       "denumire": "montaj buton manual de incendiu si buton cu autore tinere l:12013 -0019:5535799 -carcasa buton manual",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 13.0,
       "deviz": "4.1-20",
       "deviz_denumire": "Echipam detect inc tip III",
@@ -8157,7 +8157,7 @@
     {
       "cod": "EB15B1",
       "denumire": "etichetare adresa detectori, butoane, sirene si tr anspondere l: 12023 -0001: 6719689 -etichete tubulare pvc",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 55.0,
       "deviz": "4.1-20",
       "deviz_denumire": "Echipam detect inc tip III",
@@ -8914,7 +8914,7 @@
     {
       "cod": "VB10B",
       "denumire": "grila evacuare cu clapete antiploaie, racord dn 16 0 mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -8932,7 +8932,7 @@
     {
       "cod": "VB10B",
       "denumire": "grila evacuare/admisie aer proaspat cu clapete ant iploaie, racord dn 500 mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -8950,7 +8950,7 @@
     {
       "cod": "VB20A",
       "denumire": "grila introducere, montaj pe tubulatura circulara, registru de reglaj: 600x150mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 13.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -8986,7 +8986,7 @@
     {
       "cod": "FE27D1",
       "denumire": "montaj cot tubulatura circulara",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9004,7 +9004,7 @@
     {
       "cod": "FE28A1",
       "denumire": "montaj piesa ' t ' pentru tubulatura circulara asim",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9040,7 +9040,7 @@
     {
       "cod": "FE27D1",
       "denumire": "montaj cot tubulatura circulara",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 17.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9058,7 +9058,7 @@
     {
       "cod": "FE28A1",
       "denumire": "montaj piesa ' t ' pentru tubulatura circulara asim",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9112,7 +9112,7 @@
     {
       "cod": "EI12XA",
       "denumire": "colier de prindere pentru tubulatura circulara 100",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9130,7 +9130,7 @@
     {
       "cod": "EI12XA",
       "denumire": "colier de prindere pentru tubulatura circulara 200",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9166,7 +9166,7 @@
     {
       "cod": "RPCU07B1",
       "denumire": "strapungeri pereti si plansee formular f3 executant0413 obiectiv01 obi4.1 cate 12",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 20.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9241,7 +9241,7 @@
     {
       "cod": "VC09A1",
       "denumire": "piesa de trecere etansa pentru trecerea conductelo r prin peretii",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 14.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9277,7 +9277,7 @@
     {
       "cod": "IZB04A1",
       "denumire": "protectie la trecerile prin peretii rezistenti la foc p 0.2~0.5m l:11214 -0028: 7322691 -folie din hirtie caserata cu polietilena nii3-1970",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 10.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9297,7 +9297,7 @@
     {
       "cod": "IZB04A2",
       "denumire": "protectie anticoroziva a strapungerilor prin peret i plansee cu folie tip montare",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 10.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9315,7 +9315,7 @@
     {
       "cod": "IZB04B1",
       "denumire": "protectie la trecerile prin peretii rezistenti la foc p 1.00~3m",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9351,7 +9351,7 @@
     {
       "cod": "RPSA43H",
       "denumire": "montarea prin incastrare a bratarii pt.fixare cond . ol sau mat plastic de alim.apa si gaze, d= 3' l: sl07 -0010:4204123 -bratari tevi instalatii",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 62.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9409,7 +9409,7 @@
     {
       "cod": "RPGA12H",
       "denumire": "montarea dispozitivelor de sustinere la conducte l a ø 45 mm si grosimea de 4, 5-6 mm cot )",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 37.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -9427,7 +9427,7 @@
     {
       "cod": "SA33B",
       "denumire": "conf si mont tevii de protectie, otel pt instal., neagra, la trecerea conduct prin plansee d=1 1/4' l: sl47 -0003:3304859 -teava inst.neagra nefil.m - 32 (1 1/4) ol 32 1 s 7656",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 15.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -10185,7 +10185,7 @@
     {
       "cod": "ACD04C1",
       "denumire": "camin de canalizare din beton dn 800 mm cu h varia bil de la 0,95 m la 1,30 m carosabile l: 101.73 -0232:2100916 -beton marfa clasa c30/25 (bc30/b400) l: 10174 -0150:2101509 -mortar de ciment m100-t",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 7.0,
       "deviz": "4.3-03",
       "deviz_denumire": "Camine canal menajer 7b",
@@ -10264,7 +10264,7 @@
     {
       "cod": "00605R4",
       "denumire": "piesa trecere prin pvc-beton = 200 mm l: la006g1-0004: 8813867 -piesa de trecere prin camin pvc-beton d 200mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 14.0,
       "deviz": "4.3-03",
       "deviz_denumire": "Camine canal menajer 7b",
@@ -10284,7 +10284,7 @@
     {
       "cod": "ACE17A1",
       "denumire": "placa indicatoare montata la camine rezerv sau al",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 7.0,
       "deviz": "4.3-03",
       "deviz_denumire": "Camine canal menajer 7b",
@@ -10356,7 +10356,7 @@
     {
       "cod": "SE53A",
       "denumire": "contor de apa (apometru) debit maxim =20 [mc/h] cu transmitere la distanta apometru dn 32 clasa metrologica 'c' l: sl49 -0003:4625562 -contor dn15mm apa cu transmitere la distanta",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-05",
       "deviz_denumire": "Instalatii camin apometru",
@@ -10376,7 +10376,7 @@
     {
       "cod": "SD08XC",
       "denumire": "robinet de trecere cu ventil si mufe diam 1 1/2' l:11411 -0067:4202589 -robinet trec fonta 1 1/2' b descarcare pn10",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.3-05",
       "deviz_denumire": "Instalatii camin apometru",
@@ -10396,7 +10396,7 @@
     {
       "cod": "SE56A",
       "denumire": "filtru impuritati cu flanse, fonta, tip 'y' 1 1/4' l:sl44c -m :3270742 -filtru de apa pentru impuritati y 1 1/4'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-05",
       "deviz_denumire": "Instalatii camin apometru",
@@ -10416,7 +10416,7 @@
     {
       "cod": "SA33A1",
       "denumire": "montaj piesa de trecere ol /pehd",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.3-05",
       "deviz_denumire": "Instalatii camin apometru",
@@ -10434,7 +10434,7 @@
     {
       "cod": "00605R5",
       "denumire": "piesa trecere prin pvc-beton = 50 mm l: la006g1-m : 9816620 -piesa de trecere prin camin de 63 mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.3-05",
       "deviz_denumire": "Instalatii camin apometru",
@@ -10583,7 +10583,7 @@
     {
       "cod": "SD09C",
       "denumire": "robinet cu sertar si flanse dn2 1/2'' l: sl43 -m : 8800362 -robinet cu sertar si flanse dn2 1/2''",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -10603,7 +10603,7 @@
     {
       "cod": "SD09B",
       "denumire": "robinet cu deschidere lenta si flanse dn2 1/2'' l: sl43 -m : 8808018 -robinet cu deschidere lenta si flanse dn2 1/2''",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -10623,7 +10623,7 @@
     {
       "cod": "RPSD23A",
       "denumire": "robinet dn 142' l : sl43 -m : 0007019 -robinet dn 1%'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -10643,7 +10643,7 @@
     {
       "cod": "SD18A1",
       "denumire": "robinet de golire 25 mm l: 11411 -m : 8813001 -robinet cu sertar/golire fi-fi d.1'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -10663,7 +10663,7 @@
     {
       "cod": "SD19C",
       "denumire": "clapet de retinere dn 1 1/2' l: sl42 -m : 1100068 -clapeta sens dn 40",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -10683,7 +10683,7 @@
     {
       "cod": "SE53A",
       "denumire": "apometru dn 1' l: sl49 -m : 4625562 -contor cu rotor, monojet, intr-iesire filetate, dn=25mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -10703,7 +10703,7 @@
     {
       "cod": "SD18A1",
       "denumire": "robinet cu plutitor dn %%' l: 11411 -0130: 4201652 -robinet retinere ventil 3/4' pn 6 mufa",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -10723,7 +10723,7 @@
     {
       "cod": "SD31H1",
       "denumire": "montaj sorb pt aspiratie",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -10741,7 +10741,7 @@
     {
       "cod": "SD32C1",
       "denumire": "racorduri pompe mobile pompieri tip storz dn100 mm l: 11429 -0003: 7336056 -racord fix pentru stins incendiu tip a 4' s 701",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -10761,7 +10761,7 @@
     {
       "cod": "IA23B2",
       "denumire": "manometru cu robinet 1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -10779,7 +10779,7 @@
     {
       "cod": "00604A05",
       "denumire": "adaptor flansa pehd75/ol2 12' l: la006e1-0012 : 8812170 -racord compres.flansa d 75 x 2' 1/2",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -10799,7 +10799,7 @@
     {
       "cod": "00604A04",
       "denumire": "adaptor flansa pehd50/ol1 1/2' l: la006e1-0009: 8812166 -racord compres.flansa d 50 x 1' 1/2",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -10819,7 +10819,7 @@
     {
       "cod": "00604A02",
       "denumire": "adaptor flansa pehd32/ol1' l : la006e1-m : 8811853 -trecere sudata pehd/ol d 32/ 1'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -10839,7 +10839,7 @@
     {
       "cod": "00605R1",
       "denumire": "trecere etansa perete rezervor pentru conducte 2 1/2 ' l: la006g1-m : 9816620 -piesa de trecere prin camin de 63 mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -10859,7 +10859,7 @@
     {
       "cod": "00605R1",
       "denumire": "trecere etansa perete rezervor pentru conducte 1 1/2 ' l: la006g1-m : 6310020 -piesa de trecere 40 mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11030,7 +11030,7 @@
     {
       "cod": "SD30C1",
       "denumire": "cot otel dn2 1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11048,7 +11048,7 @@
     {
       "cod": "SD30C2",
       "denumire": "cot otel dn1 }'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11066,7 +11066,7 @@
     {
       "cod": "SA35A1",
       "denumire": "teu otel dn 1 1/2' l: 11421 -m :8802192 -teu otel 1 1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11086,7 +11086,7 @@
     {
       "cod": "IC35G1",
       "denumire": "bratari pt fixarea tevi.otel la inst.incalz sau ga ze mont.in zid caram sau beton d=1 1/2 toli n formular f3 executant0413 obiectiv01 obi4.3",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11122,7 +11122,7 @@
     {
       "cod": "IC35K1",
       "denumire": "bratari pt fixarea tevi.otel la inst.incalz sau ga ze mont in zid caram sau beton d=4 toli",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11140,7 +11140,7 @@
     {
       "cod": "SD11B",
       "denumire": "racord antivibrant 1-1/2' l: sl43 -m : 8811104 -racord antivibrant 11/2",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11160,7 +11160,7 @@
     {
       "cod": "SD11C",
       "denumire": "racord antivibrant 2-1/2' l: sl43 -m : 8811106 -racord antivibrant 2-1/2'",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11180,7 +11180,7 @@
     {
       "cod": "ACB05A1",
       "denumire": "imbinare cu flanse piese leg flanse armaturi si co ntoare cu dn 50 mm si pn 2,5-25 at l: 11713 -0001:6607551 -garn etans plan pn6/2,5 d= 50 m 100-500 g2x4",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11200,7 +11200,7 @@
     {
       "cod": "ACB10A1",
       "denumire": "flansa din otel rotunda montata prin sudura electr . avind dn = 50 l: 11705 -0001:4400791 - flansa plata pn 6 50- 60 ol37-2 et pu s 8012",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11276,7 +11276,7 @@
     {
       "cod": "RPSF11A",
       "denumire": "probe de presiune si etanseitate, probe la functio nare si punere in functiune hidranti",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -11417,7 +11417,7 @@
     {
       "cod": "ACA17A1",
       "denumire": "montaj piesa legatura din polietilena asimilat pentru montaj accesorii peid",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 16.0,
       "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
@@ -11435,7 +11435,7 @@
     {
       "cod": "ACA13C",
       "denumire": "sudarea tv din polietilena de pres.de inalta dens pt.realiz.ramific.si la rep.accident d= 63-225 mm asimilat pentru toate diametrele",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 7.0,
       "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
@@ -11474,7 +11474,7 @@
     {
       "cod": "ACA20C1",
       "denumire": "inchiderea capetelor la cond din pvc sau polieste - formular f3 executant0413 obiectiv01 obi4.3 cate 07",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "4.3-07",
       "deviz_denumire": "Conducte apa incinta",
@@ -11636,7 +11636,7 @@
     {
       "cod": "00605A6",
       "denumire": "teava pvc cu mufa si garnitura pt.canalizare exter ioara gravitationala d = 110 mm, l = 6 m 65 m sn 4 l: la006f1-0046: 8813810 -teava canal pvc cu mufa sn4 d=110x3, 0mm l=6m",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 11.0,
       "deviz": "4.3-08",
       "deviz_denumire": "Conducte canal incinta",
@@ -11656,7 +11656,7 @@
     {
       "cod": "00605C6",
       "denumire": "teava pvc cu mufa si garnitura pt canalizare exter ioara gravitationala d = 160 mm, l = 6 m 30 m sn 4 l: la006f1-0054 : 8813815 -teava canal pvc cu mufa sn4 d=160x4, 0mm l=6m",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 5.0,
       "deviz": "4.3-08",
       "deviz_denumire": "Conducte canal incinta",
@@ -11676,7 +11676,7 @@
     {
       "cod": "SB06D",
       "denumire": "piese de legatura (cot, reductie, etc ) din teva de p vc tip usor (u) , montate prin lipire, d= 110mm l: sl11 -m : 3270414 -cot pvc-kg 110 mm",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.3-08",
       "deviz_denumire": "Conducte canal incinta",
@@ -11696,7 +11696,7 @@
     {
       "cod": "SB06D",
       "denumire": "piese de legatura (cot, reductie, etc ) din teva de p vc tip usor (u) , montate prin lipire, d= 200mm l: sl11 -m : 8808904 -cot pvc 45gr d.200",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 5.0,
       "deviz": "4.3-08",
       "deviz_denumire": "Conducte canal incinta",
@@ -11716,7 +11716,7 @@
     {
       "cod": "ACA20G1",
       "denumire": "inchiderea capetelor la cond din pvc sau polieste asimilat pentru toate diametrele",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 4.0,
       "deviz": "4.3-08",
       "deviz_denumire": "Conducte canal incinta",
@@ -11824,7 +11824,7 @@
     {
       "cod": "IA37D1",
       "denumire": "montaj bazin din pafsin pentru rezerva intangibila hidranti vmin=18mc 2,5 x 4,5m",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-09",
       "deviz_denumire": "Echipam Gosp apa ext",
@@ -11842,7 +11842,7 @@
     {
       "cod": "SE55A",
       "denumire": "montaj grup pompare pt hidranti, 1+1 pompa q = 18 l/s, 1 pompa pilot q = 9mc/h",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-09",
       "deviz_denumire": "Echipam Gosp apa ext",
@@ -11860,7 +11860,7 @@
     {
       "cod": "ATB06B",
       "denumire": "montare kit aspiratie pompa complet echipat si uti lat contrib asig munca % total chelt directe io = % x to po = % x (to+io) vo = to+io+po pro infra build fov nisocie mea comerciala pro buildsuili tomania ₪",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.3-09",
       "deviz_denumire": "Echipam Gosp apa ext",
@@ -12063,7 +12063,7 @@
     {
       "cod": "ACD01L1",
       "denumire": "capac si rama stas 2308-81 pentru camine cu piesa suport carosabil iv camin electrovane - cv2 1, 5x2, 0x2, 0m",
-      "um": "bucata",
+      "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-04",
       "deviz_denumire": "Camin vane 1 b 1,9x1,9x1,5m",

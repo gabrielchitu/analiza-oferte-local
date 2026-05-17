@@ -303,10 +303,10 @@ def _normalize_um_value(token: str) -> str:
         return ''
 
     if t in UM_KNOWN:
-        # Normalize partial/variant forms
-        if t == 'BUCAT':  # OCR split: BUCATA → BUCAT (A on next line)
-            return 'BUC'
-        return t
+        # Normalize variants to canonical form
+        if t in ('BUCATA', 'BUCAT'):  # BUCATA și BUCAT = BUC în română
+            return 'buc'
+        return t.lower() if t in ('BUC', 'BUCATA', 'BUCAT') else t
 
     # Only attempt fuzzy match if token contains non-letter OCR noise: ?, !, |, ~, ^
     if any(c in t for c in '?!|~^'):
@@ -316,7 +316,7 @@ def _normalize_um_value(token: str) -> str:
 
     # ton → tona normalization
     if t == 'TON':
-        return 'TONA'
+        return 'tona'
 
     return t
 
