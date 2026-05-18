@@ -179,15 +179,15 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.2-2",
-      "deviz_denumire": "Structura",
+      "deviz_ref": "4.1-04",
+      "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "RPCB02E",
-      "oferta_denumire": "beton c12 / 15 egalizare",
-      "oferta_um": "mc",
-      "oferta_cantitate": 2.17
+      "oferta_cod": "QCK04A01",
+      "oferta_denumire": "tavan / plafon fals - gips carton zeci",
+      "oferta_um": "mp",
+      "oferta_cantitate": 24.47
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -203,15 +203,15 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.1-04",
-      "deviz_denumire": "Arhitectura conexe tip II",
+      "deviz_ref": "4.2-2",
+      "deviz_denumire": "Structura",
       "is_component": false,
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "QCK04A01",
-      "oferta_denumire": "tavan / plafon fals - gips carton zeci",
-      "oferta_um": "mp",
-      "oferta_cantitate": 24.47
+      "oferta_cod": "RPCB02E",
+      "oferta_denumire": "beton c12 / 15 egalizare",
+      "oferta_um": "mc",
+      "oferta_cantitate": 2.17
     }
   ],
   "total_neconformitati": 10,

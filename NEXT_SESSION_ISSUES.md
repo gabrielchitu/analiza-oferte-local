@@ -8,40 +8,38 @@
 ---
 
 ## ISSUE #1: Duplicate Article Code Extraction Failure
-**Severity**: HIGH | **Impact**: 5-10+ LIPSA articles
+**Status**: ✅ FIXED (2026-05-18) | **Severity**: HIGH | **Impact**: 5-10+ LIPSA articles
 
-### Problem
-When the same article code appears **multiple times** in the offer, only the first instance is properly extracted. Subsequent instances have:
+### Problem (RESOLVED)
+When the same article code appeared **multiple times** in the offer, subsequent instances had:
 - `cantitate = 0.0` (quantity lost)
 - Empty `um` (unit lost)
-- Empty/truncated `denumire` (description corrupted)
 
-### Example
-**Reference**:
-- QCD22B33 #1: qty 2.461 mp ✓
-- QCD22B33 #2: qty 6.048 mp ✓
+Example: QCD22B33 #2 extracted as (qty=0.0, um='') instead of (qty=6.05, um=mp)
 
-**Offer** (extracted):
-- QCD22B33 #1: qty 2.46 mp ✓ (works)
-- QCD22B33 #2: qty 0.0 (extraction failed) ❌
-  - Description shows "60,48 mp" or "6,048 mp" - should be parsed as qty!
+### Root Cause (IDENTIFIED)
+In `f3_regex_parser.py` line 1103, bare number lines appearing before quantity/unit were misclassified as new article numbers (NR_CRT), triggering premature article finalization.
 
-### Root Cause
-Likely in `f3_regex_parser.py` or `f3_extractor.py` - when a code is encountered for the 2nd+ time, the parser treats it as a duplicate or continuation line instead of a new article with its own qty/um/desc.
-
-### Fix Location
-- `shared/f3_regex_parser.py`: Check `extract_articles_regex()` state machine (IDLE, READING, WAITING states)
-- `shared/f3_extractor.py`: Check deduplication logic around line 369-378
-
-### Test Case
-Search OFERTA 2 for all duplicate codes:
-```python
-from collections import Counter
-codes = [a['cod'] for a in articles]
-duplicates = [c for c, count in Counter(codes).items() if count > 1]
+Pattern that broke:
+```
+QCD22B33#      ← code
+...            ← denomination
+10             ← classified as NR_CRT (article number) ← BUG
+6.05           ← quantity (lost association)
+mp             ← unit (lost association)
 ```
 
-Then verify qty/um not lost for each duplicate.
+### Solution (IMPLEMENTED)
+Added lookahead detection in `f3_regex_parser.py`:
+- When encountering bare number, check if next line is a decimal
+- If yes → number is coefficient/specification, not article number
+- Skip finalization only in this pattern
+- Commit: Add lookahead for coefficient detection
+
+### Results
+✅ QCD22B33 #2: Fixed to (qty=6.05, um=mp)  
+✅ Other duplicates: No regressions  
+✅ OFERTA 2: 47 → 46 nonconformities (-1 improvement)
 
 ---
 
