@@ -556,6 +556,47 @@ def _detect_subcomponent(cod: str, last_cod: str, line_text: str) -> tuple:
     return (False, None)
 
 
+def _merge_wrapped_codes(lines: List[str]) -> List[str]:
+    """
+    Merge code continuations across lines.
+
+    When a code ends with letters (e.g., "TRI1AA01E") and the next line is purely
+    digits (e.g., "3"), merge them together (e.g., "TRI1AA01E3").
+
+    This handles PDF table cell wrapping where codes are split across rows.
+    """
+    if not lines:
+        return lines
+
+    result = []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        next_line = lines[i + 1] if i + 1 < len(lines) else None
+
+        # Check if current line looks like a code ending with letters (no dash/description)
+        # and next line is purely digits (1-2 digits typically)
+        if next_line:
+            # Pattern: line ends with letters, no dash separator (so it's incomplete)
+            # Next line is just digits
+            line_stripped = line.strip()
+            next_stripped = next_line.strip()
+
+            if (re.match(r'^([A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z])$', line_stripped, re.IGNORECASE) and
+                re.match(r'^\d{1,2}$', next_stripped)):
+                # Merge: "TRI1AA01E" + "3" → "TRI1AA01E3"
+                merged = line_stripped + next_stripped
+                result.append(merged)
+                i += 2  # Skip both lines
+                logger.debug(f"[MERGE] Merged wrapped code: {line_stripped} + {next_stripped} → {merged}")
+                continue
+
+        result.append(line)
+        i += 1
+
+    return result
+
+
 def extract_articles_regex(lines: List[str], deviz_cod: str,
                            deviz_den: str) -> List[Dict]:
     """
@@ -570,6 +611,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         Lista de articole în formatul standard (compatibil AgentComparator).
     """
     lines = _preprocess_compound_um(lines)
+    lines = _merge_wrapped_codes(lines)
     articole: List[Dict] = []
     state = _IDLE
 

@@ -179,18 +179,6 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.1-05",
-      "deviz_denumire": "Inst electrice tip I",
-      "is_component": false,
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "TRB05B1F",
-      "oferta_denumire": "transp prin purtare directa al antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
-      "oferta_um": "tona",
-      "oferta_cantitate": 1.6
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "4.2-2",
       "deviz_denumire": "Structura",
       "is_component": false,
@@ -200,6 +188,18 @@
       "oferta_denumire": "beton c12 / 15 egalizare",
       "oferta_um": "mc",
       "oferta_cantitate": 2.17
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.1-05",
+      "deviz_denumire": "Inst electrice tip I",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "TRB05B1F",
+      "oferta_denumire": "transp prin purtare directa al antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
+      "oferta_um": "tona",
+      "oferta_cantitate": 1.6
     },
     {
       "tip": "ARTICOL_EXTRA",
