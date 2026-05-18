@@ -446,6 +446,68 @@ def match_global(
         extra_from_nm.extend(oferta_list[len(ref_list):])
 
 
+    # Layer 2.2: Cross-deviz matching — GENERAL SOLUTION for deviz mismatches
+    # Prinde articole cu (cod, cantitate, UM) identice dar in devize diferite
+    # Exemple: ref(4.2-1, TRA05A05, 10.34) ↔ oferta(4.3-01, TRA05A05, 10.34)
+    # Once matched here, removes from still_unmatched_ref and unmatched_oferta_keys
+    # so Layer 3 doesn't try to re-match them
+    if still_unmatched_ref and unmatched_oferta_keys:
+        # Build a map of (code, quantity, UM) → (oferta_art, oferta_key) — ignore deviz
+        oferta_by_code_qty = {}
+        for ok in unmatched_oferta_keys:
+            oferta_art = oferta_map.get(ok)
+            if oferta_art:
+                key = (
+                    clean_code(oferta_art.get("cod", "")),
+                    oferta_art.get("cantitate"),
+                    _normalize_um(oferta_art.get("um", ""))
+                )
+                if key not in oferta_by_code_qty:
+                    oferta_by_code_qty[key] = (oferta_art, ok)
+
+        # Process still_unmatched_ref: keep only those NOT matched cross-deviz
+        remaining_unmatched_ref = []
+        matched_oferta_keys_cross = set()
+
+        for ref_art in still_unmatched_ref:
+            ref_key = (
+                clean_code(ref_art.get("cod", "")),
+                ref_art.get("cantitate"),
+                _normalize_um(ref_art.get("um", ""))
+            )
+
+            if ref_key in oferta_by_code_qty:
+                # Found match across devizes — remove from both pools
+                oferta_art, oferta_key = oferta_by_code_qty[ref_key]
+                matched_oferta_keys_cross.add(oferta_key)
+
+                # Record as DEVIZ_MISMATCH (not LIPSA, not matched)
+                neconf = {
+                    "tip": "DEVIZ_MISMATCH",
+                    "motiv": f"Cod+Qty identic in deviz diferit: ref {ref_art.get('deviz')}, oferta {oferta_art.get('deviz')}",
+                }
+                _enrich(neconf, ref_art, oferta_art, ref_art.get("deviz", ""), ref_art.get("deviz_denumire", ""))
+                neconformitati.append(neconf)
+
+                matches.append({
+                    "ref_cod": ref_art.get("cod", ""),
+                    "ref_denumire": ref_art.get("denumire", ""),
+                    "oferta_cod": oferta_art.get("cod", ""),
+                    "oferta_denumire": oferta_art.get("denumire", ""),
+                })
+
+                logger.debug(f"[CROSS-DEVIZ] {ref_art.get('cod')}: ref deviz={ref_art.get('deviz')}, oferta deviz={oferta_art.get('deviz')}")
+            else:
+                # No match — stays in still_unmatched_ref for Layer 3
+                remaining_unmatched_ref.append(ref_art)
+
+        still_unmatched_ref = remaining_unmatched_ref
+        unmatched_oferta_keys -= matched_oferta_keys_cross
+
+        if matched_oferta_keys_cross:
+            logger.info(f"[CROSS-DEVIZ] Detectate {len(matched_oferta_keys_cross)} articole in devize diferite")
+
+
     # Layer 3: LLM fuzzy match per grup deviz
     if still_unmatched_ref and unmatched_oferta_keys:
         ref_by_deviz = defaultdict(list)

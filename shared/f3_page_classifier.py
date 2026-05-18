@@ -233,6 +233,9 @@ def _extract_grouping_key(lines: list[str], deviz_text_map: dict = None, referen
     obj_text = m_obj.group(2).strip() if m_obj else ""
     cat_num = m_cat.group(1).strip() if m_cat else ""
     cat_text = m_cat.group(2).strip() if m_cat else ""
+    # Strip page numbers and table headers captured by regex on continuation pages
+    if cat_text:
+        cat_text = re.split(r'\s+Pag\s+\d+|\s+0\s+1\s+2\s+3', cat_text)[0].strip()[:60]
 
     # Both numeric parts present → compound key
     if obj_num and cat_num:

@@ -9615,6 +9615,25 @@
       "val_transport": 0.0
     },
     {
+      "cod": "NII3",
+      "denumire": "1970 devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
+      "um": "buc",
+      "cantitate": 10.5,
+      "deviz": "4.1-12",
+      "deviz_denumire": "Instalatii ventilatii tip I",
+      "is_component": false,
+      "parent_code": null,
+      "subcomponents": [],
+      "pret_material": 0.0,
+      "val_material": 1.0,
+      "pret_manopera": 0.0,
+      "val_manopera": 0.0,
+      "pret_utilaj": 0.0,
+      "val_utilaj": 0.0,
+      "pret_transport": 0.0,
+      "val_transport": 0.0
+    },
+    {
       "cod": "IZB04A2",
       "denumire": "protectie anticoroziva a strapungerilor prin peret i plansee cu folie tip montare a",
       "um": "buc",
