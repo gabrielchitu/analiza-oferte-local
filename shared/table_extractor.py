@@ -124,6 +124,17 @@ def extract_articles_from_tables(tables: List[Dict], deviz_cod: str, deviz_den: 
             elif 'CANTITAT' in header or header == '3':
                 col_cant = col_idx
 
+        # Extract data rows BEFORE heuristic check (rows variable used in heuristic)
+        rows = {}
+        for cell in cells:
+            row_idx = cell.get('row_index')
+            if row_idx <= 2:
+                continue
+
+            if row_idx not in rows:
+                rows[row_idx] = {}
+            rows[row_idx][cell.get('column_index')] = cell.get('content', '')
+
         # Fallback: If standard columns not found, try heuristic detection
         # Some tables have sparse headers without explicit CANTITATE/UM labels
         if col_capitol is None or col_um is None or col_cant is None:
@@ -158,17 +169,6 @@ def extract_articles_from_tables(tables: List[Dict], deviz_cod: str, deviz_den: 
             if not prev_header or prev_header.strip() == '':
                 has_empty_header_before = True
                 code_col = col_capitol - 1
-
-        # Extract data rows (skip header rows 0, 1, 2)
-        rows = {}
-        for cell in cells:
-            row_idx = cell.get('row_index')
-            if row_idx <= 2:
-                continue
-
-            if row_idx not in rows:
-                rows[row_idx] = {}
-            rows[row_idx][cell.get('column_index')] = cell.get('content', '')
 
         # Detect format 2: Check if code and denom are in separate columns
         # This happens when code is in code_col and denom in the next column
