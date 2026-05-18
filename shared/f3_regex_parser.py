@@ -1097,13 +1097,23 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 continue
 
             # NR_CRT nou (bare) → finalizează articolul curent
-            # Treat bare integer as new article if NO CODE or quantity is ZERO
-            # This allows both oferta 2 format (code without UM) and reference format to work
+            # BUT: Check if next line is a decimal quantity — if so, current "bare number"
+            # is likely a coefficient/spec, not an article number. Delay finalization.
             m_bare_nr = NR_CRT_RE.match(line)
-            if m_bare_nr and (not cod or cantitate == 0.0):
+            bare_nr_val = int(m_bare_nr.group(1)) if m_bare_nr else None
+
+            # Peek ahead: if next line is a decimal (quantity), don't treat current line as NR_CRT
+            skip_finalize_for_coeff = False
+            if m_bare_nr and cod and um == '' and line_idx + 1 < len(lines):
+                next_line = lines[line_idx + 1].strip()
+                if CANT_DECIMAL_RE.match(next_line):
+                    # Next line is a quantity → current number is likely a coefficient, not NR_CRT
+                    skip_finalize_for_coeff = True
+
+            if m_bare_nr and not skip_finalize_for_coeff and (not cod or cantitate == 0.0):
                 # If we have NO code or NO quantity yet, treat bare NR as new article start
                 _finalize()
-                last_nr_crt = int(m_bare_nr.group(1))
+                last_nr_crt = bare_nr_val
                 state = _WAITING
                 waiting_lines = 0
                 continue
