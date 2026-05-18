@@ -193,12 +193,12 @@ _PRICE_LABEL_RE = re.compile(r'^(material|manopera|utilaj|transport)\s*:', re.IG
 
 UM_KNOWN = {
     # Volum / masa / lungime
-    'BUC', 'BUCATA', 'BUCAT', 'MC', 'ML', 'MP', 'MPC', 'KG', 'T', 'TO', 'TON', 'TONA', 'G', 'MG',
+    'BUC', 'BUCATA', 'BUCAT', 'MC', 'ML', 'MP', 'MPC', 'KG', 'T', 'TO', 'TON', 'TONA', 'TONE', 'G', 'MG',
     'L', 'M', 'H', 'CM', 'DM', 'KM',
     # Electric
     'KW', 'KWH', 'KVA', 'W',
     # Timp
-    'ORA', 'ORE', 'ZI', 'ZILE', 'SCHIMB', 'LUNA', 'LUNI', 'SAPT',
+    'ORA', 'ORE', 'OREI', 'ZI', 'ZILE', 'SCHIMB', 'LUNA', 'LUNI', 'SAPT',
     # Misc constructii
     'SET', 'PERECHE', 'ROLA', 'PAG', 'ART', 'ROT',
     # Financiar
@@ -323,6 +323,10 @@ def _normalize_um_value(token: str) -> str:
         # Normalize variants to canonical form
         if t in ('BUCATA', 'BUCAT'):  # BUCATA și BUCAT = BUC în română
             return 'buc'
+        if t == 'TONE':  # TONE (plural) → tona (singular)
+            return 'tona'
+        if t in ('ORE', 'OREI'):  # ORE, OREI (plural/genitive) → ora (singular)
+            return 'ora'
         return t.lower() if t in ('BUC', 'BUCATA', 'BUCAT') else t
 
     # Only attempt fuzzy match if token contains non-letter OCR noise: ?, !, |, ~, ^
@@ -624,6 +628,9 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 # Use parent_cod from detection if not already marked explicitly
                 if explicit_component_marker and not parent_cod:
                     parent_cod = last_article_cod
+
+                if um == 'm' and 'cub' in den_joined.lower():
+                    um = 'mc'
 
                 art = _make_article(cod, den_joined, um, cantitate,
                                     preturi, deviz_cod, deviz_den, is_component=is_subcomp,
@@ -1144,6 +1151,27 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # Suportă și format "99 ZECI MP" unde ZECI este descriptor (tens/groups) nu UM
             # BUT: skip "NUMBER KM" (always distance spec like "20 KM", never work unit)
             if um == '':
+                # Try format: NUMBER QUALIFIER UNIT (e.g., "82 M CUB", "99 ZECI MP")
+                # Check this FIRST to handle "M CUB" correctly before single-word patterns
+                m_um_qual = re.match(r'^(\d+)\s+([A-Z]{1,6})\s+([A-Z]{1,6})\.?\s*$', line, re.IGNORECASE)
+                if m_um_qual:
+                    # Special case: "M CUB" → normalize to "MC"
+                    word1 = m_um_qual.group(2).upper()
+                    word2 = m_um_qual.group(3).upper()
+                    if word1 == 'M' and word2 == 'CUB':
+                        um = 'mc'
+                        continue
+                    # Try second part as UM first (more likely), then first part
+                    um_candidate = word2
+                    if _is_valid_um(um_candidate):
+                        um = _normalize_um_value(um_candidate)
+                        continue
+                    # If group 3 isn't UM, try group 2
+                    um_candidate = word1
+                    if _is_valid_um(um_candidate):
+                        um = _normalize_um_value(um_candidate)
+                        continue
+
                 # Try format: NUMBER UNIT (e.g., "100 MC")
                 m_um_norm = re.match(r'^(\d+)\s+([A-Z]{1,6})\.?\s*$', line, re.IGNORECASE)
                 if m_um_norm:
@@ -1153,20 +1181,6 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                         continue
                     if _is_valid_um(um_candidate):
                         um = _normalize_um_value(um_candidate)  # Extract only the unit part, not the prefix
-                        continue
-                # Try format: NUMBER QUALIFIER UNIT (e.g., "99 ZECI MP")
-                # QUALIFIER can be: ZECI (tens), SUTE (hundreds), PERECHE, SET, etc. — descriptors not units
-                m_um_qual = re.match(r'^(\d+)\s+([A-Z]{1,6})\s+([A-Z]{1,6})\.?\s*$', line, re.IGNORECASE)
-                if m_um_qual:
-                    # Try second part as UM first (more likely), then first part
-                    um_candidate = m_um_qual.group(3).upper()
-                    if _is_valid_um(um_candidate):
-                        um = _normalize_um_value(um_candidate)
-                        continue
-                    # If group 3 isn't UM, try group 2
-                    um_candidate = m_um_qual.group(2).upper()
-                    if _is_valid_um(um_candidate):
-                        um = _normalize_um_value(um_candidate)
                         continue
 
             # Format pipe: "M.C. | 18.144 | BETON MARFA CLASA C8/10" (referinta breviar materiale)
