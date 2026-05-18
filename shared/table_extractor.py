@@ -32,11 +32,19 @@ logger = logging.getLogger(__name__)
 
 
 def _clean_article_code(code: str) -> str:
-    """Remove OCR artifacts from article codes: SE56A# → SE56A"""
+    """Remove OCR artifacts and variant suffixes from article codes.
+
+    Examples:
+    - SE56A# → SE56A (OCR artifact)
+    - SC07A-1# → SC07A (variant suffix)
+    - SC14A# → SC14A
+    """
     if not code:
         return code
-    # Remove trailing OCR artifacts: #, @, -, etc. that appear after valid code
-    code = re.sub(r'([A-Z0-9])[#@\-!]+$', r'\1', code)
+    # Remove variant suffix: -\d+# (e.g., -1#, -2#)
+    code = re.sub(r'([-]\d+)[#@!]*$', '', code)
+    # Remove trailing OCR artifacts: #, @, etc. that appear after valid code
+    code = re.sub(r'([A-Z0-9])[#@!]+$', r'\1', code)
     return code
 
 
@@ -48,9 +56,10 @@ def _parse_article_cell(cell_content: str) -> tuple:
     if not cell_content or not isinstance(cell_content, str):
         return None, None
 
-    # Match: "CODE - DENOMINATION"
-    # Supports: multi-letter codes (CA01A1) and single-letter codes (W3H18C1)
-    m = re.match(r'^(\$?\d{4,8}|[A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2})\s*[-–]\s*(.+)',
+    # Match: "CODE - DENOMINATION" with optional code suffix like "-1#"
+    # Use " - " (with spaces) to distinguish from "-1#" (part of code without spaces)
+    # Pattern: CODE(-SUFFIX#)? - DESCRIPTION
+    m = re.match(r'^(\$?\d{4,8}|[A-Z]{2,5}\d{1,4}[A-Z]?(?:-\d+)?(?:#)?|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?(?:-\d+)?(?:#)?)\s*[-–]\s*(.+)',
                  cell_content.strip(), re.IGNORECASE)
     if m:
         code = m.group(1).upper()
@@ -61,7 +70,7 @@ def _parse_article_cell(cell_content: str) -> tuple:
         return code, denom
 
     # Fallback: try to extract code even without perfect dash separation
-    # This handles cases like "SE56A# - Filtru..." where we need to clean the code
+    # Handles: "SE56A# - Filtru...", "SC07A-1# - Description..." with various separators
     m2 = re.match(r'^([A-Z0-9#@\-]{2,10})\s*[-–]\s*(.+)', cell_content.strip(), re.IGNORECASE)
     if m2:
         code = m2.group(1).upper()
@@ -224,6 +233,9 @@ def extract_articles_from_tables(tables: List[Dict], deviz_cod: str, deviz_den: 
                 # Format 1: Combined "CODE - DENOMINATION" in col_capitol
                 capitol_cell = row_data.get(col_capitol, '')
                 code, denom = _parse_article_cell(capitol_cell)
+                # Clean suffix variants: SC07A-1# → SC07A, SE56A# → SE56A
+                if code:
+                    code = _clean_article_code(code)
 
             if not code:
                 continue
