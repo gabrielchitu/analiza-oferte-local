@@ -195,7 +195,7 @@ _PRICE_LABEL_RE = re.compile(r'^(material|manopera|utilaj|transport)\s*:', re.IG
 UM_KNOWN = {
     # Volum / masa / lungime
     'BUC', 'BUCATA', 'BUCAT', 'MC', 'ML', 'MP', 'MPC', 'KG', 'T', 'TO', 'TON', 'TONA', 'TONE', 'G', 'MG',
-    'L', 'M', 'H', 'CM', 'DM', 'KM',
+    'L', 'M', 'H', 'DM', 'KM',
     # Electric
     'KW', 'KWH', 'KVA', 'W',
     # Timp
@@ -205,7 +205,7 @@ UM_KNOWN = {
     # Financiar
     'LEI', 'MII',
 }
-# NOTA: 'MM' este intentionat ABSENT din UM_KNOWN.
+# NOTA: 'MM' si 'CM' sunt intentionat ABSENTE din UM_KNOWN.
 # '8 MM' in OCR este continuare de denumire (ex: 'OB 37 D = 6 - 8 MM'),
 # nu o coloana UM. Milimetrii apar extrem de rar ca UM in devize F3.
 # Tokeni care par UM (scurți, alfabetici) dar sunt de fapt designatori de tip normativ (nu UM reale)
