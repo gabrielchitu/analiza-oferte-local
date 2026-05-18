@@ -810,7 +810,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
 
     for line_idx, raw_line in enumerate(lines):
         line = raw_line.strip()
-            # Skip empty, price labels, and metadata codes — BUT NOT numeric codes in linked article mode
+        # Skip empty, price labels, and metadata codes — BUT NOT numeric codes in linked article mode
         skip_due_to_filter = SKIP_RE.search(line) or _PRICE_LABEL_RE.match(line)
         if not line or (skip_due_to_filter and not (state == _WAITING and _after_linked)):
             continue
@@ -1259,6 +1259,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                     if um_candidate == 'KM':
                         continue
                     if _is_valid_um(um_candidate):
+                        # Skip single-letter UM if next line is also valid UM (prefer multi-letter units)
+                        # E.g., "6 M" followed by "buc" → skip M, use buc instead
+                        if len(um_candidate) == 1 and line_idx + 1 < len(lines):
+                            next_line = lines[line_idx + 1].strip().upper()
+                            if _is_valid_um(next_line):
+                                continue  # Skip this single letter, process next line instead
                         um = _normalize_um_value(um_candidate)  # Extract only the unit part, not the prefix
                         continue
 

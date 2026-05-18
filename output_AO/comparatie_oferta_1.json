@@ -179,16 +179,15 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.1-12",
-      "deviz_denumire": "Instalatii ventilatii tip I",
+      "deviz_ref": "4.1-04",
+      "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "NII3",
-      "oferta_denumire": "1970 devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
-      "oferta_um": "buc",
-      "oferta_cantitate": 10.5,
-      "posibil_omis_din_extractie": true
+      "oferta_cod": "QCK04A01",
+      "oferta_denumire": "tavan / plafon fals - gips carton zeci",
+      "oferta_um": "mp",
+      "oferta_cantitate": 24.47
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -204,15 +203,16 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.1-04",
-      "deviz_denumire": "Arhitectura conexe tip II",
+      "deviz_ref": "4.1-12",
+      "deviz_denumire": "Instalatii ventilatii tip I",
       "is_component": false,
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "QCK04A01",
-      "oferta_denumire": "tavan / plafon fals - gips carton zeci",
-      "oferta_um": "mp",
-      "oferta_cantitate": 24.47
+      "oferta_cod": "NII3",
+      "oferta_denumire": "1970 devize (www.edevize.ro) antet stanga edevize sectiunea tehnica sectiunea financiara nr capitol de lucrari u.m cantitatea pretul unitar - lei - totalul - lei -",
+      "oferta_um": "buc",
+      "oferta_cantitate": 10.5,
+      "posibil_omis_din_extractie": true
     },
     {
       "tip": "ARTICOL_EXTRA",
