@@ -318,6 +318,8 @@ def _normalize_um_value(token: str) -> str:
         return 'mc'
     if token_lower in ('mp', 'm²', 'm2'):
         return 'mp'
+    if token_lower in ('zeci m', 'zeci'):  # ZECI M = 10 m (qualifier + unit)
+        return 'm'  # Normalize to meters; quantity is in 10-meter units
 
     if t in UM_KNOWN:
         # Normalize variants to canonical form
@@ -1157,8 +1159,19 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # Suportă și format "99 ZECI MP" unde ZECI este descriptor (tens/groups) nu UM
             # BUT: skip "NUMBER KM" (always distance spec like "20 KM", never work unit)
             if um == '':
+                # Try format: QUALIFIER UNIT standalone (e.g., "ZECI M", "SUTE MP")
+                # Check this FIRST for eDevize format where "ZECI M" appears on own line
+                m_qual_um_standalone = re.match(r'^([A-Z]{1,6})\s+([A-Z]{1,6})\.?\s*$', line, re.IGNORECASE)
+                if m_qual_um_standalone:
+                    word1 = m_qual_um_standalone.group(1).upper()
+                    word2 = m_qual_um_standalone.group(2).upper()
+                    # Special cases for descriptor+unit patterns
+                    if word1 in ('ZECI', 'SUTE') and word2 in ('M', 'MP', 'MC', 'ML'):
+                        um = _normalize_um_value(word2)  # Extract just the unit (M, MP, etc.)
+                        continue
+
                 # Try format: NUMBER QUALIFIER UNIT (e.g., "82 M CUB", "99 ZECI MP")
-                # Check this FIRST to handle "M CUB" correctly before single-word patterns
+                # Check this SECOND to handle "M CUB" correctly before single-word patterns
                 m_um_qual = re.match(r'^(\d+)\s+([A-Z]{1,6})\s+([A-Z]{1,6})\.?\s*$', line, re.IGNORECASE)
                 if m_um_qual:
                     # Special case: "M CUB" → normalize to "MC"
