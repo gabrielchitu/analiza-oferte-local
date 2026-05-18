@@ -56,41 +56,61 @@ def _text_similarity(text_a: str, text_b: str) -> float:
     return SequenceMatcher(None, text_a.lower(), text_b.lower()).ratio()
 
 
-def find_deviz_for_text(text: str, deviz_text_map: dict) -> str | None:
+def find_all_devizes_for_text(text: str, deviz_text_map: dict) -> list[tuple[str, str, float]]:
     """
-    Find numeric deviz code by matching text against reference denominations.
+    GENERAL SOLUTION: Find ALL possible deviz codes matching text, sorted by confidence.
+    Returns list of (deviz_code, match_type, score) tuples for disambiguation.
+
+    Example: "Terasamente" returns:
+      [(4.2-1, 'exact', 1.0), (4.4-1, 'exact', 1.0), (4.3-01, 'fuzzy', 0.72)]
+
+    Page classifier can then use context (obiectul, articole) to pick the right one.
 
     Args:
-        text: Text from page (e.g., "Arhitectura - eligibili tip I")
-        deviz_text_map: Map built from reference data via build_deviz_text_map()
+        text: Text from page (e.g., "Terasamente")
+        deviz_text_map: Map built from reference data
 
     Returns:
-        Numeric deviz code (e.g., "4.1-03") or None if no good match
+        List of (deviz_code, match_type, similarity_score) sorted by score descending
     """
     if not text or not deviz_text_map:
-        return None
+        return []
 
     text_lower = text.lower().strip()
-    best_deviz = None
-    best_score = 0.0
+    matches = []  # (deviz, match_type, score)
 
-    # Try each deviz's texts
     for deviz, info in deviz_text_map.items():
         for ref_text in info['texts']:
-            # Exact substring match (highest priority)
-            if ref_text in text_lower or text_lower in ref_text:
-                return deviz
+            # EXACT MATCH: text_lower == ref_text (best match)
+            if text_lower == ref_text:
+                matches.append((deviz, 'exact', 1.0))
+                continue
 
-            # Fuzzy match
+            # SUBSTRING MATCH: only if text CONTAINS ref_text AND text is longer
+            # Avoids "terasamente" incorrectly matching "terasamente apa"
+            if len(text_lower) > len(ref_text) and ref_text in text_lower:
+                matches.append((deviz, 'substring', 0.85))
+                continue
+
+            # FUZZY MATCH: similarity above threshold
             score = _text_similarity(text_lower, ref_text)
-            if score > best_score:
-                best_score = score
-                best_deviz = deviz
+            if score >= 0.65:
+                matches.append((deviz, 'fuzzy', score))
 
-    # Return best match if above threshold
-    if best_score >= 0.65:
-        return best_deviz
+    # Sort by score descending (exact=1.0 first, then substring, then fuzzy)
+    matches.sort(key=lambda x: (-x[2], x[0]))
 
+    return matches
+
+
+def find_deviz_for_text(text: str, deviz_text_map: dict) -> str | None:
+    """
+    LEGACY: Find single best deviz code.
+    For backward compatibility. Uses find_all_devizes_for_text internally.
+    """
+    matches = find_all_devizes_for_text(text, deviz_text_map)
+    if matches:
+        return matches[0][0]
     return None
 
 

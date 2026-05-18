@@ -189,7 +189,7 @@ def _non_f3() -> dict:
     }
 
 
-def _extract_grouping_key(lines: list[str], deviz_text_map: dict = None) -> dict:
+def _extract_grouping_key(lines: list[str], deviz_text_map: dict = None, reference_articles: list = None) -> dict:
     """
     Extract the grouping key for a page's deviz section.
 
@@ -203,6 +203,7 @@ def _extract_grouping_key(lines: list[str], deviz_text_map: dict = None) -> dict
     Args:
         lines: Page lines
         deviz_text_map: Dynamic map from reference data (deviz → list of texts)
+        reference_articles: Optional list of reference articles for disambiguation
 
     Returns:
         {
@@ -245,19 +246,72 @@ def _extract_grouping_key(lines: list[str], deviz_text_map: dict = None) -> dict
 
     # Both text parts present (at least) but numeric missing → try reference match
     if obj_text or cat_text:
-        from shared.deviz_catalog import find_deviz_for_text
+        from shared.deviz_catalog import find_all_devizes_for_text
 
         # Try matching against actual reference texts
         if deviz_text_map:
-            # Try cat_text first (more specific), then obj_text
-            ref_deviz = find_deviz_for_text(cat_text, deviz_text_map) or find_deviz_for_text(obj_text, deviz_text_map)
-            if ref_deviz:
-                return {
-                    "method": "reference_matched",
-                    "deviz_cod": ref_deviz,
-                    "obiectul": {"num": obj_num, "text": obj_text},
-                    "categoria": {"num": cat_num, "text": cat_text},
-                }
+            # Get ALL possible deviz matches (try cat_text first, then obj_text)
+            all_matches = find_all_devizes_for_text(cat_text, deviz_text_map) or find_all_devizes_for_text(obj_text, deviz_text_map)
+
+            if all_matches:
+                # If single exact match → use it (trusted, no ambiguity)
+                exact_matches = [m for m in all_matches if m[1] == 'exact']
+                if len(exact_matches) == 1:
+                    return {
+                        "method": "reference_matched",
+                        "deviz_cod": exact_matches[0][0],
+                        "obiectul": {"num": obj_num, "text": obj_text},
+                        "categoria": {"num": cat_num, "text": cat_text},
+                    }
+
+                # If MULTIPLE exact matches → disambiguate by article matching (if ref data available)
+                # or use first exact match (fallback)
+                if len(exact_matches) > 1:
+                    best_deviz = exact_matches[0][0]
+                    best_score = 0
+
+                    # If we have reference articles, count matches to pick best deviz
+                    if reference_articles:
+                        article_codes = set()
+                        for line in lines:
+                            # Find article codes (2-5 letters + digits + optional suffix)
+                            codes = _ARTICLE_CODE_RE.findall(line)
+                            article_codes.update(codes)
+
+                        if article_codes:
+                            # Build map of articles by deviz from reference data
+                            deviz_to_codes = {}
+                            for art in reference_articles:
+                                deviz = (art.get('deviz') or '').strip()
+                                code = (art.get('cod') or '').strip().upper()
+                                if deviz and code:
+                                    if deviz not in deviz_to_codes:
+                                        deviz_to_codes[deviz] = set()
+                                    deviz_to_codes[deviz].add(code)
+
+                            # For each candidate deviz, count matches
+                            for deviz_code, match_type, score in exact_matches:
+                                match_count = len(article_codes & deviz_to_codes.get(deviz_code, set()))
+                                if match_count > best_score:
+                                    best_score = match_count
+                                    best_deviz = deviz_code
+
+                    if best_deviz:
+                        return {
+                            "method": "reference_matched",
+                            "deviz_cod": best_deviz,
+                            "obiectul": {"num": obj_num, "text": obj_text},
+                            "categoria": {"num": cat_num, "text": cat_text},
+                        }
+
+                # If no exact matches but have fuzzy matches → use best fuzzy
+                if all_matches:
+                    return {
+                        "method": "reference_matched",
+                        "deviz_cod": all_matches[0][0],
+                        "obiectul": {"num": obj_num, "text": obj_text},
+                        "categoria": {"num": cat_num, "text": cat_text},
+                    }
 
         # Fallback to partial sentinel if no reference map or no match
         sentinel = f"__partial__{obj_text[:40]}:{cat_text[:40]}"
@@ -300,7 +354,7 @@ def _extract_deviz_name_from_formular_f3(full_content: str) -> str:
     return ""
 
 
-def classify_page_local(page: dict, deviz_text_map: dict = None) -> dict:
+def classify_page_local(page: dict, deviz_text_map: dict = None, reference_articles: list = None) -> dict:
     """
     Classify a DI JSON page without LLM. Two-phase algorithm:
     Phase A: Fast non-F3 detection
@@ -393,7 +447,7 @@ def classify_page_local(page: dict, deviz_text_map: dict = None) -> dict:
 
     # ── Phase C: Grouping key extraction (same logic for ALL F3 pages) ────────
 
-    key = _extract_grouping_key(lines, deviz_text_map)
+    key = _extract_grouping_key(lines, deviz_text_map, reference_articles)
 
     # Special guard: Formular F3 with no key AND no article codes
     # = eDevize signature/footer page (e.g., 'Deviz "07" - Formular F3')
@@ -488,6 +542,7 @@ def build_page_classifications(
     document_type: str = "unknown",
     source_path: str = "",
     deviz_text_map: dict = None,
+    reference_articles: list = None,
 ) -> tuple[list[dict], dict]:
     """
     Classify all pages and propagate deviz codes.
@@ -499,6 +554,7 @@ def build_page_classifications(
         document_type: "reference" or "offer"
         source_path: Original file path
         deviz_text_map: Dynamic map from reference data (deviz → texts)
+        reference_articles: Optional list of reference articles for disambiguation
 
     Returns: tuple of (results, checkpoint)
         results: list[dict] cu câmpuri:
@@ -513,7 +569,7 @@ def build_page_classifications(
     for page in pages:
         lines = _extract_lines(page)
         page_number = page.get("page_number", 0)
-        local = classify_page_local(page, deviz_text_map)
+        local = classify_page_local(page, deviz_text_map, reference_articles)
 
         base = {
             "page_number": page_number,
@@ -845,7 +901,7 @@ def classify_pages(
         deviz_text_map = build_deviz_text_map(reference_articles)
         logger.info(f"[PC] Built dynamic deviz map from {len(reference_articles)} reference articles")
 
-    results, checkpoint = build_page_classifications(pages, document_type, source_path, deviz_text_map)
+    results, checkpoint = build_page_classifications(pages, document_type, source_path, deviz_text_map, reference_articles)
 
     # Marcăm și paginile F3 fără deviz_cod ca needs_llm (LLM extrage codul)
     for r in results:
