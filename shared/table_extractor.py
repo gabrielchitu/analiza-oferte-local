@@ -375,32 +375,54 @@ def extract_articles_from_tables_smart(tables: List[Dict]) -> List[Dict]:
         if table_idx in processed_tables:
             continue
 
-        # Check if this is an F3 data table ("SECTIUNEA TEHNICA" OR reference format with "Capitolul" header)
+        # Check if this is an F3 data table
         is_f3_data = False
+        embedded_deviz_cod = ""
+        embedded_deviz_den = ""
+
         for cell in cells:
             if cell.get('row_index') == 0:
                 content = cell.get('content', '').strip()
+                content_upper = content.upper()
+
                 # Format 1: Standard "SECTIUNEA TEHNICA" header
-                if 'SECTIUNEA' in content.upper():
+                if 'SECTIUNEA' in content_upper:
                     is_f3_data = True
                     break
                 # Format 2: Reference format with "CAPITOLUL" or "CANTITATEA" header
-                if 'CAPITOLUL' in content.upper() or 'CANTITATE' in content.upper():
+                if 'CAPITOLUL' in content_upper or 'CANTITATE' in content_upper:
                     is_f3_data = True
                     break
+                # Format 3: "STADIUL FIZIC: ..." embedded in table (tables 6-8 pattern)
+                # Extract metadata directly: "STADIUL FIZIC: 4.1-02 Structura conexe tip II"
+                if 'STADIUL' in content_upper and 'FIZIC' in content_upper:
+                    # Try to parse: "STADIUL FIZIC: CODE DENOMINATION"
+                    m = re.match(r'STADIUL\s+FIZIC\s*:\s*([A-Z0-9\.]+)\s+(.+)', content, re.IGNORECASE)
+                    if m:
+                        embedded_deviz_cod = m.group(1).strip()
+                        embedded_deviz_den = m.group(2).strip()
+                        is_f3_data = True
+                        logger.debug(f"[TABLE] Tabel {table_idx}: Embedded metadata: {embedded_deviz_cod} | {embedded_deviz_den}")
+                        break
 
         if not is_f3_data:
             continue
 
-        # Find the preceding metadata table to get deviz
+        # Determine deviz: use embedded if found, otherwise find preceding metadata table
         deviz_cod = ""
         deviz_den = ""
 
-        for meta_idx in sorted(metadata_to_deviz.keys(), reverse=True):
-            if meta_idx < table_idx:
-                deviz_cod, deviz_den = metadata_to_deviz[meta_idx]
-                logger.debug(f"[TABLE] Tabel {table_idx} (data): Usando deviz from Table {meta_idx}: {deviz_cod}")
-                break
+        if embedded_deviz_cod:
+            deviz_cod = embedded_deviz_cod
+            deviz_den = embedded_deviz_den
+            logger.debug(f"[TABLE] Tabel {table_idx}: Using embedded deviz: {deviz_cod}")
+        else:
+            # Find the preceding metadata table to get deviz
+            for meta_idx in sorted(metadata_to_deviz.keys(), reverse=True):
+                if meta_idx < table_idx:
+                    deviz_cod, deviz_den = metadata_to_deviz[meta_idx]
+                    logger.debug(f"[TABLE] Tabel {table_idx} (data): Usando deviz from Table {meta_idx}: {deviz_cod}")
+                    break
 
         if not deviz_cod:
             logger.debug(f"[TABLE] Tabel {table_idx}: No preceding metadata found")
