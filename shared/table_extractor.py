@@ -124,8 +124,29 @@ def extract_articles_from_tables(tables: List[Dict], deviz_cod: str, deviz_den: 
             elif 'CANTITAT' in header or header == '3':
                 col_cant = col_idx
 
+        # Fallback: If standard columns not found, try heuristic detection
+        # Some tables have sparse headers without explicit CANTITATE/UM labels
         if col_capitol is None or col_um is None or col_cant is None:
-            continue
+            # Try fallback: col_capitol=1, col_cant=3, col_um=4 (if they have data)
+            # This handles tables with: Nr. | Code | Empty | Qty | Unit | Empty | Price
+            sample_row = rows.get(min(rows.keys())) if rows else {}
+            if sample_row and col_capitol is None:
+                # Check if col 1 has codes and col 3 has numeric qty
+                col_1_content = sample_row.get(1, '')
+                col_3_content = sample_row.get(3, '')
+
+                # If col 1 looks like a code (starts with letter or digit) and col 3 has a number
+                if col_1_content and re.match(r'^[A-Z0-9]', col_1_content.upper()):
+                    if col_3_content and re.search(r'\d', col_3_content):
+                        # Likely: col 1 = code, col 3 = qty, col 4 = unit
+                        col_capitol = 1
+                        col_cant = 3
+                        col_um = 4
+                        col_denom = None  # Description might be multi-row
+                        logger.debug(f"[TABLE] Using heuristic columns: code={col_capitol}, cant={col_cant}, um={col_um}")
+
+            if col_capitol is None or col_um is None or col_cant is None:
+                continue
 
         # Handle case where header has empty columns before actual content
         # Some tables have header col 1 empty, col 2 = "CAPITOLUL", but data in col 1 = code, col 2 = denom
@@ -207,20 +228,36 @@ def extract_articles_from_tables(tables: List[Dict], deviz_cod: str, deviz_den: 
             if not code:
                 continue
 
-            # Get UM and normalize (remove dots: "m.c." → "mc")
-            um = row_data.get(col_um, '').strip().upper()
-            um = um.replace('.', '')  # Remove dots: M.C. → MC, m.c. → mc
-            if not um or um in ('0', '1', '2', '3', '4', '5'):
-                um = ''
-
-            # Get quantity (column 3)
+            # Get quantity string (might include unit prefix like "99 M")
             cant_str = row_data.get(col_cant, '').strip()
+
+            # Extract numeric quantity, handling "99 M" format
+            # Pattern: one or more digits, optional decimal, optional spaces, optional letters
+            cant_match = re.match(r'^([\d,\.]+)\s*[A-Za-z]*', cant_str)
+            if cant_match:
+                cant_numeric = cant_match.group(1)
+            else:
+                cant_numeric = cant_str
+
             try:
-                # Handle formats like "198.000" or "198,000"
-                cant_normalized = cant_str.replace(',', '.').replace('.', '', 1) if '.' in cant_str and ',' in cant_str else cant_str.replace(',', '.')
+                # Handle formats like "198.000" or "198,000" or "99" or "99 M"
+                cant_normalized = cant_numeric.replace(',', '.').replace('.', '', 1) if '.' in cant_numeric and ',' in cant_numeric else cant_numeric.replace(',', '.')
                 cantitate = float(cant_normalized) if cant_normalized else 0.0
             except ValueError:
                 cantitate = 0.0
+
+            # Get UM and normalize (remove dots: "m.c." → "mc")
+            # Combine col_um with any unit prefix in cant_str
+            um = row_data.get(col_um, '').strip().upper()
+
+            # If cant_str has letters (like "99 M"), add them to the unit
+            um_from_cant = re.search(r'([A-Za-z]+)$', cant_str)
+            if um_from_cant:
+                um = (um_from_cant.group(1) + ' ' + um).strip()
+
+            um = um.replace('.', '')  # Remove dots: M.C. → MC, m.c. → mc
+            if not um or um in ('0', '1', '2', '3', '4', '5'):
+                um = ''
 
             # Build article
             art = {
@@ -326,12 +363,17 @@ def extract_articles_from_tables_smart(tables: List[Dict]) -> List[Dict]:
         if table_idx in processed_tables:
             continue
 
-        # Check if this is an F3 data table ("SECTIUNEA TEHNICA" in row 0, any column)
+        # Check if this is an F3 data table ("SECTIUNEA TEHNICA" OR reference format with "Capitolul" header)
         is_f3_data = False
         for cell in cells:
             if cell.get('row_index') == 0:
                 content = cell.get('content', '').strip()
+                # Format 1: Standard "SECTIUNEA TEHNICA" header
                 if 'SECTIUNEA' in content.upper():
+                    is_f3_data = True
+                    break
+                # Format 2: Reference format with "CAPITOLUL" or "CANTITATEA" header
+                if 'CAPITOLUL' in content.upper() or 'CANTITATE' in content.upper():
                     is_f3_data = True
                     break
 

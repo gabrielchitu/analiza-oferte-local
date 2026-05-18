@@ -574,17 +574,20 @@ def _merge_wrapped_codes(lines: List[str]) -> List[str]:
         line = lines[i]
         next_line = lines[i + 1] if i + 1 < len(lines) else None
 
-        # Check if current line looks like a code ending with letters (no dash/description)
+        # Check if current line looks like a code ending with letters/suffixes (no dash/description)
         # and next line is purely digits (1-2 digits typically)
         if next_line:
-            # Pattern: line ends with letters, no dash separator (so it's incomplete)
+            # Pattern: line ends with letters + optional suffix, no dash separator (so it's incomplete)
             # Next line is just digits
             line_stripped = line.strip()
             next_stripped = next_line.strip()
 
-            if (re.match(r'^([A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z])$', line_stripped, re.IGNORECASE) and
+            # Extended code pattern with optional suffix: RPCB02E%, TRI1AA01E, etc.
+            # Suffix can be: #, >, *, @, %, ^, +, [1], [2], etc.
+            if (re.match(r'^([A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z](?:[#>*@%^+]|\[\d*\])?)$', line_stripped, re.IGNORECASE) and
                 re.match(r'^\d{1,2}$', next_stripped)):
                 # Merge: "TRI1AA01E" + "3" → "TRI1AA01E3"
+                #        "RPCB02E%" + "99" → "RPCB02E%99"
                 merged = line_stripped + next_stripped
                 result.append(merged)
                 i += 2  # Skip both lines
