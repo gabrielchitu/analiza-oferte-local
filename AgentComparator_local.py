@@ -346,6 +346,15 @@ def match_global(
                 ref_lenient.append(ref_art)
 
         # Process strict-mode references (normal N:M by cant)
+        # When oferta has more candidates than ref, prefer UM-matching ones first.
+        # E.g. ref wants IC35D1/buc but oferta has [IC35D1/m, IC35D1/buc] — pick buc.
+        if len(ref_strict) > 0 and len(oferta_list) > len(ref_strict):
+            ref_ums = {(r.get('um') or '').lower() for r in ref_strict}
+            oferta_list = sorted(
+                oferta_list,
+                key=lambda a: (0 if (a.get('um') or '').lower() in ref_ums else 1,
+                               a.get('cantitate', 0) or 0)
+            )
         for ref_art, oferta_art in zip(ref_strict, oferta_list[:len(ref_strict)]):
             diffs = compare_articles(ref_art, oferta_art, include_prices=include_prices)
             arith = check_arithmetic(oferta_art) if include_prices else []
