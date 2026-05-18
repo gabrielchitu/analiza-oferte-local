@@ -104,39 +104,6 @@
       "tip": "UM_DIFERIT",
       "camp": "um",
       "ref": "m",
-      "oferta": "g",
-      "deviz_ref": "4.1-14",
-      "deviz_denumire": "Inst sanit hidranti int tip II",
-      "is_component": false,
-      "ref_cod": "SA04A",
-      "ref_denumire": "teava din otel zn pt instalatii, 1/2 ' pentru g oliri instalatii de stingere cu hidranti interiori l: sl01 -0001:3306041 -teava inst zinc nefil.m - 15( 1/2) ol 32 1 s 7656",
-      "ref_um": "m",
-      "ref_cantitate": 3.0,
-      "ref_pret_material": 0.0,
-      "ref_pret_manopera": 0.0,
-      "ref_pret_utilaj": 0.0,
-      "ref_pret_transport": 0.0,
-      "ref_val_material": 0.0,
-      "ref_val_manopera": 0.0,
-      "ref_val_utilaj": 0.0,
-      "ref_val_transport": 0.0,
-      "oferta_cod": "SA04A",
-      "oferta_denumire": "teava din otel zn pt instalatii, 1/2 pentru m",
-      "oferta_um": "g",
-      "oferta_cantitate": 3.0,
-      "oferta_pret_material": 0.0,
-      "oferta_pret_manopera": 0.0,
-      "oferta_pret_utilaj": 0.0,
-      "oferta_pret_transport": 0.0,
-      "oferta_val_material": 0.0,
-      "oferta_val_manopera": 0.0,
-      "oferta_val_utilaj": 0.0,
-      "oferta_val_transport": 0.0
-    },
-    {
-      "tip": "UM_DIFERIT",
-      "camp": "um",
-      "ref": "m",
       "oferta": "",
       "deviz_ref": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -344,18 +311,6 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.2-2",
-      "deviz_denumire": "Structura",
-      "is_component": false,
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "RPCB02E",
-      "oferta_denumire": "beton c12 / 15 egalizare",
-      "oferta_um": "mc",
-      "oferta_cantitate": 2.17
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
@@ -365,6 +320,18 @@
       "oferta_denumire": "tavan / plafon fals - gips carton zeci",
       "oferta_um": "mp",
       "oferta_cantitate": 24.47
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.2-2",
+      "deviz_denumire": "Structura",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "RPCB02E",
+      "oferta_denumire": "beton c12 / 15 egalizare",
+      "oferta_um": "mc",
+      "oferta_cantitate": 2.17
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -379,7 +346,7 @@
       "oferta_cantitate": 1.6
     }
   ],
-  "total_neconformitati": 15,
+  "total_neconformitati": 14,
   "matches": 692,
   "deviz_mismatches": []
 }

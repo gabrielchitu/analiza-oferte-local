@@ -1137,10 +1137,16 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
 
             # UM (doar dacă nu e setat) — normalizează M.C. → MC, MP . → MP
             # BUT: skip "KM" — it's ALWAYS a distance spec (e.g., "DIST .= 10 KM"), never a work unit
+            # Also: skip single-letter UM if next line is also valid UM (prefer multi-letter units)
             if not um and _is_valid_um(line):
                 um_candidate = re.sub(r'[\.\s]', '', line.strip()).upper()
                 if um_candidate == 'KM':
                     continue  # Skip distance specifications
+                # Skip single-letter UM if next line is also valid UM (e.g., "G" followed by "M")
+                if len(um_candidate) == 1 and line_idx + 1 < len(lines):
+                    next_line = lines[line_idx + 1].strip().upper()
+                    if _is_valid_um(next_line):
+                        continue  # Skip this single letter, process next line instead
                 um = _normalize_um_value(line)
                 continue
 

@@ -1235,15 +1235,27 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.3-01",
-      "deviz_denumire": "Terasamente",
+      "deviz_ref": "4.1-04",
+      "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "TSD16B1",
-      "oferta_denumire": "pietriș compactat dr=95% obiectiv: executie lucrari 'creștere a eficienței energetice în cadrul căminului cultural măneciu, judetul prahova' instalatii incinta sanitara tip iii neeligibil stadiul fizic: terasamente apa beneficiar: comuna maneciu executant: 8/14/2024 sectiunea tehnica sectiunea financiara nr capitolul de lucrari u.m cantitatea pretul unitar (exclusiv totalul",
-      "oferta_um": "mc",
-      "oferta_cantitate": 12.64
+      "oferta_cod": "QCK04A01",
+      "oferta_denumire": "tavan/plafon fals - gips- carton 244,71 mp",
+      "oferta_um": "mp",
+      "oferta_cantitate": 24.47
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.1-14",
+      "deviz_denumire": "Inst sanit hidranti int tip II",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "S475",
+      "oferta_denumire": "40 11/2 zn",
+      "oferta_um": "buc",
+      "oferta_cantitate": 1.55
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -1265,34 +1277,10 @@
       "is_component": false,
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "TSE02B1",
-      "oferta_denumire": "finisarea manuala a terenurilor si platformelor,cu denivelari de 10-20 cm,in :... teren mijlociu procent material stadiul fizic: terasamente",
-      "oferta_um": "mp",
-      "oferta_cantitate": 3.45
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.1-14",
-      "deviz_denumire": "Inst sanit hidranti int tip II",
-      "is_component": false,
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "S475",
-      "oferta_denumire": "40 11/2 zn",
-      "oferta_um": "buc",
-      "oferta_cantitate": 1.55
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "5.1-1",
-      "deviz_denumire": "Lucrari de constructii",
-      "is_component": false,
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "IEC60076",
-      "oferta_denumire": "fabricație conform standardelor ue 1so9g01; iec62271- 202 ; iec60076 4. conditii de garantie si postgarantie conform contract, dar minimum 1an garanție si 2 ani post garanție conform contract, dar minimum 1an garanție si 2 ani post garanție 5. alte conditii cu caracter tehnic tabele de date tehnice garantate de fabricant instrucțiuni de exploatare agremente tehnice lista încercărilor de tip rezultate si documente ale testelor mecanice de tip tabele de date tehnice garantate de fabricant instrucțiuni de exploatare agremente tehnice lista încercărilor de tip rezultate si documente ale testelor mecanice de tip f5 - ft hvac 11 utilajul, echipamentul tehnologic:electropompa mc/h, h2mca circulație variator turatie q = nr crt specificatii tehnice impuse prin caietul de sarcini corespondenta propunerii tehnice cu specificatiile tehnice impuse prin caietul de sarcini furnizor",
-      "oferta_um": "",
-      "oferta_cantitate": 1.0
+      "oferta_cod": "TSD16B1",
+      "oferta_denumire": "pietriș compactat dr=95% obiectiv: executie lucrari 'creștere a eficienței energetice în cadrul căminului cultural măneciu, judetul prahova' instalatii incinta sanitara tip iii neeligibil stadiul fizic: terasamente apa beneficiar: comuna maneciu executant: 8/14/2024 sectiunea tehnica sectiunea financiara nr capitolul de lucrari u.m cantitatea pretul unitar (exclusiv totalul",
+      "oferta_um": "mc",
+      "oferta_cantitate": 12.64
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -1308,15 +1296,27 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.1-04",
-      "deviz_denumire": "Arhitectura conexe tip II",
+      "deviz_ref": "4.3-01",
+      "deviz_denumire": "Terasamente",
       "is_component": false,
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "QCK04A01",
-      "oferta_denumire": "tavan/plafon fals - gips- carton 244,71 mp",
+      "oferta_cod": "TSE02B1",
+      "oferta_denumire": "finisarea manuala a terenurilor si platformelor,cu denivelari de 10-20 cm,in :... teren mijlociu procent material stadiul fizic: terasamente",
       "oferta_um": "mp",
-      "oferta_cantitate": 24.47
+      "oferta_cantitate": 3.45
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "5.1-1",
+      "deviz_denumire": "Lucrari de constructii",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "IEC60076",
+      "oferta_denumire": "fabricație conform standardelor ue 1so9g01; iec62271- 202 ; iec60076 4. conditii de garantie si postgarantie conform contract, dar minimum 1an garanție si 2 ani post garanție conform contract, dar minimum 1an garanție si 2 ani post garanție 5. alte conditii cu caracter tehnic tabele de date tehnice garantate de fabricant instrucțiuni de exploatare agremente tehnice lista încercărilor de tip rezultate si documente ale testelor mecanice de tip tabele de date tehnice garantate de fabricant instrucțiuni de exploatare agremente tehnice lista încercărilor de tip rezultate si documente ale testelor mecanice de tip f5 - ft hvac 11 utilajul, echipamentul tehnologic:electropompa mc/h, h2mca circulație variator turatie q = nr crt specificatii tehnice impuse prin caietul de sarcini corespondenta propunerii tehnice cu specificatiile tehnice impuse prin caietul de sarcini furnizor",
+      "oferta_um": "",
+      "oferta_cantitate": 1.0
     },
     {
       "tip": "ARTICOL_EXTRA",
