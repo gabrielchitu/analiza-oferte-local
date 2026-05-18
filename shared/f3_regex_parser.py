@@ -261,22 +261,32 @@ def _is_valid_um(token: str) -> bool:
     Returnează True dacă token-ul este o unitate de măsură validă.
 
     Reguli (în ordine):
-    1. Normalizează: strip puncte și spații ("M.C." → "MC", "MP ." → "MP")
-    2. Respinge dacă token-ul conține cifre — liniile cu cifre+litere sunt
+    1. Check multi-word UM first ("M CUB", "M3")
+    2. Normalizează: strip puncte și spații ("M.C." → "MC", "MP ." → "MP")
+    3. Respinge dacă token-ul conține cifre — liniile cu cifre+litere sunt
        continuare de denumire (ex: '8 MM', '100 ML batuta') sau prețuri
-    3. Handle OCR corruption: specific known patterns (B?C → BUC, etc.)
-    4. Acceptă NUMAI dacă token-ul e în UM_KNOWN (whitelist explicit)
-       — elimină catch-all-ul anterior (len≤4, isalpha) care accepta
-         'tare', 'mata', 'toli', 'cod' etc. din denumiri multi-linie
-    5. Fallback: try ton→tona normalization if direct match fails
+    4. Handle OCR corruption: specific known patterns (B?C → BUC, etc.)
+    5. Acceptă NUMAI dacă token-ul e în UM_KNOWN (whitelist explicit)
+    6. Fallback: try ton→tona normalization if direct match fails
     """
+    token_lower = token.lower().strip()
+
+    # Check multi-word UM variations
+    if token_lower in ('m cub', 'm3', 'm cu b'):  # m cu b è OCR variant
+        return True
+
+    # Check for square/cubic meter symbols before stripping
+    if 'm²' in token_lower or 'm2' in token_lower:
+        return True
+
     t = re.sub(r'[\.\s]', '', token.strip()).upper()
     if not t:
         return False
     if t in UM_SKIP:
         return False
     # Regula anti-digit: o linie cu cifre nu este o coloana UM
-    if re.search(r'\d', token):
+    # EXCEPT pentru M3, M2 care sunt variante pentru metru cub/pătrat
+    if t not in ('M3', 'M2') and re.search(r'\d', token):
         return False
 
     if t in UM_KNOWN:
@@ -301,6 +311,13 @@ def _normalize_um_value(token: str) -> str:
     t = re.sub(r'[\.\s]', '', token.strip()).upper()
     if not t:
         return ''
+
+    # Handle multi-word UM and special symbols before stripping
+    token_lower = token.lower().strip()
+    if token_lower in ('m cub', 'm3', 'm cu b'):
+        return 'mc'
+    if token_lower in ('mp', 'm²', 'm2'):
+        return 'mp'
 
     if t in UM_KNOWN:
         # Normalize variants to canonical form
@@ -780,6 +797,25 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             state = _WAITING
             waiting_lines = 0
             _after_linked = True
+            continue
+
+        # Prefixed "L:" handler: linked subcomponent marker (MANECIU format)
+        # Pattern: "L:PREFIX -NUMBER:CODE [optional denomination text]"
+        # Example: "L:SL30 -0001:2452958 Electrod sud.ol.nealiat s 1125/2 e44c"
+        # This is a linked article separator, not part of denomination
+        m_l_prefix = SUBCOMP_PREFIXED_RE.match(line)
+        if m_l_prefix:
+            if state == _READING:
+                _finalize()
+            # Extract code and any remaining denomination text
+            linked_code = m_l_prefix.group(3)
+            cod = linked_code
+            remaining_den = line[m_l_prefix.end():].strip()
+            last_nr_crt = last_nr_crt or 1
+            denumire_parts = [remaining_den] if remaining_den else []
+            um = ''; cantitate = 0.0; preturi = []
+            state = _READING
+            waiting_lines = 0
             continue
 
         # NR_SUBITEM handler: decimal sub-article marker like "34.1", "23.1"

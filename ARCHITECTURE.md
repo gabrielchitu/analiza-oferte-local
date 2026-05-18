@@ -1,263 +1,439 @@
-# Architecture - Analizator Local Oferte Constructii
+# ARHITECTURA - Sistem Extragere F3 + Comparație Oferte vs Referință
 
-## Overview
-
-System for extracting and comparing construction articles from Document Intelligence (DI) JSON files containing building estimates (devize).
-
-**Pipeline**: DI JSON → Page Classification → Grouping Key Extraction → Article Extraction → Comparison & Reports
-
----
-
-## Core Components
-
-### 1. Page Classification (`shared/f3_page_classifier.py`)
-
-**Responsibility**: Identify F3 pages and extract their deviz grouping codes
-
-**Two-Phase Algorithm**:
-
-#### Phase 1A: Fast Page Type Detection
-- Checks for F3 markers: "Formular F3", "SECTIUNEA TEHNICA", "STADIUL FIZIC"
-- Detects non-F3 pages: summaries, recaps, footers
-- Output: `is_f3` boolean for each page
-
-#### Phase 1B: Grouping Key Extraction (Three-Tier Priority)
-```
-Tier 1: Explicit "Deviz Oferta XXXXX"
-  Pattern: Deviz\s+Oferta\s+([A-Z0-9]{5,8})
-  Returns: "226348" (direct code)
-  Use case: Standard eDevize format
-
-Tier 2: Compound "Obiectul-Categoria"
-  Pattern 1: Obiectul\s*:\s*([0-9.]+)\s*(.+?)
-  Pattern 2: Categoria\s+de\s+lucrari\s*:\s*([0-9]{2,4})\s*(.+?)
-  Returns: "4.1-03" (e.g., 4.1 + 03)
-  Use case: New format, numeric prefixes present
-
-Tier 3: Partial Text-Only (LLM Fallback)
-  Pattern: Same as Tier 2, but numeric parts missing
-  Returns: "__partial__:{obj_text}:{cat_text}"
-  Use case: New format, no numeric prefixes
-
-Tier 4: None
-  Returns: "" (empty code, page will be filtered)
-```
-
-**State Management**:
-- `current_deviz_cod`: Carries across continuation pages
-- `current_obiectul`, `current_categoria`: Metadata for LLM resolution
-- Inheritance: If a page lacks grouping markers, inherits from previous page
-
-#### Phase 2: LLM Resolution (When Needed)
-- Triggered when `__partial__` sentinels detected
-- Collects unique (obiectul_text, categoria_text) pairs
-- Sends to LLM for semantic matching against reference deviz groups
-- Results:
-  - Match found: Replace sentinel with reference code (e.g., "4.1-03")
-  - No match: Use fallback (first word of categoria text, max 20 chars)
-
-### 2. Article Extraction (`shared/f3_extractor.py`, `shared/f3_regex_parser.py`)
-
-**Responsibility**: Extract individual articles from F3 pages
-
-**Two Extraction Methods**:
-
-#### Method A: Regex Parsing (Line-Based)
-- **File**: `shared/f3_regex_parser.py`
-- **Approach**: State machine parsing of text lines
-- **Handles**:
-  - Codes: numeric (226348), alphanumeric (SE56A, IA22C1), normative (ASIM, TSCH)
-  - Quantities: integer, decimal with . or , separators
-  - UM: validated against whitelist (BUC, M, MP, MC, KG, ORA, etc.)
-  - Prices: 8-field structure (material, manopera, utilaj, transport × cost + value)
-  - Multi-line articles: codes on one line, description on next, etc.
-
-#### Method B: Table Extraction
-- **File**: `shared/table_extractor.py`
-- **Two Strategies**:
-  1. `extract_articles_from_tables()`: Extract with explicit deviz code parameter
-  2. `extract_articles_from_tables_smart()`: Infer deviz from metadata tables
-
-**UM Normalization** (CRITICAL - Fixed in v6):
-- Remove dots: "M.C." → "MC"
-- Remove numeric prefixes: "99 M" → "M" (was bug, now fixed)
-- Validate against whitelist
-- Fallback to empty if invalid
-
-### 3. Comparison (`shared/deviz_reconciler.py`, `shared/deviz_namer.py`)
-
-**Responsibility**: Match offer articles to reference and generate reports
-
-**Process**:
-1. Load reference articles (source of truth)
-2. For each offer:
-   - Group by deviz code
-   - Match articles by (code, UM, quantity)
-   - Detect: matched, missing (lipsa), extra, orphaned, near-matches
-   - Generate DOCX report with analysis
-   - Generate JSON comparison by deviz
-
-**Matching Logic**:
-- Primary: (code, UM, quantity) exact match
-- Secondary: Code + quantity match (UM different)
-- Tertiary: Fuzzy match (code similarity)
-- Fallback: Manual deviz reconciliation (search reference for missing codes)
-
----
-
-## Data Flow
+## 1. FLUX GENERAL (High-Level)
 
 ```
-input_AO/
-  ├── di_referinta.json
-  └── di_oferta_N.json
-         ↓
-classify_pages()
-  ├── classify_page_local() × N pages
-  │   └─ extract_grouping_key() [3-tier priority]
-  ├─ _resolve_partial_keys_with_llm() [if needed]
-  └─ Returns: [page_classes], checkpoint
-         ↓
-extract_articles_v3()
-  ├── Group pages by deviz_cod
-  ├── Extract from lines [regex parser]
-  ├── Extract from tables [smart table parser]
-  └── Deduplicate, filter invalid UM
-         ↓
-output_AO/
-  ├── referinta.json [458 articles, 33 devizes]
-  ├── oferta_1.json [1097 articles, 35 devizes]
-  ├── oferta_2.json [1046 articles, 49 devizes]
-  ├── Raport_Oferta_*.docx [formatted comparison]
-  └── comparatie_oferta_*.json [by-deviz analysis]
+INPUT: DI JSON files (reference + offers)
+    ↓
+┌─────────────────────────────────────────────────────────────
+│ ETAPA 1: PAGE CLASSIFICATION (local_run.py extract_document)
+│
+│  1a. Load reference articles + build dynamic deviz_text_map
+│      from actual reference denomination texts
+│
+│  1b. Classify each page (classify_page_local):
+│      - Detect F3 vs NON_F3
+│      - Extract deviz code via priority:
+│        * EXPLICIT: "Deviz Oferta XXXXX" (5-8 alphanum)
+│        * COMPOUND: numeric Obiectul + numeric Categoria
+│        * REFERENCE_MATCHED: match text against deviz_text_map
+│        * PARTIAL: fallback sentinel "__partial__:..." (sent to LLM)
+│        * NONE: unresolved
+│
+│  1c. LLM batch for pages marked needs_llm (partial/ambiguous)
+│
+│  1d. Deviz code inheritance for continuation pages
+│      (when page has blank/unresolved deviz, inherit from last F3 page)
+└─────────────────────────────────────────────────────────────
+    ↓
+┌─────────────────────────────────────────────────────────────
+│ ETAPA 2: ARTICLE EXTRACTION (shared/f3_extractor + f3_regex_parser)
+│
+│  2a. Group pages by deviz (maintain order for quantity continuity)
+│
+│  2b. Detect pattern from document sample
+│      (via shared/pattern_detector)
+│
+│  2c. Extract articles using regex parser:
+│      - NR_CRT (article number): 001-999
+│      - COD: normative (CA01A), numeric ($2200012), or breviar ($12345)
+│      - DENUMIRE: multi-line text description
+│      - UM: unit of measure (M2, MC, BUC, TONA, ML, etc.)
+│      - CANTITATE: quantity (decimal or integer)
+│      - PRETURI: prices for cost breakdown
+│
+│  2d. Detect subcomponents:
+│      - L: prefix (e.g., "L:LC08") marks subcomponent lines
+│      - Subcomponents inherit parent's quantity (no own quantity)
+│      - Parent-child relationship tracked via parent_code field
+│
+│  2e. UM Normalization: m/mc→m2, buc/bucata→buc, tona/ton/t→tona, etc.
+│
+│  2f. Component quantity/unit inheritance
+│      (subcomponents get parent's quantity/UM if not specified)
+└─────────────────────────────────────────────────────────────
+    ↓
+┌─────────────────────────────────────────────────────────────
+│ ETAPA 3: DEVIZ ASSIGNMENT (already done in page classification)
+│
+│  3a. Each article inherits deviz_cod from its page classification
+│
+│  3b. Code-based deviz correction (for unresolved articles):
+│      - Look up article code in reference
+│      - If reference has this code in specific deviz, use that deviz
+│      - Only applies to articles without explicit numeric deviz
+└─────────────────────────────────────────────────────────────
+    ↓
+┌─────────────────────────────────────────────────────────────
+│ ETAPA 4: COMPARISON & REPORTING (local_run.py)
+│
+│  4a. Matching rule: (deviz_code, article_code) pair must exist in both
+│
+│  4b. Comparison metrics:
+│      - ARTICOL_LIPSA: in reference but not in offer
+│      - ARTICOL_EXTRA: in offer but not in reference
+│      - UM_DIFERIT: same code & deviz, different unit
+│      - DIFERENTA_CAMP: same code, different quantity
+│
+│  4c. Generate reports (XLSX, DOCX, JSON)
+└─────────────────────────────────────────────────────────────
 ```
 
 ---
 
-## Key Files
+## 2. STEP 1: PAGE CLASSIFICATION (`shared/f3_page_classifier.py`)
 
-### Core Logic
-| File | Purpose |
-|------|---------|
-| `shared/f3_page_classifier.py` | Page classification + deviz key extraction |
-| `shared/f3_regex_parser.py` | Line-based article extraction (state machine) |
-| `shared/table_extractor.py` | Table-based article extraction |
-| `shared/f3_extractor.py` | Article grouping + deduplication |
-| `shared/deviz_reconciler.py` | Missing deviz resolution |
-| `local_run.py` | Main pipeline orchestration |
+### Overview
+Pages are classified into three categories: **F3** (formula F3 data pages), **NON_F3** (non-data pages), **AMBIGUOUS** (uncertain).
 
-### Supporting
-| File | Purpose |
-|------|---------|
-| `shared/deviz_namer.py` | Populate denominations from DI reference |
-| `shared/deviz_normalizer.py` | Normalize deviz codes (U→0, etc.) |
-| `shared/report_json.py` | Generate comparison JSON by deviz |
-| `anthropic_adapter.py` | OpenAI-compatible wrapper for Anthropic API |
+**Two-phase algorithm:**
+- **Phase A**: Fast non-F3 detection (forms, summaries, metadata)
+- **Phase B**: F3 detection and deviz code extraction
 
-### Configuration
-| File | Purpose |
-|------|---------|
-| `.env` | API keys and model selection |
-| `input_AO/` | Input DI JSON files |
-| `output_AO/` | Extracted articles and reports |
-| `output_AO/checkpoints/` | Cached page classifications |
+### Phase A: Non-F3 Detection
 
----
+Immediately return NON_F3 if page matches:
+- FORMULAR [CF][0-9] (F1, F2, C4-C6) — non-F3 forms
+- CENTRALIZATORUL cheltuielilor — summary forms
+- RECAPITULATIE + no article codes — summary pages
+- TOTAL GENERAL + no article codes — summary footers
 
-## Key Design Decisions
+### Phase B: F3 Detection
 
-### 1. Two-Phase Grouping Key Extraction
-- **Why**: Different document formats need different strategies
-- **Benefit**: General algorithm handles explicit codes, compound codes, and text-only
-- **Trade-off**: LLM fallback adds cost but eliminates invalid "CAMINE" codes
+Page is F3 if it matches ANY of:
+1. **B1**: "Formular F3" or "SECTIUNEA TEHNICA" — explicit marker
+2. **B2**: "STADIUL FIZIC:" header — quantity sheet marker
+3. **B3**: ">>> componenta" + article codes — component lines
+4. **B4**: "XXXXXX pag" format (6-char code + "pag") — eDevize page header
+5. **B5**: "Stadiul fizic: [CODE] DESCRIPTION" — eDevize cover format
 
-### 2. State Machine for Article Parsing
-- **Why**: F3 articles span multiple lines with complex formatting
-- **Benefit**: Handles OCR corruption, multi-line descriptions, variable column order
-- **Trade-off**: Complex state logic but more robust than regex-only
+### Grouping Key Extraction (`_extract_grouping_key`)
 
-### 3. Table-Based Article Priority
-- **Why**: Tables have structured, reliable data
-- **Benefit**: Accurate extraction when table format is consistent
-- **Trade-off**: Some documents mix table + line formats (handled with merging)
+**Priority order** for extracting deviz code from F3 page:
 
-### 4. UM Whitelist Validation
-- **Why**: OCR produces garbage values
-- **Benefit**: Only known units accepted, invalid values skipped
-- **Trade-off**: May skip rare units (e.g., MM explicitly excluded per design)
+1. **EXPLICIT** (highest priority)
+   - Pattern: "Deviz Oferta XXXXX" where XXXXX is 5-8 alphanum chars
+   - Returns numeric code directly
 
-### 5. Checkpoint Caching
-- **Why**: LLM classification is slow (2-5 min)
-- **Benefit**: Re-running pipeline skips LLM for cached documents
-- **Trade-off**: Stale cache if classifier code changes (hash-based invalidation)
+2. **COMPOUND** (second priority)
+   - Both numeric parts present:
+     * Obiectul: numeric (e.g., "4.1")
+     * Categoria/Stadiul: numeric (e.g., "03")
+   - Combines as: deviz_cod = f"{obj_num}-{cat_num}" → "4.1-03"
 
----
+3. **REFERENCE_MATCHED** (third priority)
+   - Obiectul/Categoria extracted as TEXT (no numeric prefix)
+   - Match against `deviz_text_map` (built from reference denomination texts)
+   - Uses fuzzy matching (SequenceMatcher) with 0.65 similarity threshold
+   - Exact substring match has priority (highest confidence)
+   - Example: "Arhitectura - eligibili tip I" → matches "4.1-03"
 
-## Performance Characteristics
+4. **PARTIAL** (fallback)
+   - Text parts exist but no match in deviz_text_map
+   - Creates sentinel: `__partial__:{obj_text[:40]}:{cat_text[:40]}`
+   - These pages sent to LLM for resolution in Phase 2
 
-| Operation | Time | Notes |
-|-----------|------|-------|
-| Page classification (LLM) | 2-5 min | Cached if classifier code unchanged |
-| Article extraction | <30 sec | Regex + table parsing combined |
-| Comparison | <1 min | Matching + report generation |
-| **Total pipeline** | **3-6 min** | First run; <1 min if cached |
+5. **NONE** (no extractable data)
+   - No Obiectul/Categoria, no explicit code
+   - deviz_cod = ""
 
-## Data Quality Metrics
+### Dynamic Deviz Text Map
 
-| Metric | Value | Notes |
-|--------|-------|-------|
-| Invalid codes (CAMINE/CAMIN) | 0 | Eliminated by LLM fallback |
-| UM corruption | 0% | Fixed v6 (removed numeric prefixes) |
-| Compound codes (ref) | 33/33 | 100% successful extraction |
-| Compound codes (offer) | 34/49 | 69% from LLM, 31% fallback |
-| Article matching (O1 vs ref) | 450/1097 | 41% match; rest extra/missing |
+Built from reference articles (in `classify_pages` function):
+```python
+deviz_text_map = build_deviz_text_map(reference_articles)
+# Returns: {
+#   "4.1-03": {
+#     "texts": ["arhitectura - eligibili tip i", "arhitectura eligibili", ...],
+#     "count": 47  # articles with this deviz code
+#   },
+#   ...
+# }
+```
 
----
+This allows matching page text against ACTUAL denomination texts from reference, not hardcoded lists.
 
-## Extension Points
+### Phase 2: LLM Resolution
 
-### Adding New Document Formats
-1. Add pattern to `_STADIUL_FIZIC_RE` or create new `_FORMAT_X_RE`
-2. Update `classify_page_local()` Phase B detection
-3. Test with sample DI JSON
+Pages marked `needs_llm=True` (partial sentinels or ambiguous):
+- Send to Claude API
+- LLM classifies (F3 vs NON_F3)
+- LLM extracts deviz_cod if possible
+- Results merged back into page classifications
 
-### Customizing Article Extraction
-1. Modify regex patterns in `f3_regex_parser.py` (COD_*, UM_RE, etc.)
-2. Add new state transitions in parsing state machine
-3. Update `UM_KNOWN` whitelist if new units needed
+### Phase 3: Deviz Code Inheritance
 
-### Improving LLM Resolution
-1. Refine system prompt in `_resolve_partial_keys_with_llm()`
-2. Add semantic clustering of reference deviz groups
-3. Implement confidence scoring for matches
-
-### 6. Subcomponent Detection & Flexible Matching
-- **Why**: Construction articles often have sub-articles/specifications without quantity/UM data; need flexible comparison strategies
-- **How**: Detect subcomponents via explicit markers (>>> componenta, .L suffix) and hierarchy rules (1.1 under 1). Mark with `is_component: True`.
-- **User Control**: `--comp-mode {strict|lenient}` parameter controls matching:
-  - `strict` (default): Validate (cod, UM, cant) for all articles including subcomponents
-  - `lenient`: Code-only matching for incomplete subcomponents; full validation otherwise
-- **Reporting**: DOCX shows subcomponents with [Subcomponent] badge, gray background, indentation
-- **Benefit**: Adapts to client extraction practices; single flag controls behavior across all documents
+Continuation pages inherit deviz from last F3 page:
+```python
+if not is_f3 or extraction_method == "partial_fallback":
+    # Unresolved page inherits from previous
+    pc["deviz_cod"] = last_deviz_cod
+    pc["deviz_den"] = last_deviz_den
+    if not is_f3:
+        pc["is_f3"] = True
+        pc["extraction_method"] = "inherited"
+```
 
 ---
 
-## Known Limitations & Future Work
+## 3. STEP 2: ARTICLE EXTRACTION (`shared/f3_regex_parser.py` + `f3_extractor.py`)
 
-### Current Limitations
-- ~49% of reference articles have empty UM (source doesn't provide)
-- LLM resolution ~30% success rate (semantic ambiguity)
-- No handling of deviz split/merge between reference and offers
-- Comparison assumes 1:1 deviz mapping (not hierarchical)
+### Overview
+Extracts individual articles (line items) from F3 pages using regex state machine + LLM pattern detection.
 
-### Future Improvements
-- [ ] Machine learning for UM inference from denomination
-- [ ] Hierarchical deviz matching (parent-child relationships)
-- [ ] Batch article reconciliation (handle bulk changes)
-- [ ] Price validation (detect unrealistic unit costs)
-- [ ] Incremental classification (only re-classify changed pages)
+### State Machine: IDLE → WAITING → READING
+
+**IDLE State**:
+- Waiting for article header (NR_CRT or article code)
+- Patterns recognized:
+  * NR_CRT (1-999) with optional inline code (e.g., "024 CK26A#")
+  * Article code alone (e.g., "3270513 - BANDA AVERTIZARE...")
+  * Format: "NR COD - DESCRIPTION" (e.g., "6 CA01J1 - TURNARE BETON")
+
+**WAITING State**:
+- NR_CRT found, waiting for code line
+- If code not found within 3 lines, return to IDLE
+
+**READING State**:
+- Code found, building article
+- Collecting denomination, UM, quantity, prices
+- Stops when:
+  * New NR_CRT found (with quantity already set)
+  * New code line found (article complete)
+  * EOF reached
+
+### Article Code Formats
+
+Parser recognizes:
+- **Normative codes**: CA01A, CK26A#, TCB40B1 (2-5 letters + 1-4 digits + optional letter + 0-2 digits + optional suffix)
+- **Extended codes**: TRI1AA01C2 (2-5L + 1-2D + 1-3L + 2-4D)
+- **Single-letter**: W2F05C01, H1V06H (L + D + 1-3L + 2-4D)
+- **Single-digit multi-char**: C003A01 (L + 2-3D + L + 2D)
+- **Digit-Letter-Digit**: 00106B011 (3-5D + L + 1-3D)
+- **Numeric breviar**: $2200012, $16508 ($ prefix + 4-9 digits)
+- **Numeric pure**: 6701362 (4-9 digits, converted to $prefix internally)
+
+### Quantity Extraction
+
+Priority in READING state:
+1. **Decimal quantity** (CANT_DECIMAL_RE): "4,75000", "18.5", "306.000"
+   - Detects via regex, parsed with _parse_number()
+   
+2. **Integer quantity** (CANT_INT_RE): standalone integer
+   - Only after UM is set (avoids mistaking NR_CRT for quantity)
+   
+3. **Pipe format**: "M.C. | 18.144 | BETON..." (reference format)
+   - UM extracted from group 1, quantity from group 2
+   
+4. **Trailing decimals**: "306" on one line, "000" on next → 306.000
+   - Handles page breaks splitting decimal
+
+5. **Price numbers** (PRET_RE): collected for cost breakdown
+
+### Unit of Measure (UM) Extraction
+
+- Detected as standalone line or within code line
+- Valid UM tokens: M2, MC, BUC, BUCATA, TONA, ML, LITRU, MP, KMP, etc.
+- Format: "100 MC." or "99 ZECI MP" (number + descriptor + unit)
+- **KM always skipped**: "20 KM" is distance specification, not work unit
+
+### Subcomponent Detection
+
+Subcomponents marked with "L:" prefix on separate lines:
+- Example: "L:LC08", "L:LB03"
+- No quantity on L: line (inherits from parent)
+- Parent-child relationship stored in `parent_code` field
+
+### Pattern Detection
+
+For each deviz, detect layout pattern from first 50 lines:
+- Uses `shared/pattern_detector.py`
+- Identifies document layout (standard F3, eDevize, breviar, etc.)
+- Used for debugging/logging, doesn't affect extraction logic
 
 ---
 
-**Version**: v6 (2026-05-15)
-**Last Updated**: Two-phase compound deviz extraction complete, UM bug fixed
+## 4. STEP 3: NORMALIZATION
+
+### Unit Normalization (`_normalize_um`)
+
+```python
+m, mc        → m2      (square meters)
+buc, bucata  → buc     (pieces)
+ml, litru    → ml      (liquid)
+tona, ton, t → tona    (weight)
+```
+
+Applied to all articles after extraction.
+
+### Code Normalization
+
+- Strip suffix artifacts: `-`, `@`, `%`, `#`, `*`, `^`, `+`
+- Strip bracket suffixes: `[1]`, `[2]`
+- Strip designator prefixes: `ASIM`, `TSCH`
+- OCR fix: `U` → `0` (226U38 → 226038)
+
+### Denomination Normalization
+
+- Lowercase
+- Normalize quotes: `"` → `'`
+- Remove points after single letters: "M." → "M"
+- Collapse multiple spaces
+
+---
+
+## 5. STEP 4: COMPARISON & MATCHING
+
+### Matching Rule
+
+**Definition**: Article from offer matches reference if:
+- SAME deviz code (e.g., "4.1-03")
+- SAME article code (e.g., "CK08A", "$2200012")
+- Both found in reference AND in offer
+
+```python
+key = (article_cod, article_deviz)
+# must exist in both reference and offer
+```
+
+### Nonconformity Types
+
+1. **ARTICOL_LIPSA**: key in reference but NOT in offer
+   - Root causes:
+     * Article genuinely omitted by bidder
+     * Article misclassified to wrong deviz during extraction
+     * OCR/parsing error in offer
+
+2. **ARTICOL_EXTRA**: key in offer but NOT in reference
+   - Article added by bidder (legitimate or error)
+   - Must be verified manually
+
+3. **UM_DIFERIT**: same key, different unit
+   - After normalization: "m2" vs "mc" → should match
+   - If still different: "buc" vs "tona" → legitimate difference
+
+4. **DIFERENTA_CAMP**: same key, different quantity
+   - Quantity parsing might differ from OCR vs manual input
+
+---
+
+## 6. CURRENT METRICS (Session 2026-05-17)
+
+**Reference**: ~700 articles
+**OFERTA 2**: 608 matched articles, 288 nonconformities total
+
+| Metric | Count | % |
+|--------|-------|---|
+| ARTICOL_LIPSA | 249 | 86.5% |
+| ARTICOL_EXTRA | 22 | 7.6% |
+| UM_DIFERIT | 9 | 3.1% |
+| DIFERENTA_CAMP | 8 | 2.8% |
+
+**Root cause of LIPSA (249)**:
+- ~200 (80%): articles misclassified to wrong devizes (page classification issue)
+- ~40 (16%): genuine omissions by bidder
+- ~9 (4%): data quality/parsing errors
+
+---
+
+## 7. KNOWN ISSUES
+
+### Issue 1: F3 Layout Variance (CK08A Case)
+
+**Problem**: Some documents have non-standard F3 layout where quantity appears BEFORE article code:
+```
+Line 42: 4,75000      (QUANTITY for CK08A — CORRECT)
+Line 43: 2            (ARTICLE CODE: 2)
+Line 52: 3,25         (Subcomponent value on L: line — INCORRECT)
+```
+
+**Current behavior**: Parser captures 3.25 (from subcomponent line) instead of 4.75000
+
+**Root cause**: When parsing sequentially line-by-line, parser doesn't distinguish between:
+- Quantity for main article vs subcomponent values
+- Values on L: subcomponent lines (which should not have quantity)
+
+**Fix needed**: Enhance quantity extraction to:
+- Detect when quantity comes BEFORE article code (non-standard layout)
+- Avoid capturing values from L: prefix lines as main article quantities
+- Maintain correct parent-subcomponent quantity relationship
+
+### Issue 2: Page Classification Sentinels (Partial→Fallback)
+
+**Problem**: Pages that fall through to LLM (partial sentinels) sometimes get generic fallback codes like "Arhitectura" or "Instalatii" that map to multiple devizes
+
+**Example**: "Arhitectura" matches both:
+- 4.1-03: "Arhitectura - eligibili"
+- 4.1-04: "Arhitectura conexe"
+
+**Current mitigation**: deviz_text_map with reference matching reduces these cases. Inheritance logic prevents some fallback pages from affecting articles.
+
+---
+
+## 8. FILE ORGANIZATION
+
+| File | Lines | Purpose |
+|------|-------|---------|
+| `local_run.py` | 1011 | Main orchestration, pipeline coordinator |
+| `shared/f3_page_classifier.py` | 892 | Page classification (local + LLM) |
+| `shared/f3_extractor.py` | 853 | Article extraction & grouping |
+| `shared/f3_regex_parser.py` | 1264 | Regex state machine for parsing |
+| `shared/deviz_catalog.py` | 122 | Dynamic deviz text mapping from reference |
+| `shared/deviz_corrector.py` | 104 | Code-based deviz correction |
+| `shared/deviz_matcher.py` | 342 | Deviz matching/assignment logic |
+| `shared/deviz_namer.py` | 84 | Denomination extraction/naming |
+| `shared/deviz_normalizer.py` | 233 | Deviz code normalization |
+| `shared/pattern_detector.py` | 291 | Document layout pattern detection |
+| `shared/subcomponent_formats.py` | (referenced) | Subcomponent layout detection |
+
+---
+
+## 9. ALGORITHM CORRECTNESS
+
+### ✅ Strengths
+
+1. **Multi-deviz articles**: Correctly preserved (e.g., TRA01A15P in 5 devizes)
+2. **Component inheritance**: Subcomponents inherit parent's quantity/UM
+3. **Matching rule**: (deviz, code) pair is correct for comparison
+4. **Dynamic catalog**: Adapts to actual reference denomination texts
+5. **Fallback path**: LLM resolution for ambiguous pages
+
+### ⚠️ Known Limitations
+
+1. **Layout variance**: CK08A quantity extraction issue (qty comes before code in some layouts)
+2. **Subcomponent ambiguity**: L: prefix detection sometimes fails with OCR noise
+3. **Partial sentinel resolution**: ~200 LIPSA articles due to page classification misplacement
+4. **Pattern detection**: Doesn't yet use detected pattern to adjust extraction parameters
+
+---
+
+## 10. NEXT PRIORITY FIXES
+
+### Priority 1: Fix F3 Layout Variance (CK08A)
+- **Impact**: HIGH (affects extraction accuracy)
+- **Effort**: MEDIUM
+- **Expected improvement**: +5-10 correct extractions
+
+### Priority 2: Improve Page Classification (Partial→Reference)
+- **Impact**: HIGH (could eliminate ~200 LIPSA)
+- **Effort**: MEDIUM
+- **Current**: ~100 pages resolved via catalog, could be more
+- **Expected improvement**: -150 to -200 LIPSA
+
+### Priority 3: Subcomponent Format Detection
+- **Impact**: MEDIUM
+- **Effort**: LOW (already partially implemented)
+- **Current**: Format detected, not yet used in extraction
+
+---
+
+## SUMMARY
+
+The extraction system uses a **multi-phase, hybrid approach**:
+1. **Page classification** (local regex + dynamic reference matching + LLM fallback)
+2. **Article parsing** (regex state machine with pattern detection)
+3. **Deviz assignment** (explicit code priority, reference matching, inheritance)
+4. **Normalization** (UM standardization, code cleanup)
+5. **Comparison** (matching on deviz+code pair)
+
+The architecture is fundamentally **correct**: objects have proper (cod, deviz, parent/subcomponent relationships, cantitate, UM), and the matching rule is sound. Remaining nonconformities are mainly **data classification** issues (articles extracted to wrong devizes), not structural problems.

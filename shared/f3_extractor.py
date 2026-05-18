@@ -52,8 +52,9 @@ def _normalize_um(um: str) -> str:
     """Normalize unit of measure for comparison.
 
     Handles common variations:
-    - m, mc → standardize as "m2" (square meters are same)
-    - buc, bucata → "buc" (pieces)
+    - m cub, m3 → mc (cubic meters)
+    - mp, m² → mp (square meters)
+    - buc, bucata → buc (pieces)
     - ml, litru → ml
     - empty/None → "" (preserve empty)
     """
@@ -62,9 +63,13 @@ def _normalize_um(um: str) -> str:
 
     um = um.lower().strip()
 
-    # Area measurements: m and mc (milimetric) are both area units
-    if um in ('m', 'mc', 'm²', 'm2'):
-        return 'm2'
+    # Cubic meters: "m cub", "m3", "mc"
+    if um in ('m cub', 'm3', 'mc', 'm³'):
+        return 'mc'
+
+    # Square meters: "mp", "m²", "m2"
+    if um in ('mp', 'm²', 'm2'):
+        return 'mp'
 
     # Pieces
     if um in ('buc', 'bucata', 'buc.', 'bucati'):
