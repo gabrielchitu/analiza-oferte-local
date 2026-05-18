@@ -345,32 +345,52 @@ def match_global(
             else:
                 ref_lenient.append(ref_art)
 
-        # Process strict-mode references (normal N:M by cant)
-        # When oferta has more candidates than ref, prefer UM-matching ones first.
-        # E.g. ref wants IC35D1/buc but oferta has [IC35D1/m, IC35D1/buc] — pick buc.
-        if len(ref_strict) > 0 and len(oferta_list) > len(ref_strict):
-            ref_ums = {(r.get('um') or '').lower() for r in ref_strict}
-            oferta_list = sorted(
-                oferta_list,
-                key=lambda a: (0 if (a.get('um') or '').lower() in ref_ums else 1,
-                               a.get('cantitate', 0) or 0)
-            )
-        for ref_art, oferta_art in zip(ref_strict, oferta_list[:len(ref_strict)]):
-            diffs = compare_articles(ref_art, oferta_art, include_prices=include_prices)
+        # Process strict-mode references using nearest-neighbor cantitate matching.
+        # Greedy: for each ref (sorted by cant), pick closest-cantitate oferta remaining.
+        # Beats sequential zip when oferta has extra articles that cause wrong pairings.
+        # E.g. ref=[161,482,756] oferta=[161,207,482,756] → excess=207 not 756.
+        ref_ums = {(r.get('um') or '').lower() for r in ref_strict}
+        oferta_pool = sorted(
+            oferta_list,
+            key=lambda a: (0 if (a.get('um') or '').lower() in ref_ums else 1,
+                           a.get('cantitate', 0) or 0)
+        )
+        ref_sorted = sorted(ref_strict, key=lambda a: a.get('cantitate', 0) or 0)
+        unmatched_strict_ref: list = []
+        for ra in ref_sorted:
+            if not oferta_pool:
+                unmatched_strict_ref.append(ra)
+                continue
+            ra_cant = ra.get('cantitate', 0) or 0
+            ra_um = (ra.get('um') or '').lower()
+            best_i = 0
+            best_score = float('inf')
+            for i, oa in enumerate(oferta_pool):
+                oa_cant = oa.get('cantitate', 0) or 0
+                oa_um = (oa.get('um') or '').lower()
+                um_penalty = 0.0 if oa_um == ra_um else 1e9
+                score = um_penalty + abs(oa_cant - ra_cant)
+                if score < best_score:
+                    best_score = score
+                    best_i = i
+            oferta_art = oferta_pool.pop(best_i)
+            diffs = compare_articles(ra, oferta_art, include_prices=include_prices)
             arith = check_arithmetic(oferta_art) if include_prices else []
             for d in diffs + arith:
-                _enrich(d, ref_art, oferta_art, deviz_cod, deviz_den)
+                _enrich(d, ra, oferta_art, deviz_cod, deviz_den)
             neconformitati.extend(diffs + arith)
             matches.append({
-                "ref_cod": ref_art.get("cod", ""),
-                "ref_denumire": ref_art.get("denumire", ""),
+                "ref_cod": ra.get("cod", ""),
+                "ref_denumire": ra.get("denumire", ""),
                 "oferta_cod": oferta_art.get("cod", ""),
                 "oferta_denumire": oferta_art.get("denumire", ""),
             })
+        # oferta_pool holds excess (not consumed by strict refs); unmatched_strict_ref has ref overflow
+        unmatched_ref.extend(unmatched_strict_ref)
 
         # Process lenient-mode references (subcomponents with incomplete data)
         # These can match by code only, consuming remaining offer articles
-        remaining_oferta = oferta_list[len(ref_strict):]
+        remaining_oferta = oferta_pool
         for ref_art, oferta_art in zip(ref_lenient, remaining_oferta):
             # Code-only match for subcomponents in lenient mode
             # For incomplete subcomponents, skip cant+UM validation (they can differ)
@@ -390,10 +410,10 @@ def match_global(
             })
 
         # Unmatched references (strict requiring exact match + lenient requiring code match)
-        total_matched = min(len(ref_list), len(oferta_list))
-        unmatched_ref.extend(ref_list[total_matched:])
-        # Exces oferta → ARTICOL_EXTRA
-        extra_from_nm.extend(oferta_list[total_matched:])
+        n_lenient_matched = min(len(ref_lenient), len(remaining_oferta))
+        unmatched_ref.extend(ref_lenient[n_lenient_matched:])
+        # Exces oferta → ARTICOL_EXTRA (remaining after both strict and lenient consumed)
+        extra_from_nm.extend(remaining_oferta[n_lenient_matched:])
 
     # Layer 2: Normalized N:M match pe (deviz, normalize(cod))
     # Upgrade față de 1:1: grupează toate ref nemat-uite cu același norm_key
@@ -454,6 +474,125 @@ def match_global(
         still_unmatched_ref.extend(ref_list[len(oferta_list):])
         extra_from_nm.extend(oferta_list[len(ref_list):])
 
+
+    # Layer 2.1: Trailing-digit variant matching — IC35D↔IC35D1, IC41C↔IC41C1, SB09E↔SB09E1
+    # Oferta uses variant suffix digit while ref uses base code without trailing digit.
+    # N:M grouped match (same logic as Layer 2) to handle multiple occurrences correctly.
+    if still_unmatched_ref and unmatched_oferta_keys:
+        # Build (deviz, stripped_code) → oferta_key for unmatched oferta codes ending in digit.
+        variant_to_oferta_key: dict = {}
+        for ok in unmatched_oferta_keys:
+            deviz_ok, cod_ok = ok
+            cod_clean_ok = clean_code(cod_ok)
+            if cod_clean_ok and cod_clean_ok[-1].isdigit():
+                vkey = (deviz_ok, cod_clean_ok[:-1])
+                if vkey not in variant_to_oferta_key:
+                    variant_to_oferta_key[vkey] = ok
+
+        # Group unmatched ref by (deviz, ref_code) that has a variant in oferta.
+        ref_by_variant: dict = defaultdict(list)
+        still_unmatched_ref_21 = []
+        for ref_art in still_unmatched_ref:
+            vkey_ref = (_deviz_key(ref_art), clean_code(ref_art.get("cod", "")))
+            if vkey_ref in variant_to_oferta_key:
+                ref_by_variant[vkey_ref].append(ref_art)
+            else:
+                still_unmatched_ref_21.append(ref_art)
+
+        for vkey, ref_list in ref_by_variant.items():
+            oferta_key = variant_to_oferta_key[vkey]
+            oferta_list = oferta_by_key[oferta_key]
+            matched_oferta_keys.add(oferta_key)
+            unmatched_oferta_keys.discard(oferta_key)
+
+            ref_list.sort(key=lambda a: a.get("cantitate", 0) or 0)
+            deviz_cod = ref_list[0].get("deviz", "")
+            deviz_den = ref_list[0].get("deviz_denumire", "")
+            original_oferta_cod = oferta_list[0].get("cod", "") if oferta_list else ""
+
+            for r_art, o_art in zip(ref_list, oferta_list):
+                diffs = compare_articles(r_art, o_art, include_prices=include_prices)
+                arith = check_arithmetic(o_art) if include_prices else []
+                if r_art.get("cod", "") != original_oferta_cod and (diffs or arith):
+                    neconf = {
+                        "tip": "COD_SIMILAR",
+                        "motiv_similaritate": f"Cod variant: referinta '{r_art.get('cod')}', ofertat '{original_oferta_cod}'",
+                    }
+                    _enrich(neconf, r_art, o_art, deviz_cod, deviz_den)
+                    neconformitati.append(neconf)
+                for d in diffs + arith:
+                    _enrich(d, r_art, o_art, deviz_cod, deviz_den)
+                neconformitati.extend(diffs + arith)
+                matches.append({
+                    "ref_cod": r_art.get("cod", ""),
+                    "ref_denumire": r_art.get("denumire", ""),
+                    "oferta_cod": o_art.get("cod", ""),
+                    "oferta_denumire": o_art.get("denumire", ""),
+                })
+            still_unmatched_ref_21.extend(ref_list[len(oferta_list):])
+            extra_from_nm.extend(oferta_list[len(ref_list):])
+        still_unmatched_ref = still_unmatched_ref_21
+
+    # Layer 2.1b: Check extra_from_nm for variant matches.
+    # Handles: IC35D(ref) not matched because IC35D1(oferta) key was consumed by Layer 1
+    # N:M excess, but the excess IC35D1 is actually the variant match for IC35D.
+    if still_unmatched_ref and extra_from_nm:
+        extra_matched_ids: set = set()
+        still_unmatched_ref_21b: list = []
+        for ref_art in still_unmatched_ref:
+            ref_deviz = _deviz_key(ref_art)
+            ref_cod_clean = clean_code(ref_art.get("cod", ""))
+            if not ref_cod_clean:
+                still_unmatched_ref_21b.append(ref_art)
+                continue
+            match_ea = None
+            ref_norm = _normalize_cod(ref_art.get("cod", ""))
+            ref_cant = ref_art.get("cantitate") or 0
+            for ea in extra_from_nm:
+                if id(ea) in extra_matched_ids:
+                    continue
+                if _deviz_key(ea) != ref_deviz:
+                    continue
+                ea_cod_clean = clean_code(ea.get("cod", ""))
+                # Check 1: trailing-digit variant (IC35D1 → IC35D)
+                if (ea_cod_clean and ea_cod_clean[-1].isdigit()
+                        and ea_cod_clean[:-1] == ref_cod_clean):
+                    match_ea = ea
+                    break
+                # Check 2: normalized code match with same cantitate (CNO1A → CN01A via O→0)
+                ea_norm = _normalize_cod(ea.get("cod", ""))
+                ea_cant = ea.get("cantitate") or 0
+                if (ea_norm == ref_norm and ea_norm != ref_cod_clean
+                        and abs(ea_cant - ref_cant) < 0.01):
+                    match_ea = ea
+                    break
+            if match_ea:
+                extra_matched_ids.add(id(match_ea))
+                deviz_cod = ref_art.get("deviz", "")
+                deviz_den = ref_art.get("deviz_denumire", "")
+                original_oferta_cod = match_ea.get("cod", "")
+                diffs = compare_articles(ref_art, match_ea, include_prices=include_prices)
+                arith = check_arithmetic(match_ea) if include_prices else []
+                if ref_art.get("cod", "") != original_oferta_cod and (diffs or arith):
+                    neconf = {
+                        "tip": "COD_SIMILAR",
+                        "motiv_similaritate": f"Cod variant: referinta '{ref_art.get('cod')}', ofertat '{original_oferta_cod}'",
+                    }
+                    _enrich(neconf, ref_art, match_ea, deviz_cod, deviz_den)
+                    neconformitati.append(neconf)
+                for d in diffs + arith:
+                    _enrich(d, ref_art, match_ea, deviz_cod, deviz_den)
+                neconformitati.extend(diffs + arith)
+                matches.append({
+                    "ref_cod": ref_art.get("cod", ""),
+                    "ref_denumire": ref_art.get("denumire", ""),
+                    "oferta_cod": match_ea.get("cod", ""),
+                    "oferta_denumire": match_ea.get("denumire", ""),
+                })
+            else:
+                still_unmatched_ref_21b.append(ref_art)
+        extra_from_nm = [ea for ea in extra_from_nm if id(ea) not in extra_matched_ids]
+        still_unmatched_ref = still_unmatched_ref_21b
 
     # Layer 2.2: Cross-deviz matching — GENERAL SOLUTION for deviz mismatches
     # Prinde articole cu (cod, cantitate, UM) identice dar in devize diferite

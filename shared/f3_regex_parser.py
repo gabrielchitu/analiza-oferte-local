@@ -59,7 +59,7 @@ COD_DIGIT_LETTER_DIGIT_STANDALONE_RE = re.compile(
 # Cod normativ SINGUR pe linie, cu opțional tokeni sufixe (ASIM, BUC. etc.) — max 3
 # Ex: "TCB40A1", "TCB40A1 ASIM", "IA37E1 ASIM BUC." (format referinţă deviz)
 COD_NORM_STANDALONE_RE = re.compile(
-    r'^([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
+    r'^([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?\d?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
     re.IGNORECASE
 )
 # Cod extended SINGUR pe linie: TRI1AA08F1, TRI1AA01C2 (format: 2-5L + 1-2D + 1-3L + 2-4D + opt)
@@ -88,7 +88,7 @@ COD_NUMERIC_PIPE_RE = re.compile(
 # NR_CRT + COD NORMATIV pe aceeaşi linie, cu optional tokeni UM (ASIM, BUC. etc.)
 # Ex: "024 CK26A#" sau "002 TCB40A1 ASIM" sau "004 ATA01B ASIM BUC."
 NR_ALPHA_INLINE_RE = re.compile(
-    r'^(\d{1,3})[\s|]+([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,2})\s*$',
+    r'^(\d{1,3})[\s|]+([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?\d?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,2})\s*$',
     re.IGNORECASE
 )
 # NR_CRT + COD NUMERIC pe aceeaşi linie (format referinţă deviz: "024 2200012" or "024|2200012")
@@ -1062,10 +1062,25 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                             um = ''; cantitate = 0.0; preturi = []
                             state = _READING; waiting_lines = 0; _after_linked = False
                         else:
-                            waiting_lines += 1
-                            if waiting_lines >= 3:
-                                # Nu era articol — numărul era altceva (pagină, preț etc.)
-                                state = _IDLE
+                            # Try standalone code (no separator, no NR_CRT prefix)
+                            # e.g. IC19XB1 alone on a line after a bare NR_CRT
+                            line_norm_w = re.sub(r'(?<=[A-Z0-9])\s+(\[\d)', r'\1', line, flags=re.IGNORECASE)
+                            m_stand_w = (COD_NORM_STANDALONE_RE.match(line_norm_w) or
+                                         COD_NORM_EXTENDED_STANDALONE_RE.match(line_norm_w) or
+                                         COD_NORM_SINGLE_STANDALONE_RE.match(line_norm_w))
+                            if m_stand_w:
+                                raw_w = m_stand_w.group(1).upper()
+                                raw_w = re.sub(r'[-]\d+[#@!]*$', '', raw_w)
+                                raw_w = re.sub(r'[-@%>#*^+]+$', '', raw_w)
+                                cod = raw_w
+                                denumire_parts = []
+                                um = ''; cantitate = 0.0; preturi = []
+                                state = _READING; waiting_lines = 0; _after_linked = False
+                            else:
+                                waiting_lines += 1
+                                if waiting_lines >= 3:
+                                    # Nu era articol — numărul era altceva (pagină, preț etc.)
+                                    state = _IDLE
 
         # ── READING_ARTICLE ──────────────────────────────────────────────────
         elif state == _READING:
@@ -1108,11 +1123,16 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             bare_nr_val = int(m_bare_nr.group(1)) if m_bare_nr else None
 
             # Peek ahead: if next line is a decimal (quantity), don't treat current line as NR_CRT
+            # Also skip if next line is a fraction (1/2") or short dimension unit (MM, CM)
+            # — these indicate the current bare number is a size spec, not NR_CRT.
             skip_finalize_for_coeff = False
             if m_bare_nr and cod and um == '' and line_idx + 1 < len(lines):
                 next_line = lines[line_idx + 1].strip()
-                if CANT_DECIMAL_RE.match(next_line):
-                    # Next line is a quantity → current number is likely a coefficient, not NR_CRT
+                next_upper = next_line.upper()
+                if (CANT_DECIMAL_RE.match(next_line)
+                        or re.match(r'^\d+/\d+', next_line)
+                        or (re.match(r'^[A-Z]{1,4}["\'\°%]?\s*$', next_line, re.IGNORECASE)
+                            and next_upper not in UM_KNOWN)):
                     skip_finalize_for_coeff = True
 
             if m_bare_nr and not skip_finalize_for_coeff and (not cod or cantitate == 0.0):
