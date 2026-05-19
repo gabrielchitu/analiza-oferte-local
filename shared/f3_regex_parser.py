@@ -24,9 +24,10 @@ COD_NORM_RE = re.compile(
     r'^([A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?' + _COD_SUFFIX + r')\s*[-–]\s*(.+)',
     re.IGNORECASE
 )
-# Cod normativ extins: TRI1AA01C2, TRI1AA08F1 (prefix 2-5 litere + 1-2 cifre + 1-3 litere + 2-4 cifre + opt suffix)
+# Cod normativ extins: TRI1AA01C2, TRI1AA08F1, TSC35XA1 (prefix 2-5 litere + 1-2 cifre + 1-3 litere + 1-4 cifre + opt suffix)
+# Changed from \d{2,4} to \d{1,4} to match codes like TSC35XA1 with only 1 digit at end
 COD_NORM_EXTENDED_RE = re.compile(
-    r'^([A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z]?\d?' + _COD_SUFFIX + r')\s*[-–]\s*(.+)',
+    r'^([A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{1,4}[A-Z]?\d?' + _COD_SUFFIX + r')\s*[-–]\s*(.+)',
     re.IGNORECASE
 )
 # Cod normativ cu prefix single-letter: W1C01A1, H1V06H, W1MM05A
@@ -68,9 +69,9 @@ COD_NORM_STANDALONE_RE = re.compile(
     r'^([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?\d?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
     re.IGNORECASE
 )
-# Cod extended SINGUR pe linie: TRI1AA08F1, TRI1AA01C2 (format: 2-5L + 1-2D + 1-3L + 2-4D + opt)
+# Cod extended SINGUR pe linie: TRI1AA08F1, TRI1AA01C2, TSC35XA1 (format: 2-5L + 1-2D + 1-3L + 1-4D + opt)
 COD_NORM_EXTENDED_STANDALONE_RE = re.compile(
-    r'^([A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z]?\d?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
+    r'^([A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{1,4}[A-Z]?\d?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
     re.IGNORECASE
 )
 # Cod single-letter complex SINGUR pe linie: W1C01A1, H1V06H (format: L + D + 1-3L + 2-4D + opt)
