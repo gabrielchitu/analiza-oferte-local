@@ -989,7 +989,7 @@ def match_global(
                     'deviz_ref': deviz_ref,
                     'deviz_denumire': nc.get('deviz_denumire', ''),
                     'ref_cod': oferta_cod,
-                    'ref_denumire': nc.get('ref_denumire', ''),
+                    'ref_denumire': ref_art.get('denumire', ''),
                     'ref_um': ref_um,
                     'oferta_cod': oferta_cod,
                     'oferta_denumire': nc.get('oferta_denumire', ''),

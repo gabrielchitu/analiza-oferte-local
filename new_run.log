@@ -1,790 +1,765 @@
-2026-05-19 20:12:22,125 [INFO] ==================================================
-2026-05-19 20:12:22,125 [INFO]   Analizator Local Oferte Constructii
-2026-05-19 20:12:22,125 [INFO] ==================================================
-2026-05-19 20:12:22,125 [INFO] Input:  /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/input_AO
-2026-05-19 20:12:22,125 [INFO] Output: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO
-2026-05-19 20:12:22,125 [INFO] Referinta: di_referinta.json
-2026-05-19 20:12:22,125 [INFO] Oferte (2): ['di_oferta_1.json', 'di_oferta_2.json']
-2026-05-19 20:12:22,126 [INFO] Model Anthropic: claude-haiku-4-5-20251001
-2026-05-19 20:12:22,166 [INFO] 
+2026-05-19 20:30:13,395 [INFO] ==================================================
+2026-05-19 20:30:13,395 [INFO]   Analizator Local Oferte Constructii
+2026-05-19 20:30:13,395 [INFO] ==================================================
+2026-05-19 20:30:13,395 [INFO] Input:  /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/input_AO
+2026-05-19 20:30:13,395 [INFO] Output: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO
+2026-05-19 20:30:13,395 [INFO] Referinta: di_referinta.json
+2026-05-19 20:30:13,395 [INFO] Oferte (2): ['di_oferta_1.json', 'di_oferta_2.json']
+2026-05-19 20:30:13,395 [INFO] Model Anthropic: claude-haiku-4-5-20251001
+2026-05-19 20:30:13,440 [INFO] 
 --- Extragere REFERINTA ---
-2026-05-19 20:12:22,181 [INFO]   di_referinta.json: 81 pagini DI
-2026-05-19 20:12:22,181 [INFO]   Clasificare pagini cu LLM (poate dura 2-5 min)...
-2026-05-19 20:12:22,196 [WARNING] [SUBCF] No hardcoded pattern matched, format unknown
-2026-05-19 20:12:22,196 [INFO] [PC] Detected subcomponent format: Unknown format (confidence=0.00)
-2026-05-19 20:12:22,196 [INFO] [PC] Clasificare completă: 73/81 pagini F3
-2026-05-19 20:12:22,200 [INFO]   Checkpoint salvat: di_referinta_page_classes_10d784f1d95b.json
-2026-05-19 20:12:22,201 [INFO]   73 pagini F3 (0 fara deviz_cod)
-2026-05-19 20:12:22,430 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:12:22,459 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10578
-2026-05-19 20:12:22,525 [INFO] Saved new pattern: AUTO_GEN_10578
-2026-05-19 20:12:22,526 [INFO] [PATTERN] 5.1-1: Detected AUTO_GEN_10578 (confidence=0.50)
-2026-05-19 20:12:22,528 [INFO] [SCATTER] Combined 9 scattered format groups
-2026-05-19 20:12:22,535 [INFO] [PARSER] 5.1-1: 18 articole extrase (regex)
-2026-05-19 20:12:22,536 [INFO] [F3v3] 5.1-1: 18 articole extrase (grouped pages)
-2026-05-19 20:12:22,750 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:22,776 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10579
-2026-05-19 20:12:22,837 [INFO] Saved new pattern: AUTO_GEN_10579
-2026-05-19 20:12:22,842 [INFO] [PATTERN] 4.1-01: Detected AUTO_GEN_10579 (confidence=0.50)
-2026-05-19 20:12:22,846 [INFO] [PARSER] 4.1-01: 17 articole extrase (regex)
-2026-05-19 20:12:22,846 [INFO] [F3v3] 4.1-01: 17 articole extrase (grouped pages)
-2026-05-19 20:12:23,063 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:23,090 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10580
-2026-05-19 20:12:23,152 [INFO] Saved new pattern: AUTO_GEN_10580
-2026-05-19 20:12:23,153 [INFO] [PATTERN] 4.1-04: Detected AUTO_GEN_10580 (confidence=0.50)
-2026-05-19 20:12:23,167 [INFO] [PARSER] 4.1-04: 76 articole extrase (regex)
-2026-05-19 20:12:23,168 [INFO] [F3v3] 4.1-04: 76 articole extrase (grouped pages)
-2026-05-19 20:12:23,385 [WARNING] No known pattern matched (best=0.09), attempting to generate template with LLM...
-2026-05-19 20:12:23,410 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10581
-2026-05-19 20:12:23,476 [INFO] Saved new pattern: AUTO_GEN_10581
-2026-05-19 20:12:23,477 [INFO] [PATTERN] 4.1-03: Detected AUTO_GEN_10581 (confidence=0.50)
-2026-05-19 20:12:23,478 [INFO] [SCATTER] Combined 1 scattered format groups
-2026-05-19 20:12:23,488 [INFO] [PARSER] 4.1-03: 58 articole extrase (regex)
-2026-05-19 20:12:23,489 [INFO] [F3v3] 4.1-03: 58 articole extrase (grouped pages)
-2026-05-19 20:12:23,705 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
-2026-05-19 20:12:23,731 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10582
-2026-05-19 20:12:23,792 [INFO] Saved new pattern: AUTO_GEN_10582
-2026-05-19 20:12:23,793 [INFO] [PATTERN] 4.1-05: Detected AUTO_GEN_10582 (confidence=0.50)
-2026-05-19 20:12:23,800 [INFO] [PARSER] 4.1-05: 42 articole extrase (regex)
-2026-05-19 20:12:23,800 [INFO] [F3v3] 4.1-05: 42 articole extrase (grouped pages)
-2026-05-19 20:12:24,019 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
-2026-05-19 20:12:24,044 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10583
-2026-05-19 20:12:24,105 [INFO] Saved new pattern: AUTO_GEN_10583
-2026-05-19 20:12:24,106 [INFO] [PATTERN] 4.1-06: Detected AUTO_GEN_10583 (confidence=0.50)
-2026-05-19 20:12:24,107 [INFO] [SCATTER] Combined 16 scattered format groups
-2026-05-19 20:12:24,111 [INFO] [PARSER] 4.1-06: 22 articole extrase (regex)
-2026-05-19 20:12:24,111 [INFO] [F3v3] 4.1-06: 22 articole extrase (grouped pages)
-2026-05-19 20:12:24,325 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
-2026-05-19 20:12:24,351 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10584
-2026-05-19 20:12:24,413 [INFO] Saved new pattern: AUTO_GEN_10584
-2026-05-19 20:12:24,415 [INFO] [PATTERN] 4.1-07: Detected AUTO_GEN_10584 (confidence=0.50)
-2026-05-19 20:12:24,417 [INFO] [PARSER] 4.1-07: 10 articole extrase (regex)
-2026-05-19 20:12:24,417 [INFO] [F3v3] 4.1-07: 10 articole extrase (grouped pages)
-2026-05-19 20:12:24,636 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
-2026-05-19 20:12:24,660 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10585
-2026-05-19 20:12:24,721 [INFO] Saved new pattern: AUTO_GEN_10585
-2026-05-19 20:12:24,723 [INFO] [PATTERN] 4.1-09: Detected AUTO_GEN_10585 (confidence=0.50)
-2026-05-19 20:12:24,724 [INFO] [PARSER] 4.1-09: 4 articole extrase (regex)
-2026-05-19 20:12:24,725 [INFO] [F3v3] 4.1-09: 4 articole extrase (grouped pages)
-2026-05-19 20:12:24,943 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
-2026-05-19 20:12:24,966 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10586
-2026-05-19 20:12:25,026 [INFO] Saved new pattern: AUTO_GEN_10586
-2026-05-19 20:12:25,028 [INFO] [PATTERN] 4.1-10: Detected AUTO_GEN_10586 (confidence=0.50)
-2026-05-19 20:12:25,028 [INFO] [SCATTER] Combined 12 scattered format groups
-2026-05-19 20:12:25,045 [INFO] [PARSER] 4.1-10: 99 articole extrase (regex)
-2026-05-19 20:12:25,045 [INFO] [F3v3] 4.1-10: 99 articole extrase (grouped pages)
-2026-05-19 20:12:25,260 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
-2026-05-19 20:12:25,284 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10587
-2026-05-19 20:12:25,346 [INFO] Saved new pattern: AUTO_GEN_10587
-2026-05-19 20:12:25,348 [INFO] [PATTERN] 4.1-13: Detected AUTO_GEN_10587 (confidence=0.50)
-2026-05-19 20:12:25,348 [INFO] [SCATTER] Combined 5 scattered format groups
-2026-05-19 20:12:25,370 [INFO] [PARSER] 4.1-13: 92 articole extrase (regex)
-2026-05-19 20:12:25,371 [INFO] [F3v3] 4.1-13: 92 articole extrase (grouped pages)
-2026-05-19 20:12:25,632 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:25,641 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10588
-2026-05-19 20:12:25,700 [INFO] Saved new pattern: AUTO_GEN_10588
-2026-05-19 20:12:25,701 [INFO] [PATTERN] 4.1-11: Detected AUTO_GEN_10588 (confidence=0.50)
-2026-05-19 20:12:25,702 [INFO] [SCATTER] Combined 1 scattered format groups
-2026-05-19 20:12:25,705 [INFO] [PARSER] 4.1-11: 27 articole extrase (regex)
-2026-05-19 20:12:25,705 [INFO] [F3v3] 4.1-11: 27 articole extrase (grouped pages)
-2026-05-19 20:12:25,935 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
-2026-05-19 20:12:25,944 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10589
-2026-05-19 20:12:26,005 [INFO] Saved new pattern: AUTO_GEN_10589
-2026-05-19 20:12:26,006 [INFO] [PATTERN] 4.1-14: Detected AUTO_GEN_10589 (confidence=0.50)
-2026-05-19 20:12:26,013 [INFO] [PARSER] 4.1-14: 31 articole extrase (regex)
-2026-05-19 20:12:26,013 [INFO] [F3v3] 4.1-14: 31 articole extrase (grouped pages)
-2026-05-19 20:12:26,251 [WARNING] No known pattern matched (best=0.09), attempting to generate template with LLM...
-2026-05-19 20:12:26,260 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10590
-2026-05-19 20:12:26,319 [INFO] Saved new pattern: AUTO_GEN_10590
-2026-05-19 20:12:26,320 [INFO] [PATTERN] 4.1-08: Detected AUTO_GEN_10590 (confidence=0.50)
-2026-05-19 20:12:26,320 [INFO] [SCATTER] Combined 2 scattered format groups
-2026-05-19 20:12:26,323 [INFO] [PARSER] 4.1-08: 13 articole extrase (regex)
-2026-05-19 20:12:26,323 [INFO] [F3v3] 4.1-08: 13 articole extrase (grouped pages)
-2026-05-19 20:12:26,546 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:12:26,555 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10591
-2026-05-19 20:12:26,615 [INFO] Saved new pattern: AUTO_GEN_10591
-2026-05-19 20:12:26,616 [INFO] [PATTERN] 4.1-15: Detected AUTO_GEN_10591 (confidence=0.50)
-2026-05-19 20:12:26,618 [INFO] [PARSER] 4.1-15: 4 articole extrase (regex)
-2026-05-19 20:12:26,618 [INFO] [F3v3] 4.1-15: 4 articole extrase (grouped pages)
-2026-05-19 20:12:26,847 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:26,857 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10592
-2026-05-19 20:12:26,916 [INFO] Saved new pattern: AUTO_GEN_10592
-2026-05-19 20:12:26,917 [INFO] [PATTERN] 4.1-16: Detected AUTO_GEN_10592 (confidence=0.50)
-2026-05-19 20:12:26,919 [INFO] [PARSER] 4.1-16: 7 articole extrase (regex)
-2026-05-19 20:12:26,919 [INFO] [F3v3] 4.1-16: 7 articole extrase (grouped pages)
-2026-05-19 20:12:27,150 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
-2026-05-19 20:12:27,158 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10593
-2026-05-19 20:12:27,218 [INFO] Saved new pattern: AUTO_GEN_10593
-2026-05-19 20:12:27,220 [INFO] [PATTERN] 4.1-17: Detected AUTO_GEN_10593 (confidence=0.50)
-2026-05-19 20:12:27,221 [INFO] [PARSER] 4.1-17: 3 articole extrase (regex)
-2026-05-19 20:12:27,221 [INFO] [F3v3] 4.1-17: 3 articole extrase (grouped pages)
-2026-05-19 20:12:27,442 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
-2026-05-19 20:12:27,451 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10594
-2026-05-19 20:12:27,511 [INFO] Saved new pattern: AUTO_GEN_10594
-2026-05-19 20:12:27,512 [INFO] [PATTERN] 4.1-21: Detected AUTO_GEN_10594 (confidence=0.50)
-2026-05-19 20:12:27,513 [INFO] [PARSER] 4.1-21: 1 articole extrase (regex)
-2026-05-19 20:12:27,513 [INFO] [F3v3] 4.1-21: 1 articole extrase (grouped pages)
-2026-05-19 20:12:27,747 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:27,756 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10595
-2026-05-19 20:12:27,816 [INFO] Saved new pattern: AUTO_GEN_10595
-2026-05-19 20:12:27,818 [INFO] [PATTERN] 4.1-18: Detected AUTO_GEN_10595 (confidence=0.50)
-2026-05-19 20:12:27,819 [INFO] [PARSER] 4.1-18: 1 articole extrase (regex)
-2026-05-19 20:12:27,819 [INFO] [F3v3] 4.1-18: 1 articole extrase (grouped pages)
-2026-05-19 20:12:28,050 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
-2026-05-19 20:12:28,059 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10596
-2026-05-19 20:12:28,117 [INFO] Saved new pattern: AUTO_GEN_10596
-2026-05-19 20:12:28,119 [INFO] [PATTERN] 4.1-19: Detected AUTO_GEN_10596 (confidence=0.50)
-2026-05-19 20:12:28,120 [INFO] [PARSER] 4.1-19: 1 articole extrase (regex)
-2026-05-19 20:12:28,120 [INFO] [F3v3] 4.1-19: 1 articole extrase (grouped pages)
-2026-05-19 20:12:28,360 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:28,369 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10597
-2026-05-19 20:12:28,428 [INFO] Saved new pattern: AUTO_GEN_10597
-2026-05-19 20:12:28,430 [INFO] [PATTERN] 4.1-20: Detected AUTO_GEN_10597 (confidence=0.50)
-2026-05-19 20:12:28,432 [INFO] [PARSER] 4.1-20: 3 articole extrase (regex)
-2026-05-19 20:12:28,432 [INFO] [F3v3] 4.1-20: 3 articole extrase (grouped pages)
-2026-05-19 20:12:28,659 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
-2026-05-19 20:12:28,671 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10598
-2026-05-19 20:12:28,730 [INFO] Saved new pattern: AUTO_GEN_10598
-2026-05-19 20:12:28,732 [INFO] [PATTERN] 4.1-02: Detected AUTO_GEN_10598 (confidence=0.50)
-2026-05-19 20:12:28,732 [INFO] [SCATTER] Combined 1 scattered format groups
-2026-05-19 20:12:28,740 [INFO] [PARSER] 4.1-02: 52 articole extrase (regex)
-2026-05-19 20:12:28,741 [INFO] [F3v3] 4.1-02: 52 articole extrase (grouped pages)
-2026-05-19 20:12:28,975 [WARNING] No known pattern matched (best=0.08), attempting to generate template with LLM...
-2026-05-19 20:12:28,983 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10599
-2026-05-19 20:12:29,043 [INFO] Saved new pattern: AUTO_GEN_10599
-2026-05-19 20:12:29,044 [INFO] [PATTERN] 4.1-12: Detected AUTO_GEN_10599 (confidence=0.50)
-2026-05-19 20:12:29,046 [INFO] [SCATTER] Combined 19 scattered format groups
-2026-05-19 20:12:29,054 [INFO] [PARSER] 4.1-12: 58 articole extrase (regex)
-2026-05-19 20:12:29,055 [INFO] [F3v3] 4.1-12: 58 articole extrase (grouped pages)
-2026-05-19 20:12:29,286 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:29,295 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10600
-2026-05-19 20:12:29,354 [INFO] Saved new pattern: AUTO_GEN_10600
-2026-05-19 20:12:29,355 [INFO] [PATTERN] 4.3-01: Detected AUTO_GEN_10600 (confidence=0.50)
-2026-05-19 20:12:29,359 [INFO] [PARSER] 4.3-01: 18 articole extrase (regex)
-2026-05-19 20:12:29,359 [INFO] [F3v3] 4.3-01: 18 articole extrase (grouped pages)
-2026-05-19 20:12:29,590 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:29,599 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10601
-2026-05-19 20:12:29,659 [INFO] Saved new pattern: AUTO_GEN_10601
-2026-05-19 20:12:29,661 [INFO] [PATTERN] 4.3-02: Detected AUTO_GEN_10601 (confidence=0.50)
-2026-05-19 20:12:29,664 [INFO] [PARSER] 4.3-02: 17 articole extrase (regex)
-2026-05-19 20:12:29,664 [INFO] [F3v3] 4.3-02: 17 articole extrase (grouped pages)
-2026-05-19 20:12:29,886 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
-2026-05-19 20:12:29,897 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10602
-2026-05-19 20:12:29,957 [INFO] Saved new pattern: AUTO_GEN_10602
-2026-05-19 20:12:29,958 [INFO] [PATTERN] 4.3-03: Detected AUTO_GEN_10602 (confidence=0.50)
-2026-05-19 20:12:29,961 [INFO] [PARSER] 4.3-03: 11 articole extrase (regex)
-2026-05-19 20:12:29,961 [INFO] [F3v3] 4.3-03: 11 articole extrase (grouped pages)
-2026-05-19 20:12:30,188 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:12:30,198 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10603
-2026-05-19 20:12:30,258 [INFO] Saved new pattern: AUTO_GEN_10603
-2026-05-19 20:12:30,259 [INFO] [PATTERN] 4.3-05: Detected AUTO_GEN_10603 (confidence=0.50)
-2026-05-19 20:12:30,259 [INFO] [SCATTER] Combined 1 scattered format groups
-2026-05-19 20:12:30,262 [INFO] [PARSER] 4.3-05: 15 articole extrase (regex)
-2026-05-19 20:12:30,263 [INFO] [F3v3] 4.3-05: 15 articole extrase (grouped pages)
-2026-05-19 20:12:30,491 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
-2026-05-19 20:12:30,500 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10604
-2026-05-19 20:12:30,559 [INFO] Saved new pattern: AUTO_GEN_10604
-2026-05-19 20:12:30,561 [INFO] [PATTERN] 4.3-06: Detected AUTO_GEN_10604 (confidence=0.50)
-2026-05-19 20:12:30,561 [INFO] [SCATTER] Combined 1 scattered format groups
-2026-05-19 20:12:30,570 [INFO] [PARSER] 4.3-06: 47 articole extrase (regex)
-2026-05-19 20:12:30,571 [INFO] [F3v3] 4.3-06: 47 articole extrase (grouped pages)
-2026-05-19 20:12:30,793 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
-2026-05-19 20:12:30,802 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10605
-2026-05-19 20:12:30,863 [INFO] Saved new pattern: AUTO_GEN_10605
-2026-05-19 20:12:30,864 [INFO] [PATTERN] 4.3-07: Detected AUTO_GEN_10605 (confidence=0.50)
-2026-05-19 20:12:30,865 [INFO] [SCATTER] Combined 7 scattered format groups
-2026-05-19 20:12:30,870 [INFO] [PARSER] 4.3-07: 22 articole extrase (regex)
-2026-05-19 20:12:30,870 [INFO] [F3v3] 4.3-07: 22 articole extrase (grouped pages)
-2026-05-19 20:12:31,100 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
-2026-05-19 20:12:31,109 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10606
-2026-05-19 20:12:31,169 [INFO] Saved new pattern: AUTO_GEN_10606
-2026-05-19 20:12:31,170 [INFO] [PATTERN] 4.3-08: Detected AUTO_GEN_10606 (confidence=0.50)
-2026-05-19 20:12:31,171 [INFO] [SCATTER] Combined 1 scattered format groups
-2026-05-19 20:12:31,173 [INFO] [PARSER] 4.3-08: 12 articole extrase (regex)
-2026-05-19 20:12:31,173 [INFO] [F3v3] 4.3-08: 12 articole extrase (grouped pages)
-2026-05-19 20:12:31,403 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:31,412 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10607
-2026-05-19 20:12:31,475 [INFO] Saved new pattern: AUTO_GEN_10607
-2026-05-19 20:12:31,477 [INFO] [PATTERN] 4.3-09: Detected AUTO_GEN_10607 (confidence=0.50)
-2026-05-19 20:12:31,478 [INFO] [PARSER] 4.3-09: 4 articole extrase (regex)
-2026-05-19 20:12:31,478 [INFO] [F3v3] 4.3-09: 4 articole extrase (grouped pages)
-2026-05-19 20:12:31,703 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:31,712 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10608
-2026-05-19 20:12:31,789 [INFO] Saved new pattern: AUTO_GEN_10608
-2026-05-19 20:12:31,790 [INFO] [PATTERN] 4.3-04: Detected AUTO_GEN_10608 (confidence=0.50)
-2026-05-19 20:12:31,794 [INFO] [PARSER] 4.3-04: 17 articole extrase (regex)
-2026-05-19 20:12:31,794 [INFO] [F3v3] 4.3-04: 17 articole extrase (grouped pages)
-2026-05-19 20:12:32,013 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:32,022 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10609
-2026-05-19 20:12:32,098 [INFO] Saved new pattern: AUTO_GEN_10609
-2026-05-19 20:12:32,100 [INFO] [PATTERN] 4.2-1: Detected AUTO_GEN_10609 (confidence=0.50)
-2026-05-19 20:12:32,102 [INFO] [PARSER] 4.2-1: 9 articole extrase (regex)
-2026-05-19 20:12:32,102 [INFO] [F3v3] 4.2-1: 9 articole extrase (grouped pages)
-2026-05-19 20:12:32,312 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
-2026-05-19 20:12:32,321 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10610
-2026-05-19 20:12:32,398 [INFO] Saved new pattern: AUTO_GEN_10610
-2026-05-19 20:12:32,399 [INFO] [PATTERN] 4.2-2: Detected AUTO_GEN_10610 (confidence=0.50)
-2026-05-19 20:12:32,399 [INFO] [SCATTER] Combined 1 scattered format groups
-2026-05-19 20:12:32,402 [INFO] [PARSER] 4.2-2: 15 articole extrase (regex)
-2026-05-19 20:12:32,402 [INFO] [F3v3] 4.2-2: 15 articole extrase (grouped pages)
-2026-05-19 20:12:32,617 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:12:32,626 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10611
-2026-05-19 20:12:32,702 [INFO] Saved new pattern: AUTO_GEN_10611
-2026-05-19 20:12:32,704 [INFO] [PATTERN] 4.4-1: Detected AUTO_GEN_10611 (confidence=0.50)
-2026-05-19 20:12:32,704 [INFO] [SCATTER] Combined 1 scattered format groups
-2026-05-19 20:12:32,705 [INFO] [PARSER] 4.4-1: 7 articole extrase (regex)
-2026-05-19 20:12:32,705 [INFO] [F3v3] 4.4-1: 7 articole extrase (grouped pages)
-2026-05-19 20:12:32,923 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:32,933 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10612
-2026-05-19 20:12:33,009 [INFO] Saved new pattern: AUTO_GEN_10612
-2026-05-19 20:12:33,010 [INFO] [PATTERN] 4.4-2: Detected AUTO_GEN_10612 (confidence=0.50)
-2026-05-19 20:12:33,010 [INFO] [SCATTER] Combined 1 scattered format groups
-2026-05-19 20:12:33,014 [INFO] [PARSER] 4.4-2: 18 articole extrase (regex)
-2026-05-19 20:12:33,014 [INFO] [F3v3] 4.4-2: 18 articole extrase (grouped pages)
-2026-05-19 20:12:33,014 [INFO] [F3v3] Total: 830 articole extrase (deviz-grouped, fara LLM)
-2026-05-19 20:12:33,014 [INFO]   830 articole extrase din linii
-2026-05-19 20:12:33,017 [INFO]   0 articole din tabele, 830 total dupa merge
-2026-05-19 20:12:33,023 [INFO]    Checkpoint: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO/checkpoints/di_referinta_deviz_mapping_10d784f1d95b.json
-2026-05-19 20:12:33,023 [INFO]    35 deviz groups available for LLM resolution
-2026-05-19 20:12:33,025 [INFO] [DN] Populated 0 missing deviz denominations
-2026-05-19 20:12:33,036 [INFO]   Salvat: referinta.json
-2026-05-19 20:12:33,036 [INFO]   35 devize in referinta
-2026-05-19 20:12:33,046 [INFO] 
+2026-05-19 20:30:13,454 [INFO]   di_referinta.json: 81 pagini DI
+2026-05-19 20:30:13,454 [INFO]   Checkpoint gasit — sare peste clasificare LLM
+2026-05-19 20:30:13,460 [INFO]   73 pagini F3 (0 fara deviz_cod)
+2026-05-19 20:30:13,681 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:30:13,707 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10683
+2026-05-19 20:30:13,769 [INFO] Saved new pattern: AUTO_GEN_10683
+2026-05-19 20:30:13,771 [INFO] [PATTERN] 5.1-1: Detected AUTO_GEN_10683 (confidence=0.50)
+2026-05-19 20:30:13,772 [INFO] [SCATTER] Combined 9 scattered format groups
+2026-05-19 20:30:13,777 [INFO] [PARSER] 5.1-1: 18 articole extrase (regex)
+2026-05-19 20:30:13,778 [INFO] [F3v3] 5.1-1: 18 articole extrase (grouped pages)
+2026-05-19 20:30:13,998 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:14,025 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10684
+2026-05-19 20:30:14,089 [INFO] Saved new pattern: AUTO_GEN_10684
+2026-05-19 20:30:14,092 [INFO] [PATTERN] 4.1-01: Detected AUTO_GEN_10684 (confidence=0.50)
+2026-05-19 20:30:14,095 [INFO] [PARSER] 4.1-01: 17 articole extrase (regex)
+2026-05-19 20:30:14,096 [INFO] [F3v3] 4.1-01: 17 articole extrase (grouped pages)
+2026-05-19 20:30:14,324 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:14,349 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10685
+2026-05-19 20:30:14,411 [INFO] Saved new pattern: AUTO_GEN_10685
+2026-05-19 20:30:14,413 [INFO] [PATTERN] 4.1-04: Detected AUTO_GEN_10685 (confidence=0.50)
+2026-05-19 20:30:14,426 [INFO] [PARSER] 4.1-04: 76 articole extrase (regex)
+2026-05-19 20:30:14,427 [INFO] [F3v3] 4.1-04: 76 articole extrase (grouped pages)
+2026-05-19 20:30:14,647 [WARNING] No known pattern matched (best=0.09), attempting to generate template with LLM...
+2026-05-19 20:30:14,671 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10686
+2026-05-19 20:30:14,733 [INFO] Saved new pattern: AUTO_GEN_10686
+2026-05-19 20:30:14,735 [INFO] [PATTERN] 4.1-03: Detected AUTO_GEN_10686 (confidence=0.50)
+2026-05-19 20:30:14,735 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 20:30:14,746 [INFO] [PARSER] 4.1-03: 58 articole extrase (regex)
+2026-05-19 20:30:14,746 [INFO] [F3v3] 4.1-03: 58 articole extrase (grouped pages)
+2026-05-19 20:30:14,974 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 20:30:14,998 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10687
+2026-05-19 20:30:15,062 [INFO] Saved new pattern: AUTO_GEN_10687
+2026-05-19 20:30:15,063 [INFO] [PATTERN] 4.1-05: Detected AUTO_GEN_10687 (confidence=0.50)
+2026-05-19 20:30:15,073 [INFO] [PARSER] 4.1-05: 42 articole extrase (regex)
+2026-05-19 20:30:15,074 [INFO] [F3v3] 4.1-05: 42 articole extrase (grouped pages)
+2026-05-19 20:30:15,294 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 20:30:15,318 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10688
+2026-05-19 20:30:15,379 [INFO] Saved new pattern: AUTO_GEN_10688
+2026-05-19 20:30:15,380 [INFO] [PATTERN] 4.1-06: Detected AUTO_GEN_10688 (confidence=0.50)
+2026-05-19 20:30:15,381 [INFO] [SCATTER] Combined 16 scattered format groups
+2026-05-19 20:30:15,385 [INFO] [PARSER] 4.1-06: 22 articole extrase (regex)
+2026-05-19 20:30:15,385 [INFO] [F3v3] 4.1-06: 22 articole extrase (grouped pages)
+2026-05-19 20:30:15,607 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 20:30:15,631 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10689
+2026-05-19 20:30:15,693 [INFO] Saved new pattern: AUTO_GEN_10689
+2026-05-19 20:30:15,695 [INFO] [PATTERN] 4.1-07: Detected AUTO_GEN_10689 (confidence=0.50)
+2026-05-19 20:30:15,697 [INFO] [PARSER] 4.1-07: 10 articole extrase (regex)
+2026-05-19 20:30:15,697 [INFO] [F3v3] 4.1-07: 10 articole extrase (grouped pages)
+2026-05-19 20:30:15,931 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 20:30:15,940 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10690
+2026-05-19 20:30:16,005 [INFO] Saved new pattern: AUTO_GEN_10690
+2026-05-19 20:30:16,007 [INFO] [PATTERN] 4.1-09: Detected AUTO_GEN_10690 (confidence=0.50)
+2026-05-19 20:30:16,008 [INFO] [PARSER] 4.1-09: 4 articole extrase (regex)
+2026-05-19 20:30:16,008 [INFO] [F3v3] 4.1-09: 4 articole extrase (grouped pages)
+2026-05-19 20:30:16,244 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 20:30:16,253 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10691
+2026-05-19 20:30:16,314 [INFO] Saved new pattern: AUTO_GEN_10691
+2026-05-19 20:30:16,316 [INFO] [PATTERN] 4.1-10: Detected AUTO_GEN_10691 (confidence=0.50)
+2026-05-19 20:30:16,317 [INFO] [SCATTER] Combined 12 scattered format groups
+2026-05-19 20:30:16,332 [INFO] [PARSER] 4.1-10: 99 articole extrase (regex)
+2026-05-19 20:30:16,333 [INFO] [F3v3] 4.1-10: 99 articole extrase (grouped pages)
+2026-05-19 20:30:16,565 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 20:30:16,575 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10692
+2026-05-19 20:30:16,638 [INFO] Saved new pattern: AUTO_GEN_10692
+2026-05-19 20:30:16,639 [INFO] [PATTERN] 4.1-13: Detected AUTO_GEN_10692 (confidence=0.50)
+2026-05-19 20:30:16,640 [INFO] [SCATTER] Combined 5 scattered format groups
+2026-05-19 20:30:16,661 [INFO] [PARSER] 4.1-13: 92 articole extrase (regex)
+2026-05-19 20:30:16,662 [INFO] [F3v3] 4.1-13: 92 articole extrase (grouped pages)
+2026-05-19 20:30:16,894 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:16,902 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10693
+2026-05-19 20:30:16,967 [INFO] Saved new pattern: AUTO_GEN_10693
+2026-05-19 20:30:16,969 [INFO] [PATTERN] 4.1-11: Detected AUTO_GEN_10693 (confidence=0.50)
+2026-05-19 20:30:16,969 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 20:30:16,972 [INFO] [PARSER] 4.1-11: 27 articole extrase (regex)
+2026-05-19 20:30:16,972 [INFO] [F3v3] 4.1-11: 27 articole extrase (grouped pages)
+2026-05-19 20:30:17,205 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 20:30:17,214 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10694
+2026-05-19 20:30:17,278 [INFO] Saved new pattern: AUTO_GEN_10694
+2026-05-19 20:30:17,280 [INFO] [PATTERN] 4.1-14: Detected AUTO_GEN_10694 (confidence=0.50)
+2026-05-19 20:30:17,286 [INFO] [PARSER] 4.1-14: 31 articole extrase (regex)
+2026-05-19 20:30:17,287 [INFO] [F3v3] 4.1-14: 31 articole extrase (grouped pages)
+2026-05-19 20:30:17,518 [WARNING] No known pattern matched (best=0.09), attempting to generate template with LLM...
+2026-05-19 20:30:17,527 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10695
+2026-05-19 20:30:17,589 [INFO] Saved new pattern: AUTO_GEN_10695
+2026-05-19 20:30:17,593 [INFO] [PATTERN] 4.1-08: Detected AUTO_GEN_10695 (confidence=0.50)
+2026-05-19 20:30:17,593 [INFO] [SCATTER] Combined 2 scattered format groups
+2026-05-19 20:30:17,596 [INFO] [PARSER] 4.1-08: 13 articole extrase (regex)
+2026-05-19 20:30:17,596 [INFO] [F3v3] 4.1-08: 13 articole extrase (grouped pages)
+2026-05-19 20:30:17,825 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:30:17,833 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10696
+2026-05-19 20:30:17,893 [INFO] Saved new pattern: AUTO_GEN_10696
+2026-05-19 20:30:17,895 [INFO] [PATTERN] 4.1-15: Detected AUTO_GEN_10696 (confidence=0.50)
+2026-05-19 20:30:17,896 [INFO] [PARSER] 4.1-15: 4 articole extrase (regex)
+2026-05-19 20:30:17,897 [INFO] [F3v3] 4.1-15: 4 articole extrase (grouped pages)
+2026-05-19 20:30:18,133 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:18,142 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10697
+2026-05-19 20:30:18,203 [INFO] Saved new pattern: AUTO_GEN_10697
+2026-05-19 20:30:18,204 [INFO] [PATTERN] 4.1-16: Detected AUTO_GEN_10697 (confidence=0.50)
+2026-05-19 20:30:18,206 [INFO] [PARSER] 4.1-16: 7 articole extrase (regex)
+2026-05-19 20:30:18,206 [INFO] [F3v3] 4.1-16: 7 articole extrase (grouped pages)
+2026-05-19 20:30:18,440 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 20:30:18,449 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10698
+2026-05-19 20:30:18,508 [INFO] Saved new pattern: AUTO_GEN_10698
+2026-05-19 20:30:18,509 [INFO] [PATTERN] 4.1-17: Detected AUTO_GEN_10698 (confidence=0.50)
+2026-05-19 20:30:18,510 [INFO] [PARSER] 4.1-17: 3 articole extrase (regex)
+2026-05-19 20:30:18,510 [INFO] [F3v3] 4.1-17: 3 articole extrase (grouped pages)
+2026-05-19 20:30:18,747 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 20:30:18,756 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10699
+2026-05-19 20:30:18,819 [INFO] Saved new pattern: AUTO_GEN_10699
+2026-05-19 20:30:18,820 [INFO] [PATTERN] 4.1-21: Detected AUTO_GEN_10699 (confidence=0.50)
+2026-05-19 20:30:18,821 [INFO] [PARSER] 4.1-21: 1 articole extrase (regex)
+2026-05-19 20:30:18,821 [INFO] [F3v3] 4.1-21: 1 articole extrase (grouped pages)
+2026-05-19 20:30:19,053 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:19,062 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10700
+2026-05-19 20:30:19,122 [INFO] Saved new pattern: AUTO_GEN_10700
+2026-05-19 20:30:19,123 [INFO] [PATTERN] 4.1-18: Detected AUTO_GEN_10700 (confidence=0.50)
+2026-05-19 20:30:19,125 [INFO] [PARSER] 4.1-18: 1 articole extrase (regex)
+2026-05-19 20:30:19,125 [INFO] [F3v3] 4.1-18: 1 articole extrase (grouped pages)
+2026-05-19 20:30:19,358 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 20:30:19,367 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10701
+2026-05-19 20:30:19,427 [INFO] Saved new pattern: AUTO_GEN_10701
+2026-05-19 20:30:19,428 [INFO] [PATTERN] 4.1-19: Detected AUTO_GEN_10701 (confidence=0.50)
+2026-05-19 20:30:19,430 [INFO] [PARSER] 4.1-19: 1 articole extrase (regex)
+2026-05-19 20:30:19,430 [INFO] [F3v3] 4.1-19: 1 articole extrase (grouped pages)
+2026-05-19 20:30:19,670 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:19,679 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10702
+2026-05-19 20:30:19,738 [INFO] Saved new pattern: AUTO_GEN_10702
+2026-05-19 20:30:19,739 [INFO] [PATTERN] 4.1-20: Detected AUTO_GEN_10702 (confidence=0.50)
+2026-05-19 20:30:19,742 [INFO] [PARSER] 4.1-20: 3 articole extrase (regex)
+2026-05-19 20:30:19,742 [INFO] [F3v3] 4.1-20: 3 articole extrase (grouped pages)
+2026-05-19 20:30:19,976 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 20:30:19,985 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10703
+2026-05-19 20:30:20,045 [INFO] Saved new pattern: AUTO_GEN_10703
+2026-05-19 20:30:20,046 [INFO] [PATTERN] 4.1-02: Detected AUTO_GEN_10703 (confidence=0.50)
+2026-05-19 20:30:20,047 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 20:30:20,055 [INFO] [PARSER] 4.1-02: 52 articole extrase (regex)
+2026-05-19 20:30:20,055 [INFO] [F3v3] 4.1-02: 52 articole extrase (grouped pages)
+2026-05-19 20:30:20,284 [WARNING] No known pattern matched (best=0.08), attempting to generate template with LLM...
+2026-05-19 20:30:20,293 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10704
+2026-05-19 20:30:20,369 [INFO] Saved new pattern: AUTO_GEN_10704
+2026-05-19 20:30:20,371 [INFO] [PATTERN] 4.1-12: Detected AUTO_GEN_10704 (confidence=0.50)
+2026-05-19 20:30:20,372 [INFO] [SCATTER] Combined 19 scattered format groups
+2026-05-19 20:30:20,380 [INFO] [PARSER] 4.1-12: 58 articole extrase (regex)
+2026-05-19 20:30:20,381 [INFO] [F3v3] 4.1-12: 58 articole extrase (grouped pages)
+2026-05-19 20:30:20,597 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:20,606 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10705
+2026-05-19 20:30:20,686 [INFO] Saved new pattern: AUTO_GEN_10705
+2026-05-19 20:30:20,687 [INFO] [PATTERN] 4.3-01: Detected AUTO_GEN_10705 (confidence=0.50)
+2026-05-19 20:30:20,691 [INFO] [PARSER] 4.3-01: 18 articole extrase (regex)
+2026-05-19 20:30:20,691 [INFO] [F3v3] 4.3-01: 18 articole extrase (grouped pages)
+2026-05-19 20:30:20,913 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:20,922 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10706
+2026-05-19 20:30:20,999 [INFO] Saved new pattern: AUTO_GEN_10706
+2026-05-19 20:30:21,000 [INFO] [PATTERN] 4.3-02: Detected AUTO_GEN_10706 (confidence=0.50)
+2026-05-19 20:30:21,004 [INFO] [PARSER] 4.3-02: 17 articole extrase (regex)
+2026-05-19 20:30:21,004 [INFO] [F3v3] 4.3-02: 17 articole extrase (grouped pages)
+2026-05-19 20:30:21,227 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 20:30:21,236 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10707
+2026-05-19 20:30:21,316 [INFO] Saved new pattern: AUTO_GEN_10707
+2026-05-19 20:30:21,317 [INFO] [PATTERN] 4.3-03: Detected AUTO_GEN_10707 (confidence=0.50)
+2026-05-19 20:30:21,320 [INFO] [PARSER] 4.3-03: 11 articole extrase (regex)
+2026-05-19 20:30:21,320 [INFO] [F3v3] 4.3-03: 11 articole extrase (grouped pages)
+2026-05-19 20:30:21,540 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:30:21,549 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10708
+2026-05-19 20:30:21,625 [INFO] Saved new pattern: AUTO_GEN_10708
+2026-05-19 20:30:21,627 [INFO] [PATTERN] 4.3-05: Detected AUTO_GEN_10708 (confidence=0.50)
+2026-05-19 20:30:21,627 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 20:30:21,630 [INFO] [PARSER] 4.3-05: 15 articole extrase (regex)
+2026-05-19 20:30:21,630 [INFO] [F3v3] 4.3-05: 15 articole extrase (grouped pages)
+2026-05-19 20:30:21,853 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 20:30:21,862 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10709
+2026-05-19 20:30:21,940 [INFO] Saved new pattern: AUTO_GEN_10709
+2026-05-19 20:30:21,941 [INFO] [PATTERN] 4.3-06: Detected AUTO_GEN_10709 (confidence=0.50)
+2026-05-19 20:30:21,942 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 20:30:21,951 [INFO] [PARSER] 4.3-06: 47 articole extrase (regex)
+2026-05-19 20:30:21,952 [INFO] [F3v3] 4.3-06: 47 articole extrase (grouped pages)
+2026-05-19 20:30:22,174 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 20:30:22,183 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10710
+2026-05-19 20:30:22,259 [INFO] Saved new pattern: AUTO_GEN_10710
+2026-05-19 20:30:22,260 [INFO] [PATTERN] 4.3-07: Detected AUTO_GEN_10710 (confidence=0.50)
+2026-05-19 20:30:22,261 [INFO] [SCATTER] Combined 7 scattered format groups
+2026-05-19 20:30:22,266 [INFO] [PARSER] 4.3-07: 22 articole extrase (regex)
+2026-05-19 20:30:22,266 [INFO] [F3v3] 4.3-07: 22 articole extrase (grouped pages)
+2026-05-19 20:30:22,488 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 20:30:22,497 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10711
+2026-05-19 20:30:22,573 [INFO] Saved new pattern: AUTO_GEN_10711
+2026-05-19 20:30:22,575 [INFO] [PATTERN] 4.3-08: Detected AUTO_GEN_10711 (confidence=0.50)
+2026-05-19 20:30:22,575 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 20:30:22,578 [INFO] [PARSER] 4.3-08: 12 articole extrase (regex)
+2026-05-19 20:30:22,578 [INFO] [F3v3] 4.3-08: 12 articole extrase (grouped pages)
+2026-05-19 20:30:22,802 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:22,811 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10712
+2026-05-19 20:30:22,885 [INFO] Saved new pattern: AUTO_GEN_10712
+2026-05-19 20:30:22,888 [INFO] [PATTERN] 4.3-09: Detected AUTO_GEN_10712 (confidence=0.50)
+2026-05-19 20:30:22,889 [INFO] [PARSER] 4.3-09: 4 articole extrase (regex)
+2026-05-19 20:30:22,889 [INFO] [F3v3] 4.3-09: 4 articole extrase (grouped pages)
+2026-05-19 20:30:23,109 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:23,119 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10713
+2026-05-19 20:30:23,195 [INFO] Saved new pattern: AUTO_GEN_10713
+2026-05-19 20:30:23,196 [INFO] [PATTERN] 4.3-04: Detected AUTO_GEN_10713 (confidence=0.50)
+2026-05-19 20:30:23,200 [INFO] [PARSER] 4.3-04: 17 articole extrase (regex)
+2026-05-19 20:30:23,201 [INFO] [F3v3] 4.3-04: 17 articole extrase (grouped pages)
+2026-05-19 20:30:23,423 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:23,433 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10714
+2026-05-19 20:30:23,507 [INFO] Saved new pattern: AUTO_GEN_10714
+2026-05-19 20:30:23,508 [INFO] [PATTERN] 4.2-1: Detected AUTO_GEN_10714 (confidence=0.50)
+2026-05-19 20:30:23,510 [INFO] [PARSER] 4.2-1: 9 articole extrase (regex)
+2026-05-19 20:30:23,511 [INFO] [F3v3] 4.2-1: 9 articole extrase (grouped pages)
+2026-05-19 20:30:23,731 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 20:30:23,740 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10715
+2026-05-19 20:30:23,821 [INFO] Saved new pattern: AUTO_GEN_10715
+2026-05-19 20:30:23,822 [INFO] [PATTERN] 4.2-2: Detected AUTO_GEN_10715 (confidence=0.50)
+2026-05-19 20:30:23,823 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 20:30:23,825 [INFO] [PARSER] 4.2-2: 15 articole extrase (regex)
+2026-05-19 20:30:23,825 [INFO] [F3v3] 4.2-2: 15 articole extrase (grouped pages)
+2026-05-19 20:30:24,045 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:30:24,054 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10716
+2026-05-19 20:30:24,130 [INFO] Saved new pattern: AUTO_GEN_10716
+2026-05-19 20:30:24,131 [INFO] [PATTERN] 4.4-1: Detected AUTO_GEN_10716 (confidence=0.50)
+2026-05-19 20:30:24,131 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 20:30:24,133 [INFO] [PARSER] 4.4-1: 7 articole extrase (regex)
+2026-05-19 20:30:24,133 [INFO] [F3v3] 4.4-1: 7 articole extrase (grouped pages)
+2026-05-19 20:30:24,352 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:24,361 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10717
+2026-05-19 20:30:24,436 [INFO] Saved new pattern: AUTO_GEN_10717
+2026-05-19 20:30:24,438 [INFO] [PATTERN] 4.4-2: Detected AUTO_GEN_10717 (confidence=0.50)
+2026-05-19 20:30:24,438 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 20:30:24,442 [INFO] [PARSER] 4.4-2: 18 articole extrase (regex)
+2026-05-19 20:30:24,442 [INFO] [F3v3] 4.4-2: 18 articole extrase (grouped pages)
+2026-05-19 20:30:24,443 [INFO] [F3v3] Total: 830 articole extrase (deviz-grouped, fara LLM)
+2026-05-19 20:30:24,443 [INFO]   830 articole extrase din linii
+2026-05-19 20:30:24,446 [INFO]   0 articole din tabele, 830 total dupa merge
+2026-05-19 20:30:24,451 [INFO]    Checkpoint: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO/checkpoints/di_referinta_deviz_mapping_10d784f1d95b.json
+2026-05-19 20:30:24,451 [INFO]    35 deviz groups available for LLM resolution
+2026-05-19 20:30:24,453 [INFO] [DN] Populated 0 missing deviz denominations
+2026-05-19 20:30:24,463 [INFO]   Salvat: referinta.json
+2026-05-19 20:30:24,463 [INFO]   35 devize in referinta
+2026-05-19 20:30:24,469 [INFO] 
 --- Extragere OFERTA 1 ---
-2026-05-19 20:12:33,065 [INFO]   Ofertant: SC GLOBAL ELECTRO CONSTRUCT SRL Deviz "1" - Formular F3 Formular generat cu programul
-2026-05-19 20:12:33,077 [INFO]   di_oferta_1.json: 148 pagini DI
-2026-05-19 20:12:33,077 [INFO]   Clasificare pagini cu LLM (poate dura 2-5 min)...
-2026-05-19 20:12:33,080 [INFO] [DEVIZ-MAP] Built dynamic map from 830 reference articles
-2026-05-19 20:12:33,080 [INFO] [DEVIZ-MAP] Devizes: ['4.1-01', '4.1-02', '4.1-03', '4.1-04', '4.1-05', '4.1-06', '4.1-07', '4.1-08', '4.1-09', '4.1-10', '4.1-11', '4.1-12', '4.1-13', '4.1-14', '4.1-15', '4.1-16', '4.1-17', '4.1-18', '4.1-19', '4.1-20', '4.1-21', '4.2-1', '4.2-2', '4.3-01', '4.3-02', '4.3-03', '4.3-04', '4.3-05', '4.3-06', '4.3-07', '4.3-08', '4.3-09', '4.4-1', '4.4-2', '5.1-1']
-2026-05-19 20:12:33,080 [INFO] [PC] Built dynamic deviz map from 830 reference articles
-2026-05-19 20:12:33,095 [WARNING] [SUBCF] No hardcoded pattern matched, format unknown
-2026-05-19 20:12:33,095 [INFO] [PC] Detected subcomponent format: Unknown format (confidence=0.00)
-2026-05-19 20:12:33,095 [INFO] [PC] Clasificare completă: 125/148 pagini F3
-2026-05-19 20:12:33,100 [INFO]   Checkpoint salvat: di_oferta_1_page_classes_10d784f1d95b.json
-2026-05-19 20:12:33,100 [INFO] [RECLF] pag91: F3 (semnal cert) → deviz='4.1-20'
-2026-05-19 20:12:33,101 [INFO] [RECLF] 1 pagini reclasificate din 23 non-F3
-2026-05-19 20:12:33,101 [INFO]   [RECLF] 1 candidate pagini F3 omise → LLM re-clasificare...
-2026-05-19 20:12:33,917 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
-2026-05-19 20:12:33,934 [INFO]   [RECLF] LLM a raspuns pentru 1/1 pagini
-2026-05-19 20:12:33,935 [INFO]   [RECLF] LLM a confirmat: nicio pagina suplimentara F3
-2026-05-19 20:12:33,941 [INFO]   125 pagini F3 (0 fara deviz_cod)
-2026-05-19 20:12:34,176 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:34,186 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10613
-2026-05-19 20:12:34,244 [INFO] Saved new pattern: AUTO_GEN_10613
-2026-05-19 20:12:34,246 [INFO] [PATTERN] 5.1-1: Detected AUTO_GEN_10613 (confidence=0.50)
-2026-05-19 20:12:34,246 [INFO] [SCATTER] Combined 2 scattered format groups
-2026-05-19 20:12:34,249 [INFO] [PARSER] 5.1-1: 18 articole extrase (regex)
-2026-05-19 20:12:34,249 [INFO] [F3v3] 5.1-1: 18 articole extrase (grouped pages)
-2026-05-19 20:12:34,482 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:34,493 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10614
-2026-05-19 20:12:34,555 [INFO] Saved new pattern: AUTO_GEN_10614
-2026-05-19 20:12:34,557 [INFO] [PATTERN] 4.1-01: Detected AUTO_GEN_10614 (confidence=0.50)
-2026-05-19 20:12:34,557 [INFO] [SCATTER] Combined 4 scattered format groups
-2026-05-19 20:12:34,561 [INFO] [PARSER] 4.1-01: 17 articole extrase (regex)
-2026-05-19 20:12:34,561 [INFO] [F3v3] 4.1-01: 17 articole extrase (grouped pages)
-2026-05-19 20:12:34,794 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:34,803 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10615
-2026-05-19 20:12:34,868 [INFO] Saved new pattern: AUTO_GEN_10615
-2026-05-19 20:12:34,870 [INFO] [PATTERN] 4.1-04: Detected AUTO_GEN_10615 (confidence=0.50)
-2026-05-19 20:12:34,870 [INFO] [SCATTER] Combined 20 scattered format groups
-2026-05-19 20:12:34,887 [INFO] [PARSER] 4.1-04: 108 articole extrase (regex)
-2026-05-19 20:12:34,888 [INFO] [F3v3] 4.1-04: 108 articole extrase (grouped pages)
-2026-05-19 20:12:35,120 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:35,129 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10616
-2026-05-19 20:12:35,190 [INFO] Saved new pattern: AUTO_GEN_10616
-2026-05-19 20:12:35,192 [INFO] [PATTERN] 4.1-03: Detected AUTO_GEN_10616 (confidence=0.50)
-2026-05-19 20:12:35,192 [INFO] [SCATTER] Combined 15 scattered format groups
-2026-05-19 20:12:35,205 [INFO] [PARSER] 4.1-03: 81 articole extrase (regex)
-2026-05-19 20:12:35,206 [INFO] [F3v3] 4.1-03: 81 articole extrase (grouped pages)
-2026-05-19 20:12:35,437 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:35,446 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10617
-2026-05-19 20:12:35,506 [INFO] Saved new pattern: AUTO_GEN_10617
-2026-05-19 20:12:35,508 [INFO] [PATTERN] 4.1-05: Detected AUTO_GEN_10617 (confidence=0.50)
-2026-05-19 20:12:35,508 [INFO] [SCATTER] Combined 16 scattered format groups
-2026-05-19 20:12:35,517 [INFO] [PARSER] 4.1-05: 60 articole extrase (regex)
-2026-05-19 20:12:35,517 [INFO] [F3v3] 4.1-05: 60 articole extrase (grouped pages)
-2026-05-19 20:12:35,748 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:35,757 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10618
-2026-05-19 20:12:35,816 [INFO] Saved new pattern: AUTO_GEN_10618
-2026-05-19 20:12:35,818 [INFO] [PATTERN] 4.1-06: Detected AUTO_GEN_10618 (confidence=0.50)
-2026-05-19 20:12:35,822 [INFO] [PARSER] 4.1-06: 27 articole extrase (regex)
-2026-05-19 20:12:35,823 [INFO] [F3v3] 4.1-06: 27 articole extrase (grouped pages)
-2026-05-19 20:12:36,054 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:36,063 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10619
-2026-05-19 20:12:36,123 [INFO] Saved new pattern: AUTO_GEN_10619
-2026-05-19 20:12:36,125 [INFO] [PATTERN] 4.1-07: Detected AUTO_GEN_10619 (confidence=0.50)
-2026-05-19 20:12:36,125 [INFO] [SCATTER] Combined 2 scattered format groups
-2026-05-19 20:12:36,127 [INFO] [PARSER] 4.1-07: 11 articole extrase (regex)
-2026-05-19 20:12:36,127 [INFO] [F3v3] 4.1-07: 11 articole extrase (grouped pages)
-2026-05-19 20:12:36,357 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:36,366 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10620
-2026-05-19 20:12:36,425 [INFO] Saved new pattern: AUTO_GEN_10620
-2026-05-19 20:12:36,427 [INFO] [PATTERN] 4.1-09: Detected AUTO_GEN_10620 (confidence=0.50)
-2026-05-19 20:12:36,428 [INFO] [PARSER] 4.1-09: 4 articole extrase (regex)
-2026-05-19 20:12:36,428 [INFO] [F3v3] 4.1-09: 4 articole extrase (grouped pages)
-2026-05-19 20:12:36,657 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:36,666 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10621
-2026-05-19 20:12:36,725 [INFO] Saved new pattern: AUTO_GEN_10621
-2026-05-19 20:12:36,727 [INFO] [PATTERN] 4.1-10: Detected AUTO_GEN_10621 (confidence=0.50)
-2026-05-19 20:12:36,727 [INFO] [SCATTER] Combined 5 scattered format groups
-2026-05-19 20:12:36,747 [INFO] [PARSER] 4.1-10: 128 articole extrase (regex)
-2026-05-19 20:12:36,748 [INFO] [F3v3] 4.1-10: 128 articole extrase (grouped pages)
-2026-05-19 20:12:36,977 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:36,986 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10622
-2026-05-19 20:12:37,047 [INFO] Saved new pattern: AUTO_GEN_10622
-2026-05-19 20:12:37,049 [INFO] [PATTERN] 4.1-13: Detected AUTO_GEN_10622 (confidence=0.50)
-2026-05-19 20:12:37,050 [INFO] [SCATTER] Combined 4 scattered format groups
-2026-05-19 20:12:37,077 [INFO] [PARSER] 4.1-13: 171 articole extrase (regex)
-2026-05-19 20:12:37,078 [INFO] [F3v3] 4.1-13: 171 articole extrase (grouped pages)
-2026-05-19 20:12:37,306 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:37,314 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10623
-2026-05-19 20:12:37,374 [INFO] Saved new pattern: AUTO_GEN_10623
-2026-05-19 20:12:37,375 [INFO] [PATTERN] 4.1-11: Detected AUTO_GEN_10623 (confidence=0.50)
-2026-05-19 20:12:37,375 [INFO] [SCATTER] Combined 1 scattered format groups
-2026-05-19 20:12:37,380 [INFO] [PARSER] 4.1-11: 30 articole extrase (regex)
-2026-05-19 20:12:37,380 [INFO] [F3v3] 4.1-11: 30 articole extrase (grouped pages)
-2026-05-19 20:12:37,613 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:37,622 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10624
-2026-05-19 20:12:37,683 [INFO] Saved new pattern: AUTO_GEN_10624
-2026-05-19 20:12:37,685 [INFO] [PATTERN] 4.1-14: Detected AUTO_GEN_10624 (confidence=0.50)
-2026-05-19 20:12:37,685 [INFO] [SCATTER] Combined 1 scattered format groups
-2026-05-19 20:12:37,693 [INFO] [PARSER] 4.1-14: 52 articole extrase (regex)
-2026-05-19 20:12:37,694 [INFO] [F3v3] 4.1-14: 52 articole extrase (grouped pages)
-2026-05-19 20:12:37,921 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:37,930 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10625
-2026-05-19 20:12:37,990 [INFO] Saved new pattern: AUTO_GEN_10625
-2026-05-19 20:12:37,992 [INFO] [PATTERN] 4.1-08: Detected AUTO_GEN_10625 (confidence=0.50)
-2026-05-19 20:12:37,992 [INFO] [SCATTER] Combined 4 scattered format groups
-2026-05-19 20:12:37,995 [INFO] [PARSER] 4.1-08: 13 articole extrase (regex)
-2026-05-19 20:12:37,995 [INFO] [F3v3] 4.1-08: 13 articole extrase (grouped pages)
-2026-05-19 20:12:38,227 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:38,236 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10626
-2026-05-19 20:12:38,295 [INFO] Saved new pattern: AUTO_GEN_10626
-2026-05-19 20:12:38,296 [INFO] [PATTERN] 4.1-15: Detected AUTO_GEN_10626 (confidence=0.50)
-2026-05-19 20:12:38,298 [INFO] [PARSER] 4.1-15: 4 articole extrase (regex)
-2026-05-19 20:12:38,298 [INFO] [F3v3] 4.1-15: 4 articole extrase (grouped pages)
-2026-05-19 20:12:38,531 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:38,540 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10627
-2026-05-19 20:12:38,599 [INFO] Saved new pattern: AUTO_GEN_10627
-2026-05-19 20:12:38,600 [INFO] [PATTERN] 4.1-16: Detected AUTO_GEN_10627 (confidence=0.50)
-2026-05-19 20:12:38,603 [INFO] [PARSER] 4.1-16: 8 articole extrase (regex)
-2026-05-19 20:12:38,603 [INFO] [F3v3] 4.1-16: 8 articole extrase (grouped pages)
-2026-05-19 20:12:38,831 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:38,840 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10628
-2026-05-19 20:12:38,901 [INFO] Saved new pattern: AUTO_GEN_10628
-2026-05-19 20:12:38,903 [INFO] [PATTERN] 4.1-17: Detected AUTO_GEN_10628 (confidence=0.50)
-2026-05-19 20:12:38,904 [INFO] [PARSER] 4.1-17: 3 articole extrase (regex)
-2026-05-19 20:12:38,904 [INFO] [F3v3] 4.1-17: 3 articole extrase (grouped pages)
-2026-05-19 20:12:39,132 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:39,141 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10629
-2026-05-19 20:12:39,201 [INFO] Saved new pattern: AUTO_GEN_10629
-2026-05-19 20:12:39,202 [INFO] [PATTERN] 4.1-21: Detected AUTO_GEN_10629 (confidence=0.50)
-2026-05-19 20:12:39,203 [INFO] [PARSER] 4.1-21: 1 articole extrase (regex)
-2026-05-19 20:12:39,204 [INFO] [F3v3] 4.1-21: 1 articole extrase (grouped pages)
-2026-05-19 20:12:39,433 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:39,442 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10630
-2026-05-19 20:12:39,500 [INFO] Saved new pattern: AUTO_GEN_10630
-2026-05-19 20:12:39,502 [INFO] [PATTERN] 4.1-18: Detected AUTO_GEN_10630 (confidence=0.50)
-2026-05-19 20:12:39,503 [INFO] [PARSER] 4.1-18: 1 articole extrase (regex)
-2026-05-19 20:12:39,503 [INFO] [F3v3] 4.1-18: 1 articole extrase (grouped pages)
-2026-05-19 20:12:39,734 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:39,744 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10631
-2026-05-19 20:12:39,822 [INFO] Saved new pattern: AUTO_GEN_10631
-2026-05-19 20:12:39,823 [INFO] [PATTERN] 4.1-19: Detected AUTO_GEN_10631 (confidence=0.50)
-2026-05-19 20:12:39,825 [INFO] [PARSER] 4.1-19: 1 articole extrase (regex)
-2026-05-19 20:12:39,825 [INFO] [F3v3] 4.1-19: 1 articole extrase (grouped pages)
-2026-05-19 20:12:40,043 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:40,053 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10632
-2026-05-19 20:12:40,135 [INFO] Saved new pattern: AUTO_GEN_10632
-2026-05-19 20:12:40,137 [INFO] [PATTERN] 4.1-20: Detected AUTO_GEN_10632 (confidence=0.50)
-2026-05-19 20:12:40,140 [INFO] [PARSER] 4.1-20: 6 articole extrase (regex)
-2026-05-19 20:12:40,141 [INFO] [F3v3] 4.1-20: 6 articole extrase (grouped pages)
-2026-05-19 20:12:40,356 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:40,365 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10633
-2026-05-19 20:12:40,444 [INFO] Saved new pattern: AUTO_GEN_10633
-2026-05-19 20:12:40,446 [INFO] [PATTERN] 4.1-02: Detected AUTO_GEN_10633 (confidence=0.50)
-2026-05-19 20:12:40,446 [INFO] [SCATTER] Combined 6 scattered format groups
-2026-05-19 20:12:40,460 [INFO] [PARSER] 4.1-02: 59 articole extrase (regex)
-2026-05-19 20:12:40,461 [INFO] [F3v3] 4.1-02: 59 articole extrase (grouped pages)
-2026-05-19 20:12:40,675 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:40,684 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10634
-2026-05-19 20:12:40,763 [INFO] Saved new pattern: AUTO_GEN_10634
-2026-05-19 20:12:40,765 [INFO] [PATTERN] 4.1-12: Detected AUTO_GEN_10634 (confidence=0.50)
-2026-05-19 20:12:40,766 [INFO] [SCATTER] Combined 8 scattered format groups
-2026-05-19 20:12:40,776 [INFO] [PARSER] 4.1-12: 67 articole extrase (regex)
-2026-05-19 20:12:40,777 [INFO] [F3v3] 4.1-12: 67 articole extrase (grouped pages)
-2026-05-19 20:12:40,994 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:41,002 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10635
-2026-05-19 20:12:41,080 [INFO] Saved new pattern: AUTO_GEN_10635
-2026-05-19 20:12:41,082 [INFO] [PATTERN] 4.3-01: Detected AUTO_GEN_10635 (confidence=0.50)
-2026-05-19 20:12:41,086 [INFO] [PARSER] 4.3-01: 17 articole extrase (regex)
-2026-05-19 20:12:41,087 [INFO] [F3v3] 4.3-01: 17 articole extrase (grouped pages)
-2026-05-19 20:12:41,308 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:41,317 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10636
-2026-05-19 20:12:41,395 [INFO] Saved new pattern: AUTO_GEN_10636
-2026-05-19 20:12:41,396 [INFO] [PATTERN] 4.3-02: Detected AUTO_GEN_10636 (confidence=0.50)
-2026-05-19 20:12:41,401 [INFO] [PARSER] 4.3-02: 17 articole extrase (regex)
-2026-05-19 20:12:41,401 [INFO] [F3v3] 4.3-02: 17 articole extrase (grouped pages)
-2026-05-19 20:12:41,621 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:41,630 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10637
-2026-05-19 20:12:41,708 [INFO] Saved new pattern: AUTO_GEN_10637
-2026-05-19 20:12:41,710 [INFO] [PATTERN] 4.3-03: Detected AUTO_GEN_10637 (confidence=0.50)
-2026-05-19 20:12:41,713 [INFO] [PARSER] 4.3-03: 15 articole extrase (regex)
-2026-05-19 20:12:41,713 [INFO] [F3v3] 4.3-03: 15 articole extrase (grouped pages)
-2026-05-19 20:12:41,933 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:41,941 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10638
-2026-05-19 20:12:42,021 [INFO] Saved new pattern: AUTO_GEN_10638
-2026-05-19 20:12:42,023 [INFO] [PATTERN] 4.3-05: Detected AUTO_GEN_10638 (confidence=0.50)
-2026-05-19 20:12:42,027 [INFO] [PARSER] 4.3-05: 20 articole extrase (regex)
-2026-05-19 20:12:42,027 [INFO] [F3v3] 4.3-05: 20 articole extrase (grouped pages)
-2026-05-19 20:12:42,244 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:42,253 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10639
-2026-05-19 20:12:42,330 [INFO] Saved new pattern: AUTO_GEN_10639
-2026-05-19 20:12:42,332 [INFO] [PATTERN] 4.3-06: Detected AUTO_GEN_10639 (confidence=0.50)
-2026-05-19 20:12:42,332 [INFO] [SCATTER] Combined 1 scattered format groups
-2026-05-19 20:12:42,345 [INFO] [PARSER] 4.3-06: 89 articole extrase (regex)
-2026-05-19 20:12:42,345 [INFO] [F3v3] 4.3-06: 89 articole extrase (grouped pages)
-2026-05-19 20:12:42,564 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:42,573 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10640
-2026-05-19 20:12:42,650 [INFO] Saved new pattern: AUTO_GEN_10640
-2026-05-19 20:12:42,652 [INFO] [PATTERN] 4.3-07: Detected AUTO_GEN_10640 (confidence=0.50)
-2026-05-19 20:12:42,652 [INFO] [SCATTER] Combined 4 scattered format groups
-2026-05-19 20:12:42,658 [INFO] [PARSER] 4.3-07: 36 articole extrase (regex)
-2026-05-19 20:12:42,659 [INFO] [F3v3] 4.3-07: 36 articole extrase (grouped pages)
-2026-05-19 20:12:42,882 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:42,891 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10641
-2026-05-19 20:12:42,969 [INFO] Saved new pattern: AUTO_GEN_10641
-2026-05-19 20:12:42,971 [INFO] [PATTERN] 4.3-08: Detected AUTO_GEN_10641 (confidence=0.50)
-2026-05-19 20:12:42,971 [INFO] [SCATTER] Combined 2 scattered format groups
-2026-05-19 20:12:42,974 [INFO] [PARSER] 4.3-08: 15 articole extrase (regex)
-2026-05-19 20:12:42,974 [INFO] [F3v3] 4.3-08: 15 articole extrase (grouped pages)
-2026-05-19 20:12:43,193 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:43,203 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10642
-2026-05-19 20:12:43,280 [INFO] Saved new pattern: AUTO_GEN_10642
-2026-05-19 20:12:43,282 [INFO] [PATTERN] 4.3-09: Detected AUTO_GEN_10642 (confidence=0.50)
-2026-05-19 20:12:43,283 [INFO] [PARSER] 4.3-09: 4 articole extrase (regex)
-2026-05-19 20:12:43,283 [INFO] [F3v3] 4.3-09: 4 articole extrase (grouped pages)
-2026-05-19 20:12:43,503 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:43,512 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10643
-2026-05-19 20:12:43,590 [INFO] Saved new pattern: AUTO_GEN_10643
-2026-05-19 20:12:43,592 [INFO] [PATTERN] 4.3-04: Detected AUTO_GEN_10643 (confidence=0.50)
-2026-05-19 20:12:43,597 [INFO] [PARSER] 4.3-04: 22 articole extrase (regex)
-2026-05-19 20:12:43,598 [INFO] [F3v3] 4.3-04: 22 articole extrase (grouped pages)
-2026-05-19 20:12:43,816 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:43,826 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10644
-2026-05-19 20:12:43,905 [INFO] Saved new pattern: AUTO_GEN_10644
-2026-05-19 20:12:43,906 [INFO] [PATTERN] 4.2-1: Detected AUTO_GEN_10644 (confidence=0.50)
-2026-05-19 20:12:43,907 [INFO] [SCATTER] Combined 2 scattered format groups
-2026-05-19 20:12:43,909 [INFO] [PARSER] 4.2-1: 9 articole extrase (regex)
-2026-05-19 20:12:43,909 [INFO] [F3v3] 4.2-1: 9 articole extrase (grouped pages)
-2026-05-19 20:12:44,130 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:44,139 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10645
-2026-05-19 20:12:44,218 [INFO] Saved new pattern: AUTO_GEN_10645
-2026-05-19 20:12:44,220 [INFO] [PATTERN] 4.2-2: Detected AUTO_GEN_10645 (confidence=0.50)
-2026-05-19 20:12:44,220 [INFO] [SCATTER] Combined 5 scattered format groups
-2026-05-19 20:12:44,223 [INFO] [PARSER] 4.2-2: 16 articole extrase (regex)
-2026-05-19 20:12:44,224 [INFO] [F3v3] 4.2-2: 16 articole extrase (grouped pages)
-2026-05-19 20:12:44,440 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:44,449 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10646
-2026-05-19 20:12:44,532 [INFO] Saved new pattern: AUTO_GEN_10646
-2026-05-19 20:12:44,533 [INFO] [PATTERN] 4.4-1: Detected AUTO_GEN_10646 (confidence=0.50)
-2026-05-19 20:12:44,535 [INFO] [PARSER] 4.4-1: 7 articole extrase (regex)
-2026-05-19 20:12:44,535 [INFO] [F3v3] 4.4-1: 7 articole extrase (grouped pages)
-2026-05-19 20:12:44,753 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
-2026-05-19 20:12:44,762 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10647
-2026-05-19 20:12:44,839 [INFO] Saved new pattern: AUTO_GEN_10647
-2026-05-19 20:12:44,841 [INFO] [PATTERN] 4.4-2: Detected AUTO_GEN_10647 (confidence=0.50)
-2026-05-19 20:12:44,841 [INFO] [SCATTER] Combined 1 scattered format groups
-2026-05-19 20:12:44,847 [INFO] [PARSER] 4.4-2: 19 articole extrase (regex)
-2026-05-19 20:12:44,848 [INFO] [F3v3] 4.4-2: 19 articole extrase (grouped pages)
-2026-05-19 20:12:44,848 [INFO] [F3v3] Total: 1133 articole extrase (deviz-grouped, fara LLM)
-2026-05-19 20:12:44,848 [INFO]   1133 articole extrase din linii
-2026-05-19 20:12:44,852 [INFO]   0 articole din tabele, 1133 total dupa merge
-2026-05-19 20:12:44,864 [INFO]    Checkpoint: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO/checkpoints/di_oferta_1_deviz_mapping_10d784f1d95b.json
-2026-05-19 20:12:44,864 [INFO] [DN] Populated 0 missing deviz denominations
-2026-05-19 20:12:44,866 [INFO] [DM] Matched 35/35 offer devizes
-2026-05-19 20:12:44,866 [INFO]   [DEVIZ_MAPPER] Remapped 0 articles: {'5.1-1': '5.1-1', '4.1-01': '4.1-01', '4.1-04': '4.1-04', '4.1-03': '4.1-03', '4.1-05': '4.1-05', '4.1-06': '4.1-06', '4.1-07': '4.1-07', '4.1-09': '4.1-09', '4.1-10': '4.1-10', '4.1-13': '4.1-13', '4.1-11': '4.1-11', '4.1-14': '4.1-14', '4.1-08': '4.1-08', '4.1-15': '4.1-15', '4.1-16': '4.1-16', '4.1-17': '4.1-17', '4.1-21': '4.1-21', '4.1-18': '4.1-18', '4.1-19': '4.1-19', '4.1-20': '4.1-20', '4.1-02': '4.1-02', '4.1-12': '4.1-12', '4.3-01': '4.3-01', '4.3-02': '4.3-02', '4.3-03': '4.3-03', '4.3-05': '4.3-05', '4.3-06': '4.3-06', '4.3-07': '4.3-07', '4.3-08': '4.3-08', '4.3-09': '4.3-09', '4.3-04': '4.3-04', '4.2-1': '4.2-1', '4.2-2': '4.2-2', '4.4-1': '4.4-1', '4.4-2': '4.4-2'}
-2026-05-19 20:12:44,879 [INFO] 
+2026-05-19 20:30:24,482 [INFO]   Ofertant: SC GLOBAL ELECTRO CONSTRUCT SRL Deviz "1" - Formular F3 Formular generat cu programul
+2026-05-19 20:30:24,493 [INFO]   di_oferta_1.json: 148 pagini DI
+2026-05-19 20:30:24,494 [INFO]   Checkpoint gasit — sare peste clasificare LLM
+2026-05-19 20:30:24,496 [INFO] [RECLF] pag91: F3 (semnal cert) → deviz='4.1-20'
+2026-05-19 20:30:24,496 [INFO] [RECLF] 1 pagini reclasificate din 23 non-F3
+2026-05-19 20:30:24,496 [INFO]   125 pagini F3 (0 fara deviz_cod)
+2026-05-19 20:30:24,730 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:24,739 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10718
+2026-05-19 20:30:24,818 [INFO] Saved new pattern: AUTO_GEN_10718
+2026-05-19 20:30:24,820 [INFO] [PATTERN] 5.1-1: Detected AUTO_GEN_10718 (confidence=0.50)
+2026-05-19 20:30:24,820 [INFO] [SCATTER] Combined 2 scattered format groups
+2026-05-19 20:30:24,824 [INFO] [PARSER] 5.1-1: 18 articole extrase (regex)
+2026-05-19 20:30:24,824 [INFO] [F3v3] 5.1-1: 18 articole extrase (grouped pages)
+2026-05-19 20:30:25,047 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:25,056 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10719
+2026-05-19 20:30:25,135 [INFO] Saved new pattern: AUTO_GEN_10719
+2026-05-19 20:30:25,137 [INFO] [PATTERN] 4.1-01: Detected AUTO_GEN_10719 (confidence=0.50)
+2026-05-19 20:30:25,137 [INFO] [SCATTER] Combined 4 scattered format groups
+2026-05-19 20:30:25,141 [INFO] [PARSER] 4.1-01: 17 articole extrase (regex)
+2026-05-19 20:30:25,141 [INFO] [F3v3] 4.1-01: 17 articole extrase (grouped pages)
+2026-05-19 20:30:25,363 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:25,372 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10720
+2026-05-19 20:30:25,453 [INFO] Saved new pattern: AUTO_GEN_10720
+2026-05-19 20:30:25,454 [INFO] [PATTERN] 4.1-04: Detected AUTO_GEN_10720 (confidence=0.50)
+2026-05-19 20:30:25,455 [INFO] [SCATTER] Combined 20 scattered format groups
+2026-05-19 20:30:25,471 [INFO] [PARSER] 4.1-04: 108 articole extrase (regex)
+2026-05-19 20:30:25,472 [INFO] [F3v3] 4.1-04: 108 articole extrase (grouped pages)
+2026-05-19 20:30:25,693 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:25,702 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10721
+2026-05-19 20:30:25,785 [INFO] Saved new pattern: AUTO_GEN_10721
+2026-05-19 20:30:25,786 [INFO] [PATTERN] 4.1-03: Detected AUTO_GEN_10721 (confidence=0.50)
+2026-05-19 20:30:25,787 [INFO] [SCATTER] Combined 15 scattered format groups
+2026-05-19 20:30:25,799 [INFO] [PARSER] 4.1-03: 81 articole extrase (regex)
+2026-05-19 20:30:25,800 [INFO] [F3v3] 4.1-03: 81 articole extrase (grouped pages)
+2026-05-19 20:30:26,021 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:26,030 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10722
+2026-05-19 20:30:26,108 [INFO] Saved new pattern: AUTO_GEN_10722
+2026-05-19 20:30:26,109 [INFO] [PATTERN] 4.1-05: Detected AUTO_GEN_10722 (confidence=0.50)
+2026-05-19 20:30:26,110 [INFO] [SCATTER] Combined 16 scattered format groups
+2026-05-19 20:30:26,118 [INFO] [PARSER] 4.1-05: 60 articole extrase (regex)
+2026-05-19 20:30:26,118 [INFO] [F3v3] 4.1-05: 60 articole extrase (grouped pages)
+2026-05-19 20:30:26,341 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:26,350 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10723
+2026-05-19 20:30:26,429 [INFO] Saved new pattern: AUTO_GEN_10723
+2026-05-19 20:30:26,430 [INFO] [PATTERN] 4.1-06: Detected AUTO_GEN_10723 (confidence=0.50)
+2026-05-19 20:30:26,435 [INFO] [PARSER] 4.1-06: 27 articole extrase (regex)
+2026-05-19 20:30:26,435 [INFO] [F3v3] 4.1-06: 27 articole extrase (grouped pages)
+2026-05-19 20:30:26,658 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:26,667 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10724
+2026-05-19 20:30:26,751 [INFO] Saved new pattern: AUTO_GEN_10724
+2026-05-19 20:30:26,753 [INFO] [PATTERN] 4.1-07: Detected AUTO_GEN_10724 (confidence=0.50)
+2026-05-19 20:30:26,753 [INFO] [SCATTER] Combined 2 scattered format groups
+2026-05-19 20:30:26,756 [INFO] [PARSER] 4.1-07: 11 articole extrase (regex)
+2026-05-19 20:30:26,756 [INFO] [F3v3] 4.1-07: 11 articole extrase (grouped pages)
+2026-05-19 20:30:26,977 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:26,986 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10725
+2026-05-19 20:30:27,065 [INFO] Saved new pattern: AUTO_GEN_10725
+2026-05-19 20:30:27,067 [INFO] [PATTERN] 4.1-09: Detected AUTO_GEN_10725 (confidence=0.50)
+2026-05-19 20:30:27,068 [INFO] [PARSER] 4.1-09: 4 articole extrase (regex)
+2026-05-19 20:30:27,068 [INFO] [F3v3] 4.1-09: 4 articole extrase (grouped pages)
+2026-05-19 20:30:27,289 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:27,299 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10726
+2026-05-19 20:30:27,381 [INFO] Saved new pattern: AUTO_GEN_10726
+2026-05-19 20:30:27,382 [INFO] [PATTERN] 4.1-10: Detected AUTO_GEN_10726 (confidence=0.50)
+2026-05-19 20:30:27,383 [INFO] [SCATTER] Combined 5 scattered format groups
+2026-05-19 20:30:27,404 [INFO] [PARSER] 4.1-10: 128 articole extrase (regex)
+2026-05-19 20:30:27,405 [INFO] [F3v3] 4.1-10: 128 articole extrase (grouped pages)
+2026-05-19 20:30:27,622 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:27,631 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10727
+2026-05-19 20:30:27,712 [INFO] Saved new pattern: AUTO_GEN_10727
+2026-05-19 20:30:27,713 [INFO] [PATTERN] 4.1-13: Detected AUTO_GEN_10727 (confidence=0.50)
+2026-05-19 20:30:27,714 [INFO] [SCATTER] Combined 4 scattered format groups
+2026-05-19 20:30:27,741 [INFO] [PARSER] 4.1-13: 171 articole extrase (regex)
+2026-05-19 20:30:27,742 [INFO] [F3v3] 4.1-13: 171 articole extrase (grouped pages)
+2026-05-19 20:30:27,966 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:27,975 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10728
+2026-05-19 20:30:28,055 [INFO] Saved new pattern: AUTO_GEN_10728
+2026-05-19 20:30:28,056 [INFO] [PATTERN] 4.1-11: Detected AUTO_GEN_10728 (confidence=0.50)
+2026-05-19 20:30:28,057 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 20:30:28,061 [INFO] [PARSER] 4.1-11: 30 articole extrase (regex)
+2026-05-19 20:30:28,062 [INFO] [F3v3] 4.1-11: 30 articole extrase (grouped pages)
+2026-05-19 20:30:28,288 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:28,297 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10729
+2026-05-19 20:30:28,374 [INFO] Saved new pattern: AUTO_GEN_10729
+2026-05-19 20:30:28,375 [INFO] [PATTERN] 4.1-14: Detected AUTO_GEN_10729 (confidence=0.50)
+2026-05-19 20:30:28,376 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 20:30:28,384 [INFO] [PARSER] 4.1-14: 52 articole extrase (regex)
+2026-05-19 20:30:28,384 [INFO] [F3v3] 4.1-14: 52 articole extrase (grouped pages)
+2026-05-19 20:30:28,605 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:28,614 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10730
+2026-05-19 20:30:28,695 [INFO] Saved new pattern: AUTO_GEN_10730
+2026-05-19 20:30:28,697 [INFO] [PATTERN] 4.1-08: Detected AUTO_GEN_10730 (confidence=0.50)
+2026-05-19 20:30:28,697 [INFO] [SCATTER] Combined 4 scattered format groups
+2026-05-19 20:30:28,700 [INFO] [PARSER] 4.1-08: 13 articole extrase (regex)
+2026-05-19 20:30:28,700 [INFO] [F3v3] 4.1-08: 13 articole extrase (grouped pages)
+2026-05-19 20:30:28,919 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:28,928 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10731
+2026-05-19 20:30:29,004 [INFO] Saved new pattern: AUTO_GEN_10731
+2026-05-19 20:30:29,006 [INFO] [PATTERN] 4.1-15: Detected AUTO_GEN_10731 (confidence=0.50)
+2026-05-19 20:30:29,008 [INFO] [PARSER] 4.1-15: 4 articole extrase (regex)
+2026-05-19 20:30:29,008 [INFO] [F3v3] 4.1-15: 4 articole extrase (grouped pages)
+2026-05-19 20:30:29,231 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:29,259 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10732
+2026-05-19 20:30:29,319 [INFO] Saved new pattern: AUTO_GEN_10732
+2026-05-19 20:30:29,321 [INFO] [PATTERN] 4.1-16: Detected AUTO_GEN_10732 (confidence=0.50)
+2026-05-19 20:30:29,323 [INFO] [PARSER] 4.1-16: 8 articole extrase (regex)
+2026-05-19 20:30:29,323 [INFO] [F3v3] 4.1-16: 8 articole extrase (grouped pages)
+2026-05-19 20:30:29,543 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:29,571 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10733
+2026-05-19 20:30:29,632 [INFO] Saved new pattern: AUTO_GEN_10733
+2026-05-19 20:30:29,636 [INFO] [PATTERN] 4.1-17: Detected AUTO_GEN_10733 (confidence=0.50)
+2026-05-19 20:30:29,638 [INFO] [PARSER] 4.1-17: 3 articole extrase (regex)
+2026-05-19 20:30:29,638 [INFO] [F3v3] 4.1-17: 3 articole extrase (grouped pages)
+2026-05-19 20:30:29,862 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:29,889 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10734
+2026-05-19 20:30:29,952 [INFO] Saved new pattern: AUTO_GEN_10734
+2026-05-19 20:30:29,953 [INFO] [PATTERN] 4.1-21: Detected AUTO_GEN_10734 (confidence=0.50)
+2026-05-19 20:30:29,954 [INFO] [PARSER] 4.1-21: 1 articole extrase (regex)
+2026-05-19 20:30:29,954 [INFO] [F3v3] 4.1-21: 1 articole extrase (grouped pages)
+2026-05-19 20:30:30,180 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:30,207 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10735
+2026-05-19 20:30:30,267 [INFO] Saved new pattern: AUTO_GEN_10735
+2026-05-19 20:30:30,268 [INFO] [PATTERN] 4.1-18: Detected AUTO_GEN_10735 (confidence=0.50)
+2026-05-19 20:30:30,270 [INFO] [PARSER] 4.1-18: 1 articole extrase (regex)
+2026-05-19 20:30:30,270 [INFO] [F3v3] 4.1-18: 1 articole extrase (grouped pages)
+2026-05-19 20:30:30,491 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:30,519 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10736
+2026-05-19 20:30:30,580 [INFO] Saved new pattern: AUTO_GEN_10736
+2026-05-19 20:30:30,581 [INFO] [PATTERN] 4.1-19: Detected AUTO_GEN_10736 (confidence=0.50)
+2026-05-19 20:30:30,583 [INFO] [PARSER] 4.1-19: 1 articole extrase (regex)
+2026-05-19 20:30:30,583 [INFO] [F3v3] 4.1-19: 1 articole extrase (grouped pages)
+2026-05-19 20:30:30,810 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:30,838 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10737
+2026-05-19 20:30:30,898 [INFO] Saved new pattern: AUTO_GEN_10737
+2026-05-19 20:30:30,900 [INFO] [PATTERN] 4.1-20: Detected AUTO_GEN_10737 (confidence=0.50)
+2026-05-19 20:30:30,903 [INFO] [PARSER] 4.1-20: 6 articole extrase (regex)
+2026-05-19 20:30:30,903 [INFO] [F3v3] 4.1-20: 6 articole extrase (grouped pages)
+2026-05-19 20:30:31,128 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:31,155 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10738
+2026-05-19 20:30:31,214 [INFO] Saved new pattern: AUTO_GEN_10738
+2026-05-19 20:30:31,216 [INFO] [PATTERN] 4.1-02: Detected AUTO_GEN_10738 (confidence=0.50)
+2026-05-19 20:30:31,216 [INFO] [SCATTER] Combined 6 scattered format groups
+2026-05-19 20:30:31,227 [INFO] [PARSER] 4.1-02: 59 articole extrase (regex)
+2026-05-19 20:30:31,227 [INFO] [F3v3] 4.1-02: 59 articole extrase (grouped pages)
+2026-05-19 20:30:31,450 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:31,477 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10739
+2026-05-19 20:30:31,536 [INFO] Saved new pattern: AUTO_GEN_10739
+2026-05-19 20:30:31,538 [INFO] [PATTERN] 4.1-12: Detected AUTO_GEN_10739 (confidence=0.50)
+2026-05-19 20:30:31,538 [INFO] [SCATTER] Combined 8 scattered format groups
+2026-05-19 20:30:31,549 [INFO] [PARSER] 4.1-12: 67 articole extrase (regex)
+2026-05-19 20:30:31,550 [INFO] [F3v3] 4.1-12: 67 articole extrase (grouped pages)
+2026-05-19 20:30:31,774 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:31,801 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10740
+2026-05-19 20:30:31,861 [INFO] Saved new pattern: AUTO_GEN_10740
+2026-05-19 20:30:31,863 [INFO] [PATTERN] 4.3-01: Detected AUTO_GEN_10740 (confidence=0.50)
+2026-05-19 20:30:31,867 [INFO] [PARSER] 4.3-01: 17 articole extrase (regex)
+2026-05-19 20:30:31,867 [INFO] [F3v3] 4.3-01: 17 articole extrase (grouped pages)
+2026-05-19 20:30:32,090 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:32,116 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10741
+2026-05-19 20:30:32,176 [INFO] Saved new pattern: AUTO_GEN_10741
+2026-05-19 20:30:32,178 [INFO] [PATTERN] 4.3-02: Detected AUTO_GEN_10741 (confidence=0.50)
+2026-05-19 20:30:32,182 [INFO] [PARSER] 4.3-02: 17 articole extrase (regex)
+2026-05-19 20:30:32,182 [INFO] [F3v3] 4.3-02: 17 articole extrase (grouped pages)
+2026-05-19 20:30:32,407 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:32,433 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10742
+2026-05-19 20:30:32,492 [INFO] Saved new pattern: AUTO_GEN_10742
+2026-05-19 20:30:32,494 [INFO] [PATTERN] 4.3-03: Detected AUTO_GEN_10742 (confidence=0.50)
+2026-05-19 20:30:32,497 [INFO] [PARSER] 4.3-03: 15 articole extrase (regex)
+2026-05-19 20:30:32,497 [INFO] [F3v3] 4.3-03: 15 articole extrase (grouped pages)
+2026-05-19 20:30:32,720 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:32,746 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10743
+2026-05-19 20:30:32,806 [INFO] Saved new pattern: AUTO_GEN_10743
+2026-05-19 20:30:32,807 [INFO] [PATTERN] 4.3-05: Detected AUTO_GEN_10743 (confidence=0.50)
+2026-05-19 20:30:32,811 [INFO] [PARSER] 4.3-05: 20 articole extrase (regex)
+2026-05-19 20:30:32,811 [INFO] [F3v3] 4.3-05: 20 articole extrase (grouped pages)
+2026-05-19 20:30:33,031 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:33,057 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10744
+2026-05-19 20:30:33,117 [INFO] Saved new pattern: AUTO_GEN_10744
+2026-05-19 20:30:33,118 [INFO] [PATTERN] 4.3-06: Detected AUTO_GEN_10744 (confidence=0.50)
+2026-05-19 20:30:33,119 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 20:30:33,131 [INFO] [PARSER] 4.3-06: 89 articole extrase (regex)
+2026-05-19 20:30:33,131 [INFO] [F3v3] 4.3-06: 89 articole extrase (grouped pages)
+2026-05-19 20:30:33,357 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:33,383 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10745
+2026-05-19 20:30:33,442 [INFO] Saved new pattern: AUTO_GEN_10745
+2026-05-19 20:30:33,443 [INFO] [PATTERN] 4.3-07: Detected AUTO_GEN_10745 (confidence=0.50)
+2026-05-19 20:30:33,444 [INFO] [SCATTER] Combined 4 scattered format groups
+2026-05-19 20:30:33,450 [INFO] [PARSER] 4.3-07: 36 articole extrase (regex)
+2026-05-19 20:30:33,450 [INFO] [F3v3] 4.3-07: 36 articole extrase (grouped pages)
+2026-05-19 20:30:33,691 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:33,700 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10746
+2026-05-19 20:30:33,760 [INFO] Saved new pattern: AUTO_GEN_10746
+2026-05-19 20:30:33,761 [INFO] [PATTERN] 4.3-08: Detected AUTO_GEN_10746 (confidence=0.50)
+2026-05-19 20:30:33,761 [INFO] [SCATTER] Combined 2 scattered format groups
+2026-05-19 20:30:33,765 [INFO] [PARSER] 4.3-08: 15 articole extrase (regex)
+2026-05-19 20:30:33,765 [INFO] [F3v3] 4.3-08: 15 articole extrase (grouped pages)
+2026-05-19 20:30:34,001 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:34,011 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10747
+2026-05-19 20:30:34,070 [INFO] Saved new pattern: AUTO_GEN_10747
+2026-05-19 20:30:34,072 [INFO] [PATTERN] 4.3-09: Detected AUTO_GEN_10747 (confidence=0.50)
+2026-05-19 20:30:34,073 [INFO] [PARSER] 4.3-09: 4 articole extrase (regex)
+2026-05-19 20:30:34,073 [INFO] [F3v3] 4.3-09: 4 articole extrase (grouped pages)
+2026-05-19 20:30:34,313 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:34,322 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10748
+2026-05-19 20:30:34,382 [INFO] Saved new pattern: AUTO_GEN_10748
+2026-05-19 20:30:34,383 [INFO] [PATTERN] 4.3-04: Detected AUTO_GEN_10748 (confidence=0.50)
+2026-05-19 20:30:34,388 [INFO] [PARSER] 4.3-04: 22 articole extrase (regex)
+2026-05-19 20:30:34,389 [INFO] [F3v3] 4.3-04: 22 articole extrase (grouped pages)
+2026-05-19 20:30:34,619 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:34,628 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10749
+2026-05-19 20:30:34,716 [INFO] Saved new pattern: AUTO_GEN_10749
+2026-05-19 20:30:34,717 [INFO] [PATTERN] 4.2-1: Detected AUTO_GEN_10749 (confidence=0.50)
+2026-05-19 20:30:34,718 [INFO] [SCATTER] Combined 2 scattered format groups
+2026-05-19 20:30:34,720 [INFO] [PARSER] 4.2-1: 9 articole extrase (regex)
+2026-05-19 20:30:34,720 [INFO] [F3v3] 4.2-1: 9 articole extrase (grouped pages)
+2026-05-19 20:30:34,957 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:34,966 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10750
+2026-05-19 20:30:35,025 [INFO] Saved new pattern: AUTO_GEN_10750
+2026-05-19 20:30:35,027 [INFO] [PATTERN] 4.2-2: Detected AUTO_GEN_10750 (confidence=0.50)
+2026-05-19 20:30:35,027 [INFO] [SCATTER] Combined 5 scattered format groups
+2026-05-19 20:30:35,030 [INFO] [PARSER] 4.2-2: 16 articole extrase (regex)
+2026-05-19 20:30:35,030 [INFO] [F3v3] 4.2-2: 16 articole extrase (grouped pages)
+2026-05-19 20:30:35,262 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:35,271 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10751
+2026-05-19 20:30:35,332 [INFO] Saved new pattern: AUTO_GEN_10751
+2026-05-19 20:30:35,334 [INFO] [PATTERN] 4.4-1: Detected AUTO_GEN_10751 (confidence=0.50)
+2026-05-19 20:30:35,336 [INFO] [PARSER] 4.4-1: 7 articole extrase (regex)
+2026-05-19 20:30:35,336 [INFO] [F3v3] 4.4-1: 7 articole extrase (grouped pages)
+2026-05-19 20:30:35,571 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 20:30:35,580 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10752
+2026-05-19 20:30:35,642 [INFO] Saved new pattern: AUTO_GEN_10752
+2026-05-19 20:30:35,643 [INFO] [PATTERN] 4.4-2: Detected AUTO_GEN_10752 (confidence=0.50)
+2026-05-19 20:30:35,643 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 20:30:35,648 [INFO] [PARSER] 4.4-2: 19 articole extrase (regex)
+2026-05-19 20:30:35,648 [INFO] [F3v3] 4.4-2: 19 articole extrase (grouped pages)
+2026-05-19 20:30:35,649 [INFO] [F3v3] Total: 1133 articole extrase (deviz-grouped, fara LLM)
+2026-05-19 20:30:35,649 [INFO]   1133 articole extrase din linii
+2026-05-19 20:30:35,652 [INFO]   0 articole din tabele, 1133 total dupa merge
+2026-05-19 20:30:35,663 [INFO] [DN] Populated 0 missing deviz denominations
+2026-05-19 20:30:35,668 [INFO] [DM] Matched 35/35 offer devizes
+2026-05-19 20:30:35,669 [INFO]   [DEVIZ_MAPPER] Remapped 0 articles: {'5.1-1': '5.1-1', '4.1-01': '4.1-01', '4.1-04': '4.1-04', '4.1-03': '4.1-03', '4.1-05': '4.1-05', '4.1-06': '4.1-06', '4.1-07': '4.1-07', '4.1-09': '4.1-09', '4.1-10': '4.1-10', '4.1-13': '4.1-13', '4.1-11': '4.1-11', '4.1-14': '4.1-14', '4.1-08': '4.1-08', '4.1-15': '4.1-15', '4.1-16': '4.1-16', '4.1-17': '4.1-17', '4.1-21': '4.1-21', '4.1-18': '4.1-18', '4.1-19': '4.1-19', '4.1-20': '4.1-20', '4.1-02': '4.1-02', '4.1-12': '4.1-12', '4.3-01': '4.3-01', '4.3-02': '4.3-02', '4.3-03': '4.3-03', '4.3-05': '4.3-05', '4.3-06': '4.3-06', '4.3-07': '4.3-07', '4.3-08': '4.3-08', '4.3-09': '4.3-09', '4.3-04': '4.3-04', '4.2-1': '4.2-1', '4.2-2': '4.2-2', '4.4-1': '4.4-1', '4.4-2': '4.4-2'}
+2026-05-19 20:30:35,682 [INFO] 
 --- Comparare OFERTA 1 ---
-2026-05-19 20:12:44,995 [INFO] [DM] Matched 35/35 offer devizes
-2026-05-19 20:12:44,995 [INFO]   [DEVIZ_MATCHER] Applied deviz mapping: {'5.1-1': '5.1-1', '4.1-01': '4.1-01', '4.1-04': '4.1-04', '4.1-03': '4.1-03', '4.1-05': '4.1-05', '4.1-06': '4.1-06', '4.1-07': '4.1-07', '4.1-09': '4.1-09', '4.1-10': '4.1-10', '4.1-13': '4.1-13', '4.1-11': '4.1-11', '4.1-14': '4.1-14', '4.1-08': '4.1-08', '4.1-15': '4.1-15', '4.1-16': '4.1-16', '4.1-17': '4.1-17', '4.1-21': '4.1-21', '4.1-18': '4.1-18', '4.1-19': '4.1-19', '4.1-20': '4.1-20', '4.1-02': '4.1-02', '4.1-12': '4.1-12', '4.3-01': '4.3-01', '4.3-02': '4.3-02', '4.3-03': '4.3-03', '4.3-05': '4.3-05', '4.3-06': '4.3-06', '4.3-07': '4.3-07', '4.3-08': '4.3-08', '4.3-09': '4.3-09', '4.3-04': '4.3-04', '4.2-1': '4.2-1', '4.2-2': '4.2-2', '4.4-1': '4.4-1', '4.4-2': '4.4-2'}
-2026-05-19 20:12:44,996 [INFO] [DN] Local mapping (no LLM): 1 renames
-2026-05-19 20:13:10,448 [INFO] [COMP] Lenient UM matching: converted 17 EXTRA to matched
-2026-05-19 20:13:10,448 [INFO] [COMP] matched=1037, lipsa=0, extra=80, similar=0
-2026-05-19 20:13:10,492 [WARNING] [VALID] 1 ARTICOL_EXTRA marcate ca posibil_omis_din_extractie (codul apare in DI referinta dar lipseste din articolele extrase)
-2026-05-19 20:13:10,496 [INFO]   Neconformitati: {'UM_DIFERIT': 18, 'ARTICOL_EXTRA': 80} (total: 98)
-2026-05-19 20:13:10,496 [INFO]   Matched: 1037 articole
-2026-05-19 20:13:10,838 [INFO]   DOCX: Raport_Oferta_1.docx
-2026-05-19 20:13:10,840 [INFO]   JSON by deviz: comparatie_deviz_oferta_1.json
-2026-05-19 20:13:10,840 [INFO] 
+2026-05-19 20:30:35,821 [INFO] [DM] Matched 35/35 offer devizes
+2026-05-19 20:30:35,821 [INFO]   [DEVIZ_MATCHER] Applied deviz mapping: {'5.1-1': '5.1-1', '4.1-01': '4.1-01', '4.1-04': '4.1-04', '4.1-03': '4.1-03', '4.1-05': '4.1-05', '4.1-06': '4.1-06', '4.1-07': '4.1-07', '4.1-09': '4.1-09', '4.1-10': '4.1-10', '4.1-13': '4.1-13', '4.1-11': '4.1-11', '4.1-14': '4.1-14', '4.1-08': '4.1-08', '4.1-15': '4.1-15', '4.1-16': '4.1-16', '4.1-17': '4.1-17', '4.1-21': '4.1-21', '4.1-18': '4.1-18', '4.1-19': '4.1-19', '4.1-20': '4.1-20', '4.1-02': '4.1-02', '4.1-12': '4.1-12', '4.3-01': '4.3-01', '4.3-02': '4.3-02', '4.3-03': '4.3-03', '4.3-05': '4.3-05', '4.3-06': '4.3-06', '4.3-07': '4.3-07', '4.3-08': '4.3-08', '4.3-09': '4.3-09', '4.3-04': '4.3-04', '4.2-1': '4.2-1', '4.2-2': '4.2-2', '4.4-1': '4.4-1', '4.4-2': '4.4-2'}
+2026-05-19 20:30:35,822 [INFO] [DN] Local mapping (no LLM): 1 renames
+2026-05-19 20:31:01,341 [INFO] [COMP] Lenient UM matching: converted 17 EXTRA to matched
+2026-05-19 20:31:01,341 [INFO] [COMP] matched=1037, lipsa=0, extra=80, similar=0
+2026-05-19 20:31:01,385 [WARNING] [VALID] 1 ARTICOL_EXTRA marcate ca posibil_omis_din_extractie (codul apare in DI referinta dar lipseste din articolele extrase)
+2026-05-19 20:31:01,387 [INFO]   Neconformitati: {'UM_DIFERIT': 18, 'ARTICOL_EXTRA': 80} (total: 98)
+2026-05-19 20:31:01,388 [INFO]   Matched: 1037 articole
+2026-05-19 20:31:01,731 [INFO]   DOCX: Raport_Oferta_1.docx
+2026-05-19 20:31:01,734 [INFO]   JSON by deviz: comparatie_deviz_oferta_1.json
+2026-05-19 20:31:01,734 [INFO] 
 --- Extragere OFERTA 2 ---
-2026-05-19 20:13:10,908 [INFO]   di_oferta_2.json: 223 pagini DI
-2026-05-19 20:13:10,908 [INFO]   Clasificare pagini cu LLM (poate dura 2-5 min)...
-2026-05-19 20:13:10,908 [INFO] [DEVIZ-MAP] Built dynamic map from 830 reference articles
-2026-05-19 20:13:10,908 [INFO] [DEVIZ-MAP] Devizes: ['4.1-01', '4.1-02', '4.1-03', '4.1-04', '4.1-05', '4.1-06', '4.1-07', '4.1-08', '4.1-09', '4.1-10', '4.1-11', '4.1-12', '4.1-13', '4.1-14', '4.1-15', '4.1-16', '4.1-17', '4.1-18', '4.1-19', '4.1-20', '4.1-21', '4.2-1', '4.2-2', '4.3-01', '4.3-02', '4.3-03', '4.3-04', '4.3-05', '4.3-06', '4.3-07', '4.3-08', '4.3-09', '4.4-1', '4.4-2', '5.1-1']
-2026-05-19 20:13:10,908 [INFO] [PC] Built dynamic deviz map from 830 reference articles
-2026-05-19 20:13:11,038 [INFO] [PC] 47 pagini → LLM batch (clasificare + deviz_cod)
-2026-05-19 20:13:16,070 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
-2026-05-19 20:13:16,074 [WARNING] [SUBCF] No hardcoded pattern matched, format unknown
-2026-05-19 20:13:16,074 [INFO] [PC] Detected subcomponent format: Unknown format (confidence=0.00)
-2026-05-19 20:13:16,075 [INFO] [PC] Clasificare completă: 119/223 pagini F3
-2026-05-19 20:13:16,095 [INFO]   Checkpoint salvat: di_oferta_2_page_classes_10d784f1d95b.json
-2026-05-19 20:13:16,113 [INFO]   119 pagini F3 (0 fara deviz_cod)
-2026-05-19 20:13:16,351 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:16,361 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10648
-2026-05-19 20:13:16,422 [INFO] Saved new pattern: AUTO_GEN_10648
-2026-05-19 20:13:16,424 [INFO] [PATTERN] 4.1-01: Detected AUTO_GEN_10648 (confidence=0.50)
-2026-05-19 20:13:16,428 [INFO] [PARSER] 4.1-01: 17 articole extrase (regex)
-2026-05-19 20:13:16,428 [INFO] [F3v3] 4.1-01: 17 articole extrase (grouped pages)
-2026-05-19 20:13:16,666 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:16,676 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10649
-2026-05-19 20:13:16,737 [INFO] Saved new pattern: AUTO_GEN_10649
-2026-05-19 20:13:16,739 [INFO] [PATTERN] 4.1-02: Detected AUTO_GEN_10649 (confidence=0.50)
-2026-05-19 20:13:16,750 [INFO] [PARSER] 4.1-02: 59 articole extrase (regex)
-2026-05-19 20:13:16,751 [INFO] [F3v3] 4.1-02: 59 articole extrase (grouped pages)
-2026-05-19 20:13:16,991 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:17,001 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10650
-2026-05-19 20:13:17,061 [INFO] Saved new pattern: AUTO_GEN_10650
-2026-05-19 20:13:17,063 [INFO] [PATTERN] 4.1-03: Detected AUTO_GEN_10650 (confidence=0.50)
-2026-05-19 20:13:17,081 [INFO] [CLEANUP] 4.1-03: removed 1 substring-numeric articles
-2026-05-19 20:13:17,081 [INFO] [PARSER] 4.1-03: 79 articole extrase (regex)
-2026-05-19 20:13:17,082 [INFO] [F3v3] 4.1-03: 79 articole extrase (grouped pages)
-2026-05-19 20:13:17,314 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:17,324 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10651
-2026-05-19 20:13:17,385 [INFO] Saved new pattern: AUTO_GEN_10651
-2026-05-19 20:13:17,390 [INFO] [PATTERN] 4.1-04: Detected AUTO_GEN_10651 (confidence=0.50)
-2026-05-19 20:13:17,408 [INFO] [PARSER] 4.1-04: 116 articole extrase (regex)
-2026-05-19 20:13:17,409 [INFO] [F3v3] 4.1-04: 116 articole extrase (grouped pages)
-2026-05-19 20:13:17,645 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:17,655 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10652
-2026-05-19 20:13:17,714 [INFO] Saved new pattern: AUTO_GEN_10652
-2026-05-19 20:13:17,715 [INFO] [PATTERN] 4.1-05: Detected AUTO_GEN_10652 (confidence=0.50)
-2026-05-19 20:13:17,723 [INFO] [PARSER] 4.1-05: 60 articole extrase (regex)
-2026-05-19 20:13:17,724 [INFO] [F3v3] 4.1-05: 60 articole extrase (grouped pages)
-2026-05-19 20:13:17,958 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:17,968 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10653
-2026-05-19 20:13:18,029 [INFO] Saved new pattern: AUTO_GEN_10653
-2026-05-19 20:13:18,031 [INFO] [PATTERN] 4.1-06: Detected AUTO_GEN_10653 (confidence=0.50)
-2026-05-19 20:13:18,035 [INFO] [PARSER] 4.1-06: 27 articole extrase (regex)
-2026-05-19 20:13:18,036 [INFO] [F3v3] 4.1-06: 27 articole extrase (grouped pages)
-2026-05-19 20:13:18,274 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:18,283 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10654
-2026-05-19 20:13:18,347 [INFO] Saved new pattern: AUTO_GEN_10654
-2026-05-19 20:13:18,349 [INFO] [PATTERN] 4.1-07: Detected AUTO_GEN_10654 (confidence=0.50)
-2026-05-19 20:13:18,351 [INFO] [PARSER] 4.1-07: 11 articole extrase (regex)
-2026-05-19 20:13:18,351 [INFO] [F3v3] 4.1-07: 11 articole extrase (grouped pages)
-2026-05-19 20:13:18,591 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:18,600 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10655
-2026-05-19 20:13:18,661 [INFO] Saved new pattern: AUTO_GEN_10655
-2026-05-19 20:13:18,662 [INFO] [PATTERN] 4.1-08: Detected AUTO_GEN_10655 (confidence=0.50)
-2026-05-19 20:13:18,666 [INFO] [PARSER] 4.1-08: 15 articole extrase (regex)
-2026-05-19 20:13:18,666 [INFO] [F3v3] 4.1-08: 15 articole extrase (grouped pages)
-2026-05-19 20:13:18,903 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:18,912 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10656
-2026-05-19 20:13:18,972 [INFO] Saved new pattern: AUTO_GEN_10656
-2026-05-19 20:13:18,974 [INFO] [PATTERN] 4.1-09: Detected AUTO_GEN_10656 (confidence=0.50)
-2026-05-19 20:13:18,976 [INFO] [PARSER] 4.1-09: 4 articole extrase (regex)
-2026-05-19 20:13:18,976 [INFO] [F3v3] 4.1-09: 4 articole extrase (grouped pages)
-2026-05-19 20:13:19,209 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:19,218 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10657
-2026-05-19 20:13:19,278 [INFO] Saved new pattern: AUTO_GEN_10657
-2026-05-19 20:13:19,280 [INFO] [PATTERN] 4.1-10: Detected AUTO_GEN_10657 (confidence=0.50)
-2026-05-19 20:13:19,302 [INFO] [PARSER] 4.1-10: 117 articole extrase (regex)
-2026-05-19 20:13:19,303 [INFO] [F3v3] 4.1-10: 117 articole extrase (grouped pages)
-2026-05-19 20:13:19,535 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:19,544 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10658
-2026-05-19 20:13:19,606 [INFO] Saved new pattern: AUTO_GEN_10658
-2026-05-19 20:13:19,607 [INFO] [PATTERN] 4.1-11: Detected AUTO_GEN_10658 (confidence=0.50)
-2026-05-19 20:13:19,612 [INFO] [PARSER] 4.1-11: 28 articole extrase (regex)
-2026-05-19 20:13:19,612 [INFO] [F3v3] 4.1-11: 28 articole extrase (grouped pages)
-2026-05-19 20:13:19,849 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:19,858 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10659
-2026-05-19 20:13:19,919 [INFO] Saved new pattern: AUTO_GEN_10659
-2026-05-19 20:13:19,921 [INFO] [PATTERN] 4.1-12: Detected AUTO_GEN_10659 (confidence=0.50)
-2026-05-19 20:13:19,932 [INFO] [PARSER] 4.1-12: 63 articole extrase (regex)
-2026-05-19 20:13:19,932 [INFO] [F3v3] 4.1-12: 63 articole extrase (grouped pages)
-2026-05-19 20:13:20,168 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:20,177 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10660
-2026-05-19 20:13:20,237 [INFO] Saved new pattern: AUTO_GEN_10660
-2026-05-19 20:13:20,238 [INFO] [PATTERN] 4.1-13: Detected AUTO_GEN_10660 (confidence=0.50)
-2026-05-19 20:13:20,268 [INFO] [PARSER] 4.1-13: 173 articole extrase (regex)
-2026-05-19 20:13:20,269 [INFO] [F3v3] 4.1-13: 173 articole extrase (grouped pages)
-2026-05-19 20:13:20,505 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:20,514 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10661
-2026-05-19 20:13:20,576 [INFO] Saved new pattern: AUTO_GEN_10661
-2026-05-19 20:13:20,578 [INFO] [PATTERN] 4.1-14: Detected AUTO_GEN_10661 (confidence=0.50)
-2026-05-19 20:13:20,586 [INFO] [PARSER] 4.1-14: 50 articole extrase (regex)
-2026-05-19 20:13:20,586 [INFO] [F3v3] 4.1-14: 50 articole extrase (grouped pages)
-2026-05-19 20:13:20,822 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:20,831 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10662
-2026-05-19 20:13:20,918 [INFO] Saved new pattern: AUTO_GEN_10662
-2026-05-19 20:13:20,920 [INFO] [PATTERN] 4.1-15: Detected AUTO_GEN_10662 (confidence=0.50)
-2026-05-19 20:13:20,921 [INFO] [PARSER] 4.1-15: 4 articole extrase (regex)
-2026-05-19 20:13:20,921 [INFO] [F3v3] 4.1-15: 4 articole extrase (grouped pages)
-2026-05-19 20:13:21,140 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
-2026-05-19 20:13:21,150 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10663
-2026-05-19 20:13:21,235 [INFO] Saved new pattern: AUTO_GEN_10663
-2026-05-19 20:13:21,236 [INFO] [PATTERN] 4.1-16: Detected AUTO_GEN_10663 (confidence=0.50)
-2026-05-19 20:13:21,239 [INFO] [PARSER] 4.1-16: 8 articole extrase (regex)
-2026-05-19 20:13:21,239 [INFO] [F3v3] 4.1-16: 8 articole extrase (grouped pages)
-2026-05-19 20:13:21,457 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:21,466 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10664
-2026-05-19 20:13:21,550 [INFO] Saved new pattern: AUTO_GEN_10664
-2026-05-19 20:13:21,551 [INFO] [PATTERN] 4.1-17: Detected AUTO_GEN_10664 (confidence=0.50)
-2026-05-19 20:13:21,553 [INFO] [PARSER] 4.1-17: 3 articole extrase (regex)
-2026-05-19 20:13:21,553 [INFO] [F3v3] 4.1-17: 3 articole extrase (grouped pages)
-2026-05-19 20:13:21,774 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:21,783 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10665
-2026-05-19 20:13:21,867 [INFO] Saved new pattern: AUTO_GEN_10665
-2026-05-19 20:13:21,869 [INFO] [PATTERN] 4.1-18: Detected AUTO_GEN_10665 (confidence=0.50)
-2026-05-19 20:13:21,870 [INFO] [PARSER] 4.1-18: 1 articole extrase (regex)
-2026-05-19 20:13:21,870 [INFO] [F3v3] 4.1-18: 1 articole extrase (grouped pages)
-2026-05-19 20:13:22,087 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:22,096 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10666
-2026-05-19 20:13:22,180 [INFO] Saved new pattern: AUTO_GEN_10666
-2026-05-19 20:13:22,182 [INFO] [PATTERN] 4.1-19: Detected AUTO_GEN_10666 (confidence=0.50)
-2026-05-19 20:13:22,183 [INFO] [PARSER] 4.1-19: 1 articole extrase (regex)
-2026-05-19 20:13:22,183 [INFO] [F3v3] 4.1-19: 1 articole extrase (grouped pages)
-2026-05-19 20:13:22,401 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:22,411 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10667
-2026-05-19 20:13:22,495 [INFO] Saved new pattern: AUTO_GEN_10667
-2026-05-19 20:13:22,496 [INFO] [PATTERN] 4.1-20: Detected AUTO_GEN_10667 (confidence=0.50)
-2026-05-19 20:13:22,499 [INFO] [PARSER] 4.1-20: 6 articole extrase (regex)
-2026-05-19 20:13:22,499 [INFO] [F3v3] 4.1-20: 6 articole extrase (grouped pages)
-2026-05-19 20:13:22,713 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:22,723 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10668
-2026-05-19 20:13:22,807 [INFO] Saved new pattern: AUTO_GEN_10668
-2026-05-19 20:13:22,809 [INFO] [PATTERN] 4.1-21: Detected AUTO_GEN_10668 (confidence=0.50)
-2026-05-19 20:13:22,810 [INFO] [PARSER] 4.1-21: 1 articole extrase (regex)
-2026-05-19 20:13:22,810 [INFO] [F3v3] 4.1-21: 1 articole extrase (grouped pages)
-2026-05-19 20:13:23,025 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
-2026-05-19 20:13:23,035 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10669
-2026-05-19 20:13:23,122 [INFO] Saved new pattern: AUTO_GEN_10669
-2026-05-19 20:13:23,123 [INFO] [PATTERN] 4.2-1: Detected AUTO_GEN_10669 (confidence=0.50)
-2026-05-19 20:13:23,126 [INFO] [PARSER] 4.2-1: 9 articole extrase (regex)
-2026-05-19 20:13:23,126 [INFO] [F3v3] 4.2-1: 9 articole extrase (grouped pages)
-2026-05-19 20:13:23,342 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:23,351 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10670
-2026-05-19 20:13:23,437 [INFO] Saved new pattern: AUTO_GEN_10670
-2026-05-19 20:13:23,438 [INFO] [PATTERN] 4.2-2: Detected AUTO_GEN_10670 (confidence=0.50)
-2026-05-19 20:13:23,442 [INFO] [PARSER] 4.2-2: 16 articole extrase (regex)
-2026-05-19 20:13:23,442 [INFO] [F3v3] 4.2-2: 16 articole extrase (grouped pages)
-2026-05-19 20:13:23,662 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:23,671 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10671
-2026-05-19 20:13:23,757 [INFO] Saved new pattern: AUTO_GEN_10671
-2026-05-19 20:13:23,758 [INFO] [PATTERN] 4.3-01: Detected AUTO_GEN_10671 (confidence=0.50)
-2026-05-19 20:13:23,763 [INFO] [PARSER] 4.3-01: 17 articole extrase (regex)
-2026-05-19 20:13:23,764 [INFO] [F3v3] 4.3-01: 17 articole extrase (grouped pages)
-2026-05-19 20:13:23,980 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:23,989 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10672
-2026-05-19 20:13:24,073 [INFO] Saved new pattern: AUTO_GEN_10672
-2026-05-19 20:13:24,075 [INFO] [PATTERN] 4.3-02: Detected AUTO_GEN_10672 (confidence=0.50)
-2026-05-19 20:13:24,081 [INFO] [PARSER] 4.3-02: 17 articole extrase (regex)
-2026-05-19 20:13:24,081 [INFO] [F3v3] 4.3-02: 17 articole extrase (grouped pages)
-2026-05-19 20:13:24,296 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:24,305 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10673
-2026-05-19 20:13:24,389 [INFO] Saved new pattern: AUTO_GEN_10673
-2026-05-19 20:13:24,391 [INFO] [PATTERN] 4.3-03: Detected AUTO_GEN_10673 (confidence=0.50)
-2026-05-19 20:13:24,393 [INFO] [PARSER] 4.3-03: 15 articole extrase (regex)
-2026-05-19 20:13:24,394 [INFO] [F3v3] 4.3-03: 15 articole extrase (grouped pages)
-2026-05-19 20:13:24,618 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:24,627 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10674
-2026-05-19 20:13:24,716 [INFO] Saved new pattern: AUTO_GEN_10674
-2026-05-19 20:13:24,719 [INFO] [PATTERN] 4.3-04: Detected AUTO_GEN_10674 (confidence=0.50)
-2026-05-19 20:13:24,725 [INFO] [PARSER] 4.3-04: 22 articole extrase (regex)
-2026-05-19 20:13:24,725 [INFO] [F3v3] 4.3-04: 22 articole extrase (grouped pages)
-2026-05-19 20:13:24,945 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:24,954 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10675
-2026-05-19 20:13:25,040 [INFO] Saved new pattern: AUTO_GEN_10675
-2026-05-19 20:13:25,042 [INFO] [PATTERN] 4.3-05: Detected AUTO_GEN_10675 (confidence=0.50)
-2026-05-19 20:13:25,046 [INFO] [PARSER] 4.3-05: 20 articole extrase (regex)
-2026-05-19 20:13:25,046 [INFO] [F3v3] 4.3-05: 20 articole extrase (grouped pages)
-2026-05-19 20:13:25,268 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:25,277 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10676
-2026-05-19 20:13:25,358 [INFO] Saved new pattern: AUTO_GEN_10676
-2026-05-19 20:13:25,359 [INFO] [PATTERN] 4.3-06: Detected AUTO_GEN_10676 (confidence=0.50)
-2026-05-19 20:13:25,372 [INFO] [PARSER] 4.3-06: 88 articole extrase (regex)
-2026-05-19 20:13:25,372 [INFO] [F3v3] 4.3-06: 88 articole extrase (grouped pages)
-2026-05-19 20:13:25,592 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:25,626 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10677
-2026-05-19 20:13:25,686 [INFO] Saved new pattern: AUTO_GEN_10677
-2026-05-19 20:13:25,687 [INFO] [PATTERN] 4.3-07: Detected AUTO_GEN_10677 (confidence=0.50)
-2026-05-19 20:13:25,693 [INFO] [PARSER] 4.3-07: 34 articole extrase (regex)
-2026-05-19 20:13:25,694 [INFO] [F3v3] 4.3-07: 34 articole extrase (grouped pages)
-2026-05-19 20:13:25,912 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:25,946 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10678
-2026-05-19 20:13:26,005 [INFO] Saved new pattern: AUTO_GEN_10678
-2026-05-19 20:13:26,007 [INFO] [PATTERN] 4.3-08: Detected AUTO_GEN_10678 (confidence=0.50)
-2026-05-19 20:13:26,010 [INFO] [PARSER] 4.3-08: 16 articole extrase (regex)
-2026-05-19 20:13:26,011 [INFO] [F3v3] 4.3-08: 16 articole extrase (grouped pages)
-2026-05-19 20:13:26,227 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:26,261 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10679
-2026-05-19 20:13:26,320 [INFO] Saved new pattern: AUTO_GEN_10679
-2026-05-19 20:13:26,322 [INFO] [PATTERN] 4.3-09: Detected AUTO_GEN_10679 (confidence=0.50)
-2026-05-19 20:13:26,323 [INFO] [PARSER] 4.3-09: 4 articole extrase (regex)
-2026-05-19 20:13:26,323 [INFO] [F3v3] 4.3-09: 4 articole extrase (grouped pages)
-2026-05-19 20:13:26,542 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:26,576 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10680
-2026-05-19 20:13:26,635 [INFO] Saved new pattern: AUTO_GEN_10680
-2026-05-19 20:13:26,636 [INFO] [PATTERN] 4.4-1: Detected AUTO_GEN_10680 (confidence=0.50)
-2026-05-19 20:13:26,638 [INFO] [PARSER] 4.4-1: 6 articole extrase (regex)
-2026-05-19 20:13:26,638 [INFO] [F3v3] 4.4-1: 6 articole extrase (grouped pages)
-2026-05-19 20:13:26,856 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:26,891 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10681
-2026-05-19 20:13:26,954 [INFO] Saved new pattern: AUTO_GEN_10681
-2026-05-19 20:13:26,955 [INFO] [PATTERN] 4.4-2: Detected AUTO_GEN_10681 (confidence=0.50)
-2026-05-19 20:13:26,960 [INFO] [PARSER] 4.4-2: 19 articole extrase (regex)
-2026-05-19 20:13:26,960 [INFO] [F3v3] 4.4-2: 19 articole extrase (grouped pages)
-2026-05-19 20:13:27,177 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
-2026-05-19 20:13:27,211 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10682
-2026-05-19 20:13:27,270 [INFO] Saved new pattern: AUTO_GEN_10682
-2026-05-19 20:13:27,272 [INFO] [PATTERN] 5.1-1: Detected AUTO_GEN_10682 (confidence=0.50)
-2026-05-19 20:13:27,279 [INFO] [SCATTER] Combined 91 scattered format groups
-2026-05-19 20:13:27,623 [INFO] [DEDUP] 5.1-1: removed 10 suffix-duplicate articles
-2026-05-19 20:13:27,666 [INFO] [CLEANUP] 5.1-1: removed 43 substring-numeric articles
-2026-05-19 20:13:27,666 [INFO] [PARSER] 5.1-1: 998 articole extrase (regex)
-2026-05-19 20:13:27,674 [INFO] [F3v3] 5.1-1: 998 articole extrase (grouped pages)
-2026-05-19 20:13:27,675 [INFO] [F3v3] Total: 2062 articole extrase (deviz-grouped, fara LLM)
-2026-05-19 20:13:27,675 [INFO]   2062 articole extrase din linii
-2026-05-19 20:13:27,682 [INFO]   0 articole din tabele, 2062 total dupa merge
-2026-05-19 20:13:27,823 [INFO]    Checkpoint: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO/checkpoints/di_oferta_2_deviz_mapping_10d784f1d95b.json
-2026-05-19 20:13:27,824 [INFO] [DN] Populated 0 missing deviz denominations
-2026-05-19 20:13:27,824 [INFO]   [NORMALIZE] Removed '+' suffix from 26 article codes
-2026-05-19 20:13:27,825 [INFO] [DM] Matched 35/35 offer devizes
-2026-05-19 20:13:27,825 [INFO]   [DEVIZ_MAPPER] Remapped 0 articles: {'4.1-01': '4.1-01', '4.1-02': '4.1-02', '4.1-03': '4.1-03', '4.1-04': '4.1-04', '4.1-05': '4.1-05', '4.1-06': '4.1-06', '4.1-07': '4.1-07', '4.1-08': '4.1-08', '4.1-09': '4.1-09', '4.1-10': '4.1-10', '4.1-11': '4.1-11', '4.1-12': '4.1-12', '4.1-13': '4.1-13', '4.1-14': '4.1-14', '4.1-15': '4.1-15', '4.1-16': '4.1-16', '4.1-17': '4.1-17', '4.1-18': '4.1-18', '4.1-19': '4.1-19', '4.1-20': '4.1-20', '4.1-21': '4.1-21', '4.2-1': '4.2-1', '4.2-2': '4.2-2', '4.3-01': '4.3-01', '4.3-02': '4.3-02', '4.3-03': '4.3-03', '4.3-04': '4.3-04', '4.3-05': '4.3-05', '4.3-06': '4.3-06', '4.3-07': '4.3-07', '4.3-08': '4.3-08', '4.3-09': '4.3-09', '4.4-1': '4.4-1', '4.4-2': '4.4-2', '5.1-1': '5.1-1'}
-2026-05-19 20:13:27,826 [INFO]   [FILTER] Removed 5 malformed articles ($ prefix + empty denomination)
-2026-05-19 20:13:27,847 [INFO] 
+2026-05-19 20:31:01,780 [INFO]   di_oferta_2.json: 223 pagini DI
+2026-05-19 20:31:01,780 [INFO]   Checkpoint gasit — sare peste clasificare LLM
+2026-05-19 20:31:01,795 [INFO]   119 pagini F3 (0 fara deviz_cod)
+2026-05-19 20:31:02,033 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:02,043 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10753
+2026-05-19 20:31:02,130 [INFO] Saved new pattern: AUTO_GEN_10753
+2026-05-19 20:31:02,133 [INFO] [PATTERN] 4.1-01: Detected AUTO_GEN_10753 (confidence=0.50)
+2026-05-19 20:31:02,137 [INFO] [PARSER] 4.1-01: 17 articole extrase (regex)
+2026-05-19 20:31:02,137 [INFO] [F3v3] 4.1-01: 17 articole extrase (grouped pages)
+2026-05-19 20:31:02,361 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:02,370 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10754
+2026-05-19 20:31:02,459 [INFO] Saved new pattern: AUTO_GEN_10754
+2026-05-19 20:31:02,461 [INFO] [PATTERN] 4.1-02: Detected AUTO_GEN_10754 (confidence=0.50)
+2026-05-19 20:31:02,473 [INFO] [PARSER] 4.1-02: 59 articole extrase (regex)
+2026-05-19 20:31:02,473 [INFO] [F3v3] 4.1-02: 59 articole extrase (grouped pages)
+2026-05-19 20:31:02,694 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:02,703 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10755
+2026-05-19 20:31:02,787 [INFO] Saved new pattern: AUTO_GEN_10755
+2026-05-19 20:31:02,788 [INFO] [PATTERN] 4.1-03: Detected AUTO_GEN_10755 (confidence=0.50)
+2026-05-19 20:31:02,801 [INFO] [CLEANUP] 4.1-03: removed 1 substring-numeric articles
+2026-05-19 20:31:02,801 [INFO] [PARSER] 4.1-03: 79 articole extrase (regex)
+2026-05-19 20:31:02,802 [INFO] [F3v3] 4.1-03: 79 articole extrase (grouped pages)
+2026-05-19 20:31:03,023 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:03,032 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10756
+2026-05-19 20:31:03,117 [INFO] Saved new pattern: AUTO_GEN_10756
+2026-05-19 20:31:03,118 [INFO] [PATTERN] 4.1-04: Detected AUTO_GEN_10756 (confidence=0.50)
+2026-05-19 20:31:03,136 [INFO] [PARSER] 4.1-04: 116 articole extrase (regex)
+2026-05-19 20:31:03,137 [INFO] [F3v3] 4.1-04: 116 articole extrase (grouped pages)
+2026-05-19 20:31:03,358 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:03,368 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10757
+2026-05-19 20:31:03,451 [INFO] Saved new pattern: AUTO_GEN_10757
+2026-05-19 20:31:03,453 [INFO] [PATTERN] 4.1-05: Detected AUTO_GEN_10757 (confidence=0.50)
+2026-05-19 20:31:03,462 [INFO] [PARSER] 4.1-05: 60 articole extrase (regex)
+2026-05-19 20:31:03,462 [INFO] [F3v3] 4.1-05: 60 articole extrase (grouped pages)
+2026-05-19 20:31:03,686 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:03,695 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10758
+2026-05-19 20:31:03,782 [INFO] Saved new pattern: AUTO_GEN_10758
+2026-05-19 20:31:03,784 [INFO] [PATTERN] 4.1-06: Detected AUTO_GEN_10758 (confidence=0.50)
+2026-05-19 20:31:03,788 [INFO] [PARSER] 4.1-06: 27 articole extrase (regex)
+2026-05-19 20:31:03,789 [INFO] [F3v3] 4.1-06: 27 articole extrase (grouped pages)
+2026-05-19 20:31:04,010 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:04,019 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10759
+2026-05-19 20:31:04,104 [INFO] Saved new pattern: AUTO_GEN_10759
+2026-05-19 20:31:04,106 [INFO] [PATTERN] 4.1-07: Detected AUTO_GEN_10759 (confidence=0.50)
+2026-05-19 20:31:04,108 [INFO] [PARSER] 4.1-07: 11 articole extrase (regex)
+2026-05-19 20:31:04,109 [INFO] [F3v3] 4.1-07: 11 articole extrase (grouped pages)
+2026-05-19 20:31:04,331 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:04,341 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10760
+2026-05-19 20:31:04,437 [INFO] Saved new pattern: AUTO_GEN_10760
+2026-05-19 20:31:04,439 [INFO] [PATTERN] 4.1-08: Detected AUTO_GEN_10760 (confidence=0.50)
+2026-05-19 20:31:04,442 [INFO] [PARSER] 4.1-08: 15 articole extrase (regex)
+2026-05-19 20:31:04,442 [INFO] [F3v3] 4.1-08: 15 articole extrase (grouped pages)
+2026-05-19 20:31:04,659 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:04,668 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10761
+2026-05-19 20:31:04,751 [INFO] Saved new pattern: AUTO_GEN_10761
+2026-05-19 20:31:04,752 [INFO] [PATTERN] 4.1-09: Detected AUTO_GEN_10761 (confidence=0.50)
+2026-05-19 20:31:04,754 [INFO] [PARSER] 4.1-09: 4 articole extrase (regex)
+2026-05-19 20:31:04,754 [INFO] [F3v3] 4.1-09: 4 articole extrase (grouped pages)
+2026-05-19 20:31:04,975 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:04,985 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10762
+2026-05-19 20:31:05,074 [INFO] Saved new pattern: AUTO_GEN_10762
+2026-05-19 20:31:05,076 [INFO] [PATTERN] 4.1-10: Detected AUTO_GEN_10762 (confidence=0.50)
+2026-05-19 20:31:05,098 [INFO] [PARSER] 4.1-10: 117 articole extrase (regex)
+2026-05-19 20:31:05,099 [INFO] [F3v3] 4.1-10: 117 articole extrase (grouped pages)
+2026-05-19 20:31:05,320 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:05,329 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10763
+2026-05-19 20:31:05,412 [INFO] Saved new pattern: AUTO_GEN_10763
+2026-05-19 20:31:05,414 [INFO] [PATTERN] 4.1-11: Detected AUTO_GEN_10763 (confidence=0.50)
+2026-05-19 20:31:05,419 [INFO] [PARSER] 4.1-11: 28 articole extrase (regex)
+2026-05-19 20:31:05,419 [INFO] [F3v3] 4.1-11: 28 articole extrase (grouped pages)
+2026-05-19 20:31:05,645 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:05,654 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10764
+2026-05-19 20:31:05,735 [INFO] Saved new pattern: AUTO_GEN_10764
+2026-05-19 20:31:05,737 [INFO] [PATTERN] 4.1-12: Detected AUTO_GEN_10764 (confidence=0.50)
+2026-05-19 20:31:05,748 [INFO] [PARSER] 4.1-12: 63 articole extrase (regex)
+2026-05-19 20:31:05,749 [INFO] [F3v3] 4.1-12: 63 articole extrase (grouped pages)
+2026-05-19 20:31:05,975 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:06,010 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10765
+2026-05-19 20:31:06,071 [INFO] Saved new pattern: AUTO_GEN_10765
+2026-05-19 20:31:06,073 [INFO] [PATTERN] 4.1-13: Detected AUTO_GEN_10765 (confidence=0.50)
+2026-05-19 20:31:06,099 [INFO] [PARSER] 4.1-13: 173 articole extrase (regex)
+2026-05-19 20:31:06,101 [INFO] [F3v3] 4.1-13: 173 articole extrase (grouped pages)
+2026-05-19 20:31:06,324 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:06,360 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10766
+2026-05-19 20:31:06,422 [INFO] Saved new pattern: AUTO_GEN_10766
+2026-05-19 20:31:06,424 [INFO] [PATTERN] 4.1-14: Detected AUTO_GEN_10766 (confidence=0.50)
+2026-05-19 20:31:06,432 [INFO] [PARSER] 4.1-14: 50 articole extrase (regex)
+2026-05-19 20:31:06,433 [INFO] [F3v3] 4.1-14: 50 articole extrase (grouped pages)
+2026-05-19 20:31:06,659 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:06,696 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10767
+2026-05-19 20:31:06,759 [INFO] Saved new pattern: AUTO_GEN_10767
+2026-05-19 20:31:06,760 [INFO] [PATTERN] 4.1-15: Detected AUTO_GEN_10767 (confidence=0.50)
+2026-05-19 20:31:06,762 [INFO] [PARSER] 4.1-15: 4 articole extrase (regex)
+2026-05-19 20:31:06,762 [INFO] [F3v3] 4.1-15: 4 articole extrase (grouped pages)
+2026-05-19 20:31:06,989 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 20:31:07,023 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10768
+2026-05-19 20:31:07,084 [INFO] Saved new pattern: AUTO_GEN_10768
+2026-05-19 20:31:07,086 [INFO] [PATTERN] 4.1-16: Detected AUTO_GEN_10768 (confidence=0.50)
+2026-05-19 20:31:07,089 [INFO] [PARSER] 4.1-16: 8 articole extrase (regex)
+2026-05-19 20:31:07,089 [INFO] [F3v3] 4.1-16: 8 articole extrase (grouped pages)
+2026-05-19 20:31:07,311 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:07,343 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10769
+2026-05-19 20:31:07,403 [INFO] Saved new pattern: AUTO_GEN_10769
+2026-05-19 20:31:07,405 [INFO] [PATTERN] 4.1-17: Detected AUTO_GEN_10769 (confidence=0.50)
+2026-05-19 20:31:07,406 [INFO] [PARSER] 4.1-17: 3 articole extrase (regex)
+2026-05-19 20:31:07,406 [INFO] [F3v3] 4.1-17: 3 articole extrase (grouped pages)
+2026-05-19 20:31:07,628 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:07,662 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10770
+2026-05-19 20:31:07,721 [INFO] Saved new pattern: AUTO_GEN_10770
+2026-05-19 20:31:07,723 [INFO] [PATTERN] 4.1-18: Detected AUTO_GEN_10770 (confidence=0.50)
+2026-05-19 20:31:07,724 [INFO] [PARSER] 4.1-18: 1 articole extrase (regex)
+2026-05-19 20:31:07,725 [INFO] [F3v3] 4.1-18: 1 articole extrase (grouped pages)
+2026-05-19 20:31:07,946 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:07,978 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10771
+2026-05-19 20:31:08,040 [INFO] Saved new pattern: AUTO_GEN_10771
+2026-05-19 20:31:08,042 [INFO] [PATTERN] 4.1-19: Detected AUTO_GEN_10771 (confidence=0.50)
+2026-05-19 20:31:08,043 [INFO] [PARSER] 4.1-19: 1 articole extrase (regex)
+2026-05-19 20:31:08,043 [INFO] [F3v3] 4.1-19: 1 articole extrase (grouped pages)
+2026-05-19 20:31:08,266 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:08,301 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10772
+2026-05-19 20:31:08,361 [INFO] Saved new pattern: AUTO_GEN_10772
+2026-05-19 20:31:08,362 [INFO] [PATTERN] 4.1-20: Detected AUTO_GEN_10772 (confidence=0.50)
+2026-05-19 20:31:08,365 [INFO] [PARSER] 4.1-20: 6 articole extrase (regex)
+2026-05-19 20:31:08,365 [INFO] [F3v3] 4.1-20: 6 articole extrase (grouped pages)
+2026-05-19 20:31:08,589 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:08,622 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10773
+2026-05-19 20:31:08,683 [INFO] Saved new pattern: AUTO_GEN_10773
+2026-05-19 20:31:08,685 [INFO] [PATTERN] 4.1-21: Detected AUTO_GEN_10773 (confidence=0.50)
+2026-05-19 20:31:08,686 [INFO] [PARSER] 4.1-21: 1 articole extrase (regex)
+2026-05-19 20:31:08,686 [INFO] [F3v3] 4.1-21: 1 articole extrase (grouped pages)
+2026-05-19 20:31:08,910 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 20:31:08,941 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10774
+2026-05-19 20:31:09,001 [INFO] Saved new pattern: AUTO_GEN_10774
+2026-05-19 20:31:09,003 [INFO] [PATTERN] 4.2-1: Detected AUTO_GEN_10774 (confidence=0.50)
+2026-05-19 20:31:09,006 [INFO] [PARSER] 4.2-1: 9 articole extrase (regex)
+2026-05-19 20:31:09,006 [INFO] [F3v3] 4.2-1: 9 articole extrase (grouped pages)
+2026-05-19 20:31:09,234 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:09,266 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10775
+2026-05-19 20:31:09,329 [INFO] Saved new pattern: AUTO_GEN_10775
+2026-05-19 20:31:09,331 [INFO] [PATTERN] 4.2-2: Detected AUTO_GEN_10775 (confidence=0.50)
+2026-05-19 20:31:09,334 [INFO] [PARSER] 4.2-2: 16 articole extrase (regex)
+2026-05-19 20:31:09,334 [INFO] [F3v3] 4.2-2: 16 articole extrase (grouped pages)
+2026-05-19 20:31:09,561 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:09,594 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10776
+2026-05-19 20:31:09,655 [INFO] Saved new pattern: AUTO_GEN_10776
+2026-05-19 20:31:09,657 [INFO] [PATTERN] 4.3-01: Detected AUTO_GEN_10776 (confidence=0.50)
+2026-05-19 20:31:09,662 [INFO] [PARSER] 4.3-01: 17 articole extrase (regex)
+2026-05-19 20:31:09,663 [INFO] [F3v3] 4.3-01: 17 articole extrase (grouped pages)
+2026-05-19 20:31:09,909 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:09,918 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10777
+2026-05-19 20:31:09,981 [INFO] Saved new pattern: AUTO_GEN_10777
+2026-05-19 20:31:09,982 [INFO] [PATTERN] 4.3-02: Detected AUTO_GEN_10777 (confidence=0.50)
+2026-05-19 20:31:09,987 [INFO] [PARSER] 4.3-02: 17 articole extrase (regex)
+2026-05-19 20:31:09,988 [INFO] [F3v3] 4.3-02: 17 articole extrase (grouped pages)
+2026-05-19 20:31:10,233 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:10,242 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10778
+2026-05-19 20:31:10,308 [INFO] Saved new pattern: AUTO_GEN_10778
+2026-05-19 20:31:10,310 [INFO] [PATTERN] 4.3-03: Detected AUTO_GEN_10778 (confidence=0.50)
+2026-05-19 20:31:10,313 [INFO] [PARSER] 4.3-03: 15 articole extrase (regex)
+2026-05-19 20:31:10,313 [INFO] [F3v3] 4.3-03: 15 articole extrase (grouped pages)
+2026-05-19 20:31:10,558 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:10,567 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10779
+2026-05-19 20:31:10,633 [INFO] Saved new pattern: AUTO_GEN_10779
+2026-05-19 20:31:10,634 [INFO] [PATTERN] 4.3-04: Detected AUTO_GEN_10779 (confidence=0.50)
+2026-05-19 20:31:10,640 [INFO] [PARSER] 4.3-04: 22 articole extrase (regex)
+2026-05-19 20:31:10,640 [INFO] [F3v3] 4.3-04: 22 articole extrase (grouped pages)
+2026-05-19 20:31:10,885 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:10,895 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10780
+2026-05-19 20:31:10,957 [INFO] Saved new pattern: AUTO_GEN_10780
+2026-05-19 20:31:10,958 [INFO] [PATTERN] 4.3-05: Detected AUTO_GEN_10780 (confidence=0.50)
+2026-05-19 20:31:10,962 [INFO] [PARSER] 4.3-05: 20 articole extrase (regex)
+2026-05-19 20:31:10,962 [INFO] [F3v3] 4.3-05: 20 articole extrase (grouped pages)
+2026-05-19 20:31:11,208 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:11,217 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10781
+2026-05-19 20:31:11,278 [INFO] Saved new pattern: AUTO_GEN_10781
+2026-05-19 20:31:11,280 [INFO] [PATTERN] 4.3-06: Detected AUTO_GEN_10781 (confidence=0.50)
+2026-05-19 20:31:11,292 [INFO] [PARSER] 4.3-06: 88 articole extrase (regex)
+2026-05-19 20:31:11,293 [INFO] [F3v3] 4.3-06: 88 articole extrase (grouped pages)
+2026-05-19 20:31:11,540 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:11,549 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10782
+2026-05-19 20:31:11,612 [INFO] Saved new pattern: AUTO_GEN_10782
+2026-05-19 20:31:11,614 [INFO] [PATTERN] 4.3-07: Detected AUTO_GEN_10782 (confidence=0.50)
+2026-05-19 20:31:11,620 [INFO] [PARSER] 4.3-07: 34 articole extrase (regex)
+2026-05-19 20:31:11,621 [INFO] [F3v3] 4.3-07: 34 articole extrase (grouped pages)
+2026-05-19 20:31:11,868 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:11,877 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10783
+2026-05-19 20:31:11,938 [INFO] Saved new pattern: AUTO_GEN_10783
+2026-05-19 20:31:11,940 [INFO] [PATTERN] 4.3-08: Detected AUTO_GEN_10783 (confidence=0.50)
+2026-05-19 20:31:11,943 [INFO] [PARSER] 4.3-08: 16 articole extrase (regex)
+2026-05-19 20:31:11,943 [INFO] [F3v3] 4.3-08: 16 articole extrase (grouped pages)
+2026-05-19 20:31:12,183 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:12,192 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10784
+2026-05-19 20:31:12,255 [INFO] Saved new pattern: AUTO_GEN_10784
+2026-05-19 20:31:12,256 [INFO] [PATTERN] 4.3-09: Detected AUTO_GEN_10784 (confidence=0.50)
+2026-05-19 20:31:12,258 [INFO] [PARSER] 4.3-09: 4 articole extrase (regex)
+2026-05-19 20:31:12,258 [INFO] [F3v3] 4.3-09: 4 articole extrase (grouped pages)
+2026-05-19 20:31:12,499 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:12,508 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10785
+2026-05-19 20:31:12,570 [INFO] Saved new pattern: AUTO_GEN_10785
+2026-05-19 20:31:12,572 [INFO] [PATTERN] 4.4-1: Detected AUTO_GEN_10785 (confidence=0.50)
+2026-05-19 20:31:12,574 [INFO] [PARSER] 4.4-1: 6 articole extrase (regex)
+2026-05-19 20:31:12,574 [INFO] [F3v3] 4.4-1: 6 articole extrase (grouped pages)
+2026-05-19 20:31:12,815 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:12,824 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10786
+2026-05-19 20:31:12,884 [INFO] Saved new pattern: AUTO_GEN_10786
+2026-05-19 20:31:12,886 [INFO] [PATTERN] 4.4-2: Detected AUTO_GEN_10786 (confidence=0.50)
+2026-05-19 20:31:12,890 [INFO] [PARSER] 4.4-2: 19 articole extrase (regex)
+2026-05-19 20:31:12,890 [INFO] [F3v3] 4.4-2: 19 articole extrase (grouped pages)
+2026-05-19 20:31:13,176 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 20:31:13,187 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10787
+2026-05-19 20:31:13,288 [INFO] Saved new pattern: AUTO_GEN_10787
+2026-05-19 20:31:13,290 [INFO] [PATTERN] 5.1-1: Detected AUTO_GEN_10787 (confidence=0.50)
+2026-05-19 20:31:13,299 [INFO] [SCATTER] Combined 91 scattered format groups
+2026-05-19 20:31:13,651 [INFO] [DEDUP] 5.1-1: removed 10 suffix-duplicate articles
+2026-05-19 20:31:13,694 [INFO] [CLEANUP] 5.1-1: removed 43 substring-numeric articles
+2026-05-19 20:31:13,695 [INFO] [PARSER] 5.1-1: 998 articole extrase (regex)
+2026-05-19 20:31:13,702 [INFO] [F3v3] 5.1-1: 998 articole extrase (grouped pages)
+2026-05-19 20:31:13,703 [INFO] [F3v3] Total: 2062 articole extrase (deviz-grouped, fara LLM)
+2026-05-19 20:31:13,703 [INFO]   2062 articole extrase din linii
+2026-05-19 20:31:13,711 [INFO]   0 articole din tabele, 2062 total dupa merge
+2026-05-19 20:31:13,853 [INFO]    Checkpoint: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO/checkpoints/di_oferta_2_deviz_mapping_10d784f1d95b.json
+2026-05-19 20:31:13,853 [INFO] [DN] Populated 0 missing deviz denominations
+2026-05-19 20:31:13,854 [INFO]   [NORMALIZE] Removed '+' suffix from 26 article codes
+2026-05-19 20:31:13,854 [INFO] [DM] Matched 35/35 offer devizes
+2026-05-19 20:31:13,855 [INFO]   [DEVIZ_MAPPER] Remapped 0 articles: {'4.1-01': '4.1-01', '4.1-02': '4.1-02', '4.1-03': '4.1-03', '4.1-04': '4.1-04', '4.1-05': '4.1-05', '4.1-06': '4.1-06', '4.1-07': '4.1-07', '4.1-08': '4.1-08', '4.1-09': '4.1-09', '4.1-10': '4.1-10', '4.1-11': '4.1-11', '4.1-12': '4.1-12', '4.1-13': '4.1-13', '4.1-14': '4.1-14', '4.1-15': '4.1-15', '4.1-16': '4.1-16', '4.1-17': '4.1-17', '4.1-18': '4.1-18', '4.1-19': '4.1-19', '4.1-20': '4.1-20', '4.1-21': '4.1-21', '4.2-1': '4.2-1', '4.2-2': '4.2-2', '4.3-01': '4.3-01', '4.3-02': '4.3-02', '4.3-03': '4.3-03', '4.3-04': '4.3-04', '4.3-05': '4.3-05', '4.3-06': '4.3-06', '4.3-07': '4.3-07', '4.3-08': '4.3-08', '4.3-09': '4.3-09', '4.4-1': '4.4-1', '4.4-2': '4.4-2', '5.1-1': '5.1-1'}
+2026-05-19 20:31:13,855 [INFO]   [FILTER] Removed 5 malformed articles ($ prefix + empty denomination)
+2026-05-19 20:31:13,877 [INFO] 
 --- Comparare OFERTA 2 ---
-2026-05-19 20:13:27,848 [INFO] [DM] Matched 35/35 offer devizes
-2026-05-19 20:13:27,848 [INFO]   [DEVIZ_MATCHER] Applied deviz mapping: {'4.1-01': '4.1-01', '4.1-02': '4.1-02', '4.1-03': '4.1-03', '4.1-04': '4.1-04', '4.1-05': '4.1-05', '4.1-06': '4.1-06', '4.1-07': '4.1-07', '4.1-08': '4.1-08', '4.1-09': '4.1-09', '4.1-10': '4.1-10', '4.1-11': '4.1-11', '4.1-12': '4.1-12', '4.1-13': '4.1-13', '4.1-14': '4.1-14', '4.1-15': '4.1-15', '4.1-16': '4.1-16', '4.1-17': '4.1-17', '4.1-18': '4.1-18', '4.1-19': '4.1-19', '4.1-20': '4.1-20', '4.1-21': '4.1-21', '4.2-1': '4.2-1', '4.2-2': '4.2-2', '4.3-01': '4.3-01', '4.3-02': '4.3-02', '4.3-03': '4.3-03', '4.3-04': '4.3-04', '4.3-05': '4.3-05', '4.3-06': '4.3-06', '4.3-07': '4.3-07', '4.3-08': '4.3-08', '4.3-09': '4.3-09', '4.4-1': '4.4-1', '4.4-2': '4.4-2', '5.1-1': '5.1-1'}
-2026-05-19 20:13:27,849 [INFO] [DN] Local mapping (no LLM): 7 renames
-2026-05-19 20:13:30,568 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
-2026-05-19 20:13:30,571 [INFO] [DN] Total mapping: 34 renames (7 local + 27 LLM)
-2026-05-19 20:13:30,667 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-19 20:13:30,668 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-19 20:13:30,668 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-19 20:13:31,738 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
-2026-05-19 20:13:31,745 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-19 20:13:31,753 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-19 20:13:31,753 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-19 20:13:31,753 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-19 20:13:31,753 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-19 20:13:31,759 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-19 20:13:32,334 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
-2026-05-19 20:13:32,340 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-19 20:13:32,890 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
-2026-05-19 20:13:32,894 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-19 20:13:32,894 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-19 20:13:32,894 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-19 20:15:03,125 [INFO] [COMP] Lenient UM matching: converted 5 EXTRA to matched
-2026-05-19 20:15:03,125 [INFO] [COMP] matched=1594, lipsa=61, extra=357, similar=2
-2026-05-19 20:15:03,289 [WARNING] [VALID] 1 ARTICOL_EXTRA marcate ca posibil_omis_din_extractie (codul apare in DI referinta dar lipseste din articolele extrase)
-2026-05-19 20:15:03,295 [INFO]   Neconformitati: {'DIFERENTA_CAMP': 20, 'COD_SIMILAR': 2, 'ARTICOL_LIPSA': 61, 'ARTICOL_EXTRA': 357, 'UM_DIFERIT': 5} (total: 445)
-2026-05-19 20:15:03,295 [INFO]   Matched: 1594 articole
-2026-05-19 20:15:04,408 [INFO]   DOCX: Raport_Oferta_2.docx
-2026-05-19 20:15:04,414 [INFO]   JSON by deviz: comparatie_deviz_oferta_2.json
-2026-05-19 20:15:04,414 [INFO] 
+2026-05-19 20:31:13,877 [INFO] [DM] Matched 35/35 offer devizes
+2026-05-19 20:31:13,878 [INFO]   [DEVIZ_MATCHER] Applied deviz mapping: {'4.1-01': '4.1-01', '4.1-02': '4.1-02', '4.1-03': '4.1-03', '4.1-04': '4.1-04', '4.1-05': '4.1-05', '4.1-06': '4.1-06', '4.1-07': '4.1-07', '4.1-08': '4.1-08', '4.1-09': '4.1-09', '4.1-10': '4.1-10', '4.1-11': '4.1-11', '4.1-12': '4.1-12', '4.1-13': '4.1-13', '4.1-14': '4.1-14', '4.1-15': '4.1-15', '4.1-16': '4.1-16', '4.1-17': '4.1-17', '4.1-18': '4.1-18', '4.1-19': '4.1-19', '4.1-20': '4.1-20', '4.1-21': '4.1-21', '4.2-1': '4.2-1', '4.2-2': '4.2-2', '4.3-01': '4.3-01', '4.3-02': '4.3-02', '4.3-03': '4.3-03', '4.3-04': '4.3-04', '4.3-05': '4.3-05', '4.3-06': '4.3-06', '4.3-07': '4.3-07', '4.3-08': '4.3-08', '4.3-09': '4.3-09', '4.4-1': '4.4-1', '4.4-2': '4.4-2', '5.1-1': '5.1-1'}
+2026-05-19 20:31:13,888 [INFO] [DN] Local mapping (no LLM): 7 renames
+2026-05-19 20:31:16,823 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
+2026-05-19 20:31:16,848 [INFO] [DN] Total mapping: 34 renames (7 local + 27 LLM)
+2026-05-19 20:31:16,931 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 20:31:16,932 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 20:31:16,933 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 20:31:18,617 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
+2026-05-19 20:31:18,623 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 20:31:18,631 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 20:31:18,632 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 20:31:18,632 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 20:31:18,632 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 20:31:18,638 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 20:31:20,289 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
+2026-05-19 20:31:20,293 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 20:31:21,296 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
+2026-05-19 20:31:21,297 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 20:31:21,297 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 20:31:21,297 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 20:32:53,242 [INFO] [COMP] Lenient UM matching: converted 5 EXTRA to matched
+2026-05-19 20:32:53,242 [INFO] [COMP] matched=1594, lipsa=61, extra=357, similar=2
+2026-05-19 20:32:53,414 [WARNING] [VALID] 1 ARTICOL_EXTRA marcate ca posibil_omis_din_extractie (codul apare in DI referinta dar lipseste din articolele extrase)
+2026-05-19 20:32:53,420 [INFO]   Neconformitati: {'DIFERENTA_CAMP': 20, 'COD_SIMILAR': 2, 'ARTICOL_LIPSA': 61, 'ARTICOL_EXTRA': 357, 'UM_DIFERIT': 5} (total: 445)
+2026-05-19 20:32:53,420 [INFO]   Matched: 1594 articole
+2026-05-19 20:32:54,520 [INFO]   DOCX: Raport_Oferta_2.docx
+2026-05-19 20:32:54,526 [INFO]   JSON by deviz: comparatie_deviz_oferta_2.json
+2026-05-19 20:32:54,526 [INFO] 
 ==================================================
-2026-05-19 20:15:04,414 [INFO]   DONE
-2026-05-19 20:15:04,414 [INFO]   Rezultate in: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO
-2026-05-19 20:15:04,414 [INFO] ==================================================
+2026-05-19 20:32:54,526 [INFO]   DONE
+2026-05-19 20:32:54,526 [INFO]   Rezultate in: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO
+2026-05-19 20:32:54,526 [INFO] ==================================================
