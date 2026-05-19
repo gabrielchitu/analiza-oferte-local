@@ -819,6 +819,11 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         line = raw_line.strip()
         # Skip empty, price labels, and metadata codes — BUT NOT numeric codes in linked article mode
         skip_due_to_filter = SKIP_RE.search(line) or _PRICE_LABEL_RE.match(line)
+        # Finalize article before skipping metadata block (material:, manopera:, utilaj:, transport:)
+        # This ensures that numeric codes after metadata (e.g., 6720363 after "transport:") are recognized as new articles
+        if _PRICE_LABEL_RE.match(line) and state == _READING and cod:
+            _finalize()
+            state = _IDLE  # Reset state after finalization so next code is processed as new article
         if not line or (skip_due_to_filter and not (state == _WAITING and _after_linked)):
             continue
 
