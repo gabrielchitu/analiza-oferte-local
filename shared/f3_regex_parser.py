@@ -479,12 +479,19 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
                     desc_parts.append(desc_line)
                 j += 1
 
-            # Combine into single line: CODE - DESCRIPTION
+            # Reformat to NR_COD_DESC pattern: NR CODE - DESCRIPTION
+            # Keep UM and QTY on original lines for state machine to find
             description = ' '.join(desc_parts)
-            combined_line = f"{next_code_line} - {description}"
-            result.append(combined_line)
+
+            # Line 1: NR CODE - description (matches NR_COD_DESC_RE)
+            # Line 2: UM (state machine will pick up as UM)
+            # Line 3: QTY (state machine will pick up as QTY)
+            result.append(f"{line} {next_code_line} - {description}")
+            result.append(next_um_line)
+            result.append(next_qty_line)
+
             combined_count += 1
-            logger.debug(f"[SCATTER] Combined scattered format: {next_code_line} with {len(desc_parts)} description lines")
+            logger.debug(f"[SCATTER] Combined scattered format: {line} {next_code_line}")
             i = j  # Skip processed lines
             continue
 
