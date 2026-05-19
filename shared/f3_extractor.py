@@ -773,15 +773,15 @@ def extract_articles_v3(page_classifications: list) -> list:
             deviz_cod = _normalize_deviz_cod(deviz_cod)
             last_deviz_cod = deviz_cod
             last_deviz_den = pc.get("deviz_den", "")
-        elif is_unresolved and last_deviz_cod:
-            # This page (F3 or not) has unresolved deviz — inherit from previous
-            # If it's a non-F3 page receiving a deviz, mark it as F3 (it's a continuation page)
+        elif is_unresolved and last_deviz_cod and is_f3:
+            # Only inherit deviz_cod for pages already classified as F3 by LLM.
+            # Non-F3 pages (breviar resource tables, cost summaries, etc.) must NOT
+            # be promoted to F3 just because they have a blank deviz_cod — doing so
+            # pulls entire resource breakdowns into the deviz article list (e.g.,
+            # 47 breviar pages after deviz 5.1-1 → 961 false articles instead of 18).
             pc["deviz_cod"] = last_deviz_cod
             if not pc.get("deviz_den"):
                 pc["deviz_den"] = last_deviz_den
-            if not is_f3:
-                pc["is_f3"] = True
-                pc["extraction_method"] = "inherited"
 
     # Grupează paginile F3 pe deviz pentru a menține last_nr_crt corect
     pages_by_deviz = defaultdict(list)

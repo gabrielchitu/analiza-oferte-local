@@ -980,6 +980,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         # This is a linked article separator, not part of denomination
         m_l_prefix = SUBCOMP_PREFIXED_RE.match(line)
         if m_l_prefix:
+            inherited_um = um if state == _READING else ''
             if state == _READING:
                 _finalize()
             # Extract code and any remaining denomination text
@@ -988,7 +989,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             remaining_den = line[m_l_prefix.end():].strip()
             last_nr_crt = last_nr_crt or 1
             denumire_parts = [remaining_den] if remaining_den else []
-            um = ''; cantitate = 0.0; preturi = []
+            um = inherited_um; cantitate = 0.0; preturi = []
             state = _READING
             waiting_lines = 0
             continue

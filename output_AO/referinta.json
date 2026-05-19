@@ -1326,7 +1326,7 @@
     {
       "cod": "$8527036",
       "denumire": "-placi gips-carton rezistente la foc gkf 15 mm 1200/2600 l: qc050 -0002:0006701 -macara planseu 0,5tf",
-      "um": "",
+      "um": "mp",
       "cantitate": 0.0,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -1366,7 +1366,7 @@
     {
       "cod": "$8527034",
       "denumire": "-placi gips-carton rezistente la foc gkf 12.5mm 1200/300 l : qc050 -0002: 0006701 -macara planseu 0, 5tf",
-      "um": "",
+      "um": "mp",
       "cantitate": 0.0,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -1446,7 +1446,7 @@
     {
       "cod": "$00068",
       "denumire": "-panouri compartimentare hpl incl usi si accesorii",
-      "um": "",
+      "um": "mp",
       "cantitate": 0.0,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -1787,7 +1787,7 @@
     {
       "cod": "$8660160",
       "denumire": "-ipsos imbinari timp lucru mediu nida profes (sac 5kg)",
-      "um": "",
+      "um": "m",
       "cantitate": 0.0,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -1806,7 +1806,7 @@
     {
       "cod": "$8660091",
       "denumire": "-profil protectie colt al 24x24",
-      "um": "",
+      "um": "m",
       "cantitate": 0.0,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
@@ -2174,7 +2174,7 @@
     {
       "cod": "$6720363",
       "denumire": "- ferestre - tamplarie pvc, 5 camere, geam tripa",
-      "um": "",
+      "um": "mp",
       "cantitate": 4.75,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2212,7 +2212,7 @@
     {
       "cod": "$6720289",
       "denumire": "-usa exterioara cu sistem de autoinchidere si bara antipanica",
-      "um": "",
+      "um": "mp",
       "cantitate": 0.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2271,7 +2271,7 @@
     {
       "cod": "$6308029",
       "denumire": "-us-c usa dubla prevazuta cu sistem de autoinchidere si bara",
-      "um": "",
+      "um": "mp",
       "cantitate": 0.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2290,7 +2290,7 @@
     {
       "cod": "$6720301",
       "denumire": "-us-c usa dubla pvc prevazuta sistem autoinchidere",
-      "um": "",
+      "um": "mp",
       "cantitate": 0.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2406,7 +2406,7 @@
     {
       "cod": "$2101144",
       "denumire": "-mortar adeziv cu spaclu pt termoizolatii",
-      "um": "",
+      "um": "mp",
       "cantitate": 0.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2541,7 +2541,7 @@
     {
       "cod": "$7800081",
       "denumire": "-diblu cu cui din plastic pt polistiren 8/60 x 115 mm",
-      "um": "",
+      "um": "mp",
       "cantitate": 0.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2598,7 +2598,7 @@
     {
       "cod": "$7806619",
       "denumire": "-vata min bazaltica knauf fkd-s thermal 60x100 x 15 cm",
-      "um": "",
+      "um": "mp",
       "cantitate": 0.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -2995,7 +2995,7 @@
     {
       "cod": "$2101131",
       "denumire": "-mortar adeziv pt placi termoizol.",
-      "um": "",
+      "um": "mp",
       "cantitate": 0.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -3014,7 +3014,7 @@
     {
       "cod": "$7800085",
       "denumire": "-diblu cu cui din plastic pt.polistiren 8/60 x 175 mm",
-      "um": "",
+      "um": "mp",
       "cantitate": 0.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -3073,7 +3073,7 @@
     {
       "cod": "$2612429",
       "denumire": "-tesatura speciala din fire sticla cn-z 6040 cs 5356/85",
-      "um": "",
+      "um": "mp",
       "cantitate": 0.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
@@ -3756,7 +3756,7 @@
     {
       "cod": "$5536030",
       "denumire": "-priza utp cat 6a",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
@@ -5448,7 +5448,7 @@
     {
       "cod": "$2608118",
       "denumire": "-termoizolatie speciala (mansoane) pt teava de 9 x 22mm",
-      "um": "",
+      "um": "m",
       "cantitate": 0.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5486,7 +5486,7 @@
     {
       "cod": "$2608119",
       "denumire": "-termoizolatie speciala (mansoane) pt teava de 9 x 28mm",
-      "um": "",
+      "um": "m",
       "cantitate": 0.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5524,7 +5524,7 @@
     {
       "cod": "$2608120",
       "denumire": "-termoizolatie speciala (mansoane) pt teava de 9 x 35mm",
-      "um": "",
+      "um": "m",
       "cantitate": 0.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5562,7 +5562,7 @@
     {
       "cod": "$2608121",
       "denumire": "-termoizolatie speciala (mansoane) pt teava de 9 x 42mm",
-      "um": "",
+      "um": "m",
       "cantitate": 0.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -5600,7 +5600,7 @@
     {
       "cod": "$2608135",
       "denumire": "-termoizolatie speciala (mansoane) pt teava de 13x 64mm",
-      "um": "",
+      "um": "m",
       "cantitate": 0.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -6240,8 +6240,8 @@
     },
     {
       "cod": "$8817768",
-      "denumire": "-colector bara 1 1/4'-4 circ capete termost eurocon 3/4'",
-      "um": "",
+      "denumire": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -6259,8 +6259,8 @@
     },
     {
       "cod": "$8817770",
-      "denumire": "-colector bara 1 1/4'-6 circ capete termost eurocon 3/4'",
-      "um": "",
+      "denumire": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -6297,8 +6297,8 @@
     },
     {
       "cod": "$8817772",
-      "denumire": "-colector bara 1 1/4'-8 circ capete termost eurocon 3/4'",
-      "um": "",
+      "denumire": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -6492,7 +6492,7 @@
     {
       "cod": "$8000643",
       "denumire": "-grila de transfer 300x100 mm montata in foaia usii",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
@@ -7438,7 +7438,7 @@
     {
       "cod": "$8812025",
       "denumire": "-racord compresiune tip fe d 50 x 1' 1/2",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -7476,7 +7476,7 @@
     {
       "cod": "$8812020",
       "denumire": "-racord compresiune tip fe d 40 x 1' 1/4",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -7514,7 +7514,7 @@
     {
       "cod": "$8812014",
       "denumire": "-racord compresiune tip fe d 25 x 3/4'",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -7552,7 +7552,7 @@
     {
       "cod": "$8812011",
       "denumire": "-racord compresiune tip fe d 20 x 1/2'",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -7731,7 +7731,7 @@
     {
       "cod": "$8816474",
       "denumire": "-teava pvc cu mufa si garnit sn2/sdr51 d=110x2, 2mm l=6m",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
@@ -8484,7 +8484,7 @@
     },
     {
       "cod": "TRI1AA01C1",
-      "denumire": "incarcarea materialelor, grupa a-grele si marunte, p rin aruncare rampa sau teren-auto categ 1 contrib asig munca % total chelt directe io = % x to po = % x (to+io) vo = to+io+po ₼ formular f3 executant0413 obiectiv01 obi4.1 cate 13",
+      "denumire": "incarcarea materialelor, grupa a-grele si marunte, p rin aruncare rampa sau teren-auto categ 1 contrib asig munca % total chelt directe io = % x to po = % x (to+io) vo = to+io+po ₼",
       "um": "tona",
       "cantitate": 1.5,
       "deviz": "4.1-13",
@@ -8493,7 +8493,7 @@
       "parent_code": null,
       "subcomponents": [],
       "pret_material": 0.0,
-      "val_material": 1.0,
+      "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
       "pret_utilaj": 0.0,
@@ -8542,7 +8542,7 @@
     {
       "cod": "$9000831",
       "denumire": "-robinet cu flanse si sfera dn 50 mm",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -8580,7 +8580,7 @@
     {
       "cod": "$9100195",
       "denumire": "-robinet de trecere cu sfera cu tija d: 40 mm",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -8618,7 +8618,7 @@
     {
       "cod": "$0007019",
       "denumire": "-robinet dn 112'",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -8734,7 +8734,7 @@
     {
       "cod": "$8813017",
       "denumire": "-clapet retinere oriz fi-fi d.2'",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -8772,7 +8772,7 @@
     {
       "cod": "$1100068",
       "denumire": "-clapeta sens dn 40",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -8810,7 +8810,7 @@
     {
       "cod": "$8813015",
       "denumire": "-clapet retinere oriz fi-fi d.1' 1/4",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -8850,7 +8850,7 @@
     {
       "cod": "$8815352",
       "denumire": "-filtru de impuritati tip y ø 1 1/2'",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-11",
       "deviz_denumire": "Inst apa cald panou solar tipI",
@@ -9151,7 +9151,7 @@
     {
       "cod": "$9000115",
       "denumire": "-manson antifoc dn 2 1/2'' (trecere pereti rezistenti la foc)",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -9208,7 +9208,7 @@
     {
       "cod": "$9000707",
       "denumire": "-vana automata dn 11/2'",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -9246,7 +9246,7 @@
     {
       "cod": "$8813028",
       "denumire": "-clapet retinere vert fi-fi d.2' 1/2",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
@@ -9557,26 +9557,7 @@
     },
     {
       "cod": "TRA02A25",
-      "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist .= 25 km formular f3 executant 0413 obiectiv01 obi4.1 cate 14",
-      "um": "tona",
-      "cantitate": 1.9,
-      "deviz": "4.1-14",
-      "deviz_denumire": "Inst sanit hidranti int tip II",
-      "is_component": false,
-      "parent_code": null,
-      "subcomponents": [],
-      "pret_material": 0.0,
-      "val_material": 1.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "TRI1AC12C6",
-      "denumire": "descarcare mat.gr.c-ambalate, sub 10kg deplas prin contrib asig munca % total chelt directe io = % x to po = % x (to+io) vo = to+io+po la comerciala bro pro infra build nfra build aviv - românia",
+      "denumire": "transportul rutier al materialelor, semifabricatelo r cu autocamionul pe dist .= 25 km.",
       "um": "tona",
       "cantitate": 1.9,
       "deviz": "4.1-14",
@@ -9634,7 +9615,7 @@
     {
       "cod": "$111144",
       "denumire": "-cablu nhxh fe180/e90 3x1.5 mmp",
-      "um": "",
+      "um": "m",
       "cantitate": 0.0,
       "deviz": "4.1-08",
       "deviz_denumire": "Inst detectie incendiu tipIII",
@@ -9710,7 +9691,7 @@
     {
       "cod": "$3335968",
       "denumire": "-cleme metalice prindere tub, rezistente la foc e90",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-08",
       "deviz_denumire": "Inst detectie incendiu tipIII",
@@ -9823,7 +9804,7 @@
     },
     {
       "cod": "TRI1AA08F2",
-      "denumire": "descarcarea materialelor, grupa a-grele si marunte contrib asig munca % total chelt directe ₼ formular f3 executant 0413 obiectiv01 obi4.1 cate 08",
+      "denumire": "descarcarea materialelor, grupa a-grele si marunte contrib asig munca % total chelt directe ₼",
       "um": "tona",
       "cantitate": 0.5,
       "deviz": "4.1-08",
@@ -9832,7 +9813,7 @@
       "parent_code": null,
       "subcomponents": [],
       "pret_material": 0.0,
-      "val_material": 1.0,
+      "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
       "pret_utilaj": 0.0,
@@ -9978,7 +9959,7 @@
     {
       "cod": "$4122246",
       "denumire": "-racord olan.et.pla fil int ext u2 s482 dn 32 11/4",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.1-16",
       "deviz_denumire": "Echipamente HVAC tip I",
@@ -10330,7 +10311,7 @@
     {
       "cod": "$2394",
       "denumire": "- vibrator de adincime",
-      "um": "",
+      "um": "mc",
       "cantitate": 0.0,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -10870,7 +10851,7 @@
     {
       "cod": "$2018770",
       "denumire": "-mortar uscat adeziv zidarie ytong, 30 kg/mc",
-      "um": "",
+      "um": "tona",
       "cantitate": 0.0,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
@@ -12057,7 +12038,7 @@
     {
       "cod": "$3700687",
       "denumire": "-banda din otel lam cald",
-      "um": "",
+      "um": "m",
       "cantitate": 0.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
@@ -13035,7 +13016,7 @@
     {
       "cod": "$8813867",
       "denumire": "-piesa de trecere prin camin pvc-beton d 200mm",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.3-03",
       "deviz_denumire": "Camine canal menajer 7b",
@@ -13110,28 +13091,9 @@
     },
     {
       "cod": "TRI1AC13B1",
-      "denumire": "descarcare mat.deplas prin purtare pina la 10m ase zare contrib asig munca % total chelt directe io = % x to po = % x (to+io) vo = to+io+po a formular f3 executant0413 obiectiv01 obi4.3",
+      "denumire": "descarcare mat.deplas prin purtare pina la 10m ase zare contrib asig munca % total chelt directe io = % x to po = % x (to+io) vo = to+io+po a",
       "um": "tona",
       "cantitate": 19.5,
-      "deviz": "4.3-03",
-      "deviz_denumire": "Camine canal menajer 7b",
-      "is_component": false,
-      "parent_code": null,
-      "subcomponents": [],
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CATE03",
-      "denumire": "",
-      "um": "",
-      "cantitate": 0.0,
       "deviz": "4.3-03",
       "deviz_denumire": "Camine canal menajer 7b",
       "is_component": false,
@@ -13210,7 +13172,7 @@
     {
       "cod": "$3270742",
       "denumire": "-filtru de apa pentru impuritati y 1 1/4'",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.3-05",
       "deviz_denumire": "Instalatii camin apometru",
@@ -13267,7 +13229,7 @@
     {
       "cod": "$3903760",
       "denumire": "- reductie e 48 x 4 34 x 3,5 olt 35kii s 8810",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.3-05",
       "deviz_denumire": "Instalatii camin apometru",
@@ -13687,7 +13649,7 @@
     {
       "cod": "$8812170",
       "denumire": "-racord compres.flansa d 75 x 2' 1/2",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -13725,7 +13687,7 @@
     {
       "cod": "$8812166",
       "denumire": "-racord compres.flansa d 50 x 1' 1/2",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -13961,7 +13923,7 @@
     {
       "cod": "$8802192",
       "denumire": "-teu otel 1 1/2'",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
@@ -14236,7 +14198,7 @@
     },
     {
       "cod": "TRI1AC12C6",
-      "denumire": "descarcare mat.deplas prin purtare pina la 10m, fra contrib asig munca % total chelt directe io = % x to po = % x (to+io) vo = to+io+po ₼ formular f3 executant0413 obiectiv01 obi4.3",
+      "denumire": "descarcare mat.deplas prin purtare pina la 10m, fra contrib asig munca % total chelt directe io = % x to po = % x (to+io) vo = to+io+po ₼",
       "um": "tona",
       "cantitate": 0.6,
       "deviz": "4.3-06",
@@ -14711,7 +14673,7 @@
     {
       "cod": "$8813810",
       "denumire": "-teava canal pvc cu mufa sn4 d=110x3, 0mm l=6m",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.3-08",
       "deviz_denumire": "Conducte canal incinta",
@@ -14749,7 +14711,7 @@
     {
       "cod": "$8813815",
       "denumire": "-teava canal pvc cu mufa sn4 d=160x4, 0mm l=6m",
-      "um": "",
+      "um": "buc",
       "cantitate": 0.0,
       "deviz": "4.3-08",
       "deviz_denumire": "Conducte canal incinta",
@@ -14904,7 +14866,7 @@
     },
     {
       "cod": "TRI1AC01C6",
-      "denumire": "incarcare mat, deplas prin purtare pina la 10m, fra ₼ formular f3 executant0413 obiectiv01 obi4.3 cate 08",
+      "denumire": "incarcare mat, deplas prin purtare pina la 10m, fra ₼",
       "um": "tona",
       "cantitate": 2.1,
       "deviz": "4.3-08",
@@ -14913,7 +14875,7 @@
       "parent_code": null,
       "subcomponents": [],
       "pret_material": 0.0,
-      "val_material": 1.0,
+      "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
       "pret_utilaj": 0.0,
@@ -15000,7 +14962,7 @@
     {
       "cod": "$2904054",
       "denumire": "-dulapi molid-brad cl a tiv.g=28-58mml=4-6 mm lt=7-15cm l:lc03b -0002:2903490 -scind rasin lunga tiv cls a gr=18mm l=3,50m s 942 l: lc04c -0026:2900981 -lemn rot ptr piloti din ras.l=10-12m l:lc05b -0008:5886760 -cuie cu cap conic tip a1 1,8 x 35 ol34 s 2111",
-      "um": "",
+      "um": "mp",
       "cantitate": 0.0,
       "deviz": "4.3-04",
       "deviz_denumire": "Camin vane 1 b 1,9x1,9x1,5m",
@@ -15733,28 +15695,9 @@
     },
     {
       "cod": "TRI1AC12C6",
-      "denumire": "descarcare mat.gr c-ambalate, sub 10kg deplas prin contrib asig munca % total chelt directe io = % x to po = % x (to+io) ₼ formular f3 executant0413 obiectiv01 obi4.2",
+      "denumire": "descarcare mat.gr c-ambalate, sub 10kg deplas prin contrib asig munca % total chelt directe io = % x to po = % x (to+io) ₼",
       "um": "tona",
       "cantitate": 3.95,
-      "deviz": "4.2-2",
-      "deviz_denumire": "Structura",
-      "is_component": false,
-      "parent_code": null,
-      "subcomponents": [],
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "CATE2",
-      "denumire": "",
-      "um": "",
-      "cantitate": 0.0,
       "deviz": "4.2-2",
       "deviz_denumire": "Structura",
       "is_component": false,

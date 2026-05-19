@@ -979,9 +979,9 @@ def match_global(
             ref_um = (ref_art.get('um') or '').strip()
             oferta_um = nc.get('oferta_um', '').strip()
 
-            if not ref_um and oferta_um:
-                # Reference has empty UM, offer has non-empty → lenient match
-                logger.debug(f"[COMP] Lenient match: {oferta_cod} (ref UM=empty, oferta UM={oferta_um})")
+            if oferta_um and ref_um != oferta_um:
+                # UM mismatch (ref empty or inherited-but-different) → lenient match
+                logger.debug(f"[COMP] Lenient match: {oferta_cod} (ref UM={ref_um!r}, oferta UM={oferta_um})")
                 # Add UM_DIFERIT nonconformity
                 neconformitati.append({
                     'tip': 'UM_DIFERIT',
