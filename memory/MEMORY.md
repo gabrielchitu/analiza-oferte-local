@@ -1,2 +1,3 @@
 - [2026-05-19 LIPSA Fixes](session_2026_05_19_lipsa_fixes.md) — Root cause analysis of 3 LIPSA codes; fixed bracket suffix + metadata finalization
 - [2026-05-19 Filter Field Fix](session_2026_05_19_filter_field_fix.md) — ROOT CAUSE: field name mismatch (descriere→denumire) in $ code filter; $6720363 now matched
+- [2026-05-19 EXTRA Investigation](session_2026_05_19_extra_investigation.md) — 87% of EXTRA codes are extraction gaps in referinta; preprocessor for scattered format; code 5102437 now extracted

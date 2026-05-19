@@ -172,7 +172,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$3034",
+      "cod": "$4803034",
       "denumire": "cablu energie cyaby 0,6 / 1kv 4x 6 us 8778 -",
       "um": "m",
       "cantitate": 52.0,
@@ -181,7 +181,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 11.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -333,7 +333,7 @@
       "is_component": false,
       "parent_code": "LCD05XA",
       "subcomponents": [],
-      "pret_material": 19.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -343,7 +343,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1949",
+      "cod": "$9001949",
       "denumire": "panou de identificare a greutate materiale (tone) ore manopera material recapitulatie valoare material contribuția asiguratorie pentru muncă devize (www.edevize.ro) antet stanga edevize recapitulatie valoare material beneficiu t4 = t3 + beneficiu director sef proiect ofertant, sc global electro construct srl devize (www.edevize.ro)",
       "um": "buc",
       "cantitate": 1.0,
@@ -2168,7 +2168,7 @@
     },
     {
       "cod": "$6720360",
-      "denumire": "fereastra tamplarie pvc geam dublutermoizolant (interior } 01842a11 - profil metalic protectie perete - material: manopera: utilaj: transport: 51.1 m",
+      "denumire": "fereastra tamplarie pvc geam dublutermoizolant (interior } 51 01842a11 - profil metalic protectie perete - material: manopera: utilaj: transport: 51.1 m",
       "um": "mp",
       "cantitate": 26.27,
       "deviz": "4.1-04",
@@ -2814,7 +2814,7 @@
     },
     {
       "cod": "CK26A",
-      "denumire": "glafuri interioare pvc - material: manopera: utilaj: transport: 8 ce10xa - glaf ext din tabla prevopsita m 41.50 material: manopera: utilaj: transport: 01311a1 - banda etansare tamplarie - material: manopera: utilaj: transport: 9.0 m",
+      "denumire": "glafuri interioare pvc - material: manopera: utilaj: transport: 8 ce10xa - glaf ext din tabla prevopsita m 41.50 material: manopera: utilaj: transport: 9 01311a1 - banda etansare tamplarie - material: manopera: utilaj: transport: 9.0 m",
       "um": "m",
       "cantitate": 41.5,
       "deviz": "4.1-03",
@@ -3631,7 +3631,7 @@
     },
     {
       "cod": "CO10A",
-      "denumire": "sistem perete trapa rei - 180 - material: manopera: utilaj: transport: 01501a1 - vata minerala bazaltica 30cm - material: manopera: utilaj: transport: 40.1 mp",
+      "denumire": "sistem perete trapa rei - 180 - material: manopera: utilaj: transport: 40 01501a1 - vata minerala bazaltica 30cm - material: manopera: utilaj: transport: 40.1 mp",
       "um": "mp",
       "cantitate": 47.04,
       "deviz": "4.1-03",
@@ -4239,15 +4239,34 @@
     },
     {
       "cod": "EA02B1",
-      "denumire": "tub ipey 32 mm - material: manopera: utilaj: transport: w2k02h - tub gofrat 50 mm - material: manopera: utilaj: transport: m",
+      "denumire": "tub ipey 32 mm - material: manopera: utilaj: transport:",
       "um": "m",
       "cantitate": 20.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
       "is_component": false,
-      "parent_code": null,
+      "parent_code": "W2H05A",
       "subcomponents": [],
-      "pret_material": 100.0,
+      "pret_material": 0.0,
+      "val_material": 0.0,
+      "pret_manopera": 0.0,
+      "val_manopera": 0.0,
+      "pret_utilaj": 0.0,
+      "val_utilaj": 0.0,
+      "pret_transport": 0.0,
+      "val_transport": 0.0
+    },
+    {
+      "cod": "W2K02H",
+      "denumire": "tub gofrat 50 mm - material: manopera: utilaj: transport:",
+      "um": "m",
+      "cantitate": 100.0,
+      "deviz": "4.1-05",
+      "deviz_denumire": "Inst electrice tip I",
+      "is_component": false,
+      "parent_code": "W2H05A",
+      "subcomponents": [],
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -4513,7 +4532,7 @@
       "is_component": false,
       "parent_code": "$0106",
       "subcomponents": [],
-      "pret_material": 19.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -7430,7 +7449,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1001",
+      "cod": "$2101001",
       "denumire": "mortar m 100 t- (m.f.c.) -",
       "um": "mc",
       "cantitate": 0.5,
@@ -7439,7 +7458,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 55.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -7449,7 +7468,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$2741",
+      "cod": "$6202741",
       "denumire": "energie electrica la contor pt lucrari de constr - m ontaj",
       "um": "kwh",
       "cantitate": 50.0,
@@ -7458,7 +7477,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 56.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -7715,8 +7734,8 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$2835",
-      "denumire": "freon - 00612d6 - refnet indice de capacitate < 200 bucat a",
+      "cod": "$7322835",
+      "denumire": "freon -",
       "um": "tona",
       "cantitate": 70.0,
       "deviz": "4.1-10",
@@ -7724,8 +7743,8 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 72.0,
-      "val_material": 3.0,
+      "pret_material": 0.0,
+      "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
       "pret_utilaj": 0.0,
@@ -7734,8 +7753,8 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$8817768",
-      "denumire": "colector bara 1 1/4 ' -4 circ capete termost . eurocon 3/4 '",
+      "cod": "00612D6",
+      "denumire": "refnet indice de capacitate < 200 a",
       "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.1-10",
@@ -7753,8 +7772,8 @@
       "val_transport": 0.0
     },
     {
-      "cod": "00612D6",
-      "denumire": "refnet indice de capacitate < 290 a",
+      "cod": "$8817768",
+      "denumire": "colector bara 1 1/4 ' -4 circ capete termost . eurocon 3/4 '",
       "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.1-10",
@@ -11819,7 +11838,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1221",
+      "cod": "$7321221",
       "denumire": "antigel solar -",
       "um": "tona",
       "cantitate": 100.0,
@@ -11828,7 +11847,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 16.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14925,7 +14944,7 @@
       "is_component": false,
       "parent_code": "$1109",
       "subcomponents": [],
-      "pret_material": 14.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14935,7 +14954,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9764",
+      "cod": "$9999764",
       "denumire": "tubulatura circulara din tabla galvanizata 200 mm",
       "um": "m",
       "cantitate": 6.0,
@@ -14944,7 +14963,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 15.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14954,7 +14973,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9766",
+      "cod": "$9999766",
       "denumire": "tubulatura circulara din tabla galvanizata 315 mm",
       "um": "m",
       "cantitate": 18.0,
@@ -14963,7 +14982,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 16.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14973,7 +14992,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9768",
+      "cod": "$9999768",
       "denumire": "tubulatura circulara din tabla galvanizata 355 mm",
       "um": "m",
       "cantitate": 6.0,
@@ -14982,7 +15001,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 17.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14992,7 +15011,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9767",
+      "cod": "$9999767",
       "denumire": "tubulatura circulara din tabla galvanizata 400 mm",
       "um": "m",
       "cantitate": 69.0,
@@ -15001,7 +15020,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 18.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -15011,7 +15030,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9769",
+      "cod": "$9999769",
       "denumire": "tubulatura circulara din tabla galvanizata 500 mm",
       "um": "m",
       "cantitate": 9.0,
@@ -15020,7 +15039,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 19.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -15258,7 +15277,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1878",
+      "cod": "$7801878",
       "denumire": "banda autocolanta aluminiu -",
       "um": "m",
       "cantitate": 300.0,
@@ -15267,7 +15286,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 35.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -15277,7 +15296,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$6421",
+      "cod": "$8806421",
       "denumire": "silicon etansare 280ml a kg",
       "um": "buc",
       "cantitate": 20.0,
@@ -20886,6 +20905,25 @@
       "denumire": "imbracaminte de beton asfaltic cu agregat mare, ex ec la cald, 6cm, astern mec ba16 6cm",
       "um": "mp",
       "cantitate": 345.0,
+      "deviz": "4.4-2",
+      "deviz_denumire": "Parcare",
+      "is_component": false,
+      "parent_code": null,
+      "subcomponents": [],
+      "pret_material": 0.0,
+      "val_material": 0.0,
+      "pret_manopera": 0.0,
+      "val_manopera": 0.0,
+      "pret_utilaj": 0.0,
+      "val_utilaj": 0.0,
+      "pret_transport": 0.0,
+      "val_transport": 0.0
+    },
+    {
+      "cod": "$1000004",
+      "denumire": "beton asfaltic tip ba16 -",
+      "um": "tona",
+      "cantitate": 49.68,
       "deviz": "4.4-2",
       "deviz_denumire": "Parcare",
       "is_component": false,

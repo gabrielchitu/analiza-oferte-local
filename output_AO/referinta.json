@@ -58,7 +58,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$0546",
+      "cod": "$3270546",
       "denumire": "tomberon gunoi",
       "um": "buc",
       "cantitate": 1.0,
@@ -77,7 +77,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$6934",
+      "cod": "$8806934",
       "denumire": "pubele diferentiate",
       "um": "buc",
       "cantitate": 3.0,
@@ -96,7 +96,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$0800",
+      "cod": "$9000800",
       "denumire": "pichet securitate incendiu",
       "um": "buc",
       "cantitate": 1.0,
@@ -105,7 +105,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 7.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -134,7 +134,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$0332",
+      "cod": "$9000332",
       "denumire": "tablou electric organizare de santier",
       "um": "buc",
       "cantitate": 1.0,
@@ -143,7 +143,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 9.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -172,7 +172,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$3034",
+      "cod": "$4803034",
       "denumire": "cablu energie cyaby 0,6/ 1kv 4x 6 u s 87",
       "um": "m",
       "cantitate": 52.0,
@@ -181,8 +181,8 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 78.0,
-      "val_material": 11.0,
+      "pret_material": 0.0,
+      "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
       "pret_utilaj": 0.0,
@@ -2558,7 +2558,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$0611",
+      "cod": "$7800611",
       "denumire": "polistiren extrudat rugos xps-r baumit 60 x 125 x 10 cm",
       "um": "mp",
       "cantitate": 107.0,
@@ -2567,7 +2567,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 19.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -4100,7 +4100,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$2425",
+      "cod": "$5102425",
       "denumire": "lampa led 35w, 4000 lm, 840, 600x600 mm, ip20 montaj suspendat",
       "um": "buc",
       "cantitate": 111.0,
@@ -4119,7 +4119,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1610",
+      "cod": "$2001610",
       "denumire": "lampa led 35w, 4000 lm, 840, 600x600 mm, ip20, acu m aut 1h montaj aparent",
       "um": "buc",
       "cantitate": 9.0,
@@ -4138,7 +4138,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$2607",
+      "cod": "$3272607",
       "denumire": "lampa led 35w, 4000 lm, 840, 600x600 mm, ip20, acu m aut 3h montaj aparent",
       "um": "buc",
       "cantitate": 2.0,
@@ -4157,7 +4157,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$3792",
+      "cod": "$5103792",
       "denumire": "lampa led tip fipad, 16w, 2600 lm montaj aparent",
       "um": "buc",
       "cantitate": 5.0,
@@ -4176,7 +4176,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$2499",
+      "cod": "$5102499",
       "denumire": "lampa led 35w, 4000 lm, 840, 1200x300 mm, ip20 montaj suspendat in fata tablei",
       "um": "buc",
       "cantitate": 1.0,
@@ -4195,7 +4195,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$5156",
+      "cod": "$1565156",
       "denumire": "lampa led 20w, 1800 lm, 840, ip 20, echipata senzo r miscare montaj aparent,",
       "um": "buc",
       "cantitate": 3.0,
@@ -4214,7 +4214,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$2487",
+      "cod": "$5102487",
       "denumire": "lampa led 12w, 1900 lm, 840, ip 65 montaj aparent",
       "um": "buc",
       "cantitate": 2.0,
@@ -4233,7 +4233,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$2437",
+      "cod": "$5102437",
       "denumire": "corp ilumiinat aplica, led 1x10w, ip65, senzor mis care",
       "um": "buc",
       "cantitate": 22.0,
@@ -4252,7 +4252,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$2516",
+      "cod": "$5102516",
       "denumire": "corp ilumiinat aplica, led 1x10w, ip20, senzor mis care",
       "um": "buc",
       "cantitate": 17.0,
@@ -4271,7 +4271,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$3778",
+      "cod": "$5103778",
       "denumire": "lampa led tip fipad, 30w, 4300 lm, ip 65 montaj aparent",
       "um": "buc",
       "cantitate": 4.0,
@@ -4309,7 +4309,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$2463",
+      "cod": "$5102463",
       "denumire": "corp iluminat sigur marcare hidranti interiori, le d5w, ip44 echipata cu acumulator autonomie 1 ore",
       "um": "buc",
       "cantitate": 9.0,
@@ -4328,7 +4328,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$2449",
+      "cod": "$5102449",
       "denumire": "corp iluminat siguranta marcare cai evacuare, led 5w, ip44 acumulator autonomie 1 ore",
       "um": "buc",
       "cantitate": 26.0,
@@ -4337,7 +4337,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 16.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -4358,7 +4358,7 @@
       "subcomponents": [
         "9002013"
       ],
-      "pret_material": 17.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -4387,7 +4387,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$0354",
+      "cod": "$1300354",
       "denumire": "detector miscare, unghi detectie 360 º, raza detec tie 6 m",
       "um": "buc",
       "cantitate": 3.0,
@@ -4406,7 +4406,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$0118",
+      "cod": "$1500118",
       "denumire": "detector miscare, unghi detectie 180 º, raza detec tie 6 m",
       "um": "buc",
       "cantitate": 2.0,
@@ -4415,7 +4415,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 20.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -4437,7 +4437,7 @@
         "7309883",
         "7321166"
       ],
-      "pret_material": 21.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -4458,7 +4458,7 @@
       "subcomponents": [
         "6719263"
       ],
-      "pret_material": 22.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -4477,7 +4477,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 23.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -4850,7 +4850,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9074",
+      "cod": "$5709074",
       "denumire": "radiator din otel tip panou 22- h=600 si l= 600",
       "um": "buc",
       "cantitate": 2.0,
@@ -4869,7 +4869,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9076",
+      "cod": "$5709076",
       "denumire": "radiator din otel tip panou 22- h=600 si l= 800",
       "um": "buc",
       "cantitate": 1.0,
@@ -4878,7 +4878,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 7.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -4907,7 +4907,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9078",
+      "cod": "$5709078",
       "denumire": "radiator din otel tip panou 22- h=600 si l=1000",
       "um": "buc",
       "cantitate": 3.0,
@@ -4926,7 +4926,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9080",
+      "cod": "$5709080",
       "denumire": "radiator din otel tip panou 22- h=600 si l=1200",
       "um": "buc",
       "cantitate": 3.0,
@@ -4945,7 +4945,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9082",
+      "cod": "$5709082",
       "denumire": "radiator din otel tip panou 22- h=600 si l=1400",
       "um": "buc",
       "cantitate": 1.0,
@@ -4954,7 +4954,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 11.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -4983,7 +4983,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9083",
+      "cod": "$5709083",
       "denumire": "radiator din otel tip panou 22- h=600 si l=1600",
       "um": "buc",
       "cantitate": 6.0,
@@ -5002,7 +5002,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9216",
+      "cod": "$5709216",
       "denumire": "radiator din otel tip panou 33- h=600 si l=1600",
       "um": "buc",
       "cantitate": 2.0,
@@ -5011,7 +5011,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 14.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -5040,7 +5040,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9220",
+      "cod": "$5709220",
       "denumire": "radiator din otel tip panou 33- h=600 si l=2400",
       "um": "buc",
       "cantitate": 21.0,
@@ -5049,7 +5049,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 16.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -5916,7 +5916,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1001",
+      "cod": "$2101001",
       "denumire": "mortar m 100 t - ( m.f.c.)",
       "um": "mc",
       "cantitate": 0.5,
@@ -5935,7 +5935,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$2741",
+      "cod": "$6202741",
       "denumire": "energie electrica la contor pt lucrari de constr-m ontaj",
       "um": "kwh",
       "cantitate": 50.0,
@@ -5944,7 +5944,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 58.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -5963,7 +5963,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 59.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -5982,7 +5982,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 60.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -6001,7 +6001,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 61.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -6020,7 +6020,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 62.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -6039,7 +6039,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 63.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -6058,7 +6058,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 65.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -6077,7 +6077,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 66.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -6096,7 +6096,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 67.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -6201,29 +6201,10 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$2835",
-      "denumire": "freon 00612d6 02 bucata refnet indice de capacitate <200 asim",
+      "cod": "$7322835",
+      "denumire": "freon",
       "um": "tona",
       "cantitate": 70.0,
-      "deviz": "4.1-10",
-      "deviz_denumire": "Instalatii HAC - tip I",
-      "is_component": false,
-      "parent_code": null,
-      "subcomponents": [],
-      "pret_material": 75.0,
-      "val_material": 3.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "$8817768",
-      "denumire": "-colector bara 1 1/4'-4 circ capete termost eurocon 3/4'",
-      "um": "",
-      "cantitate": 0.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
       "is_component": false,
@@ -6240,9 +6221,28 @@
     },
     {
       "cod": "00612D6",
-      "denumire": "refnet indice de capacitate <290",
+      "denumire": "refnet indice de capacitate <200 asim",
       "um": "buc",
       "cantitate": 3.0,
+      "deviz": "4.1-10",
+      "deviz_denumire": "Instalatii HAC - tip I",
+      "is_component": false,
+      "parent_code": null,
+      "subcomponents": [],
+      "pret_material": 0.0,
+      "val_material": 0.0,
+      "pret_manopera": 0.0,
+      "val_manopera": 0.0,
+      "pret_utilaj": 0.0,
+      "val_utilaj": 0.0,
+      "pret_transport": 0.0,
+      "val_transport": 0.0
+    },
+    {
+      "cod": "$8817768",
+      "denumire": "-colector bara 1 1/4'-4 circ capete termost eurocon 3/4'",
+      "um": "",
+      "cantitate": 0.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
       "is_component": false,
@@ -8038,7 +8038,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$6114",
+      "cod": "$7806114",
       "denumire": "ramificatie pp fonoab.master 3 plus d.110/110 mm, 4 5 grd",
       "um": "buc",
       "cantitate": 13.0,
@@ -8057,7 +8057,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$6117",
+      "cod": "$7806117",
       "denumire": "ramificatie pp fonoab.master 3 plus d.110/50 mm, 45 grd",
       "um": "buc",
       "cantitate": 12.0,
@@ -8076,7 +8076,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$6099",
+      "cod": "$7806099",
       "denumire": "ramificatie pp fonoab.master 3 plus d.50/40 mm, 45 grd",
       "um": "buc",
       "cantitate": 2.0,
@@ -8095,7 +8095,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$6093",
+      "cod": "$7806093",
       "denumire": "ramificatie pp fonoab.master 3 plus d.40/32 mm, 45 grd",
       "um": "buc",
       "cantitate": 1.0,
@@ -8114,7 +8114,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$6092",
+      "cod": "$7806092",
       "denumire": "ramificatie pp fonoab.master 3 plus d.32/32 mm, 87 grd",
       "um": "buc",
       "cantitate": 1.0,
@@ -8123,7 +8123,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 69.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -8144,7 +8144,7 @@
       "subcomponents": [
         "8813498"
       ],
-      "pret_material": 70.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -8165,7 +8165,7 @@
       "subcomponents": [
         "8819012"
       ],
-      "pret_material": 71.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -8186,7 +8186,7 @@
       "subcomponents": [
         "3401827"
       ],
-      "pret_material": 72.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -9694,7 +9694,7 @@
     },
     {
       "cod": "EA02A2",
-      "denumire": "montaj tub de protectie rigid cu intarziere la pr opagarea focului, fara halogen 20 mm asimilat 0101hal - tub pvc 20 mm fara halogen m",
+      "denumire": "montaj tub de protectie rigid cu intarziere la pr opagarea focului, fara halogen 20 mm asimilat 5 0101hal - tub pvc 20 mm fara halogen m",
       "um": "m",
       "cantitate": 350.0,
       "deviz": "4.1-08",
@@ -11349,7 +11349,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9760",
+      "cod": "$9999760",
       "denumire": "tubulatura circulara din tabla galvanizata 100 mm",
       "um": "m",
       "cantitate": 3.0,
@@ -11368,7 +11368,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9761",
+      "cod": "$9999761",
       "denumire": "tubulatura circulara din tabla galvanizata 125mm",
       "um": "m",
       "cantitate": 6.0,
@@ -11377,7 +11377,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 8.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -11406,7 +11406,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1099",
+      "cod": "$9001099",
       "denumire": "cot 45° tubulatura circulara din tabla galvanizat a 100 mm",
       "um": "buc",
       "cantitate": 1.0,
@@ -11425,7 +11425,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1100",
+      "cod": "$9001100",
       "denumire": "cot 45° tubulatura circulara din tabla galvanizat a 125 mm",
       "um": "buc",
       "cantitate": 1.0,
@@ -11434,7 +11434,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 11.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -11463,7 +11463,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1109",
+      "cod": "$9001109",
       "denumire": "cot 90° tubulatura circulara din tabla galvanizata 500 mm",
       "um": "buc",
       "cantitate": 1.0,
@@ -11472,7 +11472,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 13.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -11501,7 +11501,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9764",
+      "cod": "$9999764",
       "denumire": "tubulatura circulara din tabla galvanizata 200 mm",
       "um": "m",
       "cantitate": 6.0,
@@ -11539,7 +11539,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9767",
+      "cod": "$9999767",
       "denumire": "tubulatura circulara din tabla galvanizata 400 mm",
       "um": "m",
       "cantitate": 69.0,
@@ -11558,7 +11558,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9769",
+      "cod": "$9999769",
       "denumire": "tubulatura circulara din tabla galvanizata 500 mm",
       "um": "m",
       "cantitate": 9.0,
@@ -11567,7 +11567,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 19.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -11596,7 +11596,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1106",
+      "cod": "$9001106",
       "denumire": "cot 90° tubulatura circulara din tabla galvanizata 200 mm",
       "um": "buc",
       "cantitate": 2.0,
@@ -11615,7 +11615,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1107",
+      "cod": "$9001107",
       "denumire": "cot 90° tubulatura circulara din tabla galvanizata 315 mm",
       "um": "buc",
       "cantitate": 2.0,
@@ -11634,7 +11634,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1108",
+      "cod": "$9001108",
       "denumire": "cot 90° tubulatura circulara din tabla galvanizata 400 mm",
       "um": "buc",
       "cantitate": 9.0,
@@ -11653,7 +11653,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1110",
+      "cod": "$9001110",
       "denumire": "teu tubulatura circulara din tabla galvanizata 125 mm",
       "um": "buc",
       "cantitate": 4.0,
@@ -11662,7 +11662,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 24.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -11691,7 +11691,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1118",
+      "cod": "$9001118",
       "denumire": "teu tubulatura circulara din tabla galvanizata 500 mm",
       "um": "buc",
       "cantitate": 2.0,
@@ -11700,7 +11700,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 26.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -11719,7 +11719,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 27.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -11738,7 +11738,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 28.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -11757,7 +11757,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 29.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -11776,7 +11776,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 31.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -11805,7 +11805,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1878",
+      "cod": "$7801878",
       "denumire": "banda autocolanta aluminiu 30 buc de 30 m",
       "um": "m",
       "cantitate": 300.0,
@@ -11824,7 +11824,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$6421",
+      "cod": "$8806421",
       "denumire": "silicon etansare 280ml",
       "um": "buc",
       "cantitate": 20.0,
@@ -11843,7 +11843,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$3749",
+      "cod": "$6103749",
       "denumire": "vopsea antifoc de tip hilti cfs-ct antifoc art asim",
       "um": "tona",
       "cantitate": 36.0,
@@ -11862,7 +11862,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$3951",
+      "cod": "$7803951",
       "denumire": "mastic acrilic antifoc hilti cfs acr litru",
       "um": "",
       "cantitate": 21.0,
@@ -11871,7 +11871,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 38.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -12173,7 +12173,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9862",
+      "cod": "$7309862",
       "denumire": "colier metalic cu strangere cu surub tip 29/42",
       "um": "buc",
       "cantitate": 37.0,
@@ -12182,7 +12182,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 52.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -12193,7 +12193,7 @@
     },
     {
       "cod": "SA33B",
-      "denumire": "conf si mont tevii de protectie, otel pt instal., neagra, la trecerea conduct prin plansee d=1 1/4' l: sl47 -0003:3304859 -teava inst.neagra nefil.m - 32 (1 1/4) ol 32 1 s 7656 82 lei material marunt",
+      "denumire": "conf si mont tevii de protectie, otel pt instal., neagra, la trecerea conduct prin plansee d=1 1/4' l: sl47 -0003:3304859 -teava inst.neagra nefil.m - 32 (1 1/4) ol 32 1 s 7656",
       "um": "buc",
       "cantitate": 15.0,
       "deviz": "4.1-12",
@@ -12203,9 +12203,9 @@
       "subcomponents": [
         "3304859"
       ],
-      "pret_material": 53.0,
-      "val_material": 5590.0,
-      "pret_manopera": 54.0,
+      "pret_material": 0.0,
+      "val_material": 0.0,
+      "pret_manopera": 0.0,
       "val_manopera": 0.0,
       "pret_utilaj": 0.0,
       "val_utilaj": 0.0,
@@ -13326,7 +13326,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1855",
+      "cod": "$8811855",
       "denumire": "trecere sudata pehd/ol d 50/ 1' 1/2",
       "um": "buc",
       "cantitate": 2.0,
@@ -13335,7 +13335,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 6.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -13687,7 +13687,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$5078",
+      "cod": "$4625078",
       "denumire": "sorb simplu cu flanse pu dn=100 pn=10 s",
       "um": "buc",
       "cantitate": 1.0,
@@ -13696,7 +13696,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 13.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -13717,7 +13717,7 @@
       "subcomponents": [
         "7336056"
       ],
-      "pret_material": 14.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14486,7 +14486,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$6328",
+      "cod": "$8816328",
       "denumire": "mufa electrosudabila pehd gf/w d 50 mm",
       "um": "buc",
       "cantitate": 12.0,
@@ -14505,7 +14505,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$6330",
+      "cod": "$8816330",
       "denumire": "mufa electrosudabila pehd gf/w d 75 mm",
       "um": "buc",
       "cantitate": 4.0,
@@ -14514,7 +14514,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 7.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14543,7 +14543,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$5767",
+      "cod": "$8815767",
       "denumire": "cot pehd apa/gaz pe100 sdr11 injectat 90grd d 75 mm",
       "um": "buc",
       "cantitate": 2.0,
@@ -14562,7 +14562,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$5765",
+      "cod": "$8815765",
       "denumire": "cot pehd apa/gaz pe100 sdr11 injectat 90grd d 50 mm",
       "um": "buc",
       "cantitate": 5.0,
@@ -14571,7 +14571,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 10.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14593,7 +14593,7 @@
         "6102822",
         "6100334"
       ],
-      "pret_material": 11.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14641,7 +14641,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$9444",
+      "cod": "$6719444",
       "denumire": "dop prot capat teava polietilena, (pehd) d= 50mm",
       "um": "buc",
       "cantitate": 2.0,
@@ -14650,7 +14650,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 14.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14679,7 +14679,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$1743",
+      "cod": "$8811743",
       "denumire": "banda avertizare apa 11,5cm x 0,17mm",
       "um": "m",
       "cantitate": 140.0,
@@ -14688,7 +14688,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 16.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14707,7 +14707,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 17.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14726,7 +14726,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 18.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14745,7 +14745,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 19.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14764,7 +14764,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 20.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14783,7 +14783,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 21.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -14802,7 +14802,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 22.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
@@ -15930,7 +15930,7 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$8938",
+      "cod": "$2958938",
       "denumire": "tarusi din lemn",
       "um": "buc",
       "cantitate": 90.0,
@@ -16215,6 +16215,25 @@
       "val_transport": 0.0
     },
     {
+      "cod": "$1000004",
+      "denumire": "beton asfaltic tip ba16 20,7 mc",
+      "um": "tona",
+      "cantitate": 49.68,
+      "deviz": "4.4-2",
+      "deviz_denumire": "Parcare",
+      "is_component": false,
+      "parent_code": null,
+      "subcomponents": [],
+      "pret_material": 0.0,
+      "val_material": 0.0,
+      "pret_manopera": 0.0,
+      "val_manopera": 0.0,
+      "pret_utilaj": 0.0,
+      "val_utilaj": 0.0,
+      "pret_transport": 0.0,
+      "val_transport": 0.0
+    },
+    {
       "cod": "TRA01A25",
       "denumire": "transportul rutier al materialelor, semifabricatelo r cu autobasculante pe dist .= 25 km.",
       "um": "tona",
@@ -16224,7 +16243,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "pret_material": 12.0,
+      "pret_material": 0.0,
       "val_material": 0.0,
       "pret_manopera": 0.0,
       "val_manopera": 0.0,
