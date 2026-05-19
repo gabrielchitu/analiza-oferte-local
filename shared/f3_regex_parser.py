@@ -178,7 +178,7 @@ SKIP_RE = re.compile(
 # Supports both space and pipe separators: "6 CA01J1" or "6|CA01J1"
 NR_COD_DESC_RE = re.compile(
     r'^(\d{1,3})[\s|]+'
-    r'([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?'
+    r'([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?\d?'  # trailing \d? handles IC19XB1, TSA02F1 etc.
     r'|[A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z]?\d?'
     r'|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}'
     r'|\d{3,5}[A-Z]\d{1,3}(?!\d)'  # digit-letter-digit (00106B011, 01311A1, 02012A1)
@@ -969,6 +969,11 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         line = raw_line.strip()
         # Skip empty, price labels, and metadata codes — BUT NOT numeric codes in linked article mode
         skip_due_to_filter = SKIP_RE.search(line) or _PRICE_LABEL_RE.match(line)
+        # NR_COD_DESC_RE or NR_COD_CONCAT_RE matches are definitively article starts — never skip.
+        # SKIP_RE can false-positive on long descriptions emitted by the scatter preprocessor
+        # (e.g. "PESTE" in description triggers STE[\-\s] pattern).
+        if skip_due_to_filter and (NR_COD_DESC_RE.match(line) or NR_COD_CONCAT_RE.match(line)):
+            skip_due_to_filter = False
         # Finalize article before skipping metadata block (material:, manopera:, utilaj:, transport:)
         # This ensures that numeric codes after metadata (e.g., 6720363 after "transport:") are recognized as new articles
         if _PRICE_LABEL_RE.match(line) and state == _READING and cod:
