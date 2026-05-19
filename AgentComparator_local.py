@@ -294,6 +294,14 @@ def match_global(
 
     ref_component_cods = {_normalize_cod(a.get("cod", ""))
                           for a in ref_articole if a.get("is_component")}
+    # Also include explicit subcomponent codes stored in parent articles' 'subcomponents' field.
+    # Ofertants often list these as standalone articles (detailed resource breakdown) while the
+    # reference stores them as components of normative work items — they must not be EXTRA.
+    for _a in ref_articole:
+        for _sub in _a.get("subcomponents", []):
+            _sub_cod = _sub if isinstance(_sub, str) else _sub.get("cod", "")
+            if _sub_cod:
+                ref_component_cods.add(_normalize_cod(_sub_cod))
 
     # Multimaps: (deviz, cod) → [art, ...] sortat după cantitate.
     # Același cod poate apărea de N ori în același deviz cu cantități diferite (poziții diferite).
