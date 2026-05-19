@@ -18,47 +18,64 @@ Pipeline Python care:
 
 ---
 
-## Starea la 2026-05-12 (ultima sesiune)
+## Starea la 2026-05-20 (ultima sesiune)
 
-**Branch:** `main` — **Tag stabil:** `V2_2026.06.12`  
+**Branch:** `main`  
 **Repo local:** `/Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local`  
 **Date de test:** `input_AO/` — baza sportivă Răcari (1 referință + 3 oferte)
 
-### Ce s-a construit în ultima sesiune
+### Ce s-a construit în ultima sesiune (2026-05-19/20)
 
-#### 1. Deviz Reconciler (`shared/deviz_reconciler.py`)
-Mecanism de auto-reglare: dacă numărul de devize diferă între referință și o ofertă, sistemul re-scanează documentul DI pentru a găsi devizul lipsă fără a apela LLM.
+#### Fix 1: F3-order scattered format preprocessor
+**Fișier:** `shared/f3_regex_parser.py::_preprocess_scattered_format`  
+**Problema:** Preprocessorul detecta ordinea referinței (counter/CODE/UM/QTY/DEN) dar nu ordinea standard F3 (counter/CODE/DEN/UM/QTY). Coduri numerice bare (ex: `9000815`) pe pagini F3 eDevize (pag 128-129 of2) nu erau extrase.  
+**Fix:** Ramură nouă în `_preprocess_scattered_format`: când `is_valid_code=True` dar `is_valid_um=False`, scanează înainte (max 12 linii) pentru UM, colectând linii de descriere pe parcurs.  
+**Rezultat:** +16 matched, -9 LIPSA în Oferta 2.
 
-**Logică critică — entry condition:**
-- Codul devizului (ex: `226400`) trebuie găsit pe o pagină care are `STADIUL FIZIC:` în primele 8 linii
-- **NU** este suficient ca numărul să apară oriunde pe pagină (footer, FORMULAR C6, total)
-- Bug inițial fixat: găsea pagini FORMULAR C6 cu numărul în liste de resurse → marca 26 pagini greșit ca F3 → 513 articole false
+#### Fix 2: SKIP_RE guard pentru linii NR_COD_DESC_RE
+**Fișier:** `shared/f3_regex_parser.py` — bucla principală state machine  
+**Problema:** `SKIP_RE` are pattern `STE[\-\s]` care se potrivea cu `PESTE` în descrieri lungi emit de preprocessor (ex: "sapatura ... avand sub 1.00 m sau **PESTE** 1.00 m..."). Linia combinată `"1 TSA02F1 - Sapatura..."` era skip-uită înainte să ajungă la state machine.  
+**Fix:** Dacă `NR_COD_DESC_RE.match(line)` sau `NR_COD_CONCAT_RE.match(line)` — override `skip_due_to_filter=False`. Start de articol → nu se skip niciodată.  
+**Rezultat:** TSA02F1 (deviz 4.2-1) extras corect.
 
-#### 2. Fix matching Layer 2: N:M + filtru breviar
-
-**Problema:** Ofertanții scriu uneori `6752` în loc de `AUT6752` (fără prefix). Parserul extrage `6752` → `$6752` (normalizare corectă), dar Layer 2 era 1:1 nu N:M.
-
-**Fix aplicat în `AgentComparator_local.py::match_global`:**
-- Filtrare artefacte breviar din referință: `cantitate=0` cu UM gol sau majuscule (ex: `ORA`, `BUC`) → excluse din matching (sunt template entries, nu articole reale)
-- Layer 2 upgradeat de la 1:1 la N:M: toate instanțele cu același `norm_key` se potrivesc grupat
-
-**Rezultat Oferta 1:** LIPSA scăzut 22 → 9, matched crescut cu 6.
+#### Fix 3: NR_COD_DESC_RE trailing `\d?`
+**Fișier:** `shared/f3_regex_parser.py::NR_COD_DESC_RE`  
+**Problema:** `COD_NORM_STANDALONE_RE` are `\d?` la final (pentru coduri ca `IC19XB1`), dar `NR_COD_DESC_RE` nu. Linia combinată `"36 IC19XB1 - SUPORȚI..."` nu era parsată pentru că `1` după `IC19XB` rupe separator-ul.  
+**Fix:** Adăugat `\d?` la prima alternativă în `NR_COD_DESC_RE`.  
+**Rezultat:** IC19XB1 (4.1-12) și TRB05B25 (4.1-13) extrase corect.
 
 ---
 
-## Rezultate ultima rulare
+## Rezultate ultima rulare (2026-05-20 00:48)
 
-| Ofertă | matched | lipsa | extra | orphan |
-|--------|---------|-------|-------|--------|
-| Oferta 1 | 1376 | 9 | 26 | 7 |
-| Oferta 2 | 1375 | 13 | 7 | 6 |
-| Oferta 3 | 1352 | 35 | 13 | 6 |
+| Ofertă | matched | lipsa | extra | similar |
+|--------|---------|-------|-------|---------|
+| Oferta 1 | 1040 | 3 | 14 | 0 |
+| Oferta 2 | 1054 | 91 | 21 | 2 |
 
-### Devize cu situații speciale
-- `226113` (OF1) ≈ `226118` (REF) — 100% overlap, auto-remap, ofertant a renumerotat
-- `226400` (OF3) — deviz suplimentar: *montare lift persoane cu dizabilități*, absent din referință (pag 134, eDevize format) — **CORECT, nu bug**
-- `226728` (OF1) — *Cheltuieli conexe organizării de șantier*, absent din referință
-- `226F08` (REF) — *Amenajări exterioare*, absent din OF1 — posibil neinclus de ofertant
+### Analiza celor 91 LIPSA în Oferta 2
+
+| Categorie | Nr. | Detalii |
+|-----------|-----|---------|
+| GENUINELY_ABSENT | ~83 | Ofertantul nu a inclus articolele — neconformitate reală |
+| EXTRACTION_GAP | ~5 | Cod apare în resource list non-F3 (fals pozitiv în clasificare) |
+| MATCHING_FAIL | ~3 | Articol în oferta_2.json dar nematch-uit (cross-deviz orphan) |
+
+**Concluzie:** Majoritate LIPSA sunt reale, nu bug-uri de extracție.
+
+---
+
+## Commits sesiunea curentă
+
+```
+fix(parser): extract breviar codes in F3-order scattered format
+fix(parser): handle SKIP_RE false-positives and codes with trailing digit
+fix(comparator): suppress subcomponent codes from ARTICOL_EXTRA
+fix(extractor): stop non-F3 pages from being promoted into deviz extraction
+fix(comparator): populate ref_denumire from ref_art in lenient UM_DIFERIT records
+fix(parser): fix scatter UM misidentification for multi-word descriptions
+fix(parser): recover articles lost at page boundaries and mixed-code formats
+```
 
 ---
 
@@ -67,17 +84,18 @@ Mecanism de auto-reglare: dacă numărul de devize diferă între referință ș
 ```
 local_run.py
 │
-├── extract_document(referinta)
+├── extract_document(referinta/oferta)
 │   ├── f3_page_classifier.py   → clasificare pagini F3/NON_F3 (LLM + heuristic)
 │   ├── f3_extractor.py         → extragere articole din pagini clasificate
 │   └── f3_regex_parser.py      → parser regex linii brute DI
+│       ├── _preprocess_scattered_format()  → combină linii separate (2 ordine)
+│       ├── _preprocess_compound_um()
+│       └── extract_articles_regex()         → state machine principal
 │
 ├── deviz_reconciler.py         → auto-heal devize lipsă (FĂRĂ LLM)
-│   └── _find_deviz_page_range  → caută STADIUL FIZIC + cod în toate paginile
 │
 └── compare_and_report()
     ├── deviz_normalizer.py     → normalizare coduri deviz OCR
-    ├── deviz_mismatch_detector → devize cu cod diferit dar conținut similar
     ├── AgentComparator_local   → matching 6 straturi
     │   ├── Layer 1: exact N:M (deviz+cod)
     │   ├── Layer 2: normalized N:M (AUT6752→$6752, O→0, l→1)
@@ -90,58 +108,38 @@ local_run.py
 ```
 
 **Checkpoint sistem:** `output_AO/checkpoints/di_X_page_classes_<md5_hash>.json`  
-Hash = MD5 pe sursa `f3_page_classifier.py` → invalidat automat la modificări.  
-Flag `_reclf_checked=True` → pagina verificată de LLM, nu se mai apelează în run-uri viitoare.
+Hash = MD5 pe sursa `f3_page_classifier.py` → invalidat automat la modificări.
 
 ---
 
-## Normalizare coduri articol
+## Ce rămâne de investigat
 
-```python
-# _normalize_cod în AgentComparator_local.py
-"$3271724"  →  "$3271724"   # breviar propriu, prefix $ păstrat
-"AUT6752"   →  "$6752"      # utilaj: prefix litere strip, sufix numeric cu $
-"6752"      →  "$6752"      # bare numeric → $-prefix
-"TSC02D11"  →  "TSC02D11"   # cod normativ interleaved (nemodificat)
-"RPCR21O#"  →  "RPCR21C"    # O→0, strip # suffix
-```
-
----
-
-## Ce rămâne de investigat / îmbunătățit
-
-1. **LIPSA rămase (9 în OF1, 13 în OF2, 35 în OF3):** unele sunt cross-deviz (orphan nedetectat complet), altele pot fi reale. Necesită verificare manuală.
-2. **EXTRA 26 în OF1:** unele pot fi din extracție greșită. Investigare pagini breviar nefiltrate.
-3. **UM_DIFERIT 66 în OF2:** volum mare, probabil OCR unitate de măsură (`ora` vs `ORA`, `mp` vs `MP`). Normalizare UM ar reduce zgomotul.
-4. **Coduri `226F08` cu literă în poziție numerică:** verificat că e cod real (nu confuzie OCR). Mismatch-urile legate de el sunt reale.
-5. **Raport DOCX:** secțiunea `EROARE_EXTRACTIE` (devize negăsite de reconciler) nu e încă adăugată în raport — apare doar în log.
+1. **LIPSA 3 în OF1** — minor, posibil cross-deviz orphan nedetectat
+2. **EXTRA 14 în OF1** — minor, posibil extracție greșită sau articole genuine extra
+3. **LIPSA 91 în OF2** — ~83 reale (nu bug-uri). Cele ~5 din resource list pot fi excluse din raport printr-un filtru de tip "articol absent dar present în breviar"
+4. **Raport DOCX** — secțiunea `EROARE_EXTRACTIE` (devize negăsite de reconciler) nu e încă adăugată în raport — apare doar în log
 
 ---
 
 ## Comenzi utile
 
 ```bash
-# Clonare pe mașină nouă
-git clone <repo_url>
-cd analiza-oferte-local
-python -m venv .venv && .venv/bin/pip install -r requirements.txt
-cp .env.example .env   # adaugă ANTHROPIC_API_KEY
-
 # Rulare
 .venv/bin/python local_run.py
 
 # Teste
-.venv/bin/python -m pytest tests/ -v
+.venv/bin/python -m pytest tests/ -v --ignore=tests/test_compound_deviz_extraction.py
 
 # Re-clasificare completă (șterge cache LLM)
 rm output_AO/checkpoints/*.json && .venv/bin/python local_run.py
 
-# Verificare rapidă devize
+# Verificare rapidă metrici
 python3 -c "
-import json; from pathlib import Path
-ref = json.loads(Path('output_AO/referinta.json').read_text())
-devize = sorted(set(a.get('deviz','') for a in ref['articole'] if a.get('deviz')))
-print(f'Referinta: {len(devize)} devize: {devize}')
+import json; from pathlib import Path; from collections import Counter
+for f in ['comparatie_oferta_1.json', 'comparatie_oferta_2.json']:
+    comp = json.loads(Path(f'output_AO/{f}').read_text())
+    by_tip = Counter(a.get('tip','?') for a in comp['neconformitati'])
+    print(f'{f}: matched={comp[\"matches\"]}', dict(sorted(by_tip.items())))
 "
 ```
 
@@ -150,6 +148,6 @@ print(f'Referinta: {len(devize)} devize: {devize}')
 ## Fișiere cheie de citit la reluare
 
 1. `docs/ARCHITECTURE.md` — arhitectura completă
-2. `shared/deviz_reconciler.py` — reconciler nou (sesiunea curentă)
-3. `AgentComparator_local.py` — motor matching, funcțiile `_normalize_cod` și `match_global`
-4. `local_run.py` — orchestrator, funcțiile `extract_document`, `compare_and_report`, `main`
+2. `shared/f3_regex_parser.py` — parser principal (scatter preprocessor + state machine)
+3. `AgentComparator_local.py` — motor matching
+4. `local_run.py` — orchestrator
