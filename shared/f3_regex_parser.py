@@ -403,6 +403,99 @@ def _make_article(cod: str, denumire: str, um: str, cantitate: float,
     return art
 
 
+def _preprocess_scattered_format(lines: List[str]) -> List[str]:
+    """
+    Combine scattered format where code, unit, quantity, description are on separate lines.
+
+    Detects pattern:
+        Line N: Counter (digits only, e.g., "9", "10")
+        Line N+1: Code (normativ/breviar, e.g., "5102437", "CK23A")
+        Line N+2: Unit (UM, e.g., "BUCATA", "mp")
+        Line N+3: Quantity (decimal number, e.g., "22,00000")
+        Line N+4+: Description (text, possibly multi-line)
+
+    Combines into single line: "CODE - Description text"
+
+    This format appears in some referinta pages (e.g., page 17).
+    """
+    result = []
+    i = 0
+    combined_count = 0
+    while i < len(lines):
+        line = lines[i].strip()
+
+        # Check for counter pattern: pure digits only
+        if not re.match(r'^\d+$', line):
+            result.append(lines[i])
+            i += 1
+            continue
+
+        # Potential counter found, check next 3 lines for code/um/qty pattern
+        if i + 3 >= len(lines):
+            result.append(lines[i])
+            i += 1
+            continue
+
+        next_code_line = lines[i + 1].strip()
+        next_um_line = lines[i + 2].strip()
+        next_qty_line = lines[i + 3].strip()
+
+        # Check if next line is a code (normativ, breviar, or digit-letter-digit pattern)
+        is_valid_code = (
+            # Normativ codes: CA01J1, CK23A, TSC35A22
+            re.match(r'^([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2})', next_code_line, re.IGNORECASE) or
+            # Extended codes: TRI1AA01C2
+            re.match(r'^([A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{1,4})', next_code_line, re.IGNORECASE) or
+            # Breviar: $5102437, $6720363
+            re.match(r'^(\$[A-Z0-9]{4,})', next_code_line, re.IGNORECASE) or
+            # Numeric: 5102437, 6720363
+            re.match(r'^(\d{4,9})(?!\d)', next_code_line)
+        )
+
+        # Check if UM line is valid (short text, looks like unit)
+        is_valid_um = (
+            len(next_um_line) < 20 and
+            re.match(r'^[A-Za-z\s\.]+$', next_um_line)
+        )
+
+        # Check if QTY line is valid (number with optional comma/dot)
+        is_valid_qty = re.match(r'^[\d\.,]+$', next_qty_line)
+
+        if is_valid_code and is_valid_um and is_valid_qty:
+            # Collect description lines (everything after qty until next code or counter)
+            desc_parts = []
+            j = i + 4
+            while j < len(lines):
+                desc_line = lines[j].strip()
+                # Stop at next counter pattern
+                if re.match(r'^\d+$', desc_line):
+                    break
+                # Stop at next code pattern (conservative check)
+                if (re.match(r'^[A-Z]{1,5}\d{1,4}', desc_line, re.IGNORECASE) or
+                        re.match(r'^(\$[A-Z0-9]{4,})', desc_line, re.IGNORECASE) or
+                        re.match(r'^(\d{4,9})(?!\d)', desc_line)):
+                    break
+                if desc_line:
+                    desc_parts.append(desc_line)
+                j += 1
+
+            # Combine into single line: CODE - DESCRIPTION
+            description = ' '.join(desc_parts)
+            combined_line = f"{next_code_line} - {description}"
+            result.append(combined_line)
+            combined_count += 1
+            logger.debug(f"[SCATTER] Combined scattered format: {next_code_line} with {len(desc_parts)} description lines")
+            i = j  # Skip processed lines
+            continue
+
+        result.append(lines[i])
+        i += 1
+
+    if combined_count > 0:
+        logger.info(f"[SCATTER] Combined {combined_count} scattered format groups")
+    return result
+
+
 def _preprocess_compound_um(lines: List[str]) -> List[str]:
     """
     Combină un număr bare + UM bare de pe linii consecutive într-o singură linie.
@@ -621,6 +714,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
     Returns:
         Lista de articole în formatul standard (compatibil AgentComparator).
     """
+    lines = _preprocess_scattered_format(lines)
     lines = _preprocess_compound_um(lines)
     lines = _merge_wrapped_codes(lines)
     articole: List[Dict] = []
