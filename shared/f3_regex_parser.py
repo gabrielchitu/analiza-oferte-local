@@ -505,6 +505,52 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
             i = j  # Skip processed lines
             continue
 
+        # Standard F3 order: counter → code → description(s) → UM → qty
+        # (eDevize format where columns are split across lines in F3 table order)
+        # Different from referinta scattered format which has UM before description.
+        if is_valid_code and not is_valid_um:
+            f3_desc_parts = []
+            f3_um = None
+            f3_qty = None
+            f3_um_idx = -1
+            for k in range(i + 2, min(i + 12, len(lines))):
+                candidate = lines[k].strip()
+                # Stop at next counter, code, price label, or skip pattern
+                if re.match(r'^\d+$', candidate):
+                    break
+                if (re.match(r'^[A-Z]{1,5}\d{1,4}', candidate, re.IGNORECASE) or
+                        re.match(r'^(\$[A-Z0-9]{4,})', candidate, re.IGNORECASE) or
+                        re.match(r'^(\d{4,9})(?!\d)', candidate)):
+                    break
+                if _PRICE_LABEL_RE.match(candidate) or (candidate and SKIP_RE.search(candidate)):
+                    break
+                # Check if this line is a valid UM token
+                _f3_um_tokens = candidate.upper().split()
+                is_f3_um = (
+                    len(candidate) < 20 and
+                    re.match(r'^[A-Za-z\s\.]+$', candidate) and
+                    bool(_f3_um_tokens) and
+                    _f3_um_tokens[0].rstrip('.') in UM_KNOWN
+                )
+                if is_f3_um:
+                    if k + 1 < len(lines) and re.match(r'^[\d\.,]+$', lines[k + 1].strip()):
+                        f3_um = candidate
+                        f3_qty = lines[k + 1].strip()
+                        f3_um_idx = k
+                    break
+                if candidate:
+                    f3_desc_parts.append(candidate)
+
+            if f3_um and f3_qty:
+                description = ' '.join(f3_desc_parts)
+                result.append(f"{line} {next_code_line} - {description}")
+                result.append(f3_um)
+                result.append(f3_qty)
+                combined_count += 1
+                logger.debug(f"[SCATTER-F3] Combined F3-order scattered: {line} {next_code_line}")
+                i = f3_um_idx + 2  # Skip to line after qty
+                continue
+
         result.append(lines[i])
         i += 1
 
