@@ -40,6 +40,12 @@ COD_SINGLE_MULTIDIGIT_RE = re.compile(
     r'^([A-Z]\d{2,3}[A-Z]\d{2}' + _COD_SUFFIX + r')\s*[-–]\s*(.+)',
     re.IGNORECASE
 )
+# Cod simplu single-letter + digits: A091, B123, X10 (format: L + 1-4D, optional L + opt D)
+# Used in some F3 forms alongside numeric codes
+COD_SIMPLE_LETTER_DIGITS_RE = re.compile(
+    r'^([A-Z]\d{1,4}[A-Z]?\d{0,2}' + _COD_SUFFIX + r')\s*[-–]\s*(.+)',
+    re.IGNORECASE
+)
 # Cod breviar cu $ prefix
 COD_BREVIAR_RE = re.compile(r'^(\$[A-Z0-9]{4,})\s*[-–]\s*(.+)', re.IGNORECASE)
 # Cod numeric pur 4-8 cifre cu – şi descriere; acceptă @ suffix şi bracket suffix [1], [2], etc.
@@ -744,7 +750,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         # Normalizeaza spatiu inainte de sufix bracket: "IA22C1 [1]" → "IA22C1[1]"
         s = re.sub(r'(?<=[A-Z0-9])\s+(\[\d)', r'\1', s, flags=re.IGNORECASE)
         # Formate cu separator –: breviar $COD, normativ (2+ litere), single-letter, single-multi-digit, digit-letter-digit, numeric
-        for pattern in (COD_BREVIAR_RE, COD_NORM_EXTENDED_RE, COD_NORM_RE, COD_NORM_SINGLE_RE, COD_SINGLE_MULTIDIGIT_RE, COD_DIGIT_LETTER_DIGIT_RE, COD_NUMERIC_RE):
+        for pattern in (COD_BREVIAR_RE, COD_NORM_EXTENDED_RE, COD_NORM_RE, COD_NORM_SINGLE_RE, COD_SIMPLE_LETTER_DIGITS_RE, COD_SINGLE_MULTIDIGIT_RE, COD_DIGIT_LETTER_DIGIT_RE, COD_NUMERIC_RE):
             m = pattern.match(s)
             if m:
                 cod_raw = m.group(1).strip().upper()
@@ -1205,6 +1211,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             if parsed_cod and not _numeric_den and (um != '' or cantitate != 0.0 or is_strong) and (
                     COD_NUMERIC_RE.match(line) or COD_NORM_RE.match(line)
                     or COD_NORM_EXTENDED_RE.match(line) or COD_BREVIAR_RE.match(line)
+                    or COD_SIMPLE_LETTER_DIGITS_RE.match(line)
                     or COD_NUMERIC_PIPE_RE.match(line) or COD_NORM_STANDALONE_RE.match(line_norm)
                     or COD_NORM_EXTENDED_STANDALONE_RE.match(line_norm)
                     or COD_NORM_SINGLE_STANDALONE_RE.match(line_norm)):
