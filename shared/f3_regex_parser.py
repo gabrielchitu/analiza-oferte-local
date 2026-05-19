@@ -453,10 +453,15 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
             re.match(r'^(\d{4,9})(?!\d)', next_code_line)
         )
 
-        # Check if UM line is valid (short text, looks like unit)
+        # Check if UM line is valid — must match a known UM token.
+        # Loose regex alone accepts description words like "T.TARE" (teren tare)
+        # which causes misidentification and wrong cantitate extraction.
+        _um_tokens = next_um_line.strip().upper().split()
         is_valid_um = (
             len(next_um_line) < 20 and
-            re.match(r'^[A-Za-z\s\.]+$', next_um_line)
+            re.match(r'^[A-Za-z\s\.]+$', next_um_line) and
+            bool(_um_tokens) and
+            _um_tokens[0].rstrip('.') in UM_KNOWN
         )
 
         # Check if QTY line is valid (number with optional comma/dot)

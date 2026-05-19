@@ -11820,25 +11820,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$7803951",
-      "denumire": "mastic acrilic antifoc hilti cfs acr litru",
-      "um": "",
-      "cantitate": 21.0,
-      "deviz": "4.1-12",
-      "deviz_denumire": "Instalatii ventilatii tip I",
-      "is_component": false,
-      "parent_code": null,
-      "subcomponents": [],
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "RPCU07B1",
       "denumire": "strapungeri pereti si plansee formular f3 executant0413 obiectiv01 obi4.1 cate 12",
       "um": "buc",
