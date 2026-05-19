@@ -33,25 +33,43 @@ def normalize_code(code):
 
 
 def search_di_pages_raw(di_data, code_pattern):
-    """Search pages for code pattern (raw search, case-insensitive)."""
+    """Search pages for code pattern (raw search, case-insensitive).
+
+    Also searches for prefix variants:
+    - $CODE → CODE (breviary format)
+    - CODE → $CODE (numeric code)
+    """
     results = []
     code_upper = code_pattern.upper()
+
+    # Generate variants to search
+    search_patterns = [code_upper]
+    if code_upper.startswith('$'):
+        # Also search for numeric version without $
+        search_patterns.append(code_upper[1:])
+    elif code_upper[0].isdigit() or code_upper[0].isalpha():
+        # Also search for breviary version with $
+        search_patterns.append('$' + code_upper)
+
     for page in di_data.get("pages", []):
         pnum = page["page_number"]
         lines = page.get("lines", [])
         for i, line in enumerate(lines):
             content = line.get("content", "")
-            if code_upper in content.upper():
-                # Extract context: 2 lines before and after
-                start = max(0, i - 2)
-                end = min(len(lines), i + 3)
-                ctx = [(j + 1, lines[j].get("content", "")) for j in range(start, end)]
-                results.append({
-                    "page": pnum,
-                    "line": i + 1,
-                    "match": content,
-                    "context": ctx,
-                })
+            for pattern in search_patterns:
+                if pattern in content.upper():
+                    # Extract context: 2 lines before and after
+                    start = max(0, i - 2)
+                    end = min(len(lines), i + 3)
+                    ctx = [(j + 1, lines[j].get("content", "")) for j in range(start, end)]
+                    results.append({
+                        "page": pnum,
+                        "line": i + 1,
+                        "match": content,
+                        "context": ctx,
+                        "pattern_found": pattern,
+                    })
+                    break  # Only report once per line
     return results
 
 
@@ -84,18 +102,42 @@ def find_variants(di_data, code, threshold=0.8):
     return list(set(variants))
 
 
-def extract_code_context(pages, code_match_line):
-    """Extract surrounding lines to understand deviz/stage info."""
-    # Look for patterns like "4.1-01" or stage indicators in nearby lines
+def extract_code_context(di_data, code_match_line):
+    """Extract surrounding lines to understand deviz/stage/parent code."""
     deviz_pattern = r'(\d+\.\d+(?:-\d+)?)'
+    code_pattern = r'\b([A-Z]{2,5}\d{2,4}[A-Z]?\d{0,2})\b'
     context_info = []
+
+    # Look backward from match to find parent code or deviz
+    matched_line_idx = code_match_line.get("line", 0) - 1  # Convert to 0-based
+    page_num = code_match_line.get("page", 0)
+
+    # Find the page
+    page_data = None
+    for p in di_data.get("pages", []):
+        if p["page_number"] == page_num:
+            page_data = p
+            break
+
+    if page_data:
+        lines = page_data.get("lines", [])
+        # Look at context (before/after the matched line)
+        search_range = lines[max(0, matched_line_idx - 5):min(len(lines), matched_line_idx + 5)]
+
+        # Extract parent code (look for codes before current match)
+        for i in range(max(0, matched_line_idx - 5), matched_line_idx):
+            line_content = lines[i].get("content", "")
+            parent_matches = re.findall(code_pattern, line_content.upper())
+            if parent_matches:
+                context_info.append(("parent_code", parent_matches[0]))
+                break
 
     for line_num, content in code_match_line.get("context", []):
         if re.search(deviz_pattern, content):
             match = re.search(deviz_pattern, content)
             if match:
                 context_info.append(("deviz", match.group(1)))
-        if any(word in content.upper() for word in ["LUCRARI", "CONSTRUCTII", "INCARCARE", "INLOCUIRE", "MONTARE"]):
+        if any(word in content.upper() for word in ["LUCRARI", "CONSTRUCTII", "INCARCARE", "INLOCUIRE", "MONTARE", "FEREASTRA", "TAMPLARIE"]):
             context_info.append(("stage", content[:80]))
 
     return context_info
@@ -106,15 +148,18 @@ def verify_lipsa_code(ref_code, deviz_ref, di_oferta, oferta_num, verbose=False)
     print(f"\n{'='*80}")
     print(f"[LIPSA] {ref_code:15s} deviz={deviz_ref}")
 
-    # Search 1: Exact code match
+    # Search 1: Exact code match (including prefix variants)
     exact_matches = search_di_pages_raw(di_oferta, ref_code)
 
     if exact_matches:
-        print(f"  ✓ FOUND (exact match)")
+        print(f"  ✓ FOUND")
         for match in exact_matches[:2]:  # Show max 2 matches
-            print(f"    Page {match['page']}, line {match['line']}: {match['match'][:70]}")
-            # Try to extract deviz from context
-            context_info = extract_code_context(di_oferta["pages"], match)
+            pattern_note = ""
+            if match.get("pattern_found") != ref_code.upper():
+                pattern_note = f" (found as: {match.get('pattern_found')})"
+            print(f"    Page {match['page']}, line {match['line']}: {match['match'][:70]}{pattern_note}")
+            # Try to extract deviz/parent code from context
+            context_info = extract_code_context(di_oferta, match)
             if context_info:
                 for info_type, info_val in context_info:
                     print(f"      {info_type}: {info_val[:60]}")
@@ -167,6 +212,41 @@ def main():
         result = verify_lipsa_code(ref_cod, deviz_ref, di_oferta, oferta_num, args.verbose)
         results[ref_cod] = result
 
+    # Detailed analysis
+    print(f"\n{'='*80}")
+    print(f"DETAILED ANALYSIS — OFERTA {oferta_num}:")
+    print()
+
+    # Check each code against extracted articles
+    with open(OUTPUT / f"oferta_{oferta_num}.json") as f:
+        oferta_data = json.load(f)
+
+    extracted_codes = {art['cod']: art for art in oferta_data['articole']}
+
+    for ref_cod in results.keys():
+        status = results[ref_cod]
+        print(f"{ref_cod:15s} → {status:20s}", end="")
+
+        # Additional checks
+        if status == "FOUND_EXACT":
+            # Check if extracted with same code
+            if ref_cod in extracted_codes:
+                print(" [EXTRACTED WITH SAME CODE]")
+            elif ref_cod.lstrip('$') in extracted_codes:
+                print(f" [EXTRACTED AS: {ref_cod.lstrip('$')}]")
+            elif ref_cod.startswith('$') and ref_cod[1:] in extracted_codes:
+                print(f" [EXTRACTED WITHOUT $ PREFIX]")
+            else:
+                # Check if it's a subcomponent of another code
+                for art_cod, art in extracted_codes.items():
+                    if ref_cod.lstrip('$') in art['denumire'].upper():
+                        print(f" [SUBCOMPONENT OF {art_cod}?]")
+                        break
+                else:
+                    print(" [FOUND IN SOURCE BUT NOT EXTRACTED]")
+        else:
+            print()
+
     # Summary
     print(f"\n{'='*80}")
     print(f"SUMMARY — OFERTA {oferta_num}:")
@@ -174,9 +254,9 @@ def main():
     found_variant = sum(1 for r in results.values() if r == "FOUND_VARIANT")
     genuine_lipsa = sum(1 for r in results.values() if r == "GENUINE_LIPSA")
 
-    print(f"  {found_exact:2d} codes found (exact match)")
+    print(f"  {found_exact:2d} codes found in source")
     print(f"  {found_variant:2d} codes with variants (OCR/misclassification suspects)")
-    print(f"  {genuine_lipsa:2d} genuine LIPSA (not in offer source)")
+    print(f"  {genuine_lipsa:2d} genuine LIPSA (not in source)")
     print(f"  {'='*80}")
 
 
