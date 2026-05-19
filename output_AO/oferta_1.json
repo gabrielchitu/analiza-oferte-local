@@ -20,25 +20,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "A091",
-      "denumire": "montare si demontare, transport container santier tip birou sau tip vestiare muncitori a",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "5.1-1",
-      "deviz_denumire": "Lucrari de constructii",
-      "is_component": false,
-      "parent_code": null,
-      "subcomponents": [],
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "SC16D1",
       "denumire": "montare si demontare, transport grup sanitar santi er a",
       "um": "buc",

@@ -20,25 +20,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "A091",
-      "denumire": "montare si demontare, transport container santier tip birou sau tip vestiare muncitori",
-      "um": "buc",
-      "cantitate": 1.0,
-      "deviz": "5.1-1",
-      "deviz_denumire": "Lucrari de constructii",
-      "is_component": false,
-      "parent_code": null,
-      "subcomponents": [],
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "SC16D1",
       "denumire": "montare si demontare, transport grup sanitar santi er",
       "um": "buc",
@@ -9026,48 +9007,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "S474",
-      "denumire": "dn 40 11/2 zn l: sl02d -0112:4120200",
-      "um": "-mufafontamaleabilam2",
-      "cantitate": 0.0,
-      "deviz": "4.1-14",
-      "deviz_denumire": "Inst sanit hidranti int tip II",
-      "is_component": false,
-      "parent_code": null,
-      "subcomponents": [
-        "4120200"
-      ],
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "S475",
-      "denumire": "40 11/2 zn l: sl02f -0181: 4123408 -niplu fonta maleabila n8 s478 dn 65 21/2 zn ds",
-      "um": "",
-      "cantitate": 0.0,
-      "deviz": "4.1-14",
-      "deviz_denumire": "Inst sanit hidranti int tip II",
-      "is_component": false,
-      "parent_code": null,
-      "subcomponents": [
-        "4123408"
-      ],
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "SA04F",
       "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 2 ' l: sl01 -0006:3306091 - teava inst zinc nefil.m - 50(2 ) ol 32 1 s 7656 l: sl02a -0024 : 4114172 -reductie fonta maleabila n4 s 477 50x 25 zn f2 l: sl02b -0058: 4115554 -teu fonta mal b1 s476 dn= 50 2 zn l: sl02c -0077:4118037 -cot fonta maleabila a1",
       "um": "m",
@@ -12135,25 +12074,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "S908",
-      "denumire": "",
-      "um": "",
-      "cantitate": 0.0,
-      "deviz": "4.1-12",
-      "deviz_denumire": "Instalatii ventilatii tip I",
-      "is_component": false,
-      "parent_code": null,
-      "subcomponents": [],
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "RPGA12H",
       "denumire": "montarea dispozitivelor de sustinere la conducte l a ø 45 mm si grosimea de 4, 5-6 mm cot )",
       "um": "buc",
@@ -13910,27 +13830,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "S475",
-      "denumire": "65 2 1/2 zn l: sl02f -0230: 4123381 -niplu fonta maleabila n8 s478 dn 65 21/2",
-      "um": "",
-      "cantitate": 0.0,
-      "deviz": "4.3-06",
-      "deviz_denumire": "Inst sanitare GospApa",
-      "is_component": false,
-      "parent_code": null,
-      "subcomponents": [
-        "4123381"
-      ],
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "SA04E",
       "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 1 1/2 ' l: sl01 -0014:3306376 -teava inst.zinc filet m - 40(1 1/2) ol 32 1 s 7656 l: sl02a -0010:4114005 -reductie fonta maleabila n4 s 477 32x 25 zn fi l: sl02b -0056: 4115528 -teu fonta mal b1 s476 dn= 40 11/2 zn l: sl02c -0075: 4118013 -cot fonta maleabila a1 s474 dn 40 11/2 zn l: sl02d -0112:4120200 -mufa fonta maleabila m2",
       "um": "m",
@@ -13956,25 +13855,6 @@
       "val_transport": 0.0
     },
     {
-      "cod": "S478",
-      "denumire": "40 11/2 zn ds",
-      "um": "",
-      "cantitate": 0.0,
-      "deviz": "4.3-06",
-      "deviz_denumire": "Inst sanitare GospApa",
-      "is_component": false,
-      "parent_code": null,
-      "subcomponents": [],
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
       "cod": "SA04C",
       "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 1 ' l: sl01 -0003:3306065 -teava inst.zinc nefil.m - 25 (1 ) ol 32 1 s 7656 l: sl02a -0005:4113908 -reductie fonta maleabila n4 s 477 25x 15 zn f2 l:sl02b -0052: 4115451 -teu fonta mal b1 s476 dn= 25 1 zn l: sl02c -0071: 4117954 -cot fonta maleabila az",
       "um": "m",
@@ -13988,27 +13868,6 @@
         "4113908",
         "4115451",
         "4117954"
-      ],
-      "pret_material": 0.0,
-      "val_material": 0.0,
-      "pret_manopera": 0.0,
-      "val_manopera": 0.0,
-      "pret_utilaj": 0.0,
-      "val_utilaj": 0.0,
-      "pret_transport": 0.0,
-      "val_transport": 0.0
-    },
-    {
-      "cod": "S474",
-      "denumire": "dn 25 1 zn l: sl02d -0108:4120169",
-      "um": "-mufafontamaleabilam2",
-      "cantitate": 0.0,
-      "deviz": "4.3-06",
-      "deviz_denumire": "Inst sanitare GospApa",
-      "is_component": false,
-      "parent_code": null,
-      "subcomponents": [
-        "4120169"
       ],
       "pret_material": 0.0,
       "val_material": 0.0,
