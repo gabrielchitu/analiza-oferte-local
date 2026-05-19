@@ -331,30 +331,6 @@
     },
     {
       "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.3-06",
-      "deviz_denumire": "Inst sanitare GospApa",
-      "is_component": false,
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "S475",
-      "oferta_denumire": "40 11/2 zn",
-      "oferta_um": "buc",
-      "oferta_cantitate": 0.05
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.2-2",
-      "deviz_denumire": "Structura",
-      "is_component": false,
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "RPCB02E",
-      "oferta_denumire": "beton c12/15 egalizare",
-      "oferta_um": "mc",
-      "oferta_cantitate": 2.17
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
       "deviz_ref": "5.1-1",
       "deviz_denumire": "Lucrari de constructii",
       "is_component": false,
@@ -372,22 +348,10 @@
       "is_component": false,
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "QCK04A01",
-      "oferta_denumire": "tavan/plafon fals - gips- carton 244,71 mp",
+      "oferta_cod": "ACD25A",
+      "oferta_denumire": "tencuiala pe tavan stadiul fizic: arhitectura conexe tip ii",
       "oferta_um": "mp",
-      "oferta_cantitate": 24.47
-    },
-    {
-      "tip": "ARTICOL_EXTRA",
-      "deviz_ref": "4.1-12",
-      "deviz_denumire": "Instalatii ventilatii tip I",
-      "is_component": false,
-      "ref_cod": "",
-      "ref_denumire": "",
-      "oferta_cod": "CMTA14B",
-      "oferta_denumire": "taiere in secțiune cu ferestraul mecanic, materiale profilate si țevi otel cu l > 2 m cmp",
-      "oferta_um": "",
-      "oferta_cantitate": 40.0
+      "oferta_cantitate": 362.07
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -396,10 +360,22 @@
       "is_component": false,
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "CI05B",
-      "oferta_denumire": "placi ceramice h=1.5m - pereti",
+      "oferta_cod": "QCK04A01",
+      "oferta_denumire": "tavan/plafon fals - gips- carton 244,71 mp",
       "oferta_um": "mp",
-      "oferta_cantitate": 156.2
+      "oferta_cantitate": 24.47
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.3-06",
+      "deviz_denumire": "Inst sanitare GospApa",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "S475",
+      "oferta_denumire": "40 11/2 zn",
+      "oferta_um": "buc",
+      "oferta_cantitate": 0.05
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -421,10 +397,10 @@
       "is_component": false,
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "ACD25A",
-      "oferta_denumire": "tencuiala pe tavan stadiul fizic: arhitectura conexe tip ii",
+      "oferta_cod": "CI05A",
+      "oferta_denumire": "placi ceramice antiderapante trafic intens + adeziv",
       "oferta_um": "mp",
-      "oferta_cantitate": 362.07
+      "oferta_cantitate": 582.66
     },
     {
       "tip": "ARTICOL_EXTRA",
@@ -433,10 +409,34 @@
       "is_component": false,
       "ref_cod": "",
       "ref_denumire": "",
-      "oferta_cod": "CI05A",
-      "oferta_denumire": "placi ceramice antiderapante trafic intens + adeziv",
+      "oferta_cod": "CI05B",
+      "oferta_denumire": "placi ceramice h=1.5m - pereti",
       "oferta_um": "mp",
-      "oferta_cantitate": 582.66
+      "oferta_cantitate": 156.2
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.2-2",
+      "deviz_denumire": "Structura",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "RPCB02E",
+      "oferta_denumire": "beton c12/15 egalizare",
+      "oferta_um": "mc",
+      "oferta_cantitate": 2.17
+    },
+    {
+      "tip": "ARTICOL_EXTRA",
+      "deviz_ref": "4.1-12",
+      "deviz_denumire": "Instalatii ventilatii tip I",
+      "is_component": false,
+      "ref_cod": "",
+      "ref_denumire": "",
+      "oferta_cod": "CMTA14B",
+      "oferta_denumire": "taiere in secțiune cu ferestraul mecanic, materiale profilate si țevi otel cu l > 2 m cmp",
+      "oferta_um": "",
+      "oferta_cantitate": 40.0
     },
     {
       "tip": "ARTICOL_EXTRA",

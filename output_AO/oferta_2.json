@@ -13605,6 +13605,25 @@
       "val_transport": 0.0
     },
     {
+      "cod": "F5",
+      "denumire": "schema monofilara utilajul, echipamentul tehnologic:tablou electric general teg nr crt specificatii tehnice impuse prin caietul de sarcini corespondenta propunerii tehnice cu specificatiile tehnice impuse prin caietul de sarcini furnizor",
+      "um": "",
+      "cantitate": 0.0,
+      "deviz": "5.1-1",
+      "deviz_denumire": "Lucrari de constructii",
+      "is_component": false,
+      "parent_code": null,
+      "subcomponents": [],
+      "pret_material": 0.0,
+      "val_material": 0.0,
+      "pret_manopera": 0.0,
+      "val_manopera": 0.0,
+      "pret_utilaj": 0.0,
+      "val_utilaj": 0.0,
+      "pret_transport": 0.0,
+      "val_transport": 0.0
+    },
+    {
       "cod": "ISO9001",
       "denumire": "",
       "um": "",
