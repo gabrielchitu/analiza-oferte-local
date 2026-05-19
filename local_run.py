@@ -364,15 +364,6 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
     articles = extract_articles_v3(page_classes)
     logger.info(f"  {len(articles)} articole extrase din linii")
 
-    # DEBUG: Track $6720363 and deviz breakdown
-    _has_6720363 = any(art.get("cod") == "$6720363" for art in articles)
-    _deviz_counts = {}
-    for art in articles:
-        d = art.get("deviz", "UNKNOWN")
-        _deviz_counts[d] = _deviz_counts.get(d, 0) + 1
-    logger.info(f"  DEBUG: $6720363 present after extraction? {_has_6720363}")
-    logger.info(f"  DEBUG: Breakdown by deviz: {dict(sorted(_deviz_counts.items()))}")
-
     # Deduplicate by 4-tuple: (deviz, cod, um, cantitate)
     # If same article appears multiple times with identical quantity and UM, keep only one
     seen_4tuple = {}
@@ -467,14 +458,6 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
     if len(invalid_deviz) > 0:
         invalid_count = len([a for a in articles if a.get("deviz", "") in set(invalid_deviz)])
         logger.info(f"  Filtered out {invalid_count} articles with invalid deviz codes: {set(invalid_deviz)}")
-
-    # DEBUG: Check if $6720363 survived filter
-    _has_6720363_after = any(art.get("cod") == "$6720363" for art in articles_filtered)
-    logger.info(f"  DEBUG: $6720363 present after deviz filter? {_has_6720363_after}")
-    if _has_6720363_after:
-        _art_6720363 = [art for art in articles_filtered if art.get("cod") == "$6720363"][0]
-        logger.info(f"  DEBUG: $6720363 article: deviz={_art_6720363.get('deviz')}, um={_art_6720363.get('um')}, cant={_art_6720363.get('cantitate')}")
-
     articles = articles_filtered
 
     return articles, checkpoint_data
@@ -995,10 +978,6 @@ def main():
         filtered_count = before_filter - len(oferta_articles)
         if filtered_count > 0:
             logger.info(f"  [FILTER] Removed {filtered_count} malformed articles ($ prefix + empty denomination)")
-
-        # DEBUG: Check if $6720363 survived filter
-        _has_6720363_final = any(art.get("cod") == "$6720363" for art in oferta_articles)
-        logger.info(f"  DEBUG: $6720363 present after denume filter? {_has_6720363_final}")
 
         oferta_out = OUTPUT_DIR / f"oferta_{oferta_nr}.json"
         oferta_out.write_text(
