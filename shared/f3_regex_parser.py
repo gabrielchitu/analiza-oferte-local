@@ -181,6 +181,7 @@ NR_COD_DESC_RE = re.compile(
     r'([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?'
     r'|[A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z]?\d?'
     r'|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}'
+    r'|\d{3,5}[A-Z]\d{1,3}(?!\d)'  # digit-letter-digit (00106B011, 01311A1, 02012A1)
     r'|(?:\d{4,9})(?!\d)(?:[@]|\[\d+\])?)'  # Numeric code with negative lookahead
     r'(?:[#>*@%^+]|\[\d*\]|ASIM|TSCH){0,2}[-]?\s*[-–]\s*(.+)$',
     re.IGNORECASE
@@ -474,6 +475,10 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
                 if (re.match(r'^[A-Z]{1,5}\d{1,4}', desc_line, re.IGNORECASE) or
                         re.match(r'^(\$[A-Z0-9]{4,})', desc_line, re.IGNORECASE) or
                         re.match(r'^(\d{4,9})(?!\d)', desc_line)):
+                    break
+                # Stop at price labels or footer lines — prevents last-on-page articles
+                # from absorbing footer content and getting skipped by SKIP_RE
+                if _PRICE_LABEL_RE.match(desc_line) or (desc_line and SKIP_RE.search(desc_line)):
                     break
                 if desc_line:
                     desc_parts.append(desc_line)
@@ -823,14 +828,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         if not (1 <= val <= 999):
             return False
         if current_state == _IDLE:
-            # În IDLE, accept numai:
-            # - 3+ cifre (001, 027, etc) care sunt >= last_nr_crt
-            # - 1-5 cifre (reset la secțiune nouă)
-            # Reject 2-digit numbers > 5 (21, 27 etc.) ca suspecte (secțiuni, nu articole)
-            num_digits = len(m.group(1))
-            if num_digits == 2 and val > 5:
-                # "21", "27" etc. sunt probabil numere de secțiune, nu NR_CRT
-                return False
+            # Accept NR_CRT dacă e secvențial (>= last_nr_crt) sau reset (<=5)
             return val >= last_nr_crt or val <= 5
         if current_state == _READING:
             if price_count >= 4:

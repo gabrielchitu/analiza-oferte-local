@@ -1,1103 +1,797 @@
-2026-05-12 15:49:51,442 [INFO] ==================================================
-2026-05-12 15:49:51,443 [INFO]   Analizator Local Oferte Constructii
-2026-05-12 15:49:51,443 [INFO] ==================================================
-2026-05-12 15:49:51,443 [INFO] Input:  /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/input_AO
-2026-05-12 15:49:51,443 [INFO] Output: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO
-2026-05-12 15:49:51,443 [INFO] Referinta: di_referinta.json
-2026-05-12 15:49:51,443 [INFO] Oferte (3): ['di_oferta_1.json', 'di_oferta_2.json', 'di_oferta_3.json']
-2026-05-12 15:49:51,443 [INFO] Model Anthropic: claude-haiku-4-5-20251001
-2026-05-12 15:49:51,486 [INFO] 
+2026-05-19 19:12:15,792 [INFO] ==================================================
+2026-05-19 19:12:15,792 [INFO]   Analizator Local Oferte Constructii
+2026-05-19 19:12:15,792 [INFO] ==================================================
+2026-05-19 19:12:15,792 [INFO] Input:  /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/input_AO
+2026-05-19 19:12:15,792 [INFO] Output: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO
+2026-05-19 19:12:15,793 [INFO] Referinta: di_referinta.json
+2026-05-19 19:12:15,793 [INFO] Oferte (2): ['di_oferta_1.json', 'di_oferta_2.json']
+2026-05-19 19:12:15,793 [INFO] Model Anthropic: claude-haiku-4-5-20251001
+2026-05-19 19:12:15,836 [INFO] 
 --- Extragere REFERINTA ---
-2026-05-12 15:49:51,503 [INFO]   di_referinta.json: 236 pagini DI
-2026-05-12 15:49:51,504 [INFO]   Checkpoint gasit — sare peste clasificare LLM
-2026-05-12 15:49:51,511 [INFO] [RECLF] pag211: F3 (score=1, deviz explicit) → deviz='226108'
-2026-05-12 15:49:51,516 [INFO] [RECLF] pag235: F3 (score=8, deviz explicit) → deviz='226108'
-2026-05-12 15:49:51,517 [INFO] [RECLF] 2 pagini reclasificate din 61 non-F3
-2026-05-12 15:49:51,517 [INFO]   175 pagini F3 (0 fara deviz_cod)
-2026-05-12 15:49:51,524 [INFO] [PARSER] 226108: 8 articole extrase (regex)
-2026-05-12 15:49:51,525 [INFO] [PARSER] 226108: 11 articole extrase (regex)
-2026-05-12 15:49:51,526 [INFO] [PARSER] 226108: 11 articole extrase (regex)
-2026-05-12 15:49:51,527 [INFO] [PARSER] 226108: 11 articole extrase (regex)
-2026-05-12 15:49:51,527 [INFO] [F3] 226108: 2 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,527 [INFO] [PARSER] 226108: 4 articole extrase (regex)
-2026-05-12 15:49:51,527 [INFO] [F3] 226108: 1 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,528 [INFO] [PARSER] 226118: 7 articole extrase (regex)
-2026-05-12 15:49:51,528 [INFO] [PARSER] 226118: 0 articole extrase (regex)
-2026-05-12 15:49:51,529 [INFO] [PARSER] 226208: 8 articole extrase (regex)
-2026-05-12 15:49:51,530 [INFO] [PARSER] 226208: 11 articole extrase (regex)
-2026-05-12 15:49:51,530 [INFO] [PARSER] 226208: 11 articole extrase (regex)
-2026-05-12 15:49:51,531 [INFO] [PARSER] 226208: 11 articole extrase (regex)
-2026-05-12 15:49:51,531 [INFO] [F3] 226208: 2 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,531 [INFO] [PARSER] 226208: 11 articole extrase (regex)
-2026-05-12 15:49:51,531 [INFO] [F3] 226208: 2 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,532 [INFO] [PARSER] 226208: 1 articole extrase (regex)
-2026-05-12 15:49:51,533 [INFO] [PARSER] 226218: 7 articole extrase (regex)
-2026-05-12 15:49:51,533 [INFO] [PARSER] 226218: 11 articole extrase (regex)
-2026-05-12 15:49:51,534 [INFO] [PARSER] 226218: 9 articole extrase (regex)
-2026-05-12 15:49:51,534 [INFO] [F3] 226218: 8 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,534 [INFO] [PARSER] 226218: 9 articole extrase (regex)
-2026-05-12 15:49:51,534 [INFO] [F3] 226218: 3 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,535 [INFO] [PARSER] 226218: 10 articole extrase (regex)
-2026-05-12 15:49:51,535 [INFO] [PARSER] 226218: 11 articole extrase (regex)
-2026-05-12 15:49:51,536 [INFO] [PARSER] 226218: 11 articole extrase (regex)
-2026-05-12 15:49:51,536 [INFO] [PARSER] 226218: 10 articole extrase (regex)
-2026-05-12 15:49:51,537 [INFO] [PARSER] 226218: 9 articole extrase (regex)
-2026-05-12 15:49:51,537 [INFO] [F3] 226218: 1 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,538 [INFO] [PARSER] 226228: 8 articole extrase (regex)
-2026-05-12 15:49:51,538 [INFO] [F3] 226228: 1 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,538 [INFO] [PARSER] 226228: 11 articole extrase (regex)
-2026-05-12 15:49:51,538 [INFO] [F3] 226228: 1 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,539 [INFO] [PARSER] 226228: 11 articole extrase (regex)
-2026-05-12 15:49:51,539 [INFO] [PARSER] 226228: 11 articole extrase (regex)
-2026-05-12 15:49:51,540 [INFO] [PARSER] 226228: 11 articole extrase (regex)
-2026-05-12 15:49:51,540 [INFO] [PARSER] 226228: 11 articole extrase (regex)
-2026-05-12 15:49:51,541 [INFO] [PARSER] 226228: 10 articole extrase (regex)
-2026-05-12 15:49:51,541 [INFO] [F3] 226228: 1 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,542 [INFO] [PARSER] 226228: 9 articole extrase (regex)
-2026-05-12 15:49:51,542 [INFO] [F3] 226228: 8 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,542 [INFO] [PARSER] 226228: 9 articole extrase (regex)
-2026-05-12 15:49:51,542 [INFO] [F3] 226228: 7 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,543 [INFO] [PARSER] 226228: 9 articole extrase (regex)
-2026-05-12 15:49:51,543 [INFO] [F3] 226228: 9 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,543 [INFO] [PARSER] 226228: 9 articole extrase (regex)
-2026-05-12 15:49:51,543 [INFO] [F3] 226228: 8 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,544 [INFO] [PARSER] 226228: 9 articole extrase (regex)
-2026-05-12 15:49:51,544 [INFO] [F3] 226228: 8 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,544 [INFO] [PARSER] 226228: 9 articole extrase (regex)
-2026-05-12 15:49:51,544 [INFO] [F3] 226228: 8 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,545 [INFO] [PARSER] 226228: 9 articole extrase (regex)
-2026-05-12 15:49:51,545 [INFO] [F3] 226228: 9 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,545 [INFO] [PARSER] 226228: 9 articole extrase (regex)
-2026-05-12 15:49:51,545 [INFO] [F3] 226228: 8 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,546 [INFO] [PARSER] 226228: 1 articole extrase (regex)
-2026-05-12 15:49:51,546 [INFO] [F3] 226228: 1 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,546 [INFO] [PARSER] 226238: 1 articole extrase (regex)
-2026-05-12 15:49:51,547 [INFO] [PARSER] 226248: 8 articole extrase (regex)
-2026-05-12 15:49:51,547 [INFO] [PARSER] 226248: 1 articole extrase (regex)
-2026-05-12 15:49:51,548 [INFO] [PARSER] 226258: 3 articole extrase (regex)
-2026-05-12 15:49:51,549 [INFO] [PARSER] 226268: 8 articole extrase (regex)
-2026-05-12 15:49:51,549 [INFO] [PARSER] 226268: 11 articole extrase (regex)
-2026-05-12 15:49:51,550 [INFO] [PARSER] 226268: 12 articole extrase (regex)
-2026-05-12 15:49:51,550 [INFO] [PARSER] 226268: 4 articole extrase (regex)
-2026-05-12 15:49:51,551 [INFO] [PARSER] 226278: 7 articole extrase (regex)
-2026-05-12 15:49:51,552 [INFO] [PARSER] 226278: 10 articole extrase (regex)
-2026-05-12 15:49:51,552 [INFO] [PARSER] 226278: 0 articole extrase (regex)
-2026-05-12 15:49:51,552 [INFO] [PARSER] 226288: 7 articole extrase (regex)
-2026-05-12 15:49:51,553 [INFO] [PARSER] 226288: 9 articole extrase (regex)
-2026-05-12 15:49:51,554 [INFO] [PARSER] 226308: 8 articole extrase (regex)
-2026-05-12 15:49:51,554 [INFO] [PARSER] 226308: 11 articole extrase (regex)
-2026-05-12 15:49:51,555 [INFO] [PARSER] 226308: 11 articole extrase (regex)
-2026-05-12 15:49:51,555 [INFO] [PARSER] 226308: 11 articole extrase (regex)
-2026-05-12 15:49:51,555 [INFO] [F3] 226308: 2 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,556 [INFO] [PARSER] 226308: 11 articole extrase (regex)
-2026-05-12 15:49:51,556 [INFO] [PARSER] 226308: 1 articole extrase (regex)
-2026-05-12 15:49:51,556 [INFO] [F3] 226308: 1 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,557 [INFO] [PARSER] 226318: 8 articole extrase (regex)
-2026-05-12 15:49:51,558 [INFO] [PARSER] 226318: 5 articole extrase (regex)
-2026-05-12 15:49:51,558 [INFO] [PARSER] 226328: 8 articole extrase (regex)
-2026-05-12 15:49:51,559 [INFO] [PARSER] 226328: 3 articole extrase (regex)
-2026-05-12 15:49:51,560 [INFO] [PARSER] 226338: 8 articole extrase (regex)
-2026-05-12 15:49:51,560 [INFO] [PARSER] 226338: 11 articole extrase (regex)
-2026-05-12 15:49:51,561 [INFO] [PARSER] 226338: 2 articole extrase (regex)
-2026-05-12 15:49:51,561 [INFO] [PARSER] 226348: 8 articole extrase (regex)
-2026-05-12 15:49:51,562 [INFO] [PARSER] 226348: 5 articole extrase (regex)
-2026-05-12 15:49:51,563 [INFO] [PARSER] 226358: 10 articole extrase (regex)
-2026-05-12 15:49:51,563 [INFO] [PARSER] 226358: 9 articole extrase (regex)
-2026-05-12 15:49:51,564 [INFO] [PARSER] 226358: 0 articole extrase (regex)
-2026-05-12 15:49:51,564 [INFO] [PARSER] 226408: 7 articole extrase (regex)
-2026-05-12 15:49:51,565 [INFO] [PARSER] 226408: 11 articole extrase (regex)
-2026-05-12 15:49:51,565 [INFO] [PARSER] 226408: 11 articole extrase (regex)
-2026-05-12 15:49:51,566 [INFO] [PARSER] 226408: 11 articole extrase (regex)
-2026-05-12 15:49:51,566 [INFO] [F3] 226408: 2 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,567 [INFO] [PARSER] 226408: 13 articole extrase (regex)
-2026-05-12 15:49:51,567 [INFO] [PARSER] 226408: 8 articole extrase (regex)
-2026-05-12 15:49:51,567 [INFO] [F3] 226408: 2 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,568 [INFO] [PARSER] 226418: 7 articole extrase (regex)
-2026-05-12 15:49:51,569 [INFO] [PARSER] 226418: 11 articole extrase (regex)
-2026-05-12 15:49:51,569 [INFO] [PARSER] 226418: 9 articole extrase (regex)
-2026-05-12 15:49:51,569 [INFO] [F3] 226418: 8 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,570 [INFO] [PARSER] 226418: 9 articole extrase (regex)
-2026-05-12 15:49:51,570 [INFO] [F3] 226418: 4 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,570 [INFO] [PARSER] 226418: 10 articole extrase (regex)
-2026-05-12 15:49:51,571 [INFO] [PARSER] 226418: 11 articole extrase (regex)
-2026-05-12 15:49:51,571 [INFO] [PARSER] 226418: 11 articole extrase (regex)
-2026-05-12 15:49:51,572 [INFO] [PARSER] 226418: 11 articole extrase (regex)
-2026-05-12 15:49:51,572 [INFO] [PARSER] 226418: 10 articole extrase (regex)
-2026-05-12 15:49:51,573 [INFO] [PARSER] 226418: 10 articole extrase (regex)
-2026-05-12 15:49:51,573 [INFO] [F3] 226418: 1 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,573 [INFO] [PARSER] 226418: 0 articole extrase (regex)
-2026-05-12 15:49:51,574 [INFO] [PARSER] 226428: 8 articole extrase (regex)
-2026-05-12 15:49:51,574 [INFO] [F3] 226428: 1 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,574 [INFO] [PARSER] 226428: 11 articole extrase (regex)
-2026-05-12 15:49:51,574 [INFO] [F3] 226428: 1 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,575 [INFO] [PARSER] 226428: 11 articole extrase (regex)
-2026-05-12 15:49:51,575 [INFO] [PARSER] 226428: 11 articole extrase (regex)
-2026-05-12 15:49:51,576 [INFO] [PARSER] 226428: 11 articole extrase (regex)
-2026-05-12 15:49:51,576 [INFO] [PARSER] 226428: 11 articole extrase (regex)
-2026-05-12 15:49:51,577 [INFO] [PARSER] 226428: 11 articole extrase (regex)
-2026-05-12 15:49:51,577 [INFO] [PARSER] 226428: 10 articole extrase (regex)
-2026-05-12 15:49:51,577 [INFO] [F3] 226428: 3 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,578 [INFO] [PARSER] 226428: 9 articole extrase (regex)
-2026-05-12 15:49:51,578 [INFO] [F3] 226428: 9 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,578 [INFO] [PARSER] 226428: 9 articole extrase (regex)
-2026-05-12 15:49:51,578 [INFO] [F3] 226428: 7 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,579 [INFO] [PARSER] 226428: 9 articole extrase (regex)
-2026-05-12 15:49:51,579 [INFO] [F3] 226428: 7 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,579 [INFO] [PARSER] 226428: 9 articole extrase (regex)
-2026-05-12 15:49:51,580 [INFO] [F3] 226428: 6 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,580 [INFO] [PARSER] 226428: 2 articole extrase (regex)
-2026-05-12 15:49:51,580 [INFO] [PARSER] 226438: 1 articole extrase (regex)
-2026-05-12 15:49:51,581 [INFO] [PARSER] 226448: 8 articole extrase (regex)
-2026-05-12 15:49:51,582 [INFO] [PARSER] 226448: 5 articole extrase (regex)
-2026-05-12 15:49:51,582 [INFO] [PARSER] 226458: 4 articole extrase (regex)
-2026-05-12 15:49:51,583 [INFO] [PARSER] 226468: 7 articole extrase (regex)
-2026-05-12 15:49:51,583 [INFO] [PARSER] 226468: 0 articole extrase (regex)
-2026-05-12 15:49:51,584 [INFO] [PARSER] 226478: 8 articole extrase (regex)
-2026-05-12 15:49:51,585 [INFO] [PARSER] 226478: 11 articole extrase (regex)
-2026-05-12 15:49:51,585 [INFO] [PARSER] 226478: 12 articole extrase (regex)
-2026-05-12 15:49:51,586 [INFO] [PARSER] 226478: 5 articole extrase (regex)
-2026-05-12 15:49:51,586 [INFO] [PARSER] 226488: 7 articole extrase (regex)
-2026-05-12 15:49:51,587 [INFO] [PARSER] 226488: 10 articole extrase (regex)
-2026-05-12 15:49:51,587 [INFO] [PARSER] 226488: 0 articole extrase (regex)
-2026-05-12 15:49:51,588 [INFO] [PARSER] 226498: 7 articole extrase (regex)
-2026-05-12 15:49:51,588 [INFO] [PARSER] 226498: 9 articole extrase (regex)
-2026-05-12 15:49:51,589 [INFO] [PARSER] 226508: 8 articole extrase (regex)
-2026-05-12 15:49:51,589 [INFO] [PARSER] 226508: 11 articole extrase (regex)
-2026-05-12 15:49:51,590 [INFO] [PARSER] 226508: 11 articole extrase (regex)
-2026-05-12 15:49:51,591 [INFO] [PARSER] 226508: 11 articole extrase (regex)
-2026-05-12 15:49:51,591 [INFO] [F3] 226508: 2 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,591 [INFO] [PARSER] 226508: 11 articole extrase (regex)
-2026-05-12 15:49:51,591 [INFO] [F3] 226508: 2 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,591 [INFO] [PARSER] 226508: 1 articole extrase (regex)
-2026-05-12 15:49:51,592 [INFO] [PARSER] 226518: 7 articole extrase (regex)
-2026-05-12 15:49:51,593 [INFO] [PARSER] 226518: 10 articole extrase (regex)
-2026-05-12 15:49:51,593 [INFO] [F3] 226518: 2 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,593 [INFO] [PARSER] 226518: 9 articole extrase (regex)
-2026-05-12 15:49:51,593 [INFO] [F3] 226518: 8 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,594 [INFO] [PARSER] 226518: 10 articole extrase (regex)
-2026-05-12 15:49:51,594 [INFO] [F3] 226518: 2 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,594 [INFO] [PARSER] 226518: 11 articole extrase (regex)
-2026-05-12 15:49:51,594 [INFO] [PARSER] 226518: 10 articole extrase (regex)
-2026-05-12 15:49:51,595 [INFO] [PARSER] 226518: 11 articole extrase (regex)
-2026-05-12 15:49:51,595 [INFO] [PARSER] 226518: 11 articole extrase (regex)
-2026-05-12 15:49:51,596 [INFO] [PARSER] 226518: 4 articole extrase (regex)
-2026-05-12 15:49:51,596 [INFO] [F3] 226518: 1 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,597 [INFO] [PARSER] 226528: 8 articole extrase (regex)
-2026-05-12 15:49:51,597 [INFO] [F3] 226528: 1 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,597 [INFO] [PARSER] 226528: 11 articole extrase (regex)
-2026-05-12 15:49:51,597 [INFO] [F3] 226528: 1 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,598 [INFO] [PARSER] 226528: 11 articole extrase (regex)
-2026-05-12 15:49:51,598 [INFO] [PARSER] 226528: 11 articole extrase (regex)
-2026-05-12 15:49:51,599 [INFO] [PARSER] 226528: 11 articole extrase (regex)
-2026-05-12 15:49:51,599 [INFO] [PARSER] 226528: 11 articole extrase (regex)
-2026-05-12 15:49:51,600 [INFO] [PARSER] 226528: 10 articole extrase (regex)
-2026-05-12 15:49:51,600 [INFO] [F3] 226528: 1 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,600 [INFO] [PARSER] 226528: 9 articole extrase (regex)
-2026-05-12 15:49:51,600 [INFO] [F3] 226528: 8 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,601 [INFO] [PARSER] 226528: 9 articole extrase (regex)
-2026-05-12 15:49:51,601 [INFO] [F3] 226528: 7 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,601 [INFO] [PARSER] 226528: 9 articole extrase (regex)
-2026-05-12 15:49:51,601 [INFO] [F3] 226528: 8 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,602 [INFO] [PARSER] 226528: 9 articole extrase (regex)
-2026-05-12 15:49:51,602 [INFO] [F3] 226528: 8 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,602 [INFO] [PARSER] 226528: 9 articole extrase (regex)
-2026-05-12 15:49:51,603 [INFO] [F3] 226528: 8 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,603 [INFO] [PARSER] 226528: 9 articole extrase (regex)
-2026-05-12 15:49:51,603 [INFO] [F3] 226528: 6 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,604 [INFO] [PARSER] 226528: 9 articole extrase (regex)
-2026-05-12 15:49:51,604 [INFO] [F3] 226528: 8 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,604 [INFO] [PARSER] 226528: 3 articole extrase (regex)
-2026-05-12 15:49:51,604 [INFO] [F3] 226528: 3 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,605 [INFO] [PARSER] 226538: 8 articole extrase (regex)
-2026-05-12 15:49:51,605 [INFO] [PARSER] 226538: 1 articole extrase (regex)
-2026-05-12 15:49:51,606 [INFO] [PARSER] 226548: 3 articole extrase (regex)
-2026-05-12 15:49:51,607 [INFO] [PARSER] 226558: 8 articole extrase (regex)
-2026-05-12 15:49:51,607 [INFO] [PARSER] 226558: 11 articole extrase (regex)
-2026-05-12 15:49:51,608 [INFO] [PARSER] 226558: 12 articole extrase (regex)
-2026-05-12 15:49:51,608 [INFO] [PARSER] 226558: 2 articole extrase (regex)
-2026-05-12 15:49:51,609 [INFO] [PARSER] 226578: 7 articole extrase (regex)
-2026-05-12 15:49:51,609 [INFO] [PARSER] 226578: 7 articole extrase (regex)
-2026-05-12 15:49:51,610 [INFO] [PARSER] 226568: 10 articole extrase (regex)
-2026-05-12 15:49:51,611 [INFO] [PARSER] 226568: 7 articole extrase (regex)
-2026-05-12 15:49:51,611 [INFO] [PARSER] 226008: 8 articole extrase (regex)
-2026-05-12 15:49:51,612 [INFO] [PARSER] 226008: 11 articole extrase (regex)
-2026-05-12 15:49:51,613 [INFO] [PARSER] 226008: 11 articole extrase (regex)
-2026-05-12 15:49:51,613 [INFO] [PARSER] 226008: 1 articole extrase (regex)
-2026-05-12 15:49:51,614 [INFO] [PARSER] 226018: 8 articole extrase (regex)
-2026-05-12 15:49:51,614 [INFO] [PARSER] 226018: 11 articole extrase (regex)
-2026-05-12 15:49:51,615 [INFO] [PARSER] 226018: 6 articole extrase (regex)
-2026-05-12 15:49:51,615 [INFO] [PARSER] 226028: 8 articole extrase (regex)
-2026-05-12 15:49:51,616 [INFO] [PARSER] 226028: 11 articole extrase (regex)
-2026-05-12 15:49:51,617 [INFO] [PARSER] 226028: 11 articole extrase (regex)
-2026-05-12 15:49:51,617 [INFO] [PARSER] 226028: 11 articole extrase (regex)
-2026-05-12 15:49:51,618 [INFO] [PARSER] 226028: 2 articole extrase (regex)
-2026-05-12 15:49:51,618 [INFO] [PARSER] 226038: 8 articole extrase (regex)
-2026-05-12 15:49:51,619 [INFO] [PARSER] 226038: 11 articole extrase (regex)
-2026-05-12 15:49:51,620 [INFO] [PARSER] 226038: 9 articole extrase (regex)
-2026-05-12 15:49:51,620 [INFO] [PARSER] 226368: 8 articole extrase (regex)
-2026-05-12 15:49:51,621 [INFO] [PARSER] 226368: 0 articole extrase (regex)
-2026-05-12 15:49:51,621 [INFO] [PARSER] 226718: 4 articole extrase (regex)
-2026-05-12 15:49:51,622 [INFO] [F3] 226718: 1 componente extrase din breviar (>>> + DESCRIERE)
-2026-05-12 15:49:51,622 [INFO] [PARSER] 226708: 3 articole extrase (regex)
-2026-05-12 15:49:51,623 [INFO] [PARSER] 226F08: 1 articole extrase (regex)
-2026-05-12 15:49:51,623 [INFO] [F3v3] Total: 1588 articole extrase (page-aware, fara LLM)
-2026-05-12 15:49:51,623 [INFO]   1588 articole extrase din linii
-2026-05-12 15:49:51,626 [INFO]   0 articole din tabele, 1588 total dupa merge
-2026-05-12 15:49:51,630 [INFO] [DN] Populated 1298 missing deviz denominations
-2026-05-12 15:49:51,646 [INFO]   Salvat: referinta.json
-2026-05-12 15:49:51,646 [INFO]   43 devize in referinta
-2026-05-12 15:49:51,646 [INFO] 
+2026-05-19 19:12:15,850 [INFO]   di_referinta.json: 81 pagini DI
+2026-05-19 19:12:15,850 [INFO]   Clasificare pagini cu LLM (poate dura 2-5 min)...
+2026-05-19 19:12:15,861 [WARNING] [SUBCF] No hardcoded pattern matched, format unknown
+2026-05-19 19:12:15,861 [INFO] [PC] Detected subcomponent format: Unknown format (confidence=0.00)
+2026-05-19 19:12:15,861 [INFO] [PC] Clasificare completă: 73/81 pagini F3
+2026-05-19 19:12:15,864 [INFO]   Checkpoint salvat: di_referinta_page_classes_10d784f1d95b.json
+2026-05-19 19:12:15,866 [INFO]   73 pagini F3 (0 fara deviz_cod)
+2026-05-19 19:12:16,091 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:12:16,119 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10368
+2026-05-19 19:12:16,180 [INFO] Saved new pattern: AUTO_GEN_10368
+2026-05-19 19:12:16,182 [INFO] [PATTERN] 5.1-1: Detected AUTO_GEN_10368 (confidence=0.50)
+2026-05-19 19:12:16,183 [INFO] [SCATTER] Combined 9 scattered format groups
+2026-05-19 19:12:16,188 [INFO] [PARSER] 5.1-1: 18 articole extrase (regex)
+2026-05-19 19:12:16,189 [INFO] [F3v3] 5.1-1: 18 articole extrase (grouped pages)
+2026-05-19 19:12:16,401 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:16,427 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10369
+2026-05-19 19:12:16,488 [INFO] Saved new pattern: AUTO_GEN_10369
+2026-05-19 19:12:16,490 [INFO] [PATTERN] 4.1-01: Detected AUTO_GEN_10369 (confidence=0.50)
+2026-05-19 19:12:16,494 [INFO] [PARSER] 4.1-01: 17 articole extrase (regex)
+2026-05-19 19:12:16,494 [INFO] [F3v3] 4.1-01: 17 articole extrase (grouped pages)
+2026-05-19 19:12:16,708 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:16,734 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10370
+2026-05-19 19:12:16,795 [INFO] Saved new pattern: AUTO_GEN_10370
+2026-05-19 19:12:16,797 [INFO] [PATTERN] 4.1-04: Detected AUTO_GEN_10370 (confidence=0.50)
+2026-05-19 19:12:16,810 [INFO] [PARSER] 4.1-04: 76 articole extrase (regex)
+2026-05-19 19:12:16,811 [INFO] [F3v3] 4.1-04: 76 articole extrase (grouped pages)
+2026-05-19 19:12:17,024 [WARNING] No known pattern matched (best=0.09), attempting to generate template with LLM...
+2026-05-19 19:12:17,049 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10371
+2026-05-19 19:12:17,110 [INFO] Saved new pattern: AUTO_GEN_10371
+2026-05-19 19:12:17,112 [INFO] [PATTERN] 4.1-03: Detected AUTO_GEN_10371 (confidence=0.50)
+2026-05-19 19:12:17,112 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:17,123 [INFO] [PARSER] 4.1-03: 58 articole extrase (regex)
+2026-05-19 19:12:17,123 [INFO] [F3v3] 4.1-03: 58 articole extrase (grouped pages)
+2026-05-19 19:12:17,331 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 19:12:17,356 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10372
+2026-05-19 19:12:17,416 [INFO] Saved new pattern: AUTO_GEN_10372
+2026-05-19 19:12:17,417 [INFO] [PATTERN] 4.1-05: Detected AUTO_GEN_10372 (confidence=0.50)
+2026-05-19 19:12:17,424 [INFO] [PARSER] 4.1-05: 42 articole extrase (regex)
+2026-05-19 19:12:17,424 [INFO] [F3v3] 4.1-05: 42 articole extrase (grouped pages)
+2026-05-19 19:12:17,637 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 19:12:17,661 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10373
+2026-05-19 19:12:17,720 [INFO] Saved new pattern: AUTO_GEN_10373
+2026-05-19 19:12:17,722 [INFO] [PATTERN] 4.1-06: Detected AUTO_GEN_10373 (confidence=0.50)
+2026-05-19 19:12:17,722 [INFO] [SCATTER] Combined 16 scattered format groups
+2026-05-19 19:12:17,726 [INFO] [PARSER] 4.1-06: 22 articole extrase (regex)
+2026-05-19 19:12:17,726 [INFO] [F3v3] 4.1-06: 22 articole extrase (grouped pages)
+2026-05-19 19:12:17,938 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 19:12:17,965 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10374
+2026-05-19 19:12:18,025 [INFO] Saved new pattern: AUTO_GEN_10374
+2026-05-19 19:12:18,027 [INFO] [PATTERN] 4.1-07: Detected AUTO_GEN_10374 (confidence=0.50)
+2026-05-19 19:12:18,029 [INFO] [PARSER] 4.1-07: 10 articole extrase (regex)
+2026-05-19 19:12:18,029 [INFO] [F3v3] 4.1-07: 10 articole extrase (grouped pages)
+2026-05-19 19:12:18,243 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 19:12:18,274 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10375
+2026-05-19 19:12:18,340 [INFO] Saved new pattern: AUTO_GEN_10375
+2026-05-19 19:12:18,341 [INFO] [PATTERN] 4.1-09: Detected AUTO_GEN_10375 (confidence=0.50)
+2026-05-19 19:12:18,343 [INFO] [PARSER] 4.1-09: 4 articole extrase (regex)
+2026-05-19 19:12:18,343 [INFO] [F3v3] 4.1-09: 4 articole extrase (grouped pages)
+2026-05-19 19:12:18,551 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 19:12:18,577 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10376
+2026-05-19 19:12:18,639 [INFO] Saved new pattern: AUTO_GEN_10376
+2026-05-19 19:12:18,640 [INFO] [PATTERN] 4.1-10: Detected AUTO_GEN_10376 (confidence=0.50)
+2026-05-19 19:12:18,641 [INFO] [SCATTER] Combined 12 scattered format groups
+2026-05-19 19:12:18,661 [INFO] [PARSER] 4.1-10: 99 articole extrase (regex)
+2026-05-19 19:12:18,662 [INFO] [F3v3] 4.1-10: 99 articole extrase (grouped pages)
+2026-05-19 19:12:18,873 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 19:12:18,898 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10377
+2026-05-19 19:12:18,960 [INFO] Saved new pattern: AUTO_GEN_10377
+2026-05-19 19:12:18,962 [INFO] [PATTERN] 4.1-13: Detected AUTO_GEN_10377 (confidence=0.50)
+2026-05-19 19:12:18,962 [INFO] [SCATTER] Combined 5 scattered format groups
+2026-05-19 19:12:18,983 [INFO] [PARSER] 4.1-13: 92 articole extrase (regex)
+2026-05-19 19:12:18,984 [INFO] [F3v3] 4.1-13: 92 articole extrase (grouped pages)
+2026-05-19 19:12:19,192 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:19,218 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10378
+2026-05-19 19:12:19,279 [INFO] Saved new pattern: AUTO_GEN_10378
+2026-05-19 19:12:19,280 [INFO] [PATTERN] 4.1-11: Detected AUTO_GEN_10378 (confidence=0.50)
+2026-05-19 19:12:19,280 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:19,284 [INFO] [PARSER] 4.1-11: 27 articole extrase (regex)
+2026-05-19 19:12:19,284 [INFO] [F3v3] 4.1-11: 27 articole extrase (grouped pages)
+2026-05-19 19:12:19,501 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 19:12:19,528 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10379
+2026-05-19 19:12:19,589 [INFO] Saved new pattern: AUTO_GEN_10379
+2026-05-19 19:12:19,590 [INFO] [PATTERN] 4.1-14: Detected AUTO_GEN_10379 (confidence=0.50)
+2026-05-19 19:12:19,597 [INFO] [PARSER] 4.1-14: 31 articole extrase (regex)
+2026-05-19 19:12:19,597 [INFO] [F3v3] 4.1-14: 31 articole extrase (grouped pages)
+2026-05-19 19:12:19,809 [WARNING] No known pattern matched (best=0.09), attempting to generate template with LLM...
+2026-05-19 19:12:19,836 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10380
+2026-05-19 19:12:19,896 [INFO] Saved new pattern: AUTO_GEN_10380
+2026-05-19 19:12:19,898 [INFO] [PATTERN] 4.1-08: Detected AUTO_GEN_10380 (confidence=0.50)
+2026-05-19 19:12:19,898 [INFO] [SCATTER] Combined 2 scattered format groups
+2026-05-19 19:12:19,901 [INFO] [PARSER] 4.1-08: 13 articole extrase (regex)
+2026-05-19 19:12:19,901 [INFO] [F3v3] 4.1-08: 13 articole extrase (grouped pages)
+2026-05-19 19:12:20,105 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:12:20,131 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10381
+2026-05-19 19:12:20,189 [INFO] Saved new pattern: AUTO_GEN_10381
+2026-05-19 19:12:20,190 [INFO] [PATTERN] 4.1-15: Detected AUTO_GEN_10381 (confidence=0.50)
+2026-05-19 19:12:20,192 [INFO] [PARSER] 4.1-15: 4 articole extrase (regex)
+2026-05-19 19:12:20,192 [INFO] [F3v3] 4.1-15: 4 articole extrase (grouped pages)
+2026-05-19 19:12:20,407 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:20,432 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10382
+2026-05-19 19:12:20,492 [INFO] Saved new pattern: AUTO_GEN_10382
+2026-05-19 19:12:20,493 [INFO] [PATTERN] 4.1-16: Detected AUTO_GEN_10382 (confidence=0.50)
+2026-05-19 19:12:20,495 [INFO] [PARSER] 4.1-16: 7 articole extrase (regex)
+2026-05-19 19:12:20,495 [INFO] [F3v3] 4.1-16: 7 articole extrase (grouped pages)
+2026-05-19 19:12:20,705 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 19:12:20,730 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10383
+2026-05-19 19:12:20,789 [INFO] Saved new pattern: AUTO_GEN_10383
+2026-05-19 19:12:20,791 [INFO] [PATTERN] 4.1-17: Detected AUTO_GEN_10383 (confidence=0.50)
+2026-05-19 19:12:20,792 [INFO] [PARSER] 4.1-17: 3 articole extrase (regex)
+2026-05-19 19:12:20,792 [INFO] [F3v3] 4.1-17: 3 articole extrase (grouped pages)
+2026-05-19 19:12:21,001 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 19:12:21,026 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10384
+2026-05-19 19:12:21,087 [INFO] Saved new pattern: AUTO_GEN_10384
+2026-05-19 19:12:21,089 [INFO] [PATTERN] 4.1-21: Detected AUTO_GEN_10384 (confidence=0.50)
+2026-05-19 19:12:21,090 [INFO] [PARSER] 4.1-21: 1 articole extrase (regex)
+2026-05-19 19:12:21,090 [INFO] [F3v3] 4.1-21: 1 articole extrase (grouped pages)
+2026-05-19 19:12:21,299 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:21,324 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10385
+2026-05-19 19:12:21,383 [INFO] Saved new pattern: AUTO_GEN_10385
+2026-05-19 19:12:21,385 [INFO] [PATTERN] 4.1-18: Detected AUTO_GEN_10385 (confidence=0.50)
+2026-05-19 19:12:21,386 [INFO] [PARSER] 4.1-18: 1 articole extrase (regex)
+2026-05-19 19:12:21,386 [INFO] [F3v3] 4.1-18: 1 articole extrase (grouped pages)
+2026-05-19 19:12:21,597 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 19:12:21,622 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10386
+2026-05-19 19:12:21,681 [INFO] Saved new pattern: AUTO_GEN_10386
+2026-05-19 19:12:21,682 [INFO] [PATTERN] 4.1-19: Detected AUTO_GEN_10386 (confidence=0.50)
+2026-05-19 19:12:21,683 [INFO] [PARSER] 4.1-19: 1 articole extrase (regex)
+2026-05-19 19:12:21,683 [INFO] [F3v3] 4.1-19: 1 articole extrase (grouped pages)
+2026-05-19 19:12:21,900 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:21,927 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10387
+2026-05-19 19:12:21,986 [INFO] Saved new pattern: AUTO_GEN_10387
+2026-05-19 19:12:21,987 [INFO] [PATTERN] 4.1-20: Detected AUTO_GEN_10387 (confidence=0.50)
+2026-05-19 19:12:21,990 [INFO] [PARSER] 4.1-20: 3 articole extrase (regex)
+2026-05-19 19:12:21,990 [INFO] [F3v3] 4.1-20: 3 articole extrase (grouped pages)
+2026-05-19 19:12:22,197 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 19:12:22,224 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10388
+2026-05-19 19:12:22,285 [INFO] Saved new pattern: AUTO_GEN_10388
+2026-05-19 19:12:22,286 [INFO] [PATTERN] 4.1-02: Detected AUTO_GEN_10388 (confidence=0.50)
+2026-05-19 19:12:22,287 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:22,295 [INFO] [PARSER] 4.1-02: 52 articole extrase (regex)
+2026-05-19 19:12:22,296 [INFO] [F3v3] 4.1-02: 52 articole extrase (grouped pages)
+2026-05-19 19:12:22,516 [WARNING] No known pattern matched (best=0.08), attempting to generate template with LLM...
+2026-05-19 19:12:22,542 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10389
+2026-05-19 19:12:22,603 [INFO] Saved new pattern: AUTO_GEN_10389
+2026-05-19 19:12:22,605 [INFO] [PATTERN] 4.1-12: Detected AUTO_GEN_10389 (confidence=0.50)
+2026-05-19 19:12:22,606 [INFO] [SCATTER] Combined 20 scattered format groups
+2026-05-19 19:12:22,615 [INFO] [PARSER] 4.1-12: 59 articole extrase (regex)
+2026-05-19 19:12:22,616 [INFO] [F3v3] 4.1-12: 59 articole extrase (grouped pages)
+2026-05-19 19:12:22,831 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:22,856 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10390
+2026-05-19 19:12:22,916 [INFO] Saved new pattern: AUTO_GEN_10390
+2026-05-19 19:12:22,918 [INFO] [PATTERN] 4.3-01: Detected AUTO_GEN_10390 (confidence=0.50)
+2026-05-19 19:12:22,921 [INFO] [PARSER] 4.3-01: 18 articole extrase (regex)
+2026-05-19 19:12:22,921 [INFO] [F3v3] 4.3-01: 18 articole extrase (grouped pages)
+2026-05-19 19:12:23,132 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:23,158 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10391
+2026-05-19 19:12:23,217 [INFO] Saved new pattern: AUTO_GEN_10391
+2026-05-19 19:12:23,218 [INFO] [PATTERN] 4.3-02: Detected AUTO_GEN_10391 (confidence=0.50)
+2026-05-19 19:12:23,222 [INFO] [PARSER] 4.3-02: 17 articole extrase (regex)
+2026-05-19 19:12:23,222 [INFO] [F3v3] 4.3-02: 17 articole extrase (grouped pages)
+2026-05-19 19:12:23,432 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 19:12:23,459 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10392
+2026-05-19 19:12:23,522 [INFO] Saved new pattern: AUTO_GEN_10392
+2026-05-19 19:12:23,523 [INFO] [PATTERN] 4.3-03: Detected AUTO_GEN_10392 (confidence=0.50)
+2026-05-19 19:12:23,526 [INFO] [PARSER] 4.3-03: 11 articole extrase (regex)
+2026-05-19 19:12:23,526 [INFO] [F3v3] 4.3-03: 11 articole extrase (grouped pages)
+2026-05-19 19:12:23,730 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:12:23,756 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10393
+2026-05-19 19:12:23,816 [INFO] Saved new pattern: AUTO_GEN_10393
+2026-05-19 19:12:23,817 [INFO] [PATTERN] 4.3-05: Detected AUTO_GEN_10393 (confidence=0.50)
+2026-05-19 19:12:23,818 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:23,821 [INFO] [PARSER] 4.3-05: 15 articole extrase (regex)
+2026-05-19 19:12:23,821 [INFO] [F3v3] 4.3-05: 15 articole extrase (grouped pages)
+2026-05-19 19:12:24,033 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 19:12:24,059 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10394
+2026-05-19 19:12:24,118 [INFO] Saved new pattern: AUTO_GEN_10394
+2026-05-19 19:12:24,119 [INFO] [PATTERN] 4.3-06: Detected AUTO_GEN_10394 (confidence=0.50)
+2026-05-19 19:12:24,120 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:24,129 [INFO] [PARSER] 4.3-06: 47 articole extrase (regex)
+2026-05-19 19:12:24,130 [INFO] [F3v3] 4.3-06: 47 articole extrase (grouped pages)
+2026-05-19 19:12:24,340 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 19:12:24,366 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10395
+2026-05-19 19:12:24,424 [INFO] Saved new pattern: AUTO_GEN_10395
+2026-05-19 19:12:24,426 [INFO] [PATTERN] 4.3-07: Detected AUTO_GEN_10395 (confidence=0.50)
+2026-05-19 19:12:24,426 [INFO] [SCATTER] Combined 7 scattered format groups
+2026-05-19 19:12:24,431 [INFO] [PARSER] 4.3-07: 22 articole extrase (regex)
+2026-05-19 19:12:24,431 [INFO] [F3v3] 4.3-07: 22 articole extrase (grouped pages)
+2026-05-19 19:12:24,647 [WARNING] No known pattern matched (best=0.04), attempting to generate template with LLM...
+2026-05-19 19:12:24,674 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10396
+2026-05-19 19:12:24,739 [INFO] Saved new pattern: AUTO_GEN_10396
+2026-05-19 19:12:24,740 [INFO] [PATTERN] 4.3-08: Detected AUTO_GEN_10396 (confidence=0.50)
+2026-05-19 19:12:24,740 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:24,743 [INFO] [PARSER] 4.3-08: 12 articole extrase (regex)
+2026-05-19 19:12:24,743 [INFO] [F3v3] 4.3-08: 12 articole extrase (grouped pages)
+2026-05-19 19:12:24,953 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:24,980 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10397
+2026-05-19 19:12:25,040 [INFO] Saved new pattern: AUTO_GEN_10397
+2026-05-19 19:12:25,041 [INFO] [PATTERN] 4.3-09: Detected AUTO_GEN_10397 (confidence=0.50)
+2026-05-19 19:12:25,043 [INFO] [PARSER] 4.3-09: 4 articole extrase (regex)
+2026-05-19 19:12:25,043 [INFO] [F3v3] 4.3-09: 4 articole extrase (grouped pages)
+2026-05-19 19:12:25,254 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:25,283 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10398
+2026-05-19 19:12:25,344 [INFO] Saved new pattern: AUTO_GEN_10398
+2026-05-19 19:12:25,345 [INFO] [PATTERN] 4.3-04: Detected AUTO_GEN_10398 (confidence=0.50)
+2026-05-19 19:12:25,350 [INFO] [PARSER] 4.3-04: 17 articole extrase (regex)
+2026-05-19 19:12:25,350 [INFO] [F3v3] 4.3-04: 17 articole extrase (grouped pages)
+2026-05-19 19:12:25,567 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:25,576 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10399
+2026-05-19 19:12:25,650 [INFO] Saved new pattern: AUTO_GEN_10399
+2026-05-19 19:12:25,651 [INFO] [PATTERN] 4.2-1: Detected AUTO_GEN_10399 (confidence=0.50)
+2026-05-19 19:12:25,653 [INFO] [PARSER] 4.2-1: 9 articole extrase (regex)
+2026-05-19 19:12:25,653 [INFO] [F3v3] 4.2-1: 9 articole extrase (grouped pages)
+2026-05-19 19:12:25,868 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 19:12:25,877 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10400
+2026-05-19 19:12:25,952 [INFO] Saved new pattern: AUTO_GEN_10400
+2026-05-19 19:12:25,953 [INFO] [PATTERN] 4.2-2: Detected AUTO_GEN_10400 (confidence=0.50)
+2026-05-19 19:12:25,953 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:25,956 [INFO] [PARSER] 4.2-2: 15 articole extrase (regex)
+2026-05-19 19:12:25,956 [INFO] [F3v3] 4.2-2: 15 articole extrase (grouped pages)
+2026-05-19 19:12:26,166 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:12:26,174 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10401
+2026-05-19 19:12:26,250 [INFO] Saved new pattern: AUTO_GEN_10401
+2026-05-19 19:12:26,252 [INFO] [PATTERN] 4.4-1: Detected AUTO_GEN_10401 (confidence=0.50)
+2026-05-19 19:12:26,252 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:26,253 [INFO] [PARSER] 4.4-1: 7 articole extrase (regex)
+2026-05-19 19:12:26,253 [INFO] [F3v3] 4.4-1: 7 articole extrase (grouped pages)
+2026-05-19 19:12:26,462 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:26,471 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10402
+2026-05-19 19:12:26,543 [INFO] Saved new pattern: AUTO_GEN_10402
+2026-05-19 19:12:26,545 [INFO] [PATTERN] 4.4-2: Detected AUTO_GEN_10402 (confidence=0.50)
+2026-05-19 19:12:26,545 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:26,549 [INFO] [PARSER] 4.4-2: 18 articole extrase (regex)
+2026-05-19 19:12:26,549 [INFO] [F3v3] 4.4-2: 18 articole extrase (grouped pages)
+2026-05-19 19:12:26,550 [INFO] [F3v3] Total: 831 articole extrase (deviz-grouped, fara LLM)
+2026-05-19 19:12:26,550 [INFO]   831 articole extrase din linii
+2026-05-19 19:12:26,555 [INFO]   0 articole din tabele, 831 total dupa merge
+2026-05-19 19:12:26,560 [INFO]    Checkpoint: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO/checkpoints/di_referinta_deviz_mapping_10d784f1d95b.json
+2026-05-19 19:12:26,560 [INFO]    35 deviz groups available for LLM resolution
+2026-05-19 19:12:26,562 [INFO] [DN] Populated 0 missing deviz denominations
+2026-05-19 19:12:26,573 [INFO]   Salvat: referinta.json
+2026-05-19 19:12:26,573 [INFO]   35 devize in referinta
+2026-05-19 19:12:26,580 [INFO] 
 --- Extragere OFERTA 1 ---
-2026-05-12 15:49:51,692 [INFO]   Ofertant: S.C ASCENT PROCONSTRUCT SRL & S.C VALLYS DECO SRL
-2026-05-12 15:49:51,721 [INFO]   di_oferta_1.json: 297 pagini DI
-2026-05-12 15:49:51,721 [INFO]   Checkpoint gasit — sare peste clasificare LLM
-2026-05-12 15:49:51,737 [INFO] [RECLF] pag148: F3 (semnal cert) → deviz='226368'
-2026-05-12 15:49:51,738 [INFO] [RECLF] pag226: F3 (semnal cert) → deviz='226528'
-2026-05-12 15:49:51,747 [INFO] [RECLF] 2 pagini reclasificate din 141 non-F3
-2026-05-12 15:49:51,747 [INFO]   156 pagini F3 (0 fara deviz_cod)
-2026-05-12 15:49:51,748 [INFO] [PARSER] 226108: 7 articole extrase (regex)
-2026-05-12 15:49:51,750 [INFO] [PARSER] 226108: 11 articole extrase (regex)
-2026-05-12 15:49:51,751 [INFO] [PARSER] 226108: 12 articole extrase (regex)
-2026-05-12 15:49:51,752 [INFO] [PARSER] 226108: 14 articole extrase (regex)
-2026-05-12 15:49:51,753 [INFO] [PARSER] 226108: 2 articole extrase (regex)
-2026-05-12 15:49:51,754 [INFO] [PARSER] 226113: 7 articole extrase (regex)
-2026-05-12 15:49:51,755 [INFO] [PARSER] 226208: 8 articole extrase (regex)
-2026-05-12 15:49:51,757 [INFO] [PARSER] 226208: 11 articole extrase (regex)
-2026-05-12 15:49:51,758 [INFO] [PARSER] 226208: 13 articole extrase (regex)
-2026-05-12 15:49:51,759 [INFO] [PARSER] 226208: 12 articole extrase (regex)
-2026-05-12 15:49:51,761 [INFO] [PARSER] 226208: 9 articole extrase (regex)
-2026-05-12 15:49:51,762 [INFO] [PARSER] 226218: 12 articole extrase (regex)
-2026-05-12 15:49:51,764 [INFO] [PARSER] 226218: 12 articole extrase (regex)
-2026-05-12 15:49:51,765 [INFO] [PARSER] 226218: 13 articole extrase (regex)
-2026-05-12 15:49:51,766 [INFO] [PARSER] 226218: 17 articole extrase (regex)
-2026-05-12 15:49:51,767 [INFO] [PARSER] 226218: 14 articole extrase (regex)
-2026-05-12 15:49:51,769 [INFO] [PARSER] 226218: 13 articole extrase (regex)
-2026-05-12 15:49:51,770 [INFO] [PARSER] 226218: 8 articole extrase (regex)
-2026-05-12 15:49:51,771 [INFO] [PARSER] 226228: 13 articole extrase (regex)
-2026-05-12 15:49:51,773 [INFO] [PARSER] 226228: 15 articole extrase (regex)
-2026-05-12 15:49:51,774 [INFO] [PARSER] 226228: 12 articole extrase (regex)
-2026-05-12 15:49:51,775 [INFO] [PARSER] 226228: 14 articole extrase (regex)
-2026-05-12 15:49:51,776 [INFO] [PARSER] 226228: 12 articole extrase (regex)
-2026-05-12 15:49:51,777 [INFO] [PARSER] 226228: 11 articole extrase (regex)
-2026-05-12 15:49:51,779 [INFO] [PARSER] 226228: 14 articole extrase (regex)
-2026-05-12 15:49:51,780 [INFO] [PARSER] 226228: 13 articole extrase (regex)
-2026-05-12 15:49:51,781 [INFO] [PARSER] 226228: 13 articole extrase (regex)
-2026-05-12 15:49:51,782 [INFO] [PARSER] 226228: 12 articole extrase (regex)
-2026-05-12 15:49:51,783 [INFO] [PARSER] 226228: 14 articole extrase (regex)
-2026-05-12 15:49:51,784 [INFO] [PARSER] 226228: 4 articole extrase (regex)
-2026-05-12 15:49:51,785 [INFO] [PARSER] 226238: 1 articole extrase (regex)
-2026-05-12 15:49:51,786 [INFO] [PARSER] 226248: 10 articole extrase (regex)
-2026-05-12 15:49:51,787 [INFO] [PARSER] 226258: 3 articole extrase (regex)
-2026-05-12 15:49:51,787 [INFO] [PARSER] 226258: 0 articole extrase (regex)
-2026-05-12 15:49:51,788 [INFO] [PARSER] 226268: 10 articole extrase (regex)
-2026-05-12 15:49:51,790 [INFO] [PARSER] 226268: 15 articole extrase (regex)
-2026-05-12 15:49:51,791 [INFO] [PARSER] 226268: 9 articole extrase (regex)
-2026-05-12 15:49:51,792 [INFO] [PARSER] 226278: 10 articole extrase (regex)
-2026-05-12 15:49:51,793 [INFO] [PARSER] 226278: 8 articole extrase (regex)
-2026-05-12 15:49:51,793 [INFO] [PARSER] 226278: 0 articole extrase (regex)
-2026-05-12 15:49:51,795 [INFO] [PARSER] 226288: 11 articole extrase (regex)
-2026-05-12 15:49:51,796 [INFO] [PARSER] 226288: 5 articole extrase (regex)
-2026-05-12 15:49:51,796 [INFO] [PARSER] 226288: 0 articole extrase (regex)
-2026-05-12 15:49:51,797 [INFO] [PARSER] 226308: 7 articole extrase (regex)
-2026-05-12 15:49:51,798 [INFO] [PARSER] 226308: 11 articole extrase (regex)
-2026-05-12 15:49:51,800 [INFO] [PARSER] 226308: 12 articole extrase (regex)
-2026-05-12 15:49:51,801 [INFO] [PARSER] 226308: 16 articole extrase (regex)
-2026-05-12 15:49:51,802 [INFO] [PARSER] 226308: 7 articole extrase (regex)
-2026-05-12 15:49:51,804 [INFO] [PARSER] 226318: 9 articole extrase (regex)
-2026-05-12 15:49:51,805 [INFO] [PARSER] 226318: 4 articole extrase (regex)
-2026-05-12 15:49:51,806 [INFO] [PARSER] 226328: 9 articole extrase (regex)
-2026-05-12 15:49:51,807 [INFO] [PARSER] 226328: 2 articole extrase (regex)
-2026-05-12 15:49:51,808 [INFO] [PARSER] 226338: 7 articole extrase (regex)
-2026-05-12 15:49:51,809 [INFO] [PARSER] 226338: 11 articole extrase (regex)
-2026-05-12 15:49:51,810 [INFO] [PARSER] 226338: 3 articole extrase (regex)
-2026-05-12 15:49:51,811 [INFO] [PARSER] 226348: 7 articole extrase (regex)
-2026-05-12 15:49:51,812 [INFO] [PARSER] 226348: 6 articole extrase (regex)
-2026-05-12 15:49:51,813 [INFO] [PARSER] 226358: 7 articole extrase (regex)
-2026-05-12 15:49:51,814 [INFO] [PARSER] 226358: 12 articole extrase (regex)
-2026-05-12 15:49:51,815 [INFO] [PARSER] 226358: 1 articole extrase (regex)
-2026-05-12 15:49:51,816 [INFO] [PARSER] 226368: 7 articole extrase (regex)
-2026-05-12 15:49:51,817 [INFO] [PARSER] 226208: 1 articole extrase (regex)
-2026-05-12 15:49:51,818 [INFO] [PARSER] 226408: 8 articole extrase (regex)
-2026-05-12 15:49:51,819 [INFO] [PARSER] 226408: 12 articole extrase (regex)
-2026-05-12 15:49:51,820 [INFO] [PARSER] 226408: 13 articole extrase (regex)
-2026-05-12 15:49:51,821 [INFO] [PARSER] 226408: 11 articole extrase (regex)
-2026-05-12 15:49:51,823 [INFO] [PARSER] 226408: 10 articole extrase (regex)
-2026-05-12 15:49:51,824 [INFO] [PARSER] 226408: 7 articole extrase (regex)
-2026-05-12 15:49:51,824 [INFO] [PARSER] 226408: 0 articole extrase (regex)
-2026-05-12 15:49:51,825 [INFO] [PARSER] 226418: 12 articole extrase (regex)
-2026-05-12 15:49:51,826 [INFO] [PARSER] 226418: 11 articole extrase (regex)
-2026-05-12 15:49:51,828 [INFO] [PARSER] 226418: 13 articole extrase (regex)
-2026-05-12 15:49:51,829 [INFO] [PARSER] 226418: 17 articole extrase (regex)
-2026-05-12 15:49:51,830 [INFO] [PARSER] 226418: 18 articole extrase (regex)
-2026-05-12 15:49:51,831 [INFO] [PARSER] 226418: 13 articole extrase (regex)
-2026-05-12 15:49:51,833 [INFO] [PARSER] 226418: 13 articole extrase (regex)
-2026-05-12 15:49:51,834 [INFO] [PARSER] 226418: 3 articole extrase (regex)
-2026-05-12 15:49:51,835 [INFO] [PARSER] 226428: 12 articole extrase (regex)
-2026-05-12 15:49:51,836 [INFO] [PARSER] 226428: 15 articole extrase (regex)
-2026-05-12 15:49:51,837 [INFO] [PARSER] 226428: 12 articole extrase (regex)
-2026-05-12 15:49:51,838 [INFO] [PARSER] 226428: 13 articole extrase (regex)
-2026-05-12 15:49:51,839 [INFO] [PARSER] 226428: 13 articole extrase (regex)
-2026-05-12 15:49:51,841 [INFO] [PARSER] 226428: 15 articole extrase (regex)
-2026-05-12 15:49:51,842 [INFO] [PARSER] 226428: 14 articole extrase (regex)
-2026-05-12 15:49:51,843 [INFO] [PARSER] 226428: 11 articole extrase (regex)
-2026-05-12 15:49:51,844 [INFO] [PARSER] 226428: 13 articole extrase (regex)
-2026-05-12 15:49:51,845 [INFO] [PARSER] 226428: 5 articole extrase (regex)
-2026-05-12 15:49:51,846 [INFO] [PARSER] 226438: 1 articole extrase (regex)
-2026-05-12 15:49:51,847 [INFO] [PARSER] 226448: 12 articole extrase (regex)
-2026-05-12 15:49:51,847 [INFO] [PARSER] 226448: 3 articole extrase (regex)
-2026-05-12 15:49:51,848 [INFO] [PARSER] 226458: 4 articole extrase (regex)
-2026-05-12 15:49:51,848 [INFO] [PARSER] 226458: 0 articole extrase (regex)
-2026-05-12 15:49:51,849 [INFO] [PARSER] 226468: 7 articole extrase (regex)
-2026-05-12 15:49:51,851 [INFO] [PARSER] 226478: 10 articole extrase (regex)
-2026-05-12 15:49:51,852 [INFO] [PARSER] 226478: 15 articole extrase (regex)
-2026-05-12 15:49:51,853 [INFO] [PARSER] 226478: 10 articole extrase (regex)
-2026-05-12 15:49:51,854 [INFO] [PARSER] 226488: 11 articole extrase (regex)
-2026-05-12 15:49:51,855 [INFO] [PARSER] 226488: 5 articole extrase (regex)
-2026-05-12 15:49:51,855 [INFO] [PARSER] 226488: 0 articole extrase (regex)
-2026-05-12 15:49:51,856 [INFO] [PARSER] 226498: 11 articole extrase (regex)
-2026-05-12 15:49:51,857 [INFO] [PARSER] 226498: 3 articole extrase (regex)
-2026-05-12 15:49:51,857 [INFO] [PARSER] 226498: 0 articole extrase (regex)
-2026-05-12 15:49:51,858 [INFO] [PARSER] 226508: 8 articole extrase (regex)
-2026-05-12 15:49:51,860 [INFO] [PARSER] 226508: 11 articole extrase (regex)
-2026-05-12 15:49:51,861 [INFO] [PARSER] 226508: 13 articole extrase (regex)
-2026-05-12 15:49:51,862 [INFO] [PARSER] 226508: 10 articole extrase (regex)
-2026-05-12 15:49:51,863 [INFO] [PARSER] 226508: 11 articole extrase (regex)
-2026-05-12 15:49:51,864 [INFO] [PARSER] 226518: 12 articole extrase (regex)
-2026-05-12 15:49:51,866 [INFO] [PARSER] 226518: 12 articole extrase (regex)
-2026-05-12 15:49:51,867 [INFO] [PARSER] 226518: 13 articole extrase (regex)
-2026-05-12 15:49:51,868 [INFO] [PARSER] 226518: 19 articole extrase (regex)
-2026-05-12 15:49:51,869 [INFO] [PARSER] 226518: 13 articole extrase (regex)
-2026-05-12 15:49:51,871 [INFO] [PARSER] 226518: 13 articole extrase (regex)
-2026-05-12 15:49:51,871 [INFO] [PARSER] 226518: 2 articole extrase (regex)
-2026-05-12 15:49:51,872 [INFO] [PARSER] 226528: 12 articole extrase (regex)
-2026-05-12 15:49:51,874 [INFO] [PARSER] 226528: 13 articole extrase (regex)
-2026-05-12 15:49:51,875 [INFO] [PARSER] 226528: 12 articole extrase (regex)
-2026-05-12 15:49:51,876 [INFO] [PARSER] 226528: 14 articole extrase (regex)
-2026-05-12 15:49:51,877 [INFO] [PARSER] 226528: 12 articole extrase (regex)
-2026-05-12 15:49:51,878 [INFO] [PARSER] 226528: 11 articole extrase (regex)
-2026-05-12 15:49:51,879 [INFO] [PARSER] 226528: 15 articole extrase (regex)
-2026-05-12 15:49:51,880 [INFO] [PARSER] 226528: 13 articole extrase (regex)
-2026-05-12 15:49:51,881 [INFO] [PARSER] 226528: 12 articole extrase (regex)
-2026-05-12 15:49:51,882 [INFO] [PARSER] 226528: 12 articole extrase (regex)
-2026-05-12 15:49:51,883 [INFO] [PARSER] 226528: 13 articole extrase (regex)
-2026-05-12 15:49:51,884 [INFO] [PARSER] 226538: 10 articole extrase (regex)
-2026-05-12 15:49:51,885 [INFO] [PARSER] 226548: 3 articole extrase (regex)
-2026-05-12 15:49:51,885 [INFO] [PARSER] 226548: 0 articole extrase (regex)
-2026-05-12 15:49:51,886 [INFO] [PARSER] 226558: 11 articole extrase (regex)
-2026-05-12 15:49:51,887 [INFO] [PARSER] 226558: 13 articole extrase (regex)
-2026-05-12 15:49:51,888 [INFO] [PARSER] 226558: 8 articole extrase (regex)
-2026-05-12 15:49:51,890 [INFO] [PARSER] 226568: 10 articole extrase (regex)
-2026-05-12 15:49:51,891 [INFO] [PARSER] 226568: 8 articole extrase (regex)
-2026-05-12 15:49:51,891 [INFO] [PARSER] 226568: 0 articole extrase (regex)
-2026-05-12 15:49:51,892 [INFO] [PARSER] 226578: 10 articole extrase (regex)
-2026-05-12 15:49:51,892 [INFO] [PARSER] 226578: 2 articole extrase (regex)
-2026-05-12 15:49:51,893 [INFO] [PARSER] 226008: 9 articole extrase (regex)
-2026-05-12 15:49:51,894 [INFO] [PARSER] 226008: 11 articole extrase (regex)
-2026-05-12 15:49:51,895 [INFO] [PARSER] 226008: 8 articole extrase (regex)
-2026-05-12 15:49:51,896 [INFO] [PARSER] 226008: 1 articole extrase (regex)
-2026-05-12 15:49:51,897 [INFO] [PARSER] 226018: 8 articole extrase (regex)
-2026-05-12 15:49:51,898 [INFO] [PARSER] 226018: 8 articole extrase (regex)
-2026-05-12 15:49:51,900 [INFO] [PARSER] 226018: 9 articole extrase (regex)
-2026-05-12 15:49:51,901 [INFO] [PARSER] 226028: 8 articole extrase (regex)
-2026-05-12 15:49:51,902 [INFO] [PARSER] 226028: 11 articole extrase (regex)
-2026-05-12 15:49:51,903 [INFO] [PARSER] 226028: 12 articole extrase (regex)
-2026-05-12 15:49:51,904 [INFO] [PARSER] 226028: 10 articole extrase (regex)
-2026-05-12 15:49:51,905 [INFO] [PARSER] 226028: 3 articole extrase (regex)
-2026-05-12 15:49:51,906 [INFO] [PARSER] 226038: 11 articole extrase (regex)
-2026-05-12 15:49:51,907 [INFO] [PARSER] 226038: 10 articole extrase (regex)
-2026-05-12 15:49:51,908 [INFO] [PARSER] 226038: 7 articole extrase (regex)
-2026-05-12 15:49:51,909 [INFO] [PARSER] 226718: 4 articole extrase (regex)
-2026-05-12 15:49:51,909 [INFO] [PARSER] 226718: 0 articole extrase (regex)
-2026-05-12 15:49:51,910 [INFO] [PARSER] 226708: 3 articole extrase (regex)
-2026-05-12 15:49:51,910 [INFO] [PARSER] 226708: 0 articole extrase (regex)
-2026-05-12 15:49:51,911 [INFO] [PARSER] 226728: 0 articole extrase (regex)
-2026-05-12 15:49:51,911 [INFO] [F3v3] Total: 1399 articole extrase (page-aware, fara LLM)
-2026-05-12 15:49:51,911 [INFO]   1399 articole extrase din linii
-2026-05-12 15:49:51,915 [INFO] [TABLE] 6 articole extrase din tabele pentru 226108
-2026-05-12 15:49:51,915 [INFO] [TABLE] Tabel 53: 6 articole, deviz 226108
-2026-05-12 15:49:51,915 [INFO] [TABLE] 10 articole extrase din tabele pentru 226108
-2026-05-12 15:49:51,915 [INFO] [TABLE] Tabel 54: 10 articole, deviz 226108
-2026-05-12 15:49:51,915 [INFO] [TABLE] 12 articole extrase din tabele pentru 226108
-2026-05-12 15:49:51,915 [INFO] [TABLE] Tabel 55: 12 articole, deviz 226108
-2026-05-12 15:49:51,915 [INFO] [TABLE] 13 articole extrase din tabele pentru 226108
-2026-05-12 15:49:51,915 [INFO] [TABLE] Tabel 56: 13 articole, deviz 226108
-2026-05-12 15:49:51,915 [INFO] [TABLE] 2 articole extrase din tabele pentru 226108
-2026-05-12 15:49:51,915 [INFO] [TABLE] Tabel 57: 2 articole, deviz 226108
-2026-05-12 15:49:51,916 [INFO] [TABLE] 7 articole extrase din tabele pentru 226113
-2026-05-12 15:49:51,916 [INFO] [TABLE] Tabel 62: 7 articole, deviz 226113
-2026-05-12 15:49:51,916 [INFO] [TABLE] 8 articole extrase din tabele pentru 226208
-2026-05-12 15:49:51,916 [INFO] [TABLE] Tabel 79: 8 articole, deviz 226208
-2026-05-12 15:49:51,916 [INFO] [TABLE] 9 articole extrase din tabele pentru 226208
-2026-05-12 15:49:51,916 [INFO] [TABLE] Tabel 80: 9 articole, deviz 226208
-2026-05-12 15:49:51,916 [INFO] [TABLE] 13 articole extrase din tabele pentru 226208
-2026-05-12 15:49:51,916 [INFO] [TABLE] Tabel 81: 13 articole, deviz 226208
-2026-05-12 15:49:51,916 [INFO] [TABLE] 12 articole extrase din tabele pentru 226208
-2026-05-12 15:49:51,916 [INFO] [TABLE] Tabel 82: 12 articole, deviz 226208
-2026-05-12 15:49:51,916 [INFO] [TABLE] 9 articole extrase din tabele pentru 226208
-2026-05-12 15:49:51,916 [INFO] [TABLE] Tabel 83: 9 articole, deviz 226208
-2026-05-12 15:49:51,916 [INFO] [TABLE] 12 articole extrase din tabele pentru 226218
-2026-05-12 15:49:51,916 [INFO] [TABLE] Tabel 88: 12 articole, deviz 226218
-2026-05-12 15:49:51,917 [INFO] [TABLE] 11 articole extrase din tabele pentru 226218
-2026-05-12 15:49:51,917 [INFO] [TABLE] Tabel 89: 11 articole, deviz 226218
-2026-05-12 15:49:51,917 [INFO] [TABLE] 12 articole extrase din tabele pentru 226218
-2026-05-12 15:49:51,917 [INFO] [TABLE] Tabel 90: 12 articole, deviz 226218
-2026-05-12 15:49:51,917 [INFO] [TABLE] 17 articole extrase din tabele pentru 226218
-2026-05-12 15:49:51,917 [INFO] [TABLE] Tabel 91: 17 articole, deviz 226218
-2026-05-12 15:49:51,917 [INFO] [TABLE] 14 articole extrase din tabele pentru 226218
-2026-05-12 15:49:51,917 [INFO] [TABLE] Tabel 92: 14 articole, deviz 226218
-2026-05-12 15:49:51,917 [INFO] [TABLE] 13 articole extrase din tabele pentru 226218
-2026-05-12 15:49:51,917 [INFO] [TABLE] Tabel 93: 13 articole, deviz 226218
-2026-05-12 15:49:51,917 [INFO] [TABLE] 8 articole extrase din tabele pentru 226218
-2026-05-12 15:49:51,917 [INFO] [TABLE] Tabel 94: 8 articole, deviz 226218
-2026-05-12 15:49:51,917 [INFO] [TABLE] 13 articole extrase din tabele pentru 226228
-2026-05-12 15:49:51,917 [INFO] [TABLE] Tabel 100: 13 articole, deviz 226228
-2026-05-12 15:49:51,918 [INFO] [TABLE] 15 articole extrase din tabele pentru 226228
-2026-05-12 15:49:51,918 [INFO] [TABLE] Tabel 101: 15 articole, deviz 226228
-2026-05-12 15:49:51,918 [INFO] [TABLE] 12 articole extrase din tabele pentru 226228
-2026-05-12 15:49:51,918 [INFO] [TABLE] Tabel 102: 12 articole, deviz 226228
-2026-05-12 15:49:51,918 [INFO] [TABLE] 14 articole extrase din tabele pentru 226228
-2026-05-12 15:49:51,918 [INFO] [TABLE] Tabel 103: 14 articole, deviz 226228
-2026-05-12 15:49:51,918 [INFO] [TABLE] 12 articole extrase din tabele pentru 226228
-2026-05-12 15:49:51,918 [INFO] [TABLE] Tabel 104: 12 articole, deviz 226228
-2026-05-12 15:49:51,918 [INFO] [TABLE] 10 articole extrase din tabele pentru 226228
-2026-05-12 15:49:51,918 [INFO] [TABLE] Tabel 105: 10 articole, deviz 226228
-2026-05-12 15:49:51,918 [INFO] [TABLE] 14 articole extrase din tabele pentru 226228
-2026-05-12 15:49:51,918 [INFO] [TABLE] Tabel 106: 14 articole, deviz 226228
-2026-05-12 15:49:51,918 [INFO] [TABLE] 13 articole extrase din tabele pentru 226228
-2026-05-12 15:49:51,918 [INFO] [TABLE] Tabel 107: 13 articole, deviz 226228
-2026-05-12 15:49:51,919 [INFO] [TABLE] 13 articole extrase din tabele pentru 226228
-2026-05-12 15:49:51,919 [INFO] [TABLE] Tabel 108: 13 articole, deviz 226228
-2026-05-12 15:49:51,919 [INFO] [TABLE] 12 articole extrase din tabele pentru 226228
-2026-05-12 15:49:51,919 [INFO] [TABLE] Tabel 109: 12 articole, deviz 226228
-2026-05-12 15:49:51,919 [INFO] [TABLE] 14 articole extrase din tabele pentru 226228
-2026-05-12 15:49:51,919 [INFO] [TABLE] Tabel 110: 14 articole, deviz 226228
-2026-05-12 15:49:51,919 [INFO] [TABLE] 4 articole extrase din tabele pentru 226228
-2026-05-12 15:49:51,919 [INFO] [TABLE] Tabel 111: 4 articole, deviz 226228
-2026-05-12 15:49:51,919 [INFO] [TABLE] 9 articole extrase din tabele pentru 226248
-2026-05-12 15:49:51,919 [INFO] [TABLE] Tabel 121: 9 articole, deviz 226248
-2026-05-12 15:49:51,919 [INFO] [TABLE] 3 articole extrase din tabele pentru 226258
-2026-05-12 15:49:51,919 [INFO] [TABLE] Tabel 126: 3 articole, deviz 226258
-2026-05-12 15:49:51,919 [INFO] [TABLE] 10 articole extrase din tabele pentru 226268
-2026-05-12 15:49:51,919 [INFO] [TABLE] Tabel 131: 10 articole, deviz 226268
-2026-05-12 15:49:51,919 [INFO] [TABLE] 15 articole extrase din tabele pentru 226268
-2026-05-12 15:49:51,919 [INFO] [TABLE] Tabel 132: 15 articole, deviz 226268
-2026-05-12 15:49:51,919 [INFO] [TABLE] 9 articole extrase din tabele pentru 226268
-2026-05-12 15:49:51,920 [INFO] [TABLE] Tabel 133: 9 articole, deviz 226268
-2026-05-12 15:49:51,920 [INFO] [TABLE] 10 articole extrase din tabele pentru 226278
-2026-05-12 15:49:51,920 [INFO] [TABLE] Tabel 139: 10 articole, deviz 226278
-2026-05-12 15:49:51,920 [INFO] [TABLE] 7 articole extrase din tabele pentru 226278
-2026-05-12 15:49:51,920 [INFO] [TABLE] Tabel 140: 7 articole, deviz 226278
-2026-05-12 15:49:51,920 [INFO] [TABLE] 11 articole extrase din tabele pentru 226288
-2026-05-12 15:49:51,920 [INFO] [TABLE] Tabel 145: 11 articole, deviz 226288
-2026-05-12 15:49:51,920 [INFO] [TABLE] 5 articole extrase din tabele pentru 226288
-2026-05-12 15:49:51,920 [INFO] [TABLE] Tabel 146: 5 articole, deviz 226288
-2026-05-12 15:49:51,920 [INFO] [TABLE] 6 articole extrase din tabele pentru 226308
-2026-05-12 15:49:51,920 [INFO] [TABLE] Tabel 171: 6 articole, deviz 226308
-2026-05-12 15:49:51,920 [INFO] [TABLE] 11 articole extrase din tabele pentru 226308
-2026-05-12 15:49:51,920 [INFO] [TABLE] Tabel 172: 11 articole, deviz 226308
-2026-05-12 15:49:51,920 [INFO] [TABLE] 11 articole extrase din tabele pentru 226308
-2026-05-12 15:49:51,920 [INFO] [TABLE] Tabel 173: 11 articole, deviz 226308
-2026-05-12 15:49:51,920 [INFO] [TABLE] 16 articole extrase din tabele pentru 226308
-2026-05-12 15:49:51,920 [INFO] [TABLE] Tabel 174: 16 articole, deviz 226308
-2026-05-12 15:49:51,921 [INFO] [TABLE] 7 articole extrase din tabele pentru 226308
-2026-05-12 15:49:51,921 [INFO] [TABLE] Tabel 175: 7 articole, deviz 226308
-2026-05-12 15:49:51,921 [INFO] [TABLE] 9 articole extrase din tabele pentru 226318
-2026-05-12 15:49:51,921 [INFO] [TABLE] Tabel 180: 9 articole, deviz 226318
-2026-05-12 15:49:51,921 [INFO] [TABLE] 4 articole extrase din tabele pentru 226318
-2026-05-12 15:49:51,921 [INFO] [TABLE] Tabel 181: 4 articole, deviz 226318
-2026-05-12 15:49:51,921 [INFO] [TABLE] 9 articole extrase din tabele pentru 226328
-2026-05-12 15:49:51,921 [INFO] [TABLE] Tabel 186: 9 articole, deviz 226328
-2026-05-12 15:49:51,921 [INFO] [TABLE] 2 articole extrase din tabele pentru 226328
-2026-05-12 15:49:51,921 [INFO] [TABLE] Tabel 187: 2 articole, deviz 226328
-2026-05-12 15:49:51,921 [INFO] [TABLE] 7 articole extrase din tabele pentru 226338
-2026-05-12 15:49:51,921 [INFO] [TABLE] Tabel 191: 7 articole, deviz 226338
-2026-05-12 15:49:51,921 [INFO] [TABLE] 11 articole extrase din tabele pentru 226338
-2026-05-12 15:49:51,921 [INFO] [TABLE] Tabel 192: 11 articole, deviz 226338
-2026-05-12 15:49:51,921 [INFO] [TABLE] 3 articole extrase din tabele pentru 226338
-2026-05-12 15:49:51,921 [INFO] [TABLE] Tabel 193: 3 articole, deviz 226338
-2026-05-12 15:49:51,921 [INFO] [TABLE] 7 articole extrase din tabele pentru 226348
-2026-05-12 15:49:51,921 [INFO] [TABLE] Tabel 198: 7 articole, deviz 226348
-2026-05-12 15:49:51,921 [INFO] [TABLE] 6 articole extrase din tabele pentru 226348
-2026-05-12 15:49:51,921 [INFO] [TABLE] Tabel 199: 6 articole, deviz 226348
-2026-05-12 15:49:51,921 [INFO] [TABLE] 7 articole extrase din tabele pentru 226358
-2026-05-12 15:49:51,922 [INFO] [TABLE] Tabel 204: 7 articole, deviz 226358
-2026-05-12 15:49:51,922 [INFO] [TABLE] 11 articole extrase din tabele pentru 226358
-2026-05-12 15:49:51,922 [INFO] [TABLE] Tabel 205: 11 articole, deviz 226358
-2026-05-12 15:49:51,922 [INFO] [TABLE] 1 articole extrase din tabele pentru 226358
-2026-05-12 15:49:51,922 [INFO] [TABLE] Tabel 206: 1 articole, deviz 226358
-2026-05-12 15:49:51,922 [INFO] [TABLE] 6 articole extrase din tabele pentru 226368
-2026-05-12 15:49:51,922 [INFO] [TABLE] Tabel 210: 6 articole, deviz 226368
-2026-05-12 15:49:51,922 [INFO] [TABLE] 1 articole extrase din tabele pentru 226368
-2026-05-12 15:49:51,922 [INFO] [TABLE] Tabel 211: 1 articole, deviz 226368
-2026-05-12 15:49:51,922 [INFO] [TABLE] 1 articole extrase din tabele pentru 226208
-2026-05-12 15:49:51,922 [INFO] [TABLE] Tabel 216: 1 articole, deviz 226208
-2026-05-12 15:49:51,922 [INFO] [TABLE] 8 articole extrase din tabele pentru 226408
-2026-05-12 15:49:51,922 [INFO] [TABLE] Tabel 235: 8 articole, deviz 226408
-2026-05-12 15:49:51,922 [INFO] [TABLE] 11 articole extrase din tabele pentru 226408
-2026-05-12 15:49:51,922 [INFO] [TABLE] Tabel 236: 11 articole, deviz 226408
-2026-05-12 15:49:51,922 [INFO] [TABLE] 13 articole extrase din tabele pentru 226408
-2026-05-12 15:49:51,922 [INFO] [TABLE] Tabel 237: 13 articole, deviz 226408
-2026-05-12 15:49:51,922 [INFO] [TABLE] 11 articole extrase din tabele pentru 226408
-2026-05-12 15:49:51,922 [INFO] [TABLE] Tabel 238: 11 articole, deviz 226408
-2026-05-12 15:49:51,923 [INFO] [TABLE] 10 articole extrase din tabele pentru 226408
-2026-05-12 15:49:51,923 [INFO] [TABLE] Tabel 239: 10 articole, deviz 226408
-2026-05-12 15:49:51,923 [INFO] [TABLE] 7 articole extrase din tabele pentru 226408
-2026-05-12 15:49:51,923 [INFO] [TABLE] Tabel 240: 7 articole, deviz 226408
-2026-05-12 15:49:51,923 [INFO] [TABLE] 12 articole extrase din tabele pentru 226418
-2026-05-12 15:49:51,923 [INFO] [TABLE] Tabel 245: 12 articole, deviz 226418
-2026-05-12 15:49:51,923 [INFO] [TABLE] 10 articole extrase din tabele pentru 226418
-2026-05-12 15:49:51,923 [INFO] [TABLE] Tabel 246: 10 articole, deviz 226418
-2026-05-12 15:49:51,923 [INFO] [TABLE] 12 articole extrase din tabele pentru 226418
-2026-05-12 15:49:51,923 [INFO] [TABLE] Tabel 247: 12 articole, deviz 226418
-2026-05-12 15:49:51,923 [INFO] [TABLE] 17 articole extrase din tabele pentru 226418
-2026-05-12 15:49:51,923 [INFO] [TABLE] Tabel 248: 17 articole, deviz 226418
-2026-05-12 15:49:51,923 [INFO] [TABLE] 18 articole extrase din tabele pentru 226418
-2026-05-12 15:49:51,923 [INFO] [TABLE] Tabel 249: 18 articole, deviz 226418
-2026-05-12 15:49:51,924 [INFO] [TABLE] 13 articole extrase din tabele pentru 226418
-2026-05-12 15:49:51,924 [INFO] [TABLE] Tabel 250: 13 articole, deviz 226418
-2026-05-12 15:49:51,924 [INFO] [TABLE] 13 articole extrase din tabele pentru 226418
-2026-05-12 15:49:51,924 [INFO] [TABLE] Tabel 251: 13 articole, deviz 226418
-2026-05-12 15:49:51,924 [INFO] [TABLE] 3 articole extrase din tabele pentru 226418
-2026-05-12 15:49:51,924 [INFO] [TABLE] Tabel 252: 3 articole, deviz 226418
-2026-05-12 15:49:51,924 [INFO] [TABLE] 12 articole extrase din tabele pentru 226428
-2026-05-12 15:49:51,924 [INFO] [TABLE] Tabel 257: 12 articole, deviz 226428
-2026-05-12 15:49:51,924 [INFO] [TABLE] 15 articole extrase din tabele pentru 226428
-2026-05-12 15:49:51,924 [INFO] [TABLE] Tabel 258: 15 articole, deviz 226428
-2026-05-12 15:49:51,924 [INFO] [TABLE] 12 articole extrase din tabele pentru 226428
-2026-05-12 15:49:51,924 [INFO] [TABLE] Tabel 259: 12 articole, deviz 226428
-2026-05-12 15:49:51,924 [INFO] [TABLE] 12 articole extrase din tabele pentru 226428
-2026-05-12 15:49:51,924 [INFO] [TABLE] Tabel 260: 12 articole, deviz 226428
-2026-05-12 15:49:51,924 [INFO] [TABLE] 13 articole extrase din tabele pentru 226428
-2026-05-12 15:49:51,924 [INFO] [TABLE] Tabel 261: 13 articole, deviz 226428
-2026-05-12 15:49:51,925 [INFO] [TABLE] 15 articole extrase din tabele pentru 226428
-2026-05-12 15:49:51,925 [INFO] [TABLE] Tabel 262: 15 articole, deviz 226428
-2026-05-12 15:49:51,925 [INFO] [TABLE] 13 articole extrase din tabele pentru 226428
-2026-05-12 15:49:51,925 [INFO] [TABLE] Tabel 263: 13 articole, deviz 226428
-2026-05-12 15:49:51,925 [INFO] [TABLE] 11 articole extrase din tabele pentru 226428
-2026-05-12 15:49:51,925 [INFO] [TABLE] Tabel 264: 11 articole, deviz 226428
-2026-05-12 15:49:51,925 [INFO] [TABLE] 13 articole extrase din tabele pentru 226428
-2026-05-12 15:49:51,925 [INFO] [TABLE] Tabel 265: 13 articole, deviz 226428
-2026-05-12 15:49:51,925 [INFO] [TABLE] 5 articole extrase din tabele pentru 226428
-2026-05-12 15:49:51,925 [INFO] [TABLE] Tabel 266: 5 articole, deviz 226428
-2026-05-12 15:49:51,925 [INFO] [TABLE] 10 articole extrase din tabele pentru 226448
-2026-05-12 15:49:51,925 [INFO] [TABLE] Tabel 276: 10 articole, deviz 226448
-2026-05-12 15:49:51,925 [INFO] [TABLE] 3 articole extrase din tabele pentru 226448
-2026-05-12 15:49:51,925 [INFO] [TABLE] Tabel 277: 3 articole, deviz 226448
-2026-05-12 15:49:51,925 [INFO] [TABLE] 4 articole extrase din tabele pentru 226458
-2026-05-12 15:49:51,925 [INFO] [TABLE] Tabel 282: 4 articole, deviz 226458
-2026-05-12 15:49:51,925 [INFO] [TABLE] 7 articole extrase din tabele pentru 226468
-2026-05-12 15:49:51,925 [INFO] [TABLE] Tabel 287: 7 articole, deviz 226468
-2026-05-12 15:49:51,925 [INFO] [TABLE] 10 articole extrase din tabele pentru 226478
-2026-05-12 15:49:51,925 [INFO] [TABLE] Tabel 293: 10 articole, deviz 226478
-2026-05-12 15:49:51,926 [INFO] [TABLE] 15 articole extrase din tabele pentru 226478
-2026-05-12 15:49:51,926 [INFO] [TABLE] Tabel 294: 15 articole, deviz 226478
-2026-05-12 15:49:51,926 [INFO] [TABLE] 9 articole extrase din tabele pentru 226478
-2026-05-12 15:49:51,926 [INFO] [TABLE] Tabel 295: 9 articole, deviz 226478
-2026-05-12 15:49:51,926 [INFO] [TABLE] 10 articole extrase din tabele pentru 226488
-2026-05-12 15:49:51,926 [INFO] [TABLE] Tabel 300: 10 articole, deviz 226488
-2026-05-12 15:49:51,926 [INFO] [TABLE] 5 articole extrase din tabele pentru 226488
-2026-05-12 15:49:51,926 [INFO] [TABLE] Tabel 301: 5 articole, deviz 226488
-2026-05-12 15:49:51,926 [INFO] [TABLE] 11 articole extrase din tabele pentru 226498
-2026-05-12 15:49:51,926 [INFO] [TABLE] Tabel 306: 11 articole, deviz 226498
-2026-05-12 15:49:51,926 [INFO] [TABLE] 3 articole extrase din tabele pentru 226498
-2026-05-12 15:49:51,926 [INFO] [TABLE] Tabel 307: 3 articole, deviz 226498
-2026-05-12 15:49:51,926 [INFO] [TABLE] 8 articole extrase din tabele pentru 226508
-2026-05-12 15:49:51,926 [INFO] [TABLE] Tabel 321: 8 articole, deviz 226508
-2026-05-12 15:49:51,926 [INFO] [TABLE] 9 articole extrase din tabele pentru 226508
-2026-05-12 15:49:51,926 [INFO] [TABLE] Tabel 322: 9 articole, deviz 226508
-2026-05-12 15:49:51,926 [INFO] [TABLE] 13 articole extrase din tabele pentru 226508
-2026-05-12 15:49:51,926 [INFO] [TABLE] Tabel 323: 13 articole, deviz 226508
-2026-05-12 15:49:51,927 [INFO] [TABLE] 10 articole extrase din tabele pentru 226508
-2026-05-12 15:49:51,927 [INFO] [TABLE] Tabel 324: 10 articole, deviz 226508
-2026-05-12 15:49:51,927 [INFO] [TABLE] 11 articole extrase din tabele pentru 226508
-2026-05-12 15:49:51,927 [INFO] [TABLE] Tabel 325: 11 articole, deviz 226508
-2026-05-12 15:49:51,927 [INFO] [TABLE] 12 articole extrase din tabele pentru 226518
-2026-05-12 15:49:51,927 [INFO] [TABLE] Tabel 330: 12 articole, deviz 226518
-2026-05-12 15:49:51,927 [INFO] [TABLE] 11 articole extrase din tabele pentru 226518
-2026-05-12 15:49:51,927 [INFO] [TABLE] Tabel 331: 11 articole, deviz 226518
-2026-05-12 15:49:51,927 [INFO] [TABLE] 13 articole extrase din tabele pentru 226518
-2026-05-12 15:49:51,927 [INFO] [TABLE] Tabel 332: 13 articole, deviz 226518
-2026-05-12 15:49:51,927 [INFO] [TABLE] 19 articole extrase din tabele pentru 226518
-2026-05-12 15:49:51,927 [INFO] [TABLE] Tabel 333: 19 articole, deviz 226518
-2026-05-12 15:49:51,927 [INFO] [TABLE] 13 articole extrase din tabele pentru 226518
-2026-05-12 15:49:51,927 [INFO] [TABLE] Tabel 334: 13 articole, deviz 226518
-2026-05-12 15:49:51,928 [INFO] [TABLE] 13 articole extrase din tabele pentru 226518
-2026-05-12 15:49:51,928 [INFO] [TABLE] Tabel 335: 13 articole, deviz 226518
-2026-05-12 15:49:51,928 [INFO] [TABLE] 2 articole extrase din tabele pentru 226518
-2026-05-12 15:49:51,928 [INFO] [TABLE] Tabel 336: 2 articole, deviz 226518
-2026-05-12 15:49:51,928 [INFO] [TABLE] 12 articole extrase din tabele pentru 226528
-2026-05-12 15:49:51,928 [INFO] [TABLE] Tabel 340: 12 articole, deviz 226528
-2026-05-12 15:49:51,928 [INFO] [TABLE] 13 articole extrase din tabele pentru 226528
-2026-05-12 15:49:51,928 [INFO] [TABLE] Tabel 341: 13 articole, deviz 226528
-2026-05-12 15:49:51,928 [INFO] [TABLE] 12 articole extrase din tabele pentru 226528
-2026-05-12 15:49:51,928 [INFO] [TABLE] Tabel 342: 12 articole, deviz 226528
-2026-05-12 15:49:51,928 [INFO] [TABLE] 14 articole extrase din tabele pentru 226528
-2026-05-12 15:49:51,928 [INFO] [TABLE] Tabel 343: 14 articole, deviz 226528
-2026-05-12 15:49:51,928 [INFO] [TABLE] 12 articole extrase din tabele pentru 226528
-2026-05-12 15:49:51,928 [INFO] [TABLE] Tabel 344: 12 articole, deviz 226528
-2026-05-12 15:49:51,928 [INFO] [TABLE] 11 articole extrase din tabele pentru 226528
-2026-05-12 15:49:51,928 [INFO] [TABLE] Tabel 345: 11 articole, deviz 226528
-2026-05-12 15:49:51,929 [INFO] [TABLE] 14 articole extrase din tabele pentru 226528
-2026-05-12 15:49:51,929 [INFO] [TABLE] Tabel 346: 14 articole, deviz 226528
-2026-05-12 15:49:51,929 [INFO] [TABLE] 13 articole extrase din tabele pentru 226528
-2026-05-12 15:49:51,929 [INFO] [TABLE] Tabel 347: 13 articole, deviz 226528
-2026-05-12 15:49:51,929 [INFO] [TABLE] 12 articole extrase din tabele pentru 226528
-2026-05-12 15:49:51,929 [INFO] [TABLE] Tabel 348: 12 articole, deviz 226528
-2026-05-12 15:49:51,929 [INFO] [TABLE] 12 articole extrase din tabele pentru 226528
-2026-05-12 15:49:51,929 [INFO] [TABLE] Tabel 349: 12 articole, deviz 226528
-2026-05-12 15:49:51,929 [INFO] [TABLE] 13 articole extrase din tabele pentru 226528
-2026-05-12 15:49:51,929 [INFO] [TABLE] Tabel 350: 13 articole, deviz 226528
-2026-05-12 15:49:51,929 [INFO] [TABLE] 1 articole extrase din tabele pentru 226528
-2026-05-12 15:49:51,929 [INFO] [TABLE] Tabel 351: 1 articole, deviz 226528
-2026-05-12 15:49:51,929 [INFO] [TABLE] 9 articole extrase din tabele pentru 226538
-2026-05-12 15:49:51,929 [INFO] [TABLE] Tabel 356: 9 articole, deviz 226538
-2026-05-12 15:49:51,929 [INFO] [TABLE] 3 articole extrase din tabele pentru 226548
-2026-05-12 15:49:51,929 [INFO] [TABLE] Tabel 361: 3 articole, deviz 226548
-2026-05-12 15:49:51,929 [INFO] [TABLE] 11 articole extrase din tabele pentru 226558
-2026-05-12 15:49:51,929 [INFO] [TABLE] Tabel 366: 11 articole, deviz 226558
-2026-05-12 15:49:51,929 [INFO] [TABLE] 13 articole extrase din tabele pentru 226558
-2026-05-12 15:49:51,930 [INFO] [TABLE] Tabel 367: 13 articole, deviz 226558
-2026-05-12 15:49:51,930 [INFO] [TABLE] 7 articole extrase din tabele pentru 226558
-2026-05-12 15:49:51,930 [INFO] [TABLE] Tabel 368: 7 articole, deviz 226558
-2026-05-12 15:49:51,930 [INFO] [TABLE] 10 articole extrase din tabele pentru 226568
-2026-05-12 15:49:51,930 [INFO] [TABLE] Tabel 374: 10 articole, deviz 226568
-2026-05-12 15:49:51,930 [INFO] [TABLE] 7 articole extrase din tabele pentru 226568
-2026-05-12 15:49:51,930 [INFO] [TABLE] Tabel 375: 7 articole, deviz 226568
-2026-05-12 15:49:51,930 [INFO] [TABLE] 10 articole extrase din tabele pentru 226578
-2026-05-12 15:49:51,930 [INFO] [TABLE] Tabel 380: 10 articole, deviz 226578
-2026-05-12 15:49:51,930 [INFO] [TABLE] 2 articole extrase din tabele pentru 226578
-2026-05-12 15:49:51,930 [INFO] [TABLE] Tabel 381: 2 articole, deviz 226578
-2026-05-12 15:49:51,930 [INFO] [TABLE] 10 articole extrase din tabele pentru 226008
-2026-05-12 15:49:51,930 [INFO] [TABLE] Tabel 396: 10 articole, deviz 226008
-2026-05-12 15:49:51,930 [INFO] [TABLE] 11 articole extrase din tabele pentru 226008
-2026-05-12 15:49:51,930 [INFO] [TABLE] Tabel 397: 11 articole, deviz 226008
-2026-05-12 15:49:51,930 [INFO] [TABLE] 8 articole extrase din tabele pentru 226008
-2026-05-12 15:49:51,930 [INFO] [TABLE] Tabel 398: 8 articole, deviz 226008
-2026-05-12 15:49:51,930 [INFO] [TABLE] 1 articole extrase din tabele pentru 226008
-2026-05-12 15:49:51,930 [INFO] [TABLE] Tabel 399: 1 articole, deviz 226008
-2026-05-12 15:49:51,931 [INFO] [TABLE] 7 articole extrase din tabele pentru 226018
-2026-05-12 15:49:51,931 [INFO] [TABLE] Tabel 404: 7 articole, deviz 226018
-2026-05-12 15:49:51,931 [INFO] [TABLE] 8 articole extrase din tabele pentru 226018
-2026-05-12 15:49:51,931 [INFO] [TABLE] Tabel 405: 8 articole, deviz 226018
-2026-05-12 15:49:51,931 [INFO] [TABLE] 9 articole extrase din tabele pentru 226018
-2026-05-12 15:49:51,931 [INFO] [TABLE] Tabel 406: 9 articole, deviz 226018
-2026-05-12 15:49:51,931 [INFO] [TABLE] 8 articole extrase din tabele pentru 226028
-2026-05-12 15:49:51,931 [INFO] [TABLE] Tabel 412: 8 articole, deviz 226028
-2026-05-12 15:49:51,931 [INFO] [TABLE] 11 articole extrase din tabele pentru 226028
-2026-05-12 15:49:51,931 [INFO] [TABLE] Tabel 413: 11 articole, deviz 226028
-2026-05-12 15:49:51,931 [INFO] [TABLE] 12 articole extrase din tabele pentru 226028
-2026-05-12 15:49:51,931 [INFO] [TABLE] Tabel 414: 12 articole, deviz 226028
-2026-05-12 15:49:51,931 [INFO] [TABLE] 10 articole extrase din tabele pentru 226028
-2026-05-12 15:49:51,931 [INFO] [TABLE] Tabel 415: 10 articole, deviz 226028
-2026-05-12 15:49:51,931 [INFO] [TABLE] 3 articole extrase din tabele pentru 226028
-2026-05-12 15:49:51,931 [INFO] [TABLE] Tabel 416: 3 articole, deviz 226028
-2026-05-12 15:49:51,931 [INFO] [TABLE] 10 articole extrase din tabele pentru 226038
-2026-05-12 15:49:51,931 [INFO] [TABLE] Tabel 421: 10 articole, deviz 226038
-2026-05-12 15:49:51,932 [INFO] [TABLE] 9 articole extrase din tabele pentru 226038
-2026-05-12 15:49:51,932 [INFO] [TABLE] Tabel 422: 9 articole, deviz 226038
-2026-05-12 15:49:51,932 [INFO] [TABLE] 7 articole extrase din tabele pentru 226038
-2026-05-12 15:49:51,932 [INFO] [TABLE] Tabel 423: 7 articole, deviz 226038
-2026-05-12 15:49:51,932 [INFO] [TABLE] 3 articole extrase din tabele pentru 226718
-2026-05-12 15:49:51,932 [INFO] [TABLE] Tabel 438: 3 articole, deviz 226718
-2026-05-12 15:49:51,932 [INFO] [TABLE] 3 articole extrase din tabele pentru 226708
-2026-05-12 15:49:51,932 [INFO] [TABLE] Tabel 443: 3 articole, deviz 226708
-2026-05-12 15:49:51,932 [INFO] [TABLE] 1 articole extrase din tabele pentru 226728
-2026-05-12 15:49:51,932 [INFO] [TABLE] Tabel 448: 1 articole, deviz 226728
-2026-05-12 15:49:51,933 [INFO]   1391 articole din tabele, 1410 total dupa merge
-2026-05-12 15:49:51,937 [INFO] [DN] Populated 1132 missing deviz denominations
-2026-05-12 15:49:51,937 [WARNING]   ALERTA: 2 devize in oferta ABSENTE din referinta: ['226113', '226728']
-2026-05-12 15:49:51,937 [INFO]   → Reconciliere: re-scanam referinta pentru ['226113', '226728']
-2026-05-12 15:49:51,954 [WARNING]   [RECONCILE] Deviz 226113 NEGASIT in di_referinta
-2026-05-12 15:49:51,958 [WARNING]   [RECONCILE] Deviz 226728 NEGASIT in di_referinta
-2026-05-12 15:49:51,959 [ERROR]   [RECONCILE] Deviz 226113 NEGASIT in referinta — posibila eroare OCR/parsare
-2026-05-12 15:49:51,959 [ERROR]   [RECONCILE] Deviz 226728 NEGASIT in referinta — posibila eroare OCR/parsare
-2026-05-12 15:49:51,959 [INFO]   2 devize din referinta NEACOPERITE de oferta: ['226118', '226F08']
-2026-05-12 15:49:51,959 [INFO]   → Reconciliere: re-scanam oferta 1 pentru ['226118', '226F08']
-2026-05-12 15:49:52,000 [WARNING]   [RECONCILE] Deviz 226118 NEGASIT in di_oferta_1
-2026-05-12 15:49:52,009 [WARNING]   [RECONCILE] Deviz 226F08 NEGASIT in di_oferta_1
-2026-05-12 15:49:52,012 [ERROR]   [RECONCILE] Deviz 226118 NEGASIT in oferta 1 — posibila eroare OCR/parsare
-2026-05-12 15:49:52,012 [ERROR]   [RECONCILE] Deviz 226F08 NEGASIT in oferta 1 — posibila eroare OCR/parsare
-2026-05-12 15:49:52,028 [INFO] 
+2026-05-19 19:12:26,599 [INFO]   Ofertant: SC GLOBAL ELECTRO CONSTRUCT SRL Deviz "1" - Formular F3 Formular generat cu programul
+2026-05-19 19:12:26,610 [INFO]   di_oferta_1.json: 148 pagini DI
+2026-05-19 19:12:26,610 [INFO]   Clasificare pagini cu LLM (poate dura 2-5 min)...
+2026-05-19 19:12:26,612 [INFO] [DEVIZ-MAP] Built dynamic map from 831 reference articles
+2026-05-19 19:12:26,612 [INFO] [DEVIZ-MAP] Devizes: ['4.1-01', '4.1-02', '4.1-03', '4.1-04', '4.1-05', '4.1-06', '4.1-07', '4.1-08', '4.1-09', '4.1-10', '4.1-11', '4.1-12', '4.1-13', '4.1-14', '4.1-15', '4.1-16', '4.1-17', '4.1-18', '4.1-19', '4.1-20', '4.1-21', '4.2-1', '4.2-2', '4.3-01', '4.3-02', '4.3-03', '4.3-04', '4.3-05', '4.3-06', '4.3-07', '4.3-08', '4.3-09', '4.4-1', '4.4-2', '5.1-1']
+2026-05-19 19:12:26,612 [INFO] [PC] Built dynamic deviz map from 831 reference articles
+2026-05-19 19:12:26,627 [WARNING] [SUBCF] No hardcoded pattern matched, format unknown
+2026-05-19 19:12:26,627 [INFO] [PC] Detected subcomponent format: Unknown format (confidence=0.00)
+2026-05-19 19:12:26,627 [INFO] [PC] Clasificare completă: 125/148 pagini F3
+2026-05-19 19:12:26,632 [INFO]   Checkpoint salvat: di_oferta_1_page_classes_10d784f1d95b.json
+2026-05-19 19:12:26,632 [INFO] [RECLF] pag91: F3 (semnal cert) → deviz='4.1-20'
+2026-05-19 19:12:26,633 [INFO] [RECLF] 1 pagini reclasificate din 23 non-F3
+2026-05-19 19:12:26,633 [INFO]   [RECLF] 1 candidate pagini F3 omise → LLM re-clasificare...
+2026-05-19 19:12:27,485 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
+2026-05-19 19:12:27,526 [INFO]   [RECLF] LLM a raspuns pentru 1/1 pagini
+2026-05-19 19:12:27,526 [INFO]   [RECLF] LLM a confirmat: nicio pagina suplimentara F3
+2026-05-19 19:12:27,532 [INFO]   125 pagini F3 (0 fara deviz_cod)
+2026-05-19 19:12:27,743 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:27,753 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10403
+2026-05-19 19:12:27,831 [INFO] Saved new pattern: AUTO_GEN_10403
+2026-05-19 19:12:27,832 [INFO] [PATTERN] 5.1-1: Detected AUTO_GEN_10403 (confidence=0.50)
+2026-05-19 19:12:27,833 [INFO] [SCATTER] Combined 2 scattered format groups
+2026-05-19 19:12:27,836 [INFO] [PARSER] 5.1-1: 18 articole extrase (regex)
+2026-05-19 19:12:27,836 [INFO] [F3v3] 5.1-1: 18 articole extrase (grouped pages)
+2026-05-19 19:12:28,051 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:28,060 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10404
+2026-05-19 19:12:28,120 [INFO] Saved new pattern: AUTO_GEN_10404
+2026-05-19 19:12:28,122 [INFO] [PATTERN] 4.1-01: Detected AUTO_GEN_10404 (confidence=0.50)
+2026-05-19 19:12:28,122 [INFO] [SCATTER] Combined 4 scattered format groups
+2026-05-19 19:12:28,127 [INFO] [PARSER] 4.1-01: 17 articole extrase (regex)
+2026-05-19 19:12:28,127 [INFO] [F3v3] 4.1-01: 17 articole extrase (grouped pages)
+2026-05-19 19:12:28,348 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:28,357 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10405
+2026-05-19 19:12:28,414 [INFO] Saved new pattern: AUTO_GEN_10405
+2026-05-19 19:12:28,416 [INFO] [PATTERN] 4.1-04: Detected AUTO_GEN_10405 (confidence=0.50)
+2026-05-19 19:12:28,417 [INFO] [SCATTER] Combined 20 scattered format groups
+2026-05-19 19:12:28,433 [INFO] [PARSER] 4.1-04: 108 articole extrase (regex)
+2026-05-19 19:12:28,434 [INFO] [F3v3] 4.1-04: 108 articole extrase (grouped pages)
+2026-05-19 19:12:28,661 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:28,670 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10406
+2026-05-19 19:12:28,728 [INFO] Saved new pattern: AUTO_GEN_10406
+2026-05-19 19:12:28,729 [INFO] [PATTERN] 4.1-03: Detected AUTO_GEN_10406 (confidence=0.50)
+2026-05-19 19:12:28,730 [INFO] [SCATTER] Combined 15 scattered format groups
+2026-05-19 19:12:28,742 [INFO] [PARSER] 4.1-03: 81 articole extrase (regex)
+2026-05-19 19:12:28,743 [INFO] [F3v3] 4.1-03: 81 articole extrase (grouped pages)
+2026-05-19 19:12:28,969 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:28,978 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10407
+2026-05-19 19:12:29,036 [INFO] Saved new pattern: AUTO_GEN_10407
+2026-05-19 19:12:29,037 [INFO] [PATTERN] 4.1-05: Detected AUTO_GEN_10407 (confidence=0.50)
+2026-05-19 19:12:29,037 [INFO] [SCATTER] Combined 16 scattered format groups
+2026-05-19 19:12:29,045 [INFO] [PARSER] 4.1-05: 60 articole extrase (regex)
+2026-05-19 19:12:29,046 [INFO] [F3v3] 4.1-05: 60 articole extrase (grouped pages)
+2026-05-19 19:12:29,268 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:29,277 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10408
+2026-05-19 19:12:29,335 [INFO] Saved new pattern: AUTO_GEN_10408
+2026-05-19 19:12:29,336 [INFO] [PATTERN] 4.1-06: Detected AUTO_GEN_10408 (confidence=0.50)
+2026-05-19 19:12:29,341 [INFO] [PARSER] 4.1-06: 27 articole extrase (regex)
+2026-05-19 19:12:29,341 [INFO] [F3v3] 4.1-06: 27 articole extrase (grouped pages)
+2026-05-19 19:12:29,569 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:29,578 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10409
+2026-05-19 19:12:29,635 [INFO] Saved new pattern: AUTO_GEN_10409
+2026-05-19 19:12:29,637 [INFO] [PATTERN] 4.1-07: Detected AUTO_GEN_10409 (confidence=0.50)
+2026-05-19 19:12:29,637 [INFO] [SCATTER] Combined 2 scattered format groups
+2026-05-19 19:12:29,640 [INFO] [PARSER] 4.1-07: 11 articole extrase (regex)
+2026-05-19 19:12:29,640 [INFO] [F3v3] 4.1-07: 11 articole extrase (grouped pages)
+2026-05-19 19:12:29,867 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:29,876 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10410
+2026-05-19 19:12:29,936 [INFO] Saved new pattern: AUTO_GEN_10410
+2026-05-19 19:12:29,937 [INFO] [PATTERN] 4.1-09: Detected AUTO_GEN_10410 (confidence=0.50)
+2026-05-19 19:12:29,939 [INFO] [PARSER] 4.1-09: 4 articole extrase (regex)
+2026-05-19 19:12:29,939 [INFO] [F3v3] 4.1-09: 4 articole extrase (grouped pages)
+2026-05-19 19:12:30,165 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:30,174 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10411
+2026-05-19 19:12:30,236 [INFO] Saved new pattern: AUTO_GEN_10411
+2026-05-19 19:12:30,237 [INFO] [PATTERN] 4.1-10: Detected AUTO_GEN_10411 (confidence=0.50)
+2026-05-19 19:12:30,238 [INFO] [SCATTER] Combined 5 scattered format groups
+2026-05-19 19:12:30,259 [INFO] [PARSER] 4.1-10: 128 articole extrase (regex)
+2026-05-19 19:12:30,260 [INFO] [F3v3] 4.1-10: 128 articole extrase (grouped pages)
+2026-05-19 19:12:30,491 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:30,500 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10412
+2026-05-19 19:12:30,558 [INFO] Saved new pattern: AUTO_GEN_10412
+2026-05-19 19:12:30,560 [INFO] [PATTERN] 4.1-13: Detected AUTO_GEN_10412 (confidence=0.50)
+2026-05-19 19:12:30,560 [INFO] [SCATTER] Combined 4 scattered format groups
+2026-05-19 19:12:30,587 [INFO] [PARSER] 4.1-13: 171 articole extrase (regex)
+2026-05-19 19:12:30,588 [INFO] [F3v3] 4.1-13: 171 articole extrase (grouped pages)
+2026-05-19 19:12:30,809 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:30,818 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10413
+2026-05-19 19:12:30,876 [INFO] Saved new pattern: AUTO_GEN_10413
+2026-05-19 19:12:30,878 [INFO] [PATTERN] 4.1-11: Detected AUTO_GEN_10413 (confidence=0.50)
+2026-05-19 19:12:30,878 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:30,883 [INFO] [PARSER] 4.1-11: 30 articole extrase (regex)
+2026-05-19 19:12:30,883 [INFO] [F3v3] 4.1-11: 30 articole extrase (grouped pages)
+2026-05-19 19:12:31,105 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:31,113 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10414
+2026-05-19 19:12:31,171 [INFO] Saved new pattern: AUTO_GEN_10414
+2026-05-19 19:12:31,173 [INFO] [PATTERN] 4.1-14: Detected AUTO_GEN_10414 (confidence=0.50)
+2026-05-19 19:12:31,173 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:31,181 [INFO] [PARSER] 4.1-14: 52 articole extrase (regex)
+2026-05-19 19:12:31,181 [INFO] [F3v3] 4.1-14: 52 articole extrase (grouped pages)
+2026-05-19 19:12:31,410 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:31,419 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10415
+2026-05-19 19:12:31,484 [INFO] Saved new pattern: AUTO_GEN_10415
+2026-05-19 19:12:31,486 [INFO] [PATTERN] 4.1-08: Detected AUTO_GEN_10415 (confidence=0.50)
+2026-05-19 19:12:31,486 [INFO] [SCATTER] Combined 4 scattered format groups
+2026-05-19 19:12:31,489 [INFO] [PARSER] 4.1-08: 13 articole extrase (regex)
+2026-05-19 19:12:31,489 [INFO] [F3v3] 4.1-08: 13 articole extrase (grouped pages)
+2026-05-19 19:12:31,713 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:31,722 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10416
+2026-05-19 19:12:31,780 [INFO] Saved new pattern: AUTO_GEN_10416
+2026-05-19 19:12:31,782 [INFO] [PATTERN] 4.1-15: Detected AUTO_GEN_10416 (confidence=0.50)
+2026-05-19 19:12:31,784 [INFO] [PARSER] 4.1-15: 4 articole extrase (regex)
+2026-05-19 19:12:31,784 [INFO] [F3v3] 4.1-15: 4 articole extrase (grouped pages)
+2026-05-19 19:12:32,010 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:32,019 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10417
+2026-05-19 19:12:32,077 [INFO] Saved new pattern: AUTO_GEN_10417
+2026-05-19 19:12:32,078 [INFO] [PATTERN] 4.1-16: Detected AUTO_GEN_10417 (confidence=0.50)
+2026-05-19 19:12:32,081 [INFO] [PARSER] 4.1-16: 8 articole extrase (regex)
+2026-05-19 19:12:32,081 [INFO] [F3v3] 4.1-16: 8 articole extrase (grouped pages)
+2026-05-19 19:12:32,308 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:32,317 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10418
+2026-05-19 19:12:32,377 [INFO] Saved new pattern: AUTO_GEN_10418
+2026-05-19 19:12:32,379 [INFO] [PATTERN] 4.1-17: Detected AUTO_GEN_10418 (confidence=0.50)
+2026-05-19 19:12:32,380 [INFO] [PARSER] 4.1-17: 3 articole extrase (regex)
+2026-05-19 19:12:32,380 [INFO] [F3v3] 4.1-17: 3 articole extrase (grouped pages)
+2026-05-19 19:12:32,601 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:32,610 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10419
+2026-05-19 19:12:32,667 [INFO] Saved new pattern: AUTO_GEN_10419
+2026-05-19 19:12:32,669 [INFO] [PATTERN] 4.1-21: Detected AUTO_GEN_10419 (confidence=0.50)
+2026-05-19 19:12:32,670 [INFO] [PARSER] 4.1-21: 1 articole extrase (regex)
+2026-05-19 19:12:32,670 [INFO] [F3v3] 4.1-21: 1 articole extrase (grouped pages)
+2026-05-19 19:12:32,897 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:32,911 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10420
+2026-05-19 19:12:32,969 [INFO] Saved new pattern: AUTO_GEN_10420
+2026-05-19 19:12:32,971 [INFO] [PATTERN] 4.1-18: Detected AUTO_GEN_10420 (confidence=0.50)
+2026-05-19 19:12:32,972 [INFO] [PARSER] 4.1-18: 1 articole extrase (regex)
+2026-05-19 19:12:32,972 [INFO] [F3v3] 4.1-18: 1 articole extrase (grouped pages)
+2026-05-19 19:12:33,200 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:33,209 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10421
+2026-05-19 19:12:33,269 [INFO] Saved new pattern: AUTO_GEN_10421
+2026-05-19 19:12:33,271 [INFO] [PATTERN] 4.1-19: Detected AUTO_GEN_10421 (confidence=0.50)
+2026-05-19 19:12:33,272 [INFO] [PARSER] 4.1-19: 1 articole extrase (regex)
+2026-05-19 19:12:33,272 [INFO] [F3v3] 4.1-19: 1 articole extrase (grouped pages)
+2026-05-19 19:12:33,496 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:33,505 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10422
+2026-05-19 19:12:33,564 [INFO] Saved new pattern: AUTO_GEN_10422
+2026-05-19 19:12:33,565 [INFO] [PATTERN] 4.1-20: Detected AUTO_GEN_10422 (confidence=0.50)
+2026-05-19 19:12:33,569 [INFO] [PARSER] 4.1-20: 6 articole extrase (regex)
+2026-05-19 19:12:33,569 [INFO] [F3v3] 4.1-20: 6 articole extrase (grouped pages)
+2026-05-19 19:12:33,803 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:33,812 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10423
+2026-05-19 19:12:33,870 [INFO] Saved new pattern: AUTO_GEN_10423
+2026-05-19 19:12:33,871 [INFO] [PATTERN] 4.1-02: Detected AUTO_GEN_10423 (confidence=0.50)
+2026-05-19 19:12:33,872 [INFO] [SCATTER] Combined 6 scattered format groups
+2026-05-19 19:12:33,882 [INFO] [PARSER] 4.1-02: 59 articole extrase (regex)
+2026-05-19 19:12:33,882 [INFO] [F3v3] 4.1-02: 59 articole extrase (grouped pages)
+2026-05-19 19:12:34,110 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:34,118 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10424
+2026-05-19 19:12:34,179 [INFO] Saved new pattern: AUTO_GEN_10424
+2026-05-19 19:12:34,180 [INFO] [PATTERN] 4.1-12: Detected AUTO_GEN_10424 (confidence=0.50)
+2026-05-19 19:12:34,181 [INFO] [SCATTER] Combined 9 scattered format groups
+2026-05-19 19:12:34,192 [INFO] [PARSER] 4.1-12: 67 articole extrase (regex)
+2026-05-19 19:12:34,193 [INFO] [F3v3] 4.1-12: 67 articole extrase (grouped pages)
+2026-05-19 19:12:34,416 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:34,425 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10425
+2026-05-19 19:12:34,485 [INFO] Saved new pattern: AUTO_GEN_10425
+2026-05-19 19:12:34,487 [INFO] [PATTERN] 4.3-01: Detected AUTO_GEN_10425 (confidence=0.50)
+2026-05-19 19:12:34,487 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:34,491 [INFO] [PARSER] 4.3-01: 17 articole extrase (regex)
+2026-05-19 19:12:34,491 [INFO] [F3v3] 4.3-01: 17 articole extrase (grouped pages)
+2026-05-19 19:12:34,714 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:34,723 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10426
+2026-05-19 19:12:34,781 [INFO] Saved new pattern: AUTO_GEN_10426
+2026-05-19 19:12:34,782 [INFO] [PATTERN] 4.3-02: Detected AUTO_GEN_10426 (confidence=0.50)
+2026-05-19 19:12:34,783 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:34,787 [INFO] [PARSER] 4.3-02: 17 articole extrase (regex)
+2026-05-19 19:12:34,787 [INFO] [F3v3] 4.3-02: 17 articole extrase (grouped pages)
+2026-05-19 19:12:35,015 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:35,024 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10427
+2026-05-19 19:12:35,083 [INFO] Saved new pattern: AUTO_GEN_10427
+2026-05-19 19:12:35,084 [INFO] [PATTERN] 4.3-03: Detected AUTO_GEN_10427 (confidence=0.50)
+2026-05-19 19:12:35,088 [INFO] [PARSER] 4.3-03: 15 articole extrase (regex)
+2026-05-19 19:12:35,088 [INFO] [F3v3] 4.3-03: 15 articole extrase (grouped pages)
+2026-05-19 19:12:35,311 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:35,321 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10428
+2026-05-19 19:12:35,379 [INFO] Saved new pattern: AUTO_GEN_10428
+2026-05-19 19:12:35,381 [INFO] [PATTERN] 4.3-05: Detected AUTO_GEN_10428 (confidence=0.50)
+2026-05-19 19:12:35,385 [INFO] [PARSER] 4.3-05: 20 articole extrase (regex)
+2026-05-19 19:12:35,385 [INFO] [F3v3] 4.3-05: 20 articole extrase (grouped pages)
+2026-05-19 19:12:35,612 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:35,621 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10429
+2026-05-19 19:12:35,678 [INFO] Saved new pattern: AUTO_GEN_10429
+2026-05-19 19:12:35,680 [INFO] [PATTERN] 4.3-06: Detected AUTO_GEN_10429 (confidence=0.50)
+2026-05-19 19:12:35,680 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:35,692 [INFO] [PARSER] 4.3-06: 89 articole extrase (regex)
+2026-05-19 19:12:35,693 [INFO] [F3v3] 4.3-06: 89 articole extrase (grouped pages)
+2026-05-19 19:12:35,920 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:35,930 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10430
+2026-05-19 19:12:35,994 [INFO] Saved new pattern: AUTO_GEN_10430
+2026-05-19 19:12:35,995 [INFO] [PATTERN] 4.3-07: Detected AUTO_GEN_10430 (confidence=0.50)
+2026-05-19 19:12:35,995 [INFO] [SCATTER] Combined 4 scattered format groups
+2026-05-19 19:12:36,002 [INFO] [PARSER] 4.3-07: 36 articole extrase (regex)
+2026-05-19 19:12:36,003 [INFO] [F3v3] 4.3-07: 36 articole extrase (grouped pages)
+2026-05-19 19:12:36,227 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:36,236 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10431
+2026-05-19 19:12:36,295 [INFO] Saved new pattern: AUTO_GEN_10431
+2026-05-19 19:12:36,297 [INFO] [PATTERN] 4.3-08: Detected AUTO_GEN_10431 (confidence=0.50)
+2026-05-19 19:12:36,297 [INFO] [SCATTER] Combined 2 scattered format groups
+2026-05-19 19:12:36,300 [INFO] [PARSER] 4.3-08: 15 articole extrase (regex)
+2026-05-19 19:12:36,301 [INFO] [F3v3] 4.3-08: 15 articole extrase (grouped pages)
+2026-05-19 19:12:36,529 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:36,538 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10432
+2026-05-19 19:12:36,617 [INFO] Saved new pattern: AUTO_GEN_10432
+2026-05-19 19:12:36,619 [INFO] [PATTERN] 4.3-09: Detected AUTO_GEN_10432 (confidence=0.50)
+2026-05-19 19:12:36,621 [INFO] [PARSER] 4.3-09: 4 articole extrase (regex)
+2026-05-19 19:12:36,621 [INFO] [F3v3] 4.3-09: 4 articole extrase (grouped pages)
+2026-05-19 19:12:36,856 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:36,865 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10433
+2026-05-19 19:12:36,924 [INFO] Saved new pattern: AUTO_GEN_10433
+2026-05-19 19:12:36,926 [INFO] [PATTERN] 4.3-04: Detected AUTO_GEN_10433 (confidence=0.50)
+2026-05-19 19:12:36,932 [INFO] [PARSER] 4.3-04: 22 articole extrase (regex)
+2026-05-19 19:12:36,932 [INFO] [F3v3] 4.3-04: 22 articole extrase (grouped pages)
+2026-05-19 19:12:37,158 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:37,167 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10434
+2026-05-19 19:12:37,225 [INFO] Saved new pattern: AUTO_GEN_10434
+2026-05-19 19:12:37,227 [INFO] [PATTERN] 4.2-1: Detected AUTO_GEN_10434 (confidence=0.50)
+2026-05-19 19:12:37,227 [INFO] [SCATTER] Combined 2 scattered format groups
+2026-05-19 19:12:37,229 [INFO] [PARSER] 4.2-1: 9 articole extrase (regex)
+2026-05-19 19:12:37,230 [INFO] [F3v3] 4.2-1: 9 articole extrase (grouped pages)
+2026-05-19 19:12:37,459 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:37,468 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10435
+2026-05-19 19:12:37,526 [INFO] Saved new pattern: AUTO_GEN_10435
+2026-05-19 19:12:37,527 [INFO] [PATTERN] 4.2-2: Detected AUTO_GEN_10435 (confidence=0.50)
+2026-05-19 19:12:37,528 [INFO] [SCATTER] Combined 5 scattered format groups
+2026-05-19 19:12:37,531 [INFO] [PARSER] 4.2-2: 16 articole extrase (regex)
+2026-05-19 19:12:37,531 [INFO] [F3v3] 4.2-2: 16 articole extrase (grouped pages)
+2026-05-19 19:12:37,754 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:37,763 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10436
+2026-05-19 19:12:37,822 [INFO] Saved new pattern: AUTO_GEN_10436
+2026-05-19 19:12:37,823 [INFO] [PATTERN] 4.4-1: Detected AUTO_GEN_10436 (confidence=0.50)
+2026-05-19 19:12:37,823 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:37,825 [INFO] [PARSER] 4.4-1: 7 articole extrase (regex)
+2026-05-19 19:12:37,825 [INFO] [F3v3] 4.4-1: 7 articole extrase (grouped pages)
+2026-05-19 19:12:38,051 [WARNING] No known pattern matched (best=0.06), attempting to generate template with LLM...
+2026-05-19 19:12:38,060 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10437
+2026-05-19 19:12:38,117 [INFO] Saved new pattern: AUTO_GEN_10437
+2026-05-19 19:12:38,119 [INFO] [PATTERN] 4.4-2: Detected AUTO_GEN_10437 (confidence=0.50)
+2026-05-19 19:12:38,119 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:12:38,123 [INFO] [PARSER] 4.4-2: 19 articole extrase (regex)
+2026-05-19 19:12:38,123 [INFO] [F3v3] 4.4-2: 19 articole extrase (grouped pages)
+2026-05-19 19:12:38,124 [INFO] [F3v3] Total: 1133 articole extrase (deviz-grouped, fara LLM)
+2026-05-19 19:12:38,124 [INFO]   1133 articole extrase din linii
+2026-05-19 19:12:38,128 [INFO]   0 articole din tabele, 1133 total dupa merge
+2026-05-19 19:12:38,154 [INFO]    Checkpoint: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO/checkpoints/di_oferta_1_deviz_mapping_10d784f1d95b.json
+2026-05-19 19:12:38,154 [INFO] [DN] Populated 0 missing deviz denominations
+2026-05-19 19:12:38,155 [INFO] [DM] Matched 35/35 offer devizes
+2026-05-19 19:12:38,156 [INFO]   [DEVIZ_MAPPER] Remapped 0 articles: {'5.1-1': '5.1-1', '4.1-01': '4.1-01', '4.1-04': '4.1-04', '4.1-03': '4.1-03', '4.1-05': '4.1-05', '4.1-06': '4.1-06', '4.1-07': '4.1-07', '4.1-09': '4.1-09', '4.1-10': '4.1-10', '4.1-13': '4.1-13', '4.1-11': '4.1-11', '4.1-14': '4.1-14', '4.1-08': '4.1-08', '4.1-15': '4.1-15', '4.1-16': '4.1-16', '4.1-17': '4.1-17', '4.1-21': '4.1-21', '4.1-18': '4.1-18', '4.1-19': '4.1-19', '4.1-20': '4.1-20', '4.1-02': '4.1-02', '4.1-12': '4.1-12', '4.3-01': '4.3-01', '4.3-02': '4.3-02', '4.3-03': '4.3-03', '4.3-05': '4.3-05', '4.3-06': '4.3-06', '4.3-07': '4.3-07', '4.3-08': '4.3-08', '4.3-09': '4.3-09', '4.3-04': '4.3-04', '4.2-1': '4.2-1', '4.2-2': '4.2-2', '4.4-1': '4.4-1', '4.4-2': '4.4-2'}
+2026-05-19 19:12:38,169 [INFO] 
 --- Comparare OFERTA 1 ---
-2026-05-12 15:49:52,197 [INFO] [DN] Local mapping (no LLM): 13 renames
-2026-05-12 15:49:54,221 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
-2026-05-12 15:49:54,244 [INFO] [DN] Total mapping: 23 renames (13 local + 10 LLM)
-2026-05-12 15:49:54,246 [INFO] [MISMATCH] Deviz 226113 (oferta) pare echivalentul lui 226118 (ref) — overlap 100%
-2026-05-12 15:49:54,246 [WARNING]   [DEVIZ_MISMATCH] Deviz 226113 din oferta (~100% overlap) pare echivalentul lui 226118 din referinta (7 vs 7 articole)
-2026-05-12 15:49:54,246 [INFO]   Remap devize oferta: {'226113': '226118'}
-2026-05-12 15:49:54,258 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-12 15:49:54,258 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-12 15:49:54,258 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-12 15:49:54,258 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-12 15:49:54,258 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-12 15:49:54,258 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-12 15:49:54,258 [INFO] [COMP] matched=1370, lipsa=22, extra=23, similar=7
-2026-05-12 15:49:54,265 [INFO] [ORPHAN] Detectate 1 coduri orphane (deviz gresit in oferta)
-2026-05-12 15:49:54,265 [WARNING] [VALID] 5 ARTICOL_EXTRA marcate ca posibil_omis_din_extractie (codul apare in DI referinta dar lipseste din articolele extrase)
-2026-05-12 15:49:54,269 [INFO]   Neconformitati: {'DIFERENTA_CAMP': 21, 'UM_DIFERIT': 11, 'COD_SIMILAR': 7, 'ARTICOL_LIPSA': 22, 'ARTICOL_EXTRA': 23, 'ARTICOL_ORPHAN': 1} (total: 85)
-2026-05-12 15:49:54,269 [INFO]   Matched: 1370 articole
-2026-05-12 15:49:54,615 [INFO]   DOCX: Raport_Oferta_1.docx
-2026-05-12 15:49:54,616 [INFO] 
+2026-05-19 19:12:38,289 [INFO] [DM] Matched 35/35 offer devizes
+2026-05-19 19:12:38,289 [INFO]   [DEVIZ_MATCHER] Applied deviz mapping: {'5.1-1': '5.1-1', '4.1-01': '4.1-01', '4.1-04': '4.1-04', '4.1-03': '4.1-03', '4.1-05': '4.1-05', '4.1-06': '4.1-06', '4.1-07': '4.1-07', '4.1-09': '4.1-09', '4.1-10': '4.1-10', '4.1-13': '4.1-13', '4.1-11': '4.1-11', '4.1-14': '4.1-14', '4.1-08': '4.1-08', '4.1-15': '4.1-15', '4.1-16': '4.1-16', '4.1-17': '4.1-17', '4.1-21': '4.1-21', '4.1-18': '4.1-18', '4.1-19': '4.1-19', '4.1-20': '4.1-20', '4.1-02': '4.1-02', '4.1-12': '4.1-12', '4.3-01': '4.3-01', '4.3-02': '4.3-02', '4.3-03': '4.3-03', '4.3-05': '4.3-05', '4.3-06': '4.3-06', '4.3-07': '4.3-07', '4.3-08': '4.3-08', '4.3-09': '4.3-09', '4.3-04': '4.3-04', '4.2-1': '4.2-1', '4.2-2': '4.2-2', '4.4-1': '4.4-1', '4.4-2': '4.4-2'}
+2026-05-19 19:12:38,290 [INFO] [DN] Local mapping (no LLM): 1 renames
+2026-05-19 19:12:38,298 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 19:12:39,192 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
+2026-05-19 19:13:05,039 [INFO] [COMP] Lenient UM matching: converted 17 EXTRA to matched
+2026-05-19 19:13:05,039 [INFO] [COMP] matched=1034, lipsa=2, extra=80, similar=0
+2026-05-19 19:13:05,083 [WARNING] [VALID] 1 ARTICOL_EXTRA marcate ca posibil_omis_din_extractie (codul apare in DI referinta dar lipseste din articolele extrase)
+2026-05-19 19:13:05,088 [INFO]   Neconformitati: {'UM_DIFERIT': 18, 'ARTICOL_LIPSA': 2, 'ARTICOL_EXTRA': 80} (total: 100)
+2026-05-19 19:13:05,088 [INFO]   Matched: 1034 articole
+2026-05-19 19:13:05,444 [INFO]   DOCX: Raport_Oferta_1.docx
+2026-05-19 19:13:05,446 [INFO]   JSON by deviz: comparatie_deviz_oferta_1.json
+2026-05-19 19:13:05,446 [INFO] 
 --- Extragere OFERTA 2 ---
-2026-05-12 15:49:54,640 [INFO]   Ofertant: SC GARDEN CENTER GRUP SRL si SC ROVERDE LANDSCAPING SRL
-2026-05-12 15:49:54,661 [INFO]   di_oferta_2.json: 203 pagini DI
-2026-05-12 15:49:54,661 [INFO]   Checkpoint gasit — sare peste clasificare LLM
-2026-05-12 15:49:54,670 [INFO]   139 pagini F3 (0 fara deviz_cod)
-2026-05-12 15:49:54,671 [INFO] [PARSER] 226108: 9 articole extrase (regex)
-2026-05-12 15:49:54,673 [INFO] [PARSER] 226108: 12 articole extrase (regex)
-2026-05-12 15:49:54,674 [INFO] [PARSER] 226108: 13 articole extrase (regex)
-2026-05-12 15:49:54,675 [INFO] [PARSER] 226108: 11 articole extrase (regex)
-2026-05-12 15:49:54,677 [INFO] [PARSER] 226118: 7 articole extrase (regex)
-2026-05-12 15:49:54,678 [INFO] [PARSER] 226208: 9 articole extrase (regex)
-2026-05-12 15:49:54,679 [INFO] [PARSER] 226208: 14 articole extrase (regex)
-2026-05-12 15:49:54,681 [INFO] [PARSER] 226208: 12 articole extrase (regex)
-2026-05-12 15:49:54,682 [INFO] [PARSER] 226208: 12 articole extrase (regex)
-2026-05-12 15:49:54,683 [INFO] [PARSER] 226208: 6 articole extrase (regex)
-2026-05-12 15:49:54,685 [INFO] [PARSER] 226218: 13 articole extrase (regex)
-2026-05-12 15:49:54,686 [INFO] [PARSER] 226218: 14 articole extrase (regex)
-2026-05-12 15:49:54,688 [INFO] [PARSER] 226218: 14 articole extrase (regex)
-2026-05-12 15:49:54,689 [INFO] [PARSER] 226218: 20 articole extrase (regex)
-2026-05-12 15:49:54,690 [INFO] [PARSER] 226218: 15 articole extrase (regex)
-2026-05-12 15:49:54,692 [INFO] [PARSER] 226218: 11 articole extrase (regex)
-2026-05-12 15:49:54,693 [INFO] [PARSER] 226228: 12 articole extrase (regex)
-2026-05-12 15:49:54,694 [INFO] [PARSER] 226228: 16 articole extrase (regex)
-2026-05-12 15:49:54,695 [INFO] [PARSER] 226228: 14 articole extrase (regex)
-2026-05-12 15:49:54,697 [INFO] [PARSER] 226228: 15 articole extrase (regex)
-2026-05-12 15:49:54,699 [INFO] [PARSER] 226228: 13 articole extrase (regex)
-2026-05-12 15:49:54,700 [INFO] [PARSER] 226228: 14 articole extrase (regex)
-2026-05-12 15:49:54,701 [INFO] [PARSER] 226228: 15 articole extrase (regex)
-2026-05-12 15:49:54,703 [INFO] [PARSER] 226228: 15 articole extrase (regex)
-2026-05-12 15:49:54,704 [INFO] [PARSER] 226228: 13 articole extrase (regex)
-2026-05-12 15:49:54,705 [INFO] [PARSER] 226228: 15 articole extrase (regex)
-2026-05-12 15:49:54,706 [INFO] [PARSER] 226228: 3 articole extrase (regex)
-2026-05-12 15:49:54,707 [INFO] [PARSER] 226238: 1 articole extrase (regex)
-2026-05-12 15:49:54,709 [INFO] [PARSER] 226248: 9 articole extrase (regex)
-2026-05-12 15:49:54,710 [INFO] [PARSER] 226258: 4 articole extrase (regex)
-2026-05-12 15:49:54,711 [INFO] [PARSER] 226278: 10 articole extrase (regex)
-2026-05-12 15:49:54,712 [INFO] [PARSER] 226278: 7 articole extrase (regex)
-2026-05-12 15:49:54,718 [INFO] [PARSER] 226288: 11 articole extrase (regex)
-2026-05-12 15:49:54,719 [INFO] [PARSER] 226288: 5 articole extrase (regex)
-2026-05-12 15:49:54,720 [INFO] [PARSER] 226268: 10 articole extrase (regex)
-2026-05-12 15:49:54,722 [INFO] [PARSER] 226268: 15 articole extrase (regex)
-2026-05-12 15:49:54,723 [INFO] [PARSER] 226268: 9 articole extrase (regex)
-2026-05-12 15:49:54,725 [INFO] [PARSER] 226308: 9 articole extrase (regex)
-2026-05-12 15:49:54,726 [INFO] [PARSER] 226308: 12 articole extrase (regex)
-2026-05-12 15:49:54,727 [INFO] [PARSER] 226308: 12 articole extrase (regex)
-2026-05-12 15:49:54,729 [INFO] [PARSER] 226308: 16 articole extrase (regex)
-2026-05-12 15:49:54,730 [INFO] [PARSER] 226308: 4 articole extrase (regex)
-2026-05-12 15:49:54,731 [INFO] [PARSER] 226318: 10 articole extrase (regex)
-2026-05-12 15:49:54,732 [INFO] [PARSER] 226318: 3 articole extrase (regex)
-2026-05-12 15:49:54,733 [INFO] [PARSER] 226328: 10 articole extrase (regex)
-2026-05-12 15:49:54,734 [INFO] [PARSER] 226328: 1 articole extrase (regex)
-2026-05-12 15:49:54,735 [INFO] [PARSER] 226338: 8 articole extrase (regex)
-2026-05-12 15:49:54,737 [INFO] [PARSER] 226338: 13 articole extrase (regex)
-2026-05-12 15:49:54,738 [INFO] [PARSER] 226348: 6 articole extrase (regex)
-2026-05-12 15:49:54,739 [INFO] [PARSER] 226348: 5 articole extrase (regex)
-2026-05-12 15:49:54,740 [INFO] [PARSER] 226358: 7 articole extrase (regex)
-2026-05-12 15:49:54,742 [INFO] [PARSER] 226358: 11 articole extrase (regex)
-2026-05-12 15:49:54,743 [INFO] [PARSER] 226408: 8 articole extrase (regex)
-2026-05-12 15:49:54,744 [INFO] [PARSER] 226408: 13 articole extrase (regex)
-2026-05-12 15:49:54,746 [INFO] [PARSER] 226408: 14 articole extrase (regex)
-2026-05-12 15:49:54,747 [INFO] [PARSER] 226408: 13 articole extrase (regex)
-2026-05-12 15:49:54,749 [INFO] [PARSER] 226408: 13 articole extrase (regex)
-2026-05-12 15:49:54,750 [INFO] [PARSER] 226418: 12 articole extrase (regex)
-2026-05-12 15:49:54,751 [INFO] [PARSER] 226418: 13 articole extrase (regex)
-2026-05-12 15:49:54,753 [INFO] [PARSER] 226418: 14 articole extrase (regex)
-2026-05-12 15:49:54,754 [INFO] [PARSER] 226418: 20 articole extrase (regex)
-2026-05-12 15:49:54,756 [INFO] [PARSER] 226418: 18 articole extrase (regex)
-2026-05-12 15:49:54,758 [INFO] [PARSER] 226418: 15 articole extrase (regex)
-2026-05-12 15:49:54,759 [INFO] [PARSER] 226418: 7 articole extrase (regex)
-2026-05-12 15:49:54,759 [INFO] [PARSER] 226418: 0 articole extrase (regex)
-2026-05-12 15:49:54,760 [INFO] [PARSER] 226428: 11 articole extrase (regex)
-2026-05-12 15:49:54,762 [INFO] [PARSER] 226428: 16 articole extrase (regex)
-2026-05-12 15:49:54,763 [INFO] [PARSER] 226428: 15 articole extrase (regex)
-2026-05-12 15:49:54,765 [INFO] [PARSER] 226428: 15 articole extrase (regex)
-2026-05-12 15:49:54,766 [INFO] [PARSER] 226428: 14 articole extrase (regex)
-2026-05-12 15:49:54,768 [INFO] [PARSER] 226428: 17 articole extrase (regex)
-2026-05-12 15:49:54,769 [INFO] [PARSER] 226428: 15 articole extrase (regex)
-2026-05-12 15:49:54,770 [INFO] [PARSER] 226428: 12 articole extrase (regex)
-2026-05-12 15:49:54,771 [INFO] [PARSER] 226428: 6 articole extrase (regex)
-2026-05-12 15:49:54,772 [INFO] [PARSER] 226438: 1 articole extrase (regex)
-2026-05-12 15:49:54,773 [INFO] [PARSER] 226448: 10 articole extrase (regex)
-2026-05-12 15:49:54,774 [INFO] [PARSER] 226448: 3 articole extrase (regex)
-2026-05-12 15:49:54,775 [INFO] [PARSER] 226458: 5 articole extrase (regex)
-2026-05-12 15:49:54,776 [INFO] [PARSER] 226458: 0 articole extrase (regex)
-2026-05-12 15:49:54,777 [INFO] [PARSER] 226468: 7 articole extrase (regex)
-2026-05-12 15:49:54,778 [INFO] [PARSER] 226488: 10 articole extrase (regex)
-2026-05-12 15:49:54,779 [INFO] [PARSER] 226488: 7 articole extrase (regex)
-2026-05-12 15:49:54,780 [INFO] [PARSER] 226498: 11 articole extrase (regex)
-2026-05-12 15:49:54,781 [INFO] [PARSER] 226498: 5 articole extrase (regex)
-2026-05-12 15:49:54,783 [INFO] [PARSER] 226478: 11 articole extrase (regex)
-2026-05-12 15:49:54,784 [INFO] [PARSER] 226478: 16 articole extrase (regex)
-2026-05-12 15:49:54,785 [INFO] [PARSER] 226478: 8 articole extrase (regex)
-2026-05-12 15:49:54,785 [INFO] [PARSER] 226478: 0 articole extrase (regex)
-2026-05-12 15:49:54,787 [INFO] [PARSER] 226508: 9 articole extrase (regex)
-2026-05-12 15:49:54,788 [INFO] [PARSER] 226508: 14 articole extrase (regex)
-2026-05-12 15:49:54,790 [INFO] [PARSER] 226508: 12 articole extrase (regex)
-2026-05-12 15:49:54,791 [INFO] [PARSER] 226508: 12 articole extrase (regex)
-2026-05-12 15:49:54,792 [INFO] [PARSER] 226508: 6 articole extrase (regex)
-2026-05-12 15:49:54,794 [INFO] [PARSER] 226518: 13 articole extrase (regex)
-2026-05-12 15:49:54,795 [INFO] [PARSER] 226518: 14 articole extrase (regex)
-2026-05-12 15:49:54,796 [INFO] [PARSER] 226518: 17 articole extrase (regex)
-2026-05-12 15:49:54,798 [INFO] [PARSER] 226518: 18 articole extrase (regex)
-2026-05-12 15:49:54,799 [INFO] [PARSER] 226518: 15 articole extrase (regex)
-2026-05-12 15:49:54,801 [INFO] [PARSER] 226518: 6 articole extrase (regex)
-2026-05-12 15:49:54,802 [INFO] [PARSER] 226528: 11 articole extrase (regex)
-2026-05-12 15:49:54,803 [INFO] [PARSER] 226528: 15 articole extrase (regex)
-2026-05-12 15:49:54,805 [INFO] [PARSER] 226528: 14 articole extrase (regex)
-2026-05-12 15:49:54,806 [INFO] [PARSER] 226528: 16 articole extrase (regex)
-2026-05-12 15:49:54,807 [INFO] [PARSER] 226528: 13 articole extrase (regex)
-2026-05-12 15:49:54,809 [INFO] [PARSER] 226528: 12 articole extrase (regex)
-2026-05-12 15:49:54,810 [INFO] [PARSER] 226528: 15 articole extrase (regex)
-2026-05-12 15:49:54,812 [INFO] [PARSER] 226528: 15 articole extrase (regex)
-2026-05-12 15:49:54,813 [INFO] [PARSER] 226528: 11 articole extrase (regex)
-2026-05-12 15:49:54,814 [INFO] [PARSER] 226528: 14 articole extrase (regex)
-2026-05-12 15:49:54,816 [INFO] [PARSER] 226538: 9 articole extrase (regex)
-2026-05-12 15:49:54,817 [INFO] [PARSER] 226548: 4 articole extrase (regex)
-2026-05-12 15:49:54,818 [INFO] [PARSER] 226578: 10 articole extrase (regex)
-2026-05-12 15:49:54,819 [INFO] [PARSER] 226578: 4 articole extrase (regex)
-2026-05-12 15:49:54,820 [INFO] [PARSER] 226568: 10 articole extrase (regex)
-2026-05-12 15:49:54,821 [INFO] [PARSER] 226568: 7 articole extrase (regex)
-2026-05-12 15:49:54,821 [INFO] [PARSER] 226568: 0 articole extrase (regex)
-2026-05-12 15:49:54,822 [INFO] [PARSER] 226558: 12 articole extrase (regex)
-2026-05-12 15:49:54,824 [INFO] [PARSER] 226558: 14 articole extrase (regex)
-2026-05-12 15:49:54,825 [INFO] [PARSER] 226558: 6 articole extrase (regex)
-2026-05-12 15:49:54,826 [INFO] [PARSER] 226008: 10 articole extrase (regex)
-2026-05-12 15:49:54,828 [INFO] [PARSER] 226008: 13 articole extrase (regex)
-2026-05-12 15:49:54,829 [INFO] [PARSER] 226008: 7 articole extrase (regex)
-2026-05-12 15:49:54,830 [INFO] [PARSER] 226018: 9 articole extrase (regex)
-2026-05-12 15:49:54,832 [INFO] [PARSER] 226018: 11 articole extrase (regex)
-2026-05-12 15:49:54,833 [INFO] [PARSER] 226018: 3 articole extrase (regex)
-2026-05-12 15:49:54,834 [INFO] [PARSER] 226038: 11 articole extrase (regex)
-2026-05-12 15:49:54,835 [INFO] [PARSER] 226038: 11 articole extrase (regex)
-2026-05-12 15:49:54,836 [INFO] [PARSER] 226038: 5 articole extrase (regex)
-2026-05-12 15:49:54,837 [INFO] [PARSER] 226038: 0 articole extrase (regex)
-2026-05-12 15:49:54,838 [INFO] [PARSER] 226368: 8 articole extrase (regex)
-2026-05-12 15:49:54,839 [INFO] [PARSER] 226028: 9 articole extrase (regex)
-2026-05-12 15:49:54,841 [INFO] [PARSER] 226028: 12 articole extrase (regex)
-2026-05-12 15:49:54,842 [INFO] [PARSER] 226028: 13 articole extrase (regex)
-2026-05-12 15:49:54,843 [INFO] [PARSER] 226028: 9 articole extrase (regex)
-2026-05-12 15:49:54,845 [INFO] [PARSER] 226718: 4 articole extrase (regex)
-2026-05-12 15:49:54,845 [INFO] [PARSER] 226718: 0 articole extrase (regex)
-2026-05-12 15:49:54,846 [INFO] [PARSER] 226708: 3 articole extrase (regex)
-2026-05-12 15:49:54,846 [INFO] [PARSER] 226708: 0 articole extrase (regex)
-2026-05-12 15:49:54,847 [INFO] [PARSER] 226F08: 1 articole extrase (regex)
-2026-05-12 15:49:54,847 [INFO] [F3v3] Total: 1382 articole extrase (page-aware, fara LLM)
-2026-05-12 15:49:54,847 [INFO]   1382 articole extrase din linii
-2026-05-12 15:49:54,850 [INFO]   0 articole din tabele, 1382 total dupa merge
-2026-05-12 15:49:54,853 [INFO] [DN] Populated 292 missing deviz denominations
-2026-05-12 15:49:54,868 [INFO] 
+2026-05-19 19:13:05,516 [INFO]   di_oferta_2.json: 223 pagini DI
+2026-05-19 19:13:05,516 [INFO]   Clasificare pagini cu LLM (poate dura 2-5 min)...
+2026-05-19 19:13:05,517 [INFO] [DEVIZ-MAP] Built dynamic map from 831 reference articles
+2026-05-19 19:13:05,517 [INFO] [DEVIZ-MAP] Devizes: ['4.1-01', '4.1-02', '4.1-03', '4.1-04', '4.1-05', '4.1-06', '4.1-07', '4.1-08', '4.1-09', '4.1-10', '4.1-11', '4.1-12', '4.1-13', '4.1-14', '4.1-15', '4.1-16', '4.1-17', '4.1-18', '4.1-19', '4.1-20', '4.1-21', '4.2-1', '4.2-2', '4.3-01', '4.3-02', '4.3-03', '4.3-04', '4.3-05', '4.3-06', '4.3-07', '4.3-08', '4.3-09', '4.4-1', '4.4-2', '5.1-1']
+2026-05-19 19:13:05,517 [INFO] [PC] Built dynamic deviz map from 831 reference articles
+2026-05-19 19:13:05,645 [INFO] [PC] 47 pagini → LLM batch (clasificare + deviz_cod)
+2026-05-19 19:13:10,646 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
+2026-05-19 19:13:10,649 [WARNING] [SUBCF] No hardcoded pattern matched, format unknown
+2026-05-19 19:13:10,649 [INFO] [PC] Detected subcomponent format: Unknown format (confidence=0.00)
+2026-05-19 19:13:10,649 [INFO] [PC] Clasificare completă: 119/223 pagini F3
+2026-05-19 19:13:10,668 [INFO]   Checkpoint salvat: di_oferta_2_page_classes_10d784f1d95b.json
+2026-05-19 19:13:10,687 [INFO]   119 pagini F3 (0 fara deviz_cod)
+2026-05-19 19:13:10,925 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:10,934 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10438
+2026-05-19 19:13:10,994 [INFO] Saved new pattern: AUTO_GEN_10438
+2026-05-19 19:13:10,996 [INFO] [PATTERN] 4.1-01: Detected AUTO_GEN_10438 (confidence=0.50)
+2026-05-19 19:13:11,000 [INFO] [PARSER] 4.1-01: 17 articole extrase (regex)
+2026-05-19 19:13:11,000 [INFO] [F3v3] 4.1-01: 17 articole extrase (grouped pages)
+2026-05-19 19:13:11,227 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:11,237 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10439
+2026-05-19 19:13:11,297 [INFO] Saved new pattern: AUTO_GEN_10439
+2026-05-19 19:13:11,299 [INFO] [PATTERN] 4.1-02: Detected AUTO_GEN_10439 (confidence=0.50)
+2026-05-19 19:13:11,311 [INFO] [PARSER] 4.1-02: 59 articole extrase (regex)
+2026-05-19 19:13:11,311 [INFO] [F3v3] 4.1-02: 59 articole extrase (grouped pages)
+2026-05-19 19:13:11,542 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:11,552 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10440
+2026-05-19 19:13:11,615 [INFO] Saved new pattern: AUTO_GEN_10440
+2026-05-19 19:13:11,617 [INFO] [PATTERN] 4.1-03: Detected AUTO_GEN_10440 (confidence=0.50)
+2026-05-19 19:13:11,630 [INFO] [CLEANUP] 4.1-03: removed 1 substring-numeric articles
+2026-05-19 19:13:11,630 [INFO] [PARSER] 4.1-03: 79 articole extrase (regex)
+2026-05-19 19:13:11,631 [INFO] [F3v3] 4.1-03: 79 articole extrase (grouped pages)
+2026-05-19 19:13:11,862 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:11,871 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10441
+2026-05-19 19:13:11,934 [INFO] Saved new pattern: AUTO_GEN_10441
+2026-05-19 19:13:11,936 [INFO] [PATTERN] 4.1-04: Detected AUTO_GEN_10441 (confidence=0.50)
+2026-05-19 19:13:11,953 [INFO] [PARSER] 4.1-04: 116 articole extrase (regex)
+2026-05-19 19:13:11,954 [INFO] [F3v3] 4.1-04: 116 articole extrase (grouped pages)
+2026-05-19 19:13:12,184 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:12,193 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10442
+2026-05-19 19:13:12,255 [INFO] Saved new pattern: AUTO_GEN_10442
+2026-05-19 19:13:12,257 [INFO] [PATTERN] 4.1-05: Detected AUTO_GEN_10442 (confidence=0.50)
+2026-05-19 19:13:12,266 [INFO] [PARSER] 4.1-05: 60 articole extrase (regex)
+2026-05-19 19:13:12,266 [INFO] [F3v3] 4.1-05: 60 articole extrase (grouped pages)
+2026-05-19 19:13:12,499 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:12,508 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10443
+2026-05-19 19:13:12,570 [INFO] Saved new pattern: AUTO_GEN_10443
+2026-05-19 19:13:12,572 [INFO] [PATTERN] 4.1-06: Detected AUTO_GEN_10443 (confidence=0.50)
+2026-05-19 19:13:12,576 [INFO] [PARSER] 4.1-06: 27 articole extrase (regex)
+2026-05-19 19:13:12,576 [INFO] [F3v3] 4.1-06: 27 articole extrase (grouped pages)
+2026-05-19 19:13:12,809 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:12,818 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10444
+2026-05-19 19:13:12,878 [INFO] Saved new pattern: AUTO_GEN_10444
+2026-05-19 19:13:12,880 [INFO] [PATTERN] 4.1-07: Detected AUTO_GEN_10444 (confidence=0.50)
+2026-05-19 19:13:12,882 [INFO] [PARSER] 4.1-07: 11 articole extrase (regex)
+2026-05-19 19:13:12,882 [INFO] [F3v3] 4.1-07: 11 articole extrase (grouped pages)
+2026-05-19 19:13:13,119 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:13,128 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10445
+2026-05-19 19:13:13,187 [INFO] Saved new pattern: AUTO_GEN_10445
+2026-05-19 19:13:13,189 [INFO] [PATTERN] 4.1-08: Detected AUTO_GEN_10445 (confidence=0.50)
+2026-05-19 19:13:13,192 [INFO] [PARSER] 4.1-08: 15 articole extrase (regex)
+2026-05-19 19:13:13,192 [INFO] [F3v3] 4.1-08: 15 articole extrase (grouped pages)
+2026-05-19 19:13:13,421 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:13,430 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10446
+2026-05-19 19:13:13,489 [INFO] Saved new pattern: AUTO_GEN_10446
+2026-05-19 19:13:13,490 [INFO] [PATTERN] 4.1-09: Detected AUTO_GEN_10446 (confidence=0.50)
+2026-05-19 19:13:13,492 [INFO] [PARSER] 4.1-09: 4 articole extrase (regex)
+2026-05-19 19:13:13,492 [INFO] [F3v3] 4.1-09: 4 articole extrase (grouped pages)
+2026-05-19 19:13:13,725 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:13,734 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10447
+2026-05-19 19:13:13,795 [INFO] Saved new pattern: AUTO_GEN_10447
+2026-05-19 19:13:13,797 [INFO] [PATTERN] 4.1-10: Detected AUTO_GEN_10447 (confidence=0.50)
+2026-05-19 19:13:13,819 [INFO] [PARSER] 4.1-10: 117 articole extrase (regex)
+2026-05-19 19:13:13,820 [INFO] [F3v3] 4.1-10: 117 articole extrase (grouped pages)
+2026-05-19 19:13:14,050 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:14,059 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10448
+2026-05-19 19:13:14,122 [INFO] Saved new pattern: AUTO_GEN_10448
+2026-05-19 19:13:14,124 [INFO] [PATTERN] 4.1-11: Detected AUTO_GEN_10448 (confidence=0.50)
+2026-05-19 19:13:14,124 [INFO] [SCATTER] Combined 2 scattered format groups
+2026-05-19 19:13:14,128 [INFO] [PARSER] 4.1-11: 28 articole extrase (regex)
+2026-05-19 19:13:14,128 [INFO] [F3v3] 4.1-11: 28 articole extrase (grouped pages)
+2026-05-19 19:13:14,360 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:14,369 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10449
+2026-05-19 19:13:14,430 [INFO] Saved new pattern: AUTO_GEN_10449
+2026-05-19 19:13:14,431 [INFO] [PATTERN] 4.1-12: Detected AUTO_GEN_10449 (confidence=0.50)
+2026-05-19 19:13:14,444 [INFO] [PARSER] 4.1-12: 63 articole extrase (regex)
+2026-05-19 19:13:14,444 [INFO] [F3v3] 4.1-12: 63 articole extrase (grouped pages)
+2026-05-19 19:13:14,674 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:14,683 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10450
+2026-05-19 19:13:14,744 [INFO] Saved new pattern: AUTO_GEN_10450
+2026-05-19 19:13:14,746 [INFO] [PATTERN] 4.1-13: Detected AUTO_GEN_10450 (confidence=0.50)
+2026-05-19 19:13:14,772 [INFO] [PARSER] 4.1-13: 173 articole extrase (regex)
+2026-05-19 19:13:14,774 [INFO] [F3v3] 4.1-13: 173 articole extrase (grouped pages)
+2026-05-19 19:13:15,009 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:15,018 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10451
+2026-05-19 19:13:15,078 [INFO] Saved new pattern: AUTO_GEN_10451
+2026-05-19 19:13:15,079 [INFO] [PATTERN] 4.1-14: Detected AUTO_GEN_10451 (confidence=0.50)
+2026-05-19 19:13:15,087 [INFO] [PARSER] 4.1-14: 50 articole extrase (regex)
+2026-05-19 19:13:15,087 [INFO] [F3v3] 4.1-14: 50 articole extrase (grouped pages)
+2026-05-19 19:13:15,318 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:15,327 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10452
+2026-05-19 19:13:15,393 [INFO] Saved new pattern: AUTO_GEN_10452
+2026-05-19 19:13:15,395 [INFO] [PATTERN] 4.1-15: Detected AUTO_GEN_10452 (confidence=0.50)
+2026-05-19 19:13:15,396 [INFO] [PARSER] 4.1-15: 4 articole extrase (regex)
+2026-05-19 19:13:15,397 [INFO] [F3v3] 4.1-15: 4 articole extrase (grouped pages)
+2026-05-19 19:13:15,628 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 19:13:15,637 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10453
+2026-05-19 19:13:15,700 [INFO] Saved new pattern: AUTO_GEN_10453
+2026-05-19 19:13:15,702 [INFO] [PATTERN] 4.1-16: Detected AUTO_GEN_10453 (confidence=0.50)
+2026-05-19 19:13:15,704 [INFO] [PARSER] 4.1-16: 8 articole extrase (regex)
+2026-05-19 19:13:15,704 [INFO] [F3v3] 4.1-16: 8 articole extrase (grouped pages)
+2026-05-19 19:13:15,936 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:15,945 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10454
+2026-05-19 19:13:16,004 [INFO] Saved new pattern: AUTO_GEN_10454
+2026-05-19 19:13:16,006 [INFO] [PATTERN] 4.1-17: Detected AUTO_GEN_10454 (confidence=0.50)
+2026-05-19 19:13:16,007 [INFO] [PARSER] 4.1-17: 3 articole extrase (regex)
+2026-05-19 19:13:16,008 [INFO] [F3v3] 4.1-17: 3 articole extrase (grouped pages)
+2026-05-19 19:13:16,240 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:16,249 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10455
+2026-05-19 19:13:16,309 [INFO] Saved new pattern: AUTO_GEN_10455
+2026-05-19 19:13:16,310 [INFO] [PATTERN] 4.1-18: Detected AUTO_GEN_10455 (confidence=0.50)
+2026-05-19 19:13:16,311 [INFO] [PARSER] 4.1-18: 1 articole extrase (regex)
+2026-05-19 19:13:16,311 [INFO] [F3v3] 4.1-18: 1 articole extrase (grouped pages)
+2026-05-19 19:13:16,548 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:16,557 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10456
+2026-05-19 19:13:16,616 [INFO] Saved new pattern: AUTO_GEN_10456
+2026-05-19 19:13:16,617 [INFO] [PATTERN] 4.1-19: Detected AUTO_GEN_10456 (confidence=0.50)
+2026-05-19 19:13:16,619 [INFO] [PARSER] 4.1-19: 1 articole extrase (regex)
+2026-05-19 19:13:16,619 [INFO] [F3v3] 4.1-19: 1 articole extrase (grouped pages)
+2026-05-19 19:13:16,852 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:16,861 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10457
+2026-05-19 19:13:16,922 [INFO] Saved new pattern: AUTO_GEN_10457
+2026-05-19 19:13:16,924 [INFO] [PATTERN] 4.1-20: Detected AUTO_GEN_10457 (confidence=0.50)
+2026-05-19 19:13:16,928 [INFO] [PARSER] 4.1-20: 6 articole extrase (regex)
+2026-05-19 19:13:16,928 [INFO] [F3v3] 4.1-20: 6 articole extrase (grouped pages)
+2026-05-19 19:13:17,158 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:17,166 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10458
+2026-05-19 19:13:17,226 [INFO] Saved new pattern: AUTO_GEN_10458
+2026-05-19 19:13:17,228 [INFO] [PATTERN] 4.1-21: Detected AUTO_GEN_10458 (confidence=0.50)
+2026-05-19 19:13:17,229 [INFO] [PARSER] 4.1-21: 1 articole extrase (regex)
+2026-05-19 19:13:17,229 [INFO] [F3v3] 4.1-21: 1 articole extrase (grouped pages)
+2026-05-19 19:13:17,464 [WARNING] No known pattern matched (best=0.02), attempting to generate template with LLM...
+2026-05-19 19:13:17,473 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10459
+2026-05-19 19:13:17,533 [INFO] Saved new pattern: AUTO_GEN_10459
+2026-05-19 19:13:17,535 [INFO] [PATTERN] 4.2-1: Detected AUTO_GEN_10459 (confidence=0.50)
+2026-05-19 19:13:17,537 [INFO] [PARSER] 4.2-1: 9 articole extrase (regex)
+2026-05-19 19:13:17,537 [INFO] [F3v3] 4.2-1: 9 articole extrase (grouped pages)
+2026-05-19 19:13:17,776 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:17,785 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10460
+2026-05-19 19:13:17,845 [INFO] Saved new pattern: AUTO_GEN_10460
+2026-05-19 19:13:17,847 [INFO] [PATTERN] 4.2-2: Detected AUTO_GEN_10460 (confidence=0.50)
+2026-05-19 19:13:17,850 [INFO] [PARSER] 4.2-2: 16 articole extrase (regex)
+2026-05-19 19:13:17,850 [INFO] [F3v3] 4.2-2: 16 articole extrase (grouped pages)
+2026-05-19 19:13:18,084 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:18,093 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10461
+2026-05-19 19:13:18,152 [INFO] Saved new pattern: AUTO_GEN_10461
+2026-05-19 19:13:18,153 [INFO] [PATTERN] 4.3-01: Detected AUTO_GEN_10461 (confidence=0.50)
+2026-05-19 19:13:18,158 [INFO] [PARSER] 4.3-01: 17 articole extrase (regex)
+2026-05-19 19:13:18,159 [INFO] [F3v3] 4.3-01: 17 articole extrase (grouped pages)
+2026-05-19 19:13:18,394 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:18,403 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10462
+2026-05-19 19:13:18,462 [INFO] Saved new pattern: AUTO_GEN_10462
+2026-05-19 19:13:18,464 [INFO] [PATTERN] 4.3-02: Detected AUTO_GEN_10462 (confidence=0.50)
+2026-05-19 19:13:18,469 [INFO] [PARSER] 4.3-02: 17 articole extrase (regex)
+2026-05-19 19:13:18,469 [INFO] [F3v3] 4.3-02: 17 articole extrase (grouped pages)
+2026-05-19 19:13:18,697 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:18,706 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10463
+2026-05-19 19:13:18,766 [INFO] Saved new pattern: AUTO_GEN_10463
+2026-05-19 19:13:18,767 [INFO] [PATTERN] 4.3-03: Detected AUTO_GEN_10463 (confidence=0.50)
+2026-05-19 19:13:18,771 [INFO] [PARSER] 4.3-03: 15 articole extrase (regex)
+2026-05-19 19:13:18,771 [INFO] [F3v3] 4.3-03: 15 articole extrase (grouped pages)
+2026-05-19 19:13:19,007 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:19,016 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10464
+2026-05-19 19:13:19,076 [INFO] Saved new pattern: AUTO_GEN_10464
+2026-05-19 19:13:19,077 [INFO] [PATTERN] 4.3-04: Detected AUTO_GEN_10464 (confidence=0.50)
+2026-05-19 19:13:19,082 [INFO] [PARSER] 4.3-04: 22 articole extrase (regex)
+2026-05-19 19:13:19,082 [INFO] [F3v3] 4.3-04: 22 articole extrase (grouped pages)
+2026-05-19 19:13:19,316 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:19,325 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10465
+2026-05-19 19:13:19,383 [INFO] Saved new pattern: AUTO_GEN_10465
+2026-05-19 19:13:19,385 [INFO] [PATTERN] 4.3-05: Detected AUTO_GEN_10465 (confidence=0.50)
+2026-05-19 19:13:19,389 [INFO] [PARSER] 4.3-05: 20 articole extrase (regex)
+2026-05-19 19:13:19,389 [INFO] [F3v3] 4.3-05: 20 articole extrase (grouped pages)
+2026-05-19 19:13:19,625 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:19,634 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10466
+2026-05-19 19:13:19,692 [INFO] Saved new pattern: AUTO_GEN_10466
+2026-05-19 19:13:19,693 [INFO] [PATTERN] 4.3-06: Detected AUTO_GEN_10466 (confidence=0.50)
+2026-05-19 19:13:19,694 [INFO] [SCATTER] Combined 1 scattered format groups
+2026-05-19 19:13:19,706 [INFO] [PARSER] 4.3-06: 88 articole extrase (regex)
+2026-05-19 19:13:19,706 [INFO] [F3v3] 4.3-06: 88 articole extrase (grouped pages)
+2026-05-19 19:13:19,945 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:19,954 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10467
+2026-05-19 19:13:20,012 [INFO] Saved new pattern: AUTO_GEN_10467
+2026-05-19 19:13:20,013 [INFO] [PATTERN] 4.3-07: Detected AUTO_GEN_10467 (confidence=0.50)
+2026-05-19 19:13:20,019 [INFO] [PARSER] 4.3-07: 34 articole extrase (regex)
+2026-05-19 19:13:20,020 [INFO] [F3v3] 4.3-07: 34 articole extrase (grouped pages)
+2026-05-19 19:13:20,256 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:20,265 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10468
+2026-05-19 19:13:20,324 [INFO] Saved new pattern: AUTO_GEN_10468
+2026-05-19 19:13:20,326 [INFO] [PATTERN] 4.3-08: Detected AUTO_GEN_10468 (confidence=0.50)
+2026-05-19 19:13:20,329 [INFO] [PARSER] 4.3-08: 16 articole extrase (regex)
+2026-05-19 19:13:20,329 [INFO] [F3v3] 4.3-08: 16 articole extrase (grouped pages)
+2026-05-19 19:13:20,565 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:20,574 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10469
+2026-05-19 19:13:20,635 [INFO] Saved new pattern: AUTO_GEN_10469
+2026-05-19 19:13:20,636 [INFO] [PATTERN] 4.3-09: Detected AUTO_GEN_10469 (confidence=0.50)
+2026-05-19 19:13:20,638 [INFO] [PARSER] 4.3-09: 4 articole extrase (regex)
+2026-05-19 19:13:20,638 [INFO] [F3v3] 4.3-09: 4 articole extrase (grouped pages)
+2026-05-19 19:13:20,872 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:20,881 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10470
+2026-05-19 19:13:20,941 [INFO] Saved new pattern: AUTO_GEN_10470
+2026-05-19 19:13:20,942 [INFO] [PATTERN] 4.4-1: Detected AUTO_GEN_10470 (confidence=0.50)
+2026-05-19 19:13:20,945 [INFO] [PARSER] 4.4-1: 6 articole extrase (regex)
+2026-05-19 19:13:20,945 [INFO] [F3v3] 4.4-1: 6 articole extrase (grouped pages)
+2026-05-19 19:13:21,176 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:21,185 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10471
+2026-05-19 19:13:21,244 [INFO] Saved new pattern: AUTO_GEN_10471
+2026-05-19 19:13:21,245 [INFO] [PATTERN] 4.4-2: Detected AUTO_GEN_10471 (confidence=0.50)
+2026-05-19 19:13:21,250 [INFO] [PARSER] 4.4-2: 19 articole extrase (regex)
+2026-05-19 19:13:21,250 [INFO] [F3v3] 4.4-2: 19 articole extrase (grouped pages)
+2026-05-19 19:13:21,488 [WARNING] No known pattern matched (best=0.00), attempting to generate template with LLM...
+2026-05-19 19:13:21,497 [WARNING] LLM template generation unavailable, using fallback for AUTO_GEN_10472
+2026-05-19 19:13:21,560 [INFO] Saved new pattern: AUTO_GEN_10472
+2026-05-19 19:13:21,561 [INFO] [PATTERN] 5.1-1: Detected AUTO_GEN_10472 (confidence=0.50)
+2026-05-19 19:13:21,569 [INFO] [SCATTER] Combined 93 scattered format groups
+2026-05-19 19:13:21,915 [INFO] [DEDUP] 5.1-1: removed 10 suffix-duplicate articles
+2026-05-19 19:13:21,957 [INFO] [CLEANUP] 5.1-1: removed 43 substring-numeric articles
+2026-05-19 19:13:21,957 [INFO] [PARSER] 5.1-1: 997 articole extrase (regex)
+2026-05-19 19:13:21,965 [INFO] [F3v3] 5.1-1: 997 articole extrase (grouped pages)
+2026-05-19 19:13:21,966 [INFO] [F3v3] Total: 2061 articole extrase (deviz-grouped, fara LLM)
+2026-05-19 19:13:21,966 [INFO]   2061 articole extrase din linii
+2026-05-19 19:13:21,974 [INFO]   0 articole din tabele, 2061 total dupa merge
+2026-05-19 19:13:22,114 [INFO]    Checkpoint: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO/checkpoints/di_oferta_2_deviz_mapping_10d784f1d95b.json
+2026-05-19 19:13:22,115 [INFO] [DN] Populated 0 missing deviz denominations
+2026-05-19 19:13:22,115 [INFO]   [NORMALIZE] Removed '+' suffix from 26 article codes
+2026-05-19 19:13:22,116 [INFO] [DM] Matched 35/35 offer devizes
+2026-05-19 19:13:22,116 [INFO]   [DEVIZ_MAPPER] Remapped 0 articles: {'4.1-01': '4.1-01', '4.1-02': '4.1-02', '4.1-03': '4.1-03', '4.1-04': '4.1-04', '4.1-05': '4.1-05', '4.1-06': '4.1-06', '4.1-07': '4.1-07', '4.1-08': '4.1-08', '4.1-09': '4.1-09', '4.1-10': '4.1-10', '4.1-11': '4.1-11', '4.1-12': '4.1-12', '4.1-13': '4.1-13', '4.1-14': '4.1-14', '4.1-15': '4.1-15', '4.1-16': '4.1-16', '4.1-17': '4.1-17', '4.1-18': '4.1-18', '4.1-19': '4.1-19', '4.1-20': '4.1-20', '4.1-21': '4.1-21', '4.2-1': '4.2-1', '4.2-2': '4.2-2', '4.3-01': '4.3-01', '4.3-02': '4.3-02', '4.3-03': '4.3-03', '4.3-04': '4.3-04', '4.3-05': '4.3-05', '4.3-06': '4.3-06', '4.3-07': '4.3-07', '4.3-08': '4.3-08', '4.3-09': '4.3-09', '4.4-1': '4.4-1', '4.4-2': '4.4-2', '5.1-1': '5.1-1'}
+2026-05-19 19:13:22,117 [INFO]   [FILTER] Removed 5 malformed articles ($ prefix + empty denomination)
+2026-05-19 19:13:22,139 [INFO] 
 --- Comparare OFERTA 2 ---
-2026-05-12 15:49:54,870 [INFO] [DN] Local mapping (no LLM): 11 renames
-2026-05-12 15:49:57,075 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
-2026-05-12 15:49:57,079 [INFO] [DN] Total mapping: 27 renames (11 local + 16 LLM)
-2026-05-12 15:49:57,687 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
-2026-05-12 15:49:57,688 [INFO] [COMP] matched=1378, lipsa=17, extra=4, similar=4
-2026-05-12 15:49:57,698 [INFO]   Neconformitati: {'UM_DIFERIT': 66, 'DIFERENTA_CAMP': 12, 'COD_SIMILAR': 4, 'ARTICOL_LIPSA': 17, 'ARTICOL_EXTRA': 4} (total: 103)
-2026-05-12 15:49:57,699 [INFO]   Matched: 1378 articole
-2026-05-12 15:49:58,098 [INFO]   DOCX: Raport_Oferta_2.docx
-2026-05-12 15:49:58,098 [INFO] 
---- Extragere OFERTA 3 ---
-2026-05-12 15:49:58,121 [INFO]   Ofertant: Asocierea Skyline Center S.R.L. (Lider) - MBX Business Struct S.R.L.
-2026-05-12 15:49:58,141 [INFO]   di_oferta_3.json: 267 pagini DI
-2026-05-12 15:49:58,141 [INFO]   Checkpoint gasit — sare peste clasificare LLM
-2026-05-12 15:49:58,162 [INFO]   145 pagini F3 (2 fara deviz_cod)
-2026-05-12 15:49:58,163 [INFO] [PARSER] 226108: 7 articole extrase (regex)
-2026-05-12 15:49:58,165 [INFO] [PARSER] 226108: 11 articole extrase (regex)
-2026-05-12 15:49:58,166 [INFO] [PARSER] 226108: 12 articole extrase (regex)
-2026-05-12 15:49:58,167 [INFO] [PARSER] 226108: 13 articole extrase (regex)
-2026-05-12 15:49:58,168 [INFO] [PARSER] 226108: 3 articole extrase (regex)
-2026-05-12 15:49:58,169 [INFO] [PARSER] 226118: 7 articole extrase (regex)
-2026-05-12 15:49:58,170 [INFO] [PARSER] 226208: 8 articole extrase (regex)
-2026-05-12 15:49:58,171 [INFO] [PARSER] 226208: 11 articole extrase (regex)
-2026-05-12 15:49:58,172 [INFO] [PARSER] 226208: 12 articole extrase (regex)
-2026-05-12 15:49:58,173 [INFO] [PARSER] 226208: 8 articole extrase (regex)
-2026-05-12 15:49:58,174 [INFO] [PARSER] 226208: 11 articole extrase (regex)
-2026-05-12 15:49:58,175 [INFO] [PARSER] 226218: 12 articole extrase (regex)
-2026-05-12 15:49:58,176 [INFO] [PARSER] 226218: 11 articole extrase (regex)
-2026-05-12 15:49:58,178 [INFO] [PARSER] 226218: 12 articole extrase (regex)
-2026-05-12 15:49:58,179 [INFO] [PARSER] 226218: 16 articole extrase (regex)
-2026-05-12 15:49:58,180 [INFO] [PARSER] 226218: 14 articole extrase (regex)
-2026-05-12 15:49:58,181 [INFO] [PARSER] 226218: 13 articole extrase (regex)
-2026-05-12 15:49:58,182 [INFO] [PARSER] 226218: 8 articole extrase (regex)
-2026-05-12 15:49:58,183 [INFO] [PARSER] 226228: 12 articole extrase (regex)
-2026-05-12 15:49:58,184 [INFO] [PARSER] 226228: 14 articole extrase (regex)
-2026-05-12 15:49:58,186 [INFO] [PARSER] 226228: 13 articole extrase (regex)
-2026-05-12 15:49:58,187 [INFO] [PARSER] 226228: 13 articole extrase (regex)
-2026-05-12 15:49:58,188 [INFO] [PARSER] 226228: 12 articole extrase (regex)
-2026-05-12 15:49:58,189 [INFO] [PARSER] 226228: 10 articole extrase (regex)
-2026-05-12 15:49:58,190 [INFO] [PARSER] 226228: 14 articole extrase (regex)
-2026-05-12 15:49:58,192 [INFO] [PARSER] 226228: 13 articole extrase (regex)
-2026-05-12 15:49:58,193 [INFO] [PARSER] 226228: 14 articole extrase (regex)
-2026-05-12 15:49:58,194 [INFO] [PARSER] 226228: 13 articole extrase (regex)
-2026-05-12 15:49:58,196 [INFO] [PARSER] 226228: 15 articole extrase (regex)
-2026-05-12 15:49:58,197 [INFO] [PARSER] 226228: 4 articole extrase (regex)
-2026-05-12 15:49:58,197 [INFO] [PARSER] 226238: 1 articole extrase (regex)
-2026-05-12 15:49:58,199 [INFO] [PARSER] 226248: 9 articole extrase (regex)
-2026-05-12 15:49:58,200 [INFO] [PARSER] 226258: 3 articole extrase (regex)
-2026-05-12 15:49:58,201 [INFO] [PARSER] 226268: 10 articole extrase (regex)
-2026-05-12 15:49:58,202 [INFO] [PARSER] 226268: 15 articole extrase (regex)
-2026-05-12 15:49:58,203 [INFO] [PARSER] 226268: 9 articole extrase (regex)
-2026-05-12 15:49:58,204 [INFO] [PARSER] 226278: 10 articole extrase (regex)
-2026-05-12 15:49:58,205 [INFO] [PARSER] 226278: 7 articole extrase (regex)
-2026-05-12 15:49:58,206 [INFO] [PARSER] 226288: 11 articole extrase (regex)
-2026-05-12 15:49:58,207 [INFO] [PARSER] 226288: 5 articole extrase (regex)
-2026-05-12 15:49:58,208 [INFO] [PARSER] 226308: 7 articole extrase (regex)
-2026-05-12 15:49:58,210 [INFO] [PARSER] 226308: 9 articole extrase (regex)
-2026-05-12 15:49:58,211 [INFO] [PARSER] 226308: 12 articole extrase (regex)
-2026-05-12 15:49:58,212 [INFO] [PARSER] 226308: 14 articole extrase (regex)
-2026-05-12 15:49:58,213 [INFO] [PARSER] 226308: 9 articole extrase (regex)
-2026-05-12 15:49:58,214 [INFO] [PARSER] 226318: 9 articole extrase (regex)
-2026-05-12 15:49:58,215 [INFO] [PARSER] 226318: 3 articole extrase (regex)
-2026-05-12 15:49:58,216 [INFO] [PARSER] 226328: 9 articole extrase (regex)
-2026-05-12 15:49:58,217 [INFO] [PARSER] 226328: 2 articole extrase (regex)
-2026-05-12 15:49:58,219 [INFO] [PARSER] 226338: 7 articole extrase (regex)
-2026-05-12 15:49:58,220 [INFO] [PARSER] 226338: 11 articole extrase (regex)
-2026-05-12 15:49:58,221 [INFO] [PARSER] 226338: 3 articole extrase (regex)
-2026-05-12 15:49:58,222 [INFO] [PARSER] 226348: 7 articole extrase (regex)
-2026-05-12 15:49:58,223 [INFO] [PARSER] 226348: 6 articole extrase (regex)
-2026-05-12 15:49:58,224 [INFO] [PARSER] 226358: 7 articole extrase (regex)
-2026-05-12 15:49:58,225 [INFO] [PARSER] 226358: 11 articole extrase (regex)
-2026-05-12 15:49:58,226 [INFO] [PARSER] 226358: 1 articole extrase (regex)
-2026-05-12 15:49:58,227 [INFO] [PARSER] 226368: 7 articole extrase (regex)
-2026-05-12 15:49:58,227 [WARNING] [F3v3] page 88 is_f3=True but deviz_cod is empty — dedup key collision risk
-2026-05-12 15:49:58,227 [INFO] [PARSER] : 1 articole extrase (regex)
-2026-05-12 15:49:58,228 [INFO] [PARSER] 226F08: 1 articole extrase (regex)
-2026-05-12 15:49:58,229 [INFO] [PARSER] 226408: 8 articole extrase (regex)
-2026-05-12 15:49:58,230 [INFO] [PARSER] 226408: 10 articole extrase (regex)
-2026-05-12 15:49:58,232 [INFO] [PARSER] 226408: 13 articole extrase (regex)
-2026-05-12 15:49:58,233 [INFO] [PARSER] 226408: 9 articole extrase (regex)
-2026-05-12 15:49:58,234 [INFO] [PARSER] 226408: 9 articole extrase (regex)
-2026-05-12 15:49:58,235 [INFO] [PARSER] 226408: 7 articole extrase (regex)
-2026-05-12 15:49:58,236 [INFO] [PARSER] 226418: 12 articole extrase (regex)
-2026-05-12 15:49:58,237 [INFO] [PARSER] 226418: 10 articole extrase (regex)
-2026-05-12 15:49:58,238 [INFO] [PARSER] 226418: 12 articole extrase (regex)
-2026-05-12 15:49:58,240 [INFO] [PARSER] 226418: 16 articole extrase (regex)
-2026-05-12 15:49:58,241 [INFO] [PARSER] 226418: 18 articole extrase (regex)
-2026-05-12 15:49:58,242 [INFO] [PARSER] 226418: 13 articole extrase (regex)
-2026-05-12 15:49:58,243 [INFO] [PARSER] 226418: 12 articole extrase (regex)
-2026-05-12 15:49:58,244 [INFO] [PARSER] 226418: 3 articole extrase (regex)
-2026-05-12 15:49:58,245 [INFO] [PARSER] 226428: 12 articole extrase (regex)
-2026-05-12 15:49:58,247 [INFO] [PARSER] 226428: 15 articole extrase (regex)
-2026-05-12 15:49:58,248 [INFO] [PARSER] 226428: 10 articole extrase (regex)
-2026-05-12 15:49:58,249 [INFO] [PARSER] 226428: 15 articole extrase (regex)
-2026-05-12 15:49:58,251 [INFO] [PARSER] 226428: 14 articole extrase (regex)
-2026-05-12 15:49:58,252 [INFO] [PARSER] 226428: 14 articole extrase (regex)
-2026-05-12 15:49:58,253 [INFO] [PARSER] 226428: 12 articole extrase (regex)
-2026-05-12 15:49:58,254 [INFO] [PARSER] 226428: 12 articole extrase (regex)
-2026-05-12 15:49:58,256 [INFO] [PARSER] 226428: 14 articole extrase (regex)
-2026-05-12 15:49:58,257 [INFO] [PARSER] 226438: 2 articole extrase (regex)
-2026-05-12 15:49:58,258 [INFO] [PARSER] 226448: 11 articole extrase (regex)
-2026-05-12 15:49:58,259 [INFO] [PARSER] 226448: 2 articole extrase (regex)
-2026-05-12 15:49:58,259 [INFO] [PARSER] 226458: 4 articole extrase (regex)
-2026-05-12 15:49:58,261 [INFO] [PARSER] 226468: 7 articole extrase (regex)
-2026-05-12 15:49:58,262 [INFO] [PARSER] 226478: 10 articole extrase (regex)
-2026-05-12 15:49:58,263 [INFO] [PARSER] 226478: 16 articole extrase (regex)
-2026-05-12 15:49:58,264 [INFO] [PARSER] 226478: 9 articole extrase (regex)
-2026-05-12 15:49:58,265 [INFO] [PARSER] 226488: 10 articole extrase (regex)
-2026-05-12 15:49:58,267 [INFO] [PARSER] 226488: 7 articole extrase (regex)
-2026-05-12 15:49:58,268 [INFO] [PARSER] 226498: 11 articole extrase (regex)
-2026-05-12 15:49:58,269 [INFO] [PARSER] 226498: 5 articole extrase (regex)
-2026-05-12 15:49:58,270 [INFO] [PARSER] 226400: 1 articole extrase (regex)
-2026-05-12 15:49:58,271 [INFO] [PARSER] 226508: 8 articole extrase (regex)
-2026-05-12 15:49:58,272 [INFO] [PARSER] 226508: 9 articole extrase (regex)
-2026-05-12 15:49:58,273 [INFO] [PARSER] 226508: 13 articole extrase (regex)
-2026-05-12 15:49:58,274 [INFO] [PARSER] 226508: 8 articole extrase (regex)
-2026-05-12 15:49:58,275 [INFO] [PARSER] 226508: 11 articole extrase (regex)
-2026-05-12 15:49:58,276 [INFO] [PARSER] 226518: 12 articole extrase (regex)
-2026-05-12 15:49:58,277 [INFO] [PARSER] 226518: 11 articole extrase (regex)
-2026-05-12 15:49:58,279 [INFO] [PARSER] 226518: 12 articole extrase (regex)
-2026-05-12 15:49:58,280 [INFO] [PARSER] 226518: 19 articole extrase (regex)
-2026-05-12 15:49:58,281 [INFO] [PARSER] 226518: 13 articole extrase (regex)
-2026-05-12 15:49:58,282 [INFO] [PARSER] 226518: 11 articole extrase (regex)
-2026-05-12 15:49:58,283 [INFO] [PARSER] 226518: 2 articole extrase (regex)
-2026-05-12 15:49:58,285 [INFO] [PARSER] 226528: 12 articole extrase (regex)
-2026-05-12 15:49:58,286 [INFO] [PARSER] 226528: 13 articole extrase (regex)
-2026-05-12 15:49:58,287 [INFO] [PARSER] 226528: 13 articole extrase (regex)
-2026-05-12 15:49:58,288 [INFO] [PARSER] 226528: 14 articole extrase (regex)
-2026-05-12 15:49:58,290 [INFO] [PARSER] 226528: 12 articole extrase (regex)
-2026-05-12 15:49:58,291 [INFO] [PARSER] 226528: 13 articole extrase (regex)
-2026-05-12 15:49:58,292 [INFO] [PARSER] 226528: 13 articole extrase (regex)
-2026-05-12 15:49:58,294 [INFO] [PARSER] 226528: 14 articole extrase (regex)
-2026-05-12 15:49:58,295 [INFO] [PARSER] 226528: 11 articole extrase (regex)
-2026-05-12 15:49:58,296 [INFO] [PARSER] 226528: 14 articole extrase (regex)
-2026-05-12 15:49:58,297 [INFO] [PARSER] 226528: 7 articole extrase (regex)
-2026-05-12 15:49:58,298 [INFO] [PARSER] 226538: 9 articole extrase (regex)
-2026-05-12 15:49:58,299 [INFO] [PARSER] 226548: 3 articole extrase (regex)
-2026-05-12 15:49:58,300 [INFO] [PARSER] 226558: 11 articole extrase (regex)
-2026-05-12 15:49:58,301 [INFO] [PARSER] 226558: 13 articole extrase (regex)
-2026-05-12 15:49:58,302 [INFO] [PARSER] 226558: 8 articole extrase (regex)
-2026-05-12 15:49:58,303 [INFO] [PARSER] 226578: 10 articole extrase (regex)
-2026-05-12 15:49:58,304 [INFO] [PARSER] 226578: 4 articole extrase (regex)
-2026-05-12 15:49:58,305 [INFO] [PARSER] 226568: 10 articole extrase (regex)
-2026-05-12 15:49:58,306 [INFO] [PARSER] 226568: 7 articole extrase (regex)
-2026-05-12 15:49:58,307 [INFO] [PARSER] 226008: 10 articole extrase (regex)
-2026-05-12 15:49:58,308 [INFO] [PARSER] 226008: 11 articole extrase (regex)
-2026-05-12 15:49:58,309 [INFO] [PARSER] 226008: 8 articole extrase (regex)
-2026-05-12 15:49:58,310 [INFO] [PARSER] 226008: 2 articole extrase (regex)
-2026-05-12 15:49:58,311 [INFO] [PARSER] 226018: 9 articole extrase (regex)
-2026-05-12 15:49:58,312 [INFO] [PARSER] 226018: 8 articole extrase (regex)
-2026-05-12 15:49:58,313 [INFO] [PARSER] 226018: 8 articole extrase (regex)
-2026-05-12 15:49:58,314 [INFO] [PARSER] 226028: 9 articole extrase (regex)
-2026-05-12 15:49:58,316 [INFO] [PARSER] 226028: 11 articole extrase (regex)
-2026-05-12 15:49:58,317 [INFO] [PARSER] 226028: 11 articole extrase (regex)
-2026-05-12 15:49:58,318 [INFO] [PARSER] 226028: 10 articole extrase (regex)
-2026-05-12 15:49:58,318 [WARNING] [F3v3] page 190 is_f3=True but deviz_cod is empty — dedup key collision risk
-2026-05-12 15:49:58,319 [INFO] [PARSER] : 2 articole extrase (regex)
-2026-05-12 15:49:58,320 [INFO] [PARSER] 226038: 11 articole extrase (regex)
-2026-05-12 15:49:58,321 [INFO] [PARSER] 226038: 10 articole extrase (regex)
-2026-05-12 15:49:58,322 [INFO] [PARSER] 226038: 7 articole extrase (regex)
-2026-05-12 15:49:58,323 [INFO] [PARSER] 226718: 4 articole extrase (regex)
-2026-05-12 15:49:58,324 [INFO] [PARSER] 226708: 3 articole extrase (regex)
-2026-05-12 15:49:58,324 [INFO] [F3v3] Total: 1366 articole extrase (page-aware, fara LLM)
-2026-05-12 15:49:58,324 [INFO]   1366 articole extrase din linii
-2026-05-12 15:49:58,327 [INFO]   0 articole din tabele, 1366 total dupa merge
-2026-05-12 15:49:58,330 [INFO] [DN] No deviz denominations to populate
-2026-05-12 15:49:58,330 [WARNING]   ALERTA: 1 devize in oferta ABSENTE din referinta: ['226400']
-2026-05-12 15:49:58,330 [INFO]   → Reconciliere: re-scanam referinta pentru ['226400']
-2026-05-12 15:49:58,347 [INFO] [PARSER] 226400: 25 articole extrase (regex)
-2026-05-12 15:49:58,349 [INFO] [PARSER] 226400: 24 articole extrase (regex)
-2026-05-12 15:49:58,350 [INFO] [PARSER] 226400: 22 articole extrase (regex)
-2026-05-12 15:49:58,352 [INFO] [PARSER] 226400: 23 articole extrase (regex)
-2026-05-12 15:49:58,354 [INFO] [PARSER] 226400: 30 articole extrase (regex)
-2026-05-12 15:49:58,356 [INFO] [PARSER] 226400: 26 articole extrase (regex)
-2026-05-12 15:49:58,357 [INFO] [PARSER] 226400: 17 articole extrase (regex)
-2026-05-12 15:49:58,359 [INFO] [PARSER] 226400: 23 articole extrase (regex)
-2026-05-12 15:49:58,360 [INFO] [PARSER] 226400: 20 articole extrase (regex)
-2026-05-12 15:49:58,362 [INFO] [PARSER] 226400: 20 articole extrase (regex)
-2026-05-12 15:49:58,363 [INFO] [PARSER] 226400: 18 articole extrase (regex)
-2026-05-12 15:49:58,365 [INFO] [PARSER] 226400: 25 articole extrase (regex)
-2026-05-12 15:49:58,366 [INFO] [PARSER] 226400: 24 articole extrase (regex)
-2026-05-12 15:49:58,368 [INFO] [PARSER] 226400: 28 articole extrase (regex)
-2026-05-12 15:49:58,369 [INFO] [PARSER] 226400: 29 articole extrase (regex)
-2026-05-12 15:49:58,371 [INFO] [PARSER] 226400: 23 articole extrase (regex)
-2026-05-12 15:49:58,372 [INFO] [PARSER] 226400: 26 articole extrase (regex)
-2026-05-12 15:49:58,374 [INFO] [PARSER] 226400: 26 articole extrase (regex)
-2026-05-12 15:49:58,376 [INFO] [PARSER] 226400: 27 articole extrase (regex)
-2026-05-12 15:49:58,376 [INFO] [PARSER] 226400: 9 articole extrase (regex)
-2026-05-12 15:49:58,377 [INFO] [PARSER] 226400: 2 articole extrase (regex)
-2026-05-12 15:49:58,378 [INFO] [PARSER] 226400: 5 articole extrase (regex)
-2026-05-12 15:49:58,379 [INFO] [PARSER] 226400: 23 articole extrase (regex)
-2026-05-12 15:49:58,380 [INFO] [PARSER] 226400: 14 articole extrase (regex)
-2026-05-12 15:49:58,381 [INFO] [PARSER] 226400: 10 articole extrase (regex)
-2026-05-12 15:49:58,381 [INFO] [PARSER] 226400: 0 articole extrase (regex)
-2026-05-12 15:49:58,381 [INFO] [F3v3] Total: 513 articole extrase (page-aware, fara LLM)
-2026-05-12 15:49:58,381 [INFO]   [RECONCILE] Deviz 226400: 513 articole gasite pe 26 pagini (din 26 total)
-2026-05-12 15:49:58,387 [INFO]   [RECONCILE] Checkpoint actualizat: di_referinta_page_classes_9b828b4cfc07.json
-2026-05-12 15:49:58,406 [INFO] 
---- Comparare OFERTA 3 ---
-2026-05-12 15:49:58,418 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-12 15:49:58,418 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-12 15:49:58,418 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-12 15:49:58,422 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
-2026-05-12 15:49:58,423 [INFO] [COMP] matched=1354, lipsa=553, extra=10, similar=0
-2026-05-12 15:49:58,449 [INFO] [ORPHAN] Detectate 1 coduri orphane (deviz gresit in oferta)
-2026-05-12 15:49:58,449 [WARNING] [VALID] 5 ARTICOL_EXTRA marcate ca posibil_omis_din_extractie (codul apare in DI referinta dar lipseste din articolele extrase)
-2026-05-12 15:49:58,458 [INFO]   Neconformitati: {'UM_DIFERIT': 44, 'DIFERENTA_CAMP': 17, 'ARTICOL_LIPSA': 553, 'ARTICOL_EXTRA': 10, 'ARTICOL_ORPHAN': 1} (total: 625)
-2026-05-12 15:49:58,458 [INFO]   Matched: 1354 articole
-2026-05-12 15:49:59,825 [INFO]   DOCX: Raport_Oferta_3.docx
-2026-05-12 15:49:59,825 [INFO] 
+2026-05-19 19:13:22,139 [INFO] [DM] Matched 35/35 offer devizes
+2026-05-19 19:13:22,139 [INFO]   [DEVIZ_MATCHER] Applied deviz mapping: {'4.1-01': '4.1-01', '4.1-02': '4.1-02', '4.1-03': '4.1-03', '4.1-04': '4.1-04', '4.1-05': '4.1-05', '4.1-06': '4.1-06', '4.1-07': '4.1-07', '4.1-08': '4.1-08', '4.1-09': '4.1-09', '4.1-10': '4.1-10', '4.1-11': '4.1-11', '4.1-12': '4.1-12', '4.1-13': '4.1-13', '4.1-14': '4.1-14', '4.1-15': '4.1-15', '4.1-16': '4.1-16', '4.1-17': '4.1-17', '4.1-18': '4.1-18', '4.1-19': '4.1-19', '4.1-20': '4.1-20', '4.1-21': '4.1-21', '4.2-1': '4.2-1', '4.2-2': '4.2-2', '4.3-01': '4.3-01', '4.3-02': '4.3-02', '4.3-03': '4.3-03', '4.3-04': '4.3-04', '4.3-05': '4.3-05', '4.3-06': '4.3-06', '4.3-07': '4.3-07', '4.3-08': '4.3-08', '4.3-09': '4.3-09', '4.4-1': '4.4-1', '4.4-2': '4.4-2', '5.1-1': '5.1-1'}
+2026-05-19 19:13:22,141 [INFO] [DN] Local mapping (no LLM): 7 renames
+2026-05-19 19:13:24,986 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
+2026-05-19 19:13:24,989 [INFO] [DN] Total mapping: 34 renames (7 local + 27 LLM)
+2026-05-19 19:13:25,079 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 19:13:25,080 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 19:13:25,081 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 19:13:25,695 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
+2026-05-19 19:13:25,700 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 19:13:25,709 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 19:13:25,709 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 19:13:25,710 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 19:13:25,710 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 19:13:25,716 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 19:13:26,259 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
+2026-05-19 19:13:26,263 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 19:13:26,866 [INFO] HTTP Request: POST https://apiuatlb.bcr.wan/litellm/v1/messages "HTTP/1.1 200 OK"
+2026-05-19 19:13:26,868 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 19:13:26,868 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 19:13:26,869 [INFO] [Matcher] No candidate pairs above similarity threshold — skipping LLM fuzzy
+2026-05-19 19:14:57,553 [INFO] [COMP] Lenient UM matching: converted 5 EXTRA to matched
+2026-05-19 19:14:57,572 [INFO] [COMP] matched=1590, lipsa=64, extra=357, similar=2
+2026-05-19 19:14:57,736 [WARNING] [VALID] 1 ARTICOL_EXTRA marcate ca posibil_omis_din_extractie (codul apare in DI referinta dar lipseste din articolele extrase)
+2026-05-19 19:14:57,741 [INFO]   Neconformitati: {'DIFERENTA_CAMP': 21, 'COD_SIMILAR': 2, 'ARTICOL_LIPSA': 64, 'ARTICOL_EXTRA': 357, 'UM_DIFERIT': 5} (total: 449)
+2026-05-19 19:14:57,741 [INFO]   Matched: 1590 articole
+2026-05-19 19:14:58,814 [INFO]   DOCX: Raport_Oferta_2.docx
+2026-05-19 19:14:58,820 [INFO]   JSON by deviz: comparatie_deviz_oferta_2.json
+2026-05-19 19:14:58,820 [INFO] 
 ==================================================
-2026-05-12 15:49:59,825 [INFO]   DONE
-2026-05-12 15:49:59,825 [INFO]   Rezultate in: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO
-2026-05-12 15:49:59,825 [INFO] ==================================================
+2026-05-19 19:14:58,820 [INFO]   DONE
+2026-05-19 19:14:58,820 [INFO]   Rezultate in: /Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local/output_AO
+2026-05-19 19:14:58,820 [INFO] ==================================================
