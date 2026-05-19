@@ -55,9 +55,9 @@ COD_BREVIAR_RE = re.compile(r'^(\$[A-Z0-9]{4,})\s*[-–]\s*(.+)', re.IGNORECASE)
 # IMPORTANT: (?!\d) negative lookahead ensures we match COMPLETE numeric codes, not substrings
 # of longer digit sequences (e.g., won't match "22121" in "22222121 - DESC")
 COD_NUMERIC_RE = re.compile(r'^(\d{4,9})(?!\d)(?:[@]|\[\d+\])?\s*[-–]\s*(.+)')
-# Cod format: DIGIT-LETTER-DIGIT (ex: 00106B011, 001C012) — articole cu cod mixt din breviar
-# Format: 3-5 cifre + 1 litera + 1-3 cifre, optional cu separator și descriere
-COD_DIGIT_LETTER_DIGIT_RE = re.compile(r'^(\d{3,5}[A-Z]\d{1,3})(?!\d)\s*[-–]\s*(.+)', re.IGNORECASE)
+# Cod format: DIGIT-LETTER-DIGIT (ex: 00106B011, 001C012, 02012A1[1]) — articole cu cod mixt din breviar
+# Format: 3-5 cifre + 1 litera + 1-3 cifre, optional bracket suffix [N], optional cu separator și descriere
+COD_DIGIT_LETTER_DIGIT_RE = re.compile(r'^(\d{3,5}[A-Z]\d{1,3})(?!\d)(?:\[\d+\])?\s*[-–]\s*(.+)', re.IGNORECASE)
 # Cod DIGIT-LETTER-DIGIT SINGUR pe linie: 00106B011, 001C012 (format: 3-5D + L + 1-3D, standalone)
 COD_DIGIT_LETTER_DIGIT_STANDALONE_RE = re.compile(
     r'^(\d{3,5}[A-Z]\d{1,3})(?!\d)((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
