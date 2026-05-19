@@ -84811,6 +84811,5676 @@
       ],
       "component_indicators": [],
       "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9423",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9424",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9425",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9426",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9427",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9428",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9429",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9430",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9431",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9432",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9433",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9434",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9435",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9436",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9437",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9438",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9439",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9440",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9441",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9442",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9443",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9444",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9445",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9446",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9447",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9448",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9449",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9450",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9451",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9452",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9453",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9454",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9455",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9456",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9457",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9458",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9459",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9460",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9461",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9462",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9463",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9464",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9465",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9466",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9467",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9468",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9469",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9470",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9471",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9472",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9473",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9474",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9475",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9476",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9477",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9478",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9479",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9480",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9481",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9482",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9483",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9484",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9485",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9486",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9487",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9488",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9489",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9490",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9491",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9492",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9493",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9494",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9495",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9496",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9497",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9498",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9499",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9500",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9501",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9502",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9503",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9504",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9505",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9506",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9507",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9508",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9509",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9510",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9511",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9512",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9513",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9514",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9515",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9516",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9517",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9518",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9519",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9520",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9521",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9522",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9523",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9524",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9525",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9526",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9527",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9528",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9529",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9530",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9531",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9532",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9533",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9534",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9535",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9536",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9537",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9538",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9539",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9540",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9541",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9542",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9543",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9544",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9545",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9546",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9547",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9548",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9549",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9550",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9551",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9552",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9553",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9554",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9555",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9556",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9557",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9558",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9559",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9560",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9561",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9562",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9563",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9564",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9565",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9566",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9567",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9568",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9569",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9570",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9571",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9572",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9573",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9574",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9575",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9576",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9577",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9578",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9579",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9580",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9581",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9582",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9583",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9584",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9585",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9586",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9587",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9588",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9589",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9590",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9591",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9592",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9593",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9594",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9595",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9596",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9597",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9598",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9599",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9600",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9601",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9602",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9603",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9604",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9605",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9606",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9607",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9608",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9609",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9610",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9611",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9612",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9613",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9614",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9615",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9616",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9617",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9618",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9619",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9620",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9621",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9622",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9623",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9624",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9625",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9626",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9627",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9628",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9629",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9630",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9631",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9632",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9633",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9634",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9635",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9636",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9637",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9638",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9639",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9640",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9641",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9642",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9643",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9644",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9645",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9646",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9647",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9648",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9649",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9650",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9651",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9652",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9653",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9654",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9655",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9656",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9657",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9658",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9659",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9660",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9661",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9662",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9663",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9664",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9665",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9666",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9667",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9668",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9669",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9670",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9671",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9672",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9673",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9674",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9675",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9676",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9677",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9678",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9679",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9680",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9681",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9682",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9683",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9684",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9685",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9686",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9687",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9688",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9689",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9690",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9691",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9692",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9693",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9694",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9695",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9696",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9697",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9698",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9699",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9700",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9701",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9702",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9703",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9704",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9705",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9706",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9707",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9708",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9709",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9710",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9711",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9712",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9713",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9714",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9715",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9716",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9717",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9718",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9719",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9720",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9721",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9722",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9723",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9724",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9725",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9726",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9727",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9728",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9729",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9730",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9731",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9732",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9733",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9734",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9735",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9736",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9737",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9738",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9739",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9740",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9741",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9742",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9743",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9744",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9745",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9746",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9747",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9748",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9749",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9750",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9751",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9752",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9753",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9754",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9755",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9756",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9757",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9758",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9759",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9760",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9761",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9762",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9763",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9764",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9765",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9766",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9767",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9768",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9769",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9770",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9771",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9772",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9773",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9774",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9775",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9776",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9777",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9778",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9779",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9780",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9781",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9782",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9783",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9784",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9785",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9786",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9787",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9788",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9789",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9790",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9791",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9792",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9793",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9794",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9795",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9796",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9797",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9798",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9799",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9800",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9801",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9802",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9803",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9804",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9805",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9806",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9807",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9808",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9809",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9810",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9811",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9812",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9813",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9814",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9815",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9816",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9817",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9818",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9819",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9820",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9821",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9822",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9823",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9824",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9825",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9826",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9827",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9828",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9829",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9830",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9831",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9832",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9833",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9834",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9835",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9836",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9837",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9838",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9839",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9840",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9841",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9842",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9843",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9844",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9845",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9846",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9847",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9848",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9849",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9850",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9851",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9852",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9853",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9854",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9855",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9856",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9857",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9858",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9859",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9860",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9861",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9862",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9863",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9864",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9865",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9866",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9867",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9868",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9869",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9870",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9871",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9872",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9873",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9874",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9875",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9876",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9877",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9878",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9879",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9880",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9881",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9882",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9883",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9884",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9885",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9886",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9887",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9888",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9889",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9890",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9891",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9892",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9893",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9894",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9895",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9896",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9897",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9898",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9899",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9900",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9901",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9902",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9903",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9904",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9905",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9906",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9907",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9908",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9909",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9910",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9911",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9912",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9913",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9914",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9915",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9916",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9917",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9918",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9919",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9920",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9921",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9922",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9923",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9924",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9925",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9926",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9927",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9928",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9929",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9930",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9931",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9932",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9933",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9934",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9935",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9936",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9937",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9938",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9939",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9940",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9941",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9942",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9943",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9944",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9945",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9946",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9947",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9948",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9949",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9950",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9951",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9952",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9953",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9954",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9955",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9956",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9957",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9958",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9959",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9960",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9961",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9962",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9963",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9964",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9965",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9966",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9967",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9968",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9969",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9970",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9971",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9972",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9973",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9974",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9975",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9976",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9977",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9978",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9979",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9980",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9981",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9982",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9983",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9984",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9985",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9986",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9987",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9988",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9989",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9990",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9991",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9992",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9993",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9994",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9995",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9996",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9997",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9998",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_9999",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10000",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10001",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10002",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10003",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10004",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10005",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10006",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10007",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10008",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10009",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10010",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10011",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10012",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10013",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10014",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10015",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10016",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10017",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10018",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10019",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10020",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10021",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10022",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10023",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10024",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10025",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10026",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10027",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10028",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10029",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10030",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10031",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10032",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10033",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10034",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10035",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10036",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10037",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10038",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10039",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10040",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10041",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10042",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10043",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10044",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10045",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10046",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10047",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10048",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10049",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10050",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10051",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
+    },
+    {
+      "name": "AUTO_GEN_10052",
+      "description": "Fallback template (LLM unavailable)",
+      "parent_indicators": [
+        "^\\d+\\s+[A-Z]"
+      ],
+      "component_indicators": [],
+      "quantity_rule": "inherit_from_parent"
     }
   ]
 }

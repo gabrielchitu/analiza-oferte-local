@@ -947,6 +947,68 @@ def match_global(
             "oferta_cantitate": oferta_art.get("cantitate", ""),
         })
 
+    # Post-processing: Lenient UM matching for $ codes
+    # If EXTRA code is a $ code and exists in reference with same deviz but empty UM,
+    # convert from EXTRA to MATCHED with UM_DIFERIT nonconformity
+    extra_dollar_count = len([n for n in neconformitati if n['tip']=='ARTICOL_EXTRA' and n.get('oferta_cod','').startswith('$')])
+    logger.debug(f"[COMP] Post-processing: {extra_dollar_count} EXTRA $ codes to check")
+
+    extra_to_remove = []
+    for i, nc in enumerate(neconformitati):
+        if nc['tip'] != 'ARTICOL_EXTRA':
+            continue
+        oferta_cod = nc.get('oferta_cod', '')
+        if not oferta_cod.startswith('$'):
+            continue
+
+        deviz_ref = nc.get('deviz_ref', '')
+        # Look for code in reference with same deviz but any UM (especially empty)
+        # Use ref_articole (not ref_dedup) because dedup might have filtered articles
+        found_in_ref = False
+        ref_art = None
+        for ref_article in ref_articole:
+            if ref_article.get('cod') == oferta_cod and ref_article.get('deviz') == deviz_ref:
+                # Found it in reference
+                found_in_ref = True
+                ref_art = ref_article
+                break
+
+        if found_in_ref and ref_art:
+            # This $ code exists in reference with same deviz
+            # If ref UM is empty, add UM_DIFERIT and mark as matched (remove EXTRA)
+            ref_um = (ref_art.get('um') or '').strip()
+            oferta_um = nc.get('oferta_um', '').strip()
+
+            if not ref_um and oferta_um:
+                # Reference has empty UM, offer has non-empty → lenient match
+                logger.debug(f"[COMP] Lenient match: {oferta_cod} (ref UM=empty, oferta UM={oferta_um})")
+                # Add UM_DIFERIT nonconformity
+                neconformitati.append({
+                    'tip': 'UM_DIFERIT',
+                    'camp': 'um',
+                    'deviz_ref': deviz_ref,
+                    'deviz_denumire': nc.get('deviz_denumire', ''),
+                    'ref_cod': oferta_cod,
+                    'ref_denumire': nc.get('ref_denumire', ''),
+                    'ref_um': ref_um,
+                    'oferta_cod': oferta_cod,
+                    'oferta_denumire': nc.get('oferta_denumire', ''),
+                    'oferta_um': oferta_um,
+                })
+                # Mark EXTRA for removal (will be matched)
+                extra_to_remove.append(i)
+                # Add to matches
+                matches.append({
+                    "ref_cod": oferta_cod,
+                    "ref_denumire": nc.get('ref_denumire', ''),
+                    "oferta_cod": oferta_cod,
+                    "oferta_denumire": nc.get('oferta_denumire', ''),
+                })
+
+    logger.info(f"[COMP] Lenient UM matching: converted {len(extra_to_remove)} EXTRA to matched")
+    # Remove EXTRAs that were converted to matches
+    neconformitati = [nc for i, nc in enumerate(neconformitati) if i not in extra_to_remove]
+
     # Deduplicate non-conformities for the same (deviz, ref_cod, oferta_cod) pair
     # When same pair appears multiple times with different tips, keep only the primary one
     neconformitati = _deduplicate_neconformitati(neconformitati)
