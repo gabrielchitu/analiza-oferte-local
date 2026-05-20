@@ -12,15 +12,15 @@ def build_raport_ierarhic(
     Returns dict with keys: sumar, devize, erori_extractie.
     devize are in reference order; articles within each deviz are in nr_ordine order.
     """
-    # Index matched ref codes per deviz
-    matched_ref = set()
-    for m in matches:
-        matched_ref.add((m.get('deviz', ''), m.get('ref_cod', '')))
+    # Index matched ref codes — matches don't carry deviz, use ref_cod only
+    matched_ref_cods = {m.get('ref_cod', '') for m in matches if m.get('ref_cod')}
 
-    # Index neconformitati per (deviz, ref_cod)
+    # Index neconformitati per (deviz_ref, ref_cod)
+    # All ncs go through _enrich which sets deviz_ref (not deviz)
     nc_index = defaultdict(list)
     for nc in neconformitati:
-        key = (nc.get('deviz', ''), nc.get('ref_cod', ''))
+        dv = nc.get('deviz_ref', '') or nc.get('deviz', '')
+        key = (dv, nc.get('ref_cod', ''))
         nc_index[key].append(nc)
 
     # Collect subarticole fără parent (erori OCR/extracție)
@@ -73,10 +73,10 @@ def build_raport_ierarhic(
         for art in arts_in_deviz:
             ref_cod = art.get('cod', '')
             ncs = nc_index.get((dv_cod, ref_cod), [])
-            is_matched = (dv_cod, ref_cod) in matched_ref
             has_lipsa = any(nc.get('tip') == 'ARTICOL_LIPSA' for nc in ncs)
+            is_matched = ref_cod in matched_ref_cods and not has_lipsa
 
-            if is_matched:
+            if is_matched and not ncs:
                 status = 'MATCHED'
                 dv_matched += 1
                 total_matched += 1
@@ -84,9 +84,13 @@ def build_raport_ierarhic(
                 status = 'LIPSA'
                 dv_lipsa += 1
                 total_lipsa += 1
-            else:
+            elif ncs:
                 status = 'NECONFORMITATE'
                 dv_neconformitati += 1
+            else:
+                status = 'MATCHED'
+                dv_matched += 1
+                total_matched += 1
 
             # Subarticole ale acestui articol
             subs_ref = sub_index.get((dv_cod, ref_cod), [])
@@ -95,8 +99,8 @@ def build_raport_ierarhic(
             for sub in subs_ref_sorted:
                 sub_cod = sub.get('cod', '')
                 sub_ncs = nc_index.get((dv_cod, sub_cod), [])
-                sub_matched = (dv_cod, sub_cod) in matched_ref
                 sub_has_lipsa = any(nc.get('tip') == 'ARTICOL_LIPSA' for nc in sub_ncs)
+                sub_matched = sub_cod in matched_ref_cods and not sub_has_lipsa
                 if sub_matched:
                     sub_status = 'MATCHED'
                 elif sub_has_lipsa:
