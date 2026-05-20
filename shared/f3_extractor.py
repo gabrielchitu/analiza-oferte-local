@@ -848,7 +848,7 @@ def extract_articles_v3(page_classifications: list) -> list:
         for art in section_articles:
             art["deviz"] = deviz_cod
             art["deviz_denumire"] = deviz_den
-            art["is_component"] = False
+            # is_component set by regex parser — don't override
             art["denumire"] = _normalize_denom(art.get("denumire", ""))
 
         # Extrage componente din fiecare pagină (nu le combinăm)
@@ -872,6 +872,9 @@ def extract_articles_v3(page_classifications: list) -> list:
 
     # Normalize unit of measure (m→m2, mc→m2, buc→buc, etc.)
     all_articles = normalize_units_in_articles(all_articles)
+
+    # v7.0: set parent_cod, parent_nr_ordine, cant_mostenita on subarticles
+    all_articles = _apply_parent_inheritance(all_articles)
 
     logger.info(f"[F3v3] Total: {len(all_articles)} articole extrase (deviz-grouped, fara LLM)")
     return all_articles
