@@ -18,86 +18,83 @@ Pipeline Python care:
 
 ---
 
-## Starea la 2026-05-20 (branch: feature/7.0, tag: v7.0)
+## Starea la 2026-05-20 (branch: feature/7.0, post-sesiune v7.1 parțial)
 
-**Branch activ:** `feature/7.0` — **Tag stabil:** `v7.0`  
+**Branch activ:** `feature/7.0`  
+**Tag stabil:** `v7.0` (la baza branch-ului)  
 **Main (stabil v6.f):** `main` cu tag `v6.f`  
 **Repo local:** `/Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local`  
 **Date de test:** `input_AO/` — baza sportivă Răcari (1 referință + 3 oferte)
 
-### Rezultate ultima rulare (v7.0 post-sesiune)
+### Rezultate ultima rulare
 
 | Ofertă | matched | lipsa | extra | similar |
 |--------|---------|-------|-------|---------|
-| Oferta 1 | 1041 | 2 | 14 | 0 |
+| Oferta 1 | 1041 | 3 | 14 | 0 |
 | Oferta 2 | 1060 | 90 | 22 | 1 |
 
 ---
 
-## Ce s-a construit în această sesiune (2026-05-20 cont.)
+## Ce s-a livrat în v7.1 (parțial, aceeași sesiune)
 
-### Extractor (`shared/f3_extractor.py`)
-1. **`_apply_parent_inheritance` — fallback parent detection** — când `$` cod nu împarte `nr_ordine` cu precedentul non-`$` (ex: CK25A apare de 2× cu cantități diferite), caută cel mai recent articol normativ nerevendicat din același deviz. Rezolvă cazul `$6720301` → `CK25A` (al doilea).
-2. **Moștenire cant/UM pentru `display_parent_cod`** — `$` coduri cu `display_parent_cod` și `cantitate=0` moștenesc cant de la principal (ex: `$2608118` → cant=370 de la RPIF09C).
-3. **`extract_articles_v3`** — nu mai suprascrie `is_component=False`; apelează `_apply_parent_inheritance`.
+### Livrat și funcțional
+1. **`build_ref_catalog(ref_articole)`** în `AgentComparator_local.py` — catalog `{$cod → parent_cod}` extras exclusiv din referință. Baza pentru v7.2 matching ierarhic.
+2. **Separare articole fără deviz** — în `match_global()`, orice articol (principal sau subarticol) fără `deviz` setat e exclus din matching și returnat ca al 4-lea element al tuple-ului: `articole_fara_deviz = [('ref'|'oferta', art), ...]`
+3. **`match_global` returnează 4-tuple**: `(neconformitati, matches, matched_ref_keys, articole_fara_deviz)`
+4. **`articole_nelocalizate` în raport** — `build_raport_ierarhic()` acceptă `articole_fara_deviz=` și le include în output JSON. Raportul DOCX afișează secțiunea "Articole nelocalizate — verificare manuală" la final.
 
-### Raport (`shared/report_word.py`)
-4. **Col 1 "Categoria de lucrări"** — identic cu v6.f (deviz pe fiecare rând).
-5. **Col 2 + Col 6 (cod REF/OFERTĂ)** — ierarhic: cod principal **bold+underline** sus-stânga, cod secundar jos-dreapta indentat (14pt).
-6. **ARTICOL_EXTRA** — `oferta_display_parent_cod` propagat → principalul apare și pentru articole extra (nu doar LIPSA/DIFERENTA).
-7. **Linie TOTAL DEVIZ** — split stânga/dreapta:
-   - **Stânga**: `Ref: N principale + M subarticole`
-   - **Dreapta**: `Ofertă: K principale ▼/▲/✓` cu culori (roșu=lipsă, portocaliu=extra, verde=egal)
-   - Formula ofertă = `matched + neconformitati + extra` (nu doar `matched + extra`)
-8. **Toate devizele** apar în raport (inclusiv cele fără neconformitati — doar cap + total).
-
-### Comparator (`AgentComparator_local.py`)
-9. **ARTICOL_EXTRA** — adăugat `oferta_display_parent_cod` și `nr_ordine_oferta` în nc-urile construite manual (nu treceau prin `_enrich`).
-
-### Investigații/Decizii arhitecturale
-10. **Matching ierarhic v7.1** — TENTAT dar REVERTAT. Problema: `display_parent_cod` asignat din ordinea extracției PDF. Același `$` cod poate avea parinte diferit în ref vs ofertă (PDF-uri cu structuri diferite) → cheia `(deviz, parent, cod)` nu e consistentă. Necesită catalog normativ pentru parent mapping (problemă de domeniu).
-11. **Fuzzy matching `$` → normativ** — fuzzy matching legitim pentru resurse normative (`$7801893` "hidroizolatie" → `IZC06A`). Nu se poate bloca selectiv fără regresii majore.
+### Nerealizat (necesită v7.2)
+- **Layer 0 matching ierarhic** — TENTAT și REVERTAT de 2× din cauza regresiei (1041→804 matched). Problema: `display_parent_cod` e inconsistent între ref și ofertă (extras din PDF, nu din catalog normativ). Necesită catalog normativ extern.
+- **Caz A** — `$` fără parent dar cu deviz: exclus cu Layer 0. Revine în v7.2.
+- **`$6720287` false positive** — fuzzy-matchuit la CK26A (0.54 pe "pvc"). Fix imposibil fără catalog normativ: blocarea selectivă afectează 152 matches legitime.
 
 ---
 
-## Arhitectura rapidă (v7.0)
+## Limitări arhitecturale documentate
+
+| Problemă | Cauza | Fix necesar |
+|----------|-------|------------|
+| `$6720287` → CK26A fuzzy fals | threshold 0.45 prea mic; nu se poate ridica selectiv | Catalog normativ extern (v7.2) |
+| Layer 0 imposibil | `display_parent_cod` din PDF — inconsistent ref vs ofertă | Catalog normativ ISDP/eDevize |
+| `$6720289` LIPSA nerezolvat | Ref are `$6720289`, oferta are `$6720287` sub același CK25A | Același catalog normativ |
+
+---
+
+## Arhitectura rapidă (v7.0 + v7.1 parțial)
 
 ```
 local_run.py
 │
 ├── extract_document(referinta/oferta)
-│   ├── f3_page_classifier.py
-│   ├── f3_extractor.py
-│   │   ├── extract_articles_v3()            → calea principală
-│   │   └── _apply_parent_inheritance()       → parent_cod, display_parent_cod,
-│   │                                            cant_mostenita, fallback detection
-│   └── f3_regex_parser.py                   → nr_ordine, parent_nr_ordine
+│   ├── f3_extractor.py → extract_articles_v3() + _apply_parent_inheritance()
+│   └── f3_regex_parser.py → nr_ordine, parent_nr_ordine, sub_counter
 │
 └── compare_and_report()
-    ├── AgentComparator_local → Layer 1-4 matching (deviz+cod)
-    │   ├── Layer 1: best-first N:M exact
-    │   ├── Layer 2: normalized N:M
-    │   ├── Layer 2.5: fuzzy denominator
-    │   ├── Layer 3: LLM per deviz
-    │   └── Layer 4: LLM global
-    ├── shared/report_builder.py → build_raport_ierarhic()
-    └── shared/report_word.py   → DOCX ierarhic
-        ├── Col 1: deviz (neschimbat)
-        ├── Col 2: cod REF (principal bold, secundar indentat)
-        ├── Col 6: cod OFERTĂ (idem)
-        └── TOTAL DEVIZ: ref vs ofertă cu semnal vizual
+    ├── AgentComparator_local
+    │   ├── build_ref_catalog()              ← NOU v7.1: {$cod→parent}
+    │   ├── match_global() → 4-tuple         ← NOU v7.1
+    │   │   ├── Separă articole fără deviz (Caz B)
+    │   │   └── Layer 1-4 (neschimbat)
+    │   └── _apply_parent_inheritance()
+    ├── shared/report_builder.py
+    │   └── build_raport_ierarhic(articole_fara_deviz=) ← NOU v7.1
+    └── shared/report_word.py
+        ├── Tabel ierarhic (col 2+6: principal bold, secundar indentat)
+        ├── TOTAL DEVIZ: ref vs ofertă cu semnal vizual ▼▲✓
+        └── "Articole nelocalizate" la final         ← NOU v7.1
 ```
 
-**Spec v7.0:** `docs/superpowers/specs/2026-05-20-v7.0-design.md`
+**Spec v7.1:** `docs/superpowers/specs/2026-05-20-v7.1-matching-ierarhic-design.md`
 
 ---
 
-## Ce rămâne de făcut
+## Ce rămâne de făcut (v7.2)
 
-1. **Merge `feature/7.0` → `main`** — după validare vizuală completă pe toate documentele
-2. **Matching ierarhic v7.1** — necesită catalog normativ pentru mapare `$cod → normativ`; nu se poate face din structura PDF (inconsistentă între documente)
-3. **Cazul `$6720287`/`$20020752`** — oferta are coduri DIFERITE sub CK25A față de ref; fuzzy le matchuiește la normative diferite (fals pozitiv). Fix în v7.1.
-4. **Testare alte documente** — `Camin Maneciu/`, `Scoala Dragomiresti/`, `Scoala Sportiva Racari/`
+1. **Catalog normativ extern** — mapare `$cod → normativ_cod` din baza de date ISDP/eDevize, independent de extracția PDF. Fără asta, Layer 0 și Caz A sunt imposibile.
+2. **Layer 0 matching** cu catalog extern — cheie `(deviz, catalog_parent, $cod)` fiabilă
+3. **Caz A** — `$` fără parent dar cu deviz: rând ⚠ în raport, exclus matching
+4. **Merge `feature/7.0` → `main`** — după validare vizuală completă
+5. **Testare alte documente** — `Camin Maneciu/`, `Scoala Dragomiresti/`, `Scoala Sportiva Racari/`
 
 ---
 
@@ -107,7 +104,7 @@ local_run.py
 # Branch curent
 git checkout feature/7.0
 
-# Rulare fresh (șterge checkpointuri)
+# Rulare fresh
 rm -f output_AO/checkpoints/*.json
 .venv/bin/python local_run.py
 
@@ -123,23 +120,13 @@ for f in ['comparatie_oferta_1.json', 'comparatie_oferta_2.json']:
     print(f'{f}: matched={comp[\"matches\"]}', dict(sorted(by_tip.items())))
 "
 
-# Verificare display_parent_cod pe articole specifice
+# Verificare ref_catalog
 .venv/bin/python -c "
+from AgentComparator_local import build_ref_catalog
 import json; from pathlib import Path
-data = json.loads(Path('output_AO/referinta.json').read_text())
-arts = data.get('articole', [])
-subs = [a for a in arts if a.get('display_parent_cod')][:10]
-for a in subs:
-    print(a.get('cod'), '→', a.get('display_parent_cod'), 'nr:', a.get('nr_ordine'), 'cant:', a.get('cantitate'))
+ref = json.loads(Path('output_AO/referinta.json').read_text())['articole']
+cat = build_ref_catalog(ref)
+print(f'Catalog: {len(cat)} coduri resursa cu parent cunoscut')
+print(list(cat.items())[:5])
 "
 ```
-
----
-
-## Probleme cunoscute (nu bugs, limitări arhitecturale)
-
-| Problemă | Cauză | Fix |
-|----------|-------|-----|
-| `$6720287` matchuit fuzzy la CK26A (fals pozitiv) | `display_parent_cod` inconsistent ref vs ofertă → Layer 0 imposibil | v7.1 cu catalog normativ |
-| `$6720301` LIPSA în ref (parent=CK25A nr=6) | Parser extrage CK25A la nr=4 (ar trebui nr=6) — off-by-one PDF | Fallback parent OK pt display, match merge prin Layer 1 |
-| Fuzzy `$` → normativ blocabil fără regresii | 110 matched se pierd dacă bloci cross-type | Acceptat ca v6.f behavior |
