@@ -254,6 +254,13 @@ def match_global(
             if _sub_cod:
                 ref_component_cods.add(_normalize_cod(_sub_cod))
 
+    neconformitati = []
+    matches = []
+    matched_oferta_keys = set()
+    matched_by_llm_ref_keys: set = set()
+    unmatched_ref = []
+    extra_from_nm: list = []
+
     # Multimaps: (deviz, cod) → [art, ...] sortat după cantitate.
     # Același cod poate apărea de N ori în același deviz cu cantități diferite (poziții diferite).
     ref_by_key: dict = defaultdict(list)
@@ -271,13 +278,6 @@ def match_global(
     # View 1:1 pentru Layer 2/3 (coduri OCR-eronate apar o singură dată în practică)
     ref_map = {k: v[0] for k, v in ref_by_key.items()}
     oferta_map = {k: v[0] for k, v in oferta_by_key.items()}
-
-    neconformitati = []
-    matches = []
-    matched_oferta_keys = set()
-    matched_by_llm_ref_keys: set = set()
-    unmatched_ref = []
-    extra_from_nm: list = []  # instanțe oferta în exces față de ref (N:M)
 
     # Layer 1: N:M exact match pe (deviz, cod) — sortate după cantitate, perechi în ordine.
     # ref(34.2)↔oferta(34.2), ref(40.0)↔oferta(40.0); excesul → LIPSA/EXTRA.
