@@ -148,33 +148,60 @@ def _apply_parent_inheritance(articole: list) -> list:
     """Post-procesare: subarticolele fără cant/UM moștenesc de la parinte.
 
     Setează parent_cod, parent_nr_ordine, cant_mostenita pe articole is_component=True.
-    Adăugă display_parent_cod pe coduri '$'-prefixate cu același nr_ordine ca părintele
-    (resurse normative F3) — FĂRĂ a modifica is_component (matching rămâne neatins).
+    Adăugă display_parent_cod pe coduri '$'-prefixate:
+      1. Heuristic principal: $ cod cu același nr_ordine ca non-$ precedent (same row)
+      2. Fallback: cel mai recent non-$ articol nerevendicat din același deviz
+         (tratează cazuri unde CK25A apare de 2× cu cantități diferite)
+    FĂRĂ a modifica is_component — matching rămâne neatins.
     """
     current_parent = None
-    prev_non_dollar = None
 
-    for art in articole:
+    # Per-deviz tracking pentru fallback
+    non_dollar_stack = []   # [(global_idx, art)] articole non-$ văzute în deviz curent
+    claimed = set()         # global_idx al non-$ articole deja revendicate de un $ subarticol
+    current_deviz = None
+
+    for idx, art in enumerate(articole):
         cod = art.get('cod', '')
         art_nr = art.get('nr_ordine')
+        art_deviz = art.get('deviz', '')
 
-        # Track last non-$ article for display_parent logic
+        # Reset per deviz
+        if art_deviz != current_deviz:
+            current_deviz = art_deviz
+            non_dollar_stack = []
+            claimed = set()
+
         if not cod.startswith('$'):
-            prev_non_dollar = art
+            non_dollar_stack.append((idx, art))
+        else:
+            # --- Heuristic 1: same nr_ordine ---
+            parent_art = None
+            if non_dollar_stack:
+                prev_idx, prev_art = non_dollar_stack[-1]
+                if (art_nr is not None
+                        and art_nr == prev_art.get('nr_ordine')
+                        and prev_art.get('deviz') == art_deviz):
+                    parent_art = prev_art
+                    claimed.add(prev_idx)
 
-        # $ code cu același nr_ordine ca ultimul non-$ → resursă normativă
-        if (cod.startswith('$') and prev_non_dollar is not None
-                and art_nr is not None
-                and art_nr == prev_non_dollar.get('nr_ordine')):
-            art['display_parent_cod'] = prev_non_dollar.get('cod')
-            art['display_parent_nr_ordine'] = prev_non_dollar.get('nr_ordine')
-            # Moștenire cant/UM de la principal dacă subarticolul are cant=0 sau UM gol
-            if not art.get('cantitate') or not art.get('um'):
-                art['cantitate_originala'] = art.get('cantitate')
-                art['um_originala'] = art.get('um')
-                art['cantitate'] = art.get('cantitate') or prev_non_dollar.get('cantitate')
-                art['um'] = art.get('um') or prev_non_dollar.get('um')
-                art['cant_mostenita'] = True
+            # --- Fallback: nearest unclaimed non-$ in same deviz ---
+            if parent_art is None:
+                for stack_idx, stack_art in reversed(non_dollar_stack):
+                    if stack_idx not in claimed and stack_art.get('deviz') == art_deviz:
+                        parent_art = stack_art
+                        claimed.add(stack_idx)
+                        break
+
+            if parent_art is not None:
+                art['display_parent_cod'] = parent_art.get('cod')
+                art['display_parent_nr_ordine'] = parent_art.get('nr_ordine')
+                if not art.get('cantitate') or not art.get('um'):
+                    art['cantitate_originala'] = art.get('cantitate')
+                    art['um_originala'] = art.get('um')
+                    art['cantitate'] = art.get('cantitate') or parent_art.get('cantitate')
+                    art['um'] = art.get('um') or parent_art.get('um')
+                    art['cant_mostenita'] = True
 
         # Moștenire cant/UM pentru is_component=True (logica existentă)
         if not art.get('is_component'):
