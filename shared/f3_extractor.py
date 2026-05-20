@@ -144,6 +144,24 @@ def inherit_component_units(articles: list) -> list:
     return result
 
 
+def _apply_parent_inheritance(articole: list) -> list:
+    """Post-procesare: subarticolele fără cant/UM moștenesc de la parinte."""
+    current_parent = None
+    for art in articole:
+        if not art.get('is_component'):
+            current_parent = art
+        elif current_parent:
+            art['parent_cod'] = current_parent.get('cod')
+            art['parent_nr_ordine'] = current_parent.get('nr_ordine')
+            if not art.get('cantitate') or not art.get('um'):
+                art['cantitate_originala'] = art.get('cantitate')
+                art['um_originala'] = art.get('um')
+                art['cantitate'] = art.get('cantitate') or current_parent.get('cantitate')
+                art['um'] = art.get('um') or current_parent.get('um')
+                art['cant_mostenita'] = True
+    return articole
+
+
 # Pattern 1 (priority): "Deviz oferta XXXX DENUMIRE"
 _DEVIZ_OFERTA_RE = re.compile(
     r'Deviz\s+oferta\s+([A-Z0-9]+)\s+(.*)',
@@ -726,6 +744,7 @@ def extract_articles_from_text_v2(full_text: str) -> List[Dict]:
         logger.info(f"[F3v2] {deviz_cod}: {len(articole)} articole + {len(componente)} componente")
 
     logger.info(f"[F3v2] Total: {len(all_articles)} articole extrase (regex, fara LLM)")
+    all_articles = _apply_parent_inheritance(all_articles)
     return all_articles
 
 

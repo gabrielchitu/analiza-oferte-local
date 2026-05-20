@@ -62,3 +62,30 @@ def test_sub_counter_increments_per_parent():
         nr2 = subs[1].get("nr_ordine", "")
         assert nr1.endswith(".1"), f"Expected first sub to end with .1, got {nr1}"
         assert nr2.endswith(".2"), f"Expected second sub to end with .2, got {nr2}"
+
+def test_apply_parent_inheritance_sets_parent_cod():
+    from shared.f3_extractor import _apply_parent_inheritance
+    arts = [
+        {'cod': 'TF24A', 'is_component': False, 'cantitate': 34.2, 'um': 'mp', 'nr_ordine': 1},
+        {'cod': '$3274270', 'is_component': True, 'cantitate': 0, 'um': '', 'nr_ordine': '1.1'},
+    ]
+    result = _apply_parent_inheritance(arts)
+    sub = result[1]
+    assert sub['parent_cod'] == 'TF24A'
+    assert sub['parent_nr_ordine'] == 1
+    assert sub['cant_mostenita'] is True
+    assert sub['cantitate'] == 34.2
+    assert sub['um'] == 'mp'
+    assert sub['cantitate_originala'] == 0
+    assert sub['um_originala'] == ''
+
+def test_apply_parent_inheritance_no_override_if_has_cant():
+    from shared.f3_extractor import _apply_parent_inheritance
+    arts = [
+        {'cod': 'TF24A', 'is_component': False, 'cantitate': 34.2, 'um': 'mp', 'nr_ordine': 1},
+        {'cod': '$3274270', 'is_component': True, 'cantitate': 102.6, 'um': 'mp', 'nr_ordine': '1.1'},
+    ]
+    result = _apply_parent_inheritance(arts)
+    sub = result[1]
+    assert sub.get('cant_mostenita') is not True
+    assert sub['cantitate'] == 102.6
