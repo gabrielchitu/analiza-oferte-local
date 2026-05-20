@@ -723,7 +723,8 @@ def compare_and_report(
 
     # Obiecte necesare rapoartelor
     from shared.report_builder import build_raport_ierarhic
-    raport_ierarhic = build_raport_ierarhic(ref_articles, neconformitati, matches)
+    raport_ierarhic = build_raport_ierarhic(ref_articles, neconformitati, matches,
+                                            articole_fara_deviz=articole_fara_deviz)
 
     session = {"client_name": "", "obiect_investitii": ""}
     comp = {

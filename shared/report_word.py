@@ -735,6 +735,23 @@ def _generate_word_hierarchical(doc, raport: dict, comp: dict,
     if audit_data:
         _add_audit_section(doc, audit_data)
 
+    # Caz B: articole fără deviz — secțiune la final
+    nelocalizate = raport.get('articole_nelocalizate', [])
+    if nelocalizate:
+        doc.add_heading("Articole nelocalizate — verificare manuală", level=2)
+        doc.add_paragraph(
+            "Articolele de mai jos au fost extrase dar nu au putut fi alocate "
+            "unui deviz. Verificați manual în documentele PDF."
+        )
+        for art in nelocalizate:
+            sursa = art.get('sursa', 'ref').upper()
+            tip = 'subarticol' if art.get('is_component') else 'principal'
+            doc.add_paragraph(
+                f"• [{sursa}] {art.get('cod')} — {art.get('denumire')} "
+                f"[tip: {tip}]",
+                style='List Bullet'
+            )
+
 
 def _generate_word_flat(doc, neconformitati: list, deviz_mismatches_list: list,
                         devize_extra: list, devize_lipsa: list, audit_data: dict,

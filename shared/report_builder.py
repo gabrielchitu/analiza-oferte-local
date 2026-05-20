@@ -6,11 +6,13 @@ def build_raport_ierarhic(
     ref_articole: list,
     neconformitati: list,
     matches: list,
+    articole_fara_deviz: list = None,
 ) -> dict:
     """Build hierarchical report JSON from flat matching results.
 
-    Returns dict with keys: sumar, devize, erori_extractie.
+    Returns dict with keys: sumar, devize, erori_extractie, articole_nelocalizate.
     devize are in reference order; articles within each deviz are in nr_ordine order.
+    articole_nelocalizate contains articles without deviz (excluded from matching).
     """
     # Index matched ref codes — matches don't carry deviz, use ref_cod only
     matched_ref_cods = {m.get('ref_cod', '') for m in matches if m.get('ref_cod')}
@@ -144,6 +146,18 @@ def build_raport_ierarhic(
             'articole': articole_out,
         })
 
+    # Caz B: articole fără deviz — excluse matching, listate la final
+    articole_nelocalizate = []
+    for sursa, art in (articole_fara_deviz or []):
+        articole_nelocalizate.append({
+            'cod': art.get('cod'),
+            'denumire': art.get('denumire'),
+            'deviz': art.get('deviz', ''),
+            'nr_ordine': art.get('nr_ordine'),
+            'sursa': sursa,
+            'is_component': art.get('is_component', False),
+        })
+
     return {
         'sumar': {
             'total_articole_ref': len(main_arts),
@@ -153,4 +167,5 @@ def build_raport_ierarhic(
         },
         'devize': devize_out,
         'erori_extractie': erori_extractie,
+        'articole_nelocalizate': articole_nelocalizate,
     }

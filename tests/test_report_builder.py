@@ -66,3 +66,19 @@ def test_erori_extractie_collected():
     r = build_raport_ierarhic(ref_cu_orfan, NECONFORMITATI, MATCHES)
     assert 'erori_extractie' in r
     assert any(e['cod'] == '$9999' for e in r['erori_extractie'])
+
+def test_raport_includes_articole_fara_deviz():
+    art_fara_deviz = [
+        ('ref', {'cod': 'TF24A', 'denumire': 'Fara deviz ref', 'deviz': '',
+                 'deviz_denumire': '', 'nr_ordine': 1, 'is_component': False}),
+        ('oferta', {'cod': '$9999', 'denumire': 'Fara deviz oferta', 'deviz': '',
+                    'deviz_denumire': '', 'nr_ordine': 2, 'is_component': True}),
+    ]
+    r = build_raport_ierarhic(REF_ARTICOLE, NECONFORMITATI, MATCHES,
+                               articole_fara_deviz=art_fara_deviz)
+    assert 'articole_nelocalizate' in r
+    assert len(r['articole_nelocalizate']) == 2
+    assert any(a['cod'] == 'TF24A' and a['sursa'] == 'ref'
+               for a in r['articole_nelocalizate'])
+    assert any(a['cod'] == '$9999' and a['sursa'] == 'oferta'
+               for a in r['articole_nelocalizate'])
