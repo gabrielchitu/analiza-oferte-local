@@ -1076,6 +1076,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             subitem_str = m_subitem.group(1)
             base_nr = int(subitem_str.split('.')[0])
             last_nr_crt = base_nr
+            current_parent_nr = base_nr  # sync parent tracking with NR_SUBITEM base
+            sub_counter = 0               # reset so next sub gets correct counter
             cod = ''; denumire_parts = []; um = ''; cantitate = 0.0; preturi = []
             state = _WAITING
             waiting_lines = 0
