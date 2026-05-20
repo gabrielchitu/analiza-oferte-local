@@ -81,3 +81,47 @@ def test_enrich_adds_nr_ordine_fields():
     assert result.get('nr_ordine_oferta') == 5
     assert result.get('parent_cod_ref') is None
     assert result.get('cant_mostenita') is False
+
+
+def test_build_ref_catalog_extracts_dollar_parents():
+    from AgentComparator_local import build_ref_catalog
+    ref = [
+        {'cod': 'CK25A', 'deviz': '4.1-03', 'is_component': False, 'display_parent_cod': None},
+        {'cod': '$6720289', 'deviz': '4.1-03', 'is_component': False, 'display_parent_cod': 'CK25A'},
+        {'cod': '$6720301', 'deviz': '4.1-03', 'is_component': False, 'display_parent_cod': 'CK25A'},
+        {'cod': 'RPIF09C', 'deviz': '4.1-10', 'is_component': False, 'display_parent_cod': None},
+        {'cod': '$2608118', 'deviz': '4.1-10', 'is_component': False, 'display_parent_cod': 'RPIF09C'},
+    ]
+    catalog = build_ref_catalog(ref)
+    assert catalog['$6720289'] == 'CK25A'
+    assert catalog['$6720301'] == 'CK25A'
+    assert catalog['$2608118'] == 'RPIF09C'
+    assert 'CK25A' not in catalog
+    assert 'RPIF09C' not in catalog
+
+def test_build_ref_catalog_excludes_no_parent():
+    from AgentComparator_local import build_ref_catalog
+    ref = [
+        {'cod': '$9999', 'deviz': '4.1-03', 'is_component': False, 'display_parent_cod': None},
+    ]
+    catalog = build_ref_catalog(ref)
+    assert '$9999' not in catalog
+
+def test_match_global_returns_4tuple():
+    from AgentComparator_local import match_global
+    result = match_global([], [], None, None)
+    assert len(result) == 4, f"Expected 4-tuple, got {len(result)}-tuple"
+
+def test_match_global_separates_articles_without_deviz():
+    from AgentComparator_local import match_global
+    base_fields = {f: 0 for f in ['pret_material','val_material','pret_manopera','val_manopera',
+                                   'pret_utilaj','val_utilaj','pret_transport','val_transport']}
+    ref = [
+        {'cod': 'TF24A', 'deviz': '', 'denumire': 'fara deviz', 'um': 'mp',
+         'cantitate': 10.0, 'is_component': False, 'display_parent_cod': None, **base_fields},
+    ]
+    ncs, matches, _, fara_deviz = match_global(ref, [], None, None)
+    assert len(fara_deviz) == 1
+    assert fara_deviz[0][0] == 'ref'
+    assert fara_deviz[0][1]['cod'] == 'TF24A'
+    assert len(matches) == 0

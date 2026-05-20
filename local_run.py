@@ -636,7 +636,7 @@ def compare_and_report(
         logger.info(f"  Remap devize oferta: {_deviz_remap}")
 
     # Matching 3 straturi — returneaza si cheile REF match-uite
-    neconformitati, matches, matched_ref_keys = match_global(
+    neconformitati, matches, matched_ref_keys, articole_fara_deviz = match_global(
         ref_articles, oferta_norm, client, model, include_prices=include_prices
     )
 

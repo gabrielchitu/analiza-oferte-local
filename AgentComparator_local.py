@@ -203,6 +203,20 @@ def _deduplicate_neconformitati(neconformitati: list) -> list:
     return list(result_indexed.values())
 
 
+def build_ref_catalog(ref_articole: list) -> dict:
+    """Catalog canonical: $cod → normative_cod, extras exclusiv din referință.
+
+    Sursa de adevăr pentru parent mapping în Layer 0.
+    """
+    catalog = {}
+    for art in ref_articole:
+        cod = art.get('cod', '')
+        parent = art.get('display_parent_cod')
+        if cod.startswith('$') and parent:
+            catalog[cod] = parent
+    return catalog
+
+
 def match_global(
     ref_articole: list,
     oferta_articole: list,
@@ -217,6 +231,24 @@ def match_global(
     Identic cu _match_global din AgentComparator/core.py dar fara dependente Azure.
     include_prices=False implicit — pentru comparare fara preturi.
     """
+    # Caz B: orice articol fără deviz → exclus matching, returnat separat
+    articole_fara_deviz: list = []
+    ref_articole_valid = []
+    for a in ref_articole:
+        if not a.get('deviz'):
+            articole_fara_deviz.append(('ref', a))
+        else:
+            ref_articole_valid.append(a)
+    ref_articole = ref_articole_valid
+
+    oferta_articole_valid = []
+    for a in oferta_articole:
+        if not a.get('deviz'):
+            articole_fara_deviz.append(('oferta', a))
+        else:
+            oferta_articole_valid.append(a)
+    oferta_articole = oferta_articole_valid
+
     # Deduplicate by 4-tuple (deviz, cod, um, cantitate) before matching
     # If same article appears multiple times with identical values, keep first occurrence
     # Filtreaza artefactele breviar: cantitate=0 cu UM gol sau majuscule (template/header)
@@ -949,4 +981,4 @@ def match_global(
     )
     # Construieste setul cheilor REF match-uite pentru orphan detection
     matched_ref_keys = matched_oferta_keys | matched_by_llm_ref_keys
-    return neconformitati, matches, matched_ref_keys
+    return neconformitati, matches, matched_ref_keys, articole_fara_deviz
