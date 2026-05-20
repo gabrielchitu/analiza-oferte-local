@@ -872,6 +872,8 @@ def match_global(
             "oferta_denumire": oferta_art.get("denumire", ""),
             "oferta_um": oferta_art.get("um", ""),
             "oferta_cantitate": oferta_art.get("cantitate", ""),
+            "oferta_display_parent_cod": oferta_art.get("display_parent_cod"),
+            "nr_ordine_oferta": oferta_art.get("nr_ordine"),
         })
 
     # Post-processing: Lenient UM matching for $ codes
