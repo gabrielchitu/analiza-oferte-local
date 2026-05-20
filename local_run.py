@@ -522,7 +522,6 @@ def compare_and_report(
     from shared.deviz_normalizer import normalize_devize
     from shared.deviz_mismatch_detector import detect_deviz_mismatches
     from shared.extraction_validator import mark_suspicious_extras
-    from shared.orphan_detector import detect_orphans
     from shared.report_excel import generate_excel
     from shared.report_word import generate_word
     from shared.deviz_matcher import match_devize_by_denomination, remap_devize_in_articles
@@ -642,11 +641,7 @@ def compare_and_report(
         ref_articles, oferta_norm, client, model, include_prices=include_prices, comp_mode=comp_mode
     )
 
-    # Detecta orphane DUPA matching: cod din REF neacoperit dar prezent in O2 sub alt deviz
-    # DISABLED: Orphan detection is incorrect — matching should be on (deviz, cod) PAIR not just cod.
-    # If (deviz_ref, cod) not in offer, it's ARTICOL_LIPSA, not ORPHAN.
-    # orphans = detect_orphans(ref_articles, oferta_norm, matched_ref_keys=matched_ref_keys)
-    orphans = []
+    # v7.0: ARTICOL_ORPHAN eliminat — articolele cu deviz greșit devin ARTICOL_EXTRA
 
     # Marcheaza EXTRA suspecte (codul exista in referinta dar cu alta denumire)
     # Build ref DI text from JSON if provided, otherwise use empty string
@@ -654,25 +649,6 @@ def compare_and_report(
     if ref_di_json:
         ref_di_text = json.dumps(ref_di_json, ensure_ascii=False)
     neconformitati = mark_suspicious_extras(neconformitati, ref_di_text, ref_articole=ref_articles)
-
-    # Adauga orphane-le la neconformitati cu tip special
-    for orphan in orphans:
-        neconformitati.append({
-            'tip': 'ARTICOL_ORPHAN',
-            'deviz_ref': orphan['ref_deviz'],
-            'deviz_denumire': f'REF:{orphan["ref_deviz"]} vs OFERTA:{orphan["oferta_deviz"]}',
-            'is_component': orphan.get('is_component', False),
-            'ref_cod': orphan['cod'],
-            'ref_denumire': orphan['ref_denom'],
-            'ref_um': orphan['ref_um'],
-            'ref_cantitate': orphan['ref_cant'],
-            'oferta_cod': orphan['cod'],
-            'oferta_denom': orphan['oferta_denom'],
-            'oferta_denumire': f"Deviz {orphan['oferta_deviz']}",
-            'oferta_um': orphan['oferta_um'],
-            'oferta_cantitate': orphan['oferta_cant'],
-            'motiv': f'Cod {orphan["cod"]}: REF categoriei {orphan["ref_deviz"]} => OFERTA categoriei {orphan["oferta_deviz"]}',
-        })
 
     # Adauga anomalii subcomponente la neconformitati (Phase 2)
     for anom in subcomp_anomalies:
