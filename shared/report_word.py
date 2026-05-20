@@ -336,7 +336,8 @@ def _add_audit_section(doc, audit_data: dict) -> None:
         row[2].text = (ctx[:200] + '...') if len(ctx) > 200 else ctx
 
 
-def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict) -> None:
+def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
+                    use_ref_ordine: bool = False) -> None:
     """Adaugă un rând de neconformitate în tabel."""
     row = table.add_row().cells
     tip  = neconf.get("tip", "")
@@ -345,9 +346,12 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict) -> None:
     is_subcomp = neconf.get('is_component', False)
 
     nr_ordine_ref = neconf.get("nr_ordine_ref")
-    nr_text = str(row_nr)
-    if nr_ordine_ref is not None:
-        nr_text += f"\n({nr_ordine_ref})"
+    if use_ref_ordine and nr_ordine_ref is not None:
+        nr_text = str(nr_ordine_ref)
+    else:
+        nr_text = str(row_nr)
+        if nr_ordine_ref is not None:
+            nr_text += f"\n({nr_ordine_ref})"
     row[0].paragraphs[0].add_run(nr_text)
 
     deviz_cod = neconf.get("deviz_ref", "")
@@ -561,35 +565,116 @@ def _add_article_block(doc, art: dict) -> None:
         _add_subarticol_block(doc, sub)
 
 
+def _add_principal_context_row(table, art: dict, deviz_cod: str, deviz_den: str) -> None:
+    """Rând context pentru articolul principal MATCHED când subarticolele lui au neconformitati."""
+    row = table.add_row().cells
+    nr = art.get('nr_ordine')
+    row[0].paragraphs[0].add_run(str(nr) if nr is not None else '')
+    den_short = deviz_den[:37] + '...' if len(deviz_den) > 40 else deviz_den
+    deviz_display = f"{deviz_cod} - {den_short}" if den_short else str(deviz_cod)
+    row[1].paragraphs[0].add_run(deviz_display).bold = True
+    cod_run = row[2].paragraphs[0].add_run(str(art.get('cod', '')))
+    cod_run.bold = True
+    cod_run.font.size = Pt(9)
+    denom = str(art.get('denumire', ''))
+    row[3].paragraphs[0].add_run(denom[:50] + '...' if len(denom) > 50 else denom)
+    row[4].paragraphs[0].add_run(str(art.get('um', '')))
+    row[5].paragraphs[0].add_run(str(art.get('cantitate', '') or ''))
+    obs = row[10].paragraphs[0].add_run('▶ articol principal (matched)')
+    obs.italic = True
+    for cell in row:
+        _style_cell(cell, 8)
+        _set_cell_shading(cell, 'D6EAD6')
+
+
+def _add_deviz_total_row_hierarchical(table, n_main: int, n_sub: int) -> None:
+    """Linie total deviz: nr articole principale + subarticole."""
+    row = table.add_row().cells
+    row[1].paragraphs[0].add_run("TOTAL DEVIZ").bold = True
+    _style_cell(row[1], 9, bold=True, color=BLACK)
+    _set_cell_shading(row[1], GRAY_FILL)
+    txt = f"{n_main} articole principale"
+    if n_sub:
+        txt += f"  │  {n_sub} subarticole"
+    row[2].merge(row[9])
+    row[2].paragraphs[0].add_run(txt)
+    _style_cell(row[2], 9, color=BLACK)
+    _set_cell_shading(row[2], GRAY_FILL)
+    _set_cell_shading(row[0], GRAY_FILL)
+    _set_cell_shading(row[10], GRAY_FILL)
+
+
 def _generate_word_hierarchical(doc, raport: dict, comp: dict,
                                 deviz_mismatches_list: list, devize_extra: list,
                                 devize_lipsa: list, audit_data: dict) -> None:
-    """Generează tabelul în ordine ierarhică: principal → subarticolele sale, devize în ordinea ref."""
-    # Build ordered flat list: for each deviz in ref order, principal ncs then subarticle ncs
-    seen = set()
-    ordered_ncs = []
+    """Tabel ierarhic: TOATE devizele in ordinea ref.
+    Devize fara neconf: cap + linie total.
+    Devize cu neconf: cap + randuri principale/subarticole + linie total.
+    Nr ordine = cel din referinta. Principalul apare intotdeauna inaintea subarticolelor sale.
+    """
+    from collections import defaultdict as _dd
+
+    deviz_map: dict = {}
+    for dv in raport.get('devize', []):
+        deviz_map[dv.get('cod_deviz', '')] = dv.get('denumire_deviz', '')
+
+    extra_by_deviz: dict = _dd(list)
+    for nc in comp.get('neconformitati', []):
+        if nc.get('tip') == 'ARTICOL_EXTRA':
+            extra_by_deviz[nc.get('deviz_ref', '')].append(nc)
+
+    ofertant_name = comp.get("ofertant") or comp.get("source_file", "")
+    table = doc.add_table(rows=3, cols=11)
+    table.style = "Table Grid"
+    _build_header(table, ofertant_name)
+
+    row_nr = 0
 
     for dv in raport.get('devize', []):
+        dv_cod = dv.get('cod_deviz', '')
+        dv_den = dv.get('denumire_deviz', '')
+        sumar = dv.get('sumar_deviz', {})
+        n_lipsa = sumar.get('lipsa', 0)
+        n_extra = len(extra_by_deviz.get(dv_cod, []))
+        n_main = sumar.get('total', 0)
+        n_sub = sum(len(art.get('subarticole', [])) for art in dv.get('articole', []))
+
+        _add_deviz_heading(table, dv_cod, dv_den, ref_count=n_lipsa, oferta_count=n_extra)
+
         for art in dv.get('articole', []):
-            for nc in art.get('neconformitati', []):
-                nc_id = id(nc)
-                if nc_id not in seen:
-                    seen.add(nc_id)
-                    ordered_ncs.append(nc)
-            for sub in art.get('subarticole', []):
+            principal_ncs = art.get('neconformitati', [])
+            subs_with_ncs = [s for s in art.get('subarticole', []) if s.get('neconformitati')]
+
+            if not principal_ncs and not subs_with_ncs:
+                continue
+
+            if not principal_ncs and subs_with_ncs:
+                # Principal MATCHED dar subarticole cu neconf: rand context verde
+                _add_principal_context_row(table, art, dv_cod, dv_den)
+            else:
+                for nc in principal_ncs:
+                    row_nr += 1
+                    _add_neconf_row(table, row_nr, nc, deviz_map, use_ref_ordine=True)
+
+            for sub in subs_with_ncs:
                 for nc in sub.get('neconformitati', []):
-                    nc_id = id(nc)
-                    if nc_id not in seen:
-                        seen.add(nc_id)
-                        ordered_ncs.append(nc)
+                    row_nr += 1
+                    _add_neconf_row(table, row_nr, nc, deviz_map, use_ref_ordine=True)
 
-    # Append anything not yet seen (ARTICOL_EXTRA and anything from later layers)
-    for nc in comp.get('neconformitati', []):
-        if id(nc) not in seen:
-            ordered_ncs.append(nc)
+        extra_items = extra_by_deviz.get(dv_cod, [])
+        if extra_items:
+            _add_extra_subheader(table)
+            for nc in extra_items:
+                row_nr += 1
+                _add_neconf_row(table, row_nr, nc, deviz_map, use_ref_ordine=True)
 
-    _generate_word_flat(doc, ordered_ncs, deviz_mismatches_list,
-                        devize_extra, devize_lipsa, audit_data, comp)
+        _add_deviz_total_row_hierarchical(table, n_main, n_sub)
+
+    _set_col_widths(table)
+    doc.add_paragraph()
+    _add_quality_alerts(doc, deviz_mismatches_list, devize_extra, devize_lipsa)
+    if audit_data:
+        _add_audit_section(doc, audit_data)
 
 
 def _generate_word_flat(doc, neconformitati: list, deviz_mismatches_list: list,
