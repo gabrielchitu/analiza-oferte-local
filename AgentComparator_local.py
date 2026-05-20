@@ -97,6 +97,11 @@ def _enrich(neconf: dict, ref_art: dict, oferta_art: dict,
         "ref_val_manopera": ref_art.get("val_manopera", 0),
         "ref_val_utilaj": ref_art.get("val_utilaj", 0),
         "ref_val_transport": ref_art.get("val_transport", 0),
+        # v7.0: hierarchy context fields
+        "nr_ordine_ref": ref_art.get("nr_ordine"),
+        "parent_cod_ref": ref_art.get("parent_cod"),
+        "parent_nr_ordine_ref": ref_art.get("parent_nr_ordine"),
+        "cant_mostenita": ref_art.get("cant_mostenita", False),
     })
     if oferta_art:
         neconf.update({
@@ -112,6 +117,7 @@ def _enrich(neconf: dict, ref_art: dict, oferta_art: dict,
             "oferta_val_manopera": oferta_art.get("val_manopera", 0),
             "oferta_val_utilaj": oferta_art.get("val_utilaj", 0),
             "oferta_val_transport": oferta_art.get("val_transport", 0),
+            "nr_ordine_oferta": oferta_art.get("nr_ordine"),
         })
     return neconf
 

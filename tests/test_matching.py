@@ -63,3 +63,21 @@ def test_deduplicate_no_articol_orphan_in_priority():
     import inspect
     src = inspect.getsource(_deduplicate_neconformitati)
     assert 'ARTICOL_ORPHAN' not in src
+
+
+def test_enrich_adds_nr_ordine_fields():
+    from AgentComparator_local import _enrich
+    ref_art = {
+        'cod': 'TF24A', 'denumire': 'Beton', 'um': 'mp', 'cantitate': 34.2,
+        'is_component': False, 'nr_ordine': 3, 'parent_cod': None,
+        'parent_nr_ordine': None, 'cant_mostenita': False,
+        'pret_material': 0, 'pret_manopera': 0, 'pret_utilaj': 0, 'pret_transport': 0,
+        'val_material': 0, 'val_manopera': 0, 'val_utilaj': 0, 'val_transport': 0,
+    }
+    oferta_art = {**ref_art, 'nr_ordine': 5}
+    neconf = {'tip': 'DIFERENTA_CAMP'}
+    result = _enrich(neconf, ref_art, oferta_art, '226108', 'Structura')
+    assert result.get('nr_ordine_ref') == 3
+    assert result.get('nr_ordine_oferta') == 5
+    assert result.get('parent_cod_ref') is None
+    assert result.get('cant_mostenita') is False
