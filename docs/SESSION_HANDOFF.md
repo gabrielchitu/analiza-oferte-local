@@ -18,64 +18,50 @@ Pipeline Python care:
 
 ---
 
-## Starea la 2026-05-20 (ultima sesiune)
+## Starea la 2026-05-20 (tag: v6.f)
 
-**Branch:** `main`  
+**Branch:** `main` — **Tag stabil:** `v6.f`  
 **Repo local:** `/Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local`  
 **Date de test:** `input_AO/` — baza sportivă Răcari (1 referință + 3 oferte)
 
-### Ce s-a construit în ultima sesiune (2026-05-19/20)
-
-#### Fix 1: F3-order scattered format preprocessor
-**Fișier:** `shared/f3_regex_parser.py::_preprocess_scattered_format`  
-**Problema:** Preprocessorul detecta ordinea referinței (counter/CODE/UM/QTY/DEN) dar nu ordinea standard F3 (counter/CODE/DEN/UM/QTY). Coduri numerice bare (ex: `9000815`) pe pagini F3 eDevize (pag 128-129 of2) nu erau extrase.  
-**Fix:** Ramură nouă în `_preprocess_scattered_format`: când `is_valid_code=True` dar `is_valid_um=False`, scanează înainte (max 12 linii) pentru UM, colectând linii de descriere pe parcurs.  
-**Rezultat:** +16 matched, -9 LIPSA în Oferta 2.
-
-#### Fix 2: SKIP_RE guard pentru linii NR_COD_DESC_RE
-**Fișier:** `shared/f3_regex_parser.py` — bucla principală state machine  
-**Problema:** `SKIP_RE` are pattern `STE[\-\s]` care se potrivea cu `PESTE` în descrieri lungi emit de preprocessor (ex: "sapatura ... avand sub 1.00 m sau **PESTE** 1.00 m..."). Linia combinată `"1 TSA02F1 - Sapatura..."` era skip-uită înainte să ajungă la state machine.  
-**Fix:** Dacă `NR_COD_DESC_RE.match(line)` sau `NR_COD_CONCAT_RE.match(line)` — override `skip_due_to_filter=False`. Start de articol → nu se skip niciodată.  
-**Rezultat:** TSA02F1 (deviz 4.2-1) extras corect.
-
-#### Fix 3: NR_COD_DESC_RE trailing `\d?`
-**Fișier:** `shared/f3_regex_parser.py::NR_COD_DESC_RE`  
-**Problema:** `COD_NORM_STANDALONE_RE` are `\d?` la final (pentru coduri ca `IC19XB1`), dar `NR_COD_DESC_RE` nu. Linia combinată `"36 IC19XB1 - SUPORȚI..."` nu era parsată pentru că `1` după `IC19XB` rupe separator-ul.  
-**Fix:** Adăugat `\d?` la prima alternativă în `NR_COD_DESC_RE`.  
-**Rezultat:** IC19XB1 (4.1-12) și TRB05B25 (4.1-13) extrase corect.
-
----
-
-## Rezultate ultima rulare (2026-05-20 00:48)
+### Rezultate ultima rulare
 
 | Ofertă | matched | lipsa | extra | similar |
 |--------|---------|-------|-------|---------|
 | Oferta 1 | 1040 | 3 | 14 | 0 |
-| Oferta 2 | 1054 | 91 | 21 | 2 |
+| Oferta 2 | 1054 | 91 | 21 | 1 |
 
-### Analiza celor 91 LIPSA în Oferta 2
+### Analiza 91 LIPSA Oferta 2
 
 | Categorie | Nr. | Detalii |
 |-----------|-----|---------|
 | GENUINELY_ABSENT | ~83 | Ofertantul nu a inclus articolele — neconformitate reală |
-| EXTRACTION_GAP | ~5 | Cod apare în resource list non-F3 (fals pozitiv în clasificare) |
-| MATCHING_FAIL | ~3 | Articol în oferta_2.json dar nematch-uit (cross-deviz orphan) |
+| EXTRACTION_GAP | ~5 | Cod în resource list non-F3 (fals pozitiv clasificare) |
+| MATCHING_FAIL | ~3 | Cross-deviz orphan nedetectat |
 
-**Concluzie:** Majoritate LIPSA sunt reale, nu bug-uri de extracție.
+**Concluzie:** Majoritate LIPSA sunt reale, nu bug-uri pipeline.
 
 ---
 
-## Commits sesiunea curentă
+## Fix-uri sesiunea curentă (2026-05-19/20)
 
-```
-fix(parser): extract breviar codes in F3-order scattered format
-fix(parser): handle SKIP_RE false-positives and codes with trailing digit
-fix(comparator): suppress subcomponent codes from ARTICOL_EXTRA
-fix(extractor): stop non-F3 pages from being promoted into deviz extraction
-fix(comparator): populate ref_denumire from ref_art in lenient UM_DIFERIT records
-fix(parser): fix scatter UM misidentification for multi-word descriptions
-fix(parser): recover articles lost at page boundaries and mixed-code formats
-```
+### Parser (`shared/f3_regex_parser.py`)
+1. **F3-order scattered format** — preprocessor detecta ordinea referinței (NR/CODE/UM/QTY/DEN) dar nu ordinea standard F3 (NR/CODE/DEN/UM/QTY). Adăugat ramură secundară cu lookahead pentru UM.
+2. **SKIP_RE guard** — `STE[\-\s]` se potrivea cu "PESTE" în descrieri lungi. Linii care matchuiesc `NR_COD_DESC_RE` nu mai sunt skip-uite.
+3. **NR_COD_DESC_RE trailing `\d?`** — coduri ca `IC19XB1`, `TRB05B25` (trailing digit după letter) acum capturate. Aliniat cu `COD_NORM_STANDALONE_RE`.
+
+### Extractor (`shared/f3_extractor.py`)
+4. **Non-F3 page promotion** — paginile non-F3 cu `deviz_cod` gol nu mai sunt promovate în ultimul deviz văzut. Fix OF2: 961 articole false eliminate din breviar.
+
+### Comparator (`AgentComparator_local.py`)
+5. **Best-first N:M matching** — algoritmul greedy (sortare după cantitate, pairing secvențial) genera matchuri greșite când pool-ul ofertei era mai mic decât ref-ul. Înlocuit cu best-first global: la fiecare pas, perechea cu scor minim din tot cross-product-ul. Ex: ref=[101.2, 683.0] + offer=[683.0] → acum corect 683.0↔683.0, 101.2→LIPSA.
+6. **Subcomponent codes din EXTRA** — ref_component_cods populat din câmpul `subcomponents` al articolelor părinte, nu doar din `is_component=True`.
+7. **ref_denumire în lenient UM_DIFERIT** — fix câmp gol în raport pentru $ coduri convertite din EXTRA.
+
+### Session anterioară (2026-05-19)
+- Fix `descriere→denumire` (filtru $ coduri) — bug critic, toate $ codurile erau filtrate
+- Scattered format preprocessor pentru referință (+44 articole extrase)
+- Lenient UM matching pentru $ coduri cu UM gol în referință
 
 ---
 
@@ -89,17 +75,15 @@ local_run.py
 │   ├── f3_extractor.py         → extragere articole din pagini clasificate
 │   └── f3_regex_parser.py      → parser regex linii brute DI
 │       ├── _preprocess_scattered_format()  → combină linii separate (2 ordine)
-│       ├── _preprocess_compound_um()
 │       └── extract_articles_regex()         → state machine principal
 │
 ├── deviz_reconciler.py         → auto-heal devize lipsă (FĂRĂ LLM)
 │
 └── compare_and_report()
-    ├── deviz_normalizer.py     → normalizare coduri deviz OCR
     ├── AgentComparator_local   → matching 6 straturi
-    │   ├── Layer 1: exact N:M (deviz+cod)
-    │   ├── Layer 2: normalized N:M (AUT6752→$6752, O→0, l→1)
-    │   ├── Layer 2.5: fuzzy determinist (similaritate cod + Jaccard denumire)
+    │   ├── Layer 1: best-first N:M (deviz+cod, nearest-neighbor global)
+    │   ├── Layer 2: normalized N:M (AUT6752→$6752)
+    │   ├── Layer 2.5: fuzzy determinist
     │   ├── Layer 2.6: UM + cantitate + denumire
     │   ├── Layer 3: LLM per deviz
     │   └── Layer 4: LLM global
@@ -107,17 +91,16 @@ local_run.py
     └── report_word.py          → DOCX
 ```
 
-**Checkpoint sistem:** `output_AO/checkpoints/di_X_page_classes_<md5_hash>.json`  
-Hash = MD5 pe sursa `f3_page_classifier.py` → invalidat automat la modificări.
+**Checkpoint:** `output_AO/checkpoints/di_X_page_classes_<md5_hash>.json`
 
 ---
 
 ## Ce rămâne de investigat
 
-1. **LIPSA 3 în OF1** — minor, posibil cross-deviz orphan nedetectat
-2. **EXTRA 14 în OF1** — minor, posibil extracție greșită sau articole genuine extra
-3. **LIPSA 91 în OF2** — ~83 reale (nu bug-uri). Cele ~5 din resource list pot fi excluse din raport printr-un filtru de tip "articol absent dar present în breviar"
-4. **Raport DOCX** — secțiunea `EROARE_EXTRACTIE` (devize negăsite de reconciler) nu e încă adăugată în raport — apare doar în log
+1. **OF1 LIPSA 3 / EXTRA 14** — minor, posibil cross-deviz orphan și articole genuine
+2. **OF2 LIPSA 91** — ~83 reale. Posibil filtru în raport pentru articole din breviar absent
+3. **DOCX** — secțiunea `EROARE_EXTRACTIE` (devize negăsite de reconciler) nu e în raport
+4. **Alte documente** — `Camin Maneciu/`, `Scoala Dragomiresti/`, `Scoala Sportiva Racari/` netestați
 
 ---
 
@@ -130,10 +113,7 @@ Hash = MD5 pe sursa `f3_page_classifier.py` → invalidat automat la modificări
 # Teste
 .venv/bin/python -m pytest tests/ -v --ignore=tests/test_compound_deviz_extraction.py
 
-# Re-clasificare completă (șterge cache LLM)
-rm output_AO/checkpoints/*.json && .venv/bin/python local_run.py
-
-# Verificare rapidă metrici
+# Verificare metrici
 python3 -c "
 import json; from pathlib import Path; from collections import Counter
 for f in ['comparatie_oferta_1.json', 'comparatie_oferta_2.json']:
@@ -142,12 +122,3 @@ for f in ['comparatie_oferta_1.json', 'comparatie_oferta_2.json']:
     print(f'{f}: matched={comp[\"matches\"]}', dict(sorted(by_tip.items())))
 "
 ```
-
----
-
-## Fișiere cheie de citit la reluare
-
-1. `docs/ARCHITECTURE.md` — arhitectura completă
-2. `shared/f3_regex_parser.py` — parser principal (scatter preprocessor + state machine)
-3. `AgentComparator_local.py` — motor matching
-4. `local_run.py` — orchestrator
