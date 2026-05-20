@@ -723,6 +723,9 @@ def compare_and_report(
     logger.info(f"  Matched: {len(matches)} articole")
 
     # Obiecte necesare rapoartelor
+    from shared.report_builder import build_raport_ierarhic
+    raport_ierarhic = build_raport_ierarhic(ref_articles, neconformitati, matches)
+
     session = {"client_name": "", "obiect_investitii": ""}
     comp = {
         "oferta_nr": oferta_nr,
@@ -733,6 +736,7 @@ def compare_and_report(
         "oferta_art_count": len(oferta_norm),
         "ref_articles": ref_articles,
         "oferta_articles": oferta_norm,
+        "raport_ierarhic": raport_ierarhic,
     }
     comparison_mode = "cu_pret" if include_prices else "fara_pret"
 

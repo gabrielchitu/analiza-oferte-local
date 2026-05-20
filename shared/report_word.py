@@ -464,6 +464,252 @@ def _add_deviz_summary_row(table, row_nr: int, neconf_count: int, ref_total: int
     _set_cell_shading(cells[10], GRAY_FILL)
 
 
+# ── Hierarchical DOCX helpers ──────────────────────────────────────────────
+
+
+def _add_deviz_section_header(doc, dv: dict) -> None:
+    """Adaugă heading deviz cu sumar matched/lipsa/neconformitati."""
+    cod = dv.get('cod_deviz', '')
+    den = dv.get('denumire_deviz', '')
+    sumar = dv.get('sumar_deviz', {})
+    heading = doc.add_heading(f"DEVIZ: {cod} — {den}", level=2)
+    heading.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    p = doc.add_paragraph()
+    p.add_run(
+        f"Total: {sumar.get('total', 0)}  │  "
+        f"Matched: {sumar.get('matched', 0)}  │  "
+        f"Lipsă: {sumar.get('lipsa', 0)}  │  "
+        f"Neconformități: {sumar.get('neconformitati', 0)}"
+    ).bold = True
+
+
+def _has_neconformitate(art: dict) -> bool:
+    """True dacă articolul principal sau oricare subarticol are neconformitate."""
+    if art.get('neconformitati') or art.get('status_match') in ('LIPSA', 'NECONFORMITATE'):
+        return True
+    return any(
+        s.get('neconformitati') or s.get('status_match') in ('LIPSA', 'NECONFORMITATE')
+        for s in art.get('subarticole', [])
+    )
+
+
+def _add_neconf_detail(doc, nc: dict, indent: int = 1) -> None:
+    """Adaugă rând detaliu neconformitate."""
+    tip = nc.get('tip', '')
+    camp = nc.get('camp', '')
+    val_ref = nc.get('ref_cantitate') or nc.get('ref_um') or ''
+    val_oferta = nc.get('oferta_cantitate') or nc.get('oferta_um') or ''
+    p = doc.add_paragraph()
+    p.paragraph_format.left_indent = Pt(indent * 24)
+    run = p.add_run(f"→ {tip}")
+    if camp:
+        p.add_run(f" [{camp}]")
+    if val_ref or val_oferta:
+        p.add_run(f": ref={val_ref}  ofertă={val_oferta}")
+
+
+def _add_subarticol_block(doc, sub: dict) -> None:
+    """Adaugă rând subarticol indentat cu marker ⚠ dacă are neconformitate."""
+    status = sub.get('status_match', '')
+    has_nc = bool(sub.get('neconformitati')) or status in ('LIPSA', 'NECONFORMITATE')
+    nr = sub.get('nr_ordine', '')
+
+    p = doc.add_paragraph()
+    p.paragraph_format.left_indent = Pt(24)
+    label = f"  [{nr}] {sub.get('cod', '')} — {sub.get('denumire', '')}"
+    if has_nc:
+        run = p.add_run(f"⚠ {label.strip()}")
+        run.bold = True
+        run.font.color.rgb = RGBColor(0xFF, 0x00, 0x00)
+    else:
+        p.add_run(label)
+
+    detail = f"    Ref: {sub.get('cantitate', '')} {sub.get('um', '')}  │  {status}"
+    if sub.get('cant_mostenita'):
+        detail += "  [cantitate moștenită]"
+    p.add_run(f"\n{detail}")
+
+    for nc in sub.get('neconformitati', []):
+        _add_neconf_detail(doc, nc, indent=2)
+
+
+def _add_article_block(doc, art: dict) -> None:
+    """Adaugă blocul articol principal + subarticole."""
+    status = art.get('status_match', '')
+    icon = '⚠' if status in ('LIPSA', 'NECONFORMITATE') else '✓'
+    nr = art.get('nr_ordine', '')
+
+    p = doc.add_paragraph()
+    run_nr = p.add_run(f"[{nr}] {art.get('cod', '')} — {art.get('denumire', '')}")
+    run_nr.bold = True
+    p.add_run(f"\n    Ref: {art.get('cantitate', '')} {art.get('um', '')}  │  {icon} {status}")
+
+    for nc in art.get('neconformitati', []):
+        _add_neconf_detail(doc, nc, indent=1)
+
+    for sub in art.get('subarticole', []):
+        _add_subarticol_block(doc, sub)
+
+
+def _generate_word_hierarchical(doc, raport: dict) -> None:
+    """Generează corpul documentului ierarhic."""
+    for dv in raport.get('devize', []):
+        _add_deviz_section_header(doc, dv)
+
+        has_any_nc = any(_has_neconformitate(art) for art in dv.get('articole', []))
+        if not has_any_nc:
+            total = dv.get('sumar_deviz', {}).get('total', 0)
+            doc.add_paragraph(f"Toate articolele conforme. Total articole principale: {total}")
+            continue
+
+        for art in dv.get('articole', []):
+            if _has_neconformitate(art):
+                _add_article_block(doc, art)
+
+    erori = raport.get('erori_extractie', [])
+    if erori:
+        doc.add_heading("Erori de extracție / OCR", level=2)
+        doc.add_paragraph(
+            "Subarticolele de mai jos au fost extrase fără articol principal asociat. "
+            "Verificați manual în PDF-ul ofertei."
+        )
+        for err in erori:
+            doc.add_paragraph(
+                f"• {err.get('cod')} — {err.get('denumire')} [deviz: {err.get('deviz')}]",
+                style='List Bullet'
+            )
+
+
+def _generate_word_flat(doc, neconformitati: list, deviz_mismatches_list: list,
+                        devize_extra: list, devize_lipsa: list, audit_data: dict,
+                        comp: dict) -> None:
+    """Generează corpul documentului plat (stil vechi cu tabel)."""
+    if not neconformitati:
+        doc.add_paragraph("Nicio neconcordanță detectată.")
+        doc.add_paragraph()
+        _add_quality_alerts(doc, deviz_mismatches_list, devize_extra, devize_lipsa)
+        if audit_data:
+            _add_audit_section(doc, audit_data)
+        return
+
+    from collections import Counter, defaultdict as _dd_total
+    from itertools import groupby as _groupby
+
+    # Build per-deviz TOTAL article counts from full article lists (not just non-conforming)
+    _ref_deviz_totals = _dd_total(int)
+    _oferta_deviz_totals = _dd_total(int)
+    for art in comp.get('ref_articles', []):
+        d = art.get('deviz', '')
+        if d:
+            _ref_deviz_totals[d] += 1
+    for art in comp.get('oferta_articles', []):
+        d = art.get('deviz', '')
+        if d:
+            _oferta_deviz_totals[d] += 1
+
+    # deviz_map: deviz_cod -> deviz_den
+    deviz_map: dict = {}
+    for nc in neconformitati:
+        d = nc.get("deviz_ref", "")
+        n = nc.get("deviz_denumire", "")
+        if d and n and not n.startswith("REF:"):
+            deviz_map[d] = n
+
+    lipsa_by_deviz = Counter(
+        nc.get("deviz_ref", "")
+        for nc in neconformitati if nc.get("tip") == "ARTICOL_LIPSA"
+    )
+    extra_by_deviz = Counter(
+        nc.get("deviz_ref", "")
+        for nc in neconformitati if nc.get("tip") == "ARTICOL_EXTRA"
+    )
+
+    nec_normale = [nc for nc in neconformitati if nc.get("tip") != "ARTICOL_EXTRA"]
+    nec_extra   = [nc for nc in neconformitati if nc.get("tip") == "ARTICOL_EXTRA"]
+
+    sorted_nec   = sorted(nec_normale, key=lambda x: x.get("deviz_ref", ""))
+    sorted_extra = sorted(nec_extra,   key=lambda x: x.get("deviz_ref", ""))
+
+    extra_per_deviz: dict = {}
+    for deviz_key, grp in _groupby(sorted_extra, key=lambda x: x.get("deviz_ref", "")):
+        extra_per_deviz[deviz_key] = list(grp)
+
+    # Collect all deviz keys in order (normale + only-extra)
+    deviz_keys_normale = list(dict.fromkeys(
+        nc.get("deviz_ref", "") for nc in sorted_nec
+    ))
+    only_extra_devize = sorted(set(extra_per_deviz.keys()) - set(deviz_keys_normale))
+    all_deviz_keys = deviz_keys_normale + only_extra_devize
+
+    # Paragraph listing deviz codes (visible in doc.paragraphs for navigation)
+    if all_deviz_keys:
+        p_devize = doc.add_paragraph()
+        p_devize.add_run("Devize: " + ", ".join(str(k) for k in all_deviz_keys)).bold = True
+
+    ofertant_name = comp.get("ofertant") or comp.get("source_file", "")
+    table = doc.add_table(rows=3, cols=11)
+    table.style = "Table Grid"
+    _build_header(table, ofertant_name)
+
+    row_nr = 0
+    processed_devize: set = set()
+
+    for deviz_key, group_items in _groupby(sorted_nec, key=lambda x: x.get("deviz_ref", "")):
+        processed_devize.add(deviz_key)
+        items = list(group_items)
+        deviz_cod = str(deviz_key) if deviz_key else ""
+        deviz_den = deviz_map.get(deviz_cod, "")
+        n_lipsa = lipsa_by_deviz.get(deviz_cod, 0)
+        n_extra = extra_by_deviz.get(deviz_cod, 0)
+        _add_deviz_heading(table, deviz_cod, deviz_den,
+                           ref_count=n_lipsa, oferta_count=n_extra)
+        for neconf in items:
+            row_nr += 1
+            _add_neconf_row(table, row_nr, neconf, deviz_map)
+
+        extra_items = extra_per_deviz.get(deviz_cod, [])
+        if extra_items:
+            _add_extra_subheader(table)
+            for neconf in extra_items:
+                row_nr += 1
+                _add_neconf_row(table, row_nr, neconf, deviz_map)
+
+        # Single summary row at the end of this deviz block
+        all_neconf_items = items + extra_items
+        neconf_ref_arts = {nc.get('ref_cod') for nc in all_neconf_items if nc.get('ref_cod')}
+        neconf_count = len(neconf_ref_arts)
+        ref_total = _ref_deviz_totals.get(deviz_cod, 0) or neconf_count
+        offer_total = _oferta_deviz_totals.get(deviz_cod, 0)
+        _add_deviz_summary_row(table, row_nr + 1, neconf_count, ref_total, offer_total)
+        row_nr += 1
+
+    for deviz_key in only_extra_devize:
+        deviz_cod = str(deviz_key)
+        deviz_den = deviz_map.get(deviz_cod, "")
+        n_extra = extra_by_deviz.get(deviz_cod, 0)
+        _add_deviz_heading(table, deviz_cod, deviz_den, ref_count=0, oferta_count=n_extra)
+        _add_extra_subheader(table)
+        extra_items = extra_per_deviz[deviz_key]
+        for neconf in extra_items:
+            row_nr += 1
+            _add_neconf_row(table, row_nr, neconf, deviz_map)
+
+        # Summary row: use actual ref/oferta totals from full article lists
+        ref_total = _ref_deviz_totals.get(deviz_cod, 0)
+        offer_total = _oferta_deviz_totals.get(deviz_cod, 0)
+        neconf_count = len(extra_items)  # count of extra articles only
+        _add_deviz_summary_row(table, row_nr + 1, neconf_count, ref_total, offer_total)
+        row_nr += 1
+
+    _set_col_widths(table)
+
+    doc.add_paragraph()
+    _add_quality_alerts(doc, deviz_mismatches_list, devize_extra, devize_lipsa)
+
+    if audit_data:
+        _add_audit_section(doc, audit_data)
+
+
 def generate_word(
     session: dict,
     comp: dict,
@@ -522,124 +768,17 @@ def generate_word(
         f"Neconformități: {total_neconf}"
     ).bold = True
 
-    if not neconformitati:
-        doc.add_paragraph("Nicio neconcordanță detectată.")
+    # ── Dispatch: hierarchical or flat ───────────────────────────────
+    raport_ierarhic = comp.get('raport_ierarhic')
+    if raport_ierarhic:
+        _generate_word_hierarchical(doc, raport_ierarhic)
+        doc.add_paragraph()
+        _add_quality_alerts(doc, deviz_mismatches_list, devize_extra, devize_lipsa)
+        if audit_data:
+            _add_audit_section(doc, audit_data)
     else:
-        from collections import Counter, defaultdict as _dd_total
-        from itertools import groupby as _groupby
-
-        # Build per-deviz TOTAL article counts from full article lists (not just non-conforming)
-        _ref_deviz_totals = _dd_total(int)
-        _oferta_deviz_totals = _dd_total(int)
-        for art in comp.get('ref_articles', []):
-            d = art.get('deviz', '')
-            if d:
-                _ref_deviz_totals[d] += 1
-        for art in comp.get('oferta_articles', []):
-            d = art.get('deviz', '')
-            if d:
-                _oferta_deviz_totals[d] += 1
-
-        # deviz_map: deviz_cod -> deviz_den
-        deviz_map: dict = {}
-        for nc in neconformitati:
-            d = nc.get("deviz_ref", "")
-            n = nc.get("deviz_denumire", "")
-            if d and n and not n.startswith("REF:"):
-                deviz_map[d] = n
-
-        lipsa_by_deviz = Counter(
-            nc.get("deviz_ref", "")
-            for nc in neconformitati if nc.get("tip") == "ARTICOL_LIPSA"
-        )
-        extra_by_deviz = Counter(
-            nc.get("deviz_ref", "")
-            for nc in neconformitati if nc.get("tip") == "ARTICOL_EXTRA"
-        )
-
-        nec_normale = [nc for nc in neconformitati if nc.get("tip") != "ARTICOL_EXTRA"]
-        nec_extra   = [nc for nc in neconformitati if nc.get("tip") == "ARTICOL_EXTRA"]
-
-        sorted_nec   = sorted(nec_normale, key=lambda x: x.get("deviz_ref", ""))
-        sorted_extra = sorted(nec_extra,   key=lambda x: x.get("deviz_ref", ""))
-
-        extra_per_deviz: dict = {}
-        for deviz_key, grp in _groupby(sorted_extra, key=lambda x: x.get("deviz_ref", "")):
-            extra_per_deviz[deviz_key] = list(grp)
-
-        # Collect all deviz keys in order (normale + only-extra)
-        deviz_keys_normale = list(dict.fromkeys(
-            nc.get("deviz_ref", "") for nc in sorted_nec
-        ))
-        only_extra_devize = sorted(set(extra_per_deviz.keys()) - set(deviz_keys_normale))
-        all_deviz_keys = deviz_keys_normale + only_extra_devize
-
-        # Paragraph listing deviz codes (visible in doc.paragraphs for navigation)
-        if all_deviz_keys:
-            p_devize = doc.add_paragraph()
-            p_devize.add_run("Devize: " + ", ".join(str(k) for k in all_deviz_keys)).bold = True
-
-        table = doc.add_table(rows=3, cols=11)
-        table.style = "Table Grid"
-        _build_header(table, ofertant_name)
-
-        row_nr = 0
-        processed_devize: set = set()
-
-        for deviz_key, group_items in _groupby(sorted_nec, key=lambda x: x.get("deviz_ref", "")):
-            processed_devize.add(deviz_key)
-            items = list(group_items)
-            deviz_cod = str(deviz_key) if deviz_key else ""
-            deviz_den = deviz_map.get(deviz_cod, "")
-            n_lipsa = lipsa_by_deviz.get(deviz_cod, 0)
-            n_extra = extra_by_deviz.get(deviz_cod, 0)
-            _add_deviz_heading(table, deviz_cod, deviz_den,
-                               ref_count=n_lipsa, oferta_count=n_extra)
-            for neconf in items:
-                row_nr += 1
-                _add_neconf_row(table, row_nr, neconf, deviz_map)
-
-            extra_items = extra_per_deviz.get(deviz_cod, [])
-            if extra_items:
-                _add_extra_subheader(table)
-                for neconf in extra_items:
-                    row_nr += 1
-                    _add_neconf_row(table, row_nr, neconf, deviz_map)
-
-            # Single summary row at the end of this deviz block
-            all_neconf_items = items + extra_items
-            neconf_ref_arts = {nc.get('ref_cod') for nc in all_neconf_items if nc.get('ref_cod')}
-            neconf_count = len(neconf_ref_arts)
-            ref_total = _ref_deviz_totals.get(deviz_cod, 0) or neconf_count
-            offer_total = _oferta_deviz_totals.get(deviz_cod, 0)
-            _add_deviz_summary_row(table, row_nr + 1, neconf_count, ref_total, offer_total)
-            row_nr += 1
-
-        for deviz_key in only_extra_devize:
-            deviz_cod = str(deviz_key)
-            deviz_den = deviz_map.get(deviz_cod, "")
-            n_extra = extra_by_deviz.get(deviz_cod, 0)
-            _add_deviz_heading(table, deviz_cod, deviz_den, ref_count=0, oferta_count=n_extra)
-            _add_extra_subheader(table)
-            extra_items = extra_per_deviz[deviz_key]
-            for neconf in extra_items:
-                row_nr += 1
-                _add_neconf_row(table, row_nr, neconf, deviz_map)
-
-            # Summary row: use actual ref/oferta totals from full article lists
-            ref_total = _ref_deviz_totals.get(deviz_cod, 0)
-            offer_total = _oferta_deviz_totals.get(deviz_cod, 0)
-            neconf_count = len(extra_items)  # count of extra articles only
-            _add_deviz_summary_row(table, row_nr + 1, neconf_count, ref_total, offer_total)
-            row_nr += 1
-
-        _set_col_widths(table)
-
-    doc.add_paragraph()
-    _add_quality_alerts(doc, deviz_mismatches_list, devize_extra, devize_lipsa)
-
-    if audit_data:
-        _add_audit_section(doc, audit_data)
+        _generate_word_flat(doc, neconformitati, deviz_mismatches_list,
+                            devize_extra, devize_lipsa, audit_data, comp)
 
     buf = io.BytesIO()
     doc.save(buf)
