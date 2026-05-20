@@ -783,6 +783,14 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
     Returns:
         Lista de articole în formatul standard (compatibil AgentComparator).
     """
+    # Normalizează format resurse eDevize: '-XXXX:NNNNNNN' → '$NNNNNNN'
+    # Apare în referințe cu format de catalog: '-0179:4123329' = resursa $4123329
+    _DEVIZ_RESOURCE_RE = re.compile(r'^-\d{4}:(\d+)$')
+    lines = [
+        '$' + _DEVIZ_RESOURCE_RE.match(l.strip()).group(1)
+        if _DEVIZ_RESOURCE_RE.match(l.strip()) else l
+        for l in lines
+    ]
     lines = _preprocess_scattered_format(lines)
     lines = _preprocess_compound_um(lines)
     lines = _merge_wrapped_codes(lines)
