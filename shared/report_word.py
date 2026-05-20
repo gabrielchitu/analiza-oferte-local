@@ -617,20 +617,46 @@ def _add_principal_context_row(table, art: dict, deviz_cod: str, deviz_den: str)
         _set_cell_shading(cell, 'D6EAD6')
 
 
-def _add_deviz_total_row_hierarchical(table, n_main: int, n_sub: int) -> None:
-    """Linie total deviz: nr articole principale + subarticole."""
+def _add_deviz_total_row_hierarchical(table, n_main: int, n_sub: int,
+                                      n_offer_main: int = 0) -> None:
+    """Linie total deviz: ref principale (stânga) vs ofertă principale (dreapta).
+    Diferența colorată: roșu=LIPSA, portocaliu=EXTRA, verde=egal.
+    """
     row = table.add_row().cells
+    _set_cell_shading(row[0], GRAY_FILL)
+
     row[1].paragraphs[0].add_run("TOTAL DEVIZ").bold = True
     _style_cell(row[1], 9, bold=True, color=BLACK)
     _set_cell_shading(row[1], GRAY_FILL)
-    txt = f"{n_main} articole principale"
+
+    # Cols 2-5: referință
+    row[2].merge(row[5])
+    ref_txt = f"Ref: {n_main} principale"
     if n_sub:
-        txt += f"  │  {n_sub} subarticole"
-    row[2].merge(row[9])
-    row[2].paragraphs[0].add_run(txt)
+        ref_txt += f"  +  {n_sub} subarticole"
+    row[2].paragraphs[0].add_run(ref_txt).bold = True
     _style_cell(row[2], 9, color=BLACK)
     _set_cell_shading(row[2], GRAY_FILL)
-    _set_cell_shading(row[0], GRAY_FILL)
+
+    # Cols 6-9: ofertă cu semnal vizual
+    row[6].merge(row[9])
+    p_offer = row[6].paragraphs[0]
+    offer_run = p_offer.add_run(f"Ofertă: {n_offer_main} principale")
+    offer_run.bold = True
+    if n_offer_main < n_main:
+        offer_run.font.color.rgb = RED
+        sig = p_offer.add_run(f"  ▼ {n_main - n_offer_main} lipsă")
+        sig.font.color.rgb = RED
+    elif n_offer_main > n_main:
+        offer_run.font.color.rgb = RGBColor(0xFF, 0x8C, 0x00)
+        sig = p_offer.add_run(f"  ▲ {n_offer_main - n_main} extra")
+        sig.font.color.rgb = RGBColor(0xFF, 0x8C, 0x00)
+    else:
+        offer_run.font.color.rgb = RGBColor(0x00, 0x77, 0x00)
+        p_offer.add_run("  ✓").font.color.rgb = RGBColor(0x00, 0x77, 0x00)
+    _style_cell(row[6], 9, color=BLACK)
+    _set_cell_shading(row[6], GRAY_FILL)
+
     _set_cell_shading(row[10], GRAY_FILL)
 
 
@@ -667,6 +693,8 @@ def _generate_word_hierarchical(doc, raport: dict, comp: dict,
         n_lipsa = sumar.get('lipsa', 0)
         n_extra = len(extra_by_deviz.get(dv_cod, []))
         n_main = sumar.get('total', 0)
+        n_matched = sumar.get('matched', 0)
+        n_offer_main = n_matched + n_extra  # articole principale în ofertă
         n_sub = sum(len(art.get('subarticole', [])) for art in dv.get('articole', []))
 
         _add_deviz_heading(table, dv_cod, dv_den, ref_count=n_lipsa, oferta_count=n_extra)
@@ -698,7 +726,7 @@ def _generate_word_hierarchical(doc, raport: dict, comp: dict,
                 row_nr += 1
                 _add_neconf_row(table, row_nr, nc, deviz_map, use_ref_ordine=True)
 
-        _add_deviz_total_row_hierarchical(table, n_main, n_sub)
+        _add_deviz_total_row_hierarchical(table, n_main, n_sub, n_offer_main)
 
     _set_col_widths(table)
     doc.add_paragraph()
