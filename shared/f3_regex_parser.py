@@ -371,7 +371,9 @@ def _make_article(cod: str, denumire: str, um: str, cantitate: float,
                   preturi: list, deviz_cod: str, deviz_den: str,
                   is_component: bool = False,
                   parent_code: str = None,
-                  subcomponents: list = None) -> Dict:
+                  subcomponents: list = None,
+                  nr_ordine=None,
+                  parent_nr_ordine=None) -> Dict:
     """Create article dict with component tracking.
 
     Args:
@@ -385,6 +387,8 @@ def _make_article(cod: str, denumire: str, um: str, cantitate: float,
         is_component: Whether this is a subcomponent
         parent_code: Code of parent article (null for parents, filled for components)
         subcomponents: List of subcomponent codes (for parent articles only)
+        nr_ordine: Sequence number (int for main articles, string for subarticles)
+        parent_nr_ordine: Sequence number of parent article
     """
     fields = ['pret_material', 'val_material', 'pret_manopera', 'val_manopera',
               'pret_utilaj', 'val_utilaj', 'pret_transport', 'val_transport']
@@ -398,6 +402,8 @@ def _make_article(cod: str, denumire: str, um: str, cantitate: float,
         'is_component': is_component,
         'parent_code': parent_code,
         'subcomponents': subcomponents or [],
+        'nr_ordine': nr_ordine,
+        'parent_nr_ordine': parent_nr_ordine,
     }
     for i, field in enumerate(fields):
         art[field] = preturi[i] if i < len(preturi) else 0.0
@@ -795,10 +801,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
     _after_linked = False  # True imediat dupa un N.L — asteptam cod numeric bare
     last_article_cod = ''
     explicit_component_marker = False  # True when we just saw >>> componenta marker
+    current_parent_nr = 0   # nr_ordine of last finalized main article
+    sub_counter = 0         # subarticle counter per parent
 
 
     def _finalize():
-        nonlocal cod, denumire_parts, um, cantitate, preturi, last_article_cod, explicit_component_marker
+        nonlocal cod, denumire_parts, um, cantitate, preturi, last_article_cod, explicit_component_marker, current_parent_nr, sub_counter
         if cod:
             # Coduri numerice pure → adaugă prefix $
             if re.match(r'^\d+$', cod):
@@ -844,10 +852,23 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 if um == 'm' and 'cub' in den_joined.lower():
                     um = 'mc'
 
+                # Calculate nr_ordine
+                if not is_subcomp:
+                    nr_ordine = last_nr_crt if last_nr_crt else None
+                    parent_nr_ordine_val = None
+                    current_parent_nr = last_nr_crt
+                    sub_counter = 0
+                else:
+                    sub_counter += 1
+                    nr_ordine = f"{current_parent_nr}.{sub_counter}" if current_parent_nr else None
+                    parent_nr_ordine_val = current_parent_nr if current_parent_nr else None
+
                 art = _make_article(cod, den_joined, um, cantitate,
                                     preturi, deviz_cod, deviz_den, is_component=is_subcomp,
                                     parent_code=parent_cod,
-                                    subcomponents=subcomp_codes)
+                                    subcomponents=subcomp_codes,
+                                    nr_ordine=nr_ordine,
+                                    parent_nr_ordine=parent_nr_ordine_val)
                 articole.append(art)
                 logger.debug(f"[PARSER] Articol finalizat: {cod} ({um}, {cantitate}), subcomponents: {subcomp_codes}")
                 last_article_cod = cod if not is_subcomp else last_article_cod
