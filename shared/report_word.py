@@ -275,7 +275,7 @@ def _build_header(table, ofertant_name: str):
 
     # Set texts via add_run on fresh paragraphs
     r0[0].paragraphs[0].add_run("Nr.\ncrt.")
-    r0[1].paragraphs[0].add_run("Ierarhie\ncoduri")
+    r0[1].paragraphs[0].add_run("Categoria\nde lucrări")
     r0[2].paragraphs[0].add_run("CERINȚĂ")
     r0[6].paragraphs[0].add_run("CE A OFERTAT")
     r0[10].paragraphs[0].add_run("OBSERVAȚII")
@@ -354,38 +354,39 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
             nr_text += f"\n({nr_ordine_ref})"
     row[0].paragraphs[0].add_run(nr_text)
 
-    # Col 1: ierarhie coduri — nu repetăm deviz-ul pe fiecare rând
-    # Cod secundar (subarticol) la stânga, cod principal indentat dreapta
+    # Col 1: categorie de lucrări (deviz) — identic cu v6.f
     ref_cod = neconf.get('ref_cod', '')
     parent_cod_ref = neconf.get("parent_cod_ref") if is_subcomp else None
     display_parent = neconf.get("display_parent_cod") if ref_cod.startswith('$') else None
     effective_parent = parent_cod_ref or display_parent
 
-    p_hier = row[1].paragraphs[0]
-    if is_subcomp or display_parent:
-        # Subarticol: cod la stânga (mai mic)
-        sub_run = p_hier.add_run(ref_cod)
-        sub_run.font.size = Pt(7)
-        # Principal: indentat dreapta (mai mare, bold)
-        if effective_parent:
-            p_par = row[1].add_paragraph()
-            par_run = p_par.add_run(effective_parent)
-            par_run.bold = True
-            par_run.font.size = Pt(8)
-            p_par.paragraph_format.left_indent = Pt(20)
-    elif ref_cod:
-        # Articol principal: indentat dreapta
-        p_hier.paragraph_format.left_indent = Pt(20)
-        prin_run = p_hier.add_run(ref_cod)
-        prin_run.bold = True
-        prin_run.font.size = Pt(8)
+    deviz_cod = neconf.get("deviz_ref", "")
+    deviz_den = deviz_map.get(deviz_cod, "")
+    if deviz_den and len(deviz_den) > 40:
+        deviz_den = deviz_den[:37] + "..."
+    deviz_display = f"{deviz_cod} - {deviz_den}" if deviz_den else str(deviz_cod)
+    row[1].paragraphs[0].add_run(deviz_display).bold = True
 
-    # Col 2: cod REF (fără notație ↑ — ierarhia e în col 1)
+    # Col 2: cod REF ierarhic — principal sus+stânga, secundar jos+dreapta indentat
     badge = _get_subcomponent_badge() if is_subcomp else ''
-    code_text = f"{badge} {ref_cod}".strip() if badge else ref_cod
-    cod_run = row[2].paragraphs[0].add_run(code_text)
-    cod_run.bold = True
-    cod_run.font.size = Pt(9)
+    if is_subcomp or display_parent:
+        # Subarticol: principal sus (stânga), secundar jos (dreapta indentat)
+        p2 = row[2].paragraphs[0]
+        if effective_parent:
+            par_run = p2.add_run(effective_parent)
+            par_run.bold = True
+            par_run.font.size = Pt(9)
+            p_sub = row[2].add_paragraph()
+        else:
+            p_sub = p2
+        sub_label = f"{badge} {ref_cod}".strip() if badge else ref_cod
+        sub_run = p_sub.add_run(sub_label)
+        sub_run.font.size = Pt(8)
+        p_sub.paragraph_format.left_indent = Pt(14)
+    else:
+        cod_run = row[2].paragraphs[0].add_run(ref_cod)
+        cod_run.bold = True
+        cod_run.font.size = Pt(9)
 
     denom = str(neconf.get("ref_denumire", ""))
     if len(denom) > 50:
@@ -402,9 +403,21 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
 
     oferta_um_run = oferta_cant_run = None
     if tip != "ARTICOL_LIPSA":
-        oferta_cod_run = row[6].paragraphs[0].add_run(str(neconf.get("oferta_cod", "")))
-        oferta_cod_run.bold = True
-        oferta_cod_run.font.size = Pt(9)
+        oferta_cod = str(neconf.get("oferta_cod", ""))
+        # Col 6: oferta cod ierarhic — principal sus+stânga, secundar jos+dreapta indentat
+        if (is_subcomp or display_parent) and effective_parent:
+            p6 = row[6].paragraphs[0]
+            par6_run = p6.add_run(effective_parent)
+            par6_run.bold = True
+            par6_run.font.size = Pt(9)
+            p6_sub = row[6].add_paragraph()
+            sub6_run = p6_sub.add_run(oferta_cod)
+            sub6_run.font.size = Pt(8)
+            p6_sub.paragraph_format.left_indent = Pt(14)
+        else:
+            oferta_cod_run = row[6].paragraphs[0].add_run(oferta_cod)
+            oferta_cod_run.bold = True
+            oferta_cod_run.font.size = Pt(9)
         oferta_denom = str(neconf.get("oferta_denumire", ""))
         if len(oferta_denom) > 50:
             oferta_denom = oferta_denom[:47] + "..."
@@ -583,12 +596,9 @@ def _add_principal_context_row(table, art: dict, deviz_cod: str, deviz_den: str)
     row = table.add_row().cells
     nr = art.get('nr_ordine')
     row[0].paragraphs[0].add_run(str(nr) if nr is not None else '')
-    # Col 1: principal cod indentat dreapta (nu deviz)
-    p1 = row[1].paragraphs[0]
-    p1.paragraph_format.left_indent = Pt(20)
-    p1_run = p1.add_run(str(art.get('cod', '')))
-    p1_run.bold = True
-    p1_run.font.size = Pt(8)
+    den_short = deviz_den[:37] + '...' if len(deviz_den) > 40 else deviz_den
+    deviz_display = f"{deviz_cod} - {den_short}" if den_short else str(deviz_cod)
+    row[1].paragraphs[0].add_run(deviz_display).bold = True
     cod_run = row[2].paragraphs[0].add_run(str(art.get('cod', '')))
     cod_run.bold = True
     cod_run.font.size = Pt(9)
