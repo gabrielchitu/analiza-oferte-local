@@ -119,6 +119,7 @@ def _enrich(neconf: dict, ref_art: dict, oferta_art: dict,
             "oferta_val_utilaj": oferta_art.get("val_utilaj", 0),
             "oferta_val_transport": oferta_art.get("val_transport", 0),
             "nr_ordine_oferta": oferta_art.get("nr_ordine"),
+            "oferta_display_parent_cod": oferta_art.get("display_parent_cod"),
         })
     return neconf
 

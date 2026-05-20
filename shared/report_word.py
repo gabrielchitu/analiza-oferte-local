@@ -376,6 +376,7 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
             par_run = p2.add_run(effective_parent)
             par_run.bold = True
             par_run.font.size = Pt(9)
+            par_run.underline = True
             p_sub = row[2].add_paragraph()
         else:
             p_sub = p2
@@ -404,12 +405,15 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
     oferta_um_run = oferta_cant_run = None
     if tip != "ARTICOL_LIPSA":
         oferta_cod = str(neconf.get("oferta_cod", ""))
-        # Col 6: oferta cod ierarhic — principal sus+stânga, secundar jos+dreapta indentat
-        if (is_subcomp or display_parent) and effective_parent:
+        # principal oferta: din ref (pt articole matched/neconf) sau din oferta (pt EXTRA)
+        oferta_parent = effective_parent or neconf.get("oferta_display_parent_cod")
+        # Col 6: oferta cod ierarhic — principal sus+stânga (bold), secundar jos+dreapta indentat
+        if oferta_parent and oferta_cod and oferta_cod != oferta_parent:
             p6 = row[6].paragraphs[0]
-            par6_run = p6.add_run(effective_parent)
+            par6_run = p6.add_run(oferta_parent)
             par6_run.bold = True
             par6_run.font.size = Pt(9)
+            par6_run.underline = True
             p6_sub = row[6].add_paragraph()
             sub6_run = p6_sub.add_run(oferta_cod)
             sub6_run.font.size = Pt(8)
