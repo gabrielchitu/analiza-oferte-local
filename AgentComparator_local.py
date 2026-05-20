@@ -101,6 +101,7 @@ def _enrich(neconf: dict, ref_art: dict, oferta_art: dict,
         "nr_ordine_ref": ref_art.get("nr_ordine"),
         "parent_cod_ref": ref_art.get("parent_cod"),
         "parent_nr_ordine_ref": ref_art.get("parent_nr_ordine"),
+        "display_parent_cod": ref_art.get("display_parent_cod"),
         "cant_mostenita": ref_art.get("cant_mostenita", False),
     })
     if oferta_art:

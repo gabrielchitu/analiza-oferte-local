@@ -361,15 +361,21 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
     deviz_display = f"{deviz_cod} - {deviz_den}" if deviz_den else str(deviz_cod)
     row[1].paragraphs[0].add_run(deviz_display).bold = True
 
-    # Add badge + parent_cod to code column for subcomponents
+    # Add badge + parent to code column
+    # parent_cod_ref: for is_component=True articles (explicit subarticles)
+    # display_parent_cod: for $ standalone articles that share nr_ordine with normative parent
+    ref_cod = neconf.get('ref_cod', '')
     badge = _get_subcomponent_badge() if is_subcomp else ''
     parent_cod_ref = neconf.get("parent_cod_ref") if is_subcomp else None
-    if is_subcomp:
-        code_text = f"{badge} {neconf.get('ref_cod', '')}"
-        if parent_cod_ref:
-            code_text += f"\n↑ {parent_cod_ref}"
+    display_parent = neconf.get("display_parent_cod") if ref_cod.startswith('$') else None
+    effective_parent = parent_cod_ref or display_parent
+
+    if is_subcomp or display_parent:
+        code_text = f"{badge} {ref_cod}".strip() if badge else ref_cod
+        if effective_parent:
+            code_text += f"\n↑ {effective_parent}"
     else:
-        code_text = str(neconf.get("ref_cod", ""))
+        code_text = ref_cod
     cod_run = row[2].paragraphs[0].add_run(code_text)
     cod_run.bold = True
     cod_run.font.size = Pt(9)

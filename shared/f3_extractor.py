@@ -145,9 +145,31 @@ def inherit_component_units(articles: list) -> list:
 
 
 def _apply_parent_inheritance(articole: list) -> list:
-    """Post-procesare: subarticolele fără cant/UM moștenesc de la parinte."""
+    """Post-procesare: subarticolele fără cant/UM moștenesc de la parinte.
+
+    Setează parent_cod, parent_nr_ordine, cant_mostenita pe articole is_component=True.
+    Adăugă display_parent_cod pe coduri '$'-prefixate cu același nr_ordine ca părintele
+    (resurse normative F3) — FĂRĂ a modifica is_component (matching rămâne neatins).
+    """
     current_parent = None
+    prev_non_dollar = None
+
     for art in articole:
+        cod = art.get('cod', '')
+        art_nr = art.get('nr_ordine')
+
+        # Track last non-$ article for display_parent logic
+        if not cod.startswith('$'):
+            prev_non_dollar = art
+
+        # $ code cu același nr_ordine ca ultimul non-$ → resursă normativă (display only)
+        if (cod.startswith('$') and prev_non_dollar is not None
+                and art_nr is not None
+                and art_nr == prev_non_dollar.get('nr_ordine')):
+            art['display_parent_cod'] = prev_non_dollar.get('cod')
+            art['display_parent_nr_ordine'] = prev_non_dollar.get('nr_ordine')
+
+        # Moștenire cant/UM pentru is_component=True (logica existentă)
         if not art.get('is_component'):
             current_parent = art
         elif current_parent:
