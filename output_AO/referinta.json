@@ -1125,7 +1125,7 @@
     },
     {
       "cod": "00103E011",
-      "denumire": "placi ceramice antiderapante, antigelive pentru tr afic intens exterior placi ceramice antiderapante + adeziv platforme ac l : lc52a -0067: 6110532 -adezivi pulbere +lianti hidr - granirapid l: lc64g -0245:2420046 -placi ceramice antiderapante l: lc65 -0006 : 7318737 -distantieri rost , pvc, model m6",
+      "denumire": "placi ceramice antiderapante, antigelive pentru tr afic intens exterior placi ceramice antiderapante + adeziv platforme ac l : lc52a -0067: 6110532 -adezivi pulbere +lianti hidr - granirapid l: lc64g -placi ceramice antiderapante l: lc65 -0006 : 7318737 -distantieri rost , pvc, model m6",
       "um": "mp",
       "cantitate": 17.42,
       "deviz": "4.1-04",
@@ -1134,7 +1134,6 @@
       "parent_code": null,
       "subcomponents": [
         "6110532",
-        "2420046",
         "7318737"
       ],
       "nr_ordine": 18,
@@ -1262,7 +1261,7 @@
     },
     {
       "cod": "00103E011",
-      "denumire": "placi ceramice antiderapante trafic intens + adezi v l: lc52a -0063 : 6110528 -adezivi pulbere ciment+lianti hidr - kerafloor - placi ceramice antiderapante trafic intens l: lc64g -0249:2420486 l: lc65 -0005: 7318736 -distantieri rost , pvc, model m5 l: qc050 -0002:0006701 -macara planseu 0,5tf",
+      "denumire": "placi ceramice antiderapante trafic intens + adezi v l: lc52a -0063 : 6110528 -adezivi pulbere ciment+lianti hidr - kerafloor - placi ceramice antiderapante trafic intens l: lc64g l: lc65 -0005: 7318736 -distantieri rost , pvc, model m5 l: qc050 -macara planseu 0,5tf",
       "um": "mp",
       "cantitate": 582.66,
       "deviz": "4.1-04",
@@ -1271,9 +1270,7 @@
       "parent_code": null,
       "subcomponents": [
         "6110528",
-        "2420486",
-        "7318736",
-        "0006701"
+        "7318736"
       ],
       "nr_ordine": 24,
       "parent_nr_ordine": null,
@@ -1401,7 +1398,7 @@
     },
     {
       "cod": "00106B011",
-      "denumire": "placi ceramice h=1.5m - pereti l:lc52a -0059: 6110524 -adezivi pulbere ciment +lianti hidraulici -kerabond l: lc64g -0253:2420759 -placi gresie stelate natur s 150x150x12 c1 vrac l: lc65 -0006: 7318737 -distantieri rost , pvc, model m6 l : qc050 -0002:0006701 -macara planseu 0,5tf n formular f3 executant0413 obiectiv01 obi4.1",
+      "denumire": "placi ceramice h=1.5m - pereti l:lc52a -0059: 6110524 -adezivi pulbere ciment +lianti hidraulici -kerabond l: lc64g -placi gresie stelate natur s 150x150x12 c1 vrac l: lc65 -0006: 7318737 -distantieri rost , pvc, model m6 l : qc050 -macara planseu 0,5tf n formular f3 executant0413 obiectiv01 obi4.1",
       "um": "mp",
       "cantitate": 156.2,
       "deviz": "4.1-04",
@@ -1410,9 +1407,7 @@
       "parent_code": null,
       "subcomponents": [
         "6110524",
-        "2420759",
-        "7318737",
-        "0006701"
+        "7318737"
       ],
       "nr_ordine": 31,
       "parent_nr_ordine": null,
@@ -1427,16 +1422,14 @@
     },
     {
       "cod": "CNO1A",
-      "denumire": "vopsea lavabila gri h=1.5m spatii umede l: lc68r -0001:7800853 - vopsea antimucegai",
+      "denumire": "vopsea lavabila gri h=1.5m spatii umede l: lc68r - vopsea antimucegai",
       "um": "mp",
       "cantitate": 207.47,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "7800853"
-      ],
+      "subcomponents": [],
       "nr_ordine": 32,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -1471,16 +1464,14 @@
     },
     {
       "cod": "$8527036",
-      "denumire": "-placi gips-carton rezistente la foc gkf 15 mm 1200/2600 l: qc050 -0002:0006701 -macara planseu 0,5tf",
+      "denumire": "-placi gips-carton rezistente la foc gkf 15 mm 1200/2600 l: qc050 -macara planseu 0,5tf",
       "um": "mp",
       "cantitate": 2.461,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "0006701"
-      ],
+      "subcomponents": [],
       "nr_ordine": 33,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -1569,16 +1560,14 @@
     },
     {
       "cod": "$8527055",
-      "denumire": "-placi gc rez la foc+umiditate gkfi 12.5mm 1200/2000 l: qc050 -0002:0006701 -macara planseu 0,5tf",
+      "denumire": "-placi gc rez la foc+umiditate gkfi 12.5mm 1200/2000 l: qc050 $0006701 -macara planseu 0,5tf",
       "um": "",
       "cantitate": 0.0,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "0006701"
-      ],
+      "subcomponents": [],
       "nr_ordine": 99,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -1728,16 +1717,14 @@
     },
     {
       "cod": "CN01A",
-      "denumire": "vopsea lavabila cu efect antibacterian tavan l: lc68r -0002:6103505 -vopsea antivegetativa v 733-6 ntr 1701-80",
+      "denumire": "vopsea lavabila cu efect antibacterian tavan l: lc68r -vopsea antivegetativa v 733-6 ntr 1701-80",
       "um": "mp",
       "cantitate": 161.57,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "6103505"
-      ],
+      "subcomponents": [],
       "nr_ordine": 42,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -1798,16 +1785,14 @@
     },
     {
       "cod": "855811E",
-      "denumire": "-tirant-tija cu bucla 750 mm l: qc050 -0002:0006701 -macara planseu 0,5tf",
+      "denumire": "-tirant-tija cu bucla 750 mm l: qc050 $0006701 -macara planseu 0,5tf",
       "um": "",
       "cantitate": 0.0,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "0006701"
-      ],
+      "subcomponents": [],
       "nr_ordine": 99,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -1821,20 +1806,14 @@
     },
     {
       "cod": "CB14C",
-      "denumire": "schela met tubulara pt finis tavane h= 7 m cu imob iliz schelei timp de 15 zile (120 ore) l:lc03a -0025:2904080 -dulapi molid si brad cl a gros=58mm l3-3,5m lt 7-15 cm l:lc03b -0005:2903579 - scind rasin lunga tiv cls a gr=24mm l=4,00m s 942 l:lc03f -0025:2904080 -dulapi molid si brad cl a gros=58mm l3-3,5m lt 7-15 cm l: lc04c -0091:2901166 - lemn rotund ras (bile manele ) d=12-15 cm l == 3, 00-6, 00 m l:lc05b -0010:5886851 -cuie cu cap conic tip a1 2,5 x 60 ol34 s 2111",
+      "denumire": "schela met tubulara pt finis tavane h= 7 m cu imob iliz schelei timp de 15 zile (120 ore) l:lc03a -dulapi molid si brad cl a gros=58mm l3-3,5m lt 7-15 cm l:lc03b - scind rasin lunga tiv cls a gr=24mm l=4,00m s 942 l:lc03f -dulapi molid si brad cl a gros=58mm l3-3,5m lt 7-15 cm l: lc04c - lemn rotund ras (bile manele ) d=12-15 cm l == 3, 00-6, 00 m l:lc05b -cuie cu cap conic tip a1 2,5 x 60 ol34 s 2111",
       "um": "mp",
       "cantitate": 150.0,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2904080",
-        "2903579",
-        "2904080",
-        "2901166",
-        "5886851"
-      ],
+      "subcomponents": [],
       "nr_ordine": 44,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -1869,16 +1848,14 @@
     },
     {
       "cod": "CK25A",
-      "denumire": "usa tamplarie pvc, culoare alb, panou opac l:lc33e -0016:6720292 -usa tamplarie pvc, culoare alb, panou opac",
+      "denumire": "usa tamplarie pvc, culoare alb, panou opac l:lc33e -usa tamplarie pvc, culoare alb, panou opac",
       "um": "mp",
       "cantitate": 35.91,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "6720292"
-      ],
+      "subcomponents": [],
       "nr_ordine": 46,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -1914,6 +1891,32 @@
       "val_transport": 0.0
     },
     {
+      "cod": "$6306499",
+      "denumire": "-usa rezistenta la foc 90 de min cu autoinchidere",
+      "um": "mp",
+      "cantitate": 11.76,
+      "deviz": "4.1-04",
+      "deviz_denumire": "Arhitectura conexe tip II",
+      "is_component": false,
+      "parent_code": null,
+      "subcomponents": [],
+      "nr_ordine": 4,
+      "parent_nr_ordine": null,
+      "pret_material": 0.0,
+      "val_material": 0.0,
+      "pret_manopera": 0.0,
+      "val_manopera": 0.0,
+      "pret_utilaj": 0.0,
+      "val_utilaj": 0.0,
+      "pret_transport": 0.0,
+      "val_transport": 0.0,
+      "display_parent_cod": "CK12A",
+      "display_parent_nr_ordine": 47,
+      "cantitate_originala": 0.0,
+      "um_originala": "",
+      "cant_mostenita": true
+    },
+    {
       "cod": "CK12A",
       "denumire": "usa tamplarie metalica, antieferactie, culoare alb",
       "um": "mp",
@@ -1933,6 +1936,32 @@
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
       "val_transport": 0.0
+    },
+    {
+      "cod": "$5900736",
+      "denumire": "-electrod sud ol nealiat s 1125/2 e44c",
+      "um": "mp",
+      "cantitate": 1.89,
+      "deviz": "4.1-04",
+      "deviz_denumire": "Arhitectura conexe tip II",
+      "is_component": false,
+      "parent_code": null,
+      "subcomponents": [],
+      "nr_ordine": 1,
+      "parent_nr_ordine": null,
+      "pret_material": 0.0,
+      "val_material": 0.0,
+      "pret_manopera": 0.0,
+      "val_manopera": 0.0,
+      "pret_utilaj": 0.0,
+      "val_utilaj": 0.0,
+      "pret_transport": 0.0,
+      "val_transport": 0.0,
+      "display_parent_cod": "CK12A",
+      "display_parent_nr_ordine": 48,
+      "cantitate_originala": 0.0,
+      "um_originala": "",
+      "cant_mostenita": true
     },
     {
       "cod": "CK25A",
@@ -2228,16 +2257,14 @@
     },
     {
       "cod": "CO01A1",
-      "denumire": "trotuar din beton simplu turnat pe loc 15 cm trotuar perimetral 1m l:10173 -0230:2100914 -beton marfa clasa c25/20 (bc25/b330) - formular f3 executan:0413 obiectiv01 obi4.1 cate 04",
+      "denumire": "trotuar din beton simplu turnat pe loc 15 cm trotuar perimetral 1m l:10173 -beton marfa clasa c25/20 (bc25/b330) - formular f3 executan:0413 obiectiv01 obi4.1 cate 04",
       "um": "mp",
       "cantitate": 148.18,
       "deviz": "4.1-04",
       "deviz_denumire": "Arhitectura conexe tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2100914"
-      ],
+      "subcomponents": [],
       "nr_ordine": 60,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -2963,16 +2990,14 @@
     },
     {
       "cod": "RPCE16C1",
-      "denumire": "termoizolatie tamplarie vata minerala 3cm, latime 30cm l: 11226 -0001:2607553 -placa vata min izol gen tip g 80 1200x 600x30 s5838/5",
+      "denumire": "termoizolatie tamplarie vata minerala 3cm, latime 30cm l: 11226 -placa vata min izol gen tip g 80 1200x 600x30 s5838/5",
       "um": "mp",
       "cantitate": 62.76,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2607553"
-      ],
+      "subcomponents": [],
       "nr_ordine": 20,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -3074,16 +3099,14 @@
     },
     {
       "cod": "CD07G2",
-      "denumire": "refacere perete pod, zidarie bca 30cm l: 10174 -0150:2101509 -mortar de ciment m100-t n formular f3 executunt0413 obiectiv01 obi4.1 cate 03",
+      "denumire": "refacere perete pod, zidarie bca 30cm l: 10174 -mortar de ciment m100-t n formular f3 executunt0413 obiectiv01 obi4.1 cate 03",
       "um": "mc",
       "cantitate": 1.46,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2101509"
-      ],
+      "subcomponents": [],
       "nr_ordine": 27,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -3097,16 +3120,14 @@
     },
     {
       "cod": "CE04XA",
-      "denumire": "invelitoare din tigla metalica profilata prevazuta cu parazapezi si elemente de ventilare pod l: 10146 -0024:3667823 -panou cutat ng 447 1,50x 750x2000 ol34-1n",
+      "denumire": "invelitoare din tigla metalica profilata prevazuta cu parazapezi si elemente de ventilare pod l: 10146 -panou cutat ng 447 1,50x 750x2000 ol34-1n",
       "um": "mp",
       "cantitate": 807.11,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "3667823"
-      ],
+      "subcomponents": [],
       "nr_ordine": 28,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -3141,17 +3162,14 @@
     },
     {
       "cod": "CE31A",
-      "denumire": "astereala scandura lemn l:lc03b -0005:2903579 -scind rasin lunga tiv cls a gr=24mm l=4,00m s 942 l: lc05b -0008:5886760 -cuie cu cap conic tip a1 1,8 x 35 ol34 s 2111",
+      "denumire": "astereala scandura lemn l:lc03b -scind rasin lunga tiv cls a gr=24mm l=4,00m s 942 l: lc05b -cuie cu cap conic tip a1 1,8 x 35 ol34 s 2111",
       "um": "mp",
       "cantitate": 807.11,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2903579",
-        "5886760"
-      ],
+      "subcomponents": [],
       "nr_ordine": 30,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -3291,16 +3309,14 @@
     },
     {
       "cod": "CE31A",
-      "denumire": "pazie - scandura 35cm 86.2 ml l:lc05b -0009:5886772 -cuie cu cap conic tip a1 1,8 x 40 ol34 s 2111",
+      "denumire": "pazie - scandura 35cm 86.2 ml l:lc05b -cuie cu cap conic tip a1 1,8 x 40 ol34 s 2111",
       "um": "mp",
       "cantitate": 30.17,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "5886772"
-      ],
+      "subcomponents": [],
       "nr_ordine": 37,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -3543,16 +3559,14 @@
     },
     {
       "cod": "IZF03A2",
-      "denumire": "bariera contra vaporilor pe supr oriz cu 1 strat i mpislit bit tip 1a sau tsa 2000 lip cu bitum tip l: 11203 -0002:2600048 -bitum pt.mat.+lucr.hidroizolatii tip h 80/90",
+      "denumire": "bariera contra vaporilor pe supr oriz cu 1 strat i mpislit bit tip 1a sau tsa 2000 lip cu bitum tip l: 11203 -bitum pt.mat.+lucr.hidroizolatii tip h 80/90",
       "um": "mp",
       "cantitate": 143.02,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2600048"
-      ],
+      "subcomponents": [],
       "nr_ordine": 46,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -3587,16 +3601,14 @@
     },
     {
       "cod": "CE15C1",
-      "denumire": "glaf metalic l: 10174 -0150:2101509 -mortar de ciment m100-t",
+      "denumire": "glaf metalic l: 10174 -mortar de ciment m100-t",
       "um": "m",
       "cantitate": 30.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2101509"
-      ],
+      "subcomponents": [],
       "nr_ordine": 48,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -3610,19 +3622,14 @@
     },
     {
       "cod": "CB14A",
-      "denumire": "schela met tubulara pt lucr pe supr vert pana la 3 0 m h cu imobiliz schelei timp de 25 zile (200 ore) l: lc03a -0026:2904107 -dulapi molid si brad cl a gros 75mm l=4-6m lt.16-30 cm l: lc03b -0006:2903622 -scind rasin lunga tiv cls b gr=18mm l=3,00m s 942 l: lc03f -0026:2904107 -dulapi molid si brad cl a gros 75mm l=4-6m lt.16-30 cm l: lc05b -0008:5886760 -cuie cu cap conic tip al 1,8 x 35 s 2111",
+      "denumire": "schela met tubulara pt lucr pe supr vert pana la 3 0 m h cu imobiliz schelei timp de 25 zile (200 ore) l: lc03a -dulapi molid si brad cl a gros 75mm l=4-6m lt.16-30 cm l: lc03b -scind rasin lunga tiv cls b gr=18mm l=3,00m s 942 l: lc03f -dulapi molid si brad cl a gros 75mm l=4-6m lt.16-30 cm l: lc05b -cuie cu cap conic tip al 1,8 x 35 s 2111",
       "um": "mp",
       "cantitate": 1150.0,
       "deviz": "4.1-03",
       "deviz_denumire": "Arhitectura - eligibile tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2904107",
-        "2903622",
-        "2904107",
-        "5886760"
-      ],
+      "subcomponents": [],
       "nr_ordine": 49,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -4096,6 +4103,32 @@
       "val_transport": 0.0
     },
     {
+      "cod": "$5518519",
+      "denumire": "- intrerupator 10a/230v, ip20, montaj ingropat",
+      "um": "",
+      "cantitate": 0.0,
+      "deviz": "4.1-05",
+      "deviz_denumire": "Inst electrice tip I",
+      "is_component": false,
+      "parent_code": null,
+      "subcomponents": [],
+      "nr_ordine": 99,
+      "parent_nr_ordine": null,
+      "pret_material": 0.0,
+      "val_material": 0.0,
+      "pret_manopera": 0.0,
+      "val_manopera": 0.0,
+      "pret_utilaj": 0.0,
+      "val_utilaj": 0.0,
+      "pret_transport": 0.0,
+      "val_transport": 0.0,
+      "display_parent_cod": "ED01B",
+      "display_parent_nr_ordine": 19,
+      "cantitate_originala": 0.0,
+      "um_originala": "",
+      "cant_mostenita": true
+    },
+    {
       "cod": "ED01B",
       "denumire": "intrerupator etans 10a, 230v , montaj ingropat , i",
       "um": "buc",
@@ -4105,7 +4138,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [],
-      "nr_ordine": 99,
+      "nr_ordine": 20,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
       "val_material": 0.0,
@@ -4164,16 +4197,14 @@
     },
     {
       "cod": "ED08A1",
-      "denumire": "priza bipolara simpla cu contact de protectie 16a/ 230v, ip 20, montaj ingropat l: 12017 -0002:5536169 -priza simpla cu contact protectie 16a/230v, ip20",
+      "denumire": "priza bipolara simpla cu contact de protectie 16a/ 230v, ip 20, montaj ingropat l: 12017 -priza simpla cu contact protectie 16a/230v, ip20",
       "um": "buc",
       "cantitate": 83.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "5536169"
-      ],
+      "subcomponents": [],
       "nr_ordine": 23,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -4187,16 +4218,14 @@
     },
     {
       "cod": "ED08A1",
-      "denumire": "priza bipolara cu contact protectie 16a/230v, mon taj ingropat, ip44 l:12017 -0007:5536171 -priza bipolaracu contact protectie 16a/230v, montaj ingropa",
+      "denumire": "priza bipolara cu contact protectie 16a/230v, mon taj ingropat, ip44 l:12017 -priza bipolaracu contact protectie 16a/230v, montaj ingropa",
       "um": "buc",
       "cantitate": 13.0,
       "deviz": "4.1-05",
       "deviz_denumire": "Inst electrice tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "5536171"
-      ],
+      "subcomponents": [],
       "nr_ordine": 24,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -4983,7 +5012,7 @@
     },
     {
       "cod": "EI03XB",
-      "denumire": "racordarea fara papuci a cond.cu si al cu sec sub 16mmp la tabl.cond.cu sec.sub 4mmp, lung peste1, 5m etichete l: 14005 -0001:7309883 -colier pt.priza brans.dn 100 l : 90051 -0001 : 7321166 -eticheta din alama cu inscrip.pt instalati automatizar",
+      "denumire": "racordarea fara papuci a cond.cu si al cu sec sub 16mmp la tabl.cond.cu sec.sub 4mmp, lung peste1, 5m etichete l: 14005 -colier pt.priza brans.dn 100 l : 90051 -0001 : 7321166 -eticheta din alama cu inscrip.pt instalati automatizar",
       "um": "buc",
       "cantitate": 215.0,
       "deviz": "4.1-06",
@@ -4991,7 +5020,6 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [
-        "7309883",
         "7321166"
       ],
       "nr_ordine": 20,
@@ -5783,16 +5811,14 @@
     },
     {
       "cod": "IC35B",
-      "denumire": "tv poliet armata inalta dens., poliprop armata /nea rm d=20mm mont.la leg.corp inc.la inst.inc.centr l: il19 -0002:6716501 -teava polipropilena cu folie al (pp-al) dn=20mm",
+      "denumire": "tv poliet armata inalta dens., poliprop armata /nea rm d=20mm mont.la leg.corp inc.la inst.inc.centr l: il19 -teava polipropilena cu folie al (pp-al) dn=20mm",
       "um": "m",
       "cantitate": 370.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "6716501"
-      ],
+      "subcomponents": [],
       "nr_ordine": 20,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -5806,16 +5832,14 @@
     },
     {
       "cod": "IC35C",
-      "denumire": "tv poliet.armata inalta dens , poliprop.armata /nea rm d=25mm mont.la leg.corp inc.la inst inc centr l:il19 -0003:6716502 -teava polipropilena cu folie al (pp-al) dn=25mm",
+      "denumire": "tv poliet.armata inalta dens , poliprop.armata /nea rm d=25mm mont.la leg.corp inc.la inst inc centr l:il19 -teava polipropilena cu folie al (pp-al) dn=25mm",
       "um": "m",
       "cantitate": 100.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "6716502"
-      ],
+      "subcomponents": [],
       "nr_ordine": 21,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -5829,16 +5853,14 @@
     },
     {
       "cod": "IC35D",
-      "denumire": "tv poliet.armata inalta dens., poliprop.armata /nea rm d=32mm mont.la leg.corp inc.la inst.inc centr l: il19 -0004:6716503 -teava polipropilena cu folie al (pp-al) dn=32mm",
+      "denumire": "tv poliet.armata inalta dens., poliprop.armata /nea rm d=32mm mont.la leg.corp inc.la inst.inc centr l: il19 -teava polipropilena cu folie al (pp-al) dn=32mm",
       "um": "m",
       "cantitate": 140.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "6716503"
-      ],
+      "subcomponents": [],
       "nr_ordine": 22,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -5967,16 +5989,14 @@
     },
     {
       "cod": "IC38B",
-      "denumire": "piesa racord (fiting) poliprop.cu 2 imbin imbinata prin polifusiune cu tv poliprop armata dext=25mm l: il20 -0032:6719932 -cot la 90gr din polipropilena, filet int., d=25-1/2'",
+      "denumire": "piesa racord (fiting) poliprop.cu 2 imbin imbinata prin polifusiune cu tv poliprop armata dext=25mm l: il20 -cot la 90gr din polipropilena, filet int., d=25-1/2'",
       "um": "buc",
       "cantitate": 10.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "6719932"
-      ],
+      "subcomponents": [],
       "nr_ordine": 29,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -6485,16 +6505,14 @@
     },
     {
       "cod": "SA08A1",
-      "denumire": "teava otel sud long.pt inst.zn+fil+mufa mont.const r ind+loc+soc.c la distrib in canale d= 1/2 tol l: 11418 -0028:3306338 - teava inst zinc filet m - 15 ( 1/2) ol 32 1 s 7656",
+      "denumire": "teava otel sud long.pt inst.zn+fil+mufa mont.const r ind+loc+soc.c la distrib in canale d= 1/2 tol l: 11418 - teava inst zinc filet m - 15 ( 1/2) ol 32 1 s 7656",
       "um": "m",
       "cantitate": 2.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "3306338"
-      ],
+      "subcomponents": [],
       "nr_ordine": 48,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -6531,16 +6549,14 @@
     },
     {
       "cod": "SA08D1",
-      "denumire": "teava otel sud.long.pt.inst.zn+fil+mufa mont.const r ind+loc+soc.c la distrib.in canale d=1 1/4 toli l: 11418 -0032:3306364 -teava inst zinc filet m - 32 (1 1/4) ol 32 1 s 7656",
+      "denumire": "teava otel sud.long.pt.inst.zn+fil+mufa mont.const r ind+loc+soc.c la distrib.in canale d=1 1/4 toli l: 11418 -teava inst zinc filet m - 32 (1 1/4) ol 32 1 s 7656",
       "um": "m",
       "cantitate": 5.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "3306364"
-      ],
+      "subcomponents": [],
       "nr_ordine": 50,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -6554,16 +6570,14 @@
     },
     {
       "cod": "SA08E1",
-      "denumire": "teava otel sud.long.pt.inst zn+fil+mufa mont.const r ind+loc+soc.c la distrib in canale d=1 1/2 toli l: 11418 -0033:3306376 - teava inst zinc filet m - 40 (1 1/2) ol 32 1 s 7656",
+      "denumire": "teava otel sud.long.pt.inst zn+fil+mufa mont.const r ind+loc+soc.c la distrib in canale d=1 1/2 toli l: 11418 - teava inst zinc filet m - 40 (1 1/2) ol 32 1 s 7656",
       "um": "m",
       "cantitate": 10.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "3306376"
-      ],
+      "subcomponents": [],
       "nr_ordine": 51,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -6577,16 +6591,14 @@
     },
     {
       "cod": "SA08F1",
-      "denumire": "teava otel sud.long.pt.inst.zn+fil+mufa mont.const r ind+loc+soc.c la distrib.in canale d=2 toli l: 11418 -0043:3306273 -teava inst zinc filet ui - 50 (2 ) ol 32 1 s 7656",
+      "denumire": "teava otel sud.long.pt.inst.zn+fil+mufa mont.const r ind+loc+soc.c la distrib.in canale d=2 toli l: 11418 -teava inst zinc filet ui - 50 (2 ) ol 32 1 s 7656",
       "um": "m",
       "cantitate": 20.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "3306273"
-      ],
+      "subcomponents": [],
       "nr_ordine": 52,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -7369,16 +7381,14 @@
     },
     {
       "cod": "SB17E1",
-      "denumire": "cot pvc dn 110 mm 90 gr l: 11432 -0019:6712409 -cot pvc tip u la 87 gr.30m dn 110 nii 2167",
+      "denumire": "cot pvc dn 110 mm 90 gr l: 11432 -cot pvc tip u la 87 gr.30m dn 110 nii 2167",
       "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "6712409"
-      ],
+      "subcomponents": [],
       "nr_ordine": 88,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -7392,16 +7402,14 @@
     },
     {
       "cod": "SB17E1",
-      "denumire": "cot pvc dn 110/ mm 45 gr l: 11432 -0005:6712265 -cot pvc tip u la 45 grade dn 110 nii 2167",
+      "denumire": "cot pvc dn 110/ mm 45 gr l: 11432 -cot pvc tip u la 45 grade dn 110 nii 2167",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-10",
       "deviz_denumire": "Instalatii HAC - tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "6712265"
-      ],
+      "subcomponents": [],
       "nr_ordine": 89,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -7520,7 +7528,7 @@
     },
     {
       "cod": "SC06A",
-      "denumire": "spalator din inox montare în consola ventil 011/2' , sifon tip butelie l:sl12c -0002:672015t -tub cu mufa pt canalizare, polipropilena ig., d40, l250 l: sl25a -0005:4202797 -sifon pt lavoar tip butelie alama 1 1/4' s 9611 l: sl25b -0020:4203325 -ventil scurgere lavoar.spalator 1 1/2 fara rac s9610 l: sl25c -0030:4203557 - consola brat dublu emailata 420mm cal 1 l: sl28 -0004:4200349 - spalator dublu din inox",
+      "denumire": "spalator din inox montare în consola ventil 011/2' , sifon tip butelie l:sl12c -0002:672015t -tub cu mufa pt canalizare, polipropilena ig., d40, l250 l: sl25a -sifon pt lavoar tip butelie alama 1 1/4' s 9611 l: sl25b -ventil scurgere lavoar.spalator 1 1/2 fara rac s9610 l: sl25c - consola brat dublu emailata 420mm cal 1 l: sl28 - spalator dublu din inox",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-13",
@@ -7528,11 +7536,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [
-        "672015T",
-        "4202797",
-        "4203325",
-        "4203557",
-        "4200349"
+        "672015T"
       ],
       "nr_ordine": 2,
       "parent_nr_ordine": null,
@@ -7570,7 +7574,7 @@
     },
     {
       "cod": "SC04A",
-      "denumire": "lavoar din semiportelan, portelan sanitar etc - (in cl pt .handicapati) console pe zidarie l: sl12a -0004:672016d -tub cu mufa pt canalizare, polipropilena ig., d40, l750 l: sl24 -0001:2308542 -lavoar din ceramica cu etajera, semipicior suspendat l: sl25a -0002:4202761 -sifon alama pt lavoar 1' s 9611 l: sl25b - 0021: 4203337 -ventil scurgere lavoar, spalator 1' cu racord s9610 l:sl25c - 0030: 4203557 -consola brat dublu emailata 420mm cal.1 s 3343",
+      "denumire": "lavoar din semiportelan, portelan sanitar etc - (in cl pt .handicapati) console pe zidarie l: sl12a -0004:672016d -tub cu mufa pt canalizare, polipropilena ig., d40, l750 l: sl24 -lavoar din ceramica cu etajera, semipicior suspendat l: sl25a -sifon alama pt lavoar 1' s 9611 l: sl25b - 0021: 4203337 -ventil scurgere lavoar, spalator 1' cu racord s9610 l:sl25c - 0030: 4203557 -consola brat dublu emailata 420mm cal.1 s 3343",
       "um": "buc",
       "cantitate": 12.0,
       "deviz": "4.1-13",
@@ -7579,8 +7583,6 @@
       "parent_code": null,
       "subcomponents": [
         "672016D",
-        "2308542",
-        "4202761",
         "4203337",
         "4203557"
       ],
@@ -7620,17 +7622,14 @@
     },
     {
       "cod": "SD01XA",
-      "denumire": "robinet de serviciu simplu cu diametrul de 1/2' robinet pentru lavoar avind diametrul de 1/2' spal l: 11411 -0009:4202204 -robinet simplu serv cromat 1/2' garn detas c501h s4124 l: 11414 -0002:4203985 -rozeta metalica pt mascare 1/2'",
+      "denumire": "robinet de serviciu simplu cu diametrul de 1/2' robinet pentru lavoar avind diametrul de 1/2' spal l: 11411 -robinet simplu serv cromat 1/2' garn detas c501h s4124 l: 11414 -rozeta metalica pt mascare 1/2'",
       "um": "buc",
       "cantitate": 26.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "4202204",
-        "4203985"
-      ],
+      "subcomponents": [],
       "nr_ordine": 6,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -7644,16 +7643,14 @@
     },
     {
       "cod": "SC13A",
-      "denumire": "oglinda sanitara, semicristal-marginile slefuite, 50 0*600mm etc, perete din zidarie sau b.c.a l: sl35 -0003:2506085 -oglinda cristal dreptunghiulara",
+      "denumire": "oglinda sanitara, semicristal-marginile slefuite, 50 0*600mm etc, perete din zidarie sau b.c.a l: sl35 -oglinda cristal dreptunghiulara",
       "um": "buc",
       "cantitate": 14.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2506085"
-      ],
+      "subcomponents": [],
       "nr_ordine": 7,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -7712,7 +7709,7 @@
     },
     {
       "cod": "SC07A",
-      "denumire": "vas closet complet echipat, portelan etc., rezervor mont la inaltime; semiinaltime, sifon tip s l: sl12 -0005:6720162 -tub cu mufa pt.canalizare, polipropilena ig , d40, l1000 l: sl25e -0001: 2949482 -rama vas closet placaj fag tip b c.2 cu capac s 3489 l: sl29 -0012: 2443476 -vas closet col4-a portelan alb c 1 s 2066 l:sl30 -0001:2452958 -rezervor wc r 2 semiinaltime alb c.1 s 9441",
+      "denumire": "vas closet complet echipat, portelan etc., rezervor mont la inaltime; semiinaltime, sifon tip s l: sl12 -tub cu mufa pt.canalizare, polipropilena ig , d40, l1000 l: sl25e -0001: 2949482 -rama vas closet placaj fag tip b c.2 cu capac s 3489 l: sl29 -0012: 2443476 -vas closet col4-a portelan alb c 1 s 2066 l:sl30 -rezervor wc r 2 semiinaltime alb c.1 s 9441",
       "um": "buc",
       "cantitate": 9.0,
       "deviz": "4.1-13",
@@ -7720,10 +7717,8 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [
-        "6720162",
         "2949482",
-        "2443476",
-        "2452958"
+        "2443476"
       ],
       "nr_ordine": 10,
       "parent_nr_ordine": null,
@@ -7738,16 +7733,14 @@
     },
     {
       "cod": "SC15A",
-      "denumire": "porthirtie, din fonta emailata-mat plastic-portelan , pe perete din caramida-bca l: sl37 -0016:4200357 - porthartie cu capac, cromat",
+      "denumire": "porthirtie, din fonta emailata-mat plastic-portelan , pe perete din caramida-bca l: sl37 - porthartie cu capac, cromat",
       "um": "buc",
       "cantitate": 9.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "4200357"
-      ],
+      "subcomponents": [],
       "nr_ordine": 11,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -7761,7 +7754,7 @@
     },
     {
       "cod": "SD01A",
-      "denumire": "robinet de serviciu , de cortar dn 3/8' wc robinet de colt f 3/8' - racord wc+pisoar l:sl25g -0033:4203935 -rozeta metalica pt.tevi simb.492 d 1 toli cromata l: sl41 -0020: 4201937 -robinet rezerv wc am colt 3/8' semiinaltime 3 s2377",
+      "denumire": "robinet de serviciu , de cortar dn 3/8' wc robinet de colt f 3/8' - racord wc+pisoar l:sl25g -rozeta metalica pt.tevi simb.492 d 1 toli cromata l: sl41 -0020: 4201937 -robinet rezerv wc am colt 3/8' semiinaltime 3 s2377",
       "um": "buc",
       "cantitate": 12.0,
       "deviz": "4.1-13",
@@ -7769,7 +7762,6 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [
-        "4203935",
         "4201937"
       ],
       "nr_ordine": 12,
@@ -7785,7 +7777,7 @@
     },
     {
       "cod": "SC09A",
-      "denumire": "pisoar din portelan sanitar mntat pe perete din zi darie de caramida sau b.c.a l: sl12b -0021:672017r -tub fara mufa, polipropilena ignifuga., d32, l5000mm l: sl31 -0003:2451423 - pisoar portelan tip v3 alb c.1 s 2383",
+      "denumire": "pisoar din portelan sanitar mntat pe perete din zi darie de caramida sau b.c.a l: sl12b -0021:672017r -tub fara mufa, polipropilena ignifuga., d32, l5000mm l: sl31 - pisoar portelan tip v3 alb c.1 s 2383",
       "um": "buc",
       "cantitate": 3.0,
       "deviz": "4.1-13",
@@ -7793,8 +7785,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [
-        "672017R",
-        "2451423"
+        "672017R"
       ],
       "nr_ordine": 13,
       "parent_nr_ordine": null,
@@ -7809,16 +7800,14 @@
     },
     {
       "cod": "SD02A",
-      "denumire": "baterie amestecatoare pt.baie, cu dus flexibil sau fix, indiferent inchidere, pe pereti zidarie / bca l: sl41 -0006:4201389 -baterie amest.baie alama 1/2' dus flex st pl f.bc s8732",
+      "denumire": "baterie amestecatoare pt.baie, cu dus flexibil sau fix, indiferent inchidere, pe pereti zidarie / bca l: sl41 -baterie amest.baie alama 1/2' dus flex st pl f.bc s8732",
       "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "4201389"
-      ],
+      "subcomponents": [],
       "nr_ordine": 14,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -7924,16 +7913,14 @@
     },
     {
       "cod": "SE56A",
-      "denumire": "kit anticalcar f1 1/4' l: sl44c -0040:7322057 -kit anticalcar f1 1/4'",
+      "denumire": "kit anticalcar f1 1/4' l: sl44c -kit anticalcar f1 1/4'",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "7322057"
-      ],
+      "subcomponents": [],
       "nr_ordine": 19,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -7947,7 +7934,7 @@
     },
     {
       "cod": "SA15B",
-      "denumire": "teava mat plastic pp-r al, d=20mm conducta ppr-al 020x1, 9 mm l:sl05 -0030: 6717087 -tuburi din polipropilena, avind diametrul exterior 20mm l:sl06b -0066: 6719485 -cot din polipropilena, avind diametrul 20 mm l:sl06c -0074 : 6719493 -teu din polipropilena, avind diametrul 20 mm l: slu01 -0001:0003000 - aparat de sudura prin polifuziune si electrofuziune-coprax",
+      "denumire": "teava mat plastic pp-r al, d=20mm conducta ppr-al 020x1, 9 mm l:sl05 -0030: 6717087 -tuburi din polipropilena, avind diametrul exterior 20mm l:sl06b -0066: 6719485 -cot din polipropilena, avind diametrul 20 mm l:sl06c -0074 : 6719493 -teu din polipropilena, avind diametrul 20 mm l: slu01 - aparat de sudura prin polifuziune si electrofuziune-coprax",
       "um": "m",
       "cantitate": 190.0,
       "deviz": "4.1-13",
@@ -7957,8 +7944,7 @@
       "subcomponents": [
         "6717087",
         "6719485",
-        "6719493",
-        "0003000"
+        "6719493"
       ],
       "nr_ordine": 20,
       "parent_nr_ordine": null,
@@ -7973,7 +7959,7 @@
     },
     {
       "cod": "SA15B",
-      "denumire": "teava mat plastic pp-r al, d=25mm conducta ppr-a1 025x2, 3 mm l:sl05 -0031:6717088 -tuburi din polipropilena, avind diametrul exterior 25mm l: sl06b -0067:6719486 -cot din polipropilena, avind diametrul 25 mm l:sl06c -0031:6719450 -teu din polietilena, (pehd) , electrofuziune d= 25mm l: slu01 -0001: 0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax",
+      "denumire": "teava mat plastic pp-r al, d=25mm conducta ppr-a1 025x2, 3 mm l:sl05 -tuburi din polipropilena, avind diametrul exterior 25mm l: sl06b -cot din polipropilena, avind diametrul 25 mm l:sl06c -teu din polietilena, (pehd) , electrofuziune d= 25mm l: slu01 -0001: 0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax",
       "um": "m",
       "cantitate": 75.0,
       "deviz": "4.1-13",
@@ -7981,9 +7967,6 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [
-        "6717088",
-        "6719486",
-        "6719450",
         "0003000"
       ],
       "nr_ordine": 21,
@@ -7999,7 +7982,7 @@
     },
     {
       "cod": "SA16C",
-      "denumire": "teava din material plastic pp-r al d=32mm conducta ppr-a1 032x3, 0 mm l: sl05 -0032 : 6717089 -tuburi din polipropilena, avind diametrul exterior 32mm l: sl06a -0060:6719479 -mufa din polipropilena avind diametrul exterior 32 mm l: sl06b -0068: 6719487 -cot din polipropilena, avind diametrul 32 mm l: sl06c -0076: 6719495 - teu din polipropilena, avind diametrul 32 mm l: slu01 - 0001: 0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax - formular f3 executan/0413 obiectiv01 obi4.1 cate 13",
+      "denumire": "teava din material plastic pp-r al d=32mm conducta ppr-a1 032x3, 0 mm l: sl05 -0032 : 6717089 -tuburi din polipropilena, avind diametrul exterior 32mm l: sl06a -mufa din polipropilena avind diametrul exterior 32 mm l: sl06b -0068: 6719487 -cot din polipropilena, avind diametrul 32 mm l: sl06c -0076: 6719495 - teu din polipropilena, avind diametrul 32 mm l: slu01 - 0001: 0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax - formular f3 executan/0413 obiectiv01 obi4.1 cate 13",
       "um": "m",
       "cantitate": 25.0,
       "deviz": "4.1-13",
@@ -8008,7 +7991,6 @@
       "parent_code": null,
       "subcomponents": [
         "6717089",
-        "6719479",
         "6719487",
         "6719495",
         "0003000"
@@ -8026,7 +8008,7 @@
     },
     {
       "cod": "SA16D",
-      "denumire": "teava din material plastic pp-r al d=40mm conducta ppr-a1 040x3, 7 mm l: sl05 -0033:6717090 -tuburi din polipropilena, avind diametrul exterior 40mm l: sl06a -0061: 6719480 -mufa din polipropilena avind diametrul exterior 40 mm l:sl06b -0069:6719488 -cot din polipropilena, avind diametrul 40 mm l: sl06c -0077: 6719496 -teu din polipropilena, avind diametrul 40 mm l: sl06e -0101:6719520 -reductie din polipropilena, avind diametrul 40 * 25 mm l: slu01 -0001:0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax",
+      "denumire": "teava din material plastic pp-r al d=40mm conducta ppr-a1 040x3, 7 mm l: sl05 -tuburi din polipropilena, avind diametrul exterior 40mm l: sl06a -0061: 6719480 -mufa din polipropilena avind diametrul exterior 40 mm l:sl06b -cot din polipropilena, avind diametrul 40 mm l: sl06c -0077: 6719496 -teu din polipropilena, avind diametrul 40 mm l: sl06e -reductie din polipropilena, avind diametrul 40 * 25 mm l: slu01 -aparat de sudura prin polifuziune si electrofuziune-coprax",
       "um": "m",
       "cantitate": 45.0,
       "deviz": "4.1-13",
@@ -8034,12 +8016,8 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [
-        "6717090",
         "6719480",
-        "6719488",
-        "6719496",
-        "6719520",
-        "0003000"
+        "6719496"
       ],
       "nr_ordine": 23,
       "parent_nr_ordine": null,
@@ -8054,17 +8032,14 @@
     },
     {
       "cod": "SA16E",
-      "denumire": "teava din material plastic ppr-al, d=50mm conducta ppr-a1 050x4, 6 mm l:sl05 -0034:6717091 -tuburi din polipropilena, avind diametrul exterior 50mm l: slu01 -0001:0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax",
+      "denumire": "teava din material plastic ppr-al, d=50mm conducta ppr-a1 050x4, 6 mm l:sl05 -tuburi din polipropilena, avind diametrul exterior 50mm l: slu01 -aparat de sudura prin polifuziune si electrofuziune-coprax",
       "um": "m",
       "cantitate": 5.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "6717091",
-        "0003000"
-      ],
+      "subcomponents": [],
       "nr_ordine": 24,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -8252,16 +8227,14 @@
     },
     {
       "cod": "SA37D",
-      "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d=1 1/4' l: sl07 -0006:4204082 -bratari tevi instalatii apa si gaze 1 '1/4'",
+      "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d=1 1/4' l: sl07 -bratari tevi instalatii apa si gaze 1 '1/4'",
       "um": "buc",
       "cantitate": 15.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "4204082"
-      ],
+      "subcomponents": [],
       "nr_ordine": 34,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -8275,16 +8248,14 @@
     },
     {
       "cod": "SA37E",
-      "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d=1 1/2' l: sl07 -0007:4204094 bratari tevi instalatii apa si gaze 1 1/2'",
+      "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d=1 1/2' l: sl07 bratari tevi instalatii apa si gaze 1 1/2'",
       "um": "buc",
       "cantitate": 30.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "4204094"
-      ],
+      "subcomponents": [],
       "nr_ordine": 35,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -8593,16 +8564,14 @@
     },
     {
       "cod": "SB08A",
-      "denumire": "teava din mat plastic, pp , d= 32mm l: sl12 -0021:6720178 -tub fara mufa, polipropilena ignifuga., d32, l5000mm",
+      "denumire": "teava din mat plastic, pp , d= 32mm l: sl12 -tub fara mufa, polipropilena ignifuga., d32, l5000mm",
       "um": "m",
       "cantitate": 45.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "6720178"
-      ],
+      "subcomponents": [],
       "nr_ordine": 45,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -8639,16 +8608,14 @@
     },
     {
       "cod": "SB08C",
-      "denumire": "teava din mat plastic, pp , d= 50mm l: sl12 -0040:6720197 -tub cu 2 mufe, polipropilena ignifuga., d50, l1000mm",
+      "denumire": "teava din mat plastic, pp , d= 50mm l: sl12 -tub cu 2 mufe, polipropilena ignifuga., d50, l1000mm",
       "um": "m",
       "cantitate": 47.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "6720197"
-      ],
+      "subcomponents": [],
       "nr_ordine": 47,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -8732,16 +8699,14 @@
     },
     {
       "cod": "SA37D",
-      "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d=1 1/4' l: sl07 -0006:4204082 -bratari tevi instalatii apa si gaze 1'1/4'",
+      "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d=1 1/4' l: sl07 -bratari tevi instalatii apa si gaze 1'1/4'",
       "um": "buc",
       "cantitate": 40.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "4204082"
-      ],
+      "subcomponents": [],
       "nr_ordine": 50,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -8755,16 +8720,14 @@
     },
     {
       "cod": "SA37E",
-      "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d=1 1/2' l: sl07 -0007:4204094 -bratari tevi instalatii apa si gaze 1 1/2'",
+      "denumire": "bratara pt.fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d=1 1/2' l: sl07 -bratari tevi instalatii apa si gaze 1 1/2'",
       "um": "buc",
       "cantitate": 5.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "4204094"
-      ],
+      "subcomponents": [],
       "nr_ordine": 51,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -8778,16 +8741,14 @@
     },
     {
       "cod": "SA37F",
-      "denumire": "bratara pt fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d= 2' l: sl07 -0008:4204109 -bratari tevi instalatii apa si gaze 2'",
+      "denumire": "bratara pt fixarea cond de alim.apa si gaze, otel sau pvc, montata prin incastrare, d= 2' l: sl07 -bratari tevi instalatii apa si gaze 2'",
       "um": "buc",
       "cantitate": 25.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "4204109"
-      ],
+      "subcomponents": [],
       "nr_ordine": 52,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -8891,16 +8852,14 @@
     },
     {
       "cod": "SB09C",
-      "denumire": "cot polipropilena ignifuga 050mm la 45 l : sl13a -0014:6721013 -cot pt instalatii de canalizare, polipropilena, d=50mm",
+      "denumire": "cot polipropilena ignifuga 050mm la 45 l : sl13a -cot pt instalatii de canalizare, polipropilena, d=50mm",
       "um": "buc",
       "cantitate": 28.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "6721013"
-      ],
+      "subcomponents": [],
       "nr_ordine": 57,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -8960,16 +8919,14 @@
     },
     {
       "cod": "SB09B",
-      "denumire": "cot polipropilena ignifuga 040mm la 90 l: sl13a -0013:6721012 -cot pt instalatii de canalizare, polipropilena, d=40mm",
+      "denumire": "cot polipropilena ignifuga 040mm la 90 l: sl13a -cot pt instalatii de canalizare, polipropilena, d=40mm",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "6721012"
-      ],
+      "subcomponents": [],
       "nr_ordine": 60,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -9211,16 +9168,14 @@
     },
     {
       "cod": "SB30A",
-      "denumire": "suporti pt sustinerea conductelor pentru canaliza re, avind greutate de pina la 2 kg l: sl44g -0017:3401827 -otel rotund laminat la cald s 333 ol37-1k d= 20",
+      "denumire": "suporti pt sustinerea conductelor pentru canaliza re, avind greutate de pina la 2 kg l: sl44g -otel rotund laminat la cald s 333 ol37-1k d= 20",
       "um": "tona",
       "cantitate": 200.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "3401827"
-      ],
+      "subcomponents": [],
       "nr_ordine": 71,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -9234,16 +9189,14 @@
     },
     {
       "cod": "SB30B",
-      "denumire": "suporti pt sustinerea conductelor pentru canaliza re, avind greutate de 2.1 - 10 kg l: sl44g -0017:3401827 -otel rotund laminat la cald s 333 ol37-1k d= 20 n formular f3 executant0413 obiectiv01 obi4.1 cate 13",
+      "denumire": "suporti pt sustinerea conductelor pentru canaliza re, avind greutate de 2.1 - 10 kg l: sl44g -otel rotund laminat la cald s 333 ol37-1k d= 20 n formular f3 executant0413 obiectiv01 obi4.1 cate 13",
       "um": "tona",
       "cantitate": 200.0,
       "deviz": "4.1-13",
       "deviz_denumire": "Instalatii sanitare tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "3401827"
-      ],
+      "subcomponents": [],
       "nr_ordine": 72,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -10143,16 +10096,14 @@
     },
     {
       "cod": "SA04A",
-      "denumire": "teava din otel zn pt instalatii, 1/2 ' pentru g oliri instalatii de stingere cu hidranti interiori l: sl01 -0001:3306041 -teava inst zinc nefil.m - 15( 1/2) ol 32 1 s 7656",
+      "denumire": "teava din otel zn pt instalatii, 1/2 ' pentru g oliri instalatii de stingere cu hidranti interiori l: sl01 -teava inst zinc nefil.m - 15( 1/2) ol 32 1 s 7656",
       "um": "m",
       "cantitate": 3.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "3306041"
-      ],
+      "subcomponents": [],
       "nr_ordine": 1,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -10166,7 +10117,7 @@
     },
     {
       "cod": "SA04G",
-      "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 2 1/2' l:sl01 -0007:3306106 -teava inst.zinc nefil.m - 65 (2 1/2) ol 32 1 s 7656 l: sl02a -0033 : 4114287 -reductie fonta maleabila n4 s 477 65x 50 zn f2 l:sl02b -0061:4115580 -teu fonta mal b1 s476 dn= 65 21/2 zn l:sl02c -0075: 4118013 -cot fonta maleabila a1",
+      "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 2 1/2' l:sl01 -teava inst.zinc nefil.m - 65 (2 1/2) ol 32 1 s 7656 l: sl02a -0033 : 4114287 -reductie fonta maleabila n4 s 477 65x 50 zn f2 l:sl02b -teu fonta mal b1 s476 dn= 65 21/2 zn l:sl02c -0075: 4118013 -cot fonta maleabila a1",
       "um": "m",
       "cantitate": 60.0,
       "deviz": "4.1-14",
@@ -10174,9 +10125,7 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [
-        "3306106",
         "4114287",
-        "4115580",
         "4118013"
       ],
       "nr_ordine": 2,
@@ -10192,7 +10141,7 @@
     },
     {
       "cod": "SA04F",
-      "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 2 ' l: sl01 -0006:3306091 - teava inst zinc nefil.m - 50(2 ) ol 32 1 s 7656 l: sl02a -0024 : 4114172 -reductie fonta maleabila n4 s 477 50x 25 zn f2 l: sl02b -0058: 4115554 -teu fonta mal b1 s476 dn= 50 2 zn l: sl02c -0077:4118037 -cot fonta maleabila a1",
+      "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 2 ' l: sl01 - teava inst zinc nefil.m - 50(2 ) ol 32 1 s 7656 l: sl02a -0024 : 4114172 -reductie fonta maleabila n4 s 477 50x 25 zn f2 l: sl02b -0058: 4115554 -teu fonta mal b1 s476 dn= 50 2 zn l: sl02c -cot fonta maleabila a1",
       "um": "m",
       "cantitate": 65.0,
       "deviz": "4.1-14",
@@ -10200,10 +10149,8 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [
-        "3306091",
         "4114172",
-        "4115554",
-        "4118037"
+        "4115554"
       ],
       "nr_ordine": 3,
       "parent_nr_ordine": null,
@@ -10747,16 +10694,14 @@
     },
     {
       "cod": "IC44A",
-      "denumire": "confect., montarea si cimentarea tevii de protectie la trecerea cond prin ziduri 1'-2' l: il08 -0004:3304847 -teava inst.neagra nefil.m - 25 (1 ) ol 32 1 s 7656",
+      "denumire": "confect., montarea si cimentarea tevii de protectie la trecerea cond prin ziduri 1'-2' l: il08 -teava inst.neagra nefil.m - 25 (1 ) ol 32 1 s 7656",
       "um": "buc",
       "cantitate": 4.0,
       "deviz": "4.1-14",
       "deviz_denumire": "Inst sanit hidranti int tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "3304847"
-      ],
+      "subcomponents": [],
       "nr_ordine": 26,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -11221,16 +11166,14 @@
     },
     {
       "cod": "IA37A",
-      "denumire": "montaj pompe circulatie (recirculatie) agent termi c echip termice l:il08 -0005:3304859 -teava inst.neagra nefil.m - 32 (1 1/4) ol 32 1 s 7656",
+      "denumire": "montaj pompe circulatie (recirculatie) agent termi c echip termice l:il08 -teava inst.neagra nefil.m - 32 (1 1/4) ol 32 1 s 7656",
       "um": "buc",
       "cantitate": 5.0,
       "deviz": "4.1-16",
       "deviz_denumire": "Echipamente HVAC tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "3304859"
-      ],
+      "subcomponents": [],
       "nr_ordine": 3,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -11459,16 +11402,14 @@
     },
     {
       "cod": "EF05A",
-      "denumire": "soclu detectori cu izolatori l : el20m -0003:5536787 - soclu detectori cu izolatori",
+      "denumire": "soclu detectori cu izolatori l : el20m - soclu detectori cu izolatori",
       "um": "buc",
       "cantitate": 33.0,
       "deviz": "4.1-20",
       "deviz_denumire": "Echipam detect inc tip III",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "5536787"
-      ],
+      "subcomponents": [],
       "nr_ordine": 5,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -11482,16 +11423,14 @@
     },
     {
       "cod": "ED10F1",
-      "denumire": "montaj buton manual de incendiu si buton cu autore tinere l:12013 -0019:5535799 -carcasa buton manual",
+      "denumire": "montaj buton manual de incendiu si buton cu autore tinere l:12013 -carcasa buton manual",
       "um": "buc",
       "cantitate": 13.0,
       "deviz": "4.1-20",
       "deviz_denumire": "Echipam detect inc tip III",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "5535799"
-      ],
+      "subcomponents": [],
       "nr_ordine": 7,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -11570,16 +11509,14 @@
     },
     {
       "cod": "RPCB02E",
-      "denumire": "beton c12/15 in fundatii simple la scari noi acce s infrastructura l: lc02 -0019:2100911 -beton marfa clasa c15/12 (bc15/b200)",
+      "denumire": "beton c12/15 in fundatii simple la scari noi acce s infrastructura l: lc02 -beton marfa clasa c15/12 (bc15/b200)",
       "um": "mc",
       "cantitate": 1.92,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2100911"
-      ],
+      "subcomponents": [],
       "nr_ordine": 3,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -11614,16 +11551,14 @@
     },
     {
       "cod": "CA05B",
-      "denumire": "turnare beton armat c25/30 fundatii fundatii noi scari noi acces l: lc02 -0024:2100916 -beton marfa clasa c30/25 (bc30/b400)",
+      "denumire": "turnare beton armat c25/30 fundatii fundatii noi scari noi acces l: lc02 -beton marfa clasa c30/25 (bc30/b400)",
       "um": "mc",
       "cantitate": 2.6,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2100916"
-      ],
+      "subcomponents": [],
       "nr_ordine": 5,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -11747,16 +11682,14 @@
     },
     {
       "cod": "CA05B",
-      "denumire": "beton c25/30 pardoseala (10cm grosime) scari noi a cces l: lc02 -0024:2100916 -beton marfa clasa c30/25 (bc30/b400)",
+      "denumire": "beton c25/30 pardoseala (10cm grosime) scari noi a cces l: lc02 -beton marfa clasa c30/25 (bc30/b400)",
       "um": "mc",
       "cantitate": 1.72,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2100916"
-      ],
+      "subcomponents": [],
       "nr_ordine": 10,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -11791,16 +11724,14 @@
     },
     {
       "cod": "RCSD08A",
-      "denumire": "plase sudate sppb in pardoseala scari noi acces l: lrc13 -0009:2000846 -plase sudate tip 105 gq 106 (25, 0 kg/buc) ol 37-1n",
+      "denumire": "plase sudate sppb in pardoseala scari noi acces l: lrc13 -plase sudate tip 105 gq 106 (25, 0 kg/buc) ol 37-1n",
       "um": "tona",
       "cantitate": 340.0,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2000846"
-      ],
+      "subcomponents": [],
       "nr_ordine": 12,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -11898,16 +11829,14 @@
     },
     {
       "cod": "CA02J1",
-      "denumire": "beton armat c25/30 cadre bordare goluri si centuri din beton armat parter si etaj l:10173 -0232:2100916 -beton marfa clasa c30/25 (bc30/b400)",
+      "denumire": "beton armat c25/30 cadre bordare goluri si centuri din beton armat parter si etaj l:10173 -beton marfa clasa c30/25 (bc30/b400)",
       "um": "mc",
       "cantitate": 2.07,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2100916"
-      ],
+      "subcomponents": [],
       "nr_ordine": 17,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -12005,16 +11934,14 @@
     },
     {
       "cod": "CA02J1",
-      "denumire": "beton armat c25/30 centuri noi din beton armat pe zona de refacere a planseului l: 10173 -0232:2100916 -beton marfa clasa c30/25 (bc30/b400)",
+      "denumire": "beton armat c25/30 centuri noi din beton armat pe zona de refacere a planseului l: 10173 -beton marfa clasa c30/25 (bc30/b400)",
       "um": "mc",
       "cantitate": 5.81,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2100916"
-      ],
+      "subcomponents": [],
       "nr_ordine": 22,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -12327,16 +12254,14 @@
     },
     {
       "cod": "CA02J1",
-      "denumire": "turnare beton armat c25/30 atice noi din b.a l:10173 -0232:2100916 -beton marfa clasa c30/25 (bc30/b400)",
+      "denumire": "turnare beton armat c25/30 atice noi din b.a l:10173 -beton marfa clasa c30/25 (bc30/b400)",
       "um": "mc",
       "cantitate": 4.04,
       "deviz": "4.1-02",
       "deviz_denumire": "Structura conexe tip II",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2100916"
-      ],
+      "subcomponents": [],
       "nr_ordine": 36,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -13534,16 +13459,14 @@
     },
     {
       "cod": "RPSA43H",
-      "denumire": "montarea prin incastrare a bratarii pt.fixare cond . ol sau mat plastic de alim.apa si gaze, d= 3' l: sl07 -0010:4204123 -bratari tevi instalatii",
+      "denumire": "montarea prin incastrare a bratarii pt.fixare cond . ol sau mat plastic de alim.apa si gaze, d= 3' l: sl07 -bratari tevi instalatii",
       "um": "buc",
       "cantitate": 62.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "4204123"
-      ],
+      "subcomponents": [],
       "nr_ordine": 48,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -13648,16 +13571,14 @@
     },
     {
       "cod": "SA33B",
-      "denumire": "conf si mont tevii de protectie, otel pt instal., neagra, la trecerea conduct prin plansee d=1 1/4' l: sl47 -0003:3304859 -teava inst.neagra nefil.m - 32 (1 1/4) ol 32 1 s 7656",
+      "denumire": "conf si mont tevii de protectie, otel pt instal., neagra, la trecerea conduct prin plansee d=1 1/4' l: sl47 -teava inst.neagra nefil.m - 32 (1 1/4) ol 32 1 s 7656",
       "um": "buc",
       "cantitate": 15.0,
       "deviz": "4.1-12",
       "deviz_denumire": "Instalatii ventilatii tip I",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "3304859"
-      ],
+      "subcomponents": [],
       "nr_ordine": 52,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -14553,16 +14474,14 @@
     },
     {
       "cod": "ACD04C1",
-      "denumire": "camin de canalizare din beton dn 800 mm cu h varia bil de la 0,95 m la 1,30 m carosabile l: 101.73 -0232:2100916 -beton marfa clasa c30/25 (bc30/b400) l: 10174 -0150:2101509 -mortar de ciment m100-t",
+      "denumire": "camin de canalizare din beton dn 800 mm cu h varia bil de la 0,95 m la 1,30 m carosabile l: 101.73 -beton marfa clasa c30/25 (bc30/b400) l: 10174 -mortar de ciment m100-t",
       "um": "buc",
       "cantitate": 7.0,
       "deviz": "4.3-03",
       "deviz_denumire": "Camine canal menajer 7b",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2101509"
-      ],
+      "subcomponents": [],
       "nr_ordine": 1,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -14597,16 +14516,14 @@
     },
     {
       "cod": "ACD07A1",
-      "denumire": "elemente la camine stas cu h>2 m cuprinzind: cos ac 60 cm l: 10174 -0150:2101509 -mortar de ciment m100-t",
+      "denumire": "elemente la camine stas cu h>2 m cuprinzind: cos ac 60 cm l: 10174 -mortar de ciment m100-t",
       "um": "m",
       "cantitate": 4.2,
       "deviz": "4.3-03",
       "deviz_denumire": "Camine canal menajer 7b",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2101509"
-      ],
+      "subcomponents": [],
       "nr_ordine": 3,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -14620,17 +14537,14 @@
     },
     {
       "cod": "ACD07D1",
-      "denumire": "elemente la camine stas cu h>2 m cuprinzind: aducer ea la cota din beton simplu monolit 20 cm l: 10173 -0228:2100912 -beton marfa clasa c20/16 (bc20/b250) l: 10174 -0150:2101509 -mortar de ciment m100-t",
+      "denumire": "elemente la camine stas cu h>2 m cuprinzind: aducer ea la cota din beton simplu monolit 20 cm l: 10173 -beton marfa clasa c20/16 (bc20/b250) l: 10174 -mortar de ciment m100-t",
       "um": "m",
       "cantitate": 1.4,
       "deviz": "4.3-03",
       "deviz_denumire": "Camine canal menajer 7b",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2100912",
-        "2101509"
-      ],
+      "subcomponents": [],
       "nr_ordine": 4,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -14775,16 +14689,14 @@
     },
     {
       "cod": "SE53A",
-      "denumire": "contor de apa (apometru) debit maxim =20 [mc/h] cu transmitere la distanta apometru dn 32 clasa metrologica 'c' l: sl49 -0003:4625562 -contor dn15mm apa cu transmitere la distanta",
+      "denumire": "contor de apa (apometru) debit maxim =20 [mc/h] cu transmitere la distanta apometru dn 32 clasa metrologica 'c' l: sl49 -contor dn15mm apa cu transmitere la distanta",
       "um": "buc",
       "cantitate": 1.0,
       "deviz": "4.3-05",
       "deviz_denumire": "Instalatii camin apometru",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "4625562"
-      ],
+      "subcomponents": [],
       "nr_ordine": 1,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -14798,16 +14710,14 @@
     },
     {
       "cod": "SD08XC",
-      "denumire": "robinet de trecere cu ventil si mufe diam 1 1/2' l:11411 -0067:4202589 -robinet trec fonta 1 1/2' b descarcare pn10",
+      "denumire": "robinet de trecere cu ventil si mufe diam 1 1/2' l:11411 -robinet trec fonta 1 1/2' b descarcare pn10",
       "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.3-05",
       "deviz_denumire": "Instalatii camin apometru",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "4202589"
-      ],
+      "subcomponents": [],
       "nr_ordine": 2,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -14961,7 +14871,7 @@
     },
     {
       "cod": "CE26A",
-      "denumire": "trecere+etansare protectie conducta la trecere pr in elemente de constructie 2 buc l:lc09b -0015:6102830 -chituri cu masticuri polimerice tip l: lc67i -0063: 6100334 -solutie tip citom polimerica",
+      "denumire": "trecere+etansare protectie conducta la trecere pr in elemente de constructie 2 buc l:lc09b -chituri cu masticuri polimerice tip l: lc67i -0063: 6100334 -solutie tip citom polimerica",
       "um": "m",
       "cantitate": 1.0,
       "deviz": "4.3-05",
@@ -14969,7 +14879,6 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [
-        "6102830",
         "6100334"
       ],
       "nr_ordine": 8,
@@ -15523,7 +15432,7 @@
     },
     {
       "cod": "SA04G",
-      "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 2 1/2' l: sl01 -0007:3306106 -teava inst.zinc nefil.m - 65(2 1/2) ol 32 1 s 7656 l: sl02a -0030: 4114251 -reductie fonta maleabila n4 s 477 65x 32 zn f3 l: sl02b -0061: 4115580 -teu fonta mal b1 s476 dn= 65 21/2 zn l: sl02c -0079:4118051 -cot fonta maleabila a1 s474 dn 65 21/2 zn l: sl02d -0116:4120248 -mufa fonta maleabila m2",
+      "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 2 1/2' l: sl01 -teava inst.zinc nefil.m - 65(2 1/2) ol 32 1 s 7656 l: sl02a -0030: 4114251 -reductie fonta maleabila n4 s 477 65x 32 zn f3 l: sl02b -0061: 4115580 -teu fonta mal b1 s476 dn= 65 21/2 zn l: sl02c -cot fonta maleabila a1 s474 dn 65 21/2 zn l: sl02d -mufa fonta maleabila m2",
       "um": "m",
       "cantitate": 12.0,
       "deviz": "4.3-06",
@@ -15531,11 +15440,8 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [
-        "3306106",
         "4114251",
-        "4115580",
-        "4118051",
-        "4120248"
+        "4115580"
       ],
       "nr_ordine": 20,
       "parent_nr_ordine": null,
@@ -15550,7 +15456,7 @@
     },
     {
       "cod": "SA04E",
-      "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 1 1/2 ' l: sl01 -0014:3306376 -teava inst.zinc filet m - 40(1 1/2) ol 32 1 s 7656 l: sl02a -0010:4114005 -reductie fonta maleabila n4 s 477 32x 25 zn fi l: sl02b -0056: 4115528 -teu fonta mal b1 s476 dn= 40 11/2 zn l: sl02c -0075: 4118013 -cot fonta maleabila a1 s474 dn 40 11/2 zn l: sl02d -0112:4120200 -mufa fonta maleabila m2",
+      "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 1 1/2 ' l: sl01 -teava inst.zinc filet m - 40(1 1/2) ol 32 1 s 7656 l: sl02a -reductie fonta maleabila n4 s 477 32x 25 zn fi l: sl02b -0056: 4115528 -teu fonta mal b1 s476 dn= 40 11/2 zn l: sl02c -0075: 4118013 -cot fonta maleabila a1 s474 dn 40 11/2 zn l: sl02d -mufa fonta maleabila m2",
       "um": "m",
       "cantitate": 2.0,
       "deviz": "4.3-06",
@@ -15558,11 +15464,8 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [
-        "3306376",
-        "4114005",
         "4115528",
-        "4118013",
-        "4120200"
+        "4118013"
       ],
       "nr_ordine": 21,
       "parent_nr_ordine": null,
@@ -15577,7 +15480,7 @@
     },
     {
       "cod": "SA04C",
-      "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 1 ' l: sl01 -0003:3306065 -teava inst.zinc nefil.m - 25 (1 ) ol 32 1 s 7656 l: sl02a -0005:4113908 -reductie fonta maleabila n4 s 477 25x 15 zn f2 l:sl02b -0052: 4115451 -teu fonta mal b1 s476 dn= 25 1 zn l: sl02c -0071: 4117954 -cot fonta maleabila az",
+      "denumire": "teava din otel zn pt instalatii, montata in cond distrib, la clad.de locuit si social cult, 1 ' l: sl01 -teava inst.zinc nefil.m - 25 (1 ) ol 32 1 s 7656 l: sl02a -reductie fonta maleabila n4 s 477 25x 15 zn f2 l:sl02b -0052: 4115451 -teu fonta mal b1 s476 dn= 25 1 zn l: sl02c -0071: 4117954 -cot fonta maleabila az",
       "um": "m",
       "cantitate": 2.0,
       "deviz": "4.3-06",
@@ -15585,8 +15488,6 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [
-        "3306065",
-        "4113908",
         "4115451",
         "4117954"
       ],
@@ -15603,7 +15504,7 @@
     },
     {
       "cod": "SA19B",
-      "denumire": "teava din material plastic pe, , d= 25mm l : sl05 -0022 : 6717079 -teava polietilena inalta densitate, pe100, pn16, dext 25mm l: sl06a -0002 : 6719421 -mufa polietilena, inalta densitate, electrofuziune, d=25mm l: slu01 -0001:0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax",
+      "denumire": "teava din material plastic pe, , d= 25mm l : sl05 -0022 : 6717079 -teava polietilena inalta densitate, pe100, pn16, dext 25mm l: sl06a -0002 : 6719421 -mufa polietilena, inalta densitate, electrofuziune, d=25mm l: slu01 -aparat de sudura prin polifuziune si electrofuziune-coprax",
       "um": "m",
       "cantitate": 2.0,
       "deviz": "4.3-06",
@@ -15612,8 +15513,7 @@
       "parent_code": null,
       "subcomponents": [
         "6717079",
-        "6719421",
-        "0003000"
+        "6719421"
       ],
       "nr_ordine": 23,
       "parent_nr_ordine": null,
@@ -15826,16 +15726,14 @@
     },
     {
       "cod": "ACB05A1",
-      "denumire": "imbinare cu flanse piese leg flanse armaturi si co ntoare cu dn 50 mm si pn 2,5-25 at l: 11713 -0001:6607551 -garn etans plan pn6/2,5 d= 50 m 100-500 g2x4",
+      "denumire": "imbinare cu flanse piese leg flanse armaturi si co ntoare cu dn 50 mm si pn 2,5-25 at l: 11713 -garn etans plan pn6/2,5 d= 50 m 100-500 g2x4",
       "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "6607551"
-      ],
+      "subcomponents": [],
       "nr_ordine": 31,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -15849,16 +15747,14 @@
     },
     {
       "cod": "ACB10A1",
-      "denumire": "flansa din otel rotunda montata prin sudura electr . avind dn = 50 l: 11705 -0001:4400791 - flansa plata pn 6 50- 60 ol37-2 et pu s 8012",
+      "denumire": "flansa din otel rotunda montata prin sudura electr . avind dn = 50 l: 11705 - flansa plata pn 6 50- 60 ol37-2 et pu s 8012",
       "um": "buc",
       "cantitate": 2.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "4400791"
-      ],
+      "subcomponents": [],
       "nr_ordine": 32,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -15872,16 +15768,14 @@
     },
     {
       "cod": "CL21A1",
-      "denumire": "montarea confectiilor metalice diverse inglobate in beton l: 10107 -0001:6309886 -confectii metalice inglobate in beton",
+      "denumire": "montarea confectiilor metalice diverse inglobate in beton l: 10107 -confectii metalice inglobate in beton",
       "um": "tona",
       "cantitate": 10.0,
       "deviz": "4.3-06",
       "deviz_denumire": "Inst sanitare GospApa",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "6309886"
-      ],
+      "subcomponents": [],
       "nr_ordine": 36,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -16021,7 +15915,7 @@
     },
     {
       "cod": "SA14J",
-      "denumire": "teava din material plastic pe, d=110mm l: sl05 -0020:6717077 -teava polietilena inalta densitate, pe100, pn10, dext 110 l: sl06a -0009: 6719428 -mufa polietilena, inalta densitate, electrofuziune, d=110 l: sl06b -0016: 6719435 -cot polietilena, inalta densitate, electrofuziune, d=110 l: slu01 -0001:0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax",
+      "denumire": "teava din material plastic pe, d=110mm l: sl05 -teava polietilena inalta densitate, pe100, pn10, dext 110 l: sl06a -0009: 6719428 -mufa polietilena, inalta densitate, electrofuziune, d=110 l: sl06b -0016: 6719435 -cot polietilena, inalta densitate, electrofuziune, d=110 l: slu01 -aparat de sudura prin polifuziune si electrofuziune-coprax",
       "um": "m",
       "cantitate": 2.0,
       "deviz": "4.3-07",
@@ -16029,10 +15923,8 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [
-        "6717077",
         "6719428",
-        "6719435",
-        "0003000"
+        "6719435"
       ],
       "nr_ordine": 1,
       "parent_nr_ordine": null,
@@ -16047,7 +15939,7 @@
     },
     {
       "cod": "SA14H",
-      "denumire": "teava din material plastic pe, d=75mm l: sl05 -0027: 6717084 - teava polietilena inalta densitate, pe100, pn16, dext 75mm l: sl06a -0007:6719426 -mufa polietilena, inalta densitate, electrofuziune, d=75mm l:sl06b -0014:6719433 -cot polietilena, inalta densitate, electrofuziune, d=75mm l: slu01 -0001 : 0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax",
+      "denumire": "teava din material plastic pe, d=75mm l: sl05 -0027: 6717084 - teava polietilena inalta densitate, pe100, pn16, dext 75mm l: sl06a -mufa polietilena, inalta densitate, electrofuziune, d=75mm l:sl06b -cot polietilena, inalta densitate, electrofuziune, d=75mm l: slu01 -0001 : 0003000 -aparat de sudura prin polifuziune si electrofuziune-coprax",
       "um": "m",
       "cantitate": 34.0,
       "deviz": "4.3-07",
@@ -16056,8 +15948,6 @@
       "parent_code": null,
       "subcomponents": [
         "6717084",
-        "6719426",
-        "6719433",
         "0003000"
       ],
       "nr_ordine": 2,
@@ -16233,7 +16123,7 @@
     },
     {
       "cod": "CE26A",
-      "denumire": "etansare rezistenta la foc la trecerile instalatii lor l: lc09b -0007:6102822 -chit de etansare rost keracolor grosso l: lc67i -0063 : 6100334 - solutie tip citom polimerica",
+      "denumire": "etansare rezistenta la foc la trecerile instalatii lor l: lc09b -chit de etansare rost keracolor grosso l: lc67i -0063 : 6100334 - solutie tip citom polimerica",
       "um": "m",
       "cantitate": 2.0,
       "deviz": "4.3-07",
@@ -16241,7 +16131,6 @@
       "is_component": false,
       "parent_code": null,
       "subcomponents": [
-        "6102822",
         "6100334"
       ],
       "nr_ordine": 10,
@@ -16888,18 +16777,14 @@
     },
     {
       "cod": "$2904054",
-      "denumire": "-dulapi molid-brad cl a tiv.g=28-58mml=4-6 mm lt=7-15cm l:lc03b -0002:2903490 -scind rasin lunga tiv cls a gr=18mm l=3,50m s 942 l: lc04c -0026:2900981 -lemn rot ptr piloti din ras.l=10-12m l:lc05b -0008:5886760 -cuie cu cap conic tip a1 1,8 x 35 ol34 s 2111",
+      "denumire": "-dulapi molid-brad cl a tiv.g=28-58mml=4-6 mm lt=7-15cm l:lc03b -scind rasin lunga tiv cls a gr=18mm l=3,50m s 942 l: lc04c -lemn rot ptr piloti din ras.l=10-12m l:lc05b -cuie cu cap conic tip a1 1,8 x 35 ol34 s 2111",
       "um": "mp",
       "cantitate": 37.5,
       "deviz": "4.3-04",
       "deviz_denumire": "Camin vane 1 b 1,9x1,9x1,5m",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2903490",
-        "2900981",
-        "5886760"
-      ],
+      "subcomponents": [],
       "nr_ordine": 1,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -17172,16 +17057,14 @@
     },
     {
       "cod": "IZF01A1",
-      "denumire": "amorsarea supr.pt.aplic.strat dif vapori cu bitum taiat in 2 straturi supraf orizont.si vert camin electrovane - cv2 1, 5x2, 0x2, 0m l:11203 -0003:2600050 -bitum pt.mat +lucr hidroizolatii tip h 82/92",
+      "denumire": "amorsarea supr.pt.aplic.strat dif vapori cu bitum taiat in 2 straturi supraf orizont.si vert camin electrovane - cv2 1, 5x2, 0x2, 0m l:11203 -bitum pt.mat +lucr hidroizolatii tip h 82/92",
       "um": "mp",
       "cantitate": 29.5,
       "deviz": "4.3-04",
       "deviz_denumire": "Camin vane 1 b 1,9x1,9x1,5m",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2600050"
-      ],
+      "subcomponents": [],
       "nr_ordine": 13,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -17195,16 +17078,14 @@
     },
     {
       "cod": "IZF05C1",
-      "denumire": "strat hidroizolant, la cald, cuve, rezerv.etc.cu cart on bitum la per curbi ter cu ape freatice camin electrovane - cv2 1,5x2, 0x2, 0m extrados p l: 11208 -0001:2601535 -cart bit fara str acop (blanc) ci300 100cmx20m s 138",
+      "denumire": "strat hidroizolant, la cald, cuve, rezerv.etc.cu cart on bitum la per curbi ter cu ape freatice camin electrovane - cv2 1,5x2, 0x2, 0m extrados p l: 11208 -cart bit fara str acop (blanc) ci300 100cmx20m s 138",
       "um": "mp",
       "cantitate": 29.5,
       "deviz": "4.3-04",
       "deviz_denumire": "Camin vane 1 b 1,9x1,9x1,5m",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2601535"
-      ],
+      "subcomponents": [],
       "nr_ordine": 14,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -17470,16 +17351,14 @@
     },
     {
       "cod": "IZF05A2",
-      "denumire": "strat hidroizolant executat la bazine, radiere, cu membrana bituminoasa tip pluvitec l: 11231 -0016:2602060 - membrana bituminoasa tip pluvitec",
+      "denumire": "strat hidroizolant executat la bazine, radiere, cu membrana bituminoasa tip pluvitec l: 11231 - membrana bituminoasa tip pluvitec",
       "um": "mp",
       "cantitate": 1.74,
       "deviz": "4.2-2",
       "deviz_denumire": "Structura",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2602060"
-      ],
+      "subcomponents": [],
       "nr_ordine": 3,
       "parent_nr_ordine": null,
       "pret_material": 0.0,
@@ -17511,6 +17390,32 @@
       "val_utilaj": 0.0,
       "pret_transport": 0.0,
       "val_transport": 0.0
+    },
+    {
+      "cod": "$2100911",
+      "denumire": "-beton marfa clasa c15/12 (bc15/b200)",
+      "um": "",
+      "cantitate": 0.0,
+      "deviz": "4.2-2",
+      "deviz_denumire": "Structura",
+      "is_component": false,
+      "parent_code": null,
+      "subcomponents": [],
+      "nr_ordine": 99,
+      "parent_nr_ordine": null,
+      "pret_material": 0.0,
+      "val_material": 0.0,
+      "pret_manopera": 0.0,
+      "val_manopera": 0.0,
+      "pret_utilaj": 0.0,
+      "val_utilaj": 0.0,
+      "pret_transport": 0.0,
+      "val_transport": 0.0,
+      "display_parent_cod": "RPCB02E",
+      "display_parent_nr_ordine": 4,
+      "cantitate_originala": 0.0,
+      "um_originala": "",
+      "cant_mostenita": true
     },
     {
       "cod": "TRA06A25",
@@ -17555,8 +17460,8 @@
       "val_transport": 0.0
     },
     {
-      "cod": "$2394",
-      "denumire": "- vibrator de adincime",
+      "cod": "$2100916",
+      "denumire": "-beton marfa clasa c30/25 (bc30/b400)",
       "um": "",
       "cantitate": 0.0,
       "deviz": "4.2-2",
@@ -17576,6 +17481,32 @@
       "val_transport": 0.0,
       "display_parent_cod": "CA05B",
       "display_parent_nr_ordine": 6,
+      "cantitate_originala": 0.0,
+      "um_originala": "",
+      "cant_mostenita": true
+    },
+    {
+      "cod": "$2394",
+      "denumire": "- vibrator de adincime",
+      "um": "tona",
+      "cantitate": 5.31,
+      "deviz": "4.2-2",
+      "deviz_denumire": "Structura",
+      "is_component": false,
+      "parent_code": null,
+      "subcomponents": [],
+      "nr_ordine": 2,
+      "parent_nr_ordine": null,
+      "pret_material": 0.0,
+      "val_material": 0.0,
+      "pret_manopera": 0.0,
+      "val_manopera": 0.0,
+      "pret_utilaj": 0.0,
+      "val_utilaj": 0.0,
+      "pret_transport": 0.0,
+      "val_transport": 0.0,
+      "display_parent_cod": "TRA06A25",
+      "display_parent_nr_ordine": 5,
       "cantitate_originala": 0.0,
       "um_originala": "",
       "cant_mostenita": true
@@ -18132,16 +18063,14 @@
     },
     {
       "cod": "DE10A1",
-      "denumire": "borduri prefabricate din beton pt trotuare 20 x 25 cm, pe fundatie din beton 30 x 15 cm l: 10173 -0228:2100912 -beton marfa clasa c20/16 (bc20/b250)",
+      "denumire": "borduri prefabricate din beton pt trotuare 20 x 25 cm, pe fundatie din beton 30 x 15 cm l: 10173 -beton marfa clasa c20/16 (bc20/b250)",
       "um": "m",
       "cantitate": 132.0,
       "deviz": "4.4-2",
       "deviz_denumire": "Parcare",
       "is_component": false,
       "parent_code": null,
-      "subcomponents": [
-        "2100912"
-      ],
+      "subcomponents": [],
       "nr_ordine": 13,
       "parent_nr_ordine": null,
       "pret_material": 0.0,

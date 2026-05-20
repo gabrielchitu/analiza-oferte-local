@@ -18,7 +18,7 @@ Pipeline Python care:
 
 ---
 
-## Starea la 2026-05-20 (branch: feature/7.0, post-sesiune v7.1 parțial)
+## Starea la 2026-05-21 (branch: feature/7.0)
 
 **Branch activ:** `feature/7.0`  
 **Tag stabil:** `v7.0` (la baza branch-ului)  
@@ -30,23 +30,31 @@ Pipeline Python care:
 
 | Ofertă | matched | lipsa | extra | similar |
 |--------|---------|-------|-------|---------|
-| Oferta 1 | 1041 | 3 | 14 | 0 |
-| Oferta 2 | 1060 | 90 | 22 | 1 |
+| Oferta 1 | 1056 | 3 | 36 | 0 |
+| Oferta 2 | 1066 | 89 | 41 | 1 |
+
+**Față de v7.0 baseline (1041/1060):** +15/+6 matched datorită fix-ului parser eDevize.
 
 ---
 
-## Ce s-a livrat în v7.1 (parțial, aceeași sesiune)
+## Ce s-a livrat (sesiunile 2026-05-20/21)
 
-### Livrat și funcțional
-1. **`build_ref_catalog(ref_articole)`** în `AgentComparator_local.py` — catalog `{$cod → parent_cod}` extras exclusiv din referință. Baza pentru v7.2 matching ierarhic.
-2. **Separare articole fără deviz** — în `match_global()`, orice articol (principal sau subarticol) fără `deviz` setat e exclus din matching și returnat ca al 4-lea element al tuple-ului: `articole_fara_deviz = [('ref'|'oferta', art), ...]`
-3. **`match_global` returnează 4-tuple**: `(neconformitati, matches, matched_ref_keys, articole_fara_deviz)`
-4. **`articole_nelocalizate` în raport** — `build_raport_ierarhic()` acceptă `articole_fara_deviz=` și le include în output JSON. Raportul DOCX afișează secțiunea "Articole nelocalizate — verificare manuală" la final.
+### v7.0
+- `nr_ordine`, `parent_nr_ordine` pe articole extrase
+- `_apply_parent_inheritance` cu fallback parent detection
+- `ARTICOL_ORPHAN`/`lenient` eliminate; deduplicare O(n)
+- `shared/report_builder.py`: `build_raport_ierarhic()`
+- Raport DOCX ierarhic: col 2+6 principal/secundar, TOTAL DEVIZ split ref/ofertă
 
-### Nerealizat (necesită v7.2)
-- **Layer 0 matching ierarhic** — TENTAT și REVERTAT de 2× din cauza regresiei (1041→804 matched). Problema: `display_parent_cod` e inconsistent între ref și ofertă (extras din PDF, nu din catalog normativ). Necesită catalog normativ extern.
-- **Caz A** — `$` fără parent dar cu deviz: exclus cu Layer 0. Revine în v7.2.
-- **`$6720287` false positive** — fuzzy-matchuit la CK26A (0.54 pe "pvc"). Fix imposibil fără catalog normativ: blocarea selectivă afectează 152 matches legitime.
+### v7.1 parțial
+- `build_ref_catalog()` în `AgentComparator_local.py` — `{$cod → parent_cod}` din ref
+- `match_global()` returnează **4-tuple**: `(neconformitati, matches, matched_ref_keys, articole_fara_deviz)`
+- Articole fără deviz excluse din matching → secțiune "Articole nelocalizate" în DOCX
+
+### Parser fix (2026-05-21)
+- **Format eDevize breviar**: linii `-XXXX:NNNNNNN` → convertite la `$NNNNNNN` în `extract_articles_regex`
+- **142 coduri** în referință în acest format; parser fix captează o parte din ele (+15 matched OF1)
+- Restul (pagina 66, format breviar fără cantitate explicită) — nerezolvat (vezi limitări)
 
 ---
 
@@ -55,46 +63,43 @@ Pipeline Python care:
 | Problemă | Cauza | Fix necesar |
 |----------|-------|------------|
 | `$6720287` → CK26A fuzzy fals | threshold 0.45 prea mic; nu se poate ridica selectiv | Catalog normativ extern (v7.2) |
-| Layer 0 imposibil | `display_parent_cod` din PDF — inconsistent ref vs ofertă | Catalog normativ ISDP/eDevize |
-| `$6720289` LIPSA nerezolvat | Ref are `$6720289`, oferta are `$6720287` sub același CK25A | Același catalog normativ |
+| Layer 0 matching imposibil | `display_parent_cod` inconsistent ref vs ofertă (extras din PDF) | Catalog normativ ISDP/eDevize |
+| Breviar eDevize pg 66 | Resurse `$` listate fără cantitate între articole normative | Parser extins pentru format breviar |
+| Extra +22 față de v7.0 | `$` coduri eDevize care fuzzy-matchuiau greșit la normative → acum EXTRA | Acceptat ca mai precis |
 
 ---
 
-## Arhitectura rapidă (v7.0 + v7.1 parțial)
+## Arhitectura rapidă
 
 ```
 local_run.py
 │
 ├── extract_document(referinta/oferta)
 │   ├── f3_extractor.py → extract_articles_v3() + _apply_parent_inheritance()
-│   └── f3_regex_parser.py → nr_ordine, parent_nr_ordine, sub_counter
+│   └── f3_regex_parser.py
+│       ├── extract_articles_regex() → normalizare -XXXX:NNNNNNN → $NNNNNNN ← NOU
+│       └── nr_ordine, parent_nr_ordine, sub_counter
 │
 └── compare_and_report()
     ├── AgentComparator_local
-    │   ├── build_ref_catalog()              ← NOU v7.1: {$cod→parent}
-    │   ├── match_global() → 4-tuple         ← NOU v7.1
-    │   │   ├── Separă articole fără deviz (Caz B)
-    │   │   └── Layer 1-4 (neschimbat)
-    │   └── _apply_parent_inheritance()
+    │   ├── build_ref_catalog()              ← v7.1: {$cod→parent}
+    │   └── match_global() → 4-tuple         ← v7.1: +articole_fara_deviz
     ├── shared/report_builder.py
-    │   └── build_raport_ierarhic(articole_fara_deviz=) ← NOU v7.1
+    │   └── build_raport_ierarhic(articole_fara_deviz=)
     └── shared/report_word.py
-        ├── Tabel ierarhic (col 2+6: principal bold, secundar indentat)
-        ├── TOTAL DEVIZ: ref vs ofertă cu semnal vizual ▼▲✓
-        └── "Articole nelocalizate" la final         ← NOU v7.1
+        ├── Tabel ierarhic (col 2+6)
+        ├── TOTAL DEVIZ: ref vs ofertă ▼▲✓
+        └── "Articole nelocalizate" la final
 ```
-
-**Spec v7.1:** `docs/superpowers/specs/2026-05-20-v7.1-matching-ierarhic-design.md`
 
 ---
 
-## Ce rămâne de făcut (v7.2)
+## Ce rămâne de făcut
 
-1. **Catalog normativ extern** — mapare `$cod → normativ_cod` din baza de date ISDP/eDevize, independent de extracția PDF. Fără asta, Layer 0 și Caz A sunt imposibile.
-2. **Layer 0 matching** cu catalog extern — cheie `(deviz, catalog_parent, $cod)` fiabilă
-3. **Caz A** — `$` fără parent dar cu deviz: rând ⚠ în raport, exclus matching
-4. **Merge `feature/7.0` → `main`** — după validare vizuală completă
-5. **Testare alte documente** — `Camin Maneciu/`, `Scoala Dragomiresti/`, `Scoala Sportiva Racari/`
+1. **Format breviar eDevize** — resurse `$` fără cantitate (pg 66 referință, SA04E): parser trebuie să le extragă și să le trimită la `_apply_parent_inheritance` pentru a moșteni cant/UM de la normativ
+2. **Catalog normativ extern** — mapare `$cod → normativ` din ISDP/eDevize pentru Layer 0 (v7.2)
+3. **Merge `feature/7.0` → `main`** — după validare vizuală completă
+4. **Testare alte documente** — `Camin Maneciu/`, `Scoala Dragomiresti/`, `Scoala Sportiva Racari/`
 
 ---
 
@@ -120,13 +125,6 @@ for f in ['comparatie_oferta_1.json', 'comparatie_oferta_2.json']:
     print(f'{f}: matched={comp[\"matches\"]}', dict(sorted(by_tip.items())))
 "
 
-# Verificare ref_catalog
-.venv/bin/python -c "
-from AgentComparator_local import build_ref_catalog
-import json; from pathlib import Path
-ref = json.loads(Path('output_AO/referinta.json').read_text())['articole']
-cat = build_ref_catalog(ref)
-print(f'Catalog: {len(cat)} coduri resursa cu parent cunoscut')
-print(list(cat.items())[:5])
-"
+# Verificare format eDevize în DI
+# python3 -c "import json,re; from pathlib import Path; di=json.loads(Path('input_AO/di_referinta.json').read_text()); _RE=re.compile(r'^-\d{4}:\s*(\d+)$'); matches=[(p.get('page_number'), l.get('content','')) for p in di.get('pages',[]) for l in p.get('lines',[]) if _RE.match((l.get('content','') if isinstance(l,dict) else str(l)).strip())]; print(f'{len(matches)} coduri breviar in ref')"
 ```
