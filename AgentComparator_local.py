@@ -257,20 +257,48 @@ def match_global(
         um = (a.get("um") or "").strip()
         return cant == 0 and (not um or um == um.upper())
 
+    # Build canonical parent catalog from reference (before dedup)
+    ref_catalog = build_ref_catalog(ref_articole)
+
+    # Separate: $ in catalog → Layer 0; $ no parent → Caz A; others → Layer 1-4
+    ref_caz_a: list = []  # $ with deviz but no parent in catalog
+
     ref_seen = {}
-    ref_dedup = []
+    ref_dedup = []        # main articles for Layer 1-4
+    ref_subarticole = []  # $ with parent in catalog → Layer 0
     for a in ref_articole:
-        if a.get("cod") and not a.get("is_component") and not _is_breviar_artifact(a):
-            key = (a.get("deviz"), a.get("cod"), a.get("um"), a.get("cantitate"))
+        if not a.get("cod") or _is_breviar_artifact(a):
+            continue
+        cod = a.get("cod", "")
+        if cod.startswith("$") and not a.get("is_component"):
+            if cod in ref_catalog:
+                ref_subarticole.append(a)
+            else:
+                ref_caz_a.append(a)  # Caz A: $ with deviz but no parent
+        elif not a.get("is_component"):
+            key = (a.get("deviz"), cod, a.get("um"), a.get("cantitate"))
             if key not in ref_seen:
                 ref_dedup.append(a)
                 ref_seen[key] = True
 
     oferta_seen = {}
-    oferta_dedup = []
+    oferta_dedup = []           # main articles for Layer 1-4
+    oferta_sub_catalog = []     # $ in ref_catalog → Layer 0
+    oferta_sub_new = []         # $ NOT in ref_catalog but has display_parent_cod → EXTRA
+    oferta_sub_no_parent = []   # $ NOT in ref_catalog, no display_parent_cod → Caz A
     for a in oferta_articole:
-        if a.get("cod") and not _is_breviar_artifact(a):
-            key = (a.get("deviz"), a.get("cod"), a.get("um"), a.get("cantitate"))
+        if not a.get("cod") or _is_breviar_artifact(a):
+            continue
+        cod = a.get("cod", "")
+        if cod.startswith("$"):
+            if cod in ref_catalog:
+                oferta_sub_catalog.append(a)
+            elif a.get("display_parent_cod"):
+                oferta_sub_new.append(a)  # new $ with known parent → EXTRA
+            else:
+                oferta_sub_no_parent.append(a)  # Caz A in offer
+        else:
+            key = (a.get("deviz"), cod, a.get("um"), a.get("cantitate"))
             if key not in oferta_seen:
                 oferta_dedup.append(a)
                 oferta_seen[key] = True
@@ -310,6 +338,78 @@ def match_global(
     # View 1:1 pentru Layer 2/3 (coduri OCR-eronate apar o singură dată în practică)
     ref_map = {k: v[0] for k, v in ref_by_key.items()}
     oferta_map = {k: v[0] for k, v in oferta_by_key.items()}
+
+    # ── Layer 0: Matching ierarhic (deviz + catalog_parent + $cod) ───────────────
+    oferta_hier: dict = {}  # (deviz, catalog_parent, $cod) → oferta_art
+    for a in oferta_sub_catalog:
+        parent = ref_catalog[a.get("cod")]  # canonical parent FROM CATALOG, not from offer
+        key = (a.get("deviz", ""), parent, a.get("cod", ""))
+        if key not in oferta_hier:
+            oferta_hier[key] = a
+
+    oferta_sub_matched: set = set()
+    for ref_art in ref_subarticole:
+        cod = ref_art.get("cod", "")
+        parent = ref_catalog[cod]
+        key = (ref_art.get("deviz", ""), parent, cod)
+        deviz_cod = ref_art.get("deviz", "")
+        deviz_den = ref_art.get("deviz_denumire", "")
+
+        oferta_art = oferta_hier.get(key)
+        if oferta_art is not None:
+            oferta_sub_matched.add(id(oferta_art))
+            diffs = compare_articles(ref_art, oferta_art, include_prices=include_prices)
+            arith = check_arithmetic(oferta_art) if include_prices else []
+            for d in diffs + arith:
+                _enrich(d, ref_art, oferta_art, deviz_cod, deviz_den)
+            neconformitati.extend(diffs + arith)
+            matches.append({
+                "ref_cod": cod,
+                "ref_denumire": ref_art.get("denumire", ""),
+                "oferta_cod": oferta_art.get("cod", ""),
+                "oferta_denumire": oferta_art.get("denumire", ""),
+                "deviz": deviz_cod,
+            })
+        else:
+            nc = {"tip": "ARTICOL_LIPSA"}
+            _enrich(nc, ref_art, None, deviz_cod, deviz_den)
+            neconformitati.append(nc)
+
+    # Ofertă subarticole nematchuite → ARTICOL_EXTRA
+    def _make_extra_nc(oferta_art: dict) -> dict:
+        deviz_den = oferta_art.get("deviz_denumire", "")
+        if "e Devize" in deviz_den:
+            deviz_den = deviz_den.split("e Devize")[0].strip()
+        return {
+            "tip": "ARTICOL_EXTRA",
+            "deviz_ref": oferta_art.get("deviz", ""),
+            "deviz_denumire": deviz_den,
+            "is_component": True,
+            "ref_cod": "", "ref_denumire": "",
+            "oferta_cod": oferta_art.get("cod", ""),
+            "oferta_denumire": oferta_art.get("denumire", ""),
+            "oferta_um": oferta_art.get("um", ""),
+            "oferta_cantitate": oferta_art.get("cantitate", ""),
+            "oferta_display_parent_cod": (oferta_art.get("display_parent_cod")
+                                          or ref_catalog.get(oferta_art.get("cod", ""))),
+            "nr_ordine_oferta": oferta_art.get("nr_ordine"),
+        }
+
+    for a in oferta_sub_catalog:
+        if id(a) not in oferta_sub_matched:
+            neconformitati.append(_make_extra_nc(a))
+
+    for a in oferta_sub_new:
+        neconformitati.append(_make_extra_nc(a))
+
+    caz_a_articole = ref_caz_a + oferta_sub_no_parent
+
+    logger.info(
+        f"[COMP] Layer 0: ref_sub={len(ref_subarticole)}, "
+        f"matched={len(oferta_sub_matched)}, "
+        f"sub_extra={len(oferta_sub_catalog)-len(oferta_sub_matched)+len(oferta_sub_new)}, "
+        f"caz_a={len(caz_a_articole)}"
+    )
 
     # Layer 1: N:M exact match pe (deviz, cod) — sortate după cantitate, perechi în ordine.
     # ref(34.2)↔oferta(34.2), ref(40.0)↔oferta(40.0); excesul → LIPSA/EXTRA.
@@ -981,4 +1081,5 @@ def match_global(
     )
     # Construieste setul cheilor REF match-uite pentru orphan detection
     matched_ref_keys = matched_oferta_keys | matched_by_llm_ref_keys
-    return neconformitati, matches, matched_ref_keys, articole_fara_deviz
+    articole_speciale = articole_fara_deviz + [('caz_a', a) for a in caz_a_articole]
+    return neconformitati, matches, matched_ref_keys, articole_speciale
