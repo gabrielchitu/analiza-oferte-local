@@ -162,12 +162,19 @@ def _apply_parent_inheritance(articole: list) -> list:
         if not cod.startswith('$'):
             prev_non_dollar = art
 
-        # $ code cu același nr_ordine ca ultimul non-$ → resursă normativă (display only)
+        # $ code cu același nr_ordine ca ultimul non-$ → resursă normativă
         if (cod.startswith('$') and prev_non_dollar is not None
                 and art_nr is not None
                 and art_nr == prev_non_dollar.get('nr_ordine')):
             art['display_parent_cod'] = prev_non_dollar.get('cod')
             art['display_parent_nr_ordine'] = prev_non_dollar.get('nr_ordine')
+            # Moștenire cant/UM de la principal dacă subarticolul are cant=0 sau UM gol
+            if not art.get('cantitate') or not art.get('um'):
+                art['cantitate_originala'] = art.get('cantitate')
+                art['um_originala'] = art.get('um')
+                art['cantitate'] = art.get('cantitate') or prev_non_dollar.get('cantitate')
+                art['um'] = art.get('um') or prev_non_dollar.get('um')
+                art['cant_mostenita'] = True
 
         # Moștenire cant/UM pentru is_component=True (logica existentă)
         if not art.get('is_component'):

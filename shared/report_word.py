@@ -694,7 +694,8 @@ def _generate_word_hierarchical(doc, raport: dict, comp: dict,
         n_extra = len(extra_by_deviz.get(dv_cod, []))
         n_main = sumar.get('total', 0)
         n_matched = sumar.get('matched', 0)
-        n_offer_main = n_matched + n_extra  # articole principale în ofertă
+        n_neconf = sumar.get('neconformitati', 0)  # prezente în ofertă dar cu diferențe
+        n_offer_main = n_matched + n_neconf + n_extra  # articole principale în ofertă
         n_sub = sum(len(art.get('subarticole', [])) for art in dv.get('articole', []))
 
         _add_deviz_heading(table, dv_cod, dv_den, ref_count=n_lipsa, oferta_count=n_extra)
