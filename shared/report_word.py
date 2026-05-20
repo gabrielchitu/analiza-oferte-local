@@ -344,7 +344,11 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict) -> None:
     is_suspect = bool(neconf.get("suspect"))
     is_subcomp = neconf.get('is_component', False)
 
-    row[0].paragraphs[0].add_run(str(row_nr))
+    nr_ordine_ref = neconf.get("nr_ordine_ref")
+    nr_text = str(row_nr)
+    if nr_ordine_ref is not None:
+        nr_text += f"\n({nr_ordine_ref})"
+    row[0].paragraphs[0].add_run(nr_text)
 
     deviz_cod = neconf.get("deviz_ref", "")
     deviz_den = deviz_map.get(deviz_cod, "")
@@ -353,9 +357,15 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict) -> None:
     deviz_display = f"{deviz_cod} - {deviz_den}" if deviz_den else str(deviz_cod)
     row[1].paragraphs[0].add_run(deviz_display).bold = True
 
-    # Add badge to code column for subcomponents
+    # Add badge + parent_cod to code column for subcomponents
     badge = _get_subcomponent_badge() if is_subcomp else ''
-    code_text = f"{badge} {neconf.get('ref_cod', '')}" if is_subcomp else str(neconf.get("ref_cod", ""))
+    parent_cod_ref = neconf.get("parent_cod_ref") if is_subcomp else None
+    if is_subcomp:
+        code_text = f"{badge} {neconf.get('ref_cod', '')}"
+        if parent_cod_ref:
+            code_text += f"\n↑ {parent_cod_ref}"
+    else:
+        code_text = str(neconf.get("ref_cod", ""))
     cod_run = row[2].paragraphs[0].add_run(code_text)
     cod_run.bold = True
     cod_run.font.size = Pt(9)
@@ -551,33 +561,35 @@ def _add_article_block(doc, art: dict) -> None:
         _add_subarticol_block(doc, sub)
 
 
-def _generate_word_hierarchical(doc, raport: dict) -> None:
-    """Generează corpul documentului ierarhic."""
+def _generate_word_hierarchical(doc, raport: dict, comp: dict,
+                                deviz_mismatches_list: list, devize_extra: list,
+                                devize_lipsa: list, audit_data: dict) -> None:
+    """Generează tabelul în ordine ierarhică: principal → subarticolele sale, devize în ordinea ref."""
+    # Build ordered flat list: for each deviz in ref order, principal ncs then subarticle ncs
+    seen = set()
+    ordered_ncs = []
+
     for dv in raport.get('devize', []):
-        _add_deviz_section_header(doc, dv)
-
-        has_any_nc = any(_has_neconformitate(art) for art in dv.get('articole', []))
-        if not has_any_nc:
-            total = dv.get('sumar_deviz', {}).get('total', 0)
-            doc.add_paragraph(f"Toate articolele conforme. Total articole principale: {total}")
-            continue
-
         for art in dv.get('articole', []):
-            if _has_neconformitate(art):
-                _add_article_block(doc, art)
+            for nc in art.get('neconformitati', []):
+                nc_id = id(nc)
+                if nc_id not in seen:
+                    seen.add(nc_id)
+                    ordered_ncs.append(nc)
+            for sub in art.get('subarticole', []):
+                for nc in sub.get('neconformitati', []):
+                    nc_id = id(nc)
+                    if nc_id not in seen:
+                        seen.add(nc_id)
+                        ordered_ncs.append(nc)
 
-    erori = raport.get('erori_extractie', [])
-    if erori:
-        doc.add_heading("Erori de extracție / OCR", level=2)
-        doc.add_paragraph(
-            "Subarticolele de mai jos au fost extrase fără articol principal asociat. "
-            "Verificați manual în PDF-ul ofertei."
-        )
-        for err in erori:
-            doc.add_paragraph(
-                f"• {err.get('cod')} — {err.get('denumire')} [deviz: {err.get('deviz')}]",
-                style='List Bullet'
-            )
+    # Append anything not yet seen (ARTICOL_EXTRA and anything from later layers)
+    for nc in comp.get('neconformitati', []):
+        if id(nc) not in seen:
+            ordered_ncs.append(nc)
+
+    _generate_word_flat(doc, ordered_ncs, deviz_mismatches_list,
+                        devize_extra, devize_lipsa, audit_data, comp)
 
 
 def _generate_word_flat(doc, neconformitati: list, deviz_mismatches_list: list,
@@ -771,11 +783,9 @@ def generate_word(
     # ── Dispatch: hierarchical or flat ───────────────────────────────
     raport_ierarhic = comp.get('raport_ierarhic')
     if raport_ierarhic:
-        _generate_word_hierarchical(doc, raport_ierarhic)
-        doc.add_paragraph()
-        _add_quality_alerts(doc, deviz_mismatches_list, devize_extra, devize_lipsa)
-        if audit_data:
-            _add_audit_section(doc, audit_data)
+        _generate_word_hierarchical(doc, raport_ierarhic, comp,
+                                    deviz_mismatches_list, devize_extra,
+                                    devize_lipsa, audit_data)
     else:
         _generate_word_flat(doc, neconformitati, deviz_mismatches_list,
                             devize_extra, devize_lipsa, audit_data, comp)
