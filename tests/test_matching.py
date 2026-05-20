@@ -45,3 +45,21 @@ def test_component_quantity_mismatch():
 
     assert ref_um != oferta_um, "Test data should have different UMs"
     assert ref_um == "m" and oferta_um == "buc"
+
+
+def test_deduplicate_on_preserves_highest_priority():
+    from AgentComparator_local import _deduplicate_neconformitati
+    ncs = [
+        {'deviz': 'D1', 'ref_cod': 'TF24A', 'oferta_cod': 'TF24A_', 'tip': 'DIFERENTA_CAMP'},
+        {'deviz': 'D1', 'ref_cod': 'TF24A', 'oferta_cod': 'TF24A_', 'tip': 'COD_SIMILAR'},
+    ]
+    result = _deduplicate_neconformitati(ncs)
+    assert len(result) == 1
+    assert result[0]['tip'] == 'COD_SIMILAR'
+
+
+def test_deduplicate_no_articol_orphan_in_priority():
+    from AgentComparator_local import _deduplicate_neconformitati
+    import inspect
+    src = inspect.getsource(_deduplicate_neconformitati)
+    assert 'ARTICOL_ORPHAN' not in src

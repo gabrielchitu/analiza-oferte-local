@@ -163,61 +163,36 @@ def _art_key(art: dict) -> tuple:
 
 
 def _deduplicate_neconformitati(neconformitati: list) -> list:
-    """
-    Remove duplicate non-conformities for the same (deviz, ref_cod, oferta_cod) pair.
+    """Remove duplicate non-conformities for the same (deviz, ref_cod, oferta_cod) pair.
 
     When the same article pair appears multiple times with different issue types,
     keep only the primary (most important) one. Priority order:
     1. COD_SIMILAR (code difference detected)
-    2. ARTICOL_ORPHAN (article in wrong deviz)
-    3. Others (DIFERENTA_CAMP, etc)
-
-    This handles cases like:
-    - ref $3274270 ↔ oferta $32742701: reported as both COD_SIMILAR + DIFERENTA_CAMP
-    - Should keep only COD_SIMILAR (the root cause), discard DIFERENTA_CAMP
+    2. Others (DIFERENTA_CAMP, UM_DIFERIT)
+    3. ARTICOL_LIPSA, ARTICOL_EXTRA (informational)
     """
     if not neconformitati:
         return neconformitati
 
-    # Priority map for issue types (higher number = higher priority, kept)
     priority = {
         'COD_SIMILAR': 3,
-        'ARTICOL_ORPHAN': 2,
         'DIFERENTA_CAMP': 1,
         'UM_DIFERIT': 1,
         'ARTICOL_LIPSA': 0,
         'ARTICOL_EXTRA': 0,
     }
 
-    # Group by (deviz, ref_cod, oferta_cod)
-    seen = {}
-    result = []
+    best: dict = {}
+    result_indexed: dict = {}
 
     for nc in neconformitati:
-        deviz = nc.get('deviz', '')
-        ref_cod = nc.get('ref_cod', '')
-        oferta_cod = nc.get('oferta_cod', '')
-        tip = nc.get('tip', '')
-        key = (deviz, ref_cod, oferta_cod)
+        key = (nc.get('deviz', ''), nc.get('ref_cod', ''), nc.get('oferta_cod', ''))
+        curr_p = priority.get(nc.get('tip', ''), 0)
+        if key not in best or curr_p > best[key]:
+            best[key] = curr_p
+            result_indexed[key] = nc
 
-        if key not in seen:
-            # First occurrence: add and track
-            seen[key] = (tip, nc)
-            result.append(nc)
-        else:
-            # Seen before: keep only if this has higher priority
-            prev_tip, prev_nc = seen[key]
-            curr_priority = priority.get(tip, 0)
-            prev_priority = priority.get(prev_tip, 0)
-
-            if curr_priority > prev_priority:
-                # Replace with higher priority
-                result.remove(prev_nc)
-                seen[key] = (tip, nc)
-                result.append(nc)
-            # else: keep the previous one (already higher or equal priority)
-
-    return result
+    return list(result_indexed.values())
 
 
 def _should_match_cant_um(article: dict, comp_mode: str = 'strict') -> bool:
