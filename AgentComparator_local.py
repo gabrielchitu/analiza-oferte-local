@@ -201,43 +201,12 @@ def _deduplicate_neconformitati(neconformitati: list) -> list:
     return list(result_indexed.values())
 
 
-def _should_match_cant_um(article: dict, comp_mode: str = 'strict') -> bool:
-    """
-    Determine if article should be matched on (cod, cant, UM).
-
-    Returns False for subcomponents with missing cant/UM in lenient mode,
-    allowing them to match by code only.
-
-    Args:
-        article: Article dict to check
-        comp_mode: 'strict' (always validate cant+UM) or 'lenient' (code-only for incomplete subcomponents)
-
-    Returns:
-        True if cant+UM should be validated, False if code-only match is acceptable
-    """
-    is_subcomp = article.get('is_component', False)
-    has_cant = article.get('cantitate', 0) != 0
-    has_um = bool(article.get('um', '').strip())
-
-    # In strict mode, always validate cant+UM
-    if comp_mode == 'strict':
-        return True
-
-    # In lenient mode: if subcomponent lacks cant or UM, skip cant+UM validation
-    if is_subcomp and (not has_cant or not has_um):
-        return False
-
-    # Otherwise validate normally
-    return True
-
-
 def match_global(
     ref_articole: list,
     oferta_articole: list,
     openai_client,
     deployment: str,
     include_prices: bool = False,
-    comp_mode: str = 'strict',
 ) -> tuple:
     """
     3-layer matching (Layer 1 exact, Layer 2 normalized, Layer 2.5 cross-deviz, Layer 3 LLM).
@@ -245,7 +214,6 @@ def match_global(
 
     Identic cu _match_global din AgentComparator/core.py dar fara dependente Azure.
     include_prices=False implicit — pentru comparare fara preturi.
-    comp_mode: 'strict' (validate cant+UM for all) or 'lenient' (code-only for incomplete subcomponents)
     """
     # Deduplicate by 4-tuple (deviz, cod, um, cantitate) before matching
     # If same article appears multiple times with identical values, keep first occurrence
@@ -311,7 +279,6 @@ def match_global(
 
     # Layer 1: N:M exact match pe (deviz, cod) — sortate după cantitate, perechi în ordine.
     # ref(34.2)↔oferta(34.2), ref(40.0)↔oferta(40.0); excesul → LIPSA/EXTRA.
-    # In lenient mode: subcomponents with missing cant/UM can match by code alone.
     for key, ref_list in ref_by_key.items():
         oferta_list = oferta_by_key.get(key, [])
         deviz_cod = ref_list[0].get("deviz", "")
@@ -323,16 +290,7 @@ def match_global(
 
         matched_oferta_keys.add(key)
 
-        # Check if we need strict cant+UM matching or can allow code-only match for subcomponents
-        # Split into two groups: those needing cant+UM match vs those that can match by code only
-        ref_strict = []  # articles requiring cant+UM match
-        ref_lenient = []  # subcomponents that can match by code only
-
-        for ref_art in ref_list:
-            if _should_match_cant_um(ref_art, comp_mode):
-                ref_strict.append(ref_art)
-            else:
-                ref_lenient.append(ref_art)
+        ref_strict = ref_list
 
         # Process strict-mode references using best-first global matching.
         # At each step pick the (ref, offer) pair with minimum score across ALL remaining pairs.
@@ -380,33 +338,7 @@ def match_global(
             })
         # oferta_pool holds excess (not consumed by strict refs); unmatched_strict_ref has ref overflow
         unmatched_ref.extend(unmatched_strict_ref)
-
-        # Process lenient-mode references (subcomponents with incomplete data)
-        # These can match by code only, consuming remaining offer articles
-        remaining_oferta = oferta_pool
-        for ref_art, oferta_art in zip(ref_lenient, remaining_oferta):
-            # Code-only match for subcomponents in lenient mode
-            # For incomplete subcomponents, skip cant+UM validation (they can differ)
-            # Only check price/arithmetic
-            diffs = compare_articles(ref_art, oferta_art, include_prices=include_prices)
-            # Filter out UM_DIFERIT (tip) and cantitate field differences
-            diffs = [d for d in diffs if d.get('tip') != 'UM_DIFERIT' and d.get('camp') != 'cantitate']
-            arith = check_arithmetic(oferta_art) if include_prices else []
-            for d in diffs + arith:
-                _enrich(d, ref_art, oferta_art, deviz_cod, deviz_den)
-            neconformitati.extend(diffs + arith)
-            matches.append({
-                "ref_cod": ref_art.get("cod", ""),
-                "ref_denumire": ref_art.get("denumire", ""),
-                "oferta_cod": oferta_art.get("cod", ""),
-                "oferta_denumire": oferta_art.get("denumire", ""),
-            })
-
-        # Unmatched references (strict requiring exact match + lenient requiring code match)
-        n_lenient_matched = min(len(ref_lenient), len(remaining_oferta))
-        unmatched_ref.extend(ref_lenient[n_lenient_matched:])
-        # Exces oferta → ARTICOL_EXTRA (remaining after both strict and lenient consumed)
-        extra_from_nm.extend(remaining_oferta[n_lenient_matched:])
+        extra_from_nm.extend(oferta_pool)
 
     # Layer 2: Normalized N:M match pe (deviz, normalize(cod))
     # Upgrade față de 1:1: grupează toate ref nemat-uite cu același norm_key
@@ -973,8 +905,7 @@ def match_global(
             oferta_um = nc.get('oferta_um', '').strip()
 
             if oferta_um and ref_um != oferta_um:
-                # UM mismatch (ref empty or inherited-but-different) → lenient match
-                logger.debug(f"[COMP] Lenient match: {oferta_cod} (ref UM={ref_um!r}, oferta UM={oferta_um})")
+                logger.debug(f"[COMP] UM mismatch on $ cod: {oferta_cod} (ref UM={ref_um!r}, oferta UM={oferta_um})")
                 # Add UM_DIFERIT nonconformity
                 neconformitati.append({
                     'tip': 'UM_DIFERIT',
