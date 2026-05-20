@@ -353,35 +353,39 @@ def match_global(
             else:
                 ref_lenient.append(ref_art)
 
-        # Process strict-mode references using nearest-neighbor cantitate matching.
-        # Greedy: for each ref (sorted by cant), pick closest-cantitate oferta remaining.
-        # Beats sequential zip when oferta has extra articles that cause wrong pairings.
-        # E.g. ref=[161,482,756] oferta=[161,207,482,756] → excess=207 not 756.
+        # Process strict-mode references using best-first global matching.
+        # At each step pick the (ref, offer) pair with minimum score across ALL remaining pairs.
+        # Prevents greedy-order errors: e.g. ref=[101.2,683.0] offer=[683.0] → without global
+        # search, ref_101.2 is processed first and consumes offer_683.0 (score=581.8), leaving
+        # ref_683.0 as LIPSA. Best-first correctly pairs ref_683.0↔offer_683.0 (score=0) first.
         ref_ums = {(r.get('um') or '').lower() for r in ref_strict}
         oferta_pool = sorted(
             oferta_list,
             key=lambda a: (0 if (a.get('um') or '').lower() in ref_ums else 1,
                            a.get('cantitate', 0) or 0)
         )
-        ref_sorted = sorted(ref_strict, key=lambda a: a.get('cantitate', 0) or 0)
+        ref_remaining = list(ref_strict)
         unmatched_strict_ref: list = []
-        for ra in ref_sorted:
-            if not oferta_pool:
-                unmatched_strict_ref.append(ra)
-                continue
-            ra_cant = ra.get('cantitate', 0) or 0
-            ra_um = (ra.get('um') or '').lower()
-            best_i = 0
+        paired_strict: list = []  # (ref_art, oferta_art) pairs in best-first order
+        while ref_remaining and oferta_pool:
             best_score = float('inf')
-            for i, oa in enumerate(oferta_pool):
-                oa_cant = oa.get('cantitate', 0) or 0
-                oa_um = (oa.get('um') or '').lower()
-                um_penalty = 0.0 if oa_um == ra_um else 1e9
-                score = um_penalty + abs(oa_cant - ra_cant)
-                if score < best_score:
-                    best_score = score
-                    best_i = i
-            oferta_art = oferta_pool.pop(best_i)
+            best_ri = 0
+            best_oi = 0
+            for ri, ra in enumerate(ref_remaining):
+                ra_cant = ra.get('cantitate', 0) or 0
+                ra_um = (ra.get('um') or '').lower()
+                for oi, oa in enumerate(oferta_pool):
+                    oa_cant = oa.get('cantitate', 0) or 0
+                    oa_um = (oa.get('um') or '').lower()
+                    um_penalty = 0.0 if oa_um == ra_um else 1e9
+                    score = um_penalty + abs(oa_cant - ra_cant)
+                    if score < best_score:
+                        best_score = score
+                        best_ri = ri
+                        best_oi = oi
+            paired_strict.append((ref_remaining.pop(best_ri), oferta_pool.pop(best_oi)))
+        unmatched_strict_ref.extend(ref_remaining)
+        for ra, oferta_art in paired_strict:
             diffs = compare_articles(ra, oferta_art, include_prices=include_prices)
             arith = check_arithmetic(oferta_art) if include_prices else []
             for d in diffs + arith:
