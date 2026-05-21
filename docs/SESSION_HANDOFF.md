@@ -18,113 +18,186 @@ Pipeline Python care:
 
 ---
 
-## Starea la 2026-05-21 (branch: feature/7.0)
+## Starea la 2026-05-22 (branch: main)
 
-**Branch activ:** `feature/7.0`  
-**Tag stabil:** `v7.0` (la baza branch-ului)  
-**Main (stabil v6.f):** `main` cu tag `v6.f`  
+**Branch activ:** `main`  
+**Tag stabil:** `8.0` (multi-client pipeline)  
 **Repo local:** `/Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local`  
-**Date de test:** `input_AO/` — baza sportivă Răcari (1 referință + 3 oferte)
+**Date de test:** `input_AO/<client>/` — 4 clienți
 
-### Rezultate ultima rulare
+### Clienți disponibili
 
-| Ofertă | matched | lipsa | extra | similar |
-|--------|---------|-------|-------|---------|
-| Oferta 1 | 1056 | 3 | 36 | 0 |
-| Oferta 2 | 1066 | 89 | 41 | 1 |
+| Client | Oferte |
+|--------|--------|
+| Blocuri Racari | 4 |
+| Camin Maneciu | 2 |
+| Scoala Dragomiresti | 2 |
+| Scoala Sportiva Racari | 3 |
 
-**Față de v7.0 baseline (1041/1060):** +15/+6 matched datorită fix-ului parser eDevize.
+### Metrici baseline (state.md actualizat)
 
----
-
-## Ce s-a livrat (sesiunile 2026-05-20/21)
-
-### v7.0
-- `nr_ordine`, `parent_nr_ordine` pe articole extrase
-- `_apply_parent_inheritance` cu fallback parent detection
-- `ARTICOL_ORPHAN`/`lenient` eliminate; deduplicare O(n)
-- `shared/report_builder.py`: `build_raport_ierarhic()`
-- Raport DOCX ierarhic: col 2+6 principal/secundar, TOTAL DEVIZ split ref/ofertă
-
-### v7.1 parțial
-- `build_ref_catalog()` în `AgentComparator_local.py` — `{$cod → parent_cod}` din ref
-- `match_global()` returnează **4-tuple**: `(neconformitati, matches, matched_ref_keys, articole_fara_deviz)`
-- Articole fără deviz excluse din matching → secțiune "Articole nelocalizate" în DOCX
-
-### Parser fix (2026-05-21)
-- **Format eDevize breviar**: linii `-XXXX:NNNNNNN` → convertite la `$NNNNNNN` în `extract_articles_regex`
-- **142 coduri** în referință în acest format; parser fix captează o parte din ele (+15 matched OF1)
-- Restul (pagina 66, format breviar fără cantitate explicită) — nerezolvat (vezi limitări)
+| Client | Ofertă | matched | LIPSA | EXTRA | DEVIZ_MM |
+|--------|--------|---------|-------|-------|----------|
+| Blocuri Racari | O1 | 314 | 47 | 0 | 20 |
+| Blocuri Racari | O2 | 551 | 2 | 0 | 28 |
+| Blocuri Racari | O3 | 395 | 25 | 4 | 19 |
+| Blocuri Racari | O4 | 316 | 49 | 1 | 9 |
+| Camin Maneciu | O1 | 1056 | 1 | 36 | 2 |
+| Camin Maneciu | O2 | 1066 | 84 | 41 | 5 |
+| Scoala Dragomiresti | O1 | 651 | 6 | 0 | 624 |
+| Scoala Dragomiresti | O2 | 691 | 6 | 1 | 602 |
+| Scoala Sportiva Racari | O1 | 2153 | 2 | 122 | 11 |
+| Scoala Sportiva Racari | O2 | 1148 | 4 | 55 | 328 |
+| Scoala Sportiva Racari | O3 | 2244 | 6 | 315 | 325 |
 
 ---
 
-## Limitări arhitecturale documentate
+## Ce s-a livrat (sesiunile 2026-05-21/22)
 
-| Problemă | Cauza | Fix necesar |
-|----------|-------|------------|
-| `$6720287` → CK26A fuzzy fals | threshold 0.45 prea mic; nu se poate ridica selectiv | Catalog normativ extern (v7.2) |
-| Layer 0 matching imposibil | `display_parent_cod` inconsistent ref vs ofertă (extras din PDF) | Catalog normativ ISDP/eDevize |
-| Breviar eDevize pg 66 | Resurse `$` listate fără cantitate între articole normative | Parser extins pentru format breviar |
-| Extra +22 față de v7.0 | `$` coduri eDevize care fuzzy-matchuiau greșit la normative → acum EXTRA | Acceptat ca mai precis |
+### Diagnostics Pipeline (nou)
+
+```bash
+python3 run_diagnostics.py                        # toți clienții
+python3 run_diagnostics.py --client "Blocuri Racari"  # un client
+python3 run_diagnostics.py --no-docx              # doar JSON
+```
+
+Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
+
+**Faze:**
+- Phase 0: Calitate referință (articole fără deviz, componente orfane, incomplete)
+- Phase 1: EXTRA per deviz ($-coduri vs principale, semnal bug extragere)
+- Phase 2: LIPSA per deviz (genuine vs DEVIZ_MISMATCH)
+
+**Fișiere noi:**
+- `run_diagnostics.py`
+- `shared/diagnostics_builder.py`
+- `shared/diagnostics_word.py`
+- `tests/test_diagnostics.py` (17 teste)
+
+### Fix Layer 2.5 (matching)
+
+`AgentComparator_local.py` linia 629: `oferta_map[ok]` → `oferta_by_key[ok]`.  
+Layer 2.5 (cod similar OCR) vedea 1 instanță per cheie; acum vede toate instanțele N:M.  
+Impact: +6 matched BR O1, +25 BR O3.
+
+### Fix parser `{nr} {UM}` (f3_regex_parser.py)
+
+Format oferta 3 Blocuri Racari: `82 M` pe linie separată (nr_ordine + UM).  
+Fix în READING state: dacă NR_ALPHA_INLINE matchuiește cu "cod" = UM valid → tratează ca UM.  
+Impact: corect logic, nu rezolvă complet BR O3 (context cumulativ din paginile anterioare).
+
+---
+
+## Known Issues Active
+
+### 1. IZDO3D1 — OCR O/0 ambiguitate (BR O1/O2/O3/O4)
+- Ref extrage `IZDO3D1` (litera O, OCR error) + `IZD03D1` (real)
+- Oferta extrage `IZD03D1`
+- Layer 1 consumă cheia IZD03D1 cu ref-ul real → IZDO3D1 rămâne LIPSA
+- **Acceptat.** Fix necesită normalizare O↔0 globală (risc) sau refactor Layer 2
+
+### 2. BR O3 — EA02A1/RPCT49C1/H1B02A3/RPCE34A1 cant=0
+- Articole extrase cu cant=0 din oferta_3 (format `82 M` pe linie separată)
+- Parser fix funcționează izolat dar state machine cumulativ (paginile 1-5) interferează
+- **Investigare în curs.** Root cause: stare incorectă la linia 560+ din pagina 6
+
+### 3. Scoala Dragomiresti — DEVIZ_MISMATCH=600+
+- Ref: coduri text ("4.1-01 STRUCTURA"), oferta: coduri eDevize numerice
+- `deviz_matcher` nu mapează complet
+- **Fix propus:** matching mai agresiv pe cod articol în deviz_matcher
+
+### 4. Camin Maneciu O2 — LIPSA=84
+- Neinvestigat. Probabil $-coduri + deviz mismatch.
+
+### 5. Scoala Sportiva Racari O3 — EXTRA=315
+- Neinvestigat. SSR ref: 154 componente orfane (Phase 0 red).
 
 ---
 
 ## Arhitectura rapidă
 
 ```
-local_run.py
+run_diagnostics.py        ← NOU: diagnostic runner toți clienții
+multi_client_run.py       ← Entry point principal (v8.0)
+local_run.py              ← Legacy (root di_oferta files)
 │
-├── extract_document(referinta/oferta)
-│   ├── f3_extractor.py → extract_articles_v3() + _apply_parent_inheritance()
-│   └── f3_regex_parser.py
-│       ├── extract_articles_regex() → normalizare -XXXX:NNNNNNN → $NNNNNNN ← NOU
-│       └── nr_ordine, parent_nr_ordine, sub_counter
-│
-└── compare_and_report()
-    ├── AgentComparator_local
-    │   ├── build_ref_catalog()              ← v7.1: {$cod→parent}
-    │   └── match_global() → 4-tuple         ← v7.1: +articole_fara_deviz
-    ├── shared/report_builder.py
-    │   └── build_raport_ierarhic(articole_fara_deviz=)
-    └── shared/report_word.py
-        ├── Tabel ierarhic (col 2+6)
-        ├── TOTAL DEVIZ: ref vs ofertă ▼▲✓
-        └── "Articole nelocalizate" la final
+├── shared/client_config.py          ← ClientConfig, detect_clients
+├── shared/f3_extractor.py           ← extract_articles_v3 + _apply_parent_inheritance
+├── shared/f3_regex_parser.py        ← State machine parser + fix 82M
+├── shared/f3_page_classifier.py     ← Detectare pagini + fallback partial keys
+├── AgentComparator_local.py         ← match_global (Layer 1-3) + build_ref_catalog
+│   ├── Layer 1: N:M exact (deviz, cod)
+│   ├── Layer 2: normalized cod (AUT6752↔$6752)
+│   ├── Layer 2.1: trailing digit (IC35D↔IC35D1)
+│   ├── Layer 2.5: cod similar OCR threshold 0.80 ← FIX: N:M complet
+│   └── Layer 3: LLM fuzzy (disabled/fallback)
+├── shared/report_builder.py         ← build_raport_ierarhic
+├── shared/report_word.py            ← generate_word (tabel 11 coloane, ierarhic)
+├── shared/diagnostics_builder.py    ← NOU: Phase 0/1/2 + JSON builder
+└── shared/diagnostics_word.py       ← NOU: DOCX diagnostic
 ```
-
----
-
-## Ce rămâne de făcut
-
-1. **Format breviar eDevize** — resurse `$` fără cantitate (pg 66 referință, SA04E): parser trebuie să le extragă și să le trimită la `_apply_parent_inheritance` pentru a moșteni cant/UM de la normativ
-2. **Catalog normativ extern** — mapare `$cod → normativ` din ISDP/eDevize pentru Layer 0 (v7.2)
-3. **Merge `feature/7.0` → `main`** — după validare vizuală completă
-4. **Testare alte documente** — `Camin Maneciu/`, `Scoala Dragomiresti/`, `Scoala Sportiva Racari/`
 
 ---
 
 ## Comenzi utile
 
 ```bash
-# Branch curent
-git checkout feature/7.0
+# Pipeline un client
+python3 multi_client_run.py --client "Blocuri Racari"
 
-# Rulare fresh
-rm -f output_AO/checkpoints/*.json
-.venv/bin/python local_run.py
+# Toți clienții
+for c in "Blocuri Racari" "Camin Maneciu" "Scoala Dragomiresti" "Scoala Sportiva Racari"; do
+  python3 multi_client_run.py --client "$c"
+done
 
-# Teste
-.venv/bin/python -m pytest tests/ -v --ignore=tests/test_compound_deviz_extraction.py
+# Diagnostic (citește output_AO/ existente, nu re-rulează)
+python3 run_diagnostics.py
+python3 run_diagnostics.py --client "Blocuri Racari"
 
-# Metrici
-.venv/bin/python -c "
+# Teste (17 diagnostics + 154 altele)
+.venv/bin/python -m pytest tests/ -q --ignore=tests/test_compound_deviz_extraction.py
+
+# Metrici rapide
+python3 -c "
 import json; from pathlib import Path; from collections import Counter
-for f in ['comparatie_oferta_1.json', 'comparatie_oferta_2.json']:
-    comp = json.loads(Path(f'output_AO/{f}').read_text())
-    by_tip = Counter(a.get('tip','?') for a in comp['neconformitati'])
-    print(f'{f}: matched={comp[\"matches\"]}', dict(sorted(by_tip.items())))
+for client in ['Blocuri Racari', 'Camin Maneciu', 'Scoala Dragomiresti', 'Scoala Sportiva Racari']:
+    for i in range(1,5):
+        f = Path(f'output_AO/{client}/comparatie_oferta_{i}.json')
+        if not f.exists(): continue
+        comp = json.loads(f.read_text())
+        tips = Counter(n['tip'] for n in comp['neconformitati'])
+        print(f'{client} O{i}: matched={comp[\"matches\"]} LIPSA={tips.get(\"ARTICOL_LIPSA\",0)} EXTRA={tips.get(\"ARTICOL_EXTRA\",0)} DEVIZ_MM={tips.get(\"DEVIZ_MISMATCH\",0)}')
 "
 
-# Verificare format eDevize în DI
-# python3 -c "import json,re; from pathlib import Path; di=json.loads(Path('input_AO/di_referinta.json').read_text()); _RE=re.compile(r'^-\d{4}:\s*(\d+)$'); matches=[(p.get('page_number'), l.get('content','')) for p in di.get('pages',[]) for l in p.get('lines',[]) if _RE.match((l.get('content','') if isinstance(l,dict) else str(l)).strip())]; print(f'{len(matches)} coduri breviar in ref')"
+# Reset checkpoints pentru re-rulare fresh
+rm -f "output_AO/<Client>/checkpoints/"*.json
 ```
+
+---
+
+## Commits sesiune curentă
+
+```
+38e0b6f fix(parser): treat NR+UM line (e.g. '82 M') as UM in READING state
+6fdff85 docs: document IZDO3D1 known issue and Layer 2.5 fix in state.md
+70e67b9 fix(matching): Layer 2.5 uses all offer instances per key in N:M
+7d6b5ec feat(diagnostics): CLI entry point run_diagnostics.py
+6e58813 fix(diagnostics): remove unused imports, add type hint in diagnostics_word
+aac05ac feat(diagnostics): DOCX generator
+6046f07 fix(diagnostics): error handling in discover/load functions
+2eda4ee feat(diagnostics): discover/load/JSON builder with tests
+3b23c68 feat(diagnostics): Phase 0/1/2 analysis functions with tests
+```
+
+**11 commits ahead de origin/main** (push blocat — SSH agent issue în sesiune).
+
+---
+
+## Preexistente eșuate (nu regresii)
+
+- `tests/shared/test_f3_regex_parser_multiline.py` — 4 teste (format multiline vechi)
+- `tests/test_normalize_cod.py` — 1 test (IC31A1 vs 1C31A1 normalizare)
+- `tests/shared/test_f3_page_classifier_*.py` — 4 teste (classifier vechi)
+- `tests/test_compound_deviz_extraction.py` — ImportError (funcție ștearsă)
+- `tests/test_subcomponent_matching.py` — ImportError (funcție redenumită)
