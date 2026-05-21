@@ -2,8 +2,8 @@
 from __future__ import annotations
 from pathlib import Path
 from datetime import datetime
+from typing import Any
 from docx import Document
-from docx.shared import Pt, RGBColor
 from shared.diagnostics_builder import Phase0Result, Phase1Result, Phase2Result
 
 _ALARM_EMOJI = {"red": "🔴", "yellow": "🟡", "green": "✅"}
@@ -13,7 +13,7 @@ def _heading(doc: Document, text: str, level: int = 1) -> None:
     doc.add_heading(text, level=level)
 
 
-def _add_table_row(table, cells: list[str], bold: bool = False) -> None:
+def _add_table_row(table: Any, cells: list[str], bold: bool = False) -> None:
     row = table.add_row()
     for i, text in enumerate(cells):
         cell = row.cells[i]
