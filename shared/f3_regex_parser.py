@@ -1291,8 +1291,15 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             m_si = NR_SINGLE_INLINE_RE.match(line)
             m_bi = NR_BREVIAR_INLINE_RE.match(line)
             if m_ai or m_ni or m_si or m_bi:
-                _finalize()
                 m = m_ai or m_ni or m_si or m_bi
+                # Guard: "82 M" → NR_ALPHA_INLINE matches with cod=M (single UM token).
+                # If current article has no UM yet and the matched "cod" is a known UM,
+                # treat the whole line as NR+UM (not a new article).
+                _candidate_cod = re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m.group(2).upper()) if not m_bi and not m_ni else ''
+                if (m_ai or m_si) and cod and um == '' and _is_valid_um(_candidate_cod):
+                    um = _normalize_um_value(_candidate_cod)
+                    continue
+                _finalize()
                 last_nr_crt = int(m.group(1))
                 cod = (m.group(2) if m_bi else ('$' + m.group(2)) if m_ni else re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m.group(2).upper()))
                 denumire_parts = []
