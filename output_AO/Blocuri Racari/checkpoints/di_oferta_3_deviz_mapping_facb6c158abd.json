@@ -1,0 +1,228 @@
+{
+  "metadata": {
+    "source": "",
+    "document_type": "unknown",
+    "extracted_at": "2026-05-21T13:46:03.792188Z",
+    "classifier_version": "local"
+  },
+  "deviz_groups": [
+    {
+      "deviz_cod": "1-01",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "1",
+        "text": "LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A"
+      },
+      "categoria": {
+        "num": "01",
+        "text": "BLC 1 ARHITECTURA"
+      },
+      "article_count": 0,
+      "pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        16,
+        17,
+        18,
+        19,
+        20,
+        31,
+        32,
+        33,
+        34,
+        35,
+        46,
+        47,
+        48,
+        49,
+        50,
+        61,
+        62,
+        63,
+        64,
+        65,
+        79,
+        80,
+        81,
+        82,
+        83
+      ]
+    },
+    {
+      "deviz_cod": "1-02",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "1",
+        "text": "LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A"
+      },
+      "categoria": {
+        "num": "02",
+        "text": "BLC2 INSTALATII"
+      },
+      "article_count": 0,
+      "pages": [
+        6,
+        7,
+        21,
+        22,
+        36,
+        37,
+        51,
+        52,
+        66,
+        67,
+        84,
+        85
+      ]
+    },
+    {
+      "deviz_cod": "1-03",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "1",
+        "text": "LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A"
+      },
+      "categoria": {
+        "num": "03",
+        "text": "BLC 3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+      },
+      "article_count": 0,
+      "pages": [
+        8,
+        23,
+        38,
+        53,
+        68,
+        86
+      ]
+    },
+    {
+      "deviz_cod": "2-01",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "2",
+        "text": "LUCRARI CONEXE BLOC A"
+      },
+      "categoria": {
+        "num": "01",
+        "text": "BLC4 REZISTENTA"
+      },
+      "article_count": 0,
+      "pages": [
+        9,
+        10,
+        11,
+        24,
+        25,
+        26,
+        39,
+        40,
+        41,
+        54,
+        55,
+        56,
+        69,
+        70,
+        71,
+        87,
+        88,
+        89
+      ]
+    },
+    {
+      "deviz_cod": "2-02",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "2",
+        "text": "LUCRARI CONEXE BLOC A"
+      },
+      "categoria": {
+        "num": "02",
+        "text": "BLC5 ARHITECTURA"
+      },
+      "article_count": 0,
+      "pages": [
+        12,
+        13,
+        27,
+        28,
+        42,
+        43,
+        57,
+        58,
+        72,
+        73,
+        90,
+        91
+      ]
+    },
+    {
+      "deviz_cod": "3-1",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "3",
+        "text": "ORGANIZARE SANTIER"
+      },
+      "categoria": {
+        "num": "1",
+        "text": "BLC7 ORGANIZARE SANTIER"
+      },
+      "article_count": 0,
+      "pages": [
+        14,
+        29,
+        44,
+        59
+      ]
+    },
+    {
+      "deviz_cod": "3-01",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "3",
+        "text": "LUCRARI SPATII SERVICII - SEDII BLOC B - NEELIGIBIL"
+      },
+      "categoria": {
+        "num": "01",
+        "text": "BLC6 ARHITECTURA-NEELIGIBIL"
+      },
+      "article_count": 0,
+      "pages": [
+        74,
+        75,
+        92,
+        93
+      ]
+    },
+    {
+      "deviz_cod": "4-1",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "4",
+        "text": "ORGANIZARE SANTIER"
+      },
+      "categoria": {
+        "num": "1",
+        "text": "BLC7 ORGANIZARE SANTIER"
+      },
+      "article_count": 0,
+      "pages": [
+        77,
+        95
+      ]
+    }
+  ],
+  "validation": {
+    "total_articles": 0,
+    "total_pages_with_deviz": 88,
+    "coverage": "100%"
+  },
+  "subcomponent_format": {
+    "format": "prefixed",
+    "confidence": 0.95,
+    "name": "Prefixed (MANECIU format)"
+  }
+}

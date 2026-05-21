@@ -540,6 +540,44 @@ def _build_deviz_checkpoint(results: list[dict], document_type: str, source_path
     return checkpoint
 
 
+def build_deviz_groups(page_classifications: list[dict]) -> list[dict]:
+    """Extract deviz groups from page classifications.
+
+    Used to regenerate deviz_groups when loading old checkpoint format (list only).
+    """
+    deviz_groups = {}
+
+    for pc in page_classifications:
+        if not pc.get("is_f3"):
+            continue
+
+        deviz_cod = pc.get("deviz_cod", "")
+        if not deviz_cod:
+            continue
+
+        if deviz_cod not in deviz_groups:
+            deviz_groups[deviz_cod] = {
+                "deviz_cod": deviz_cod,
+                "extraction_method": pc.get("extraction_method", "unknown"),
+                "obiectul": pc.get("obiectul"),
+                "categoria": pc.get("categoria"),
+                "article_count": 0,
+                "pages": [],
+            }
+        else:
+            grp = deviz_groups[deviz_cod]
+            if not grp.get("obiectul") and pc.get("obiectul"):
+                grp["obiectul"] = pc["obiectul"]
+            if not grp.get("categoria") and pc.get("categoria"):
+                grp["categoria"] = pc["categoria"]
+
+        page_num = pc.get("page_number", 0)
+        if page_num not in deviz_groups[deviz_cod]["pages"]:
+            deviz_groups[deviz_cod]["pages"].append(page_num)
+
+    return list(deviz_groups.values())
+
+
 def build_page_classifications(
     pages: list[dict],
     document_type: str = "unknown",
@@ -840,6 +878,62 @@ Each input pair must appear exactly once in the output."""
     logger.info(
         f"[LLM-PARTIAL] Resolution complete: {resolved_count} LLM-matched, {fallback_count} fallback"
     )
+
+    return page_classes
+
+
+def _resolve_partial_keys_fallback(page_classes: list[dict]) -> list[dict]:
+    """Fallback partial resolution when ref_deviz_groups unavailable (reference extraction).
+
+    Parses __partial__ code pattern to extract numeric deviz code.
+    Pattern: "__partial__<obiectul>:<categoria>"
+    Extracts categoria part and searches for alphanumeric code at start.
+    """
+    import re
+
+    partial_pages = [
+        p for p in page_classes
+        if p.get("deviz_cod", "").startswith("__partial__")
+    ]
+
+    if not partial_pages:
+        return page_classes
+
+    resolved = 0
+    for p in partial_pages:
+        deviz_cod_full = p.get("deviz_cod", "")
+
+        # Parse __partial__<obj>:<cat> pattern
+        # Extract text after "__partial__"
+        if deviz_cod_full.startswith("__partial__"):
+            parts_text = deviz_cod_full[len("__partial__"):]
+            # Split on ':' to get categoria (rightmost part)
+            if ':' in parts_text:
+                cat_text = parts_text.split(':')[-1]  # Get last part after ':'
+            else:
+                cat_text = parts_text
+
+            # Try to extract code from categoria text
+            # Pattern: "BLC1 ARHITECTURA" → "BLC1"
+            # Pattern: "4.1-03 STRUCTURAL" → "4.1-03"
+            match = re.search(r'^([A-Z0-9]+(?:\.[0-9]+)*(?:-[0-9]+)?)', cat_text)
+            if match:
+                extracted_code = match.group(1)
+                p["deviz_cod"] = extracted_code
+                p["extraction_method"] = "partial_fallback_pattern"
+                resolved += 1
+            else:
+                # Fallback: try to find letter sequence + numbers
+                letters = re.match(r'^([A-Z]+)', cat_text)
+                if letters:
+                    p["deviz_cod"] = letters.group(1)
+                    p["extraction_method"] = "partial_fallback_letter"
+                    resolved += 1
+
+    if partial_pages:
+        logger.info(
+            f"[PARTIAL-FALLBACK] {resolved}/{len(partial_pages)} partials resolved from __partial__ patterns"
+        )
 
     return page_classes
 

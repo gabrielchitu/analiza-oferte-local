@@ -2,7 +2,7 @@
   "metadata": {
     "source": "",
     "document_type": "unknown",
-    "extracted_at": "2026-05-21T13:32:04.160419Z",
+    "extracted_at": "2026-05-21T13:39:03.447164Z",
     "classifier_version": "local"
   },
   "deviz_groups": [
@@ -31,30 +31,35 @@
         24,
         25,
         26,
-        41,
+        27,
         42,
         43,
         44,
         45,
         46,
-        61,
-        62,
+        47,
+        48,
         63,
         64,
         65,
         66,
-        81,
-        82,
-        83,
+        67,
+        68,
+        69,
         84,
         85,
         86,
-        105,
-        106,
-        107,
-        108,
+        87,
+        88,
+        89,
+        90,
         109,
-        110
+        110,
+        111,
+        112,
+        113,
+        114,
+        115
       ]
     },
     {
@@ -74,26 +79,26 @@
         8,
         9,
         10,
-        27,
         28,
         29,
         30,
-        47,
-        48,
+        31,
         49,
         50,
-        67,
-        68,
-        69,
+        51,
+        52,
         70,
-        87,
-        88,
-        89,
-        90,
-        111,
-        112,
-        113,
-        114
+        71,
+        72,
+        73,
+        91,
+        92,
+        93,
+        94,
+        116,
+        117,
+        118,
+        119
       ]
     },
     {
@@ -110,11 +115,11 @@
       "article_count": 0,
       "pages": [
         11,
-        31,
-        51,
-        71,
-        91,
-        115
+        32,
+        53,
+        74,
+        95,
+        120
       ]
     },
     {
@@ -169,10 +174,10 @@
       "pages": [
         19,
         20,
-        103,
-        104,
-        127,
-        128
+        107,
+        108,
+        132,
+        133
       ]
     },
     {
@@ -188,10 +193,10 @@
       },
       "article_count": 0,
       "pages": [
-        32,
         33,
         34,
-        35
+        35,
+        36
       ]
     },
     {
@@ -207,9 +212,9 @@
       },
       "article_count": 0,
       "pages": [
-        36,
         37,
-        38
+        38,
+        39
       ]
     },
     {
@@ -225,12 +230,12 @@
       },
       "article_count": 0,
       "pages": [
-        39,
         40,
-        59,
-        60,
-        79,
-        80
+        41,
+        61,
+        62,
+        82,
+        83
       ]
     },
     {
@@ -246,10 +251,10 @@
       },
       "article_count": 0,
       "pages": [
-        52,
-        53,
         54,
-        55
+        55,
+        56,
+        57
       ]
     },
     {
@@ -265,9 +270,9 @@
       },
       "article_count": 0,
       "pages": [
-        56,
-        57,
-        58
+        58,
+        59,
+        60
       ]
     },
     {
@@ -283,10 +288,10 @@
       },
       "article_count": 0,
       "pages": [
-        72,
-        73,
-        74,
-        75
+        75,
+        76,
+        77,
+        78
       ]
     },
     {
@@ -302,9 +307,9 @@
       },
       "article_count": 0,
       "pages": [
-        76,
-        77,
-        78
+        79,
+        80,
+        81
       ]
     },
     {
@@ -320,11 +325,11 @@
       },
       "article_count": 0,
       "pages": [
-        92,
-        93,
-        94,
-        95,
-        96
+        96,
+        97,
+        98,
+        99,
+        100
       ]
     },
     {
@@ -340,27 +345,27 @@
       },
       "article_count": 0,
       "pages": [
-        97,
-        98,
-        99
+        101,
+        102,
+        103
       ]
     },
     {
-      "deviz_cod": "__partial__LUCRARI SPATII SERVICII-SEDII BLOC B - N:BLC6 ARHITECTURA-NEELIGIBIL",
+      "deviz_cod": "__partial__LUCRARI SPATII SERVICII - SEDII BLOC B -:BLC6 ARHITECTURA - NEELIGIBIL",
       "extraction_method": "partial",
       "obiectul": {
         "num": "3",
-        "text": "LUCRARI SPATII SERVICII-SEDII BLOC B - NEELIGIBL"
+        "text": "LUCRARI SPATII SERVICII - SEDII BLOC B - NEELIGIBL"
       },
       "categoria": {
         "num": "",
-        "text": "BLC6 ARHITECTURA-NEELIGIBIL"
+        "text": "BLC6 ARHITECTURA - NEELIGIBIL"
       },
       "article_count": 0,
       "pages": [
-        100,
-        101,
-        102
+        104,
+        105,
+        106
       ]
     },
     {
@@ -376,11 +381,11 @@
       },
       "article_count": 0,
       "pages": [
-        116,
-        117,
-        118,
-        119,
-        120
+        121,
+        122,
+        123,
+        124,
+        125
       ]
     },
     {
@@ -396,33 +401,33 @@
       },
       "article_count": 0,
       "pages": [
-        121,
-        122,
-        123
+        126,
+        127,
+        128
       ]
     },
     {
-      "deviz_cod": "__partial__LUCRARI SPATII SERVICII-SEDII BLOC C - N:BLC6 ARHITECTURA-NEELIGIBIL",
+      "deviz_cod": "__partial__LUCRARI SPATII SERVICII - SEDII BLOC C -:BLC6 ARHITECTURA - NEELIGIBIL",
       "extraction_method": "partial",
       "obiectul": {
         "num": "3",
-        "text": "LUCRARI SPATII SERVICII-SEDII BLOC C - NEELIGIBL"
+        "text": "LUCRARI SPATII SERVICII - SEDII BLOC C - NEELIGIBL"
       },
       "categoria": {
         "num": "",
-        "text": "BLC6 ARHITECTURA-NEELIGIBIL"
+        "text": "BLC6 ARHITECTURA - NEELIGIBIL"
       },
       "article_count": 0,
       "pages": [
-        124,
-        125,
-        126
+        129,
+        130,
+        131
       ]
     }
   ],
   "validation": {
     "total_articles": 0,
-    "total_pages_with_deviz": 128,
+    "total_pages_with_deviz": 133,
     "coverage": "100%"
   },
   "subcomponent_format": {

@@ -1,0 +1,229 @@
+{
+  "metadata": {
+    "source": "",
+    "document_type": "unknown",
+    "extracted_at": "2026-05-21T13:39:20.274623Z",
+    "classifier_version": "local"
+  },
+  "deviz_groups": [
+    {
+      "deviz_cod": "BLC1",
+      "extraction_method": "reference_matched",
+      "obiectul": {
+        "num": "1",
+        "text": "LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A"
+      },
+      "categoria": {
+        "num": "",
+        "text": "BLC1 ARHITECTURA"
+      },
+      "article_count": 0,
+      "pages": [
+        1,
+        2,
+        3,
+        4,
+        17,
+        18,
+        19,
+        20,
+        33,
+        34,
+        35,
+        36,
+        37,
+        50,
+        51,
+        52,
+        53,
+        66,
+        67,
+        68,
+        69,
+        70,
+        82,
+        83,
+        86,
+        87,
+        88,
+        89,
+        101,
+        102
+      ]
+    },
+    {
+      "deviz_cod": "BLC2",
+      "extraction_method": "reference_matched",
+      "obiectul": {
+        "num": "1",
+        "text": "LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A"
+      },
+      "categoria": {
+        "num": "",
+        "text": "BLC2 INSTALATII"
+      },
+      "article_count": 0,
+      "pages": [
+        5,
+        6,
+        7,
+        21,
+        22,
+        23,
+        38,
+        39,
+        40,
+        54,
+        55,
+        56,
+        71,
+        72,
+        73,
+        90,
+        91,
+        92
+      ]
+    },
+    {
+      "deviz_cod": "BLC3",
+      "extraction_method": "reference_matched",
+      "obiectul": {
+        "num": "1",
+        "text": "LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A"
+      },
+      "categoria": {
+        "num": "",
+        "text": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+      },
+      "article_count": 0,
+      "pages": [
+        8,
+        24,
+        41,
+        57,
+        74,
+        93
+      ]
+    },
+    {
+      "deviz_cod": "BLC4",
+      "extraction_method": "reference_matched",
+      "obiectul": {
+        "num": "2",
+        "text": "LUCRARI CONEXE BLOC A"
+      },
+      "categoria": {
+        "num": "",
+        "text": "BLC4 REZISTENTA"
+      },
+      "article_count": 0,
+      "pages": [
+        9,
+        10,
+        11,
+        25,
+        26,
+        27,
+        42,
+        43,
+        44,
+        58,
+        59,
+        60,
+        75,
+        76,
+        77,
+        78,
+        94,
+        95,
+        96,
+        97
+      ]
+    },
+    {
+      "deviz_cod": "BLC5",
+      "extraction_method": "reference_matched",
+      "obiectul": {
+        "num": "2",
+        "text": "LUCRARI CONEXE BLOC A"
+      },
+      "categoria": {
+        "num": "",
+        "text": "BLC5 ARHITECTURA"
+      },
+      "article_count": 0,
+      "pages": [
+        12,
+        13,
+        14,
+        28,
+        29,
+        30,
+        45,
+        46,
+        47,
+        61,
+        62,
+        63,
+        79,
+        80,
+        81,
+        98,
+        99,
+        100
+      ]
+    },
+    {
+      "deviz_cod": "BLC6",
+      "extraction_method": "reference_matched",
+      "obiectul": {
+        "num": "3",
+        "text": "ORGANIZARE DE SANTIER BLOC A"
+      },
+      "categoria": {
+        "num": "",
+        "text": "BLC6 ORGANIZARE DE SANTIER"
+      },
+      "article_count": 0,
+      "pages": [
+        15,
+        16,
+        31,
+        32,
+        48,
+        49,
+        64,
+        65
+      ]
+    },
+    {
+      "deviz_cod": "BLC7",
+      "extraction_method": "reference_matched",
+      "obiectul": {
+        "num": "4",
+        "text": "ORGANIZARE DE SANTIER BLOC B"
+      },
+      "categoria": {
+        "num": "",
+        "text": "BLC7 ORGANIZARE DE SANTIER"
+      },
+      "article_count": 0,
+      "pages": [
+        84,
+        85,
+        103,
+        104
+      ]
+    }
+  ],
+  "validation": {
+    "total_articles": 0,
+    "total_pages_with_deviz": 104,
+    "coverage": "100%"
+  },
+  "subcomponent_format": {
+    "format": "unknown",
+    "confidence": 0.0,
+    "name": "Unknown format"
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "metadata": {
+    "source": "",
+    "document_type": "unknown",
+    "extracted_at": "2026-05-21T13:48:11.683043Z",
+    "classifier_version": "local"
+  },
+  "deviz_groups": [
+    {
+      "deviz_cod": "BLC1",
+      "extraction_method": "reference_matched",
+      "obiectul": {
+        "num": "1",
+        "text": "LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A"
+      },
+      "categoria": {
+        "num": "",
+        "text": "BLC1 ARHITECTURA"
+      },
+      "article_count": 0,
+      "pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        104,
+        105,
+        106,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        129,
+        130,
+        131
+      ]
+    },
+    {
+      "deviz_cod": "BLC2",
+      "extraction_method": "reference_matched",
+      "obiectul": {
+        "num": "1",
+        "text": "LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A"
+      },
+      "categoria": {
+        "num": "",
+        "text": "BLC2 INSTALATII"
+      },
+      "article_count": 0,
+      "pages": [
+        7,
+        8,
+        9,
+        10,
+        28,
+        29,
+        30,
+        31,
+        49,
+        50,
+        51,
+        52,
+        70,
+        71,
+        72,
+        73,
+        91,
+        92,
+        93,
+        94,
+        116,
+        117,
+        118,
+        119
+      ]
+    },
+    {
+      "deviz_cod": "BLC3",
+      "extraction_method": "reference_matched",
+      "obiectul": {
+        "num": "1",
+        "text": "LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A"
+      },
+      "categoria": {
+        "num": "",
+        "text": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+      },
+      "article_count": 0,
+      "pages": [
+        11,
+        32,
+        53,
+        74,
+        95,
+        120
+      ]
+    },
+    {
+      "deviz_cod": "BLC4",
+      "extraction_method": "reference_matched",
+      "obiectul": {
+        "num": "2",
+        "text": "LUCRARI CONEXE BLOC A"
+      },
+      "categoria": {
+        "num": "",
+        "text": "BLC4 REZISTENTA"
+      },
+      "article_count": 0,
+      "pages": [
+        12,
+        13,
+        14,
+        15,
+        33,
+        34,
+        35,
+        36,
+        54,
+        55,
+        56,
+        57,
+        75,
+        76,
+        77,
+        78,
+        96,
+        97,
+        98,
+        99,
+        100,
+        121,
+        122,
+        123,
+        124,
+        125
+      ]
+    },
+    {
+      "deviz_cod": "BLC5",
+      "extraction_method": "reference_matched",
+      "obiectul": {
+        "num": "2",
+        "text": "LUCRARI CONEXE BLOC A"
+      },
+      "categoria": {
+        "num": "",
+        "text": "BLC5 ARHITECTURA"
+      },
+      "article_count": 0,
+      "pages": [
+        16,
+        17,
+        18,
+        37,
+        38,
+        39,
+        58,
+        59,
+        60,
+        79,
+        80,
+        81,
+        101,
+        102,
+        103,
+        126,
+        127,
+        128
+      ]
+    },
+    {
+      "deviz_cod": "BLC7",
+      "extraction_method": "reference_matched",
+      "obiectul": {
+        "num": "3",
+        "text": "ORGANIZARE SANTIER"
+      },
+      "categoria": {
+        "num": "",
+        "text": "BLC7 ORGANIZARE SANTIER"
+      },
+      "article_count": 0,
+      "pages": [
+        19,
+        20,
+        107,
+        108,
+        132,
+        133
+      ]
+    },
+    {
+      "deviz_cod": "BLC6",
+      "extraction_method": "reference_matched",
+      "obiectul": {
+        "num": "3",
+        "text": "ORGANIZARE SANTIER"
+      },
+      "categoria": {
+        "num": "",
+        "text": "BLC6 ORGANIZARE SANTIER"
+      },
+      "article_count": 0,
+      "pages": [
+        40,
+        41,
+        61,
+        62,
+        82,
+        83
+      ]
+    }
+  ],
+  "validation": {
+    "total_articles": 0,
+    "total_pages_with_deviz": 133,
+    "coverage": "100%"
+  },
+  "subcomponent_format": {
+    "format": "simple",
+    "confidence": 0.95,
+    "name": "Simple (DRAGOMIRESTI format)"
+  }
+}

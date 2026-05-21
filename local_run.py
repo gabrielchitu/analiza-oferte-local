@@ -31,6 +31,7 @@ from dotenv import load_dotenv
 
 from shared.report_json import generate_json_by_deviz
 from shared.client_config import ClientConfig
+from shared.f3_page_classifier import _resolve_partial_keys_fallback
 
 load_dotenv(override=True)
 
@@ -138,6 +139,10 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
 
     if ref_checkpoint_data:
         ref_deviz_groups = ref_checkpoint_data.get("deviz_groups", [])
+        logger.info(f"   DEBUG: ref_checkpoint_data keys: {list(ref_checkpoint_data.keys())}")
+        logger.info(f"   DEBUG: ref_deviz_groups count: {len(ref_deviz_groups)}")
+        if ref_deviz_groups:
+            logger.info(f"   DEBUG: first deviz_group: {ref_deviz_groups[0].get('deviz_cod', 'UNKNOWN')}")
         ref_checkpoint_path = _save_checkpoint(ref_checkpoint_data, client_config.reference_file, client_config)
         logger.info(f"   Checkpoint: {ref_checkpoint_path}")
     else:
@@ -149,12 +154,16 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
             try:
                 ref_checkpoint_data = json.loads(ref_checkpoint_path.read_text(encoding="utf-8"))
                 ref_deviz_groups = ref_checkpoint_data.get("deviz_groups", [])
+                logger.info(f"   DEBUG: loaded ref_checkpoint_data keys: {list(ref_checkpoint_data.keys())}")
+                logger.info(f"   DEBUG: loaded ref_deviz_groups count: {len(ref_deviz_groups)}")
                 logger.info(f"   Checkpoint loaded from cache: {ref_checkpoint_path.name}")
             except Exception as e:
                 logger.warning(f"   Failed to load checkpoint: {e}")
 
     if ref_deviz_groups:
         logger.info(f"   {len(ref_deviz_groups)} deviz groups available for LLM resolution")
+    else:
+        logger.warning(f"   NO deviz groups found — partial key resolution will be skipped")
 
     # Populate missing deviz denominations
     ref_articles = populate_deviz_denominations(ref_articles)
@@ -554,6 +563,13 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
         # Support both old format (list) and new format (dict with page_classes + metadata)
         if isinstance(ckpt, list):
             page_classes = ckpt
+            # Old format: regenerate checkpoint_data with deviz_groups from page_classes
+            from shared.f3_page_classifier import build_deviz_groups
+            checkpoint_data = {
+                "deviz_groups": build_deviz_groups(page_classes),
+                "metadata": {},
+                "validation": {}
+            }
         else:
             page_classes = ckpt.get("page_classes", ckpt.get("results", []))
             checkpoint_data = ckpt.get("metadata", {})
@@ -570,16 +586,26 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
         logger.info(f"  Checkpoint salvat: {checkpoint.name}")
 
     # LLM resolution of partial keys (missing numeric prefixes in Obiectul/Categoria)
-    # Only applies when reference deviz groups are available
+    # Uses ref_deviz_groups if available (offer extraction), otherwise fallback text parsing
     has_partial = any(
         p.get("deviz_cod", "").startswith("__partial__")
         for p in page_classes
     )
-    if has_partial and ref_deviz_groups:
-        logger.info(f"  Rezolvare chei partiale cu LLM...")
-        page_classes = _resolve_partial_keys_with_llm(
-            page_classes, ref_deviz_groups, client, model
-        )
+    if has_partial:
+        # Filter out __partial__ codes from ref_deviz_groups (they're not useful for matching)
+        valid_ref_groups = [
+            g for g in (ref_deviz_groups or [])
+            if not g.get("deviz_cod", "").startswith("__partial__")
+        ]
+        if valid_ref_groups:
+            logger.info(f"  Rezolvare chei partiale cu LLM...")
+            page_classes = _resolve_partial_keys_with_llm(
+                page_classes, valid_ref_groups, client, model
+            )
+        else:
+            logger.info(f"  Rezolvare chei partiale din text patterns (fara referinta valida)...")
+            page_classes = _resolve_partial_keys_fallback(page_classes)
+
         # Overwrite checkpoint with resolved keys, preserve metadata
         checkpoint.write_text(
             json.dumps({
@@ -589,8 +615,6 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
             encoding="utf-8",
         )
         logger.info(f"  Checkpoint actualizat cu chei rezolvate")
-    elif has_partial:
-        logger.warning(f"  Chei partiale detectate dar fara referinta — articolele pot fi grupate gresit")
 
     # Re-clasificare LLM tintita: pagini is_f3=False cu semnal F3 detectat euristic.
     # Ruleaza NUMAI cand exista astfel de pagini — LLM e apelat doar pentru candidate.
