@@ -125,6 +125,8 @@ def test_phase2_grupeaza_pe_deviz():
     result = analyze_lipsa(NC_LIPSA)
     assert "4.1-01" in result.by_deviz
     assert len(result.by_deviz["4.1-01"]) == 2
+    assert "4.1-02" in result.by_deviz           # DEVIZ_MISMATCH also grouped
+    assert len(result.by_deviz["4.1-02"]) == 1   # RPC01 DEVIZ_MISMATCH
 
 def test_phase2_ignora_extra():
     result = analyze_lipsa(NC_LIPSA)

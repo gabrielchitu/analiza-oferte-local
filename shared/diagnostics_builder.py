@@ -106,4 +106,5 @@ def analyze_lipsa(neconformitati: list[dict]) -> Phase2Result:
             by_deviz.setdefault(deviz, []).append(nc)
         else:
             mismatch.append(nc)
+            by_deviz.setdefault(deviz, []).append(nc)
     return Phase2Result(lipsa_genuine=genuine, deviz_mismatch=mismatch, by_deviz=by_deviz)
