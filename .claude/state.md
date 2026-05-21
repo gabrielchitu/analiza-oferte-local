@@ -53,8 +53,12 @@
 **Acțiune:** Verifică dacă sunt articole legitim extra sau deviz mismatch nerezolvat.
 
 ### 4. Blocuri Racari O1/O4 — LIPSA=47/49
-**Cunoscut:** ~39/47 sunt $codes (resurse materiale sub-articole). Nu sunt erori de extragere.
-**Genuine LIPSA:** ~8-10 articole reale. Investigat parțial — sunt în ofertă dar în deviz diferit (BLC6 vs 003-001 naming discrepancy).
+**Cunoscut:** 46/47 sunt $codes (resurse materiale eDevize). Nu sunt erori de extragere — oferta nu include resursele subcomponente.
+**Genuine LIPSA:** 1 articol — `IZDO3D1` (litera O, OCR) vs `IZD03D1` (cifra 0) în ofertă.
+**Root cause IZDO3D1:** Ref are ambele coduri (4× IZDO3D1 OCR + 1× IZD03D1 real). Layer 1 consumă cheia IZD03D1 cu ref-ul corect → IZDO3D1 rămâne nematchuit. Nu se poate fixa fără normalizare O↔0 globală (risc). **Acceptat ca known issue.**
+
+### 5. Layer 2.5 fix (2026-05-22)
+**Fix aplicat:** `oferta_by_deviz` în Layer 2.5 folosea `oferta_map[ok]` (1 instanță per cheie) → înlocuit cu `oferta_by_key[ok]` (toate instanțele). Impact: +6 matched BR O1 (308→314), +25 BR O3 (370→395).
 
 ## Variabile tehnice relevante
 
