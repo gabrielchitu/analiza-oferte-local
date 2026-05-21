@@ -822,14 +822,23 @@ def match_global(
         still_unmatched_ref = [a for a in still_unmatched_ref
                                if _art_key(a) not in matched_by_llm_ref_keys]
 
-    # ARTICOL_LIPSA
+    # ARTICOL_LIPSA / DEVIZ_MISMATCH
+    # If code exists anywhere in offer (any deviz), prefer DEVIZ_MISMATCH over LIPSA.
+    _all_offer_codes = {clean_code(k[1]) for k in oferta_by_key.keys() if k[1]}
     for ref_art in still_unmatched_ref:
         deviz_cod = ref_art.get("deviz", "")
         deviz_den = ref_art.get("deviz_denumire", "")
-        neconf = {
-            "tip": "ARTICOL_LIPSA",
-            "oferta_cod": "", "oferta_denumire": "", "oferta_um": "", "oferta_cantitate": "",
-        }
+        ref_code = clean_code(ref_art.get("cod", ""))
+        if ref_code and ref_code in _all_offer_codes:
+            neconf = {
+                "tip": "DEVIZ_MISMATCH",
+                "motiv": "Cod gasit in alt deviz din oferta",
+            }
+        else:
+            neconf = {
+                "tip": "ARTICOL_LIPSA",
+                "oferta_cod": "", "oferta_denumire": "", "oferta_um": "", "oferta_cantitate": "",
+            }
         _enrich(neconf, ref_art, {}, deviz_cod, deviz_den)
         neconformitati.append(neconf)
 
