@@ -626,7 +626,7 @@ def match_global(
 
         oferta_by_deviz = defaultdict(list)
         for ok in unmatched_oferta_keys:
-            oferta_by_deviz[ok[0]].append(oferta_map[ok])
+            oferta_by_deviz[ok[0]].extend(oferta_by_key[ok])
 
         # Layer 2.5: potrivire deterministă pe similaritate înaltă de cod + denumire.
         # Prinde perechi precum $3275680/$3275630 (1 caracter diferit, OCR)
