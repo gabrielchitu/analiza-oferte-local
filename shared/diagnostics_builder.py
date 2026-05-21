@@ -112,6 +112,8 @@ def analyze_lipsa(neconformitati: list[dict]) -> Phase2Result:
 
 def discover_clients(base_dir: Path | None = None) -> list[str]:
     base = Path(base_dir) if base_dir else Path("output_AO")
+    if not base.exists():
+        return []
     return sorted(
         d.name for d in base.iterdir()
         if d.is_dir() and (d / "referinta.json").exists()
@@ -121,7 +123,10 @@ def discover_clients(base_dir: Path | None = None) -> list[str]:
 def load_client_data(client_name: str, base_dir: Path | None = None) -> tuple[list[dict], list[dict]]:
     base = Path(base_dir) if base_dir else Path("output_AO")
     client_dir = base / client_name
-    ref_articole = json.loads((client_dir / "referinta.json").read_text())["articole"]
+    ref_path = client_dir / "referinta.json"
+    if not ref_path.exists():
+        raise FileNotFoundError(f"referinta.json not found for client '{client_name}': {ref_path}")
+    ref_articole = json.loads(ref_path.read_text())["articole"]
     comp_files = sorted(client_dir.glob("comparatie_oferta_*.json"))
     comparatii = [json.loads(f.read_text()) for f in comp_files]
     return ref_articole, comparatii
