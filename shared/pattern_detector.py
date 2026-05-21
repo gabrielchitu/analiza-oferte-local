@@ -85,10 +85,9 @@ def detect_pattern(chapter_text: str, min_confidence: float = 0.70) -> Optional[
 def generate_pattern_with_llm(chapter_text: str) -> Optional[Dict]:
     """Generate pattern template using LLM analysis.
 
-    This is a placeholder that can be replaced with actual LLM integration.
+    DISABLED: Previous attempts generated invalid regex patterns.
+    Use fallback template instead until pattern generation is more robust.
     """
-    # This would call actual LLM in production
-    # For now, return None to indicate LLM is not available
     return None
 
 
@@ -125,10 +124,14 @@ def generate_pattern_template(chapter_text: str, pattern_name: str = None) -> Di
 
 def save_generated_pattern(template: Dict) -> None:
     """Add generated pattern to pattern library."""
-    library = load_pattern_library()
-    library["patterns"].append(template)
-    save_pattern_library(library)
-    logger.info(f"Saved new pattern: {template['name']}")
+    try:
+        library = load_pattern_library()
+        library["patterns"].append(template)
+        save_pattern_library(library)
+        logger.info(f"Saved new pattern: {template['name']}")
+    except Exception as e:
+        logger.error(f"Failed to save pattern {template.get('name')}: {e}")
+        # Don't crash - pattern is still used in memory even if save fails
 
 
 def _calculate_pattern_confidence(lines: List[str], pattern: Dict) -> float:
@@ -151,9 +154,10 @@ def _calculate_pattern_confidence(lines: List[str], pattern: Dict) -> float:
                 parent_matches += 1
                 break
 
-        # Check component indicators
+        # Check component indicators (handle both string and dict formats)
         for comp_ind in pattern.get("component_indicators", []):
-            if re.match(comp_ind["pattern"], line_stripped):
+            pattern_str = comp_ind if isinstance(comp_ind, str) else comp_ind.get("pattern", "")
+            if pattern_str and re.match(pattern_str, line_stripped):
                 component_matches += 1
                 break
 
