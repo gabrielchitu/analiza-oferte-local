@@ -1,5 +1,9 @@
 import pytest
-from shared.diagnostics_builder import analyze_ref_quality, Phase0Result
+import json
+from pathlib import Path
+from shared.diagnostics_builder import (
+    analyze_ref_quality, Phase0Result, discover_clients, load_client_data, build_diagnostics_json
+)
 
 REF_ARTICOLE_CURATE = [
     {"cod": "TF24A", "denumire": "Beton", "um": "mc", "cantitate": 10.0,
@@ -133,3 +137,51 @@ def test_phase2_ignora_extra():
     all_arts = result.lipsa_genuine + result.deviz_mismatch
     for art in all_arts:
         assert art["tip"] in ("ARTICOL_LIPSA", "DEVIZ_MISMATCH")
+
+
+# Task 2: discover, load, JSON builder tests
+
+def _make_fake_output(tmpdir: Path, client: str, ref_articole: list, comparatii: list[dict]):
+    client_dir = tmpdir / "output_AO" / client
+    client_dir.mkdir(parents=True)
+    (client_dir / "referinta.json").write_text(json.dumps({"articole": ref_articole}))
+    for i, comp in enumerate(comparatii, 1):
+        (client_dir / f"comparatie_oferta_{i}.json").write_text(json.dumps(comp))
+    return client_dir
+
+
+def test_discover_clients(tmp_path):
+    _make_fake_output(tmp_path, "Client A", [], [])
+    _make_fake_output(tmp_path, "Client B", [], [])
+    (tmp_path / "output_AO" / "not_a_client").mkdir(parents=True)  # no referinta.json
+    clients = discover_clients(base_dir=tmp_path / "output_AO")
+    assert set(clients) == {"Client A", "Client B"}
+
+
+def test_load_client_data(tmp_path):
+    ref = [{"cod": "TF24A", "deviz": "4.1-01", "um": "mc", "cantitate": 10.0,
+             "is_component": False, "parent_code": None, "denumire": "Beton"}]
+    comp1 = {"oferta_nr": 1, "matches": 5, "neconformitati": [], "total_neconformitati": 0}
+    comp2 = {"oferta_nr": 2, "matches": 3, "neconformitati": [], "total_neconformitati": 0}
+    _make_fake_output(tmp_path, "Client A", ref, [comp1, comp2])
+    ref_loaded, comps = load_client_data("Client A", base_dir=tmp_path / "output_AO")
+    assert len(ref_loaded) == 1
+    assert len(comps) == 2
+    assert comps[0]["oferta_nr"] == 1
+
+
+def test_build_diagnostics_json(tmp_path):
+    ref = [{"cod": "TF24A", "deviz": "4.1-01", "um": "mc", "cantitate": 10.0,
+             "is_component": False, "parent_code": None, "denumire": "Beton"}]
+    comp = {"oferta_nr": 1, "matches": 5, "neconformitati": [
+        {"tip": "ARTICOL_EXTRA", "deviz_ref": "4.1-01", "deviz_denumire": "Str",
+         "oferta_cod": "IZF12XC", "oferta_denumire": "Iz", "oferta_cantitate": 1.0, "oferta_um": "mp"}
+    ], "total_neconformitati": 1}
+    _make_fake_output(tmp_path, "Client A", ref, [comp])
+    result = build_diagnostics_json(["Client A"], base_dir=tmp_path / "output_AO")
+    assert "meta" in result
+    assert "clienti" in result
+    assert result["clienti"][0]["client"] == "Client A"
+    oferte = result["clienti"][0]["oferte"]
+    assert oferte[0]["sumar"]["matched"] == 5
+    assert oferte[0]["extra"]["total"] == 1
