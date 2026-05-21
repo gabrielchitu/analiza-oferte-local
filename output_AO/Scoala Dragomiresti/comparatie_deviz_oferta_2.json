@@ -361,7 +361,7 @@
         },
         {
           "tip": "DEVIZ_MISMATCH",
-          "motiv": "Cod+Qty identic in deviz diferit: ref 1.0-1, oferta 002-006",
+          "motiv": "Cod+Qty identic in deviz diferit: ref 1.0-1, oferta 001-004",
           "deviz_ref": "1.0-1",
           "deviz_denumire": ".1 ARHITECTURA - DESFIINTARE",
           "is_component": false,
@@ -383,7 +383,7 @@
           "display_parent_cod": null,
           "cant_mostenita": false,
           "oferta_cod": "SA15B",
-          "oferta_denumire": "teava de polipropilena de presiune+ protectia - tevii, incalz centrala locuinte, in legat corp inc d = 1/2 ' (ppr tip ae 25 mm izolatie tip kaiflex de 9mm) inclusiv material marunt coturi, teuri piese de legatura",
+          "oferta_denumire": "teava de polipropilena de presiune+ protectia - - tevii, incalz centrala locuinte, in legat corp inc d = 1/2 ' (ppr tip ae 25 mm izolatie tip kaiflex de 9mm) inclusiv material marunt coturi, teuri piese de legatura",
           "oferta_um": "ml",
           "oferta_cantitate": 150.0,
           "oferta_pret_material": 0.0,
@@ -550,11 +550,8 @@
           "oferta_display_parent_cod": null
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "1.0-1",
           "deviz_denumire": ".1 ARHITECTURA - DESFIINTARE",
           "is_component": false,
@@ -577,11 +574,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "1.0-1",
           "deviz_denumire": ".1 ARHITECTURA - DESFIINTARE",
           "is_component": false,
@@ -604,11 +598,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "1.0-1",
           "deviz_denumire": ".1 ARHITECTURA - DESFIINTARE",
           "is_component": false,
@@ -631,11 +622,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "1.0-1",
           "deviz_denumire": ".1 ARHITECTURA - DESFIINTARE",
           "is_component": false,
@@ -658,11 +646,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "1.0-1",
           "deviz_denumire": ".1 ARHITECTURA - DESFIINTARE",
           "is_component": false,
@@ -685,11 +670,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "1.0-1",
           "deviz_denumire": ".1 ARHITECTURA - DESFIINTARE",
           "is_component": false,
@@ -3472,7 +3454,7 @@
         },
         {
           "tip": "DEVIZ_MISMATCH",
-          "motiv": "Cod+Qty identic in deviz diferit: ref 2.0-2, oferta 003-003",
+          "motiv": "Cod+Qty identic in deviz diferit: ref 2.0-2, oferta 002-003",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -3505,7 +3487,7 @@
           "oferta_val_manopera": 0.0,
           "oferta_val_utilaj": 0.0,
           "oferta_val_transport": 0.0,
-          "nr_ordine_oferta": 10,
+          "nr_ordine_oferta": 13,
           "oferta_display_parent_cod": null
         },
         {
@@ -3662,7 +3644,7 @@
         },
         {
           "tip": "DEVIZ_MISMATCH",
-          "motiv": "Cod+Qty identic in deviz diferit: ref 2.0-2, oferta 003-003",
+          "motiv": "Cod+Qty identic in deviz diferit: ref 2.0-2, oferta 002-003",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -3695,7 +3677,7 @@
           "oferta_val_manopera": 0.0,
           "oferta_val_utilaj": 0.0,
           "oferta_val_transport": 0.0,
-          "nr_ordine_oferta": 12,
+          "nr_ordine_oferta": 17,
           "oferta_display_parent_cod": "SB31B"
         },
         {
@@ -3928,7 +3910,7 @@
         },
         {
           "tip": "DEVIZ_MISMATCH",
-          "motiv": "Cod+Qty identic in deviz diferit: ref 2.0-2, oferta 002-003",
+          "motiv": "Cod+Qty identic in deviz diferit: ref 2.0-2, oferta 003-003",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -3950,7 +3932,7 @@
           "display_parent_cod": null,
           "cant_mostenita": false,
           "oferta_cod": "SB06A02",
-          "oferta_denumire": "piesa de curatire din pvc - u, pentru - canalizare, cu imbinare prin lipire, avand diametru de 75 mm",
+          "oferta_denumire": "piesa de curatire din pvc - u, pentru - canalizare, cu imbinare prin lipire, avand diametru de 110 mm",
           "oferta_um": "buc",
           "oferta_cantitate": 2.0,
           "oferta_pret_material": 0.0,
@@ -3961,7 +3943,7 @@
           "oferta_val_manopera": 0.0,
           "oferta_val_utilaj": 0.0,
           "oferta_val_transport": 0.0,
-          "nr_ordine_oferta": 22,
+          "nr_ordine_oferta": 16,
           "oferta_display_parent_cod": null
         },
         {
@@ -4004,7 +3986,7 @@
         },
         {
           "tip": "DEVIZ_MISMATCH",
-          "motiv": "Cod+Qty identic in deviz diferit: ref 2.0-2, oferta 003-003",
+          "motiv": "Cod+Qty identic in deviz diferit: ref 2.0-2, oferta 002-003",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -4037,7 +4019,7 @@
           "oferta_val_manopera": 0.0,
           "oferta_val_utilaj": 0.0,
           "oferta_val_transport": 0.0,
-          "nr_ordine_oferta": 18,
+          "nr_ordine_oferta": 24,
           "oferta_display_parent_cod": null
         },
         {
@@ -10844,7 +10826,7 @@
         },
         {
           "tip": "DEVIZ_MISMATCH",
-          "motiv": "Cod+Qty identic in deviz diferit: ref 2.0-2, oferta 003-004",
+          "motiv": "Cod+Qty identic in deviz diferit: ref 2.0-2, oferta 002-006",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -10866,7 +10848,7 @@
           "display_parent_cod": null,
           "cant_mostenita": false,
           "oferta_cod": "M7G01A01",
-          "oferta_denumire": "forte de munca pt probe la terminarea - montajului inst anexe la termoficare -",
+          "oferta_denumire": "forte de munca pt probe la terminarea - - montajului - inst anexe la termoficare",
           "oferta_um": "buc",
           "oferta_cantitate": 1.0,
           "oferta_pret_material": 0.0,
@@ -10877,7 +10859,7 @@
           "oferta_val_manopera": 0.0,
           "oferta_val_utilaj": 0.0,
           "oferta_val_transport": 0.0,
-          "nr_ordine_oferta": 35,
+          "nr_ordine_oferta": 47,
           "oferta_display_parent_cod": null
         },
         {
@@ -11034,7 +11016,7 @@
         },
         {
           "tip": "DEVIZ_MISMATCH",
-          "motiv": "Cod+Qty identic in deviz diferit: ref 2.0-2, oferta 002-006",
+          "motiv": "Cod+Qty identic in deviz diferit: ref 2.0-2, oferta 003-004",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11067,7 +11049,7 @@
           "oferta_val_manopera": 0.0,
           "oferta_val_utilaj": 0.0,
           "oferta_val_transport": 0.0,
-          "nr_ordine_oferta": 51,
+          "nr_ordine_oferta": 39,
           "oferta_display_parent_cod": null
         },
         {
@@ -11109,11 +11091,8 @@
           "oferta_display_parent_cod": null
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11136,11 +11115,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11163,11 +11139,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11190,11 +11163,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11217,11 +11187,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11244,11 +11211,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11271,11 +11235,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11298,11 +11259,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11325,11 +11283,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11352,11 +11307,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11379,11 +11331,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11406,11 +11355,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11433,11 +11379,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11460,11 +11403,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11487,11 +11427,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11514,11 +11451,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11541,11 +11475,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11568,11 +11499,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11595,11 +11523,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11622,11 +11547,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11649,11 +11571,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11676,11 +11595,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11703,11 +11619,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11730,11 +11643,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11757,11 +11667,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11784,11 +11691,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11811,11 +11715,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11838,11 +11739,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11865,11 +11763,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11892,11 +11787,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11919,11 +11811,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11946,11 +11835,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -11973,11 +11859,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12000,11 +11883,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12027,11 +11907,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12054,11 +11931,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12081,11 +11955,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12108,11 +11979,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12135,11 +12003,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12162,11 +12027,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12189,11 +12051,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12216,11 +12075,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12243,11 +12099,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12270,11 +12123,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12297,11 +12147,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12324,11 +12171,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12351,11 +12195,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12378,11 +12219,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12405,11 +12243,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12432,11 +12267,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12459,11 +12291,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12486,11 +12315,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12513,11 +12339,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12540,11 +12363,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12567,11 +12387,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12594,11 +12411,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12621,11 +12435,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12648,11 +12459,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12675,11 +12483,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12702,11 +12507,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12729,11 +12531,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12756,11 +12555,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12783,11 +12579,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12810,11 +12603,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12837,11 +12627,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12864,11 +12651,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12918,11 +12702,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12945,11 +12726,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12972,11 +12750,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -12999,11 +12774,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13026,11 +12798,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13053,11 +12822,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13080,11 +12846,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13107,11 +12870,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13134,11 +12894,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13161,11 +12918,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13188,11 +12942,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13215,11 +12966,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13242,11 +12990,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13269,11 +13014,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13296,11 +13038,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13323,11 +13062,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13350,11 +13086,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13377,11 +13110,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13404,11 +13134,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13431,11 +13158,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13458,11 +13182,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13485,11 +13206,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13512,11 +13230,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13539,11 +13254,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13566,11 +13278,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13593,11 +13302,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13620,11 +13326,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13647,11 +13350,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13674,11 +13374,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13701,11 +13398,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13728,11 +13422,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13755,11 +13446,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13782,11 +13470,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13809,11 +13494,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13836,11 +13518,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13863,11 +13542,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13890,11 +13566,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13917,11 +13590,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13944,11 +13614,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13971,11 +13638,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -13998,11 +13662,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -14025,11 +13686,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -14052,11 +13710,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -14079,11 +13734,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -14106,11 +13758,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -14133,11 +13782,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -14160,11 +13806,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -14187,11 +13830,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -14214,11 +13854,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -14241,11 +13878,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -14268,11 +13902,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -14295,11 +13926,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -14322,11 +13950,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -14349,11 +13974,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -14430,11 +14052,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "2.0-2",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -17381,11 +17000,8 @@
           "oferta_display_parent_cod": null
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "3.0-3",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -17408,11 +17024,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "3.0-3",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -17435,11 +17048,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "3.0-3",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -17462,11 +17072,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "3.0-3",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -17489,11 +17096,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "3.0-3",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -17516,11 +17120,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "3.0-3",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -17543,11 +17144,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "3.0-3",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -17570,11 +17168,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "3.0-3",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -17597,11 +17192,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "3.0-3",
           "deviz_denumire": ".1 ARHITECTURA - LUCRARI NOI",
           "is_component": false,
@@ -18914,11 +18506,8 @@
           "oferta_display_parent_cod": null
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "4.0-4",
           "deviz_denumire": ".1 INSTALATII SANITARE",
           "is_component": false,
@@ -18941,11 +18530,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "4.0-4",
           "deviz_denumire": ".1 INSTALATII SANITARE",
           "is_component": false,
@@ -18968,11 +18554,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "4.0-4",
           "deviz_denumire": ".1 INSTALATII SANITARE",
           "is_component": false,
@@ -18995,11 +18578,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "4.0-4",
           "deviz_denumire": ".1 INSTALATII SANITARE",
           "is_component": false,
@@ -19022,11 +18602,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "4.0-4",
           "deviz_denumire": ".1 INSTALATII SANITARE",
           "is_component": false,
@@ -19438,11 +19015,8 @@
           "oferta_display_parent_cod": "DE05A01"
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "5.0-5",
           "deviz_denumire": ".1 ARHITECTURA - DESFIINTARE & LUCRARI NOI",
           "is_component": false,
@@ -19702,11 +19276,8 @@
           "oferta_display_parent_cod": null
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "6.0-6",
           "deviz_denumire": ".1 ARHITECTURA - DESFIINTARE & LUCRARI NOI",
           "is_component": false,
@@ -19729,11 +19300,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "6.0-6",
           "deviz_denumire": ".1 ARHITECTURA - DESFIINTARE & LUCRARI NOI",
           "is_component": false,
@@ -19756,11 +19324,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "6.0-6",
           "deviz_denumire": ".1 ARHITECTURA - DESFIINTARE & LUCRARI NOI",
           "is_component": false,
@@ -19944,11 +19509,8 @@
           "oferta_display_parent_cod": null
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "7.0-7",
           "deviz_denumire": ".1 SPATII VERZI",
           "is_component": false,
@@ -20284,11 +19846,8 @@
           "oferta_display_parent_cod": "L1C25A1"
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "8.0-8",
           "deviz_denumire": ".1 ORGANIZAREA EXECUTIEI",
           "is_component": false,
@@ -21145,11 +20704,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "9.0-9",
           "deviz_denumire": ".1 MONTAJ ECHIPAMENTE",
           "is_component": false,
@@ -21172,11 +20728,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "9.0-9",
           "deviz_denumire": ".1 MONTAJ ECHIPAMENTE",
           "is_component": false,
@@ -21199,11 +20752,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "9.0-9",
           "deviz_denumire": ".1 MONTAJ ECHIPAMENTE",
           "is_component": false,
@@ -21226,11 +20776,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "9.0-9",
           "deviz_denumire": ".1 MONTAJ ECHIPAMENTE",
           "is_component": false,
@@ -21253,11 +20800,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "9.0-9",
           "deviz_denumire": ".1 MONTAJ ECHIPAMENTE",
           "is_component": false,
@@ -21280,11 +20824,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "9.0-9",
           "deviz_denumire": ".1 MONTAJ ECHIPAMENTE",
           "is_component": false,
@@ -21307,11 +20848,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "9.0-9",
           "deviz_denumire": ".1 MONTAJ ECHIPAMENTE",
           "is_component": false,
@@ -21334,11 +20872,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "9.0-9",
           "deviz_denumire": ".1 MONTAJ ECHIPAMENTE",
           "is_component": false,
@@ -21361,11 +20896,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "9.0-9",
           "deviz_denumire": ".1 MONTAJ ECHIPAMENTE",
           "is_component": false,
@@ -21388,11 +20920,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "9.0-9",
           "deviz_denumire": ".1 MONTAJ ECHIPAMENTE",
           "is_component": false,

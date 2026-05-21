@@ -258,11 +258,8 @@
           "cant_mostenita": true
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC1",
           "deviz_denumire": "BLC1 ARHITECTURA",
           "is_component": false,
@@ -285,11 +282,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC1",
           "deviz_denumire": "BLC1 ARHITECTURA",
           "is_component": false,
@@ -366,11 +360,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC1",
           "deviz_denumire": "BLC1 ARHITECTURA",
           "is_component": false,
@@ -393,11 +384,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC1",
           "deviz_denumire": "BLC1 ARHITECTURA",
           "is_component": false,
@@ -420,11 +408,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC1",
           "deviz_denumire": "BLC1 ARHITECTURA",
           "is_component": false,
@@ -447,11 +432,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC1",
           "deviz_denumire": "BLC1 ARHITECTURA",
           "is_component": false,
@@ -480,10 +462,10 @@
           "is_component": false,
           "ref_cod": "",
           "ref_denumire": "",
-          "oferta_cod": "NMB319711",
-          "oferta_denumire": "ore program muncitor inc-desc mat cat 1 tr 1",
-          "oferta_um": "ora",
-          "oferta_cantitate": 16.0,
+          "oferta_cod": "RPCO56A",
+          "oferta_denumire": "demontari timplarie (usi, ferestre) inclusiv glaf uri art.asimilat",
+          "oferta_um": "mp",
+          "oferta_cantitate": 130.9,
           "oferta_display_parent_cod": null,
           "nr_ordine_oferta": 30
         },
@@ -508,10 +490,10 @@
           "is_component": false,
           "ref_cod": "",
           "ref_denumire": "",
-          "oferta_cod": "RPCO56A",
-          "oferta_denumire": "demontari timplarie (usi, ferestre) inclusiv glaf uri art.asimilat",
-          "oferta_um": "mp",
-          "oferta_cantitate": 130.9,
+          "oferta_cod": "NMB319711",
+          "oferta_denumire": "ore program muncitor inc-desc mat cat 1 tr 1",
+          "oferta_um": "ora",
+          "oferta_cantitate": 16.0,
           "oferta_display_parent_cod": null,
           "nr_ordine_oferta": 30
         },
@@ -751,11 +733,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC4",
           "deviz_denumire": "BLC4 REZISTENTA",
           "is_component": false,
@@ -778,11 +757,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC4",
           "deviz_denumire": "BLC4 REZISTENTA",
           "is_component": false,
@@ -832,11 +808,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC4",
           "deviz_denumire": "BLC4 REZISTENTA",
           "is_component": false,
@@ -1144,11 +1117,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC2",
           "deviz_denumire": "BLC2 INSTALATII",
           "is_component": false,
@@ -1387,11 +1357,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC6",
           "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
           "is_component": false,
@@ -1414,11 +1381,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC6",
           "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
           "is_component": false,
@@ -1441,11 +1405,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC6",
           "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
           "is_component": false,
@@ -1468,11 +1429,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC6",
           "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
           "is_component": false,
@@ -1495,11 +1453,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC6",
           "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
           "is_component": false,
@@ -1522,11 +1477,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC6",
           "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
           "is_component": false,
@@ -1549,11 +1501,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC6",
           "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
           "is_component": false,
@@ -1576,11 +1525,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC6",
           "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
           "is_component": false,
@@ -1603,11 +1549,8 @@
           "cant_mostenita": false
         },
         {
-          "tip": "ARTICOL_LIPSA",
-          "oferta_cod": "",
-          "oferta_denumire": "",
-          "oferta_um": "",
-          "oferta_cantitate": "",
+          "tip": "DEVIZ_MISMATCH",
+          "motiv": "Cod gasit in alt deviz din oferta",
           "deviz_ref": "BLC6",
           "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
           "is_component": false,

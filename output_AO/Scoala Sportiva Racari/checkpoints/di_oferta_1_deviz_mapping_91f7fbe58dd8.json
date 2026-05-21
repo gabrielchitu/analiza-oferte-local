@@ -1,0 +1,296 @@
+{
+  "deviz_groups": [
+    {
+      "deviz_cod": "0078",
+      "extraction_method": "none",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        6
+      ]
+    },
+    {
+      "deviz_cod": "1-2261",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "1",
+        "text": "TEREN DE TENIS ACOPERIT"
+      },
+      "categoria": {
+        "num": "2261",
+        "text": "08 STRUCTURA DE REZISTENTA CUPOLA TEREN TENIS"
+      },
+      "article_count": 0,
+      "pages": [
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ]
+    },
+    {
+      "deviz_cod": "2-2262",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "2",
+        "text": "VESTIAR TEREN TENIS SI GRUPURI SANITARE PUBLICE"
+      },
+      "categoria": {
+        "num": "2262",
+        "text": "08 STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare)"
+      },
+      "article_count": 0,
+      "pages": [
+        73,
+        74,
+        75,
+        76,
+        77,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        102,
+        104,
+        105,
+        106,
+        108,
+        109,
+        111,
+        112
+      ]
+    },
+    {
+      "deviz_cod": "3-2263",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "3",
+        "text": "AMENAJARI EXTERIOARE"
+      },
+      "categoria": {
+        "num": "2263",
+        "text": "08 STRUCTURA DE REZISTENTA- (gradene 2 BUC)"
+      },
+      "article_count": 0,
+      "pages": [
+        128,
+        129,
+        130,
+        131,
+        132,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        144,
+        145,
+        146,
+        147
+      ]
+    },
+    {
+      "deviz_cod": "3-2262",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "3",
+        "text": "AMENAJARI EXTERIOARE"
+      },
+      "categoria": {
+        "num": "2262",
+        "text": "08 MONTAJ SISTEM PANOU FOTOVOLTAICE"
+      },
+      "article_count": 0,
+      "pages": [
+        149
+      ]
+    },
+    {
+      "deviz_cod": "4-2264",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "4",
+        "text": "VESTIARE FOTBALISTI SI SALA FITNESS"
+      },
+      "categoria": {
+        "num": "2264",
+        "text": "08 STRUCTURA DE REZISTENTA {vestiare, sala fitness)"
+      },
+      "article_count": 0,
+      "pages": [
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        187,
+        189,
+        190,
+        191,
+        193,
+        194,
+        196,
+        197
+      ]
+    },
+    {
+      "deviz_cod": "5-2265",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "5",
+        "text": "GRUPURI SANITARE PUBLICE"
+      },
+      "categoria": {
+        "num": "2265",
+        "text": "08 STRUCTURA DE REZISTENTA(GRUPURI SANITARE PUBLICE)"
+      },
+      "article_count": 0,
+      "pages": [
+        202,
+        203,
+        204,
+        205,
+        206,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224,
+        225,
+        227,
+        229,
+        231,
+        232,
+        233,
+        235,
+        236,
+        238,
+        239
+      ]
+    },
+    {
+      "deviz_cod": "6-226",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "6",
+        "text": "UTILITATI- RETELE EXTERIOARE"
+      },
+      "categoria": {
+        "num": "226",
+        "text": "U08 ALIMENTARE CU APA eDevize"
+      },
+      "article_count": 0,
+      "pages": [
+        243,
+        244,
+        245,
+        246,
+        247,
+        248,
+        249,
+        251,
+        252,
+        253,
+        254,
+        255
+      ]
+    },
+    {
+      "deviz_cod": "6-2260",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "6",
+        "text": "UTILITATI- RETELE EXTERIOARE"
+      },
+      "categoria": {
+        "num": "2260",
+        "text": "38 TELECOMUNICATII"
+      },
+      "article_count": 0,
+      "pages": [
+        256,
+        257,
+        258
+      ]
+    },
+    {
+      "deviz_cod": "7-2267",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "7",
+        "text": "ORGANIZARE SANTIER"
+      },
+      "categoria": {
+        "num": "2267",
+        "text": "18 ORG. SANTIER- CONTAINER"
+      },
+      "article_count": 0,
+      "pages": [
+        263,
+        265,
+        267
+      ]
+    }
+  ],
+  "metadata": {},
+  "validation": {}
+}

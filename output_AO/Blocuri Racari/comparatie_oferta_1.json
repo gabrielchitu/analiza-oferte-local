@@ -1693,11 +1693,8 @@
       "cant_mostenita": false
     },
     {
-      "tip": "ARTICOL_LIPSA",
-      "oferta_cod": "",
-      "oferta_denumire": "",
-      "oferta_um": "",
-      "oferta_cantitate": "",
+      "tip": "DEVIZ_MISMATCH",
+      "motiv": "Cod gasit in alt deviz din oferta",
       "deviz_ref": "BLC6",
       "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
       "is_component": false,
@@ -1720,11 +1717,8 @@
       "cant_mostenita": false
     },
     {
-      "tip": "ARTICOL_LIPSA",
-      "oferta_cod": "",
-      "oferta_denumire": "",
-      "oferta_um": "",
-      "oferta_cantitate": "",
+      "tip": "DEVIZ_MISMATCH",
+      "motiv": "Cod gasit in alt deviz din oferta",
       "deviz_ref": "BLC6",
       "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
       "is_component": false,
@@ -1747,11 +1741,8 @@
       "cant_mostenita": false
     },
     {
-      "tip": "ARTICOL_LIPSA",
-      "oferta_cod": "",
-      "oferta_denumire": "",
-      "oferta_um": "",
-      "oferta_cantitate": "",
+      "tip": "DEVIZ_MISMATCH",
+      "motiv": "Cod gasit in alt deviz din oferta",
       "deviz_ref": "BLC6",
       "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
       "is_component": false,
@@ -1774,11 +1765,8 @@
       "cant_mostenita": false
     },
     {
-      "tip": "ARTICOL_LIPSA",
-      "oferta_cod": "",
-      "oferta_denumire": "",
-      "oferta_um": "",
-      "oferta_cantitate": "",
+      "tip": "DEVIZ_MISMATCH",
+      "motiv": "Cod gasit in alt deviz din oferta",
       "deviz_ref": "BLC6",
       "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
       "is_component": false,
@@ -1801,11 +1789,8 @@
       "cant_mostenita": false
     },
     {
-      "tip": "ARTICOL_LIPSA",
-      "oferta_cod": "",
-      "oferta_denumire": "",
-      "oferta_um": "",
-      "oferta_cantitate": "",
+      "tip": "DEVIZ_MISMATCH",
+      "motiv": "Cod gasit in alt deviz din oferta",
       "deviz_ref": "BLC6",
       "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
       "is_component": false,
@@ -1828,11 +1813,8 @@
       "cant_mostenita": false
     },
     {
-      "tip": "ARTICOL_LIPSA",
-      "oferta_cod": "",
-      "oferta_denumire": "",
-      "oferta_um": "",
-      "oferta_cantitate": "",
+      "tip": "DEVIZ_MISMATCH",
+      "motiv": "Cod gasit in alt deviz din oferta",
       "deviz_ref": "BLC6",
       "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
       "is_component": false,
@@ -1855,11 +1837,8 @@
       "cant_mostenita": false
     },
     {
-      "tip": "ARTICOL_LIPSA",
-      "oferta_cod": "",
-      "oferta_denumire": "",
-      "oferta_um": "",
-      "oferta_cantitate": "",
+      "tip": "DEVIZ_MISMATCH",
+      "motiv": "Cod gasit in alt deviz din oferta",
       "deviz_ref": "BLC6",
       "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
       "is_component": false,
@@ -1882,11 +1861,8 @@
       "cant_mostenita": false
     },
     {
-      "tip": "ARTICOL_LIPSA",
-      "oferta_cod": "",
-      "oferta_denumire": "",
-      "oferta_um": "",
-      "oferta_cantitate": "",
+      "tip": "DEVIZ_MISMATCH",
+      "motiv": "Cod gasit in alt deviz din oferta",
       "deviz_ref": "BLC6",
       "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
       "is_component": false,
@@ -1909,11 +1885,8 @@
       "cant_mostenita": false
     },
     {
-      "tip": "ARTICOL_LIPSA",
-      "oferta_cod": "",
-      "oferta_denumire": "",
-      "oferta_um": "",
-      "oferta_cantitate": "",
+      "tip": "DEVIZ_MISMATCH",
+      "motiv": "Cod gasit in alt deviz din oferta",
       "deviz_ref": "BLC6",
       "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
       "is_component": false,
@@ -1936,11 +1909,8 @@
       "cant_mostenita": false
     },
     {
-      "tip": "ARTICOL_LIPSA",
-      "oferta_cod": "",
-      "oferta_denumire": "",
-      "oferta_um": "",
-      "oferta_cantitate": "",
+      "tip": "DEVIZ_MISMATCH",
+      "motiv": "Cod gasit in alt deviz din oferta",
       "deviz_ref": "BLC6",
       "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
       "is_component": false,
@@ -1963,11 +1933,8 @@
       "cant_mostenita": false
     },
     {
-      "tip": "ARTICOL_LIPSA",
-      "oferta_cod": "",
-      "oferta_denumire": "",
-      "oferta_um": "",
-      "oferta_cantitate": "",
+      "tip": "DEVIZ_MISMATCH",
+      "motiv": "Cod gasit in alt deviz din oferta",
       "deviz_ref": "BLC6",
       "deviz_denumire": "BLC6 ORGANIZARE SANTIER",
       "is_component": false,
