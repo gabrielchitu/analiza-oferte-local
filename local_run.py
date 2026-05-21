@@ -30,6 +30,7 @@ import anthropic
 from dotenv import load_dotenv
 
 from shared.report_json import generate_json_by_deviz
+from shared.client_config import ClientConfig
 
 load_dotenv(override=True)
 
@@ -64,21 +65,259 @@ def _build_client():
     return AnthropicAdapter(anthropic.Anthropic(api_key=api_key), model=model), model
 
 
+def run_pipeline(client_config: ClientConfig) -> None:
+    """
+    Run complete analysis pipeline for a single client.
+
+    Main entry point for multi-client mode. Accepts ClientConfig with paths.
+
+    Args:
+        client_config: ClientConfig instance with paths and file list
+    """
+    logger.info(f"Starting pipeline for client: {client_config.name}")
+    client_config.ensure_output_dirs()
+
+    # Load reference and offers
+    logger.info(f"Loading reference: {client_config.reference_file}")
+    with open(client_config.reference_file) as f:
+        referinta_data = json.load(f)
+
+    oferta_data_list = []
+    for offer_file in client_config.list_offer_files():
+        logger.info(f"Loading offer: {offer_file}")
+        with open(offer_file) as f:
+            oferta_data_list.append(json.load(f))
+
+    logger.info(f"Loaded {len(oferta_data_list)} offer(s)")
+
+    # Continue with existing pipeline logic using these loaded files
+    # The pipeline functions below are refactored to accept client_config
+    _run_analysis_pipeline(client_config, referinta_data, oferta_data_list)
+
+
+def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, oferta_di_list: list) -> None:
+    """
+    Internal pipeline: extract and compare documents.
+
+    Refactored to use client_config instead of global paths.
+    """
+    from shared.deviz_namer import populate_deviz_denominations
+    from shared.deviz_reconciler import reconcile_missing_devize
+
+    client, model = _build_client()
+
+    logger.info("=" * 50)
+    logger.info("  Analizator Local Oferte Constructii")
+    logger.info("=" * 50)
+    logger.info(f"Client: {client_config.name}")
+    logger.info(f"Input:  {client_config.input_dir}")
+    logger.info(f"Output: {client_config.output_dir}")
+
+    # Verify reference exists
+    if not client_config.reference_file.exists():
+        logger.error(f"Referinta lipsa: {client_config.reference_file}")
+        sys.exit(1)
+
+    oferta_paths = client_config.list_offer_files()
+    if not oferta_paths:
+        logger.error(f"Nicio oferta gasita in {client_config.input_dir}")
+        sys.exit(1)
+
+    logger.info(f"Referinta: {client_config.reference_file.name}")
+    logger.info(f"Oferte ({len(oferta_paths)}): {[p.name for p in oferta_paths]}")
+
+    # Step 1: Extract reference
+    logger.info("\n--- Extragere REFERINTA ---")
+    ref_articles, ref_checkpoint_data = extract_document(
+        client_config.reference_file, client, model, client_config=client_config
+    )
+
+    # Extract reference deviz groups for LLM partial key resolution
+    ref_deviz_groups = []
+    ref_checkpoint_path = None
+
+    if ref_checkpoint_data:
+        ref_deviz_groups = ref_checkpoint_data.get("deviz_groups", [])
+        ref_checkpoint_path = _save_checkpoint(ref_checkpoint_data, client_config.reference_file, client_config)
+        logger.info(f"   Checkpoint: {ref_checkpoint_path}")
+    else:
+        matching_checkpoints = list(client_config.checkpoint_dir.glob(
+            f"{client_config.reference_file.stem}_deviz_mapping_*.json"
+        ))
+        if matching_checkpoints:
+            ref_checkpoint_path = matching_checkpoints[0]
+            try:
+                ref_checkpoint_data = json.loads(ref_checkpoint_path.read_text(encoding="utf-8"))
+                ref_deviz_groups = ref_checkpoint_data.get("deviz_groups", [])
+                logger.info(f"   Checkpoint loaded from cache: {ref_checkpoint_path.name}")
+            except Exception as e:
+                logger.warning(f"   Failed to load checkpoint: {e}")
+
+    if ref_deviz_groups:
+        logger.info(f"   {len(ref_deviz_groups)} deviz groups available for LLM resolution")
+
+    # Populate missing deviz denominations
+    ref_articles = populate_deviz_denominations(ref_articles)
+
+    # Filter out TRULY INVALID articles
+    def is_truly_invalid(a):
+        return not a.get("cod", "").strip()
+
+    invalid_count = sum(1 for a in ref_articles if is_truly_invalid(a))
+    ref_articles = [a for a in ref_articles if not is_truly_invalid(a)]
+    if invalid_count > 0:
+        logger.info(f"  Removed {invalid_count} articles with no code (truly unparseable)")
+
+    ref_out = client_config.output_dir / "referinta.json"
+    ref_out.write_text(
+        json.dumps({"articole": ref_articles}, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    logger.info(f"  Salvat: {ref_out.name}")
+
+    ref_deviz_codes = set(a.get("deviz", "") for a in ref_articles if a.get("deviz"))
+    logger.info(f"  {len(ref_deviz_codes)} devize in referinta")
+
+    # Load reference DI JSON for validation purposes
+    ref_di_raw = json.loads(client_config.reference_file.read_text(encoding="utf-8"))
+
+    # Step 2: Extract + compare each offer
+    for oferta_path in oferta_paths:
+        try:
+            oferta_nr = int(oferta_path.stem.replace("di_oferta_", ""))
+        except ValueError:
+            logger.warning(f"Nu pot extrage numarul din {oferta_path.name}, skip")
+            continue
+
+        logger.info(f"\n--- Extragere OFERTA {oferta_nr} ---")
+        ofertant_name = _extract_ofertant_name(oferta_path)
+        if ofertant_name:
+            logger.info(f"  Ofertant: {ofertant_name}")
+
+        oferta_articles, oferta_checkpoint_data = extract_document(
+            oferta_path, client, model, ref_deviz_groups=ref_deviz_groups,
+            reference_articles=ref_articles, client_config=client_config
+        )
+
+        # Save deviz checkpoint after offer extraction
+        if oferta_checkpoint_data:
+            oferta_checkpoint_path = _save_checkpoint(oferta_checkpoint_data, oferta_path, client_config)
+            logger.info(f"   Checkpoint: {oferta_checkpoint_path}")
+
+        # Populate missing deviz denominations
+        oferta_articles = populate_deviz_denominations(oferta_articles)
+
+        # Identify extra devizes
+        oferta_deviz_codes = set(a.get("deviz", "") for a in oferta_articles if a.get("deviz"))
+        devize_extra = oferta_deviz_codes - ref_deviz_codes - {""}
+        devize_lipsa_din_oferta = ref_deviz_codes - oferta_deviz_codes
+
+        # Reconcile extra devizes
+        if devize_extra:
+            logger.warning(f"  ALERTA: {len(devize_extra)} devize in oferta ABSENTE din referinta: {sorted(devize_extra)}")
+            logger.info(f"  → Reconciliere: re-scanam referinta pentru {sorted(devize_extra)}")
+            ref_articles, unresolved_extra = reconcile_missing_devize(
+                di_path=client_config.reference_file,
+                missing_codes=devize_extra,
+                checkpoint_path=_checkpoint_path(client_config.reference_file, client_config),
+                existing_articles=ref_articles,
+            )
+            ref_articles = populate_deviz_denominations(ref_articles)
+            ref_deviz_codes = {a.get("deviz") for a in ref_articles if a.get("deviz")}
+            for code in unresolved_extra:
+                logger.error(f"  [RECONCILE] Deviz {code} NEGASIT in referinta — posibila eroare OCR/parsare")
+
+        # Reconcile missing devizes
+        if devize_lipsa_din_oferta:
+            logger.info(f"  {len(devize_lipsa_din_oferta)} devize din referinta NEACOPERITE de oferta: {sorted(devize_lipsa_din_oferta)}")
+            logger.info(f"  → Reconciliere: re-scanam oferta {oferta_nr} pentru {sorted(devize_lipsa_din_oferta)}")
+            oferta_articles, unresolved_lipsa = reconcile_missing_devize(
+                di_path=oferta_path,
+                missing_codes=devize_lipsa_din_oferta,
+                checkpoint_path=_checkpoint_path(oferta_path, client_config),
+                existing_articles=oferta_articles,
+            )
+            oferta_articles = populate_deviz_denominations(oferta_articles)
+            for code in unresolved_lipsa:
+                logger.error(f"  [RECONCILE] Deviz {code} NEGASIT in oferta {oferta_nr} — posibila eroare OCR/parsare")
+
+        # Filter out TRULY INVALID articles
+        invalid_count = sum(1 for a in oferta_articles if is_truly_invalid(a))
+        oferta_articles = [a for a in oferta_articles if not is_truly_invalid(a)]
+        if invalid_count > 0:
+            logger.info(f"  Removed {invalid_count} articles with no code (truly unparseable)")
+
+        # Normalize article codes
+        articles_with_plus = [a for a in oferta_articles if '+' in a.get('cod', '')]
+        if articles_with_plus:
+            for art in articles_with_plus:
+                art['cod'] = art['cod'].rstrip('+')
+            logger.info(f"  [NORMALIZE] Removed '+' suffix from {len(articles_with_plus)} article codes")
+
+        # Apply deviz code remapping
+        from shared.deviz_matcher import match_devize_by_denomination, remap_devize_in_articles, remap_devize_by_code_preference
+        deviz_mapping = match_devize_by_denomination(ref_articles, oferta_articles)
+        if deviz_mapping:
+            oferta_articles = remap_devize_in_articles(oferta_articles, deviz_mapping)
+            logger.info(f"  [DEVIZ_MAPPER] Remapped {len([a for a in oferta_articles if a.get('_deviz_original')])} articles: {deviz_mapping}")
+            oferta_articles = remap_devize_by_code_preference(oferta_articles, ref_articles, deviz_mapping)
+
+        # Filter out malformed articles
+        before_filter = len(oferta_articles)
+        oferta_articles = [
+            a for a in oferta_articles
+            if not (a.get('cod', '').startswith('$') and not a.get('denumire', '').strip())
+        ]
+        filtered_count = before_filter - len(oferta_articles)
+        if filtered_count > 0:
+            logger.info(f"  [FILTER] Removed {filtered_count} malformed articles ($ prefix + empty denomination)")
+
+        oferta_out = client_config.output_dir / f"oferta_{oferta_nr}.json"
+        oferta_out.write_text(
+            json.dumps({"articole": oferta_articles}, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+
+        logger.info(f"\n--- Comparare OFERTA {oferta_nr} ---")
+        _, comp = compare_and_report(
+            ref_articles, oferta_articles, oferta_nr, oferta_path, client, model,
+            ofertant_name=ofertant_name, ref_di_json=ref_di_raw,
+            checkpoint_data=oferta_checkpoint_data, client_config=client_config
+        )
+
+        # Generate JSON report grouped by deviz
+        if comp and comp.get('neconformitati'):
+            session = {"client_name": "", "obiect_investitii": ""}
+            json_report = generate_json_by_deviz(session, comp)
+
+            json_file = client_config.output_dir / f"comparatie_deviz_oferta_{oferta_nr}.json"
+            with open(json_file, 'w', encoding='utf-8') as f:
+                json.dump(json_report, f, ensure_ascii=False, indent=2)
+
+            logger.info(f"  JSON by deviz: {json_file.name}")
+
+    logger.info("\n" + "=" * 50)
+    logger.info("  DONE")
+    logger.info(f"  Rezultate in: {client_config.output_dir}")
+    logger.info("=" * 50)
+
+
 def _normalize_deviz_for_filter(cod: str) -> str:
     """Normalizeaza cod deviz pentru comparare cu ref_deviz_codes (U→0, OCR fix)."""
     return (cod or "").replace("U", "0")
 
 
-def _checkpoint_path(di_path: Path) -> Path:
+def _checkpoint_path(di_path: Path, client_config: ClientConfig = None) -> Path:
     """Returnează calea checkpoint-ului pentru un document DI."""
     import shared.f3_page_classifier as _clf_module
     _clf_hash = hashlib.md5(
         inspect.getsource(_clf_module).encode()
     ).hexdigest()[:12]
-    return CHECKPOINT_DIR / f"{di_path.stem}_page_classes_{_clf_hash}.json"
+    checkpoint_dir = client_config.checkpoint_dir if client_config else CHECKPOINT_DIR
+    return checkpoint_dir / f"{di_path.stem}_page_classes_{_clf_hash}.json"
 
 
-def _save_checkpoint(checkpoint: dict, di_path: Path) -> Path:
+def _save_checkpoint(checkpoint: dict, di_path: Path, client_config: ClientConfig = None) -> Path:
     """Save deviz checkpoint to checkpoint directory."""
     import shared.f3_page_classifier as _clf_module
 
@@ -87,7 +326,8 @@ def _save_checkpoint(checkpoint: dict, di_path: Path) -> Path:
         inspect.getsource(_clf_module).encode()
     ).hexdigest()[:12]
 
-    checkpoint_path = CHECKPOINT_DIR / f"{di_path.stem}_deviz_mapping_{_clf_hash}.json"
+    checkpoint_dir = client_config.checkpoint_dir if client_config else CHECKPOINT_DIR
+    checkpoint_path = checkpoint_dir / f"{di_path.stem}_deviz_mapping_{_clf_hash}.json"
 
     with open(checkpoint_path, "w") as f:
         json.dump(checkpoint, f, indent=2, ensure_ascii=False)
@@ -277,7 +517,7 @@ def _reclassify_missed_f3_pages(
     return page_classes_updated, True
 
 
-def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list | None = None, reference_articles: list | None = None) -> tuple[list, dict | None]:
+def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list | None = None, reference_articles: list | None = None, client_config: ClientConfig = None) -> tuple[list, dict | None]:
     """
     Extrage articolele F3 dintr-un DI JSON.
     Foloseste checkpoint daca exista — sare peste clasificarea LLM (pasul lent).
@@ -291,6 +531,7 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
         model: Model ID
         ref_deviz_groups: Optional list of reference deviz groups (for LLM partial key resolution)
         reference_articles: Optional list of reference articles (for dynamic deviz text mapping)
+        client_config: Optional ClientConfig for path resolution
 
     Returns: tuple of (articles, checkpoint_data)
         articles: list of extracted articles
@@ -299,7 +540,7 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
     from shared.f3_page_classifier import classify_pages, _resolve_partial_keys_with_llm
     from shared.f3_extractor import extract_articles_v3
 
-    checkpoint = _checkpoint_path(di_path)
+    checkpoint = _checkpoint_path(di_path, client_config)
     checkpoint_data = None
 
     di = json.loads(di_path.read_text(encoding="utf-8"))
@@ -516,6 +757,7 @@ def compare_and_report(
     ofertant_name: str = "",
     ref_di_json: dict = None,
     checkpoint_data: dict = None,
+    client_config: ClientConfig = None,
 ):
     """Compara oferta cu referinta si genereaza raport XLSX + DOCX."""
     from shared.deviz_normalizer import normalize_devize
@@ -704,7 +946,8 @@ def compare_and_report(
     ]
 
     # Salveaza JSON comparatie
-    comparatie_path = OUTPUT_DIR / f"comparatie_oferta_{oferta_nr}.json"
+    output_dir = client_config.output_dir if client_config else OUTPUT_DIR
+    comparatie_path = output_dir / f"comparatie_oferta_{oferta_nr}.json"
     logger.debug(f"DEBUG: Before JSON save, neconformitati has {len(neconformitati)} items")
     comparatie_path.write_text(
         json.dumps({
@@ -750,7 +993,7 @@ def compare_and_report(
     #     logger.warning(f"  XLSX failed: {e}")
 
     # Raport DOCX
-    docx_path = OUTPUT_DIR / f"Raport_Oferta_{oferta_nr}.docx"
+    docx_path = output_dir / f"Raport_Oferta_{oferta_nr}.docx"
     try:
         docx_bytes = generate_word(
             session, comp,
@@ -767,218 +1010,33 @@ def compare_and_report(
 
 
 def main():
+    """Main entry point for backward-compatible local mode (uses root paths)."""
     # Parse CLI arguments
     parser = argparse.ArgumentParser(description="Analizator local oferte constructii")
     args = parser.parse_args()
 
-    logger.info("=" * 50)
-    logger.info("  Analizator Local Oferte Constructii")
-    logger.info("=" * 50)
-    logger.info(f"Input:  {INPUT_DIR}")
-    logger.info(f"Output: {OUTPUT_DIR}")
+    # For backward compatibility: create a ClientConfig for root paths
+    root_config = ClientConfig(
+        name="root",
+        input_dir=INPUT_DIR,
+        output_dir=OUTPUT_DIR,
+        checkpoint_dir=CHECKPOINT_DIR,
+        reference_file=INPUT_DIR / "di_referinta.json",
+        offer_files=sorted(INPUT_DIR.glob("di_oferta_*.json")),
+    )
 
-    # Verifica input
-    ref_path = INPUT_DIR / "di_referinta.json"
-    if not ref_path.exists():
-        logger.error(f"Referinta lipsa: {ref_path}")
+    # Validate root config
+    if not root_config.validate():
+        logger.error(f"Referinta lipsa: {root_config.reference_file}")
         logger.error("Adauga di_referinta.json in folderul input_AO/")
         sys.exit(1)
 
-    oferta_paths = sorted(INPUT_DIR.glob("di_oferta_*.json"))
-    if not oferta_paths:
+    if not root_config.list_offer_files():
         logger.error(f"Nicio oferta gasita. Adauga di_oferta_1.json, di_oferta_2.json etc. in input_AO/")
         sys.exit(1)
 
-    logger.info(f"Referinta: {ref_path.name}")
-    logger.info(f"Oferte ({len(oferta_paths)}): {[p.name for p in oferta_paths]}")
-
-    client, model = _build_client()
-
-    # Step 1: Extrage referinta
-    logger.info("\n--- Extragere REFERINTA ---")
-    ref_articles, ref_checkpoint_data = extract_document(ref_path, client, model)
-
-    # Extract reference deviz groups for LLM partial key resolution
-    # Load from either fresh checkpoint_data or from saved checkpoint file
-    ref_deviz_groups = []
-    ref_checkpoint_path = None
-
-    if ref_checkpoint_data:
-        # Fresh classification — checkpoint data returned
-        ref_deviz_groups = ref_checkpoint_data.get("deviz_groups", [])
-        ref_checkpoint_path = _save_checkpoint(ref_checkpoint_data, ref_path)
-        logger.info(f"   Checkpoint: {ref_checkpoint_path}")
-    else:
-        # Cached classification — look for existing deviz checkpoint in directory
-        # Need to find the actual checkpoint file (with hash-based name)
-        matching_checkpoints = list(CHECKPOINT_DIR.glob(f"{ref_path.stem}_deviz_mapping_*.json"))
-        if matching_checkpoints:
-            ref_checkpoint_path = matching_checkpoints[0]  # Use first match
-            try:
-                ref_checkpoint_data = json.loads(ref_checkpoint_path.read_text(encoding="utf-8"))
-                ref_deviz_groups = ref_checkpoint_data.get("deviz_groups", [])
-                logger.info(f"   Checkpoint loaded from cache: {ref_checkpoint_path.name}")
-            except Exception as e:
-                logger.warning(f"   Failed to load checkpoint: {e}")
-
-    if ref_deviz_groups:
-        logger.info(f"   {len(ref_deviz_groups)} deviz groups available for LLM resolution")
-
-    # Populate missing deviz denominations (so reports show work categories)
-    from shared.deviz_namer import populate_deviz_denominations
-    from shared.deviz_reconciler import reconcile_missing_devize
-    ref_articles = populate_deviz_denominations(ref_articles)
-
-    # Filter out TRULY INVALID articles (missing code entirely)
-    # Keep articles with valid codes but missing denom/UM/qty — they are PARSE FAILURES
-    # that should match against offers if codes align
-    def is_truly_invalid(a):
-        """Article is invalid only if it has NO CODE (unable to parse anything useful)."""
-        return not a.get("cod", "").strip()
-
-    invalid_count = sum(1 for a in ref_articles if is_truly_invalid(a))
-    ref_articles = [a for a in ref_articles if not is_truly_invalid(a)]
-    if invalid_count > 0:
-        logger.info(f"  Removed {invalid_count} articles with no code (truly unparseable)")
-
-    ref_out = OUTPUT_DIR / "referinta.json"
-    ref_out.write_text(
-        json.dumps({"articole": ref_articles}, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
-    logger.info(f"  Salvat: {ref_out.name}")
-
-    ref_deviz_codes = set(a.get("deviz", "") for a in ref_articles if a.get("deviz"))
-    logger.info(f"  {len(ref_deviz_codes)} devize in referinta")
-
-    # Load reference DI JSON for validation purposes
-    ref_di_json = json.loads(ref_path.read_text(encoding="utf-8"))
-
-    # Step 2: Extrage + compara fiecare oferta (fara filtru de devize)
-    for oferta_path in oferta_paths:
-        try:
-            oferta_nr = int(oferta_path.stem.replace("di_oferta_", ""))
-        except ValueError:
-            logger.warning(f"Nu pot extrage numarul din {oferta_path.name}, skip")
-            continue
-
-        logger.info(f"\n--- Extragere OFERTA {oferta_nr} ---")
-        ofertant_name = _extract_ofertant_name(oferta_path)
-        if ofertant_name:
-            logger.info(f"  Ofertant: {ofertant_name}")
-        oferta_articles, oferta_checkpoint_data = extract_document(oferta_path, client, model, ref_deviz_groups=ref_deviz_groups, reference_articles=ref_articles)
-
-        # Save deviz checkpoint after offer extraction
-        if oferta_checkpoint_data:
-            oferta_checkpoint_path = _save_checkpoint(oferta_checkpoint_data, oferta_path)
-            logger.info(f"   Checkpoint: {oferta_checkpoint_path}")
-
-        # Populate missing deviz denominations (so reports show work categories)
-        oferta_articles = populate_deviz_denominations(oferta_articles)
-
-        # Identificare devize extra (in oferta dar absente din referinta) — alerta calitate
-        oferta_deviz_codes = set(a.get("deviz", "") for a in oferta_articles if a.get("deviz"))
-        devize_extra = oferta_deviz_codes - ref_deviz_codes - {""}
-        devize_lipsa_din_oferta = ref_deviz_codes - oferta_deviz_codes
-
-        # Reconciliere devize_extra: în ofertă dar absente din referință → re-scanăm ref
-        if devize_extra:
-            logger.warning(f"  ALERTA: {len(devize_extra)} devize in oferta ABSENTE din referinta: {sorted(devize_extra)}")
-            logger.info(f"  → Reconciliere: re-scanam referinta pentru {sorted(devize_extra)}")
-            ref_articles, unresolved_extra = reconcile_missing_devize(
-                di_path=ref_path,
-                missing_codes=devize_extra,
-                checkpoint_path=_checkpoint_path(ref_path),
-                existing_articles=ref_articles,
-            )
-            ref_articles = populate_deviz_denominations(ref_articles)
-            ref_deviz_codes = {a.get("deviz") for a in ref_articles if a.get("deviz")}
-            for code in unresolved_extra:
-                logger.error(f"  [RECONCILE] Deviz {code} NEGASIT in referinta — posibila eroare OCR/parsare")
-
-        # Reconciliere devize_lipsa: în referință dar absente din ofertă → re-scanăm oferta
-        if devize_lipsa_din_oferta:
-            logger.info(f"  {len(devize_lipsa_din_oferta)} devize din referinta NEACOPERITE de oferta: {sorted(devize_lipsa_din_oferta)}")
-            logger.info(f"  → Reconciliere: re-scanam oferta {oferta_nr} pentru {sorted(devize_lipsa_din_oferta)}")
-            oferta_articles, unresolved_lipsa = reconcile_missing_devize(
-                di_path=oferta_path,
-                missing_codes=devize_lipsa_din_oferta,
-                checkpoint_path=_checkpoint_path(oferta_path),
-                existing_articles=oferta_articles,
-            )
-            oferta_articles = populate_deviz_denominations(oferta_articles)
-            for code in unresolved_lipsa:
-                logger.error(f"  [RECONCILE] Deviz {code} NEGASIT in oferta {oferta_nr} — posibila eroare OCR/parsare")
-
-        # Filter out TRULY INVALID articles (missing code entirely)
-        # Keep articles with valid codes but missing denom/UM/qty — they are PARSE FAILURES
-        # that should match against reference if codes align
-        def is_truly_invalid(a):
-            """Article is invalid only if it has NO CODE (unable to parse anything useful)."""
-            return not a.get("cod", "").strip()
-
-        invalid_count = sum(1 for a in oferta_articles if is_truly_invalid(a))
-        oferta_articles = [a for a in oferta_articles if not is_truly_invalid(a)]
-        if invalid_count > 0:
-            logger.info(f"  Removed {invalid_count} articles with no code (truly unparseable)")
-
-        # Normalize article codes FIRST: remove trailing '+' suffix (OCR artifacts)
-        # Some extracted codes have '+' appended (e.g., IZC05C+, RPCG30C+) that don't match referinta
-        # This must happen BEFORE code-based deviz correction so codes can be found in reference map
-        articles_with_plus = [a for a in oferta_articles if '+' in a.get('cod', '')]
-        if articles_with_plus:
-            for art in articles_with_plus:
-                art['cod'] = art['cod'].rstrip('+')
-            logger.info(f"  [NORMALIZE] Removed '+' suffix from {len(articles_with_plus)} article codes")
-
-        # Apply deviz code remapping for OFERTA before saving
-        # This handles text-only devizes (e.g. "Arhitectura") → numeric codes (e.g. "4.1-03")
-        from shared.deviz_matcher import match_devize_by_denomination, remap_devize_in_articles, remap_devize_by_code_preference
-        deviz_mapping = match_devize_by_denomination(ref_articles, oferta_articles)
-        if deviz_mapping:
-            oferta_articles = remap_devize_in_articles(oferta_articles, deviz_mapping)
-            logger.info(f"  [DEVIZ_MAPPER] Remapped {len([a for a in oferta_articles if a.get('_deviz_original')])} articles: {deviz_mapping}")
-
-            # Apply code-based correction: if an article's code exists in reference,
-            # reassign it to the reference's deviz (preference over denomination matching)
-            oferta_articles = remap_devize_by_code_preference(oferta_articles, ref_articles, deviz_mapping)
-
-        # Filter out malformed articles: $ prefix + empty description (OCR extraction errors)
-        before_filter = len(oferta_articles)
-        oferta_articles = [
-            a for a in oferta_articles
-            if not (a.get('cod', '').startswith('$') and not a.get('denumire', '').strip())
-        ]
-        filtered_count = before_filter - len(oferta_articles)
-        if filtered_count > 0:
-            logger.info(f"  [FILTER] Removed {filtered_count} malformed articles ($ prefix + empty denomination)")
-
-        oferta_out = OUTPUT_DIR / f"oferta_{oferta_nr}.json"
-        oferta_out.write_text(
-            json.dumps({"articole": oferta_articles}, ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
-
-        logger.info(f"\n--- Comparare OFERTA {oferta_nr} ---")
-        _, comp = compare_and_report(ref_articles, oferta_articles, oferta_nr, oferta_path, client, model,
-                                     ofertant_name=ofertant_name, ref_di_json=ref_di_json,
-                                     checkpoint_data=oferta_checkpoint_data)
-
-        # Generate JSON report grouped by deviz
-        if comp and comp.get('neconformitati'):
-            session = {"client_name": "", "obiect_investitii": ""}
-            json_report = generate_json_by_deviz(session, comp)
-
-            json_file = OUTPUT_DIR / f"comparatie_deviz_oferta_{oferta_nr}.json"
-            with open(json_file, 'w', encoding='utf-8') as f:
-                json.dump(json_report, f, ensure_ascii=False, indent=2)
-
-            logger.info(f"  JSON by deviz: {json_file.name}")
-
-    logger.info("\n" + "=" * 50)
-    logger.info("  DONE")
-    logger.info(f"  Rezultate in: {OUTPUT_DIR}")
-    logger.info("=" * 50)
+    # Run the pipeline using the refactored internal function
+    _run_analysis_pipeline(root_config, {}, [])
 
 
 if __name__ == "__main__":
