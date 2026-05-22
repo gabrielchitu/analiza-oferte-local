@@ -296,7 +296,7 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
 
         # Generate JSON report grouped by deviz
         if comp and comp.get('neconformitati'):
-            session = {"client_name": "", "obiect_investitii": ""}
+            session = {"client_name": client_config.name if client_config else "", "obiect_investitii": ""}
             json_report = generate_json_by_deviz(session, comp)
 
             json_file = client_config.output_dir / f"comparatie_deviz_oferta_{oferta_nr}.json"
@@ -993,7 +993,7 @@ def compare_and_report(
     raport_ierarhic = build_raport_ierarhic(ref_articles, neconformitati, matches,
                                             articole_fara_deviz=articole_fara_deviz)
 
-    session = {"client_name": "", "obiect_investitii": ""}
+    session = {"client_name": client_config.name if client_config else "", "obiect_investitii": ""}
     comp = {
         "oferta_nr": oferta_nr,
         "source_file": oferta_path.name,
