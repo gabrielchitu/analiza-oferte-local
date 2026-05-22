@@ -44,8 +44,8 @@ Pipeline Python care:
 | Blocuri Racari | 4 | 316 | 49 | 1 | 9 | curata (47$+1MDTC+1OCR) |
 | Camin Maneciu | 1 | 1056 | 1 | 36 | 2 | EXTRA neinvestigat |
 | Camin Maneciu | 2 | 1066 | 84 | 41 | 5 | LIPSA=84 neinvestigat |
-| Scoala Dragomiresti | 1 | 651 | 6 | 0 | 624 | DEVIZ_MM bug major |
-| Scoala Dragomiresti | 2 | 691 | 6 | 1 | 602 | DEVIZ_MM bug major |
+| Scoala Dragomiresti | 1 | **910** | **2** | 0 | **2** | ✅ fix DEVIZ_MM 624→2 |
+| Scoala Dragomiresti | 2 | **910** | **2** | 1 | **2** | ✅ fix DEVIZ_MM 602→2 |
 | Scoala Sportiva Racari | 1 | 2152 | 2 | 122 | 11 | EXTRA neinvestigat |
 | Scoala Sportiva Racari | 2 | 1142 | 4 | 56 | 328 | DEVIZ_MM neinvestigat |
 | Scoala Sportiva Racari | 3 | 2260 | 6 | 315 | 325 | EXTRA=315 neinvestigat |
@@ -75,34 +75,49 @@ Faze:
 Layer 2.5 OCR vedea 1 instanta per cheie oferta; acum vede toate instantele N:M.
 Impact: +6 BR O1, +25 BR O3 (la momentul fix-ului; baseline s-a recalculat).
 
-### 3. Fix Parser 82M scatter format (2026-05-22)
+### 3. Fix Parser scatter format BR O3 (2026-05-22)
 
 `shared/f3_regex_parser.py:535` — `is_f3_um` in `_preprocess_scattered_format`
 
-**Root cause:** `'Art. asimilat'` detectat ca UM valid (ART in UM_KNOWN, verificare pe primul token).
-Lua NR_CRT urmator drept QTY. Crea linie merged fara UM/QTY reale.
-EA02A1, RPCT49C1, H1B02A3, RPCE34A1 extrase cu cant=0 → LIPSA false.
+**Root cause:** `'Art. asimilat'` detectat ca UM valid (ART in UM_KNOWN, primul token).
+Lua NR_CRT urmator drept QTY. Articole extrase cu cant=0 → LIPSA false.
 
 **Fix:** `len(_f3_um_tokens) == 1` — single-token UM only.
 **Impact:** BR O3: matched 395→414 (+19), LIPSA 25→21 (-4).
+
+### 4. Fix SD DEVIZ_MM 624→2 (2026-05-22) — două fix-uri
+
+**Fix 4a:** `shared/f3_page_classifier.py:107` — `_CATEGORIA_OPT_RE`
+
+`[0-9]{0,4}` → `[0-9]{0,4}(?:\.[0-9]{0,2})?`
+
+"Stadiul fizic: 1.4 INSTALATII" → cat_num=`1.4` (nu `1`).
+Toate stadiile unui obiect obtin coduri distincte: `1.0-1.1`, `1.0-1.2`, `1.0-1.3`, `1.0-1.4`.
+
+**Fix 4b:** `shared/deviz_matcher.py` — Strategy 0 numeric structural (înainte de fuzzy text)
+
+Extrage `(obj_int, cat_int)` din compus: `001-004` → `(1,4)`, `1.0-1.4` → `(1,4)`.
+Fuzzy text eșua deoarece "INSTALATII SANITARE" identic în obiectele 1, 2, 3, 4.
+
+**Impact:** SD O1: matched 651→910 (+259), DEVIZ_MM 624→2. SD O2: matched 692→910 (+218).
+
+### 5. Skill f3-domain-rules creat
+
+`.claude/skills/f3-domain-rules/SKILL.md` — referință regex, UM, deviz, matching layers.
 
 ---
 
 ## Known Issues Active
 
 ### 1. IZDO3D1 — OCR O/0 (BR toate ofertele)
-Ref extrage `IZDO3D1` (litera O, OCR) + `IZD03D1` (real).
-Layer 1 consuma cheia IZD03D1 → IZDO3D1 ramane LIPSA.
 **Status:** Acceptat.
 
 ### 2. BR O3 — EXTRA=5
-5 articole extra in O3 dupa fix. De investigat daca sunt extrageri duble.
 **Status:** Neinvestigat.
 
-### 3. Scoala Dragomiresti — DEVIZ_MM=600+
-Ref: coduri text ("4.1-01 STRUCTURA"), oferta: coduri eDevize numerice.
-`deviz_matcher` nu mapeaza complet.
-**Fix propus:** Matching mai agresiv pe cod articol in deviz_matcher.
+### 3. Scoala Dragomiresti — DEVIZ_MM=2 (REZOLVAT)
+~~DEVIZ_MM=600+~~ → 2 ramase (probabil genuine LIPSA).
+**Status:** ✅ Fix livrat.
 
 ### 4. Camin Maneciu O2 — LIPSA=84
 Probabil mix $-coduri + deviz mismatch.

@@ -31,8 +31,19 @@ INPUT: Azure Document Intelligence JSON (di_referinta.json + di_oferta_N.json)
     ↓
 ┌─────────────────────────────────────────────────────────────────────────────
 │ ETAPA 3: DEVIZ MAPPING (shared/deviz_matcher.py)
-│   3a. match_devize_by_denomination: potriveste deviz-urile ofertei cu ref
-│       pe baza denumirii devizului (fuzzy match)
+│   3a. match_devize_by_denomination — 4 strategii în ordine:
+│
+│   Strategy 0 (NOU 2026-05-22): Numeric structural matching
+│       Extrage (obj_int, cat_int) din cod compound:
+│         "001-004" → (1, 4)   [offer: 3-digit-padded]
+│         "1.0-1.4" → (1, 4)   [ref: decimal format]
+│       Map direct când (obj_int, cat_int) identic.
+│       Rezolva problema "INSTALATII SANITARE" identical in mai multe obiecte.
+│
+│   Strategy 1: Exact code match (oferta_deviz == ref_deviz)
+│   Strategy 2: Exact denomination match (normalized text)
+│   Strategy 3: Fuzzy match (SequenceMatcher, prag 0.70)
+│
 │   3b. Output: deviz_mapping dict {deviz_oferta → deviz_ref}
 └─────────────────────────────────────────────────────────────────────────────
     ↓
@@ -156,6 +167,19 @@ analiza-oferte-local/
 3. **REFERENCE_MATCHED** — fuzzy match text vs deviz_text_map (prag 0.65)
 4. **LLM** — pagini cu `needs_llm=True`, batch Claude API
 5. **INHERITED** — continuare pagina anterioare F3
+
+### IMPORTANT: _CATEGORIA_OPT_RE (Fix 2026-05-22)
+
+`_CATEGORIA_OPT_RE` în `f3_page_classifier.py:107` captura cat_num din "Stadiul fizic:".
+
+**Problema veche:** `[0-9]{0,4}` — nu captura punct decimal.
+"Stadiul fizic: 1.4 INSTALATII TERMICE" → cat_num=`1` (nu `1.4`).
+Toate stadiile unui obiect (1.1, 1.2, 1.3, 1.4) → cod identic `1.0-1`.
+
+**Fix:** `[0-9]{0,4}(?:\.[0-9]{0,2})?` — captura `1.4` ca cat_num.
+Fiecare stadiu obține cod distinct: `1.0-1.1`, `1.0-1.2`, `1.0-1.3`, `1.0-1.4`.
+
+**Impact:** SD DEVIZ_MM 624→2. Potențial același bug la SSR dacă ref are format decimal.
 
 ### Checkpointing
 
@@ -287,8 +311,8 @@ Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
 | Blocuri Racari | 4 | 316 | 49 | 1 | 9 | 47 $-cod + 1 MDTC + 1 OCR |
 | Camin Maneciu | 1 | 1056 | 1 | 36 | 2 | EXTRA neinvestigat |
 | Camin Maneciu | 2 | 1066 | 84 | 41 | 5 | LIPSA neinvestigat |
-| Scoala Dragomiresti | 1 | 651 | 6 | 0 | 624 | DEVIZ_MM = bug major |
-| Scoala Dragomiresti | 2 | 691 | 6 | 1 | 602 | DEVIZ_MM = bug major |
+| Scoala Dragomiresti | 1 | **910** | **2** | 0 | **2** | fix DEVIZ_MM 624→2 |
+| Scoala Dragomiresti | 2 | **910** | **2** | 1 | **2** | fix DEVIZ_MM 602→2 |
 | Scoala Sportiva Racari | 1 | 2152 | 2 | 122 | 11 | EXTRA neinvestigat |
 | Scoala Sportiva Racari | 2 | 1142 | 4 | 56 | 328 | DEVIZ_MM neinvestigat |
 | Scoala Sportiva Racari | 3 | 2260 | 6 | 315 | 325 | EXTRA=315 neinvestigat |
@@ -301,7 +325,7 @@ Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
 |---|-------|--------|------------|--------|
 | 1 | IZDO3D1 OCR (O vs 0) | BR toate | Low | Acceptat |
 | 2 | BR O3 EXTRA=5 | BR O3 | Medium | De investigat |
-| 3 | SD DEVIZ_MM=600+ | SD | High | Fix propus: deviz_matcher agresiv |
+| 3 | SD DEVIZ_MM=2 | SD | Resolved | ✅ fix _CATEGORIA_OPT_RE + Strategy 0 |
 | 4 | CM O2 LIPSA=84 | CM | Medium | Neinvestigat |
 | 5 | SSR O3 EXTRA=315 | SSR | High | Neinvestigat |
 | 6 | SSR O2/O3 DEVIZ_MM=328/325 | SSR | High | Neinvestigat |

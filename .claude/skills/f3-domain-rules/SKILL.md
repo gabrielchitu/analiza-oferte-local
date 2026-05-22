@@ -242,7 +242,31 @@ oferta_by_deviz[ok[0]].extend(oferta_by_key[ok])
 
 ---
 
-## 9. Fișiere Cheie și Linii de Referință
+## 9. Deviz Matcher — Strategii (în ordine)
+
+| Strategie | Mecanism | Când se aplică |
+|-----------|----------|----------------|
+| **0** | Numeric structural: `(obj_int, cat_int)` match | Compound codes cu formate diferite (001-004 ↔ 1.0-1.4) |
+| **1** | Exact code match | Aceleași coduri în ref și ofertă |
+| **2** | Exact denomination match | Text identic după normalizare |
+| **3** | Fuzzy SequenceMatcher ≥ 0.70 | Texte similare |
+
+**Strategy 0 — Regula de extracție:**
+```python
+def _extract_numeric_struct(deviz_code):
+    # "001-004" → (1, 4)  |  "1.0-1.4" → (1, 4)
+    obj_int = int(float(parts[0].lstrip('0') or '0'))
+    if '.' in cat_str:
+        cat_int = round((float(cat_str) % 1) * 10)  # frac × 10
+    else:
+        cat_int = int(float(cat_str.lstrip('0') or '0'))
+```
+
+**Fișier:** `shared/deviz_matcher.py`
+
+---
+
+## 10. Fișiere Cheie și Linii de Referință
 
 | Regula | Fișier | Linie aprox. |
 |--------|--------|-------------|
@@ -257,6 +281,9 @@ oferta_by_deviz[ok[0]].extend(oferta_by_key[ok])
 | Layer 2.5 N:M fix | AgentComparator_local.py | 629 |
 | Lenient UM post-proc | AgentComparator_local.py | 923 |
 | extract_articles_v3 | shared/f3_extractor.py | 807 |
+| _CATEGORIA_OPT_RE (decimal cat_num) | shared/f3_page_classifier.py | 106 |
+| _extract_numeric_struct (Strategy 0) | shared/deviz_matcher.py | ~98 |
+| match_devize_by_denomination | shared/deviz_matcher.py | 157 |
 
 ---
 

@@ -1,104 +1,98 @@
 # Session State — 2026-05-22 (actualizat)
 
-## Fix sesiunea curentă: Parser Scatter Format
+## Fix 3: Scoala Dragomiresti DEVIZ_MM 624→2 (2026-05-22)
 
-**Bug:** `_preprocess_scattered_format` în `shared/f3_regex_parser.py:535`
-**Root cause:** In ramura F3-order, scana ahead pentru UM. Gasea `'Art. asimilat'` drept UM
-(deoarece `'ART'` e in `UM_KNOWN` si verifica `_f3_um_tokens[0].rstrip('.') in UM_KNOWN`).
-Lua NR_CRT-ul articolului urmator (`'7'`) drept QTY.
-Crea linie merged `"6 EA02A1 - 82 M 170,00000 TUB IZOLANT..."` fara UM/QTY reale.
-Articolele afectate: EA02A1, RPCT49C1, H1B02A3, RPCE34A1 (BR O3).
+### Problema
+`_CATEGORIA_OPT_RE` în `f3_page_classifier.py:107` captura `[0-9]{0,4}` — nu poate
+captura punct decimal. "Stadiul fizic: 1.4 INSTALATII TERMICE" → cat_num=`1` (nu `1.4`).
+Toate 4 stadii din obiect 1 (1.1, 1.2, 1.3, 1.4) → cod identic `1.0-1` în referință.
+Oferta: "Stadiul fizic: 004 1.4..." → cat_num=`004` corect → `001-004`.
+Rezultat: 624 DEVIZ_MISMATCH false (articolele existau dar deviz diferit).
 
-**Fix aplicat:** `len(_f3_um_tokens) == 1` — UM single-token only.
+### Fix 1: `f3_page_classifier.py:107`
+`[0-9]{0,4}` → `[0-9]{0,4}(?:\.[0-9]{0,2})?`
+Referința obține `1.0-1.1`, `1.0-1.2`, `1.0-1.3`, `1.0-1.4` (4 coduri distinct).
+
+### Fix 2: `deviz_matcher.py` — Strategy 0 (numeric structural)
+Înaintea fuzzy text: extrage `(obj_int, cat_int)` din ambele formate:
+- `001-004` → `(1, 4)` (int(001)=1, int(004)=4)
+- `1.0-1.4` → `(1, 4)` (int(1.0)=1, frac(1.4)×10=4)
+Map direct când `(obj_i, cat_i)` identic. 22/22 devize SD mapate corect.
+
+**Impact:** SD O1: matched 651→910 (+259), DEVIZ_MM 624→2. SD O2: matched 692→910 (+218), DEVIZ_MM 602→2.
+
+---
+
+## Fix 2: Parser Scatter Format BR O3 (commit HEAD-1)
+
+`_preprocess_scattered_format` în `shared/f3_regex_parser.py:535`:
+`"Art. asimilat"` detectat fals ca UM (ART in UM_KNOWN, verificare pe primul token).
+Fix: `len(_f3_um_tokens) == 1`.
 **Impact:** BR O3: matched 395→414 (+19), LIPSA 25→21 (-4).
 
-## Baseline REAL (post-fix, fresh checkpoints)
+---
+
+## Baseline REAL (post-toate-fix-urile, 2026-05-22)
 
 | Client | Ofertă | matched | LIPSA | EXTRA | DEVIZ_MM |
 |--------|--------|---------|-------|-------|----------|
-| Blocuri Racari | O1 | **308** | 47 | 0 | 20 |
+| Blocuri Racari | O1 | 308 | 47 | 0 | 20 |
 | Blocuri Racari | O2 | 551 | 2 | 0 | 28 |
-| Blocuri Racari | O3 | **414** | 21 | 5 | - |
+| Blocuri Racari | O3 | 414 | 21 | 5 | - |
 | Blocuri Racari | O4 | 316 | 49 | 1 | 9 |
 | Camin Maneciu | O1 | 1056 | 1 | 36 | 2 |
 | Camin Maneciu | O2 | 1066 | 84 | 41 | 5 |
-| Scoala Dragomiresti | O1 | 651 | 6 | 0 | 624 |
-| Scoala Dragomiresti | O2 | 691 | 6 | 1 | 602 |
+| **Scoala Dragomiresti** | **O1** | **910** | **2** | **0** | **2** |
+| **Scoala Dragomiresti** | **O2** | **910** | **2** | **1** | **2** |
 | Scoala Sportiva Racari | O1 | 2152 | 2 | 122 | 11 |
 | Scoala Sportiva Racari | O2 | 1142 | 4 | 56 | 328 |
 | Scoala Sportiva Racari | O3 | 2260 | 6 | 315 | 325 |
 
-**Nota:** BR O1=308 e baseline real. State.md anterior zicea 314 — era din checkpoints vechi.
+**Nota:** BR = Blocuri Racari baseline real=308 (checkpoints noi). SD dramatic îmbunătățit.
 
-## DEVIZ_MISMATCH — Explicat
-
-Articol gasit in oferta cu acelasi cod, dar in deviz diferit fata de referinta.
-Nu e LIPSA reala. Ofertantul a structurat devizele diferit.
-Fix propus: deviz_matcher mai agresiv pe baza codului articolului.
-
-## BR LIPSA Breakdown (post-fix)
-
-**O1 (47):** 46 $-cod + 1 IZDO3D1 OCR
-**O2 (2):** 1 RPCE21A1 genuina + 1 IZDO3D1
-**O3 (21):** 16 $-cod + 4 genuine absente + 1 IZDO3D1
-**O4 (49):** 47 $-cod + 1 MDTC5506025 genuina + 1 IZDO3D1
-
-## Commits sesiune curentă (total fata de origin/main)
-
-```
-38e0b6f fix(parser): treat NR+UM line (e.g. '82 M') as UM in READING state
-6fdff85 docs: document IZDO3D1 known issue and Layer 2.5 fix in state.md
-70e67b9 fix(matching): Layer 2.5 uses all offer instances per key in N:M
-7d6b5ec feat(diagnostics): CLI entry point run_diagnostics.py
-+ alte diagnostics commits
-+ FIX CURENT: scatter format is_f3_um single-token (necommitat inca)
-```
-
-**11+ commits ahead origin/main** (SSH push blocat)
+---
 
 ## Known Issues Active
 
-1. IZDO3D1 OCR — acceptat
-2. BR O3 EXTRA=5 — de investigat
-3. SD DEVIZ_MM=600+ — fix propus: deviz_matcher agresiv
-4. CM O2 LIPSA=84 — neinvestigat
-5. SSR O3 EXTRA=315 — neinvestigat
-6. SSR O2/O3 DEVIZ_MM=328/325 — neinvestigat
+1. **IZDO3D1 OCR** — acceptat
+2. **BR O3 EXTRA=5** — de investigat
+3. **SD DEVIZ_MM=2** — 2 rămase, probabil LIPSA reale (de verificat)
+4. **CM O2 LIPSA=84** — neinvestigat
+5. **SSR O3 EXTRA=315** — neinvestigat
+6. **SSR O2/O3 DEVIZ_MM=328/325** — neinvestigat (posibil același tip de bug ca SD?)
 
-## Ce urmeaza: Refactorizare
+---
 
-Utilizatorul vrea refactorizare. Baseline arhitectural documentat in ARCHITECTURE.md.
-Citeste ARCHITECTURE.md inainte de orice refactorizare.
+## Commits sesiune 2026-05-22
 
-## Cum sa rulezi
+```
+fix(deviz): resolve 620+ false DEVIZ_MISMATCH for Scoala Dragomiresti
+fix(parser): scatter format is_f3_um requires single-token UM
+fix(matching): Layer 2.5 uses all offer instances per key in N:M
+fix(parser): treat NR+UM line (e.g. '82 M') as UM in READING state
+feat(diagnostics): ...
+```
+
+**12+ commits ahead origin/main** (SSH push blocat)
+
+---
+
+## Cum să rulezi
 
 ```bash
-# Client specific (fresh)
-find "output_AO/<Client>/checkpoints" -name "*.json" -delete
-.venv/bin/python3 multi_client_run.py --client "<Client>"
+.venv/bin/python3 multi_client_run.py --client "Scoala Dragomiresti"
 
-# Toti clientii
 for c in "Blocuri Racari" "Camin Maneciu" "Scoala Dragomiresti" "Scoala Sportiva Racari"; do
   .venv/bin/python3 multi_client_run.py --client "$c"
 done
 
-# Diagnostics
-.venv/bin/python3 run_diagnostics.py --client "Blocuri Racari"
+.venv/bin/python3 run_diagnostics.py
 
-# Teste
 .venv/bin/python3 -m pytest tests/ -q \
   --ignore=tests/test_compound_deviz_extraction.py \
   --ignore=tests/test_subcomponent_matching.py
-
-# Metrici rapide
-.venv/bin/python3 -c "
-import json; from pathlib import Path; from collections import Counter
-for client in ['Blocuri Racari', 'Camin Maneciu', 'Scoala Dragomiresti', 'Scoala Sportiva Racari']:
-    for i in range(1,5):
-        f = Path(f'output_AO/{client}/comparatie_oferta_{i}.json')
-        if not f.exists(): continue
-        comp = json.loads(f.read_text())
-        tips = Counter(n['tip'] for n in comp['neconformitati'])
-        print(f'{client} O{i}: matched={comp[\"matches\"]} LIPSA={tips.get(\"ARTICOL_LIPSA\",0)} EXTRA={tips.get(\"ARTICOL_EXTRA\",0)} DEVIZ_MM={tips.get(\"DEVIZ_MISMATCH\",0)}')
-"
 ```
+
+## Ce urmează
+
+Refactorizare. Baseline arhitectural documentat. Citește ARCHITECTURE.md înainte.
