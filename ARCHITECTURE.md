@@ -307,18 +307,19 @@ Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
 |--------|---|---------|-------|-------|----------|----|------|
 | Blocuri Racari | 1 | 314 | 47 | 0 | 20 | 0 | 46 $-cod + 1 OCR |
 | Blocuri Racari | 2 | 551 | 2 | 0 | 28 | 3 | curata |
-| Blocuri Racari | 3 | 414 | 21 | 5 | 14 | 52 | 16 $-cod + 4 genuine + 1 OCR |
-| Blocuri Racari | 4 | 316 | 49 | 1 | 9 | 5 | 47 $-cod + 1 MDTC + 1 OCR |
-| Camin Maneciu | 1 | 1056 | 1 | 36 | 2 | 223 | EXTRA neinvestigat |
-| Camin Maneciu | 2 | 1066 | 84 | 41 | 5 | 201 | LIPSA=84 neinvestigat |
+| Blocuri Racari | 3 | 414 | 21 | 5 | 14 | 46 | abrevieri OCR reziduale |
+| Blocuri Racari | 4 | 316 | 49 | 1 | 9 | 3 | curata |
+| Camin Maneciu | 1 | 1056 | 1 | 36 | 2 | 57 | EXTRA neinvestigat |
+| Camin Maneciu | 2 | 1066 | 84 | 41 | 5 | 121 | LIPSA=84 neinvestigat |
 | **Scoala Dragomiresti** | **1** | **910** | **2** | **0** | **1** | 14 | fix DEVIZ_MM 624→1 |
 | **Scoala Dragomiresti** | **2** | **910** | **2** | **1** | **1** | 14 | fix DEVIZ_MM 602→1 |
 | Scoala Sportiva Racari | 1 | 2152 | 2 | 122 | 6 | 139 | EXTRA neinvestigat |
 | Scoala Sportiva Racari | 2 | 1119 | 4 | 55 | 325 | 28 | DEVIZ_MM neinvestigat |
 | Scoala Sportiva Racari | 3 | 2404 | 6 | 318 | 299 | 44 | EXTRA neinvestigat |
 
-**DD = DESCRIERE_DIFERITA** (tip nou — denominații diferite la articole matchate, sim < 0.85).
-CM DD=200+ și BR O3 DD=52 conțin false pozitive din artefacte OCR. Prag de rafinat ulterior.
+**DD = DESCRIERE_DIFERITA** (tip nou) — Jaccard < 0.50 pe cuvinte după curățare OCR artifacts.
+Surse false pozitive reziduale: abrevieri ("pt"→"pentru", "supr."→"suprafata", "termoizol.").
+Fix propus: dicționar static abrevieri F3 în `shared/comparator.py` aplicat înainte de tokenizare.
 
 ---
 

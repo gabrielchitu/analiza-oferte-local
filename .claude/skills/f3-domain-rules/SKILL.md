@@ -1,6 +1,6 @@
 ---
 name: f3-domain-rules
-description: Use when writing, modifying, or debugging any code that touches article code parsing, UM detection, deviz code extraction, or matching keys in this project. Load before editing f3_regex_parser.py, AgentComparator_local.py, or deviz_matcher.py.
+description: Use when writing, modifying, or debugging any code that touches article code parsing, UM detection, deviz code extraction, matching keys, or denomination comparison in this project. Load before editing f3_regex_parser.py, AgentComparator_local.py, deviz_matcher.py, or shared/comparator.py.
 ---
 
 # F3 Domain Rules — Sursa de Adevăr
@@ -239,6 +239,33 @@ oferta_by_deviz[ok[0]].extend(oferta_by_key[ok])
 | Continuare pagina (header_only) | Pagina cu doar header nu se proceseaza (is skipped) |
 | Bare `82` in READING cu cant=0 | _finalize() + _WAITING (tratata ca NR_CRT nou) |
 | Bare `82` in READING cu cant>0 | _is_nr_crt() check: price_count==0 and cant>0 → True → _finalize() |
+
+---
+
+## 8b. DESCRIERE_DIFERITA — Implementare și False Pozitive
+
+**Fișier:** `shared/comparator.py::compare_articles()`
+
+**Logica:** Jaccard pe mulțimi de cuvinte < 0.50, după curățare OCR artifacts.
+
+**Artefacte curatate (`_OCR_ARTIFACTS`):**
+- eDevize headers: `antet stanga`, `edevize`, `sectiunea tehnica`, `formular f3`
+- Notatie subcomponente: `l: CODE -MATERIAL_ID -...` (orice format)
+- Garbage financiar: `io = %`, `po = %`, `vo = +po`, `contrib asig munca`
+- Spill din randuri tabel: `executant NNN`, `obiectiv NNN`, `comerciala`
+
+**False pozitive reziduale — abrevieri nerezolvate:**
+| Abreviere | Forma completa |
+|-----------|---------------|
+| `pt` / `pt.` | `pentru` |
+| `supr` / `supr.` | `suprafata` |
+| `termoizol.` | `termoizolatii` |
+| `gr.` | `grosime` |
+| `inc.` / `incl.` | `inclusiv` |
+| `b.a.` | `beton armat` |
+
+**Fix propus:** Dicționar static `ABREVIERI_F3` aplicat în `_clean_den()` înaintea tokenizării.
+**Alternativa LLM:** Trimitere perechi DD sim 0.40-0.50 la Claude Haiku pentru validare DA/NU.
 
 ---
 
