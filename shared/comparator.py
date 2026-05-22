@@ -68,11 +68,21 @@ def compare_articles(ref: dict, oferta: dict, include_prices: bool = True) -> li
         r'|\bcontrib\s+asig\s+munca\b|\btotal\s+chelt\s+directe\b'
         r'|\bcheltuieli\s+(directe|indirecte)\b'
         # Garbage din alte randuri ale tabelului (executant, obiectiv, etc.)
-        r'|\bexecutant\s+\d+|\bobiecti[vu]\s+\d+|\bcomercial[a]\b',
+        r'|\bexecutant\s+\d+|\bobiecti[vu]\s+\d+|\bcomercial[a]\b'
+        # Header tabel F3 captat eronat in denumire: "nr capitol de lucrari u.m cantitatea"
+        r'|\bnr\s+capitol\s+de\s+lucrari\b.*'
+        r'|\bu\.?m\.?\s+cantitate[a]?\b.*',
         _re.IGNORECASE
     )
+    # Tabel normalizare diacritice românești → ASCII
+    # OCR omite frecvent diacriticele; documentele folosesc ambele variante
+    _DIACRITICE = str.maketrans('ăâîșşțţĂÂÎȘŞȚŢ', 'aaissttAAISST T'.replace(' ', ''))
+
     def _clean_den(s: str) -> str:
         s = _OCR_ARTIFACTS.sub('', s)
+        # Normalizează diacritice: ă→a, â→a, î→i, ș/ş→s, ț/ţ→t
+        # Rezolvă: "cofraje stâlpi" ↔ "cofraje stalpi" (același articol, OCR diferit)
+        s = s.translate(_DIACRITICE)
         # Strip trailing " a" OCR artifact si cratime standalone
         s = _re.sub(r'(\s+-)+\s*$', '', s)
         s = _re.sub(r'\s+a\s*$', '', s)
