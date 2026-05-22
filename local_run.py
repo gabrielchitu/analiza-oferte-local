@@ -346,13 +346,14 @@ def _save_checkpoint(checkpoint: dict, di_path: Path, client_config: ClientConfi
 
 def _extract_ofertant_name(di_path: Path) -> str:
     """
-    Extrage numele ofertantului din DI JSON (primele 10 pagini).
+    Extrage numele ofertantului/executantului din DI JSON (primele 10 pagini).
 
     Strategii în ordine de prioritate:
-      A) 'OFERTANT,' singur pe linie → linia/liniile imediat urmatoare
-      B) 'Ofertant: NUME' inline → extrage după ':'
-      C) 'Asociere: NUME' sau 'denumirea Asociere: NUME'
-      D) Fallback: 'Oferta N' din numele fișierului
+      1) 'Executant:' singur pe linie → linia imediat urmatoare (dacă nu e label)
+      2) 'Executant: NUME' inline → extrage după ':'
+      3) 'OFERTANT,' singur pe linie → linia imediat urmatoare
+      4) 'Ofertant: NUME' inline → extrage după ':'
+      5) 'Asociere: NUME' sau 'denumirea Asociere: NUME'
     """
     import re as _re
     try:
@@ -362,41 +363,77 @@ def _extract_ofertant_name(di_path: Path) -> str:
 
     pages = di.get("pages", [])[:10]
 
-    def _is_company_line(s: str) -> bool:
-        s = s.strip()
-        return bool(s) and (
-            _re.search(r'\bS\.?C\.?\b|\bSRL\b|\bSA\b|\bRA\b|\bAsociere\b|Asocierea', s, _re.I)
-            or (s.isupper() and len(s) > 8)
-            or s.startswith("-")
-        )
+    # Labels care indica un nou camp — stop colectare dupa acestea
+    _STOP_RE = _re.compile(
+        r'^(Proiectant|Proiect\b|Beneficiar|Obiectivul|Obiectul|Stadiul\s+fizic|'
+        r'Director|Semnatura|Nume|Data\b|Deviz\b|Formular|'
+        r'Sistem\s+informatic|e\s*Devize|SECTIUNEA|Nr\.|Lista|'
+        r'Raport\s+generat|- lei -)',
+        _re.IGNORECASE
+    )
+
+    def _clean(s: str) -> str:
+        """Trunchiaza la primul marker de junk."""
+        for marker in ('Deviz "', 'Formular', 'Sistem informatic',
+                       'eDevize', 'Raport generat', '- lei -'):
+            idx = s.find(marker)
+            if 0 < idx:
+                s = s[:idx]
+        return _re.sub(r'\s+', ' ', s).strip()
+
+    def _collect_name(lines, i, max_lines=4):
+        """Colectează linii consecutive (non-label) de după linia i și le uneste."""
+        parts = []
+        for j in range(i + 1, min(i + max_lines + 1, len(lines))):
+            cand = lines[j].strip()
+            if not cand:
+                continue
+            if _STOP_RE.match(cand):
+                break
+            name = _clean(cand)
+            if name:
+                parts.append(name)
+        result = ' '.join(parts).strip()
+        return result if len(result) > 5 else ""
 
     for p in pages:
         lines = [l.get("content", "") for l in p.get("lines", [])]
         for i, line in enumerate(lines):
             ls = line.strip()
 
-            # Pattern A: OFERTANT, singur pe linie
-            if _re.match(r'^OFERTANT\s*[,.]?\s*$', ls, _re.IGNORECASE):
-                parts = []
-                for j in range(i + 1, min(i + 5, len(lines))):
-                    cand = lines[j].strip()
-                    if not cand or _re.match(r'^(Director|Semnatura|Nume|Data\b)', cand, _re.I):
-                        break
-                    parts.append(cand)
-                if parts:
-                    name = " ".join(parts)
-                    name = _re.sub(r'\s+', ' ', name).strip()
+            # 1. Executant: singur pe linie
+            if _re.match(r'^Executant\s*:\s*$', ls, _re.IGNORECASE):
+                name = _collect_name(lines, i)
+                if name:
+                    return name
+                continue  # executant gol, cauta mai departe
+
+            # 2. Executant: INLINE
+            m = _re.match(r'^Executant\s*:\s*(.+)', ls, _re.IGNORECASE)
+            if m:
+                name = _clean(m.group(1).strip())
+                if name and len(name) > 5:
                     return name
 
-            # Pattern B: Ofertant: INLINE_NAME (minim 10 chars)
-            m = _re.match(r'^Ofertant\s*:\s*(.+)', ls, _re.IGNORECASE)
-            if m and len(m.group(1).strip()) > 10:
-                return m.group(1).strip()
+            # 3. OFERTANT, singur pe linie (cu sau fara virgula/punct)
+            if _re.match(r'^OFERTANT\s*[,.]?\s*$', ls, _re.IGNORECASE):
+                name = _collect_name(lines, i)
+                if name:
+                    return name
 
-            # Pattern C: Asociere: / denumirea Asociere: INLINE_NAME
+            # 4. Ofertant: INLINE
+            m = _re.match(r'^Ofertant\s*:\s*(.+)', ls, _re.IGNORECASE)
+            if m:
+                name = _clean(m.group(1).strip())
+                if name and len(name) > 10:
+                    return name
+
+            # 5. Asociere: / denumirea Asociere: INLINE
             m = _re.search(r'(?:denumirea\s+)?Asociere\s*:\s*(.+)', ls, _re.IGNORECASE)
-            if m and len(m.group(1).strip()) > 8:
-                return m.group(1).strip()
+            if m:
+                name = _clean(m.group(1).strip())
+                if name and len(name) > 8:
+                    return name
 
     return ""
 
