@@ -530,12 +530,14 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
                     break
                 if _PRICE_LABEL_RE.match(candidate) or (candidate and SKIP_RE.search(candidate)):
                     break
-                # Check if this line is a valid UM token
+                # Check if this line is a valid UM token.
+                # Require single-token UM to avoid multi-word false positives like
+                # "Art. asimilat" where first token 'ART' happens to be in UM_KNOWN.
                 _f3_um_tokens = candidate.upper().split()
                 is_f3_um = (
                     len(candidate) < 20 and
                     re.match(r'^[A-Za-z\s\.]+$', candidate) and
-                    bool(_f3_um_tokens) and
+                    len(_f3_um_tokens) == 1 and
                     _f3_um_tokens[0].rstrip('.') in UM_KNOWN
                 )
                 if is_f3_um:

@@ -1,31 +1,31 @@
 # Session Handoff — Analizator Oferte Construcții
 
-> Citește acest fișier la începutul unei sesiuni noi pe orice mașină.
-> Dă-l lui Claude ca prim mesaj: *"Citește docs/SESSION_HANDOFF.md și reia de unde am rămas."*
+> Citeste acest fisier la inceputul unei sesiuni noi.
+> Da-l lui Claude ca prim mesaj: *"Citeste docs/SESSION_HANDOFF.md si reia de unde am ramas."*
 
 ---
 
 ## Ce este acest proiect
 
 Pipeline Python care:
-1. Primește documente PDF de ofertă pentru lucrări de construcții, procesate prin **Azure Document Intelligence** → JSON
-2. Extrage articolele din formularele **F3** (Lista cu cantități de lucrări)
-3. Compară articolele din fiecare ofertă cu o **referință** (caiet de sarcini)
-4. Generează rapoarte de neconformitate în format **DOCX**
+1. Primeste documente PDF de oferta pentru lucrari de constructii, procesate prin **Azure Document Intelligence** → JSON
+2. Extrage articolele din formularele **F3** (Lista cu cantitati de lucrari)
+3. Compara articolele din fiecare oferta cu o **referinta** (caiet de sarcini)
+4. Genereaza rapoarte de neconformitate in format **DOCX**
 
-**Client:** Autorități publice care evaluează oferte de construcții  
-**Domeniu:** Devize de construcții românești (ISDP, eDevize format)
+**Client:** Autoritati publice care evalueaza oferte de constructii
+**Domeniu:** Devize de constructii romanesti (ISDP, eDevize format)
 
 ---
 
-## Starea la 2026-05-22 (branch: main)
+## Starea la 2026-05-22 (branch: main, v8.0)
 
-**Branch activ:** `main`  
-**Tag stabil:** `8.0` (multi-client pipeline)  
-**Repo local:** `/Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local`  
-**Date de test:** `input_AO/<client>/` — 4 clienți
+**Branch activ:** `main`
+**Tag stabil:** `8.0` (multi-client pipeline)
+**Repo local:** `/Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local`
+**Commits ahead origin/main:** 11+ (SSH push blocat — necesita `! git push origin main`)
 
-### Clienți disponibili
+### Clienti disponibili
 
 | Client | Oferte |
 |--------|--------|
@@ -34,108 +34,121 @@ Pipeline Python care:
 | Scoala Dragomiresti | 2 |
 | Scoala Sportiva Racari | 3 |
 
-### Metrici baseline (state.md actualizat)
+### Metrici baseline (2026-05-22, post-fix)
 
-| Client | Ofertă | matched | LIPSA | EXTRA | DEVIZ_MM |
-|--------|--------|---------|-------|-------|----------|
-| Blocuri Racari | O1 | 314 | 47 | 0 | 20 |
-| Blocuri Racari | O2 | 551 | 2 | 0 | 28 |
-| Blocuri Racari | O3 | 395 | 25 | 4 | 19 |
-| Blocuri Racari | O4 | 316 | 49 | 1 | 9 |
-| Camin Maneciu | O1 | 1056 | 1 | 36 | 2 |
-| Camin Maneciu | O2 | 1066 | 84 | 41 | 5 |
-| Scoala Dragomiresti | O1 | 651 | 6 | 0 | 624 |
-| Scoala Dragomiresti | O2 | 691 | 6 | 1 | 602 |
-| Scoala Sportiva Racari | O1 | 2153 | 2 | 122 | 11 |
-| Scoala Sportiva Racari | O2 | 1148 | 4 | 55 | 328 |
-| Scoala Sportiva Racari | O3 | 2244 | 6 | 315 | 325 |
+| Client | O | matched | LIPSA | EXTRA | DEVIZ_MM | Note |
+|--------|---|---------|-------|-------|----------|------|
+| Blocuri Racari | 1 | 308 | 47 | 0 | 20 | curata (46 $-cod + 1 OCR) |
+| Blocuri Racari | 2 | 551 | 2 | 0 | 28 | curata |
+| Blocuri Racari | 3 | 414 | 21 | 5 | - | curata (16$+4gen+1OCR) |
+| Blocuri Racari | 4 | 316 | 49 | 1 | 9 | curata (47$+1MDTC+1OCR) |
+| Camin Maneciu | 1 | 1056 | 1 | 36 | 2 | EXTRA neinvestigat |
+| Camin Maneciu | 2 | 1066 | 84 | 41 | 5 | LIPSA=84 neinvestigat |
+| Scoala Dragomiresti | 1 | 651 | 6 | 0 | 624 | DEVIZ_MM bug major |
+| Scoala Dragomiresti | 2 | 691 | 6 | 1 | 602 | DEVIZ_MM bug major |
+| Scoala Sportiva Racari | 1 | 2152 | 2 | 122 | 11 | EXTRA neinvestigat |
+| Scoala Sportiva Racari | 2 | 1142 | 4 | 56 | 328 | DEVIZ_MM neinvestigat |
+| Scoala Sportiva Racari | 3 | 2260 | 6 | 315 | 325 | EXTRA=315 neinvestigat |
 
 ---
 
 ## Ce s-a livrat (sesiunile 2026-05-21/22)
 
-### Diagnostics Pipeline (nou)
+### 1. Diagnostics Pipeline (nou)
 
 ```bash
-python3 run_diagnostics.py                        # toți clienții
-python3 run_diagnostics.py --client "Blocuri Racari"  # un client
-python3 run_diagnostics.py --no-docx              # doar JSON
+python3 run_diagnostics.py                        # toti clientii
+python3 run_diagnostics.py --client "Blocuri Racari"
+python3 run_diagnostics.py --no-docx              # JSON only
 ```
 
 Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
 
-**Faze:**
-- Phase 0: Calitate referință (articole fără deviz, componente orfane, incomplete)
-- Phase 1: EXTRA per deviz ($-coduri vs principale, semnal bug extragere)
-- Phase 2: LIPSA per deviz (genuine vs DEVIZ_MISMATCH)
+Faze:
+- **Phase 0:** Calitate referinta (fara_deviz, componente_orfane, incomplete)
+- **Phase 1:** EXTRA analysis per deviz ($-coduri vs principale)
+- **Phase 2:** LIPSA analysis (genuine vs DEVIZ_MISMATCH)
 
-**Fișiere noi:**
-- `run_diagnostics.py`
-- `shared/diagnostics_builder.py`
-- `shared/diagnostics_word.py`
-- `tests/test_diagnostics.py` (17 teste)
+### 2. Fix Layer 2.5 (matching)
 
-### Fix Layer 2.5 (matching)
+`AgentComparator_local.py:629`: `oferta_map[ok]` → `oferta_by_key[ok]`
+Layer 2.5 OCR vedea 1 instanta per cheie oferta; acum vede toate instantele N:M.
+Impact: +6 BR O1, +25 BR O3 (la momentul fix-ului; baseline s-a recalculat).
 
-`AgentComparator_local.py` linia 629: `oferta_map[ok]` → `oferta_by_key[ok]`.  
-Layer 2.5 (cod similar OCR) vedea 1 instanță per cheie; acum vede toate instanțele N:M.  
-Impact: +6 matched BR O1, +25 BR O3.
+### 3. Fix Parser 82M scatter format (2026-05-22)
 
-### Fix parser `{nr} {UM}` (f3_regex_parser.py)
+`shared/f3_regex_parser.py:535` — `is_f3_um` in `_preprocess_scattered_format`
 
-Format oferta 3 Blocuri Racari: `82 M` pe linie separată (nr_ordine + UM).  
-Fix în READING state: dacă NR_ALPHA_INLINE matchuiește cu "cod" = UM valid → tratează ca UM.  
-Impact: corect logic, nu rezolvă complet BR O3 (context cumulativ din paginile anterioare).
+**Root cause:** `'Art. asimilat'` detectat ca UM valid (ART in UM_KNOWN, verificare pe primul token).
+Lua NR_CRT urmator drept QTY. Crea linie merged fara UM/QTY reale.
+EA02A1, RPCT49C1, H1B02A3, RPCE34A1 extrase cu cant=0 → LIPSA false.
+
+**Fix:** `len(_f3_um_tokens) == 1` — single-token UM only.
+**Impact:** BR O3: matched 395→414 (+19), LIPSA 25→21 (-4).
 
 ---
 
 ## Known Issues Active
 
-### 1. IZDO3D1 — OCR O/0 ambiguitate (BR O1/O2/O3/O4)
-- Ref extrage `IZDO3D1` (litera O, OCR error) + `IZD03D1` (real)
-- Oferta extrage `IZD03D1`
-- Layer 1 consumă cheia IZD03D1 cu ref-ul real → IZDO3D1 rămâne LIPSA
-- **Acceptat.** Fix necesită normalizare O↔0 globală (risc) sau refactor Layer 2
+### 1. IZDO3D1 — OCR O/0 (BR toate ofertele)
+Ref extrage `IZDO3D1` (litera O, OCR) + `IZD03D1` (real).
+Layer 1 consuma cheia IZD03D1 → IZDO3D1 ramane LIPSA.
+**Status:** Acceptat.
 
-### 2. BR O3 — EA02A1/RPCT49C1/H1B02A3/RPCE34A1 cant=0
-- Articole extrase cu cant=0 din oferta_3 (format `82 M` pe linie separată)
-- Parser fix funcționează izolat dar state machine cumulativ (paginile 1-5) interferează
-- **Investigare în curs.** Root cause: stare incorectă la linia 560+ din pagina 6
+### 2. BR O3 — EXTRA=5
+5 articole extra in O3 dupa fix. De investigat daca sunt extrageri duble.
+**Status:** Neinvestigat.
 
-### 3. Scoala Dragomiresti — DEVIZ_MISMATCH=600+
-- Ref: coduri text ("4.1-01 STRUCTURA"), oferta: coduri eDevize numerice
-- `deviz_matcher` nu mapează complet
-- **Fix propus:** matching mai agresiv pe cod articol în deviz_matcher
+### 3. Scoala Dragomiresti — DEVIZ_MM=600+
+Ref: coduri text ("4.1-01 STRUCTURA"), oferta: coduri eDevize numerice.
+`deviz_matcher` nu mapeaza complet.
+**Fix propus:** Matching mai agresiv pe cod articol in deviz_matcher.
 
 ### 4. Camin Maneciu O2 — LIPSA=84
-- Neinvestigat. Probabil $-coduri + deviz mismatch.
+Probabil mix $-coduri + deviz mismatch.
+**Status:** Neinvestigat.
 
 ### 5. Scoala Sportiva Racari O3 — EXTRA=315
-- Neinvestigat. SSR ref: 154 componente orfane (Phase 0 red).
+SSR ref are 154 componente orfane (Phase 0 = red).
+**Status:** Neinvestigat.
+
+### 6. SSR O2/O3 — DEVIZ_MM=328/325
+**Status:** Neinvestigat.
 
 ---
 
-## Arhitectura rapidă
+## Ce urmeaza: Refactorizare
+
+Utilizatorul a cerut refactorizare. Baseline arhitectural documentat in `ARCHITECTURE.md`.
+**Citeste ARCHITECTURE.md inainte de a propune orice refactorizare.**
+
+---
+
+## Arhitectura rapida
 
 ```
-run_diagnostics.py        ← NOU: diagnostic runner toți clienții
-multi_client_run.py       ← Entry point principal (v8.0)
-local_run.py              ← Legacy (root di_oferta files)
+multi_client_run.py       ← Entry point (v8.0)
+run_diagnostics.py        ← Diagnostics (nu re-ruleaza pipeline)
+local_run.py              ← Orchestration + matching + report
 │
 ├── shared/client_config.py          ← ClientConfig, detect_clients
-├── shared/f3_extractor.py           ← extract_articles_v3 + _apply_parent_inheritance
-├── shared/f3_regex_parser.py        ← State machine parser + fix 82M
-├── shared/f3_page_classifier.py     ← Detectare pagini + fallback partial keys
-├── AgentComparator_local.py         ← match_global (Layer 1-3) + build_ref_catalog
+├── shared/f3_page_classifier.py     ← Clasificare pagini (local + LLM)
+├── shared/f3_extractor.py           ← Extragere articole + grupare
+├── shared/f3_regex_parser.py        ← State machine + preprocess
+│   ├── _preprocess_scattered_format ← Combina format scatter (FIX: single-token UM)
+│   ├── _preprocess_compound_um      ← Combina NR+UM separate
+│   └── _merge_wrapped_codes         ← Uneste coduri rupte
+├── AgentComparator_local.py         ← match_global (Layer 1-3)
 │   ├── Layer 1: N:M exact (deviz, cod)
-│   ├── Layer 2: normalized cod (AUT6752↔$6752)
-│   ├── Layer 2.1: trailing digit (IC35D↔IC35D1)
-│   ├── Layer 2.5: cod similar OCR threshold 0.80 ← FIX: N:M complet
-│   └── Layer 3: LLM fuzzy (disabled/fallback)
+│   ├── Layer 2: normalized cod (AUT6752 ↔ $6752)
+│   ├── Layer 2.1: trailing digit (IC35D ↔ IC35D1)
+│   ├── Layer 2.5: cod similar OCR ≥ 0.80 (FIX: N:M complet)
+│   └── Layer 3: LLM fuzzy (disabled)
+├── shared/deviz_matcher.py          ← Deviz mapping (fuzzy)
 ├── shared/report_builder.py         ← build_raport_ierarhic
-├── shared/report_word.py            ← generate_word (tabel 11 coloane, ierarhic)
-├── shared/diagnostics_builder.py    ← NOU: Phase 0/1/2 + JSON builder
-└── shared/diagnostics_word.py       ← NOU: DOCX diagnostic
+├── shared/report_word.py            ← generate_word (tabel 11 col)
+├── shared/diagnostics_builder.py    ← Phase 0/1/2 + JSON
+└── shared/diagnostics_word.py       ← DOCX diagnostic
 ```
 
 ---
@@ -143,23 +156,24 @@ local_run.py              ← Legacy (root di_oferta files)
 ## Comenzi utile
 
 ```bash
-# Pipeline un client
-python3 multi_client_run.py --client "Blocuri Racari"
+# Pipeline client
+.venv/bin/python3 multi_client_run.py --client "Blocuri Racari"
 
-# Toți clienții
+# Toti clientii
 for c in "Blocuri Racari" "Camin Maneciu" "Scoala Dragomiresti" "Scoala Sportiva Racari"; do
-  python3 multi_client_run.py --client "$c"
+  .venv/bin/python3 multi_client_run.py --client "$c"
 done
 
-# Diagnostic (citește output_AO/ existente, nu re-rulează)
-python3 run_diagnostics.py
-python3 run_diagnostics.py --client "Blocuri Racari"
+# Diagnostics
+.venv/bin/python3 run_diagnostics.py
 
-# Teste (17 diagnostics + 154 altele)
-.venv/bin/python -m pytest tests/ -q --ignore=tests/test_compound_deviz_extraction.py
+# Teste
+.venv/bin/python3 -m pytest tests/ -q \
+  --ignore=tests/test_compound_deviz_extraction.py \
+  --ignore=tests/test_subcomponent_matching.py
 
 # Metrici rapide
-python3 -c "
+.venv/bin/python3 -c "
 import json; from pathlib import Path; from collections import Counter
 for client in ['Blocuri Racari', 'Camin Maneciu', 'Scoala Dragomiresti', 'Scoala Sportiva Racari']:
     for i in range(1,5):
@@ -170,34 +184,40 @@ for client in ['Blocuri Racari', 'Camin Maneciu', 'Scoala Dragomiresti', 'Scoala
         print(f'{client} O{i}: matched={comp[\"matches\"]} LIPSA={tips.get(\"ARTICOL_LIPSA\",0)} EXTRA={tips.get(\"ARTICOL_EXTRA\",0)} DEVIZ_MM={tips.get(\"DEVIZ_MISMATCH\",0)}')
 "
 
-# Reset checkpoints pentru re-rulare fresh
-rm -f "output_AO/<Client>/checkpoints/"*.json
+# Reset checkpoints
+find "output_AO/<Client>/checkpoints" -name "*.json" -delete
+
+# Push (necesita SSH agent activ)
+# ! git push origin main
 ```
 
 ---
 
-## Commits sesiune curentă
+## Commits sesiune 2026-05-21/22
 
 ```
+shared/f3_regex_parser.py:535 — is_f3_um single-token fix (NECOMMITAT)
 38e0b6f fix(parser): treat NR+UM line (e.g. '82 M') as UM in READING state
 6fdff85 docs: document IZDO3D1 known issue and Layer 2.5 fix in state.md
 70e67b9 fix(matching): Layer 2.5 uses all offer instances per key in N:M
 7d6b5ec feat(diagnostics): CLI entry point run_diagnostics.py
-6e58813 fix(diagnostics): remove unused imports, add type hint in diagnostics_word
+6e58813 fix(diagnostics): remove unused imports
 aac05ac feat(diagnostics): DOCX generator
-6046f07 fix(diagnostics): error handling in discover/load functions
+6046f07 fix(diagnostics): error handling in discover/load
 2eda4ee feat(diagnostics): discover/load/JSON builder with tests
 3b23c68 feat(diagnostics): Phase 0/1/2 analysis functions with tests
 ```
 
-**11 commits ahead de origin/main** (push blocat — SSH agent issue în sesiune).
+**11+ commits ahead origin/main.** Push necesita SSH agent:
+```bash
+# ! ssh-add && git push origin main
+```
 
 ---
 
-## Preexistente eșuate (nu regresii)
+## Teste preexistente esuate (nu regresii)
 
-- `tests/shared/test_f3_regex_parser_multiline.py` — 4 teste (format multiline vechi)
-- `tests/test_normalize_cod.py` — 1 test (IC31A1 vs 1C31A1 normalizare)
-- `tests/shared/test_f3_page_classifier_*.py` — 4 teste (classifier vechi)
-- `tests/test_compound_deviz_extraction.py` — ImportError (funcție ștearsă)
-- `tests/test_subcomponent_matching.py` — ImportError (funcție redenumită)
+- `tests/test_compound_deviz_extraction.py` — ImportError (functie stearsa)
+- `tests/test_subcomponent_matching.py` — ImportError (functie redenumita)
+- `tests/shared/test_f3_regex_parser_multiline.py` — 4 teste format vechi
+- `tests/test_normalize_cod.py` — 1 test normalizare cod

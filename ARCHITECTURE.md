@@ -1,439 +1,341 @@
-# ARHITECTURA - Sistem Extragere F3 + Comparație Oferte vs Referință
+# ARHITECTURA — Sistem Analiză Oferte Construcții
+**Actualizat:** 2026-05-22 | **Versiune pipeline:** v8.0 (tag: 8.0)
 
-## 1. FLUX GENERAL (High-Level)
+---
+
+## 1. FLUX GENERAL
 
 ```
-INPUT: DI JSON files (reference + offers)
+INPUT: Azure Document Intelligence JSON (di_referinta.json + di_oferta_N.json)
+       per client în input_AO/<ClientName>/
     ↓
-┌─────────────────────────────────────────────────────────────
-│ ETAPA 1: PAGE CLASSIFICATION (local_run.py extract_document)
-│
-│  1a. Load reference articles + build dynamic deviz_text_map
-│      from actual reference denomination texts
-│
-│  1b. Classify each page (classify_page_local):
-│      - Detect F3 vs NON_F3
-│      - Extract deviz code via priority:
-│        * EXPLICIT: "Deviz Oferta XXXXX" (5-8 alphanum)
-│        * COMPOUND: numeric Obiectul + numeric Categoria
-│        * REFERENCE_MATCHED: match text against deviz_text_map
-│        * PARTIAL: fallback sentinel "__partial__:..." (sent to LLM)
-│        * NONE: unresolved
-│
-│  1c. LLM batch for pages marked needs_llm (partial/ambiguous)
-│
-│  1d. Deviz code inheritance for continuation pages
-│      (when page has blank/unresolved deviz, inherit from last F3 page)
-└─────────────────────────────────────────────────────────────
+┌─────────────────────────────────────────────────────────────────────────────
+│ ETAPA 1: PAGE CLASSIFICATION (shared/f3_page_classifier.py)
+│   1a. Classificare fiecare pagina: F3 / NON_F3
+│   1b. Extragere deviz_cod (EXPLICIT → COMPOUND → REFERENCE_MATCHED → LLM)
+│   1c. LLM batch pentru pagini ambigue (needs_llm=True)
+│   1d. Mostenire deviz_cod pentru pagini de continuare
+│   1e. Output: page_classifications (lista dicts cu is_f3, deviz_cod, lines)
+└─────────────────────────────────────────────────────────────────────────────
     ↓
-┌─────────────────────────────────────────────────────────────
-│ ETAPA 2: ARTICLE EXTRACTION (shared/f3_extractor + f3_regex_parser)
-│
-│  2a. Group pages by deviz (maintain order for quantity continuity)
-│
-│  2b. Detect pattern from document sample
-│      (via shared/pattern_detector)
-│
-│  2c. Extract articles using regex parser:
-│      - NR_CRT (article number): 001-999
-│      - COD: normative (CA01A), numeric ($2200012), or breviar ($12345)
-│      - DENUMIRE: multi-line text description
-│      - UM: unit of measure (M2, MC, BUC, TONA, ML, etc.)
-│      - CANTITATE: quantity (decimal or integer)
-│      - PRETURI: prices for cost breakdown
-│
-│  2d. Detect subcomponents:
-│      - L: prefix (e.g., "L:LC08") marks subcomponent lines
-│      - Subcomponents inherit parent's quantity (no own quantity)
-│      - Parent-child relationship tracked via parent_code field
-│
-│  2e. UM Normalization: m/mc→m2, buc/bucata→buc, tona/ton/t→tona, etc.
-│
-│  2f. Component quantity/unit inheritance
-│      (subcomponents get parent's quantity/UM if not specified)
-└─────────────────────────────────────────────────────────────
+┌─────────────────────────────────────────────────────────────────────────────
+│ ETAPA 2: ARTICLE EXTRACTION (shared/f3_extractor.py + f3_regex_parser.py)
+│   2a. Grupeaza pagini F3 pe deviz (mentin nr_crt corect)
+│   2b. Preprocess linii: _preprocess_scattered_format + _preprocess_compound_um
+│   2c. Regex state machine: IDLE → WAITING → READING
+│   2d. Detectie subcomponente (L: prefix, >>> marker, .L suffix)
+│   2e. Deduplicare articole (cod, deviz, cantitate)
+│   2f. Mostenire cantitate/UM pentru componente
+│   2g. Output: lista articole per client (cod, deviz, cant, um, denumire)
+└─────────────────────────────────────────────────────────────────────────────
     ↓
-┌─────────────────────────────────────────────────────────────
-│ ETAPA 3: DEVIZ ASSIGNMENT (already done in page classification)
-│
-│  3a. Each article inherits deviz_cod from its page classification
-│
-│  3b. Code-based deviz correction (for unresolved articles):
-│      - Look up article code in reference
-│      - If reference has this code in specific deviz, use that deviz
-│      - Only applies to articles without explicit numeric deviz
-└─────────────────────────────────────────────────────────────
+┌─────────────────────────────────────────────────────────────────────────────
+│ ETAPA 3: DEVIZ MAPPING (shared/deviz_matcher.py)
+│   3a. match_devize_by_denomination: potriveste deviz-urile ofertei cu ref
+│       pe baza denumirii devizului (fuzzy match)
+│   3b. Output: deviz_mapping dict {deviz_oferta → deviz_ref}
+└─────────────────────────────────────────────────────────────────────────────
     ↓
-┌─────────────────────────────────────────────────────────────
-│ ETAPA 4: COMPARISON & REPORTING (local_run.py)
+┌─────────────────────────────────────────────────────────────────────────────
+│ ETAPA 4: MATCHING (AgentComparator_local.py → match_global)
 │
-│  4a. Matching rule: (deviz_code, article_code) pair must exist in both
+│   Layer 1: N:M exact pe (deviz, cod)
+│       - Grupeaza ref si oferta dupa (deviz, cod)
+│       - Potriveste cantitati in ordine (N ref → M oferta)
 │
-│  4b. Comparison metrics:
-│      - ARTICOL_LIPSA: in reference but not in offer
-│      - ARTICOL_EXTRA: in offer but not in reference
-│      - UM_DIFERIT: same code & deviz, different unit
-│      - DIFERENTA_CAMP: same code, different quantity
+│   Layer 2: Normalized cod (AUT6752 ↔ $6752)
+│       - Strip prefix $ din coduri numerice
+│       - Potriveste coduri normalizate
 │
-│  4c. Generate reports (XLSX, DOCX, JSON)
-└─────────────────────────────────────────────────────────────
+│   Layer 2.1: Trailing digit (IC35D ↔ IC35D1)
+│       - Daca ref_cod e prefix al oferta_cod sau viceversa
+│
+│   Layer 2.5: Cod similar OCR (threshold 0.80)
+│       - SequenceMatcher pe (deviz, cod) cu prag similaritate
+│       - N:M: include TOATE instantele per cheie (fix 2026-05-22)
+│
+│   Layer 3: LLM fuzzy (disabled/fallback)
+│       - Disabled implicit; se activeaza numai la cerere
+│
+│   Post-processing: Lenient UM ($ coduri EXTRA → MATCHED daca ref UM=empty)
+│
+│   Output: matches[], neconformitati[]
+└─────────────────────────────────────────────────────────────────────────────
+    ↓
+┌─────────────────────────────────────────────────────────────────────────────
+│ ETAPA 5: REPORTING
+│   5a. build_raport_ierarhic (shared/report_builder.py)
+│       - Organizeaza neconformitati pe deviz, ierarhic
+│       - nr_ordine, display_parent_cod pentru subarticole
+│   5b. generate_word (shared/report_word.py)
+│       - Tabel 11 coloane: tip/cod/denumire/um/cant/preturi
+│       - Coduri color: LIPSA=rosu, EXTRA=galben, DEVIZ_MM=albastru
+│   5c. JSON output: comparatie_oferta_N.json + comparatie_deviz_oferta_N.json
+│   Output: output_AO/<ClientName>/Raport_Oferta_N.docx + JSON
+└─────────────────────────────────────────────────────────────────────────────
+    ↓
+┌─────────────────────────────────────────────────────────────────────────────
+│ ETAPA 6: DIAGNOSTICS (run_diagnostics.py, optional)
+│   Phase 0: Calitate referinta (fara_deviz, componente_orfane, incomplete)
+│   Phase 1: EXTRA analysis per deviz ($-coduri vs principale)
+│   Phase 2: LIPSA analysis (genuine vs DEVIZ_MISMATCH)
+│   Output: output_AO/diagnostics.json + diagnostics.docx
+└─────────────────────────────────────────────────────────────────────────────
 ```
 
 ---
 
-## 2. STEP 1: PAGE CLASSIFICATION (`shared/f3_page_classifier.py`)
+## 2. ENTRY POINTS
 
-### Overview
-Pages are classified into three categories: **F3** (formula F3 data pages), **NON_F3** (non-data pages), **AMBIGUOUS** (uncertain).
+| Script | Scop |
+|--------|------|
+| `multi_client_run.py` | Entry point principal — meniu interactiv sau `--client "Nume"` |
+| `local_run.py` | Legacy — root di_oferta files |
+| `run_diagnostics.py` | Diagnostics (nu re-ruleaza pipeline) — `--client`, `--no-docx` |
 
-**Two-phase algorithm:**
-- **Phase A**: Fast non-F3 detection (forms, summaries, metadata)
-- **Phase B**: F3 detection and deviz code extraction
-
-### Phase A: Non-F3 Detection
-
-Immediately return NON_F3 if page matches:
-- FORMULAR [CF][0-9] (F1, F2, C4-C6) — non-F3 forms
-- CENTRALIZATORUL cheltuielilor — summary forms
-- RECAPITULATIE + no article codes — summary pages
-- TOTAL GENERAL + no article codes — summary footers
-
-### Phase B: F3 Detection
-
-Page is F3 if it matches ANY of:
-1. **B1**: "Formular F3" or "SECTIUNEA TEHNICA" — explicit marker
-2. **B2**: "STADIUL FIZIC:" header — quantity sheet marker
-3. **B3**: ">>> componenta" + article codes — component lines
-4. **B4**: "XXXXXX pag" format (6-char code + "pag") — eDevize page header
-5. **B5**: "Stadiul fizic: [CODE] DESCRIPTION" — eDevize cover format
-
-### Grouping Key Extraction (`_extract_grouping_key`)
-
-**Priority order** for extracting deviz code from F3 page:
-
-1. **EXPLICIT** (highest priority)
-   - Pattern: "Deviz Oferta XXXXX" where XXXXX is 5-8 alphanum chars
-   - Returns numeric code directly
-
-2. **COMPOUND** (second priority)
-   - Both numeric parts present:
-     * Obiectul: numeric (e.g., "4.1")
-     * Categoria/Stadiul: numeric (e.g., "03")
-   - Combines as: deviz_cod = f"{obj_num}-{cat_num}" → "4.1-03"
-
-3. **REFERENCE_MATCHED** (third priority)
-   - Obiectul/Categoria extracted as TEXT (no numeric prefix)
-   - Match against `deviz_text_map` (built from reference denomination texts)
-   - Uses fuzzy matching (SequenceMatcher) with 0.65 similarity threshold
-   - Exact substring match has priority (highest confidence)
-   - Example: "Arhitectura - eligibili tip I" → matches "4.1-03"
-
-4. **PARTIAL** (fallback)
-   - Text parts exist but no match in deviz_text_map
-   - Creates sentinel: `__partial__:{obj_text[:40]}:{cat_text[:40]}`
-   - These pages sent to LLM for resolution in Phase 2
-
-5. **NONE** (no extractable data)
-   - No Obiectul/Categoria, no explicit code
-   - deviz_cod = ""
-
-### Dynamic Deviz Text Map
-
-Built from reference articles (in `classify_pages` function):
-```python
-deviz_text_map = build_deviz_text_map(reference_articles)
-# Returns: {
-#   "4.1-03": {
-#     "texts": ["arhitectura - eligibili tip i", "arhitectura eligibili", ...],
-#     "count": 47  # articles with this deviz code
-#   },
-#   ...
-# }
-```
-
-This allows matching page text against ACTUAL denomination texts from reference, not hardcoded lists.
-
-### Phase 2: LLM Resolution
-
-Pages marked `needs_llm=True` (partial sentinels or ambiguous):
-- Send to Claude API
-- LLM classifies (F3 vs NON_F3)
-- LLM extracts deviz_cod if possible
-- Results merged back into page classifications
-
-### Phase 3: Deviz Code Inheritance
-
-Continuation pages inherit deviz from last F3 page:
-```python
-if not is_f3 or extraction_method == "partial_fallback":
-    # Unresolved page inherits from previous
-    pc["deviz_cod"] = last_deviz_cod
-    pc["deviz_den"] = last_deviz_den
-    if not is_f3:
-        pc["is_f3"] = True
-        pc["extraction_method"] = "inherited"
+**Comanda tipica:**
+```bash
+python3 multi_client_run.py --client "Blocuri Racari"
+python3 run_diagnostics.py --client "Blocuri Racari"
 ```
 
 ---
 
-## 3. STEP 2: ARTICLE EXTRACTION (`shared/f3_regex_parser.py` + `f3_extractor.py`)
+## 3. STRUCTURA FISIERE
 
-### Overview
-Extracts individual articles (line items) from F3 pages using regex state machine + LLM pattern detection.
-
-### State Machine: IDLE → WAITING → READING
-
-**IDLE State**:
-- Waiting for article header (NR_CRT or article code)
-- Patterns recognized:
-  * NR_CRT (1-999) with optional inline code (e.g., "024 CK26A#")
-  * Article code alone (e.g., "3270513 - BANDA AVERTIZARE...")
-  * Format: "NR COD - DESCRIPTION" (e.g., "6 CA01J1 - TURNARE BETON")
-
-**WAITING State**:
-- NR_CRT found, waiting for code line
-- If code not found within 3 lines, return to IDLE
-
-**READING State**:
-- Code found, building article
-- Collecting denomination, UM, quantity, prices
-- Stops when:
-  * New NR_CRT found (with quantity already set)
-  * New code line found (article complete)
-  * EOF reached
-
-### Article Code Formats
-
-Parser recognizes:
-- **Normative codes**: CA01A, CK26A#, TCB40B1 (2-5 letters + 1-4 digits + optional letter + 0-2 digits + optional suffix)
-- **Extended codes**: TRI1AA01C2 (2-5L + 1-2D + 1-3L + 2-4D)
-- **Single-letter**: W2F05C01, H1V06H (L + D + 1-3L + 2-4D)
-- **Single-digit multi-char**: C003A01 (L + 2-3D + L + 2D)
-- **Digit-Letter-Digit**: 00106B011 (3-5D + L + 1-3D)
-- **Numeric breviar**: $2200012, $16508 ($ prefix + 4-9 digits)
-- **Numeric pure**: 6701362 (4-9 digits, converted to $prefix internally)
-
-### Quantity Extraction
-
-Priority in READING state:
-1. **Decimal quantity** (CANT_DECIMAL_RE): "4,75000", "18.5", "306.000"
-   - Detects via regex, parsed with _parse_number()
-   
-2. **Integer quantity** (CANT_INT_RE): standalone integer
-   - Only after UM is set (avoids mistaking NR_CRT for quantity)
-   
-3. **Pipe format**: "M.C. | 18.144 | BETON..." (reference format)
-   - UM extracted from group 1, quantity from group 2
-   
-4. **Trailing decimals**: "306" on one line, "000" on next → 306.000
-   - Handles page breaks splitting decimal
-
-5. **Price numbers** (PRET_RE): collected for cost breakdown
-
-### Unit of Measure (UM) Extraction
-
-- Detected as standalone line or within code line
-- Valid UM tokens: M2, MC, BUC, BUCATA, TONA, ML, LITRU, MP, KMP, etc.
-- Format: "100 MC." or "99 ZECI MP" (number + descriptor + unit)
-- **KM always skipped**: "20 KM" is distance specification, not work unit
-
-### Subcomponent Detection
-
-Subcomponents marked with "L:" prefix on separate lines:
-- Example: "L:LC08", "L:LB03"
-- No quantity on L: line (inherits from parent)
-- Parent-child relationship stored in `parent_code` field
-
-### Pattern Detection
-
-For each deviz, detect layout pattern from first 50 lines:
-- Uses `shared/pattern_detector.py`
-- Identifies document layout (standard F3, eDevize, breviar, etc.)
-- Used for debugging/logging, doesn't affect extraction logic
+```
+analiza-oferte-local/
+├── multi_client_run.py          # Entry point v8.0
+├── local_run.py                 # Pipeline orchestration (1100+ linii)
+├── run_diagnostics.py           # Diagnostics CLI
+├── AgentComparator_local.py     # Matching engine (Layer 1-3)
+├── shared/
+│   ├── client_config.py         # ClientConfig: detectie clienti, path resolution
+│   ├── f3_page_classifier.py    # Page classification (local + LLM)
+│   ├── f3_extractor.py          # Article extraction & grouping
+│   ├── f3_regex_parser.py       # Regex state machine parser (1600+ linii)
+│   ├── pattern_detector.py      # Document layout pattern detection
+│   ├── deviz_matcher.py         # Deviz matching/assignment (fuzzy)
+│   ├── deviz_catalog.py         # Dynamic deviz text map din referinta
+│   ├── deviz_corrector.py       # Code-based deviz correction
+│   ├── deviz_normalizer.py      # Deviz cod normalization
+│   ├── article_matcher.py       # match_unmatched_global (Layer 2/2.1/2.5)
+│   ├── comparator.py            # compare_articles (UM_DIFERIT, DIFERENTA_CAMP)
+│   ├── report_builder.py        # build_raport_ierarhic
+│   ├── report_word.py           # generate_word (DOCX tabel 11 col)
+│   ├── diagnostics_builder.py   # Phase 0/1/2 analysis + JSON
+│   └── diagnostics_word.py      # DOCX diagnostic
+├── tests/
+│   ├── shared/test_client_config.py
+│   ├── test_diagnostics.py      # 17 teste
+│   └── ... (alte teste)
+├── input_AO/
+│   ├── Blocuri Racari/          # di_referinta.json + di_oferta_1..4.json
+│   ├── Camin Maneciu/
+│   ├── Scoala Dragomiresti/
+│   └── Scoala Sportiva Racari/
+└── output_AO/
+    ├── <ClientName>/
+    │   ├── Raport_Oferta_N.docx
+    │   ├── comparatie_oferta_N.json
+    │   ├── comparatie_deviz_oferta_N.json
+    │   └── checkpoints/
+    │       ├── di_oferta_N_page_classes_<hash>.json
+    │       └── di_oferta_N_deviz_mapping_<hash>.json
+    └── diagnostics.json / diagnostics.docx
+```
 
 ---
 
-## 4. STEP 3: NORMALIZATION
+## 4. PAGE CLASSIFIER (shared/f3_page_classifier.py)
 
-### Unit Normalization (`_normalize_um`)
+### Prioritate detectie deviz_cod
+
+1. **EXPLICIT** — `"Deviz Oferta XXXXX"` → cod direct
+2. **COMPOUND** — Obiectul numeric + Categoria numerica → `"{obj}-{cat}"`
+3. **REFERENCE_MATCHED** — fuzzy match text vs deviz_text_map (prag 0.65)
+4. **LLM** — pagini cu `needs_llm=True`, batch Claude API
+5. **INHERITED** — continuare pagina anterioare F3
+
+### Checkpointing
+
+Page classes salvate în `checkpoints/di_oferta_N_page_classes_<hash>.json`.
+Hash = functie de versiunea clasificatorului. Reutilizare automata la re-rulare.
+
+---
+
+## 5. REGEX PARSER (shared/f3_regex_parser.py)
+
+### State Machine
+
+```
+_IDLE → _WAITING → _READING → _IDLE
+         (NR_CRT)   (COD)
+```
+
+**_IDLE:** Asteapta NR_CRT sau cod inline.
+**_WAITING:** NR_CRT gasit, asteapta linia cu cod. Timeout 3 linii → _IDLE.
+**_READING:** Cod gasit, colecteaza UM, cant, denumire, preturi.
+
+### Preprocess Pipeline (inainte de state machine)
 
 ```python
-m, mc        → m2      (square meters)
-buc, bucata  → buc     (pieces)
-ml, litru    → ml      (liquid)
-tona, ton, t → tona    (weight)
+lines = _preprocess_scattered_format(lines)   # Combina format scatter: NR+COD+DESC separat
+lines = _preprocess_compound_um(lines)         # Combina "NR" + "UM" separate → "NR UM"
+lines = _merge_wrapped_codes(lines)            # Uneste coduri rupte: "TRI1AA01E" + "3"
 ```
 
-Applied to all articles after extraction.
+**IMPORTANT — `_preprocess_scattered_format` (Fix 2026-05-22):**
+Detecteaza format: counter(bare digit) + cod + (desc) + UM + QTY pe linii separate.
+`is_f3_um` verifica UM in lookahead — **TREBUIE sa fie single-token** pentru a evita
+false positives ca `"Art. asimilat"` (ART e in UM_KNOWN dar nu e UM real).
+```python
+is_f3_um = (len(cand)<20 and re.match(r'^[A-Za-z\s\.]+$', cand)
+            and len(_f3_um_tokens) == 1   # ← CRITICAL: single token only
+            and _f3_um_tokens[0].rstrip('.') in UM_KNOWN)
+```
 
-### Code Normalization
+### Formate coduri articol recunoscute
 
-- Strip suffix artifacts: `-`, `@`, `%`, `#`, `*`, `^`, `+`
-- Strip bracket suffixes: `[1]`, `[2]`
-- Strip designator prefixes: `ASIM`, `TSCH`
-- OCR fix: `U` → `0` (226U38 → 226038)
+| Tip | Exemplu | Pattern |
+|-----|---------|---------|
+| Normativ | `CA01A`, `CK26A#`, `TCB40B1` | `[A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}` |
+| Extended | `TRI1AA01C2` | `[A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}` |
+| Single-letter | `W2F05C01`, `H1V06H` | `[A-Z]\d[A-Z]{1,3}\d{2,4}` |
+| Digit-Letter-Digit | `00106B011` | `\d{3,5}[A-Z]\d{1,3}` |
+| Breviar $ | `$2200012`, `$16508` | `\$\d{4,9}` |
+| Numeric pur | `6701362` (→ `$6701362`) | `\d{4,9}` |
 
-### Denomination Normalization
+### UM Detection (in _READING state)
 
-- Lowercase
-- Normalize quotes: `"` → `'`
-- Remove points after single letters: "M." → "M"
-- Collapse multiple spaces
+Prioritate:
+1. Token UM valid pe linie singura (`BUCATA`, `M`, `MP`, `MC` etc.)
+2. Format `{NR} {UM}` (ex: `82 M`) → m_um_norm regex → UM extras
+3. Guard `{NR} {UM}` in NR_ALPHA_INLINE: daca "codul" e UM valid si articol fara UM → seteaza UM
+
+**UM_KNOWN:** BUC, BUCATA, M, MP, MC, ML, KG, T, TO, TON, TONA, ORA, ZI, SET, ART, etc.
+**UM_SKIP:** ASIM, TSCH, SCH, UM, NR, CRT, TOTAL, PU, VAL.
 
 ---
 
-## 5. STEP 4: COMPARISON & MATCHING
+## 6. MATCHING ENGINE (AgentComparator_local.py)
 
-### Matching Rule
-
-**Definition**: Article from offer matches reference if:
-- SAME deviz code (e.g., "4.1-03")
-- SAME article code (e.g., "CK08A", "$2200012")
-- Both found in reference AND in offer
+### Cheie de matching
 
 ```python
-key = (article_cod, article_deviz)
-# must exist in both reference and offer
+key = (deviz_cod, article_cod)  # ex: ("BLC2", "EA02A1")
 ```
 
-### Nonconformity Types
+### Layers
 
-1. **ARTICOL_LIPSA**: key in reference but NOT in offer
-   - Root causes:
-     * Article genuinely omitted by bidder
-     * Article misclassified to wrong deviz during extraction
-     * OCR/parsing error in offer
+| Layer | Mecanism | Activ |
+|-------|----------|-------|
+| 1 | N:M exact pe (deviz, cod) | ✅ |
+| 2 | Normalized cod: strip `$` prefix | ✅ |
+| 2.1 | Trailing digit: IC35D ↔ IC35D1 | ✅ |
+| 2.5 | Cod similar OCR (SequenceMatcher ≥ 0.80) | ✅ Fix: N:M complet |
+| 3 | LLM fuzzy | ❌ disabled |
 
-2. **ARTICOL_EXTRA**: key in offer but NOT in reference
-   - Article added by bidder (legitimate or error)
-   - Must be verified manually
+**Layer 2.5 Fix (2026-05-22):** `oferta_by_deviz[ok[0]].extend(oferta_by_key[ok])` — include TOATE instantele per cheie, nu doar prima.
 
-3. **UM_DIFERIT**: same key, different unit
-   - After normalization: "m2" vs "mc" → should match
-   - If still different: "buc" vs "tona" → legitimate difference
+### Tipuri neconformitate
 
-4. **DIFERENTA_CAMP**: same key, different quantity
-   - Quantity parsing might differ from OCR vs manual input
+| Tip | Definitie |
+|-----|-----------|
+| `ARTICOL_LIPSA` | Cod in referinta, absent din oferta (sau deviz gresit) |
+| `ARTICOL_EXTRA` | Cod in oferta, absent din referinta |
+| `DEVIZ_MISMATCH` | Cod gasit in oferta dar in alt deviz decat referinta |
+| `UM_DIFERIT` | Acelasi cod+deviz, UM diferit |
+| `DIFERENTA_CAMP` | Acelasi cod+deviz, cantitate/pret diferit |
 
----
-
-## 6. CURRENT METRICS (Session 2026-05-17)
-
-**Reference**: ~700 articles
-**OFERTA 2**: 608 matched articles, 288 nonconformities total
-
-| Metric | Count | % |
-|--------|-------|---|
-| ARTICOL_LIPSA | 249 | 86.5% |
-| ARTICOL_EXTRA | 22 | 7.6% |
-| UM_DIFERIT | 9 | 3.1% |
-| DIFERENTA_CAMP | 8 | 2.8% |
-
-**Root cause of LIPSA (249)**:
-- ~200 (80%): articles misclassified to wrong devizes (page classification issue)
-- ~40 (16%): genuine omissions by bidder
-- ~9 (4%): data quality/parsing errors
+**DEVIZ_MISMATCH — cauza si interpretare:**
+Articolul EXISTA in oferta cu codul corect. Ofertantul l-a plasat intr-un deviz diferit
+fata de referinta (ex: lucrari de organizare santier puse in arhitectura).
+NU este LIPSA reala. Fix propus: deviz_matcher mai agresiv.
 
 ---
 
-## 7. KNOWN ISSUES
+## 7. DIAGNOSTICS (run_diagnostics.py)
 
-### Issue 1: F3 Layout Variance (CK08A Case)
+### Faze
 
-**Problem**: Some documents have non-standard F3 layout where quantity appears BEFORE article code:
-```
-Line 42: 4,75000      (QUANTITY for CK08A — CORRECT)
-Line 43: 2            (ARTICLE CODE: 2)
-Line 52: 3,25         (Subcomponent value on L: line — INCORRECT)
+| Faza | Continut |
+|------|----------|
+| Phase 0 | Calitate referinta: articole fara deviz, componente orfane, incomplete |
+| Phase 1 | EXTRA analysis: $-coduri vs principale, semnal bug extragere |
+| Phase 2 | LIPSA analysis: genuine vs DEVIZ_MISMATCH |
+
+### Rulare
+
+```bash
+python3 run_diagnostics.py                        # toti clientii
+python3 run_diagnostics.py --client "Blocuri Racari"
+python3 run_diagnostics.py --no-docx              # JSON only
 ```
 
-**Current behavior**: Parser captures 3.25 (from subcomponent line) instead of 4.75000
-
-**Root cause**: When parsing sequentially line-by-line, parser doesn't distinguish between:
-- Quantity for main article vs subcomponent values
-- Values on L: subcomponent lines (which should not have quantity)
-
-**Fix needed**: Enhance quantity extraction to:
-- Detect when quantity comes BEFORE article code (non-standard layout)
-- Avoid capturing values from L: prefix lines as main article quantities
-- Maintain correct parent-subcomponent quantity relationship
-
-### Issue 2: Page Classification Sentinels (Partial→Fallback)
-
-**Problem**: Pages that fall through to LLM (partial sentinels) sometimes get generic fallback codes like "Arhitectura" or "Instalatii" that map to multiple devizes
-
-**Example**: "Arhitectura" matches both:
-- 4.1-03: "Arhitectura - eligibili"
-- 4.1-04: "Arhitectura conexe"
-
-**Current mitigation**: deviz_text_map with reference matching reduces these cases. Inheritance logic prevents some fallback pages from affecting articles.
+Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
 
 ---
 
-## 8. FILE ORGANIZATION
+## 8. BASELINE METRICI (2026-05-22)
 
-| File | Lines | Purpose |
-|------|-------|---------|
-| `local_run.py` | 1011 | Main orchestration, pipeline coordinator |
-| `shared/f3_page_classifier.py` | 892 | Page classification (local + LLM) |
-| `shared/f3_extractor.py` | 853 | Article extraction & grouping |
-| `shared/f3_regex_parser.py` | 1264 | Regex state machine for parsing |
-| `shared/deviz_catalog.py` | 122 | Dynamic deviz text mapping from reference |
-| `shared/deviz_corrector.py` | 104 | Code-based deviz correction |
-| `shared/deviz_matcher.py` | 342 | Deviz matching/assignment logic |
-| `shared/deviz_namer.py` | 84 | Denomination extraction/naming |
-| `shared/deviz_normalizer.py` | 233 | Deviz code normalization |
-| `shared/pattern_detector.py` | 291 | Document layout pattern detection |
-| `shared/subcomponent_formats.py` | (referenced) | Subcomponent layout detection |
-
----
-
-## 9. ALGORITHM CORRECTNESS
-
-### ✅ Strengths
-
-1. **Multi-deviz articles**: Correctly preserved (e.g., TRA01A15P in 5 devizes)
-2. **Component inheritance**: Subcomponents inherit parent's quantity/UM
-3. **Matching rule**: (deviz, code) pair is correct for comparison
-4. **Dynamic catalog**: Adapts to actual reference denomination texts
-5. **Fallback path**: LLM resolution for ambiguous pages
-
-### ⚠️ Known Limitations
-
-1. **Layout variance**: CK08A quantity extraction issue (qty comes before code in some layouts)
-2. **Subcomponent ambiguity**: L: prefix detection sometimes fails with OCR noise
-3. **Partial sentinel resolution**: ~200 LIPSA articles due to page classification misplacement
-4. **Pattern detection**: Doesn't yet use detected pattern to adjust extraction parameters
+| Client | O | matched | LIPSA | EXTRA | DEVIZ_MM | Note |
+|--------|---|---------|-------|-------|----------|------|
+| Blocuri Racari | 1 | 308 | 47 | 0 | 20 | 46 $-cod + 1 OCR |
+| Blocuri Racari | 2 | 551 | 2 | 0 | 28 | curata |
+| Blocuri Racari | 3 | 414 | 21 | 5 | - | 16 $-cod + 4 genuine + 1 OCR |
+| Blocuri Racari | 4 | 316 | 49 | 1 | 9 | 47 $-cod + 1 MDTC + 1 OCR |
+| Camin Maneciu | 1 | 1056 | 1 | 36 | 2 | EXTRA neinvestigat |
+| Camin Maneciu | 2 | 1066 | 84 | 41 | 5 | LIPSA neinvestigat |
+| Scoala Dragomiresti | 1 | 651 | 6 | 0 | 624 | DEVIZ_MM = bug major |
+| Scoala Dragomiresti | 2 | 691 | 6 | 1 | 602 | DEVIZ_MM = bug major |
+| Scoala Sportiva Racari | 1 | 2152 | 2 | 122 | 11 | EXTRA neinvestigat |
+| Scoala Sportiva Racari | 2 | 1142 | 4 | 56 | 328 | DEVIZ_MM neinvestigat |
+| Scoala Sportiva Racari | 3 | 2260 | 6 | 315 | 325 | EXTRA=315 neinvestigat |
 
 ---
 
-## 10. NEXT PRIORITY FIXES
+## 9. KNOWN ISSUES ACTIVE
 
-### Priority 1: Fix F3 Layout Variance (CK08A)
-- **Impact**: HIGH (affects extraction accuracy)
-- **Effort**: MEDIUM
-- **Expected improvement**: +5-10 correct extractions
-
-### Priority 2: Improve Page Classification (Partial→Reference)
-- **Impact**: HIGH (could eliminate ~200 LIPSA)
-- **Effort**: MEDIUM
-- **Current**: ~100 pages resolved via catalog, could be more
-- **Expected improvement**: -150 to -200 LIPSA
-
-### Priority 3: Subcomponent Format Detection
-- **Impact**: MEDIUM
-- **Effort**: LOW (already partially implemented)
-- **Current**: Format detected, not yet used in extraction
+| # | Issue | Client | Prioritate | Status |
+|---|-------|--------|------------|--------|
+| 1 | IZDO3D1 OCR (O vs 0) | BR toate | Low | Acceptat |
+| 2 | BR O3 EXTRA=5 | BR O3 | Medium | De investigat |
+| 3 | SD DEVIZ_MM=600+ | SD | High | Fix propus: deviz_matcher agresiv |
+| 4 | CM O2 LIPSA=84 | CM | Medium | Neinvestigat |
+| 5 | SSR O3 EXTRA=315 | SSR | High | Neinvestigat |
+| 6 | SSR O2/O3 DEVIZ_MM=328/325 | SSR | High | Neinvestigat |
 
 ---
 
-## SUMMARY
+## 10. CHECKPOINTING
 
-The extraction system uses a **multi-phase, hybrid approach**:
-1. **Page classification** (local regex + dynamic reference matching + LLM fallback)
-2. **Article parsing** (regex state machine with pattern detection)
-3. **Deviz assignment** (explicit code priority, reference matching, inheritance)
-4. **Normalization** (UM standardization, code cleanup)
-5. **Comparison** (matching on deviz+code pair)
+Checkpoints per oferta (evita re-clasificare LLM):
+```
+di_oferta_N_page_classes_<hash>.json   # page classifications
+di_oferta_N_deviz_mapping_<hash>.json  # deviz mapping
+```
 
-The architecture is fundamentally **correct**: objects have proper (cod, deviz, parent/subcomponent relationships, cantitate, UM), and the matching rule is sound. Remaining nonconformities are mainly **data classification** issues (articles extracted to wrong devizes), not structural problems.
+Hash calculat din versiunea codului clasificatorului. Re-generate automat la
+schimbari in page_classifier sau deviz_matcher.
+
+Reset checkpoint:
+```bash
+find "output_AO/<Client>/checkpoints" -name "*.json" -delete
+```
+
+---
+
+## 11. TESTE
+
+```bash
+.venv/bin/python3 -m pytest tests/ -q \
+  --ignore=tests/test_compound_deviz_extraction.py \
+  --ignore=tests/test_subcomponent_matching.py
+```
+
+Teste care esueaza (pre-existente, nu regresii):
+- `test_compound_deviz_extraction.py` — ImportError functie stearsa
+- `test_subcomponent_matching.py` — ImportError functie redenumita
+
+Total teste: 17 (diagnostics) + 6 (client_config) + 17 (multi_client) + altele.
