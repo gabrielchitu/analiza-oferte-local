@@ -95,6 +95,33 @@ def build_deviz_reference_map(ref_articles: list) -> dict:
     return result
 
 
+def _extract_numeric_struct(deviz_code: str):
+    """Extract (obj_int, cat_int) for structural numeric matching.
+
+    Handles two formats produced by compound extraction:
+      '001-004' (offer: 3-digit-3-digit)  → (1, 4)
+      '1.0-1.4' (ref: decimal-decimal)    → (1, 4)
+    Returns (None, None) if format unrecognized.
+    """
+    if not deviz_code or '-' not in deviz_code:
+        return None, None
+    parts = deviz_code.split('-', 1)
+    try:
+        obj_str = parts[0].strip().lstrip('0') or '0'
+        cat_str = parts[1].strip().lstrip('0') or '0'
+        obj_int = int(float(obj_str))
+        cat_float = float(cat_str)
+        # Decimal like "1.4" → fractional part * 10 = 4
+        # Integer like "004" → int = 4
+        if '.' in cat_str:
+            cat_int = round((cat_float % 1) * 10)
+        else:
+            cat_int = int(cat_float)
+        return obj_int, cat_int
+    except (ValueError, IndexError):
+        return None, None
+
+
 def _extract_deviz_prefix(deviz_code: str) -> str:
     """Extract prefix from deviz code for matching.
 
@@ -176,7 +203,25 @@ def match_devize_by_denomination(ref_articles: list, oferta_articles: list,
 
     mapping = {}
 
+    # Pre-build numeric structure map for ref devizes (Strategy 0)
+    ref_numeric_map = {}  # (obj_int, cat_int) → ref_deviz
+    for ref_deviz in ref_map:
+        obj_i, cat_i = _extract_numeric_struct(ref_deviz)
+        if obj_i is not None:
+            ref_numeric_map[(obj_i, cat_i)] = ref_deviz
+
     for oferta_deviz, oferta_arts in oferta_by_deviz.items():
+        # Strategy 0: Numeric structural match (e.g., "001-004" ↔ "1.0-1.4")
+        # Handles documents where ref uses decimal format and offer uses 3-digit-padded format
+        # but both encode the same (object, category) pair numerically.
+        obj_i, cat_i = _extract_numeric_struct(oferta_deviz)
+        if obj_i is not None and (obj_i, cat_i) in ref_numeric_map:
+            ref_deviz = ref_numeric_map[(obj_i, cat_i)]
+            if ref_deviz != oferta_deviz:  # Skip if already same code
+                mapping[oferta_deviz] = ref_deviz
+                logger.info(f"[DM] {oferta_deviz} → {ref_deviz}: numeric structural match (obj={obj_i}, cat={cat_i})")
+                continue
+
         # Strategy 1: Exact code match
         if oferta_deviz in ref_map:
             mapping[oferta_deviz] = oferta_deviz

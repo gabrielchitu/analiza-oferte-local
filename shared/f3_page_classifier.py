@@ -104,7 +104,7 @@ _OBIECTUL_OPT_RE = re.compile(
     re.IGNORECASE
 )
 _CATEGORIA_OPT_RE = re.compile(
-    r'(?:Categoria\s+de\s+lucrari|Stadiul\s+fizic)\s*:\s*([0-9]{0,4})\s*(.+?)'
+    r'(?:Categoria\s+de\s+lucrari|Stadiul\s+fizic)\s*:\s*([0-9]{0,4}(?:\.[0-9]{0,2})?)\s*(.+?)'
     r'(?=Beneficiar|Nr\.|Lista|OBSE|Executant|Proiectant|Formular|e\s+Devize|\n|$)',
     re.IGNORECASE
 )
