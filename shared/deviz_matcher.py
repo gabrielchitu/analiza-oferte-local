@@ -96,30 +96,38 @@ def build_deviz_reference_map(ref_articles: list) -> dict:
 
 
 def _extract_numeric_struct(deviz_code: str):
-    """Extract (obj_int, cat_int) for structural numeric matching.
+    """Extract (obj_int, cat_int, is_padded_integer) for structural numeric matching.
 
     Handles two formats produced by compound extraction:
-      '001-004' (offer: 3-digit-3-digit)  → (1, 4)
-      '1.0-1.4' (ref: decimal-decimal)    → (1, 4)
-    Returns (None, None) if format unrecognized.
+      '001-004' (offer SD: 3-digit-padded)   → (1, 4, True)
+      '1.0-1.4' (ref SD: decimal-decimal)    → (1, 4, False)
+    Returns (None, None, None) if format unrecognized.
+
+    IMPORTANT: Strategy 0 only applies when formats DIFFER:
+      one side is padded-integer (001-004) and other is decimal (1.0-1.4).
+    When both sides use the same format (e.g., both 4.1-01), exact code
+    matching (Strategy 1) handles them — Strategy 0 must not interfere.
     """
     if not deviz_code or '-' not in deviz_code:
-        return None, None
+        return None, None, None
     parts = deviz_code.split('-', 1)
     try:
-        obj_str = parts[0].strip().lstrip('0') or '0'
-        cat_str = parts[1].strip().lstrip('0') or '0'
-        obj_int = int(float(obj_str))
-        cat_float = float(cat_str)
-        # Decimal like "1.4" → fractional part * 10 = 4
-        # Integer like "004" → int = 4
-        if '.' in cat_str:
+        obj_str = parts[0].strip()
+        cat_str = parts[1].strip()
+        # Detect if obj is a padded integer (e.g. '001', '002') vs decimal ('1.0', '4.1')
+        import re as _re
+        is_padded = bool(_re.match(r'^\d{2,3}$', obj_str))
+        obj_str_n = obj_str.lstrip('0') or '0'
+        cat_str_n = cat_str.lstrip('0') or '0'
+        obj_int = int(float(obj_str_n))
+        cat_float = float(cat_str_n)
+        if '.' in cat_str_n:
             cat_int = round((cat_float % 1) * 10)
         else:
             cat_int = int(cat_float)
-        return obj_int, cat_int
+        return obj_int, cat_int, is_padded
     except (ValueError, IndexError):
-        return None, None
+        return None, None, None
 
 
 def _extract_deviz_prefix(deviz_code: str) -> str:
@@ -204,18 +212,23 @@ def match_devize_by_denomination(ref_articles: list, oferta_articles: list,
     mapping = {}
 
     # Pre-build numeric structure map for ref devizes (Strategy 0)
+    # Only for ref devizes that are NOT padded-integer format (i.e., decimal format like 1.0-1.4)
+    # Strategy 0 applies ONLY when offer uses padded-integer (001-004) and ref uses decimal (1.0-1.4).
+    # When both use the same format, Strategy 1 (exact match) handles them correctly.
     ref_numeric_map = {}  # (obj_int, cat_int) → ref_deviz
     for ref_deviz in ref_map:
-        obj_i, cat_i = _extract_numeric_struct(ref_deviz)
-        if obj_i is not None:
-            ref_numeric_map[(obj_i, cat_i)] = ref_deviz
+        obj_i, cat_i, is_pad = _extract_numeric_struct(ref_deviz)
+        if obj_i is not None and not is_pad:  # Only decimal-format ref devizes
+            key = (obj_i, cat_i)
+            if key not in ref_numeric_map:  # First one wins
+                ref_numeric_map[key] = ref_deviz
 
     for oferta_deviz, oferta_arts in oferta_by_deviz.items():
         # Strategy 0: Numeric structural match (e.g., "001-004" ↔ "1.0-1.4")
-        # Handles documents where ref uses decimal format and offer uses 3-digit-padded format
-        # but both encode the same (object, category) pair numerically.
-        obj_i, cat_i = _extract_numeric_struct(oferta_deviz)
-        if obj_i is not None and (obj_i, cat_i) in ref_numeric_map:
+        # Only applies when offer deviz is padded-integer format (001-004) and
+        # a matching decimal-format ref deviz exists with same (obj_int, cat_int).
+        obj_i, cat_i, is_pad = _extract_numeric_struct(oferta_deviz)
+        if obj_i is not None and is_pad and (obj_i, cat_i) in ref_numeric_map:
             ref_deviz = ref_numeric_map[(obj_i, cat_i)]
             if ref_deviz != oferta_deviz:  # Skip if already same code
                 mapping[oferta_deviz] = ref_deviz
