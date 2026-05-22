@@ -1,345 +1,338 @@
-# Pipeline — Diagrama de Secvență și Inventar Imperfectiuni
-
-**Data**: 2026-05-10 (Updated with linked article extraction fixes)  
-**Rulare de referință**: Haiku (`claude-haiku-4-5`) pe 3 oferte  
-**Stare checkpointuri**: existente (clasificarea LLM nu s-a re-rulat)
+# Pipeline — Diagrama de Secvență
+**Actualizat:** 2026-05-22 | **Versiune:** v8.0
 
 ---
 
-## Rezultate Rulare Curentă (with May 2026 Fixes)
-
-| Document      | Articole extrase | Devize | Status |
-|---------------|-----------------|--------|--------|
-| Referința     | 1 271           | 41     | Baseline |
-| Oferta 1      | 1 288           | ~30    | Stable |
-| **Oferta 2**  | **1 203** ↑      | 20     | **+89 linked articles** |
-| Oferta 3      | 1 224           | 25     | Stable |
-
-**Oferta 2 Improvement Detail:**
-- Before linked fixes: 1,114 articles
-- After linked fixes: 1,203 articles (**+89 = +8.0%**)
-- ARTICOL_LIPSA: 127 → 38 (**-70.1% reduction**)
-
-| Oferta   | Matched | LIPSA | EXTRA | DIFERENTA | UM_DIFERIT | COD_SIMILAR | TOTAL |
-|----------|---------|-------|-------|-----------|------------|-------------|-------|
-| Oferta 1 | 1 288   | 0     | 0     | 0         | 0          | 0           | 0     |
-| **Oferta 2** | **1 197** | **38** | **6** | **11** | **51** | **11** | **117** |
-| Oferta 3 | 1 224   | 47    | 0     | 1         | 0          | 2           | 50    |
-
-**Oferta 2 Sanitary Installations (226228/226428/226528):**
-- Total articles: 275 → 337 (+62 = +22.5%)
-  - Deviz 226228: 94 → 119 (+25)
-  - Deviz 226428: 96 → 110 (+14)
-  - Deviz 226528: 85 → 108 (+23)
-
----
-
-## Diagrama de Secvență Completă
+## Diagrama Completă de Secvență
 
 ```
-DI JSON (di_referinta.json / di_oferta_N.json)
-   │
-   ▼
-╔═══════════════════════════════════════════════════════════════╗
-║  ETAPA 1 — PAGE CLASSIFICATION                                ║
-║  fișier: shared/f3_page_classifier.py                         ║
-╠═══════════════════════════════════════════════════════════════╣
-║                                                               ║
-║  build_page_classifications(pages):                           ║
-║    pentru fiecare pagina din DI JSON:                         ║
-║      1. NON_F3 check (FORMULAR C/F, CENTRALIZATOR, etc.)      ║
-║         → if match: label=NON_F3, RESET deviz context         ║
-║      2. RECAPITULATIA check → NON_F3                          ║
-║      3. STADIUL FIZIC regex (ISDP format, primele 3 linii)    ║
-║         → F3, cod deviz extras din linie                      ║
-║      4. Stadiul fizic eDevize (full_content search)           ║
-║         → F3, is_header = True dacă NU are coduri articole    ║
-║      5. Formular F3 regex                                     ║
-║         → F3, cod din "NNNNNN pag N Formular" sau fallback    ║
-║      6. SECTIUNEA TEHNICA regex                               ║
-║         → F3, cod = "" (se propagă din context)               ║
-║      7. >>> componenta + coduri → F3                          ║
-║      8. "NNNNNN pag" în primele 150 chars + coduri → F3       ║
-║      9. altfel → AMBIGUOUS (needs_llm = True)                 ║
-║                                                               ║
-║  Propagare deviz:                                             ║
-║    F3 cu cod → setează current_deviz_cod                      ║
-║    F3 fără cod → folosește current_deviz_cod propagat         ║
-║    NON_F3 → RESETEAZĂ current_deviz_cod = ""  ← [!]          ║
-║    AMBIGUOUS → RESETEAZĂ current_deviz_cod = ""  ← [!]       ║
-║                                                               ║
-║  classify_pages() — LLM batch:                                ║
-║    pagini cu needs_llm=True → batch LLM                       ║
-║    LLM → is_f3, deviz_cod per pagina                          ║
-║    fallback: dacă LLM fail → pagina rămâne NON_F3             ║
-║                                                               ║
-║  CHECKPOINT: salvat în output_AO/checkpoints/                 ║
-║    dacă există → SKIP TOTAL al clasificării LLM               ║
-║                                                               ║
-╠═══════════════════════════════════════════════════════════════╣
-║  [!] BUG POTENTIAL: NON_F3 între pagini F3 rupe propagarea    ║
-║  [!] AMBIGUOUS fără răspuns LLM = pierdut definitiv           ║
-║  [!] CHECKPOINT fără versioning → stale după bug-fix          ║
-║  [!] Formate noi (noi soft devize) → AMBIGUOUS → LLM sau pierd║
-╚═══════════════════════════════════════════════════════════════╝
-   │
-   ▼
-╔═══════════════════════════════════════════════════════════════╗
-║  ETAPA 2 — ARTICLE EXTRACTION                                 ║
-║  fișiere: shared/f3_extractor.py, shared/f3_regex_parser.py   ║
-╠═══════════════════════════════════════════════════════════════╣
-║                                                               ║
-║  extract_articles_v3(page_classifications):                   ║
-║    pentru fiecare pagina cu is_f3=True, header_only=False:    ║
-║      deviz_cod = normalize_deviz_cod(cod)  [U→0]              ║
-║      extract_articles_regex(lines, deviz_cod, deviz_den)      ║
-║        → RegexStateParser: state machine pe linii             ║
-║        → detectează cod articol, UM, cantitate, denumire      ║
-║        → suportă multi-line denumiri                          ║
-║        → LINKED ARTICLE PATTERNS (May 2026):                  ║
-║          • Bare numeric codes (5-8 digits on own line)        ║
-║          • Bare "L" marker (L on separate line from number)   ║
-║          • Dot ".L" marker (.L on separate line)              ║
-║          → Efect: +89 articles in Oferta 2 (+8%)              ║
-║      _extract_components_from_section(text)                   ║
-║        → extrage componente din $breviar (>>> componenta)      ║
-║      dedup per pagina by (cod.upper(), deviz_cod)             ║
-║        → ține articolul cu cantitate maximă                   ║
-║                                                               ║
-║  extract_articles_from_tables_smart(di.tables):               ║
-║    Pass 1: identifică tabelele metadata (Stadiul fizic:)      ║
-║    Pass 2: identifică tabelele F3 data (SECTIUNEA TEHNICA)    ║
-║    → linkează table data cu deviz din metadata precedent      ║
-║    merge: dedup cu articole din pagini (4-tuple key)          ║
-║                                                               ║
-║  Dedup final în local_run.py:                                 ║
-║    by (deviz, cod, um, cantitate) 4-tuple                     ║
-║                                                               ║
-╠═══════════════════════════════════════════════════════════════╣
-║  [!] Coduri cu sufixe speciale (#, [7]) → neextrase           ║
-║  [!] Pagini cu deviz_cod="" → namespace coliziune în dedup    ║
-║  [!] OCR: coduri cu litere confuzabile (O/0, l/1) → partial  ║
-║  [!] Articole în devize neidentificate = pierdute             ║
-╚═══════════════════════════════════════════════════════════════╝
-   │
-   ▼  [doar pentru oferte, nu referință]
-╔═══════════════════════════════════════════════════════════════╗
-║  ETAPA 2.5 — FILTRARE DEVIZE OFERTĂ (local_run.py)           ║
-╠═══════════════════════════════════════════════════════════════╣
-║                                                               ║
-║  ref_deviz_codes = set(deviz din referință)                   ║
-║  page_classes filtrate: păstrează doar pagini cu              ║
-║    deviz_cod ∈ ref_deviz_codes                                ║
-║                                                               ║
-║  Rezultat:                                                    ║
-║    Oferta 2: 98 → 75 pagini F3 active                         ║
-║    Oferta 3: 117 → 25 pagini F3 active  ← AGRESIV            ║
-║                                                               ║
-╠═══════════════════════════════════════════════════════════════╣
-║  [!] Filtrare preventivă elimină devize extra din ofertă      ║
-║  [!] Nu vedem CE oferă oferta în plus față de referință       ║
-║  [!] Oferta 3: 92 din 117 pagini = ignorate complet           ║
-╚═══════════════════════════════════════════════════════════════╝
-   │
-   ▼
-╔═══════════════════════════════════════════════════════════════╗
-║  ETAPA 3 — DEVIZ NORMALIZATION                                ║
-║  fișier: shared/deviz_normalizer.py                           ║
-╠═══════════════════════════════════════════════════════════════╣
-║                                                               ║
-║  normalize_devize(ref_articole, oferta_articole):             ║
-║    construiește mapping: oferta_deviz_den → ref_deviz_den     ║
-║                                                               ║
-║    Tier 1: exact key match (strip prefixe numerice)           ║
-║      "001 226108 STRUCTURA" → "STRUCTURA DE REZISTENTA"       ║
-║    Tier 2: strip prefix extins + exact key                    ║
-║      "oferta 226U08 ALIMENTARE" → strip → match               ║
-║    Tier 3: word overlap > 0.6                                 ║
-║      "INSTALATII INCALZIRE" ↔ "INSTALATII DE INCALZIRE"       ║
-║    Tier 4: LLM fallback                                       ║
-║      → trimite toate denumirile nerezolvate la LLM            ║
-║      → răspuns: {oferta_den: ref_den} JSON                   ║
-║      [!!!] HAIKU WRAP JSON în ```json\n...\n```               ║
-║      [!!!] json.loads() crăpă → WARNING + doar mapping local  ║
-║                                                               ║
-║  Rezultat aplicat: oferta_art["deviz_denumire"] = ref_den     ║
-║  ATENȚIE: deviz_cod NU este modificat (doar denumirea)        ║
-║                                                               ║
-╠═══════════════════════════════════════════════════════════════╣
-║  [!!!] Haiku JSON bug → LLM step silently skipped             ║
-║  [!] deviz_cod rămâne neschimbat → matching pe cod e ok       ║
-║  [!] dacă tier 1-3 nu prinde → deviz_den rămâne din ofertă   ║
-╚═══════════════════════════════════════════════════════════════╝
-   │
-   ▼
-╔═══════════════════════════════════════════════════════════════╗
-║  ETAPA 4 — ORPHAN DETECTION                                   ║
-║  fișier: shared/orphan_detector.py                            ║
-╠═══════════════════════════════════════════════════════════════╣
-║                                                               ║
-║  detect_orphans(ref_articole, oferta_norm):                   ║
-║    găsește: articole cu același cod în ambele documente        ║
-║             dar în devize DIFERITE                            ║
-║    → emit ARTICOL_ORPHAN pentru fiecare                        ║
-║                                                               ║
-║  Statistici rulare curentă:                                   ║
-║    Oferta 1: 364 orphane                                      ║
-║    Oferta 2:  88 orphane                                      ║
-║    Oferta 3:  60 orphane                                      ║
-║    TOTAL:    512 orphane nerezolvate                          ║
-║                                                               ║
-╠═══════════════════════════════════════════════════════════════╣
-║  [!!!] Orfanele NU sunt excluse din matching                  ║
-║  [!!!] → același articol apare și ca LIPSA (din ref) +        ║
-║          și ca EXTRA (din ofertă) = DUBLU NUMĂRAT             ║
-║  [!]  NU se încearcă potrivire cross-deviz                    ║
-╚═══════════════════════════════════════════════════════════════╝
-   │
-   ▼
-╔═══════════════════════════════════════════════════════════════╗
-║  ETAPA 5 — MATCHING (3 straturi)                              ║
-║  fișiere: AgentComparator_local.py, shared/article_matcher.py ║
-╠═══════════════════════════════════════════════════════════════╣
-║                                                               ║
-║  Layer 1 — Exact match pe (deviz_cod, cod):                   ║
-║    _deviz_key(art) = normalize(art.deviz) [U→0]               ║
-║    _art_key(art)   = (deviz_key, cod)                         ║
-║    ref_map[key] vs oferta_map[key] → direct match             ║
-║    → diffs via compare_articles() → DIFERENTA_CAMP, UM_DIFERIT║
-║                                                               ║
-║  Layer 2 — Normalized cod match (same deviz):                 ║
-║    _normalize_cod(cod):                                       ║
-║      l→1, L→1  (OCR: litera l vs cifra 1)                    ║
-║      O→0       (OCR: litera O vs cifra 0)                     ║
-║      #→1       (sufixe hash)                                  ║
-║      strip non-alfanumerice                                   ║
-║    → COD_SIMILAR dacă match găsit                             ║
-║                                                               ║
-║  Layer 3 — LLM fuzzy match per deviz grup:                    ║
-║    pre-filtru: cod_similarity >= 0.75 (SequenceMatcher)        ║
-║    dacă niciun candidat → skip LLM ("No candidate pairs")     ║
-║    batch: max 50 ref + candidați ofertă per call LLM          ║
-║    FUZZY_SYSTEM_PROMPT: "diferă max 1-2 caractere + denumire" ║
-║    [!!!] HAIKU WRAP JSON → json.loads crăpă → skip batch      ║
-║    [!!!] la fail → return [] → articolele rămân LIPSA         ║
-║                                                               ║
-║  ARTICOL_LIPSA: ref neacoperit după toate 3 straturi          ║
-║  ARTICOL_EXTRA: ofertă neacoperit după toate 3 straturi       ║
-║    (excluse componentele din breviar deja cunoscute)          ║
-║                                                               ║
-╠═══════════════════════════════════════════════════════════════╣
-║  [!!!] Haiku JSON bug → Layer 3 silently disabled             ║
-║  [!] Layer 3 e strict pe ACELAȘI deviz → orfanele nu benefic  ║
-║  [!] cod_similarity 0.75 poate fi prea strict sau prea lax    ║
-╚═══════════════════════════════════════════════════════════════╝
-   │
-   ▼
-╔═══════════════════════════════════════════════════════════════╗
-║  ETAPA 6 — VALIDATION + REPORTS                               ║
-║  fișiere: shared/extraction_validator.py, report_word.py      ║
-╠═══════════════════════════════════════════════════════════════╣
-║                                                               ║
-║  mark_suspicious_extras():                                    ║
-║    ARTICOL_EXTRA cu cod prezent în DI ref → posibil_omis      ║
-║    (13 marcate în oferta 1)                                   ║
-║                                                               ║
-║  Adăugare orphane la neconformitati (tip=ARTICOL_ORPHAN)      ║
-║                                                               ║
-║  generate_word() → Raport_Oferta_N.docx                       ║
-║    XLSX comentat (dezactivat)                                  ║
-║                                                               ║
-╠═══════════════════════════════════════════════════════════════╣
-║  [!] ARTICOL_ORPHAN și ARTICOL_LIPSA pot fi același articol   ║
-║  [!] Raportul nu distinge LIPSA-scope vs LIPSA-extracție       ║
-║  [!] XLSX dezactivat — raportul Excel lipsește                 ║
-╚═══════════════════════════════════════════════════════════════╝
-   │
-   ▼
-output_AO/Raport_Oferta_N.docx
-output_AO/comparatie_oferta_N.json
+Utilizator          multi_client_run     local_run          f3_page_classifier    f3_extractor / f3_regex_parser     deviz_matcher     AgentComparator        report_builder / report_word
+    │                       │                │                       │                          │                          │                   │                         │
+    │  --client "BR"        │                │                       │                          │                          │                   │                         │
+    │──────────────────────▶│                │                       │                          │                          │                   │                         │
+    │                       │                │                       │                          │                          │                   │                         │
+    │                 ClientConfig           │                       │                          │                          │                   │                         │
+    │                 detect_clients()       │                       │                          │                          │                   │                         │
+    │                 resolve_paths()        │                       │                          │                          │                   │                         │
+    │                       │                │                       │                          │                          │                   │                         │
+    │                       │ run_pipeline() │                       │                          │                          │                   │                         │
+    │                       │───────────────▶│                       │                          │                          │                   │                         │
+    │                       │                │                       │                          │                          │                   │                         │
+    │                       │                │══════════ PENTRU FIECARE DOCUMENT (referinta + oferta_N) ═══════════════════════════════════════════════════════════════╗
+    │                       │                │                       │                          │                          │                   │                         ║
+    │                       │                │  load_json(di_*.json) │                          │                          │                   │                         ║
+    │                       │                │───────────────────────────────────────────────────────────────────────▶(skip)                 │                         ║
+    │                       │                │                       │                          │                          │                   │                         ║
+    │                       │                │  classify_pages()     │                          │                          │                   │                         ║
+    │                       │                │──────────────────────▶│                          │                          │                   │                         ║
+    │                       │                │                       │                          │                          │                   │                         ║
+    │                       │                │                       │ [check checkpoint]        │                          │                   │                         ║
+    │                       │                │                       │──▶ if exists: return      │                          │                   │                         ║
+    │                       │                │                       │                          │                          │                   │                         ║
+    │                       │                │                       │ per pagina:               │                          │                   │                         ║
+    │                       │                │                       │  EXPLICIT/COMPOUND/REF_MATCH                         │                   │                         ║
+    │                       │                │                       │  sau needs_llm=True       │                          │                   │                         ║
+    │                       │                │                       │                          │                          │                   │                         ║
+    │                       │                │                       │ [LLM batch pt needs_llm] │                          │                   │                         ║
+    │                       │                │                       │──▶ Claude API             │                          │                   │                         ║
+    │                       │                │                       │◀─ is_f3, deviz_cod        │                          │                   │                         ║
+    │                       │                │                       │                          │                          │                   │                         ║
+    │                       │                │                       │ inheritance: deviz_cod    │                          │                   │                         ║
+    │                       │                │                       │ propagat pt continuare    │                          │                   │                         ║
+    │                       │                │                       │                          │                          │                   │                         ║
+    │                       │                │                       │ save checkpoint           │                          │                   │                         ║
+    │                       │                │                       │                          │                          │                   │                         ║
+    │                       │                │◀─ page_classifications│                          │                          │                   │                         ║
+    │                       │                │                       │                          │                          │                   │                         ║
+    │                       │                │  extract_articles_v3()│                          │                          │                   │                         ║
+    │                       │                │──────────────────────────────────────────────────▶│                          │                   │                         ║
+    │                       │                │                       │                          │                          │                   │                         ║
+    │                       │                │                       │          per deviz_cod (pagini grupate):            │                   │                         ║
+    │                       │                │                       │          combine all_lines                          │                   │                         ║
+    │                       │                │                       │          _preprocess_scattered_format()             │                   │                         ║
+    │                       │                │                       │            ⚠ is_f3_um: single-token only            │                   │                         ║
+    │                       │                │                       │          _preprocess_compound_um()                  │                   │                         ║
+    │                       │                │                       │          _merge_wrapped_codes()                     │                   │                         ║
+    │                       │                │                       │          extract_articles_regex()                   │                   │                         ║
+    │                       │                │                       │            IDLE→WAITING→READING state machine       │                   │                         ║
+    │                       │                │                       │            detect cod/UM/cant/denumire              │                   │                         ║
+    │                       │                │                       │          dedup (cod, deviz, cantitate)              │                   │                         ║
+    │                       │                │                       │          _apply_parent_inheritance()                │                   │                         ║
+    │                       │                │                       │                          │                          │                   │                         ║
+    │                       │                │◀─ articole[]          │                          │                          │                   │                         ║
+    │                       │                │                       │                          │                          │                   │                         ║
+    ║════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+    │                       │                │                       │                          │                          │                   │                         │
+    │                       │                │  (per oferta)         │                          │                          │                   │                         │
+    │                       │                │  match_devize_by_denomination()                  │                          │                   │                         │
+    │                       │                │──────────────────────────────────────────────────────────────────────────▶│                   │                         │
+    │                       │                │                       │                          │          check checkpoint │                   │                         │
+    │                       │                │                       │                          │          fuzzy match      │                   │                         │
+    │                       │                │                       │                          │          deviz_den→ref    │                   │                         │
+    │                       │                │◀─ deviz_mapping{}     │                          │                          │                   │                         │
+    │                       │                │                       │                          │                          │                   │                         │
+    │                       │                │  match_global(ref, oferta_norm)                  │                          │                   │                         │
+    │                       │                │──────────────────────────────────────────────────────────────────────────────────────────────▶│                         │
+    │                       │                │                       │                          │                          │                   │                         │
+    │                       │                │                       │                          │          Layer 1: exact (deviz,cod)          │                         │
+    │                       │                │                       │                          │          Layer 2: normalized cod              │                         │
+    │                       │                │                       │                          │          Layer 2.1: trailing digit            │                         │
+    │                       │                │                       │                          │          Layer 2.5: OCR similar ≥0.80 N:M     │                         │
+    │                       │                │                       │                          │          Layer 3: LLM fuzzy (disabled)        │                         │
+    │                       │                │                       │                          │          Post: lenient UM ($ coduri)          │                         │
+    │                       │                │                       │                          │                          │                   │                         │
+    │                       │                │◀─ matches[], neconf[] │                          │                          │                   │                         │
+    │                       │                │                       │                          │                          │                   │                         │
+    │                       │                │  build_raport_ierarhic()                         │                          │                   │                         │
+    │                       │                │──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────▶│
+    │                       │                │                       │                          │                          │                   │                         │
+    │                       │                │                       │                          │                          │      organizeaza ierarhic pe deviz          │
+    │                       │                │                       │                          │                          │                   │  generate_word()         │
+    │                       │                │                       │                          │                          │                   │  tabel 11 col            │
+    │                       │                │◀─ Raport_Oferta_N.docx│                          │                          │                   │                         │
+    │                       │                │   comparatie_oferta_N.json                       │                          │                   │                         │
+    │                       │                │                       │                          │                          │                   │                         │
+    │◀─ ✓ Pipeline complet  │                │                       │                          │                          │                   │                         │
 ```
 
 ---
 
-## Inventar Complet Imperfectiuni
+## Secventa Detaliata: Preprocess + State Machine
 
-### 🔴 CRITICE (produc rezultate greșite sigur)
-
-| # | Problema | Locație | Impact |
-|---|----------|---------|--------|
-| C1 | **Haiku returnează ```json → json.loads() crăpă** | anthropic_adapter.py | Layer 3 fuzzy + deviz norm LLM = disabled silentios |
-| C2 | **ARTICOL_ORPHAN dublu numărare** | orphan_detector + matcher | 512 articole apar și LIPSA și EXTRA simultan |
-
-### 🟠 IMPORTANTE (produc zgomot semnificativ în raport)
-
-| # | Problema | Locație | Impact |
-|---|----------|---------|--------|
-| I1 | **NON_F3 resetează deviz context** | f3_page_classifier.py:224 | Pagini F3 ulterioare = deviz_cod="" → dedup coliziune |
-| I2 | **Filtrare agresivă oferta 3 (117→25 pagini)** | local_run.py:95-101 | 92 pagini ignorate, 1 053 LIPSA "artificiale" |
-| I3 | **Raportul nu distinge LIPSA-scope vs LIPSA-extracție** | report_word.py | Toate LIPSA arată la fel, nu știm ce e real vs bug |
-| I4 | **Checkpoint fără versioning** | local_run.py:74-89 | Bug-fix la clasificare = invizibil la re-rulare |
-
-### 🟡 MINORE (edge cases, impact limitat)
-
-| # | Problema | Locație | Impact |
-|---|----------|---------|--------|
-| M1 | Coduri cu `[7]`, `[]` sufixe → neextrase | f3_regex_parser.py | ~6 articole din 1279 referință |
-| M2 | Pagini AMBIGUOUS fără răspuns LLM → pierdute | f3_page_classifier.py:261 | Nedeterminat, probabil mic |
-| M3 | deviz_cod="" pe pagini orfane → namespace coliziune dedup | f3_extractor.py:657 | Posibil pierdere articole |
-| M4 | XLSX dezactivat | local_run.py:229-236 | Raportul Excel lipsește |
+```
+all_lines (combinate din toate paginile aceluiasi deviz)
+    │
+    ▼
+_preprocess_scattered_format(lines)
+    ┌─────────────────────────────────────────────────────────────────┐
+    │ Pentru fiecare linie ce e bare counter (^\d+$):                │
+    │                                                                 │
+    │ Branch A: Counter + Cod + UM + QTY (consecutive)               │
+    │   lines[i]   = "6"         ← counter                           │
+    │   lines[i+1] = "EA02A1"    ← cod valid                         │
+    │   lines[i+2] = "BUCATA"    ← UM valid (single-token ✓)         │
+    │   lines[i+3] = "170,00000" ← QTY valid                         │
+    │   → Combina: "6 EA02A1 - DESCRIPTION"                          │
+    │              "BUCATA" (UM)                                      │
+    │              "170,00000" (QTY)                                  │
+    │                                                                 │
+    │ Branch B: Counter + Cod + DESCRIERE... + UM + QTY (F3-order)   │
+    │   lines[i]   = "6"         ← counter                           │
+    │   lines[i+1] = "EA02A1"    ← cod valid                         │
+    │   lines[i+2] = "82 M"      ← NU e UM valid (cifra+litera)      │
+    │   Scan ahead k=i+2..i+12:                                      │
+    │     "82 M" → desc_part (nu e UM: cifra+litera)                 │
+    │     "170,00000" → desc_part (cifre)                             │
+    │     "TUB IZOLANT..." → desc_part                               │
+    │     "BUCATA" → is_f3_um=True (single-token, in UM_KNOWN) ✓     │
+    │              → f3_um="BUCATA", f3_qty=lines[k+1]               │
+    │   ⚠ FIX 2026-05-22: is_f3_um TREBUIE len(tokens)==1            │
+    │     "Art. asimilat" → 2 tokens → is_f3_um=False ✓ (nu mai fura│
+    │                        NR_CRT-ul articolului urmator ca QTY)   │
+    │                                                                 │
+    │ Fallback: linie nemodificata → state machine o proceseaza direct│
+    └─────────────────────────────────────────────────────────────────┘
+    │
+    ▼
+_preprocess_compound_um(lines)
+    ┌─────────────────────────────────────────────────────────────────┐
+    │ "82" + "M" (linii consecutive) → "82 M" (o singura linie)     │
+    │ "99" + "ZECI MP"               → "99 ZECI MP"                 │
+    └─────────────────────────────────────────────────────────────────┘
+    │
+    ▼
+_merge_wrapped_codes(lines)
+    ┌─────────────────────────────────────────────────────────────────┐
+    │ "TRI1AA01E" + "3" → "TRI1AA01E3" (cod rupt de OCR)             │
+    └─────────────────────────────────────────────────────────────────┘
+    │
+    ▼
+extract_articles_regex(lines, deviz_cod, deviz_den)
+    │
+    │  ┌─────────────────────────────────────────────────────────────┐
+    │  │ STATE: _IDLE                                                │
+    │  │  Recunoaste:                                                │
+    │  │   NR_ALPHA_INLINE "024 CK26A#"  → direct _READING           │
+    │  │   NR_NUMERIC_INLINE "024 2200012" → direct _READING ($)    │
+    │  │   NR_COD_DESC "6 CA01J1 - DESC" → direct _READING          │
+    │  │   _is_nr_crt(line) → _WAITING + last_nr_crt=N              │
+    │  │   altceva → ignora                                          │
+    │  └─────────────────────────────────────────────────────────────┘
+    │              │ NR_CRT gasit
+    │              ▼
+    │  ┌─────────────────────────────────────────────────────────────┐
+    │  │ STATE: _WAITING (timeout 3 linii → _IDLE)                   │
+    │  │  Recunoaste:                                                │
+    │  │   _try_parse_cod(line) → cod extras → _READING              │
+    │  │   NR_ALPHA_INLINE/NUMERIC_INLINE → cod inline → _READING    │
+    │  │   _is_nr_crt → update last_nr_crt, ramai _WAITING           │
+    │  │   waiting_lines >= 3 → _IDLE                                │
+    │  └─────────────────────────────────────────────────────────────┘
+    │              │ cod gasit
+    │              ▼
+    │  ┌─────────────────────────────────────────────────────────────┐
+    │  │ STATE: _READING                                             │
+    │  │  Colecteaza (pana la finalizare):                           │
+    │  │                                                             │
+    │  │  NR_*_INLINE → finalize() + nou articol                     │
+    │  │  [guard 82 M]: daca "cod"=UM valid si um='' → seteaza UM    │
+    │  │                                                             │
+    │  │  _is_model_reference → skip                                 │
+    │  │                                                             │
+    │  │  NR_CRT bare ("82"):                                        │
+    │  │   daca cant==0 → finalize() + _WAITING                      │
+    │  │   daca cant>0 si price_count==0 → _is_nr_crt() → finalize  │
+    │  │                                                             │
+    │  │  UM detection (daca um==''):                                │
+    │  │   token UM singur pe linie (BUCATA, M, MP)                  │
+    │  │   "ZECI M" → um=m                                           │
+    │  │   "82 M" → m_um_norm → um=m (nr_ordine ignorat)            │
+    │  │                                                             │
+    │  │  CANT_DECIMAL_RE → cantitate=float                          │
+    │  │  CANT_INT_RE (daca um setat) → cantitate=int                │
+    │  │  PRET_RE → preturi.append                                   │
+    │  │                                                             │
+    │  │  text → denumire_parts.append                               │
+    │  └─────────────────────────────────────────────────────────────┘
+    │              │ finalizare
+    │              ▼
+    │  _finalize() → articole.append({cod, um, cantitate, denumire, preturi})
+    │
+    ▼
+articole[] (per deviz)
+```
 
 ---
 
-## Root Causes pentru ARTICOL_LIPSA în cifre
+## Secventa Detaliata: Matching (Layer 1-2.5)
 
 ```
-Oferta 1 — 99 LIPSA:
-  • ~16 COD_SIMILAR găsiți (Layer 2) = rămân ~83 reale
-  • din care: OCR coduri nedetectate de Layer 3 (Haiku bug) = necunoscut
-  • din care: pagini F3 neclasificate = necunoscut
-  • din care: genuine (bidder nu oferă) = necunoscut
-
-Oferta 2 — 839 LIPSA:
-  • 198 = LIPSA-scope (devize absente din ofertă) — CORECTE
-  • 641 = LIPSA în devize comune ref+ofertă — PROBLEMATICE
-    → oferta 2 are 428 articole vs 1081 în ref, în aceleași 20 devize
-    → 37% coverage = posibil extracție ratată SAU ofertă cu mai puțin scope
-
-Oferta 3 — 1053 LIPSA:
-  • ~majority = LIPSA-scope (oferta 3 acoperă alt scope)
-  • 210 articole extrase (ref 1279) → ratio mic dar devize diferite
+ref_articole[]                    oferta_articole[] (dupa deviz mapping)
+      │                                    │
+      ▼                                    ▼
+  ref_dedup{}                         oferta_dedup{}
+  cheie: (deviz, cod)                 cheie: (deviz, cod)
+  valoare: [art1, art2, ...]          valoare: [art1, art2, ...]
+      │                                    │
+      └──────────────┬─────────────────────┘
+                     │
+         ╔═══════════▼═══════════╗
+         ║  LAYER 1: EXACT       ║
+         ║  N ref : M oferta     ║
+         ║  per (deviz, cod)     ║
+         ╚═══════════╤═══════════╝
+                     │ unmatched ref + unmatched oferta
+         ╔═══════════▼═══════════╗
+         ║  LAYER 2: NORM COD    ║
+         ║  AUT6752 ↔ $6752      ║
+         ║  strip $ prefix       ║
+         ╚═══════════╤═══════════╝
+                     │ unmatched
+         ╔═══════════▼═══════════╗
+         ║  LAYER 2.1: TRAIL DGT ║
+         ║  IC35D ↔ IC35D1       ║
+         ║  prefix match         ║
+         ╚═══════════╤═══════════╝
+                     │ unmatched
+         ╔═══════════▼═══════════╗
+         ║  LAYER 2.5: OCR SIM   ║
+         ║  SequenceMatcher≥0.80  ║
+         ║  per deviz, N:M complet║
+         ║  FIX: oferta_by_deviz  ║
+         ║  .extend(all instances)║
+         ╚═══════════╤═══════════╝
+                     │ unmatched
+         ╔═══════════▼═══════════╗
+         ║  LAYER 3: LLM FUZZY   ║
+         ║  DISABLED              ║
+         ║  (no candidate pairs)  ║
+         ╚═══════════╤═══════════╝
+                     │
+         ╔═══════════▼═══════════╗
+         ║  POST: LENIENT UM     ║
+         ║  $ EXTRA cod in ref   ║
+         ║  cu UM='' → MATCHED   ║
+         ║  + UM_DIFERIT added   ║
+         ╚═══════════╤═══════════╝
+                     │
+            ┌────────┴────────┐
+            ▼                 ▼
+        matches[]         neconformitati[]
+   (ref+oferta perechi)   LIPSA/EXTRA/DEVIZ_MM
 ```
 
 ---
 
-## Fluxul Ideal (după remedieri)
+## Secventa: DEVIZ_MISMATCH Detection
 
 ```
-DI JSON
-  ↓
-[1] PAGE CLASSIFICATION (cu checkpoint versionat)
-    regex → LLM batch (cu JSON fix) → checkpoint
-  ↓
-[2] ARTICLE EXTRACTION
-    regex parser → tables → merge
-  ↓
-[2.5] FILTRARE DEVIZE (cu raportare explicită scope gaps)
-  ↓
-[3] DEVIZ NORMALIZATION (cu JSON fix Haiku)
-  ↓
-[4] ORPHAN RESOLUTION (cross-deviz match cu confirmare denumire)
-    → orfanele rezolvate = excluse din LIPSA + EXTRA
-    → orfanele nerezolvate → ARTICOL_ORPHAN (genuine deviz mismatch)
-  ↓
-[5] MATCHING (cu Layer 3 funcțional)
-    L1: exact (deviz, cod)
-    L2: normalized cod
-    L3: LLM fuzzy (Haiku fix)
-  ↓
-[6] CLASIFICARE LIPSA
-    LIPSA-SCOPE:    articol din deviz absent în ofertă
-    LIPSA-EXTRAS:   articol din deviz comun, neextras
-    LIPSA-GENUINE:  articol care chiar lipsește din ofertă
-  ↓
-[7] RAPORT cu categorii clare
+ref cod "CF08A03" in deviz BLC6
+      │
+      ▼ Layer 1 exact: cautare in oferta cu key ("BLC6", "CF08A03")
+      │ → NOT FOUND (oferta are CF08A03 in BLC1)
+      │
+      ▼ Layer 2/2.1/2.5: cautare in same deviz BLC6
+      │ → NOT FOUND in BLC6
+      │
+      ▼ ref "CF08A03" → ARTICOL_LIPSA initial
+      │
+      ▼ [dar oferta are CF08A03 in BLC1]
+      │ → detectat de deviz_mismatches detection
+      │ → tip schimbat: LIPSA → DEVIZ_MISMATCH
+      │
+      └─ Interpretare: articolul EXISTA in oferta, deviz gresit
+         NU e LIPSA reala. Ofertantul a structurat devizele diferit.
 ```
+
+---
+
+## Secventa: Diagnostics (run_diagnostics.py)
+
+```
+run_diagnostics.py --client "Blocuri Racari"
+      │
+      ▼
+discover_client_outputs(client_name)
+      │ citeste output_AO/<Client>/comparatie_oferta_N.json
+      │ citeste output_AO/<Client>/checkpoints/di_referinta_*.json
+      │
+      ▼
+load_comparison_data()
+      │
+      ├─ Phase 0: calitate_referinta
+      │    ref_articole → fara_deviz, orfane, incomplete
+      │
+      ├─ Phase 1: extra_analysis (per oferta, per deviz)
+      │    EXTRA → $ vs principale
+      │
+      └─ Phase 2: lipsa_analysis (per oferta, per deviz)
+           LIPSA → genuine vs DEVIZ_MISMATCH
+      │
+      ▼
+build_diagnostics_json()
+      │
+      ├─ output_AO/diagnostics.json
+      └─ output_AO/diagnostics.docx (daca --no-docx nu e setat)
+```
+
+---
+
+## Imperfectiuni Known (2026-05-22)
+
+### Rezolvate in sesiunile 2026-05
+
+| Fix | Commit | Impact |
+|-----|--------|--------|
+| Layer 2.5 N:M complet (oferta_by_key vs oferta_map) | 70e67b9 | +25 matched BR O3 |
+| Parser: `82 M` format NR_ALPHA_INLINE guard | 38e0b6f | logic corect |
+| Scatter: is_f3_um single-token (Art. asimilat fix) | HEAD | +19 matched BR O3 |
+
+### Active
+
+| # | Problema | Impact | Fix propus |
+|---|----------|--------|------------|
+| 1 | IZDO3D1 OCR: Layer 1 consuma IZD03D1, IZDO3D1 ramane LIPSA | 1 LIPSA per oferta | Normalizare O↔0 global sau Layer 2 re-consume excess |
+| 2 | SD deviz_matcher: text cod vs numeric eDevize | 600+ DEVIZ_MM | deviz_matcher: matching pe cod articol, nu doar denumire |
+| 3 | SSR O3 EXTRA=315 | raport zgomotos | Investigare root cause (deviz_mismatch?) |
+| 4 | SSR DEVIZ_MM=300+ | raport zgomotos | Investigare deviz mapping |
+| 5 | CM O2 LIPSA=84 | neclar | Breakdown $-coduri vs principale |
