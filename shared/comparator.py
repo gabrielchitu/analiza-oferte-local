@@ -45,6 +45,16 @@ def compare_articles(ref: dict, oferta: dict, include_prices: bool = True) -> li
     # Check denomination similarity (detect genuinely different descriptions)
     # Strip known OCR artifacts from eDevize headers before comparing
     import re as _re
+    # 1. Expandează abrevieri (dict static + learned din LLM)
+    from shared.abbreviations import expand_abbreviations, are_learned_equivalent
+
+    # Verificare rapidă: pereche deja confirmată ca echivalentă de LLM
+    ref_raw = (ref.get("denumire") or "").lower().strip()
+    oferta_raw = (oferta.get("denumire") or "").lower().strip()
+    if ref_raw and oferta_raw and are_learned_equivalent(ref_raw, oferta_raw):
+        # Pereche confirmată echivalentă de LLM → nu genera DESCRIERE_DIFERITA
+        pass  # continuă cu verificările numerice
+
     _OCR_ARTIFACTS = _re.compile(
         r'\bantet\s+stanga\b|\bedevize\b|\bsectiunea\s+tehnica\b|\bformular\s+f3\b'
         r'|\bsectiunea\s+financiara\b|\bpag\.?\s*\d+\b|\bsistem\s+informatic\b'
@@ -66,7 +76,9 @@ def compare_articles(ref: dict, oferta: dict, include_prices: bool = True) -> li
         # Strip trailing " a" OCR artifact si cratime standalone
         s = _re.sub(r'(\s+-)+\s*$', '', s)
         s = _re.sub(r'\s+a\s*$', '', s)
-        return _re.sub(r'\s+', ' ', s).strip()
+        s = _re.sub(r'\s+', ' ', s).strip()
+        # Expandează abrevieri (dict static + learned)
+        return expand_abbreviations(s)
 
     ref_den = _clean_den((ref.get("denumire") or "").lower())
     oferta_den = _clean_den((oferta.get("denumire") or "").lower())
@@ -81,13 +93,17 @@ def compare_articles(ref: dict, oferta: dict, include_prices: bool = True) -> li
             union = len(r_tok | o_tok)
             sim = inter / union  # Jaccard pur — robust la OCR, sensibil la diferente reale
             if sim < 0.50:
-                neconf.append({
+                entry = {
                     "tip": "DESCRIERE_DIFERITA",
                     "camp": "denumire",
                     "ref": ref_den[:150],
                     "oferta": oferta_den[:150],
                     "similaritate": round(sim, 2),
-                })
+                }
+                # Marchează perechile borderline (0.25-0.50) pentru validare LLM ulterioară
+                if sim >= 0.25:
+                    entry["borderline_llm"] = True
+                neconf.append(entry)
     fields_to_check = CANTITATE_FIELDS + (PRICE_FIELDS if include_prices else [])
     for field in fields_to_check:
         r_val = ref.get(field, 0.0) or 0.0
