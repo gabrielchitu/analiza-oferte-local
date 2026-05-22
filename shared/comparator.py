@@ -33,6 +33,7 @@ def _normalize_um(um: str) -> str:
 
 
 def compare_articles(ref: dict, oferta: dict, include_prices: bool = True) -> list:
+    from difflib import SequenceMatcher
     neconf = []
     if _normalize_um(ref.get("um", "")) != _normalize_um(oferta.get("um", "")):
         neconf.append({
@@ -41,6 +42,30 @@ def compare_articles(ref: dict, oferta: dict, include_prices: bool = True) -> li
             "ref": ref.get("um"),
             "oferta": oferta.get("um"),
         })
+    # Check denomination similarity (detect genuinely different descriptions)
+    # Strip known OCR artifacts from eDevize headers before comparing
+    import re as _re
+    _OCR_ARTIFACTS = _re.compile(
+        r'\bantet\s+stanga\b|\bedevize\b|\bsectiunea\s+tehnica\b|\bformular\s+f3\b'
+        r'|\bsectiunea\s+financiara\b|\bpag\.?\s*\d+\b|\bsistem\s+informatic\b',
+        _re.IGNORECASE
+    )
+    def _clean_den(s: str) -> str:
+        s = _OCR_ARTIFACTS.sub('', s)
+        return _re.sub(r'\s+', ' ', s).strip()
+
+    ref_den = _clean_den((ref.get("denumire") or "").lower())
+    oferta_den = _clean_den((oferta.get("denumire") or "").lower())
+    if ref_den and oferta_den and len(ref_den) > 10 and len(oferta_den) > 10:
+        sim = SequenceMatcher(None, ref_den, oferta_den).ratio()
+        if sim < 0.85:
+            neconf.append({
+                "tip": "DESCRIERE_DIFERITA",
+                "camp": "denumire",
+                "ref": ref_den[:150],
+                "oferta": oferta_den[:150],
+                "similaritate": round(sim, 2),
+            })
     fields_to_check = CANTITATE_FIELDS + (PRICE_FIELDS if include_prices else [])
     for field in fields_to_check:
         r_val = ref.get(field, 0.0) or 0.0

@@ -475,7 +475,7 @@ def match_global(
             for r_art, o_art in zip(ref_list, oferta_list):
                 diffs = compare_articles(r_art, o_art, include_prices=include_prices)
                 arith = check_arithmetic(o_art) if include_prices else []
-                if r_art.get("cod", "") != original_oferta_cod and (diffs or arith):
+                if r_art.get("cod", "") != original_oferta_cod:
                     neconf = {
                         "tip": "COD_SIMILAR",
                         "motiv_similaritate": f"Cod variant: referinta '{r_art.get('cod')}', ofertat '{original_oferta_cod}'",
@@ -745,7 +745,7 @@ def match_global(
             deviz_cod = ref_art.get("deviz", "")
             deviz_den = ref_art.get("deviz_denumire", "")
             diffs = compare_articles(ref_art, best_art, include_prices=include_prices)
-            if diffs:
+            if ref_cod != best_art.get("cod", ""):
                 neconf = {
                     "tip": "COD_SIMILAR",
                     "motiv_similaritate": (
@@ -754,6 +754,7 @@ def match_global(
                 }
                 _enrich(neconf, ref_art, best_art, deviz_cod, deviz_den)
                 neconformitati.append(neconf)
+            if diffs:
                 for d in diffs:
                     _enrich(d, ref_art, best_art, deviz_cod, deviz_den)
                 neconformitati.extend(diffs)
@@ -826,6 +827,9 @@ def match_global(
     # If code exists anywhere in offer (any deviz), prefer DEVIZ_MISMATCH over LIPSA.
     _all_offer_codes = {clean_code(k[1]) for k in oferta_by_key.keys() if k[1]}
     for ref_art in still_unmatched_ref:
+        # skip articole fara cantitate (capitole/anteturi, nu articole reale)
+        if not ref_art.get("cantitate"):
+            continue
         deviz_cod = ref_art.get("deviz", "")
         deviz_den = ref_art.get("deviz_denumire", "")
         ref_code = clean_code(ref_art.get("cod", ""))

@@ -14,6 +14,7 @@ YELLOW_FILL = "FFFF99"
 ORANGE_FILL = "FFB347"
 GRAY_FILL = "D9D9D9"
 SUBCOMP_GRAY_FILL = "E8E8E8"  # Light gray for subcomponents
+LILA_FILL = "C8A0DC"  # Lila pentru DESCRIERE_DIFERITA
 
 # Column widths in cm (total ~24cm for landscape A4 with 2cm margins)
 COL_WIDTHS_CM = [0.7, 3.0, 1.5, 3.5, 0.8, 1.2, 1.5, 3.5, 0.8, 1.2, 6.3]
@@ -112,6 +113,12 @@ def _observatie_text(neconf: dict) -> str:
         cod = neconf.get("ref_cod", "")
         motiv = neconf.get("motiv", "")
         return f"ORPHAN: Cod '{cod}' identic, dar categorii DIFERITE. {motiv}. VERIFICARE MANUALA NECESARA!"
+    if tip == "DESCRIERE_DIFERITA":
+        sim = neconf.get("similaritate", "")
+        ref_val = neconf.get("ref", "")
+        oferta_val = neconf.get("oferta", "")
+        return (f"Descriere diferită (similaritate {sim}): "
+                f"referință '{ref_val}', ofertat '{oferta_val}'")
     return tip
 
 
@@ -460,6 +467,8 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
         for cell in row: _set_cell_shading(cell, YELLOW_FILL)
     if tip == "ARTICOL_ORPHAN":
         for cell in row: _set_cell_shading(cell, "FFCC99")
+    if tip == "DESCRIERE_DIFERITA":
+        for cell in row: _set_cell_shading(cell, LILA_FILL)
 
     if tip == "DIFERENTA_CAMP" and camp == "cantitate":
         ref_cant_run.font.color.rgb = RED
