@@ -47,25 +47,47 @@ def compare_articles(ref: dict, oferta: dict, include_prices: bool = True) -> li
     import re as _re
     _OCR_ARTIFACTS = _re.compile(
         r'\bantet\s+stanga\b|\bedevize\b|\bsectiunea\s+tehnica\b|\bformular\s+f3\b'
-        r'|\bsectiunea\s+financiara\b|\bpag\.?\s*\d+\b|\bsistem\s+informatic\b',
+        r'|\bsectiunea\s+financiara\b|\bpag\.?\s*\d+\b|\bsistem\s+informatic\b'
+        # Adnotari specifice devize constructii romanesti
+        r'|\bdotare\s+constructor\b|\basim\b'
+        # Notatie subcomponente/materiale legate: "l: IZL4F -m : 7801893 -" sau "l:lc52a -0059: 6716352 -"
+        # Strip de la l: pana la sfarsitul notatiei (tot ce urmeaza dupa codul l: e metadata)
+        r'|l\s*:\s*[a-z0-9]+(?:\s*-\s*[a-z0-9]*\s*:\s*[a-z0-9]*\s*-.*)?'
+        # Garbage financiar din tabele de totalizare (diferite formate)
+        r'|%\s*\)\s*vo\s*=|%\s*x\s*\(?to|\+po\b|\bio\s*=\s*%|\bpo\s*=\s*%|\bto\s*\+\s*io\b'
+        r'|\bcontrib\s+asig\s+munca\b|\btotal\s+chelt\s+directe\b'
+        r'|\bcheltuieli\s+(directe|indirecte)\b'
+        # Garbage din alte randuri ale tabelului (executant, obiectiv, etc.)
+        r'|\bexecutant\s+\d+|\bobiecti[vu]\s+\d+|\bcomercial[a]\b',
         _re.IGNORECASE
     )
     def _clean_den(s: str) -> str:
         s = _OCR_ARTIFACTS.sub('', s)
+        # Strip trailing " a" OCR artifact si cratime standalone
+        s = _re.sub(r'(\s+-)+\s*$', '', s)
+        s = _re.sub(r'\s+a\s*$', '', s)
         return _re.sub(r'\s+', ' ', s).strip()
 
     ref_den = _clean_den((ref.get("denumire") or "").lower())
     oferta_den = _clean_den((oferta.get("denumire") or "").lower())
     if ref_den and oferta_den and len(ref_den) > 10 and len(oferta_den) > 10:
-        sim = SequenceMatcher(None, ref_den, oferta_den).ratio()
-        if sim < 0.85:
-            neconf.append({
-                "tip": "DESCRIERE_DIFERITA",
-                "camp": "denumire",
-                "ref": ref_den[:150],
-                "oferta": oferta_den[:150],
-                "similaritate": round(sim, 2),
-            })
+        # Jaccard pe cuvinte — robust la zgomot OCR (cratime, spatii, split cuvinte)
+        def _word_tokens(s):
+            return set(_re.sub(r'[^a-z0-9]', ' ', s).split()) - {'', '-'}
+        r_tok = _word_tokens(ref_den)
+        o_tok = _word_tokens(oferta_den)
+        if r_tok and o_tok:
+            inter = len(r_tok & o_tok)
+            union = len(r_tok | o_tok)
+            sim = inter / union  # Jaccard pur — robust la OCR, sensibil la diferente reale
+            if sim < 0.50:
+                neconf.append({
+                    "tip": "DESCRIERE_DIFERITA",
+                    "camp": "denumire",
+                    "ref": ref_den[:150],
+                    "oferta": oferta_den[:150],
+                    "similaritate": round(sim, 2),
+                })
     fields_to_check = CANTITATE_FIELDS + (PRICE_FIELDS if include_prices else [])
     for field in fields_to_check:
         r_val = ref.get(field, 0.0) or 0.0
