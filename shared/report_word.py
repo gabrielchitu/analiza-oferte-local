@@ -726,7 +726,7 @@ def _generate_word_hierarchical(doc, raport: dict, comp: dict,
         # Pre-check: will there be any visible rows for this deviz?
         has_visible_rows = False
         for art in dv.get('articole', []):
-            is_comp = art.get('is_component', False)
+            is_comp = art.get('is_component', False) or art.get('cod', '').startswith('$')
             raw_ncs = art.get('neconformitati', [])
             principal_ncs = _visible(raw_ncs) if is_comp else raw_ncs
             if principal_ncs:
@@ -749,7 +749,7 @@ def _generate_word_hierarchical(doc, raport: dict, comp: dict,
         _add_deviz_heading(table, dv_cod, dv_den, ref_count=n_lipsa, oferta_count=n_extra)
 
         for art in dv.get('articole', []):
-            is_comp = art.get('is_component', False)
+            is_comp = art.get('is_component', False) or art.get('cod', '').startswith('$')
             raw_ncs = art.get('neconformitati', [])
             principal_ncs = _visible(raw_ncs) if is_comp else raw_ncs
 
