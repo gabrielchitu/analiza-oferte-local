@@ -443,16 +443,32 @@ def match_devize_by_3layer(
 
     ref_cods = set(ref_deviz_headers.keys())
     mapping: dict[str, str] = {}
-    # Rezerva ref_cods care au corespondent direct in oferta (nu pot fi "furate")
-    used_ref = ref_cods & set(oferta_deviz_headers.keys())
+    # Rezerva ref_cods VERIFICATE: acelasi cod + similitudine >= threshold
+    # (same code dar continut diferit → NU e rezervat, poate fi remanat)
+    _same_code_reserved: set[str] = set()
+    # oferta_cod → ref_cod pentru devizele same-code confirmate
+    _same_code_pairs: dict[str, str] = {}
+    for cod in ref_cods & set(oferta_deviz_headers.keys()):
+        rh = ref_deviz_headers.get(cod)
+        oh = oferta_deviz_headers.get(cod)
+        if rh and oh and rh.is_valid and oh.is_valid:
+            if _3layer_sim(rh, oh) >= threshold:
+                _same_code_reserved.add(cod)
+                _same_code_pairs[cod] = cod
+        else:
+            _same_code_reserved.add(cod)
+            _same_code_pairs[cod] = cod
 
-    # Sorteaza oferta devize dupa cod pt determinism
+    # used_ref NU include devizele same-code — ele pot fi reutilizate pt ref
+    # devize cu continut identic dar cod diferit (ex: BLC6 ref ≡ BLC7 oferta)
+    used_ref: set[str] = set()
+
+    # Pass 1: devize oferta cu cod DIFERIT de ref → remap pe similitudine
     for oferta_cod, oferta_h in sorted(oferta_deviz_headers.items()):
         if not oferta_h.is_valid:
             continue
-        # Daca oferta_cod exista direct in ref → deja potrivit, nu remap
-        if oferta_cod in ref_cods:
-            continue
+        if oferta_cod in _same_code_reserved:
+            continue  # same-code confirmed → handled by direct match
 
         best_ref_cod = None
         best_score = 0.0
@@ -473,6 +489,7 @@ def match_devize_by_3layer(
                     f"[DM-3L] {oferta_cod} → {best_ref_cod} "
                     f"(score={best_score:.2f})"
                 )
+
 
     logger.info(
         f"[DM-3L] 3-layer mapping: {len(mapping)} devize mapate "

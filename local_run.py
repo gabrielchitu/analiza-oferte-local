@@ -291,18 +291,14 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
             logger.info(f"  [DEVIZ_MAPPER] Remapped {len([a for a in oferta_articles if a.get('_deviz_original')])} articles: {deviz_mapping}")
             oferta_articles = remap_devize_by_code_preference(oferta_articles, ref_articles, deviz_mapping)
 
-        # Strategy 4 (3-layer): DUPA Strategy 0-3, numai pt devize inca nemapate in ref
-        ref_deviz_cods = set((a.get("deviz") or "").strip() for a in ref_articles if a.get("deviz"))
-        unmapped = set(
-            (a.get("deviz") or "").strip() for a in oferta_articles
-            if (a.get("deviz") or "").strip() not in ref_deviz_cods
-        ) - {""}
-        if unmapped:
-            ref_dh = _headers_from_articles(ref_articles)
-            oferta_dh_un = {c: h for c, h in _headers_from_articles(oferta_articles).items() if c in unmapped}
-            mapping_3layer = match_devize_by_3layer(ref_dh, oferta_dh_un)
-            if mapping_3layer:
-                oferta_articles = remap_devize_in_articles(oferta_articles, mapping_3layer)
+        # Strategy 4 (3-layer): DUPA Strategy 0-3, pt TOATE devizele ofertei
+        # match_devize_by_3layer verifica intern similitudinea si sare peste
+        # devizele cu acelasi cod si continut similar (same-code-reserved logic)
+        ref_dh = _headers_from_articles(ref_articles)
+        oferta_dh = _headers_from_articles(oferta_articles)
+        mapping_3layer = match_devize_by_3layer(ref_dh, oferta_dh)
+        if mapping_3layer:
+            oferta_articles = remap_devize_in_articles(oferta_articles, mapping_3layer)
 
         # Filter out malformed articles
         before_filter = len(oferta_articles)

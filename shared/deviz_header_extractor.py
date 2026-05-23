@@ -198,7 +198,7 @@ def extract_deviz_headers(
                 break
 
         cache_key = hashlib.md5(
-            "\n".join(header_lines[:10]).encode()
+            "\n".join(header_lines[:20]).encode()
         ).hexdigest()[:16]
 
         cached = cache.get(cache_key)
