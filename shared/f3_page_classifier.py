@@ -11,6 +11,7 @@ import json
 import logging
 from datetime import datetime
 from dataclasses import dataclass, field
+from shared.f3_knowledge import F3Knowledge
 
 logger = logging.getLogger(__name__)
 
@@ -994,24 +995,18 @@ def _apply_end_detection(page_classifications: list, knowledge) -> list:
 
         # Same-page restart: cauta start marker in liniile ramase dupa end
         remaining = lines[end_idx + 1:]
-        if remaining:
-            start_match = knowledge.find_start_marker(remaining)
-            if start_match:
-                # gasit index relativ in remaining → absolut in lines
-                for j, line in enumerate(remaining):
-                    if start_match in line:
-                        results[i]["f3_restart_line"] = end_idx + 1 + j
-                        in_f3 = True
-                        break
+        for j, line in enumerate(remaining):
+            if knowledge.find_start_marker([line]) is not None:
+                results[i]["f3_restart_line"] = end_idx + 1 + j
+                in_f3 = True
+                break
 
         # Pagina urmatoare: daca nu avem restart, urmatoarele pagini F3-INHERITED
         # trebuie re-evaluate. Le marcam is_f3=False daca erau INHERITED.
         if not in_f3:
             for j in range(i + 1, len(results)):
                 next_pc = results[j]
-                if next_pc.get("extraction_method") == "inherited" or (
-                    next_pc.get("is_f3") and not next_pc.get("deviz_cod")
-                ):
+                if next_pc.get("is_f3") and not next_pc.get("deviz_cod"):
                     results[j] = dict(next_pc)
                     results[j]["is_f3"] = False
                 else:
@@ -1061,7 +1056,6 @@ def classify_pages(
     results, checkpoint = build_page_classifications(pages, document_type, source_path, deviz_text_map, reference_articles)
 
     # Post-processing: end-detection + same-page restart
-    from shared.f3_knowledge import F3Knowledge
     _knowledge = F3Knowledge()
     results = _apply_end_detection(results, _knowledge)
 
