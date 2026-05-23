@@ -75,6 +75,16 @@ def parse_args() -> argparse.Namespace:
         type=str,
         help="Client name (skip menu if provided)",
     )
+    parser.add_argument(
+        "--subcomponents",
+        choices=["full", "fields", "summary"],
+        default="full",
+        help=(
+            "Sub-component neconformitate display mode in Word report: "
+            "full=all (default), fields=hide DIFERENTA_CAMP+UM_DIFERIT, "
+            "summary=hide all except LIPSA/EXTRA"
+        ),
+    )
     return parser.parse_args()
 
 
@@ -128,7 +138,7 @@ def main():
         logger.info(f"Output: {client_config.output_dir}")
         logger.info(f"{'='*60}\n")
 
-        run_pipeline(client_config)
+        run_pipeline(client_config, subcomponent_mode=args.subcomponents)
 
         logger.info(f"\n{'='*60}")
         logger.info(f"✓ Pipeline completed successfully for: {client_config.name}")
