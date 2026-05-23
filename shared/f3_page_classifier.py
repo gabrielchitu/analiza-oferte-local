@@ -960,6 +960,66 @@ def _get_subcomponent_sample(results: list, pages: list) -> str:
     return " ".join(samples[:3])
 
 
+def _apply_end_detection(page_classifications: list, knowledge) -> list:
+    """
+    Post-processing: detecteaza sfarsitul tabelelor F3 si restarteaza detectia
+    pe aceeasi pagina daca incepe un nou tabel F3.
+
+    Adauga campuri optionale la rezultate:
+      f3_line_end: int — index linie unde s-a terminat tabelul F3 (exclusiv)
+      f3_restart_line: int — index linie unde incepe un nou tabel F3 pe aceeasi pagina
+    """
+    in_f3 = False
+    results = list(page_classifications)  # nu modifica lista originala
+
+    for i, pc in enumerate(results):
+        if not pc.get("is_f3", False):
+            in_f3 = False
+            continue
+
+        if pc.get("header_only"):
+            continue
+
+        in_f3 = True
+        lines = pc.get("lines", [])
+        end_result = knowledge.find_end_marker(lines)
+
+        if end_result is None:
+            continue  # F3 continua normal pe aceasta pagina
+
+        end_idx, _ = end_result
+        results[i] = dict(pc)  # copie pentru a nu modifica originala
+        results[i]["f3_line_end"] = end_idx
+        in_f3 = False
+
+        # Same-page restart: cauta start marker in liniile ramase dupa end
+        remaining = lines[end_idx + 1:]
+        if remaining:
+            start_match = knowledge.find_start_marker(remaining)
+            if start_match:
+                # gasit index relativ in remaining → absolut in lines
+                for j, line in enumerate(remaining):
+                    if start_match in line:
+                        results[i]["f3_restart_line"] = end_idx + 1 + j
+                        in_f3 = True
+                        break
+
+        # Pagina urmatoare: daca nu avem restart, urmatoarele pagini F3-INHERITED
+        # trebuie re-evaluate. Le marcam is_f3=False daca erau INHERITED.
+        if not in_f3:
+            for j in range(i + 1, len(results)):
+                next_pc = results[j]
+                if next_pc.get("extraction_method") == "inherited" or (
+                    next_pc.get("is_f3") and not next_pc.get("deviz_cod")
+                ):
+                    results[j] = dict(next_pc)
+                    results[j]["is_f3"] = False
+                else:
+                    break  # pagina cu deviz explicit — oprim
+
+    return results
+
+
 def classify_pages(
     pages: list[dict],
     openai_client,
@@ -999,6 +1059,11 @@ def classify_pages(
         logger.info(f"[PC] Built dynamic deviz map from {len(reference_articles)} reference articles")
 
     results, checkpoint = build_page_classifications(pages, document_type, source_path, deviz_text_map, reference_articles)
+
+    # Post-processing: end-detection + same-page restart
+    from shared.f3_knowledge import F3Knowledge
+    _knowledge = F3Knowledge()
+    results = _apply_end_detection(results, _knowledge)
 
     # Marcăm și paginile F3 fără deviz_cod ca needs_llm (LLM extrage codul)
     for r in results:
