@@ -706,6 +706,11 @@ def _generate_word_hierarchical(doc, raport: dict, comp: dict,
 
     suppressed = SUPPRESSED_BY_MODE.get(subcomponent_mode, frozenset())
 
+    def _visible(ncs: list) -> list:
+        if not suppressed:
+            return ncs
+        return [nc for nc in ncs if nc.get('tip') not in suppressed]
+
     for dv in raport.get('devize', []):
         dv_cod = dv.get('cod_deviz', '')
         dv_den = dv.get('denumire_deviz', '')
@@ -727,10 +732,6 @@ def _generate_word_hierarchical(doc, raport: dict, comp: dict,
                 has_visible_rows = True
                 break
             # Check if any sub-article has visible neconformities
-            def _visible(ncs: list) -> list:
-                if not suppressed:
-                    return ncs
-                return [nc for nc in ncs if nc.get('tip') not in suppressed]
             subs_with_ncs = [
                 s for s in art.get('subarticole', [])
                 if _visible(s.get('neconformitati', []))
@@ -749,11 +750,6 @@ def _generate_word_hierarchical(doc, raport: dict, comp: dict,
 
         for art in dv.get('articole', []):
             principal_ncs = art.get('neconformitati', [])
-
-            def _visible(ncs: list) -> list:
-                if not suppressed:
-                    return ncs
-                return [nc for nc in ncs if nc.get('tip') not in suppressed]
 
             subs_with_ncs = [
                 s for s in art.get('subarticole', [])
