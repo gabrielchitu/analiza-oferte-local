@@ -667,6 +667,11 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
     no_deviz = sum(1 for p in page_classes if p.get("is_f3") and not p.get("header_only") and not p.get("deviz_cod"))
     logger.info(f"  {f3_count} pagini F3 ({no_deviz} fara deviz_cod)")
 
+    # Apply end-detection in-memory AFTER checkpoint is loaded/saved (never persisted)
+    from shared.f3_page_classifier import _apply_end_detection
+    from shared.f3_knowledge import F3Knowledge
+    page_classes = _apply_end_detection(page_classes, F3Knowledge())
+
     articles = extract_articles_v3(page_classes)
     logger.info(f"  {len(articles)} articole extrase din linii")
 

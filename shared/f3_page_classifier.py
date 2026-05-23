@@ -1088,10 +1088,6 @@ def classify_pages(
 
     results, checkpoint = build_page_classifications(pages, document_type, source_path, deviz_text_map, reference_articles)
 
-    # Post-processing: end-detection + same-page restart
-    _knowledge = F3Knowledge()
-    results = _apply_end_detection(results, _knowledge)
-
     # Marcăm și paginile F3 fără deviz_cod ca needs_llm (LLM extrage codul)
     for r in results:
         if r["is_f3"] and not r.get("header_only") and not r.get("deviz_cod"):
