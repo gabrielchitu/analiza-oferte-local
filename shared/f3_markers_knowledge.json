@@ -1,20 +1,98 @@
 {
   "version": 1,
   "start_markers": [
-    {"pattern": "Formular F3", "type": "exact", "format": "isdp", "source": "manual", "seen_count": 0},
-    {"pattern": "SECTIUNEA TEHNICA", "type": "exact", "format": "isdp", "source": "manual", "seen_count": 0},
-    {"pattern": "STADIUL FIZIC:", "type": "prefix", "format": "isdp", "source": "manual", "seen_count": 0},
-    {"pattern": ">>> componenta", "type": "exact", "format": "edevize", "source": "manual", "seen_count": 0},
-    {"pattern": "\\d{4,6} pag \\d+", "type": "regex", "format": "edevize", "source": "manual", "seen_count": 0}
+    {
+      "pattern": "Formular F3",
+      "type": "exact",
+      "format": "isdp",
+      "source": "manual",
+      "seen_count": 0
+    },
+    {
+      "pattern": "SECTIUNEA TEHNICA",
+      "type": "exact",
+      "format": "isdp",
+      "source": "manual",
+      "seen_count": 0
+    },
+    {
+      "pattern": "STADIUL FIZIC:",
+      "type": "prefix",
+      "format": "isdp",
+      "source": "manual",
+      "seen_count": 0
+    },
+    {
+      "pattern": ">>> componenta",
+      "type": "exact",
+      "format": "edevize",
+      "source": "manual",
+      "seen_count": 0
+    },
+    {
+      "pattern": "\\d{4,6} pag \\d+",
+      "type": "regex",
+      "format": "edevize",
+      "source": "manual",
+      "seen_count": 0
+    }
   ],
   "end_markers": [
-    {"pattern": "TOTAL 1 (Cheltuieli directe)", "type": "exact", "format": "edevize", "source": "manual", "seen_count": 0},
-    {"pattern": "TOTAL CHELT. DIRECTE", "type": "exact", "format": "isdp", "source": "manual", "seen_count": 0},
-    {"pattern": "Cheltuieli directe din articole:", "type": "exact", "format": "isdp", "source": "manual", "seen_count": 0},
-    {"pattern": "Cheltuieli directe:", "type": "prefix", "format": "isdp", "source": "manual", "seen_count": 0},
-    {"pattern": "TOTAL GENERAL pe categorie", "type": "prefix", "format": "isdp", "source": "manual", "seen_count": 0},
-    {"pattern": "TOTAL GENERAL DEVIZ", "type": "prefix", "format": "generic", "source": "manual", "seen_count": 0},
-    {"pattern": "TOTAL GENERAL (fara TVA)", "type": "exact", "format": "edevize", "source": "manual", "seen_count": 0},
-    {"pattern": "PROIECTANT", "type": "prefix", "format": "isdp", "source": "manual", "seen_count": 0}
+    {
+      "pattern": "TOTAL 1 (Cheltuieli directe)",
+      "type": "exact",
+      "format": "edevize",
+      "source": "manual",
+      "seen_count": 0
+    },
+    {
+      "pattern": "TOTAL CHELT. DIRECTE",
+      "type": "exact",
+      "format": "isdp",
+      "source": "manual",
+      "seen_count": 0
+    },
+    {
+      "pattern": "Cheltuieli directe din articole:",
+      "type": "exact",
+      "format": "isdp",
+      "source": "manual",
+      "seen_count": 0
+    },
+    {
+      "pattern": "Cheltuieli directe:",
+      "type": "prefix",
+      "format": "isdp",
+      "source": "manual",
+      "seen_count": 0
+    },
+    {
+      "pattern": "TOTAL GENERAL pe categorie",
+      "type": "prefix",
+      "format": "isdp",
+      "source": "manual",
+      "seen_count": 0
+    },
+    {
+      "pattern": "TOTAL GENERAL DEVIZ",
+      "type": "prefix",
+      "format": "generic",
+      "source": "manual",
+      "seen_count": 0
+    },
+    {
+      "pattern": "TOTAL GENERAL (fara TVA)",
+      "type": "exact",
+      "format": "edevize",
+      "source": "manual",
+      "seen_count": 0
+    },
+    {
+      "pattern": "PROIECTANT",
+      "type": "prefix",
+      "format": "isdp",
+      "source": "manual",
+      "seen_count": 0
+    },
   ]
 }

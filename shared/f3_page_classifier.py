@@ -738,9 +738,17 @@ def _classify_pages_llm(
                 if not lines:
                     continue
                 # Extrage primul line distinctiv (>= 5 chars, nu numar pur, nu prea lung)
+                # Exclude header-uri eDevize generice care apar pe toate paginile
+                _GENERIC_HEADERS = frozenset({
+                    "antet stanga", "edevize", "beneficiar", "antet dreapta",
+                    "sectiunea tehnica", "formular generat", "www.edevize.ro",
+                })
                 for line in lines[:15]:
                     stripped = line.strip()
-                    if len(stripped) >= 5 and not stripped.isdigit() and len(stripped) <= 100:
+                    if (len(stripped) >= 5
+                            and not stripped.isdigit()
+                            and len(stripped) <= 100
+                            and stripped.lower() not in _GENERIC_HEADERS):
                         source_type = "start" if is_f3 else "end"
                         _knowledge.learn(stripped, "exact", source_type=source_type, source="llm")
                         _learned_count += 1
