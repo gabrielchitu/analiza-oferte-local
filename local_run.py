@@ -266,8 +266,7 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
                 art['cod'] = art['cod'].rstrip('+')
             logger.info(f"  [NORMALIZE] Removed '+' suffix from {len(articles_with_plus)} article codes")
 
-        # Apply 3-layer deviz mapping (OBIECTIVUL+Obiectul+Categoria) — Strategy B
-        from shared.deviz_header_extractor import DevizHeader, _make_deviz_key
+        from shared.deviz_header_extractor import DevizHeader
         from shared.deviz_matcher import match_devize_by_3layer, match_devize_by_denomination, remap_devize_in_articles, remap_devize_by_code_preference
 
         def _headers_from_articles(arts: list) -> dict:
@@ -286,18 +285,28 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
                 headers[cod] = DevizHeader(obj1, obj2, cat, key, valid, "metadata", cod)
             return headers
 
-        ref_dh = _headers_from_articles(ref_articles)
-        oferta_dh = _headers_from_articles(oferta_articles)
-        mapping_3layer = match_devize_by_3layer(ref_dh, oferta_dh)
-        if mapping_3layer:
-            oferta_articles = remap_devize_in_articles(oferta_articles, mapping_3layer)
-
-        # Apply deviz code remapping (Strategy 0-3 existing)
+        # Strategy 0-3: matching pe cod/denominatia devizului
         deviz_mapping = match_devize_by_denomination(ref_articles, oferta_articles)
         if deviz_mapping:
             oferta_articles = remap_devize_in_articles(oferta_articles, deviz_mapping)
             logger.info(f"  [DEVIZ_MAPPER] Remapped {len([a for a in oferta_articles if a.get('_deviz_original')])} articles: {deviz_mapping}")
             oferta_articles = remap_devize_by_code_preference(oferta_articles, ref_articles, deviz_mapping)
+
+        # Strategy 4 (3-layer): numai pt devize inca absent din ref dupa Strategy 0-3
+        ref_deviz_cods = set((a.get("deviz") or "").strip() for a in ref_articles if a.get("deviz"))
+        unmapped_oferta = set(
+            (a.get("deviz") or "").strip() for a in oferta_articles
+            if (a.get("deviz") or "").strip() and (a.get("deviz") or "").strip() not in ref_deviz_cods
+        )
+        if unmapped_oferta:
+            ref_dh = _headers_from_articles(ref_articles)
+            oferta_dh_unmapped = {
+                cod: h for cod, h in _headers_from_articles(oferta_articles).items()
+                if cod in unmapped_oferta
+            }
+            mapping_3layer = match_devize_by_3layer(ref_dh, oferta_dh_unmapped)
+            if mapping_3layer:
+                oferta_articles = remap_devize_in_articles(oferta_articles, mapping_3layer)
 
         # Filter out malformed articles
         before_filter = len(oferta_articles)

@@ -432,10 +432,10 @@ def match_devize_by_3layer(
                     scores.append(SequenceMatcher(None, na, nb).ratio())
         return sum(scores) / len(scores) if scores else 0.0
 
-    mapping: dict[str, str] = {}
-    used_ref = set()  # evita mapari multiple catre acelasi ref_deviz
-
     ref_cods = set(ref_deviz_headers.keys())
+    mapping: dict[str, str] = {}
+    # Rezerva ref_cods care au corespondent direct in oferta (nu pot fi "furate")
+    used_ref = ref_cods & set(oferta_deviz_headers.keys())
 
     # Sorteaza oferta devize dupa cod pt determinism
     for oferta_cod, oferta_h in sorted(oferta_deviz_headers.items()):
