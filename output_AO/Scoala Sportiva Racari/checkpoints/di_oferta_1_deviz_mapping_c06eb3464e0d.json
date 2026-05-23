@@ -1,11 +1,15 @@
 {
-  "metadata": {
-    "source": "",
-    "document_type": "unknown",
-    "extracted_at": "2026-05-22T12:33:14.467256Z",
-    "classifier_version": "local"
-  },
   "deviz_groups": [
+    {
+      "deviz_cod": "0078",
+      "extraction_method": "none",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        6
+      ]
+    },
     {
       "deviz_cod": "1-2261",
       "extraction_method": "compound",
@@ -287,14 +291,6 @@
       ]
     }
   ],
-  "validation": {
-    "total_articles": 0,
-    "total_pages_with_deviz": 151,
-    "coverage": "100%"
-  },
-  "subcomponent_format": {
-    "format": "simple",
-    "confidence": 0.95,
-    "name": "Simple (DRAGOMIRESTI format)"
-  }
+  "metadata": {},
+  "validation": {}
 }

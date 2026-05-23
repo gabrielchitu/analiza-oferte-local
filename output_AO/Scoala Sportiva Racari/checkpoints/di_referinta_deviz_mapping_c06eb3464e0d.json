@@ -1,10 +1,4 @@
 {
-  "metadata": {
-    "source": "",
-    "document_type": "unknown",
-    "extracted_at": "2026-05-22T12:33:04.863268Z",
-    "classifier_version": "local"
-  },
   "deviz_groups": [
     {
       "deviz_cod": "226108",
@@ -557,14 +551,6 @@
       ]
     }
   ],
-  "validation": {
-    "total_articles": 0,
-    "total_pages_with_deviz": 164,
-    "coverage": "100%"
-  },
-  "subcomponent_format": {
-    "format": "unknown",
-    "confidence": 0.0,
-    "name": "Unknown format"
-  }
+  "metadata": {},
+  "validation": {}
 }

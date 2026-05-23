@@ -920,6 +920,8 @@ def extract_articles_v3(page_classifications: list) -> list:
         for pc in pages_in_deviz:
             section_text = "\n".join(pc.get("lines", []))
             components = _extract_components_from_section(section_text, deviz_cod, deviz_den)
+            for comp in components:
+                comp["source_pages"] = source_pages
             section_articles.extend(components)
 
         # Deduplicare
