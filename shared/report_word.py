@@ -16,6 +16,14 @@ GRAY_FILL = "D9D9D9"
 SUBCOMP_GRAY_FILL = "E8E8E8"  # Light gray for subcomponents
 LILA_FILL = "C8A0DC"  # Lila pentru DESCRIERE_DIFERITA
 
+# Tipuri de neconformitate suprimate per mod subcomponente
+SUPPRESSED_BY_MODE: dict[str, frozenset] = {
+    "full":    frozenset(),
+    "fields":  frozenset({"DIFERENTA_CAMP", "UM_DIFERIT"}),
+    "summary": frozenset({"DIFERENTA_CAMP", "UM_DIFERIT", "COD_SIMILAR",
+                           "DESCRIERE_DIFERITA", "EROARE_ARITMETICA"}),
+}
+
 # Column widths in cm (total ~24cm for landscape A4 with 2cm margins)
 COL_WIDTHS_CM = [0.7, 3.0, 1.5, 3.5, 0.8, 1.2, 1.5, 3.5, 0.8, 1.2, 6.3]
 
@@ -671,7 +679,8 @@ def _add_deviz_total_row_hierarchical(table, n_main: int, n_sub: int,
 
 def _generate_word_hierarchical(doc, raport: dict, comp: dict,
                                 deviz_mismatches_list: list, devize_extra: list,
-                                devize_lipsa: list, audit_data: dict) -> None:
+                                devize_lipsa: list, audit_data: dict,
+                                subcomponent_mode: str = "full") -> None:
     """Tabel ierarhic: TOATE devizele in ordinea ref.
     Devize fara neconf: cap + linie total.
     Devize cu neconf: cap + randuri principale/subarticole + linie total.
@@ -695,6 +704,8 @@ def _generate_word_hierarchical(doc, raport: dict, comp: dict,
 
     row_nr = 0
 
+    suppressed = SUPPRESSED_BY_MODE.get(subcomponent_mode, frozenset())
+
     for dv in raport.get('devize', []):
         dv_cod = dv.get('cod_deviz', '')
         dv_den = dv.get('denumire_deviz', '')
@@ -707,11 +718,47 @@ def _generate_word_hierarchical(doc, raport: dict, comp: dict,
         n_offer_main = n_matched + n_neconf + n_extra  # articole principale în ofertă
         n_sub = sum(len(art.get('subarticole', [])) for art in dv.get('articole', []))
 
+        # Pre-check: will there be any visible rows for this deviz?
+        has_visible_rows = False
+        for art in dv.get('articole', []):
+            principal_ncs = art.get('neconformitati', [])
+            # Check if principal has neconformities (never filtered)
+            if principal_ncs:
+                has_visible_rows = True
+                break
+            # Check if any sub-article has visible neconformities
+            def _visible(ncs: list) -> list:
+                if not suppressed:
+                    return ncs
+                return [nc for nc in ncs if nc.get('tip') not in suppressed]
+            subs_with_ncs = [
+                s for s in art.get('subarticole', [])
+                if _visible(s.get('neconformitati', []))
+            ]
+            if subs_with_ncs:
+                has_visible_rows = True
+                break
+        if extra_by_deviz.get(dv_cod, []):
+            has_visible_rows = True
+
+        # Only add rows if there are visible neconformities
+        if not has_visible_rows:
+            continue
+
         _add_deviz_heading(table, dv_cod, dv_den, ref_count=n_lipsa, oferta_count=n_extra)
 
         for art in dv.get('articole', []):
             principal_ncs = art.get('neconformitati', [])
-            subs_with_ncs = [s for s in art.get('subarticole', []) if s.get('neconformitati')]
+
+            def _visible(ncs: list) -> list:
+                if not suppressed:
+                    return ncs
+                return [nc for nc in ncs if nc.get('tip') not in suppressed]
+
+            subs_with_ncs = [
+                s for s in art.get('subarticole', [])
+                if _visible(s.get('neconformitati', []))
+            ]
 
             if not principal_ncs and not subs_with_ncs:
                 continue
@@ -725,7 +772,7 @@ def _generate_word_hierarchical(doc, raport: dict, comp: dict,
                     _add_neconf_row(table, row_nr, nc, deviz_map, use_ref_ordine=True)
 
             for sub in subs_with_ncs:
-                for nc in sub.get('neconformitati', []):
+                for nc in _visible(sub.get('neconformitati', [])):
                     row_nr += 1
                     _add_neconf_row(table, row_nr, nc, deviz_map, use_ref_ordine=True)
 
@@ -899,6 +946,7 @@ def generate_word(
     audit_data: dict = None,
     devize_extra: list = None,
     devize_lipsa: list = None,
+    subcomponent_mode: str = "full",
 ) -> bytes:
     """Generate a Word document for a single comparatie (oferta).
 
@@ -955,7 +1003,8 @@ def generate_word(
     if raport_ierarhic:
         _generate_word_hierarchical(doc, raport_ierarhic, comp,
                                     deviz_mismatches_list, devize_extra,
-                                    devize_lipsa, audit_data)
+                                    devize_lipsa, audit_data,
+                                    subcomponent_mode=subcomponent_mode)
     else:
         _generate_word_flat(doc, neconformitati, deviz_mismatches_list,
                             devize_extra, devize_lipsa, audit_data, comp)
