@@ -143,11 +143,9 @@ def _normalize_deviz_code(deviz_cod: str) -> str:
 def _deviz_key(art: dict) -> str:
     """Returneaza cheia de deviz normalizata pentru un articol.
 
-    Uses deviz code (numeric ID like '226108') as primary key.
-    deviz_key field (3-layer, Sub-project B) is metadata only — NOT used here.
-    3-layer deviz matching happens at deviz-group level in deviz_matcher.py.
+    Uses deviz code as primary key — 3-layer canonical is applied via art["deviz"]
+    remap in local_run.py before matching, not here.
     """
-    # Primary: use deviz code (reliable, numeric) - normalized for OCR variations
     deviz_cod = (art.get("deviz") or "").strip()
     if deviz_cod:
         return _normalize_deviz_code(deviz_cod)
