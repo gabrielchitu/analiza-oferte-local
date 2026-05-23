@@ -18,11 +18,11 @@ Pipeline Python care:
 
 ---
 
-## Starea la 2026-05-23 (branch: main)
+## Starea la 2026-05-24 (branch: refactor/v10)
 
-**Branch activ:** `main`
+**Branch activ:** `refactor/v10`
 **Repo local:** `/Users/gabriel.chitu/Proiecte/analiza-oferte-EP/analiza-oferte-local`
-**Commits ahead origin/main:** 20+ (SSH push blocat — necesita `! git push origin main`)
+**Tag local:** `v10.0` (neimpins inca la origin — necesita SSH)
 
 ### Clienti disponibili
 
@@ -33,48 +33,41 @@ Pipeline Python care:
 | Scoala Dragomiresti | 2 |
 | Scoala Sportiva Racari | 3 |
 
-### Metrici baseline (2026-05-23, post toate fix-urile)
+### Metrici baseline (2026-05-24, post toate fix-urile)
 
-| Client | O | matched | LIPSA | EXTRA | DEVIZ_MM | DD | Note |
-|--------|---|---------|-------|-------|----------|----|------|
-| Blocuri Racari | 1 | 314 | 47 | 0 | 20 | 0 | |
-| Blocuri Racari | 2 | 551 | 2 | 0 | 28 | 2 | |
-| Blocuri Racari | 3 | 414 | 21 | 5 | 14 | 46 | |
-| Blocuri Racari | 4 | 316 | 49 | 1 | 9 | 3 | |
-| Camin Maneciu | 1 | 1056 | 1 | 36 | 2 | 56 | EXTRA neinvestigat |
-| Camin Maneciu | 2 | 1066 | 84 | 41 | 5 | 117 | LIPSA=84 neinvestigat |
-| **Scoala Dragomiresti** | **1** | **904** | **2** | **0** | **1** | **0** | ✅ perfect |
-| **Scoala Dragomiresti** | **2** | **904** | **2** | **1** | **1** | **1** | IA35B1 genuina |
-| Scoala Sportiva Racari | 1 | 2152 | 2 | 122 | 6 | 139 | neinvestigat |
-| Scoala Sportiva Racari | 2 | 1119 | 4 | 55 | 325 | 28 | neinvestigat |
-| Scoala Sportiva Racari | 3 | 2404 | 6 | 318 | 299 | 44 | neinvestigat |
+| Client | O | matched | LIPSA | EXTRA | DEVIZ_MM | Note |
+|--------|---|---------|-------|-------|----------|------|
+| Blocuri Racari | 1 | 308 | 1 | 0 | 20 | DEVIZ_MM=BLC6 consolidat in BLC7 |
+| Blocuri Racari | 2 | 551 | 2 | 0 | 28 | neinvestigat |
+| Blocuri Racari | 3 | 415 | 5 | 5 | - | |
+| Blocuri Racari | 4 | 316 | 2 | 1 | - | |
+| **Scoala Dragomiresti** | **1** | **904** | **1** | **0** | **1** | ✅ perfect |
+| **Scoala Dragomiresti** | **2** | **904** | **1** | **1** | **1** | IA35B1 genuina |
+| Camin Maneciu | - | - | - | - | - | nerunat cu noile fix-uri |
+| Scoala Sportiva Racari | - | - | - | - | - | nerunat cu noile fix-uri |
 
 ---
 
-## Ce s-a livrat (sesiunea 2026-05-23)
+## Ce s-a livrat (sesiunile 2026-05-23/24)
 
-### Feature: `--subcomponents {full,fields,summary}`
+### Sub-project A: F3 Detection Enhancement
+- `shared/f3_knowledge.py` — knowledge base markeri F3 (start/end) + self-learning
+- `shared/f3_markers_knowledge.json` — markeri persistenti
+- `_apply_end_detection()` — detectie sfarsit tabel F3, same-page restart
+- `source_pages` pe articole — nr pagina fizica PDF
+- `[PDF pag. X-Y]` in Word report — pagini sursa per deviz
 
-```bash
-python3 multi_client_run.py --client "SD" --subcomponents summary
-```
+### Sub-project B: 3-Layer Deviz Header
+- `shared/deviz_header_extractor.py` — extrage OBIECTIVUL/Obiectul/Categoria
+- Suporta ambele formate: inline si multi-line (BR style)
+- Cache key = `md5(lines[:20])` — fix collision pt eDevize same-header
+- `deviz_key` + `deviz_header` pe fiecare articol
 
-| Mod | Ce suprima (pt sub-componente) | Filename |
-|-----|-------------------------------|----------|
-| `full` (default) | nimic | `Raport_Oferta_N.docx` |
-| `fields` | DIFERENTA_CAMP + UM_DIFERIT | `Raport_Oferta_N_fields.docx` |
-| `summary` | tot (raman LIPSA/EXTRA) | `Raport_Oferta_N_summary.docx` |
-
-**Filtru pe:** `is_component=True` SAU `cod.startswith('$')` (sub-resurse ISDP).
-**JSON neatins** — filtrul e doar in Word report.
-
-### Fix: D20MM/D25MM extrase gresit ca articole
-
-**Root cause:** OCR wrapeaza "SA04A01> - Teava PN16, D20mm" pe linii separate. "D20mm" pe linie separata → parser crea articol D20MM fals cu cant furdata din linia urmatoare.
-
-**Fix:** `shared/f3_extractor.py` — filtru `^D\d+MM$` cu denumire goala, **INAINTE** de `_apply_parent_inheritance`. Rezultat: `display_parent_cod` = SA04A01 (corect), nu D20MM.
-
-**Impact:** 6 articole false eliminate per rulare. matched SD 910→904.
+### Sub-project C: 3-Layer Deviz Matching
+- `match_devize_by_3layer()` in `deviz_matcher.py`
+- Per-layer minimums (obj2≥0.85, cat≥0.90) — BLOC A ≠ BLOC B
+- Same-code verification — BLC6 ref ≠ BLC6 oferta (continut diferit)
+- Fix: $-coduri sub-resurse excluse din LIPSA false
 
 ---
 
@@ -83,9 +76,10 @@ python3 multi_client_run.py --client "SD" --subcomponents summary
 | # | Issue | Status |
 |---|-------|--------|
 | 1 | IZDO3D1 OCR O/0 | Acceptat |
-| 2 | CM O2 LIPSA=84 | Neinvestigat |
-| 3 | SSR DEVIZ_MM=300+/EXTRA=318 | Neinvestigat |
-| 4 | DD BR O3=46, CM 56/117 | LLM learner candidati |
+| 2 | BR O1 DEVIZ_MM=20 | Contractor consolidat BLC6+BLC7 org.santier in BLC7 |
+| 3 | BR O2 DEVIZ_MM=28 | Neinvestigat |
+| 4 | CM O2 LIPSA=84 | Neinvestigat |
+| 5 | SSR DEVIZ_MM/EXTRA | Neinvestigat |
 
 ---
 
@@ -96,17 +90,22 @@ multi_client_run.py       ← Entry point (--client, --subcomponents)
 run_diagnostics.py        ← Diagnostics
 local_run.py              ← Orchestration + matching + report
 │
-├── shared/client_config.py
-├── shared/f3_page_classifier.py
-├── shared/f3_extractor.py          ← FIX: filtru D20MM inainte parent inheritance
-├── shared/f3_regex_parser.py       ← FIX: is_f3_um single-token
+├── extract_document():
+│   1. load page_classes (checkpoint)
+│   2. _apply_end_detection() [in-memory]
+│   3. extract_deviz_headers() → deviz_key, deviz_header pe articole
+│   4. extract_articles_v3() → source_pages pe articole
+│   5. match_devize_by_denomination() [Strategy 0-3]
+│   6. match_devize_by_3layer() [Strategy 4, pt devize nemapate]
+│
+├── shared/f3_knowledge.py          ← knowledge base markeri F3
+├── shared/deviz_header_extractor.py ← 3-layer header extraction
+├── shared/deviz_header_knowledge.json ← cache autoinvatare
+├── shared/f3_page_classifier.py    ← clasificare pagini + end-detection
+├── shared/f3_extractor.py          ← extractie articole + source_pages
+├── shared/deviz_matcher.py         ← Strategy 0-4 deviz matching
 ├── AgentComparator_local.py        ← match_global Layer 1-2.5
-├── shared/deviz_matcher.py         ← Strategy 0 format-aware
-├── shared/report_builder.py
-├── shared/report_word.py           ← FIX: subcomponent_mode filter
-├── shared/comparator.py            ← DESCRIERE_DIFERITA + diacritice
-├── shared/abbreviations.py         ← dict static abrevieri
-└── shared/abbreviation_learner.py  ← LLM learner
+└── shared/report_word.py           ← Word report cu PDF pag. X-Y
 ```
 
 ---
@@ -114,38 +113,33 @@ local_run.py              ← Orchestration + matching + report
 ## Comenzi utile
 
 ```bash
-# Pipeline cu subcomponent mode
-.venv/bin/python3 multi_client_run.py --client "Scoala Dragomiresti" --subcomponents summary
-.venv/bin/python3 multi_client_run.py --client "Scoala Dragomiresti" --subcomponents fields
-.venv/bin/python3 multi_client_run.py --client "Scoala Dragomiresti"
+# Pipeline complet
+.venv/bin/python3 multi_client_run.py --client "Blocuri Racari" 2>&1 | rtk log
 
-# Toti clientii
-for c in "Blocuri Racari" "Camin Maneciu" "Scoala Dragomiresti" "Scoala Sportiva Racari"; do
-  .venv/bin/python3 multi_client_run.py --client "$c"
-done
-
-# Diagnostics
-.venv/bin/python3 run_diagnostics.py
-
-# Teste
-.venv/bin/python3 -m pytest tests/ -q \
-  --ignore=tests/test_compound_deviz_extraction.py \
-  --ignore=tests/test_subcomponent_matching.py
-
-# Metrici rapide
-.venv/bin/python3 -c "
+# Verificare metrice rapide
+python3 -c "
 import json; from pathlib import Path; from collections import Counter
-for client in ['Blocuri Racari', 'Camin Maneciu', 'Scoala Dragomiresti', 'Scoala Sportiva Racari']:
+for client in ['Blocuri Racari', 'Scoala Dragomiresti']:
     for i in range(1,5):
         f = Path(f'output_AO/{client}/comparatie_oferta_{i}.json')
         if not f.exists(): continue
         comp = json.loads(f.read_text())
         tips = Counter(n['tip'] for n in comp['neconformitati'])
-        print(f'{client} O{i}: matched={comp[\"matches\"]} LIPSA={tips.get(\"ARTICOL_LIPSA\",0)} EXTRA={tips.get(\"ARTICOL_EXTRA\",0)} DEVIZ_MM={tips.get(\"DEVIZ_MISMATCH\",0)} DD={tips.get(\"DESCRIERE_DIFERITA\",0)}')
+        print(f'{client} O{i}: matched={comp[\"matches\"]} LIPSA={tips.get(\"ARTICOL_LIPSA\",0)} DEVIZ_MM={tips.get(\"DEVIZ_MISMATCH\",0)}')
 "
 
-# Push (necesita SSH agent activ)
-# ! git push origin main
+# Reset deviz header cache
+echo '{}' > shared/deviz_header_knowledge.json
+
+# Push la origin (necesita SSH agent)
+# git push origin refactor/v10 && git push origin v10.0
+
+# Teste
+.venv/bin/python3 -m pytest tests/ -q \
+  --ignore=tests/test_compound_deviz_extraction.py \
+  --ignore=tests/test_subcomponent_matching.py \
+  --ignore=tests/shared/test_f3_regex_parser_multiline.py \
+  --ignore=tests/test_normalize_cod.py
 ```
 
 ---
@@ -156,3 +150,4 @@ for client in ['Blocuri Racari', 'Camin Maneciu', 'Scoala Dragomiresti', 'Scoala
 - `tests/test_subcomponent_matching.py` — ImportError (functie redenumita)
 - `tests/shared/test_f3_regex_parser_multiline.py` — 4 teste format vechi
 - `tests/test_normalize_cod.py` — 1 test normalizare cod
+- `tests/shared/test_f3_page_classifier_*.py` — 4 teste (preexistente, legate de partial_fallback format)
