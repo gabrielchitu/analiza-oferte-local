@@ -311,18 +311,20 @@ Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
 | Blocuri Racari | 4 | 316 | 49 | 1 | 9 | 3 | curata |
 | Camin Maneciu | 1 | 1056 | 1 | 36 | 2 | 57 | EXTRA neinvestigat |
 | Camin Maneciu | 2 | 1066 | 84 | 41 | 5 | 121 | LIPSA=84 neinvestigat |
-| **Scoala Dragomiresti** | **1** | **910** | **2** | **0** | **1** | **6** | 6 borderline→LLM |
-| **Scoala Dragomiresti** | **2** | **910** | **2** | **1** | **1** | **7** | 7 borderline→LLM |
+| **Scoala Dragomiresti** | **1** | **910** | **2** | **0** | **1** | **0** | perfect ✅ |
+| **Scoala Dragomiresti** | **2** | **910** | **2** | **1** | **1** | **1** | IA35B1 genuina ✅ |
 | Scoala Sportiva Racari | 1 | 2152 | 2 | 122 | 6 | 139 | EXTRA neinvestigat |
 | Scoala Sportiva Racari | 2 | 1119 | 4 | 55 | 325 | 28 | DEVIZ_MM neinvestigat |
 | Scoala Sportiva Racari | 3 | 2404 | 6 | 318 | 299 | 44 | EXTRA neinvestigat |
 
-**DD = DESCRIERE_DIFERITA** (tip nou) — Jaccard < 0.50 pe cuvinte după curățare OCR artifacts + expandare abrevieri.
-**Sistem hybrid abrevieri:**
-- `shared/abbreviations.py` — dict static ABREVIERI_F3 (pt→pentru, supr.→suprafata, termoizol.→termoizolatii etc.)
-- `shared/abbreviation_learner.py` — LLM validare batch perechi borderline (Jaccard 0.25-0.50) + auto-save în `learned_abbreviations.json`
-- Perechile borderline marcate cu `borderline_llm=True` → candidați pentru validare
-- Rulare: `python3 shared/abbreviation_learner.py --client "NumeClient"`
+**DD = DESCRIERE_DIFERITA** (tip nou) — pipeline `_clean_den()` în `shared/comparator.py`:
+1. Strip OCR artifacts (antet stanga, l: notatie, garbage financiar, "nr capitol de lucrari u.m")
+2. Normalizare diacritice (ă→a, â→a, î→i, ș→s, ț→t) — rezolvă "cofraje stâlpi" ↔ "cofraje stalpi"
+3. Expandare abrevieri din `shared/abbreviations.py` (pt→pentru, supr.→suprafata etc.)
+4. Jaccard < 0.50 pe cuvinte → DESCRIERE_DIFERITA
+5. Perechi borderline (0.25-0.50) marcate `borderline_llm=True` → `shared/abbreviation_learner.py`
+
+**LLM Learner:** `python3 shared/abbreviation_learner.py --client "NumeClient"` → `output_AO/learned_abbreviations.json`
 
 ---
 
