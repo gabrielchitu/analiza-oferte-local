@@ -266,8 +266,33 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
                 art['cod'] = art['cod'].rstrip('+')
             logger.info(f"  [NORMALIZE] Removed '+' suffix from {len(articles_with_plus)} article codes")
 
-        # Apply deviz code remapping
-        from shared.deviz_matcher import match_devize_by_denomination, remap_devize_in_articles, remap_devize_by_code_preference
+        # Apply 3-layer deviz mapping (OBIECTIVUL+Obiectul+Categoria) — Strategy B
+        from shared.deviz_header_extractor import DevizHeader, _make_deviz_key
+        from shared.deviz_matcher import match_devize_by_3layer, match_devize_by_denomination, remap_devize_in_articles, remap_devize_by_code_preference
+
+        def _headers_from_articles(arts: list) -> dict:
+            """Reconstruieste deviz_headers din metadatele articolelor."""
+            headers: dict = {}
+            for a in arts:
+                cod = (a.get("deviz") or "").strip()
+                if not cod or cod in headers:
+                    continue
+                dh = a.get("deviz_header") or {}
+                key = (a.get("deviz_key") or "").strip()
+                obj1 = dh.get("obiectivul")
+                obj2 = dh.get("obiectul")
+                cat = dh.get("categoria")
+                valid = bool(key) and not key.startswith("__INCOMPLETE__")
+                headers[cod] = DevizHeader(obj1, obj2, cat, key, valid, "metadata", cod)
+            return headers
+
+        ref_dh = _headers_from_articles(ref_articles)
+        oferta_dh = _headers_from_articles(oferta_articles)
+        mapping_3layer = match_devize_by_3layer(ref_dh, oferta_dh)
+        if mapping_3layer:
+            oferta_articles = remap_devize_in_articles(oferta_articles, mapping_3layer)
+
+        # Apply deviz code remapping (Strategy 0-3 existing)
         deviz_mapping = match_devize_by_denomination(ref_articles, oferta_articles)
         if deviz_mapping:
             oferta_articles = remap_devize_in_articles(oferta_articles, deviz_mapping)
