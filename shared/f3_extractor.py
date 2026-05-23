@@ -932,5 +932,18 @@ def extract_articles_v3(page_classifications: list) -> list:
     # v7.0: set parent_cod, parent_nr_ordine, cant_mostenita on subarticles
     all_articles = _apply_parent_inheritance(all_articles)
 
+    # Remove eDevize dimension-class headers wrongly extracted as article codes.
+    # OCR wraps long denominations (e.g. "SA04A01> - Teava PN 16, D20mm") across lines,
+    # leaving "D20mm" as a standalone line that the parser treats as a new article code.
+    # Pattern D\d+MM (D20MM, D25MM, D32MM, D40MM) with empty denomination = spurious extraction.
+    _dim_header_re = re.compile(r'^D\d+MM$', re.IGNORECASE)
+    before = len(all_articles)
+    all_articles = [
+        a for a in all_articles
+        if not (_dim_header_re.match(a.get('cod', '')) and not a.get('denumire'))
+    ]
+    if len(all_articles) < before:
+        logger.info(f"[F3v3] Removed {before - len(all_articles)} spurious dimension-class headers (D20MM etc.)")
+
     logger.info(f"[F3v3] Total: {len(all_articles)} articole extrase (deviz-grouped, fara LLM)")
     return all_articles
