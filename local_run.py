@@ -672,8 +672,25 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
     from shared.f3_knowledge import F3Knowledge
     page_classes = _apply_end_detection(page_classes, F3Knowledge())
 
+    # Extract 3-layer deviz headers (OBIECTIVUL / Obiectul / Categoria)
+    from shared.deviz_header_extractor import extract_deviz_headers
+    deviz_headers = extract_deviz_headers(page_classes, client, model)
+    valid_count = sum(1 for h in deviz_headers.values() if h.is_valid)
+    logger.info(f"  {len(deviz_headers)} devize cu header extras ({valid_count} valide, "
+                f"{len(deviz_headers) - valid_count} incomplete)")
+
     articles = extract_articles_v3(page_classes)
     logger.info(f"  {len(articles)} articole extrase din linii")
+
+    # Ataseaza deviz_key si deviz_header la fiecare articol
+    for art in articles:
+        dh = deviz_headers.get(art.get("deviz", ""))
+        art["deviz_key"] = dh.deviz_key if dh else art.get("deviz", "")
+        art["deviz_header"] = {
+            "obiectivul": dh.obiectivul if dh else None,
+            "obiectul": dh.obiectul if dh else None,
+            "categoria": dh.categoria if dh else None,
+        }
 
     # Deduplicate by 4-tuple: (deviz, cod, um, cantitate)
     # If same article appears multiple times with identical quantity and UM, keep only one
