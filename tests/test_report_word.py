@@ -170,3 +170,133 @@ def test_sumar_contains_counts():
     doc = _load_doc(comp)
     full_text = '\n'.join(p.text for p in doc.paragraphs)
     assert '42' in full_text or '43' in full_text, "Counts not found in doc"
+
+
+# ============================================================================
+# Subcomponent Mode Tests
+# ============================================================================
+
+def _make_raport_with_subcomp(sub_nc_tip: str = 'DIFERENTA_CAMP'):
+    """Build minimal raport_ierarhic with one sub-article having one neconformitate."""
+    sub_nc = {
+        'tip': sub_nc_tip,
+        'camp': 'cantitate',
+        'is_component': True,
+        'ref_cod': '$6719485',
+        'ref_denumire': 'teu D40mm',
+        'ref_um': 'buc',
+        'ref_cantitate': 10.0,
+        'oferta_cod': '$6719485',
+        'oferta_denumire': 'teu D40mm',
+        'oferta_um': 'buc',
+        'oferta_cantitate': 5.0,
+        'deviz_ref': 'DVZ1',
+        'deviz_denumire': 'INSTALATII',
+        'nr_ordine_ref': None,
+    }
+    raport = {
+        'devize': [{
+            'cod_deviz': 'DVZ1',
+            'denumire_deviz': 'INSTALATII',
+            'sumar_deviz': {'lipsa': 0, 'matched': 1, 'neconformitati': 0, 'total': 1},
+            'articole': [{
+                'cod': 'SA04A01',
+                'denumire': 'teava polipropilena',
+                'nr_ordine': 1,
+                'status_match': 'NECONFORMITATE',
+                'cantitate': 1.0,
+                'um': 'buc',
+                'is_component': False,
+                'neconformitati': [],
+                'subarticole': [{
+                    'cod': '$6719485',
+                    'denumire': 'teu D40mm',
+                    'nr_ordine': None,
+                    'status_match': 'NECONFORMITATE',
+                    'cantitate': 10.0,
+                    'um': 'buc',
+                    'cant_mostenita': False,
+                    'is_component': True,
+                    'neconformitati': [sub_nc],
+                }],
+            }],
+        }],
+    }
+    return raport, sub_nc
+
+
+def _load_doc_with_mode(subcomponent_mode: str, sub_nc_tip: str = 'DIFERENTA_CAMP'):
+    """Build comp with raport_ierarhic and generate_word with given subcomponent_mode."""
+    raport, sub_nc = _make_raport_with_subcomp(sub_nc_tip)
+    comp = {
+        'oferta_nr': 1,
+        'source_file': 'test.json',
+        'ofertant': 'Test SRL',
+        'neconformitati': [sub_nc],
+        'total_neconformitati': 1,
+        'matches': 1,
+        'ref_art_count': 1,
+        'oferta_art_count': 1,
+        'deviz_mismatches': [],
+        'ref_articles': [],
+        'oferta_articles': [],
+        'raport_ierarhic': raport,
+    }
+    session = {'client_name': 'TEST', 'obiect_investitii': ''}
+    docx_bytes = generate_word(
+        session, comp,
+        devize_extra=[], devize_lipsa=[],
+        subcomponent_mode=subcomponent_mode,
+    )
+    return Document(io.BytesIO(docx_bytes))
+
+
+def _count_data_rows(doc):
+    """Count non-header rows in first table (excludes header rows 0-2)."""
+    if not doc.tables:
+        return 0
+    table = doc.tables[0]
+    # First 3 rows are headers; deviz heading rows and total rows are additional
+    # We count rows that have a non-empty col[2] (ref_cod column)
+    count = 0
+    for row in table.rows[3:]:
+        text = row.cells[2].text.strip()
+        if text and text not in ('', '▶'):
+            count += 1
+    return count
+
+
+def test_subcomponent_mode_full_shows_diferenta_camp():
+    """Mode=full: DIFERENTA_CAMP for sub-component IS shown."""
+    doc = _load_doc_with_mode('full')
+    assert _count_data_rows(doc) >= 1, "full mode: sub-component DIFERENTA_CAMP should appear"
+
+
+def test_subcomponent_mode_fields_hides_diferenta_camp():
+    """Mode=fields: DIFERENTA_CAMP for sub-component is suppressed."""
+    doc = _load_doc_with_mode('fields')
+    assert _count_data_rows(doc) == 0, "fields mode: DIFERENTA_CAMP sub-component should be hidden"
+
+
+def test_subcomponent_mode_fields_hides_um_diferit():
+    """Mode=fields: UM_DIFERIT for sub-component is suppressed."""
+    doc = _load_doc_with_mode('fields', sub_nc_tip='UM_DIFERIT')
+    assert _count_data_rows(doc) == 0, "fields mode: UM_DIFERIT sub-component should be hidden"
+
+
+def test_subcomponent_mode_summary_hides_all_neconf():
+    """Mode=summary: all neconformitati for sub-component are suppressed."""
+    doc = _load_doc_with_mode('summary')
+    assert _count_data_rows(doc) == 0, "summary mode: all sub-component neconf should be hidden"
+
+
+def test_subcomponent_mode_full_shows_cod_similar():
+    """Mode=full: COD_SIMILAR for sub-component IS shown."""
+    doc = _load_doc_with_mode('full', sub_nc_tip='COD_SIMILAR')
+    assert _count_data_rows(doc) >= 1, "full mode: COD_SIMILAR sub-component should appear"
+
+
+def test_subcomponent_mode_fields_shows_cod_similar():
+    """Mode=fields: COD_SIMILAR for sub-component is NOT suppressed (only DIFERENTA_CAMP/UM_DIFERIT)."""
+    doc = _load_doc_with_mode('fields', sub_nc_tip='COD_SIMILAR')
+    assert _count_data_rows(doc) >= 1, "fields mode: COD_SIMILAR should still appear"
