@@ -300,3 +300,39 @@ def test_subcomponent_mode_fields_shows_cod_similar():
     """Mode=fields: COD_SIMILAR for sub-component is NOT suppressed (only DIFERENTA_CAMP/UM_DIFERIT)."""
     doc = _load_doc_with_mode('fields', sub_nc_tip='COD_SIMILAR')
     assert _count_data_rows(doc) >= 1, "fields mode: COD_SIMILAR should still appear"
+
+
+def test_format_page_range_single():
+    from shared.report_word import _format_page_range
+    assert _format_page_range([5]) == "5"
+
+
+def test_format_page_range_continuous():
+    from shared.report_word import _format_page_range
+    assert _format_page_range([3, 4, 5]) == "3-5"
+
+
+def test_format_page_range_discontinuous():
+    from shared.report_word import _format_page_range
+    assert _format_page_range([3, 5, 7]) == "3, 5, 7"
+
+
+def test_format_page_range_empty():
+    from shared.report_word import _format_page_range
+    assert _format_page_range([]) == ""
+
+
+def test_deviz_heading_accepts_page_params():
+    """_add_deviz_heading accepts ref_pages and oferta_pages without error."""
+    from docx import Document
+    from shared.report_word import _add_deviz_heading
+
+    doc = Document()
+    table = doc.add_table(rows=0, cols=11)
+    # Should not raise even with page info
+    _add_deviz_heading(table, "1-01", "STRUCTURA", ref_count=2, oferta_count=2,
+                       ref_pages=[12, 13], oferta_pages=[28])
+    cell_text = table.rows[-1].cells[0].text
+    assert "PDF pag." in cell_text
+    assert "12-13" in cell_text
+    assert "28" in cell_text

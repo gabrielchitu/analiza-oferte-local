@@ -181,9 +181,22 @@ def _get_subcomponent_badge():
     return '[Subcomponent]'
 
 
+def _format_page_range(pages: list) -> str:
+    """Formateaza lista de pagini: [5]→'5', [3,4,5]→'3-5', [3,5,7]→'3, 5, 7'."""
+    if not pages:
+        return ""
+    pages = sorted(set(int(p) for p in pages))
+    if len(pages) == 1:
+        return str(pages[0])
+    if pages[-1] - pages[0] == len(pages) - 1:
+        return f"{pages[0]}-{pages[-1]}"
+    return ", ".join(str(p) for p in pages)
+
+
 def _add_deviz_heading(table, deviz_cod: str, deviz_den: str,
-                       ref_count: int, oferta_count: int) -> None:
-    """Adaugă rând separator de deviz cu numărătoare ref vs ofertă."""
+                       ref_count: int, oferta_count: int,
+                       ref_pages: list = None, oferta_pages: list = None) -> None:
+    """Adaugă rând separator de deviz cu numărătoare ref vs ofertă + pagini PDF."""
     sep_cells = table.add_row().cells
     sep_cells[0].merge(sep_cells[10])
     delta = oferta_count - ref_count
@@ -196,6 +209,12 @@ def _add_deviz_heading(table, deviz_cod: str, deviz_den: str,
         + f"  │  EXTRA: {oferta_count}"
         + f"  │  Delta: {delta_str}"
     )
+    ref_range = _format_page_range(ref_pages or [])
+    oferta_range = _format_page_range(oferta_pages or [])
+    if ref_range:
+        label += f"  │  Ref: PDF pag. {ref_range}"
+    if oferta_range:
+        label += f"  │  Oferta: PDF pag. {oferta_range}"
     run = sep_cells[0].paragraphs[0].add_run(label)
     run.bold = True
     _style_cell(sep_cells[0], 9, bold=True)
@@ -746,7 +765,15 @@ def _generate_word_hierarchical(doc, raport: dict, comp: dict,
         if not has_visible_rows:
             continue
 
-        _add_deviz_heading(table, dv_cod, dv_den, ref_count=n_lipsa, oferta_count=n_extra)
+        # Colecteaza source_pages din articolele devizului curent
+        _ref_src_pages = []
+        _oferta_src_pages = []
+        for art in dv.get('articole', []):
+            _ref_src_pages.extend(art.get('ref_source_pages', []))
+            _oferta_src_pages.extend(art.get('oferta_source_pages', []))
+
+        _add_deviz_heading(table, dv_cod, dv_den, ref_count=n_lipsa, oferta_count=n_extra,
+                           ref_pages=_ref_src_pages, oferta_pages=_oferta_src_pages)
 
         for art in dv.get('articole', []):
             is_comp = art.get('is_component', False) or art.get('cod', '').startswith('$')
