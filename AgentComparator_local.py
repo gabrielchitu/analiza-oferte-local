@@ -143,15 +143,11 @@ def _normalize_deviz_code(deviz_cod: str) -> str:
 def _deviz_key(art: dict) -> str:
     """Returneaza cheia de deviz normalizata pentru un articol.
 
-    Prefera deviz_key (generat din 3-layer header: OBIECTIVUL+Obiectul+Categoria)
-    daca exista si e valid (nu INCOMPLETE). Fallback la deviz_cod normalizat.
+    Uses deviz code (numeric ID like '226108') as primary key.
+    deviz_key field (3-layer, Sub-project B) is metadata only — NOT used here.
+    3-layer deviz matching happens at deviz-group level in deviz_matcher.py.
     """
-    # Prefer deviz_key din 3-layer extraction (Sub-project B)
-    explicit_key = (art.get("deviz_key") or "").strip()
-    if explicit_key and not explicit_key.startswith("__INCOMPLETE__"):
-        return explicit_key
-
-    # Fallback: use deviz code (reliable, numeric) - normalized for OCR variations
+    # Primary: use deviz code (reliable, numeric) - normalized for OCR variations
     deviz_cod = (art.get("deviz") or "").strip()
     if deviz_cod:
         return _normalize_deviz_code(deviz_cod)
