@@ -143,17 +143,20 @@ def _normalize_deviz_code(deviz_cod: str) -> str:
 def _deviz_key(art: dict) -> str:
     """Returneaza cheia de deviz normalizata pentru un articol.
 
-    Uses deviz code (numeric ID like '226108') as primary key.
-    deviz_denumire (name) varies due to OCR differences and formatting.
-    Using denomination as key causes matching to fail when same article
-    appears in same deviz section with slightly different OCR text.
+    Prefera campul deviz_key (generat din 3-layer header) daca exista si e valid.
+    Fallback la deviz_cod normalizat sau deviz_denumire.
     """
-    # Primary: use deviz code (reliable, numeric) - normalized for OCR variations
+    # Prefer deviz_key din 3-layer extraction (Sub-project B)
+    explicit_key = (art.get("deviz_key") or "").strip()
+    if explicit_key and not explicit_key.startswith("__INCOMPLETE__"):
+        return explicit_key
+
+    # Fallback: use deviz code (reliable, numeric) - normalized for OCR variations
     deviz_cod = (art.get("deviz") or "").strip()
     if deviz_cod:
         return _normalize_deviz_code(deviz_cod)
 
-    # Fallback: use normalized denomination if no code
+    # Last fallback: use normalized denomination if no code
     raw = (art.get("deviz_denumire") or "").strip().upper()
     raw = re.sub(r'^(\d+\s+)+', '', raw).strip()
     raw = re.sub(r'\b(OB|NR|CAP|ART)[\s.]*(\d+)', r'\1\2', raw)
