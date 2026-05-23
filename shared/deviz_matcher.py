@@ -418,18 +418,27 @@ def match_devize_by_3layer(
     """
     from shared.deviz_header_extractor import _normalize
 
+    # Praguri per-layer: obiectul si categoria trebuie sa se potriveasca bine
+    # pentru a evita confundarea blocurilor (BLOC A ≠ BLOC B)
+    _MIN_OBJ2 = 0.85   # obiectul trebuie sa fie cel putin 85% similar
+    _MIN_CAT  = 0.90   # categoria (BLC1 vs BLC2) trebuie sa fie cel putin 90% similar
+
     def _3layer_sim(h_ref, h_oferta) -> float:
+        """Returneaza media similaritatilor per-layer, sau 0.0 daca vreun layer critic esueaza."""
         scores = []
         pairs = [
-            (h_ref.obiectivul, h_oferta.obiectivul),
-            (h_ref.obiectul, h_oferta.obiectul),
-            (h_ref.categoria, h_oferta.categoria),
+            (h_ref.obiectivul, h_oferta.obiectivul, 0.0),
+            (h_ref.obiectul,   h_oferta.obiectul,   _MIN_OBJ2),
+            (h_ref.categoria,  h_oferta.categoria,  _MIN_CAT),
         ]
-        for a, b in pairs:
+        for a, b, min_score in pairs:
             if a and b:
                 na, nb = _normalize(a), _normalize(b)
                 if na and nb:
-                    scores.append(SequenceMatcher(None, na, nb).ratio())
+                    s = SequenceMatcher(None, na, nb).ratio()
+                    if min_score > 0 and s < min_score:
+                        return 0.0  # layer critic sub prag → nu e acelasi deviz
+                    scores.append(s)
         return sum(scores) / len(scores) if scores else 0.0
 
     ref_cods = set(ref_deviz_headers.keys())
