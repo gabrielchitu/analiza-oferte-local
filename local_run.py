@@ -66,7 +66,7 @@ def _build_client():
     return AnthropicAdapter(anthropic.Anthropic(api_key=api_key), model=model), model
 
 
-def run_pipeline(client_config: ClientConfig) -> None:
+def run_pipeline(client_config: ClientConfig, subcomponent_mode: str = "full") -> None:
     """
     Run complete analysis pipeline for a single client.
 
@@ -74,6 +74,7 @@ def run_pipeline(client_config: ClientConfig) -> None:
 
     Args:
         client_config: ClientConfig instance with paths and file list
+        subcomponent_mode: Subcomponent extraction mode ("full", "deviz-only", or "skip")
     """
     logger.info(f"Starting pipeline for client: {client_config.name}")
     client_config.ensure_output_dirs()
@@ -93,10 +94,12 @@ def run_pipeline(client_config: ClientConfig) -> None:
 
     # Continue with existing pipeline logic using these loaded files
     # The pipeline functions below are refactored to accept client_config
-    _run_analysis_pipeline(client_config, referinta_data, oferta_data_list)
+    _run_analysis_pipeline(client_config, referinta_data, oferta_data_list,
+                           subcomponent_mode=subcomponent_mode)
 
 
-def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, oferta_di_list: list) -> None:
+def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, oferta_di_list: list,
+                            subcomponent_mode: str = "full") -> None:
     """
     Internal pipeline: extract and compare documents.
 
@@ -291,7 +294,8 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
         _, comp = compare_and_report(
             ref_articles, oferta_articles, oferta_nr, oferta_path, client, model,
             ofertant_name=ofertant_name, ref_di_json=ref_di_raw,
-            checkpoint_data=oferta_checkpoint_data, client_config=client_config
+            checkpoint_data=oferta_checkpoint_data, client_config=client_config,
+            subcomponent_mode=subcomponent_mode,
         )
 
         # Generate JSON report grouped by deviz
@@ -819,6 +823,7 @@ def compare_and_report(
     ref_di_json: dict = None,
     checkpoint_data: dict = None,
     client_config: ClientConfig = None,
+    subcomponent_mode: str = "full",
 ):
     """Compara oferta cu referinta si genereaza raport XLSX + DOCX."""
     from shared.deviz_normalizer import normalize_devize
@@ -1061,6 +1066,7 @@ def compare_and_report(
             comparison_mode=comparison_mode,
             devize_extra=_devize_extra,
             devize_lipsa=_devize_lipsa,
+            subcomponent_mode=subcomponent_mode,
         )
         docx_path.write_bytes(docx_bytes)
         logger.info(f"  DOCX: {docx_path.name}")
