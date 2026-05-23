@@ -224,6 +224,22 @@ oferta_by_deviz[ok[0]].extend(oferta_by_key[ok])
 | `DEVIZ_MISMATCH` | Cod gasit in oferta dar alt deviz vs ref — NU e LIPSA reala |
 | `UM_DIFERIT` | Acelasi cod+deviz, UM diferit dupa normalizare |
 | `DIFERENTA_CAMP` | Acelasi cod+deviz, cantitate/pret diferit (toleranta 0.5%) |
+| `COD_SIMILAR` | Cod similar OCR (Layer 2.5 ≥ 0.80) — mereu raportat |
+| `DESCRIERE_DIFERITA` | Jaccard denumire < 0.50 dupa OCR cleanup + diacritice + abrevieri |
+
+### Subcomponent Mode (`--subcomponents`)
+
+Filtru in `shared/report_word.py::_generate_word_hierarchical`. Afecteaza **doar Word report**, JSON neatins.
+
+| Mod | Ce suprima pentru sub-componente |
+|-----|----------------------------------|
+| `full` (default) | nimic |
+| `fields` | `DIFERENTA_CAMP`, `UM_DIFERIT` |
+| `summary` | `DIFERENTA_CAMP`, `UM_DIFERIT`, `COD_SIMILAR`, `DESCRIERE_DIFERITA`, `EROARE_ARITMETICA` |
+
+**Sub-componente = articole cu `is_component=True` SAU `cod.startswith('$')`.**
+ARTICOL_LIPSA/EXTRA nu sunt niciodata filtrate (nu sunt la nivel de camp).
+Filename suffix: `Raport_Oferta_N_fields.docx`, `Raport_Oferta_N_summary.docx`.
 
 ---
 
@@ -239,6 +255,8 @@ oferta_by_deviz[ok[0]].extend(oferta_by_key[ok])
 | Continuare pagina (header_only) | Pagina cu doar header nu se proceseaza (is skipped) |
 | Bare `82` in READING cu cant=0 | _finalize() + _WAITING (tratata ca NR_CRT nou) |
 | Bare `82` in READING cu cant>0 | _is_nr_crt() check: price_count==0 and cant>0 → True → _finalize() |
+| `D20MM`, `D25MM`, `D32MM`, `D40MM` | **NU sunt coduri reale.** Sunt headere de grup eDevize (diametru). OCR wrapeaza "SA04A01> - Teava PN16, D20mm" pe 2 linii → parser crea articol fals. Filtru in `f3_extractor.py`: `^D\d+MM$` + denumire goala → eliminat INAINTE de `_apply_parent_inheritance`. |
+| `SA04A01>` cu `>` suffix | Articol compus eDevize cu sub-resurse. `>` strip automat. Sub-resursele sale (`$6701166`, `$6719485` etc.) au `display_parent_cod = SA04A01` dupa fix. |
 
 ---
 
@@ -308,6 +326,10 @@ def _extract_numeric_struct(deviz_code):
 | Layer 2.5 N:M fix | AgentComparator_local.py | 629 |
 | Lenient UM post-proc | AgentComparator_local.py | 923 |
 | extract_articles_v3 | shared/f3_extractor.py | 807 |
+| Filtru D20MM (inainte parent inheritance) | shared/f3_extractor.py | ~930 |
+| _apply_parent_inheritance | shared/f3_extractor.py | 147 |
+| SUPPRESSED_BY_MODE | shared/report_word.py | ~20 |
+| _generate_word_hierarchical filter | shared/report_word.py | ~707 |
 | _CATEGORIA_OPT_RE (decimal cat_num) | shared/f3_page_classifier.py | 106 |
 | _extract_numeric_struct (Strategy 0) | shared/deviz_matcher.py | ~98 |
 | match_devize_by_denomination | shared/deviz_matcher.py | 157 |
