@@ -876,12 +876,20 @@ def extract_articles_v3(page_classifications: list) -> list:
         # Combină liniile din toate paginile aceluiași deviz
         all_lines = []
         deviz_den = ""
+        source_pages: list = []
         for pc in pages_in_deviz:
-            lines = pc.get("lines", [])
+            raw_lines = pc.get("lines", [])
+            # Respecta f3_line_end daca pagina are sfarsit detectat de end-detection
+            f3_end = pc.get("f3_line_end")
+            lines = raw_lines[:f3_end] if f3_end is not None else raw_lines
             if lines:
                 all_lines.extend(lines)
             if not deviz_den:
                 deviz_den = pc.get("deviz_den", "")
+            phys = pc.get("page_number")
+            if phys is not None:
+                source_pages.append(phys)
+        source_pages = sorted(set(source_pages))
 
         if not all_lines:
             continue
@@ -904,6 +912,7 @@ def extract_articles_v3(page_classifications: list) -> list:
         for art in section_articles:
             art["deviz"] = deviz_cod
             art["deviz_denumire"] = deviz_den
+            art["source_pages"] = source_pages  # pagini fizice PDF de unde provine devizul
             # is_component set by regex parser — don't override
             art["denumire"] = _normalize_denom(art.get("denumire", ""))
 
