@@ -133,7 +133,7 @@ def build_raport_ierarhic(
                 'neconformitati': ncs,
                 'subarticole': subarticole_out,
                 'ref_source_pages': art.get('source_pages', []),
-                'oferta_source_pages': [nc.get('oferta_source_pages', []) for nc in ncs if nc.get('oferta_source_pages', [])] or [],
+                'oferta_source_pages': [],
             })
 
         devize_out.append({
