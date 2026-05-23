@@ -1,0 +1,570 @@
+{
+  "metadata": {
+    "source": "",
+    "document_type": "unknown",
+    "extracted_at": "2026-05-22T12:33:04.863268Z",
+    "classifier_version": "local"
+  },
+  "deviz_groups": [
+    {
+      "deviz_cod": "226108",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    },
+    {
+      "deviz_cod": "226118",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        15
+      ]
+    },
+    {
+      "deviz_cod": "226208",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        17,
+        18,
+        19,
+        20,
+        21
+      ]
+    },
+    {
+      "deviz_cod": "226218",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "deviz_cod": "226228",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47
+      ]
+    },
+    {
+      "deviz_cod": "226238",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        49
+      ]
+    },
+    {
+      "deviz_cod": "226248",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        50,
+        51
+      ]
+    },
+    {
+      "deviz_cod": "226258",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        52
+      ]
+    },
+    {
+      "deviz_cod": "226268",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        53,
+        54,
+        55,
+        56
+      ]
+    },
+    {
+      "deviz_cod": "226278",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        57,
+        58
+      ]
+    },
+    {
+      "deviz_cod": "226288",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        60,
+        61
+      ]
+    },
+    {
+      "deviz_cod": "226308",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        63,
+        64,
+        65,
+        66,
+        67,
+        68
+      ]
+    },
+    {
+      "deviz_cod": "226318",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        69,
+        70
+      ]
+    },
+    {
+      "deviz_cod": "226328",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        71,
+        72
+      ]
+    },
+    {
+      "deviz_cod": "226338",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        73,
+        74,
+        75
+      ]
+    },
+    {
+      "deviz_cod": "226348",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        76,
+        77
+      ]
+    },
+    {
+      "deviz_cod": "226358",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        78,
+        79
+      ]
+    },
+    {
+      "deviz_cod": "226408",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        81,
+        82,
+        83,
+        84,
+        85,
+        86
+      ]
+    },
+    {
+      "deviz_cod": "226418",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96
+      ]
+    },
+    {
+      "deviz_cod": "226428",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109
+      ]
+    },
+    {
+      "deviz_cod": "226438",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        111
+      ]
+    },
+    {
+      "deviz_cod": "226448",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        112,
+        113
+      ]
+    },
+    {
+      "deviz_cod": "226458",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        114
+      ]
+    },
+    {
+      "deviz_cod": "226468",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        115
+      ]
+    },
+    {
+      "deviz_cod": "226478",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        117,
+        118,
+        119,
+        120
+      ]
+    },
+    {
+      "deviz_cod": "226488",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        121,
+        122
+      ]
+    },
+    {
+      "deviz_cod": "226498",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        124,
+        125
+      ]
+    },
+    {
+      "deviz_cod": "226508",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        127,
+        128,
+        129,
+        130,
+        131
+      ]
+    },
+    {
+      "deviz_cod": "226518",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141
+      ]
+    },
+    {
+      "deviz_cod": "226528",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156
+      ]
+    },
+    {
+      "deviz_cod": "226538",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        157,
+        158
+      ]
+    },
+    {
+      "deviz_cod": "226548",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        159
+      ]
+    },
+    {
+      "deviz_cod": "226558",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        160,
+        161,
+        162,
+        163
+      ]
+    },
+    {
+      "deviz_cod": "226578",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        164,
+        165
+      ]
+    },
+    {
+      "deviz_cod": "226568",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        166,
+        167
+      ]
+    },
+    {
+      "deviz_cod": "226U08",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        168,
+        169,
+        170
+      ]
+    },
+    {
+      "deviz_cod": "226U18",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        172,
+        173,
+        174
+      ]
+    },
+    {
+      "deviz_cod": "226U28",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        175,
+        176,
+        177,
+        178,
+        179
+      ]
+    },
+    {
+      "deviz_cod": "226U38",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        180,
+        181,
+        182
+      ]
+    },
+    {
+      "deviz_cod": "226368",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        184
+      ]
+    },
+    {
+      "deviz_cod": "226718",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        186
+      ]
+    },
+    {
+      "deviz_cod": "226708",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        187
+      ]
+    },
+    {
+      "deviz_cod": "226F08",
+      "extraction_method": "explicit",
+      "obiectul": null,
+      "categoria": null,
+      "article_count": 0,
+      "pages": [
+        188
+      ]
+    }
+  ],
+  "validation": {
+    "total_articles": 0,
+    "total_pages_with_deviz": 164,
+    "coverage": "100%"
+  },
+  "subcomponent_format": {
+    "format": "unknown",
+    "confidence": 0.0,
+    "name": "Unknown format"
+  }
+}

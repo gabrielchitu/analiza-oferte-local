@@ -1,0 +1,746 @@
+{
+  "metadata": {
+    "source": "",
+    "document_type": "unknown",
+    "extracted_at": "2026-05-22T12:37:43.180848Z",
+    "classifier_version": "local"
+  },
+  "deviz_groups": [
+    {
+      "deviz_cod": "001-001",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "001",
+        "text": "TEREN DE TENIS ACOPERIT"
+      },
+      "categoria": {
+        "num": "001",
+        "text": "226108 STRUCTURA DE REZISTENTA CUPOLA TEREN TENIS"
+      },
+      "article_count": 0,
+      "pages": [
+        16,
+        17,
+        18,
+        19,
+        20
+      ]
+    },
+    {
+      "deviz_cod": "001-002",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "001",
+        "text": "TEREN DE TENIS ACOPERIT"
+      },
+      "categoria": {
+        "num": "002",
+        "text": "226118 ARHITECTURA -teren tenis acoperi t"
+      },
+      "article_count": 0,
+      "pages": [
+        21
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 001 226208 STRUCTURA DE R:226208 STRUCTURA DE REZISTENTA (vestiar,",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 001 226208 STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare) e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "001",
+        "text": "226208 STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare)"
+      },
+      "article_count": 0,
+      "pages": [
+        26,
+        27,
+        28,
+        29,
+        30
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 002 226218 ARHITECTURA te:226218 ARHITECTURA teren tenis si grupur",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 002 226218 ARHITECTURA teren tenis si grupuri sanitare e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "002",
+        "text": "226218 ARHITECTURA teren tenis si grupuri sanitare"
+      },
+      "article_count": 0,
+      "pages": [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 003 226228 INSTALATII SAN:226228 INSTALATII SANITARE OB.2",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 003 226228 INSTALATII SANITARE OB.2 e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "003",
+        "text": "226228 INSTALATII SANITARE OB.2"
+      },
+      "article_count": 0,
+      "pages": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ]
+    },
+    {
+      "deviz_cod": "002-004",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "002",
+        "text": "VESTIAR TEREN TENIS SI GRUPURI SANITARE PUBLICE"
+      },
+      "categoria": {
+        "num": "004",
+        "text": "226238 MONTAT BOILER OB.2"
+      },
+      "article_count": 0,
+      "pages": [
+        52
+      ]
+    },
+    {
+      "deviz_cod": "__partial__VESTIAR TEREN TENIS SI GRUPURI SANITARE :Executant:",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "002",
+        "text": "VESTIAR TEREN TENIS SI GRUPURI SANITARE PUBLICE 005 226248 INSTALATII VENTILATIE OB.2 e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "",
+        "text": "Executant:"
+      },
+      "article_count": 0,
+      "pages": [
+        53
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 007 226268 INSTALATII ELE:226268 INSTALATII ELECTRICE curenti tari",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 007 226268 INSTALATII ELECTRICE curenti tari OB.2 e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "007",
+        "text": "226268 INSTALATII ELECTRICE curenti tari OB.2"
+      },
+      "article_count": 0,
+      "pages": [
+        56,
+        57,
+        58
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 008 226278 INSTALATIE VOC:226278 INSTALATIE VOCE - DATE - OB.2",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 008 226278 INSTALATIE VOCE - DATE - OB.2 e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "008",
+        "text": "226278 INSTALATIE VOCE - DATE - OB.2"
+      },
+      "article_count": 0,
+      "pages": [
+        60,
+        61
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 009 226288 SISTEM SUPRAVE:226288 SISTEM SUPRAVEGHEREA VIDEO -OB2",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 009 226288 SISTEM SUPRAVEGHEREA VIDEO -OB2 e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "009",
+        "text": "226288 SISTEM SUPRAVEGHEREA VIDEO -OB2"
+      },
+      "article_count": 0,
+      "pages": [
+        63,
+        64
+      ]
+    },
+    {
+      "deviz_cod": "003-001",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "003",
+        "text": "AMENAJARI EXTERIOARE"
+      },
+      "categoria": {
+        "num": "001",
+        "text": "226308 STRUCTURA DE REZISTENTA- (graden e 2 BUC)"
+      },
+      "article_count": 0,
+      "pages": [
+        68,
+        69,
+        70,
+        71,
+        72
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 002 226318 IMPREJMUIRE TE:226318 IMPREJMUIRE TEREN FOTBAL -380 ML",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 002 226318 IMPREJMUIRE TEREN FOTBAL -380 ML e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "002",
+        "text": "226318 IMPREJMUIRE TEREN FOTBAL -380 ML"
+      },
+      "article_count": 0,
+      "pages": [
+        74,
+        75
+      ]
+    },
+    {
+      "deviz_cod": "003-003",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "003",
+        "text": "AMENAJARI EXTERIOARE"
+      },
+      "categoria": {
+        "num": "003",
+        "text": "226328 ARHITECTURA GRADENE"
+      },
+      "article_count": 0,
+      "pages": [
+        76,
+        77
+      ]
+    },
+    {
+      "deviz_cod": "003-004",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "003",
+        "text": "AMENAJARI EXTERIOARE"
+      },
+      "categoria": {
+        "num": "004",
+        "text": "226338 TEREN FOTBAL"
+      },
+      "article_count": 0,
+      "pages": [
+        78,
+        79,
+        80
+      ]
+    },
+    {
+      "deviz_cod": "003-005",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "003",
+        "text": "AMENAJARI EXTERIOARE"
+      },
+      "categoria": {
+        "num": "005",
+        "text": "226348 SPATII VERZI"
+      },
+      "article_count": 0,
+      "pages": [
+        81,
+        82
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: EXTINDERE SI MODERNIZARE :EXTINDERE SI MODERNIZARE BAZA SPORTIVA R",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: EXTINDERE SI MODERNIZARE BAZA SPORTIVA RACARI 003 AMENAJARI EXTERIOARE 006 226358 ALEI PIETONALE SI CAROSABILE e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "",
+        "text": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RACARI 003 AMENAJARI "
+      },
+      "article_count": 0,
+      "pages": [
+        84,
+        85,
+        86,
+        163,
+        182,
+        183,
+        184
+      ]
+    },
+    {
+      "deviz_cod": "003-007",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "003",
+        "text": "AMENAJARI EXTERIOARE"
+      },
+      "categoria": {
+        "num": "007",
+        "text": "226368 INSTALATIE IRIGATIE SPATII VERZI"
+      },
+      "article_count": 0,
+      "pages": [
+        87
+      ]
+    },
+    {
+      "deviz_cod": "003-008",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "003",
+        "text": "AMENAJARI EXTERIOARE"
+      },
+      "categoria": {
+        "num": "008",
+        "text": "226F08 MONTAJ SISTEM PANOU FOTOVOLTAICE"
+      },
+      "article_count": 0,
+      "pages": [
+        89
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 001 226408 STRUCTURA DE R:226408 STRUCTURA DE REZISTENTA (vestiar ",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 001 226408 STRUCTURA DE REZISTENTA (vestiar e, sala fitness) e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "001",
+        "text": "226408 STRUCTURA DE REZISTENTA (vestiar e, sala fitness)"
+      },
+      "article_count": 0,
+      "pages": [
+        93,
+        94,
+        95,
+        96,
+        97,
+        98
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 002 226418 ARHITECTURA VE:226418 ARHITECTURA VESTIARE FOTBALIST SI",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 002 226418 ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "002",
+        "text": "226418 ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS"
+      },
+      "article_count": 0,
+      "pages": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 003 226428 INSTALATII SAN:226428 INSTALATII SANITARE OB.4",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 003 226428 INSTALATII SANITARE OB.4 e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "003",
+        "text": "226428 INSTALATII SANITARE OB.4"
+      },
+      "article_count": 0,
+      "pages": [
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 004 226438 MONTAJ BOILER :226438 MONTAJ BOILER OB.4",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 004 226438 MONTAJ BOILER OB.4 e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "004",
+        "text": "226438 MONTAJ BOILER OB.4"
+      },
+      "article_count": 0,
+      "pages": [
+        118
+      ]
+    },
+    {
+      "deviz_cod": "__partial__VESTIARE FOTBALISTI SI SALA FITNESS 005 :Proiectant: Obiectivul: EXTINDERE SI MOD",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "004",
+        "text": "VESTIARE FOTBALISTI SI SALA FITNESS 005 226448 INSTALATII VENTILATIE OB.4 e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "",
+        "text": "Proiectant: Obiectivul: EXTINDERE SI MODERNIZARE BAZA SPORTI"
+      },
+      "article_count": 0,
+      "pages": [
+        119,
+        120
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 007 226468 INST. CLIMATIZ:226468 INST. CLIMATIZARE OB.4",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 007 226468 INST. CLIMATIZARE OB.4 e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "007",
+        "text": "226468 INST. CLIMATIZARE OB.4"
+      },
+      "article_count": 0,
+      "pages": [
+        123
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 008 226478 INSTALATII ELE:226478 INSTALATII ELECTRICE curenti tari",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 008 226478 INSTALATII ELECTRICE curenti tari OB.4 eDevize e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "008",
+        "text": "226478 INSTALATII ELECTRICE curenti tari OB.4 eDevize"
+      },
+      "article_count": 0,
+      "pages": [
+        125,
+        126,
+        127
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 009 226488 INSTALATIE VOC:226488 INSTALATIE VOCE - DATE - OB.4",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 009 226488 INSTALATIE VOCE - DATE - OB.4 e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "009",
+        "text": "226488 INSTALATIE VOCE - DATE - OB.4"
+      },
+      "article_count": 0,
+      "pages": [
+        129,
+        130
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 010 226498 SISTEM SUPRAVE:226498 SISTEM SUPRAVEGHEREA VIDEO -OB4",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 010 226498 SISTEM SUPRAVEGHEREA VIDEO -OB4 e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "010",
+        "text": "226498 SISTEM SUPRAVEGHEREA VIDEO -OB4"
+      },
+      "article_count": 0,
+      "pages": [
+        132,
+        133
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 011 226400 montare lift p:226400 montare lift persoane cu dizabili",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 011 226400 montare lift persoane cu dizabilitati eDevize e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "011",
+        "text": "226400 montare lift persoane cu dizabilitati eDevize"
+      },
+      "article_count": 0,
+      "pages": [
+        134
+      ]
+    },
+    {
+      "deviz_cod": "005-001",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "005",
+        "text": "GRUPURI SANITARE PUBLICE"
+      },
+      "categoria": {
+        "num": "001",
+        "text": "226508 STRUCTURA DE REZISTENTA (grupuri sanitare publice)"
+      },
+      "article_count": 0,
+      "pages": [
+        138,
+        139,
+        140,
+        141,
+        142
+      ]
+    },
+    {
+      "deviz_cod": "005-002",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "005",
+        "text": "GRUPURI SANITARE PUBLICE"
+      },
+      "categoria": {
+        "num": "002",
+        "text": "226518 ARHITECTURA grupuri sanitare publice"
+      },
+      "article_count": 0,
+      "pages": [
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150
+      ]
+    },
+    {
+      "deviz_cod": "005-003",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "005",
+        "text": "GRUPURI SANITARE PUBLICE"
+      },
+      "categoria": {
+        "num": "003",
+        "text": "226528 INSTALATII SANITARE OB.5"
+      },
+      "article_count": 0,
+      "pages": [
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161
+      ]
+    },
+    {
+      "deviz_cod": "005-006",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "005",
+        "text": "GRUPURI SANITARE PUBLICE"
+      },
+      "categoria": {
+        "num": "006",
+        "text": "226558 INSTALATII ELECTRICE curenti tari OB.5"
+      },
+      "article_count": 0,
+      "pages": [
+        166,
+        167,
+        168
+      ]
+    },
+    {
+      "deviz_cod": "__partial__EXTINDERE SI MODERNIZARE BAZA SPORTIVA R:226578 SISTEM SUPRAVEGHEREA VIDEO -OB5",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RACARI 005 GRUPURI SANITARE PUBLICE"
+      },
+      "categoria": {
+        "num": "007",
+        "text": "226578 SISTEM SUPRAVEGHEREA VIDEO -OB5"
+      },
+      "article_count": 0,
+      "pages": [
+        170,
+        171
+      ]
+    },
+    {
+      "deviz_cod": "005-008",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "005",
+        "text": "GRUPURI SANITARE PUBLICE"
+      },
+      "categoria": {
+        "num": "008",
+        "text": "226568 INSTALATIE VOCE - DATE - OB.5"
+      },
+      "article_count": 0,
+      "pages": [
+        172,
+        173
+      ]
+    },
+    {
+      "deviz_cod": "006-001",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "006",
+        "text": "UTILITATI - RETELE EXTERIOARE"
+      },
+      "categoria": {
+        "num": "001",
+        "text": "226U08 ALIMENTARE CU APA"
+      },
+      "article_count": 0,
+      "pages": [
+        178,
+        179,
+        180,
+        181
+      ]
+    },
+    {
+      "deviz_cod": "006-003",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "006",
+        "text": "UTILITATI - RETELE EXTERIOARE"
+      },
+      "categoria": {
+        "num": "003",
+        "text": "226U28 ALIMENTARE CU E.E. SI ILUMINAT EXTERIOR"
+      },
+      "article_count": 0,
+      "pages": [
+        186,
+        187,
+        188,
+        189,
+        190
+      ]
+    },
+    {
+      "deviz_cod": "006-004",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "006",
+        "text": "UTILITATI - RETELE EXTERIOARE"
+      },
+      "categoria": {
+        "num": "004",
+        "text": "226U38 TELECOMUNICATII"
+      },
+      "article_count": 0,
+      "pages": [
+        191,
+        192,
+        193
+      ]
+    },
+    {
+      "deviz_cod": "__partial__Stadiul fizic: 001 226718 ORG.SANTIER- C:226718 ORG.SANTIER- CONTAINER",
+      "extraction_method": "partial",
+      "obiectul": {
+        "num": "",
+        "text": "Stadiul fizic: 001 226718 ORG.SANTIER- CONTAINER e Devize Formular F3"
+      },
+      "categoria": {
+        "num": "001",
+        "text": "226718 ORG.SANTIER- CONTAINER"
+      },
+      "article_count": 0,
+      "pages": [
+        198
+      ]
+    },
+    {
+      "deviz_cod": "008-002",
+      "extraction_method": "compound",
+      "obiectul": {
+        "num": "008",
+        "text": "ORGANIZARE SANTIER"
+      },
+      "categoria": {
+        "num": "002",
+        "text": "226708 ORG SANTIER- MONTARE WC ECOLOGIC"
+      },
+      "article_count": 0,
+      "pages": [
+        200
+      ]
+    }
+  ],
+  "validation": {
+    "total_articles": 0,
+    "total_pages_with_deviz": 148,
+    "coverage": "100%"
+  },
+  "subcomponent_format": {
+    "format": "unknown",
+    "confidence": 0.0,
+    "name": "Unknown format"
+  }
+}

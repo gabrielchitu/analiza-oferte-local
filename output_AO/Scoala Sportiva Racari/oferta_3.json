@@ -64148,6 +64148,27 @@
       "val_transport": 0.0
     },
     {
+      "cod": "$31110",
+      "denumire": "zugrav vopsitor ore manopera director sef proiect ofertant investitie - formular c7",
+      "um": "",
+      "cantitate": 1083.594,
+      "deviz": "226708",
+      "deviz_denumire": "226708 ORG SANTIER- MONTARE WC ECOLOGIC",
+      "is_component": false,
+      "parent_code": null,
+      "subcomponents": [],
+      "nr_ordine": 51,
+      "parent_nr_ordine": null,
+      "pret_material": 32.0,
+      "val_material": 34675.0,
+      "pret_manopera": 100.0,
+      "val_manopera": 65330.11,
+      "pret_utilaj": 2090563.56,
+      "val_utilaj": 0.0,
+      "pret_transport": 0.0,
+      "val_transport": 0.0
+    },
+    {
       "cod": "$3521",
       "denumire": "excavator pe pneuri motor termic(buldoexcavator)0,21-0,39mc",
       "um": "",

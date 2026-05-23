@@ -516,7 +516,7 @@
     },
     {
       "cod": "RPCT09H1",
-      "denumire": "spargerea partiala cu mijloace mec si - manuala a el ementelor de cons.din bet.arm.si simplu exec.fin *",
+      "denumire": "spargerea partiala cu mijloace mec si manuala a el ementelor de cons.din bet.arm.si simplu exec.fin *",
       "um": "mc",
       "cantitate": 2.16,
       "deviz": "4.1-01",
@@ -558,7 +558,7 @@
     },
     {
       "cod": "RPCT04B1",
-      "denumire": "desfacere zidarie pentru realizare gol - usa la part er si etaj",
+      "denumire": "desfacere zidarie pentru realizare gol usa la part er si etaj",
       "um": "mc",
       "cantitate": 4.79,
       "deviz": "4.1-01",
@@ -621,7 +621,7 @@
     },
     {
       "cod": "RPCT09H1",
-      "denumire": "spargerea planseului din b.a pentru - realizare gol desfumare",
+      "denumire": "spargerea planseului din b.a pentru realizare gol desfumare",
       "um": "mc",
       "cantitate": 5.86,
       "deviz": "4.1-01",
@@ -2101,7 +2101,7 @@
     },
     {
       "cod": "CD25B",
-      "denumire": "zidarie completare goluri tamplarie - interioara us i si ferestre",
+      "denumire": "zidarie completare goluri tamplarie interioara us i si ferestre",
       "um": "mc",
       "cantitate": 6.12,
       "deviz": "4.1-04",
@@ -2830,7 +2830,7 @@
     },
     {
       "cod": "DA06A1",
-      "denumire": "strat agreg nat (balast) cilindr cu funct - rezist fil trant izol aerisire antcap cu asternere manuala",
+      "denumire": "strat agreg nat (balast) cilindr cu funct rezist fil trant izol aerisire antcap cu asternere manuala",
       "um": "mc",
       "cantitate": 14.82,
       "deviz": "4.1-04",
@@ -3960,7 +3960,7 @@
     },
     {
       "cod": "CD07H1",
-      "denumire": "umplere cu zidarie goluri de ferestre, - zidarie bca 30cm refacere perete pod",
+      "denumire": "umplere cu zidarie goluri de ferestre, zidarie bca 30cm refacere perete pod",
       "um": "mc",
       "cantitate": 3.42,
       "deviz": "4.1-03",
@@ -16031,7 +16031,7 @@
     },
     {
       "cod": "RPCB02E",
-      "denumire": "beton c12 / 15 in fundatii simple la scari - noi acce s",
+      "denumire": "beton c12 / 15 in fundatii simple la scari noi acce s",
       "um": "mc",
       "cantitate": 1.92,
       "deviz": "4.1-02",
@@ -16250,7 +16250,7 @@
     },
     {
       "cod": "CA05B",
-      "denumire": "beton c25 / 30 pardoseala (10cm grosime) - scari noi a cces",
+      "denumire": "beton c25 / 30 pardoseala (10cm grosime) scari noi a cces",
       "um": "mc",
       "cantitate": 1.72,
       "deviz": "4.1-02",
@@ -16443,7 +16443,7 @@
     },
     {
       "cod": "CA02J1",
-      "denumire": "beton armat c25 / 30 cadre bordare - goluri si centuri din beton armat",
+      "denumire": "beton armat c25 / 30 cadre bordare goluri si centuri din beton armat",
       "um": "mc",
       "cantitate": 2.07,
       "deviz": "4.1-02",
@@ -16571,7 +16571,7 @@
     },
     {
       "cod": "CA02J1",
-      "denumire": "beton armat c25 / 30 centuri noi din beton - armat pe zona de refacere a planseului",
+      "denumire": "beton armat c25 / 30 centuri noi din beton armat pe zona de refacere a planseului",
       "um": "mc",
       "cantitate": 5.81,
       "deviz": "4.1-02",
@@ -16699,7 +16699,7 @@
     },
     {
       "cod": "CA02J1",
-      "denumire": "beton armat c25 / 30 placa noua din beton - armat",
+      "denumire": "beton armat c25 / 30 placa noua din beton armat",
       "um": "mc",
       "cantitate": 17.44,
       "deviz": "4.1-02",
@@ -16934,7 +16934,7 @@
     },
     {
       "cod": "CA02J1",
-      "denumire": "turnare beton armat c25 / 30 atice noi din - b.a.",
+      "denumire": "turnare beton armat c25 / 30 atice noi din b.a.",
       "um": "mc",
       "cantitate": 4.04,
       "deviz": "4.1-02",
@@ -18641,7 +18641,7 @@
     },
     {
       "cod": "TSA04D1",
-      "denumire": "sap man in spatii limit.sub 1m cu sprij.si - evac.ma n in pam.cu umid.nat la adinc 0,0-1,5m t.f tare",
+      "denumire": "sap man in spatii limit.sub 1m cu sprij.si evac.ma n in pam.cu umid.nat la adinc 0,0-1,5m t.f tare",
       "um": "mc",
       "cantitate": 62.8,
       "deviz": "4.3-01",
@@ -18683,7 +18683,7 @@
     },
     {
       "cod": "ACE08A1",
-      "denumire": "umplutura in sant la cond de alim cu - apa si canali zare cu: nisip $",
+      "denumire": "umplutura in sant la cond de alim cu apa si canali zare cu: nisip $",
       "um": "mc",
       "cantitate": 29.4,
       "deviz": "4.3-01",
@@ -18704,7 +18704,7 @@
     },
     {
       "cod": "TSD04XA",
-      "denumire": "compactarea cu maiul de mina a umplut - in strat.ori z sau incl 1/4, udarea strat 10cm gros pam necoeziv",
+      "denumire": "compactarea cu maiul de mina a umplut in strat.ori z sau incl 1/4, udarea strat 10cm gros pam necoeziv",
       "um": "mc",
       "cantitate": 29.4,
       "deviz": "4.3-01",
@@ -18788,7 +18788,7 @@
     },
     {
       "cod": "TSD01C1",
-      "denumire": "imprastierea cu lopata a pamint afinat, - strat unifo rm 10-30cm gros cu sfarim bulg teren tare",
+      "denumire": "imprastierea cu lopata a pamint afinat, strat unifo rm 10-30cm gros cu sfarim bulg teren tare",
       "um": "mc",
       "cantitate": 22.0,
       "deviz": "4.3-01",
@@ -18830,7 +18830,7 @@
     },
     {
       "cod": "TSD04C1",
-      "denumire": "compactarea cu mai.de mina a umplut - execut pe stra t.cu udarea fiec.strat de 20cm gros.t.necoeziv",
+      "denumire": "compactarea cu mai.de mina a umplut execut pe stra t.cu udarea fiec.strat de 20cm gros.t.necoeziv",
       "um": "mc",
       "cantitate": 22.0,
       "deviz": "4.3-01",
@@ -18872,7 +18872,7 @@
     },
     {
       "cod": "TSD14A1",
-      "denumire": "udarea cu autocist.de 5-8t cu disp.de - strop str.",
+      "denumire": "udarea cu autocist.de 5-8t cu disp.de strop str.",
       "um": "mc",
       "cantitate": 7.6,
       "deviz": "4.3-01",
@@ -18998,7 +18998,7 @@
     },
     {
       "cod": "TSA04D1",
-      "denumire": "sap man in spatii limit sub 1m cu sprij.si - evac.ma n.in pam.cu umid.nat la adinc 0,0-1,5m t.f tare",
+      "denumire": "sap man in spatii limit sub 1m cu sprij.si evac.ma n.in pam.cu umid.nat la adinc 0,0-1,5m t.f tare",
       "um": "mc",
       "cantitate": 44.0,
       "deviz": "4.3-02",
@@ -19040,7 +19040,7 @@
     },
     {
       "cod": "ACE08A1",
-      "denumire": "umplutura in sant la cond de alim cu - apa si canali zare cu: nisip $",
+      "denumire": "umplutura in sant la cond de alim cu apa si canali zare cu: nisip $",
       "um": "mc",
       "cantitate": 34.0,
       "deviz": "4.3-02",
@@ -19061,7 +19061,7 @@
     },
     {
       "cod": "TSD04XA",
-      "denumire": "compactarea cu maiul de mina a umplut - in strat.ori z.sau incl 1/4, udarea strat 10cm gros pam necoeziv",
+      "denumire": "compactarea cu maiul de mina a umplut in strat.ori z.sau incl 1/4, udarea strat 10cm gros pam necoeziv",
       "um": "mc",
       "cantitate": 34.0,
       "deviz": "4.3-02",
@@ -19145,7 +19145,7 @@
     },
     {
       "cod": "TSD01C1",
-      "denumire": "imprastierea cu lopata a pamint.afinat, - strat unifo rm 10-30cm.gros cu sfarim bulg teren tare",
+      "denumire": "imprastierea cu lopata a pamint.afinat, strat unifo rm 10-30cm.gros cu sfarim bulg teren tare",
       "um": "mc",
       "cantitate": 10.0,
       "deviz": "4.3-02",
@@ -19187,7 +19187,7 @@
     },
     {
       "cod": "TSD04C1",
-      "denumire": "compactarea cu mai.de mina a umplut - execut pe stra t.cu udarea fiec.strat de 20cm gros.t.necoeziv",
+      "denumire": "compactarea cu mai.de mina a umplut execut pe stra t.cu udarea fiec.strat de 20cm gros.t.necoeziv",
       "um": "mc",
       "cantitate": 10.0,
       "deviz": "4.3-02",
@@ -19229,7 +19229,7 @@
     },
     {
       "cod": "TSD14A1",
-      "denumire": "udarea cu autocist.de 5-8t cu disp.de - strop str.",
+      "denumire": "udarea cu autocist.de 5-8t cu disp.de strop str.",
       "um": "mc",
       "cantitate": 3.6,
       "deviz": "4.3-02",
@@ -23589,7 +23589,7 @@
     },
     {
       "cod": "TSA02F1",
-      "denumire": "sap.man in spatii limit sub 1m cu taluz - vert nespr .in pam.coez.mij.si f.coez.adinc < 1,5m t.tare",
+      "denumire": "sap.man in spatii limit sub 1m cu taluz vert nespr .in pam.coez.mij.si f.coez.adinc < 1,5m t.tare",
       "um": "mc",
       "cantitate": 201.85,
       "deviz": "4.2-1",
@@ -24269,7 +24269,7 @@
     },
     {
       "cod": "DA06A1",
-      "denumire": "strat agreg nat (balast) cilindr cu funct - rezist fil trant izol aerisire antcap cu asternere manuala balast 20cm",
+      "denumire": "strat agreg nat (balast) cilindr cu funct rezist fil trant izol aerisire antcap cu asternere manuala balast 20cm",
       "um": "mc",
       "cantitate": 69.0,
       "deviz": "4.4-2",
@@ -24332,7 +24332,7 @@
     },
     {
       "cod": "DA12B1",
-      "denumire": "strat fund reprof p sparta pt drum cu - asternere mecanica exec cu impanare fara innoroire piatra sparta 12cm",
+      "denumire": "strat fund reprof p sparta pt drum cu asternere mecanica exec cu impanare fara innoroire piatra sparta 12cm",
       "um": "mc",
       "cantitate": 41.4,
       "deviz": "4.4-2",
