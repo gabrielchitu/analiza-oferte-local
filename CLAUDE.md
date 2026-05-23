@@ -60,9 +60,17 @@ python3 local_run.py
 
 ## Token Optimization
 
-Use `rtk` prefix for all Bash commands (git, python3, grep, etc.) to save ~60-90% tokens per command (~1.8M saved in previous sessions).
+Use `rtk` prefix for all Bash commands (git, grep, etc.) to save ~60-90% tokens per command (~1.8M saved in previous sessions).
 
-Example:
+**python3** — RTK nu rescrie automat python3 (no rewrite). Comprima output cu pipe:
 ```bash
-rtk python3 multi_client_run.py --client "Blocuri Racari"
+.venv/bin/python3 multi_client_run.py --client "Blocuri Racari" 2>&1 | rtk log
+```
+
+`rtk log` grupeaza errors/warnings cu count, elimina duplicatele. `rtk summary` prea agresiv — pierde informatia.
+
+Alte comenzi:
+```bash
+rtk git status
+rtk grep -r "pattern" shared/
 ```
