@@ -1059,7 +1059,8 @@ def compare_and_report(
     #     logger.warning(f"  XLSX failed: {e}")
 
     # Raport DOCX
-    docx_path = output_dir / f"Raport_Oferta_{oferta_nr}.docx"
+    mode_suffix = f"_{subcomponent_mode}" if subcomponent_mode != "full" else ""
+    docx_path = output_dir / f"Raport_Oferta_{oferta_nr}{mode_suffix}.docx"
     try:
         docx_bytes = generate_word(
             session, comp,
