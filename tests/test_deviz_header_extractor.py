@@ -71,8 +71,8 @@ def test_cache_miss(tmp_path):
     assert cache.get("missing") is None
 
 
-def test_extract_deviz_headers_full():
-    from shared.deviz_header_extractor import extract_deviz_headers
+def test_extract_deviz_headers_full(tmp_path):
+    from shared.deviz_header_extractor import extract_deviz_headers, DevizHeaderCache
     page_classes = [
         {
             "is_f3": True, "deviz_cod": "1-01", "header_only": False,
@@ -84,7 +84,14 @@ def test_extract_deviz_headers_full():
             ],
         }
     ]
-    headers = extract_deviz_headers(page_classes)
+    # Use a temporary cache to ensure regex source, not cached
+    import unittest.mock
+    with unittest.mock.patch('shared.deviz_header_extractor.DevizHeaderCache') as MockCache:
+        # Create a mock cache instance that always returns None (cache miss)
+        mock_instance = MockCache.return_value
+        mock_instance.get.return_value = None
+        mock_instance.put.return_value = None
+        headers = extract_deviz_headers(page_classes)
     assert "1-01" in headers
     h = headers["1-01"]
     assert h.obiectivul == "Reabilitare scoala"

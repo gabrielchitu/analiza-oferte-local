@@ -51,7 +51,7 @@ def _make_deviz_key(
     categoria: str | None,
 ) -> tuple[str, bool]:
     is_valid = all(x is not None for x in [obiectivul, obiectul, categoria])
-    parts = [_normalize(x or "") for x in [obiectivul, obiectul, categoria]]
+    parts = [_normalize(x) if x is not None else "\x00" for x in [obiectivul, obiectul, categoria]]
     raw = " | ".join(parts)
     key = hashlib.md5(raw.encode()).hexdigest()[:16]
     if not is_valid:
@@ -136,10 +136,9 @@ def _extract_via_llm(header_lines: list[str], client, model: str) -> dict | None
         )
         text = resp.content[0].text.strip()
         if text.startswith("```"):
-            parts = text.split("```")
-            text = parts[1] if len(parts) > 1 else text
-            if text.startswith("json"):
-                text = text[4:]
+            # Strip markdown code blocks: ```json\n{...}\n``` or ```\n{...}\n```
+            text = re.sub(r'^```(?:json)?\s*', '', text)
+            text = re.sub(r'\s*```\s*$', '', text)
         return json.loads(text.strip())
     except Exception as e:
         logger.debug(f"[DHX] LLM extraction failed: {e}")
