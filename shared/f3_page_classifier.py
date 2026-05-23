@@ -725,6 +725,28 @@ def _classify_pages_llm(
         classifications = raw.get("page_classifications", [])
         if not classifications:
             logger.warning(f"[PC] LLM returned empty page_classifications for {len(ambiguous)} pages — treating all as NON_F3")
+
+        # Self-learning: salveaza pattern-uri noi descoperite de LLM in knowledge base
+        _knowledge = F3Knowledge()
+        _learned_count = 0
+        _page_lines_map = {p.get("page_number"): p.get("lines", []) for p in ambiguous}
+        for item in raw.get("page_classifications", []):
+            page_num = item.get("page_number")
+            is_f3 = item.get("is_f3", False)
+            lines = _page_lines_map.get(page_num, [])
+            if not lines:
+                continue
+            # Extrage primul line distinctiv (>= 5 chars, nu numar pur, nu prea lung)
+            for line in lines[:15]:
+                stripped = line.strip()
+                if len(stripped) >= 5 and not stripped.isdigit() and len(stripped) <= 100:
+                    source_type = "start" if is_f3 else "end"
+                    _knowledge.learn(stripped, "exact", source_type=source_type, source="llm")
+                    _learned_count += 1
+                    break
+        if _learned_count:
+            logger.info(f"[PC] F3Knowledge: learned {_learned_count} new patterns from LLM")
+
         return {
             item["page_number"]: {
                 "is_f3": bool(item.get("is_f3", False)),
