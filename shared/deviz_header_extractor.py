@@ -12,15 +12,15 @@ logger = logging.getLogger(__name__)
 KNOWLEDGE_PATH = Path(__file__).parent / "deviz_header_knowledge.json"
 
 _OBJ1_RE = re.compile(
-    r'(?:obiectiv(?:ul)?|investment\s+object)\s*[:\-]?\s*["\']?(.+)',
+    r'(?:obiectiv(?:ul)?|investment\s+object)\s*[:\-]\s*["\']?(.*)',
     re.IGNORECASE
 )
 _OBJ2_RE = re.compile(
-    r'(?:obiectul|obiect(?:ul)?\s+de\s+investi[tți]ii?)\s*[:\-]\s*(.+)',
+    r'(?:obiectul|obiect(?:ul)?\s+de\s+investi[tți]ii?)\s*[:\-]\s*(.*)',
     re.IGNORECASE
 )
 _CAT_RE = re.compile(
-    r'(?:categoria\s+de\s+lucr[aă]ri?|stadiul?\s+fizic[:\-]?|category)\s*[:\-]?\s*(.+)',
+    r'(?:categoria\s+de\s+lucr[aă]ri?|stadiul?\s+fizic|category)\s*[:\-]\s*(.*)',
     re.IGNORECASE
 )
 
@@ -62,23 +62,52 @@ def _make_deviz_key(
 def _extract_from_lines(
     header_lines: list[str],
 ) -> tuple[str | None, str | None, str | None]:
+    """Extrage OBIECTIVUL, Obiectul, Categoria din primele 30 linii.
+
+    Suporta doua formate:
+    - Inline:     'Obiectivul: EFICIENTIZARE ENERGETICA...'
+    - Multi-line: 'Obiectivul:\\n' + 'EFICIENTIZARE ENERGETICA...' (eticheta + valoare pe linii separate)
+    """
     obiectivul = obiectul = categoria = None
-    for line in header_lines[:30]:
+    lines = header_lines[:30]
+
+    for i, line in enumerate(lines):
         s = line.strip()
+
+        def _next_line_value(idx: int) -> str:
+            """Valoarea de pe linia urmatoare, daca linia curenta e doar eticheta."""
+            if idx + 1 < len(lines):
+                nxt = lines[idx + 1].strip()
+                # Nu lua urmatoarea linie daca e ea insasi o eticheta
+                if nxt and not _OBJ1_RE.match(nxt) and not _OBJ2_RE.match(nxt) and not _CAT_RE.match(nxt):
+                    return nxt
+            return ""
+
         if obiectivul is None:
             m = _OBJ1_RE.match(s)
             if m:
-                obiectivul = m.group(1).strip().strip("\"'")
+                val = m.group(1).strip().strip("\"'")
+                obiectivul = val if val else _next_line_value(i)
+
         if obiectul is None:
             m = _OBJ2_RE.match(s)
             if m:
-                obiectul = m.group(1).strip()
+                val = m.group(1).strip()
+                obiectul = val if val else _next_line_value(i)
+
         if categoria is None:
             m = _CAT_RE.match(s)
             if m:
-                categoria = m.group(1).strip()
+                val = m.group(1).strip()
+                categoria = val if val else _next_line_value(i)
+
         if all(x is not None for x in [obiectivul, obiectul, categoria]):
             break
+
+    # Curata valorile goale -> None
+    obiectivul = obiectivul or None
+    obiectul = obiectul or None
+    categoria = categoria or None
     return obiectivul, obiectul, categoria
 
 
