@@ -1,7 +1,7 @@
 import json
 import re
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 
 KNOWLEDGE_PATH = Path(__file__).parent / "f3_markers_knowledge.json"
 
@@ -55,7 +55,7 @@ class F3Knowledge:
             "format": format_hint,
             "source": source,
             "seen_count": 1,
-            "learned_at": datetime.utcnow().isoformat(),
+            "learned_at": datetime.now(tz=timezone.utc).isoformat(),
         })
         self.save()
 
@@ -67,5 +67,8 @@ class F3Knowledge:
         if t == "prefix":
             return line.strip().startswith(p)
         if t == "regex":
-            return bool(re.search(p, line))
+            try:
+                return bool(re.search(p, line))
+            except re.error:
+                return False
         return False
