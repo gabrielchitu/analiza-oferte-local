@@ -31,8 +31,8 @@ def test_matched_groups_basic():
     assert len(result.ref_only_groups) == 0
     assert len(result.oferta_only_groups) == 0
     mg = result.matched_groups[0]
-    assert mg["ref_deviz_cod"] == "D1"
-    assert mg["oferta_deviz_cod"] == "D1"
+    assert mg["ref_deviz_cod"] == "key_D1"
+    assert mg["oferta_deviz_cod"] == "key_D1"
 
 
 def test_ref_only_group_all_lipsa():
@@ -43,7 +43,7 @@ def test_ref_only_group_all_lipsa():
     result = compare_by_groups(ref_arts, oferta_arts, ref_dh, oferta_dh)
     assert len(result.ref_only_groups) == 1
     rg = result.ref_only_groups[0]
-    assert rg["ref_deviz_cod"] == "D1"
+    assert "D1" in rg["ref_deviz_cod"]
     assert len(rg["neconformitati"]) == 2
     assert all(n["tip"] == "ARTICOL_LIPSA" for n in rg["neconformitati"])
 
@@ -56,7 +56,7 @@ def test_oferta_only_group_all_extra():
     result = compare_by_groups(ref_arts, oferta_arts, ref_dh, oferta_dh)
     assert len(result.oferta_only_groups) == 1
     og = result.oferta_only_groups[0]
-    assert og["oferta_deviz_cod"] == "D2"
+    assert "D2" in og["oferta_deviz_cod"]
     assert len(og["neconformitati"]) == 2
     assert all(n["tip"] == "ARTICOL_EXTRA" for n in og["neconformitati"])
 
@@ -74,13 +74,14 @@ def test_group_match_different_codes_same_content():
     oferta_arts = [_make_article("EA02A1", "D2")]
     # Both are for "Proiect A" / "Organizare Santier" / "BLC1 Organizare"
     # but with slightly different formatting (numbers, spacing, etc.)
-    ref_dh = {"D1": _make_header("Proiect A", "Organizare Santier", "BLC1 Organizare", "D1")}
-    oferta_dh = {"D2": _make_header("Proiect A", "03 Organizare Santier", "BLC1 Organizare", "D2")}
+    # Headers keyed by deviz_key (as _headers_from_articles does in production)
+    ref_dh = {"key_D1": _make_header("Proiect A", "Organizare Santier", "BLC1 Organizare", "D1")}
+    oferta_dh = {"key_D2": _make_header("Proiect A", "03 Organizare Santier", "BLC1 Organizare", "D2")}
     result = compare_by_groups(ref_arts, oferta_arts, ref_dh, oferta_dh)
     assert len(result.matched_groups) == 1
     mg = result.matched_groups[0]
-    assert mg["ref_deviz_cod"] == "D1"
-    assert mg["oferta_deviz_cod"] == "D2"
+    assert "key_D1" in mg["ref_deviz_cod"]
+    assert "key_D2" in mg["oferta_deviz_cod"]
 
 
 def test_build_raport_holistic_structure():
