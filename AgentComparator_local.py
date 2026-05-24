@@ -103,6 +103,7 @@ def _enrich(neconf: dict, ref_art: dict, oferta_art: dict,
         "parent_nr_ordine_ref": ref_art.get("parent_nr_ordine"),
         "display_parent_cod": ref_art.get("display_parent_cod"),
         "cant_mostenita": ref_art.get("cant_mostenita", False),
+        "ref_source_pages": ref_art.get("source_pages", []),
     })
     if oferta_art:
         neconf.update({
@@ -120,6 +121,7 @@ def _enrich(neconf: dict, ref_art: dict, oferta_art: dict,
             "oferta_val_transport": oferta_art.get("val_transport", 0),
             "nr_ordine_oferta": oferta_art.get("nr_ordine"),
             "oferta_display_parent_cod": oferta_art.get("display_parent_cod"),
+            "oferta_source_pages": oferta_art.get("source_pages", []),
         })
     return neconf
 

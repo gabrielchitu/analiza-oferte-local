@@ -147,3 +147,29 @@ def test_deviz_key_uses_deviz_cod():
     assert _deviz_key(art_with_key) == "226108"
     # No deviz_key → same behavior
     assert _deviz_key(art_without_key) == "226108"
+
+
+def test_enrich_sets_source_pages():
+    from AgentComparator_local import _enrich
+    ref_art = {"cod": "EA02A1", "deviz": "D1", "nr_ordine": 3,
+               "source_pages": [12, 13], "denumire": "test", "um": "mp",
+               "cantitate": 1.0, "is_component": False, "parent_cod": ""}
+    oferta_art = {"cod": "EA02A1", "deviz": "D1", "nr_ordine": 7,
+                  "source_pages": [28], "denumire": "test", "um": "mp", "cantitate": 1.0}
+    nc = {"tip": "DIFERENTA_CAMP"}
+    _enrich(nc, ref_art, oferta_art, "D1", "Test Deviz")
+    assert nc["ref_source_pages"] == [12, 13]
+    assert nc["oferta_source_pages"] == [28]
+    assert nc["nr_ordine_ref"] == 3
+    assert nc["nr_ordine_oferta"] == 7
+
+
+def test_enrich_lipsa_no_oferta_source_pages():
+    from AgentComparator_local import _enrich
+    ref_art = {"cod": "EA02A1", "deviz": "D1", "nr_ordine": 5,
+               "source_pages": [12], "denumire": "t", "um": "mp",
+               "cantitate": 1.0, "is_component": False, "parent_cod": ""}
+    nc = {"tip": "ARTICOL_LIPSA"}
+    _enrich(nc, ref_art, {}, "D1", "Test")
+    assert nc["ref_source_pages"] == [12]
+    assert nc.get("oferta_source_pages", []) == []
