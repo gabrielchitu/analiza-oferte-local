@@ -391,3 +391,45 @@ def test_neconf_row_shows_page_numbers():
     assert "28" in cell_text   # oferta page
     assert "3" in cell_text    # nr_ordine_ref
     assert "7" in cell_text    # nr_ordine_oferta
+
+
+def test_generate_word_holistic_summary_correct():
+    """Summary line in holistic mode arata matched_articles din holistic sumar."""
+    from shared.report_word import generate_word
+    from shared.group_comparator import HolisticComparison
+    from shared.report_builder import build_raport_holistic
+    from docx import Document
+    import io
+
+    hc = HolisticComparison(
+        matched_groups=[{
+            "ref_deviz_cod": "D1", "oferta_deviz_cod": "D1",
+            "ref_header": None, "oferta_header": None,
+            "ref_articles": [], "oferta_articles": [],
+            "neconformitati": [], "matches": list(range(42)),
+        }],
+        ref_only_groups=[], oferta_only_groups=[], ungrouped=[],
+    )
+    raport_holistic = build_raport_holistic(hc)
+    assert raport_holistic["sumar"]["total_matched_articles"] == 42
+
+    comp = {
+        "neconformitati": [], "oferta_nr": 1, "source_file": "test",
+        "deviz_mismatches": [], "matches": 0,
+        "total_neconformitati": 5,
+        "ref_art_count": 100, "oferta_art_count": 95,
+        "raport_holistic": raport_holistic,
+    }
+    session = {"client_name": "Test", "obiect_investitii": ""}
+
+    doc_bytes = generate_word(session, comp)
+    doc = Document(io.BytesIO(doc_bytes))
+
+    summary_text = ""
+    for para in doc.paragraphs:
+        if "Matched:" in para.text:
+            summary_text = para.text
+            break
+
+    assert "42" in summary_text, f"Expected 42 in summary, got: {summary_text}"
+    assert "Matched: 0" not in summary_text

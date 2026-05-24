@@ -1126,8 +1126,17 @@ def generate_word(
     # ── SUMAR ────────────────────────────────────────────────────────
     ref_art_count    = comp.get("ref_art_count", "?")
     oferta_art_count = comp.get("oferta_art_count", "?")
-    total_matched    = comp.get("matches", 0)
-    total_neconf     = comp.get("total_neconformitati", 0)
+
+    # In holistic mode, get correct matched count from holistic sumar
+    raport_holistic_comp = comp.get("raport_holistic") or {}
+    holistic_sumar = raport_holistic_comp.get("sumar", {})
+    if holistic_sumar:
+        total_matched = holistic_sumar.get("total_matched_articles", 0)
+        total_neconf = sum(holistic_sumar.get("neconformitati_by_tip", {}).values())
+    else:
+        total_matched = comp.get("matches", 0)
+        total_neconf = comp.get("total_neconformitati", 0)
+
     p_sumar = doc.add_paragraph()
     p_sumar.add_run(
         f"Articole referință: {ref_art_count}  │  "
