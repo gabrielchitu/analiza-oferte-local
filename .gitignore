@@ -5,3 +5,7 @@ output_AO/*.json
 output_AO/*.xlsx
 output_AO/*.docx
 output_AO/checkpoints/
+__pycache__/
+*.pyc
+*.pyo
+output_AO/
