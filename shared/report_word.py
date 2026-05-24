@@ -410,12 +410,22 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
     is_subcomp = neconf.get('is_component', False)
 
     nr_ordine_ref = neconf.get("nr_ordine_ref")
-    if use_ref_ordine and nr_ordine_ref is not None:
-        nr_text = str(nr_ordine_ref)
-    else:
-        nr_text = str(row_nr)
-        if nr_ordine_ref is not None:
-            nr_text += f"\n({nr_ordine_ref})"
+    nr_ordine_of = neconf.get("nr_ordine_oferta")
+    ref_pages = neconf.get("ref_source_pages") or []
+    of_pages = neconf.get("oferta_source_pages") or []
+
+    ref_pag = str(ref_pages[0]) if ref_pages else "-"
+    of_pag = str(of_pages[0]) if of_pages else "-"
+
+    # Linia 1: pagini fizice PDF (ref/oferta)
+    pag_text = f"pag.{ref_pag}/{of_pag}"
+
+    # Linia 2: nr ordine in grup (ref/oferta)
+    nr_ref_str = str(nr_ordine_ref) if nr_ordine_ref is not None else "-"
+    nr_of_str = str(nr_ordine_of) if nr_ordine_of is not None else "-"
+    ord_text = f"({nr_ref_str}/{nr_of_str})"
+
+    nr_text = f"{pag_text}\n{ord_text}"
     row[0].paragraphs[0].add_run(nr_text)
 
     # Col 1: categorie de lucrări (deviz) — identic cu v6.f

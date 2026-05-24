@@ -365,3 +365,29 @@ def test_generate_word_holistic_runs():
 
     doc_bytes = generate_word(session, comp)
     assert doc_bytes is not None and len(doc_bytes) > 1000
+
+
+def test_neconf_row_shows_page_numbers():
+    """_add_neconf_row afiseaza pag.ref/oferta si nr_ordine in Nr. crt. coloana."""
+    from docx import Document
+    from shared.report_word import _add_neconf_row
+
+    doc = Document()
+    table = doc.add_table(rows=0, cols=11)
+    nc = {
+        "tip": "DIFERENTA_CAMP", "camp": "cantitate",
+        "ref_cod": "EA02A1", "ref_denumire": "test", "ref_um": "mp",
+        "ref_cantitate": 10.0, "oferta_cantitate": 9.0,
+        "oferta_cod": "EA02A1", "oferta_denumire": "test", "oferta_um": "mp",
+        "deviz_ref": "D1", "deviz_denumire": "Test",
+        "nr_ordine_ref": 3, "nr_ordine_oferta": 7,
+        "ref_source_pages": [12, 13], "oferta_source_pages": [28],
+        "is_component": False,
+    }
+    _add_neconf_row(table, 1, nc, {})
+    cell_text = table.rows[0].cells[0].text
+
+    assert "12" in cell_text   # ref page
+    assert "28" in cell_text   # oferta page
+    assert "3" in cell_text    # nr_ordine_ref
+    assert "7" in cell_text    # nr_ordine_oferta
