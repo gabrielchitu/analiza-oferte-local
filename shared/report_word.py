@@ -431,9 +431,11 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
     # Col 1: categorie de lucrări (deviz) — identic cu v6.f
     ref_cod = neconf.get('ref_cod', '')
     parent_cod_ref = neconf.get("parent_cod_ref") if is_subcomp else None
-    # display_parent_cod folosit NUMAI daca articolul e cu adevarat subcomponent
-    # Articole $-codate cu is_component=False sunt PRINCIPALE si nu au parinte afisat
-    display_parent = neconf.get("display_parent_cod") if is_subcomp else None
+    # display_parent_cod afisat pt subcomponente reale (is_component=True)
+    # SI pt coduri $ cu parinte (resurse breviar asociate unui articol normativ)
+    # Distinctia de principal/secundar e vizuala — UM-ul nu se mai mosteneste
+    is_dollar_with_parent = ref_cod.startswith('$') and neconf.get("display_parent_cod")
+    display_parent = neconf.get("display_parent_cod") if (is_subcomp or is_dollar_with_parent) else None
     effective_parent = parent_cod_ref or display_parent
 
     deviz_cod = neconf.get("deviz_ref", "")
@@ -482,8 +484,9 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
     if tip != "ARTICOL_LIPSA":
         oferta_cod = str(neconf.get("oferta_cod", ""))
         # principal oferta: din ref (pt articole matched/neconf) sau din oferta (pt EXTRA)
-        # oferta_display_parent_cod folosit NUMAI daca articolul e cu adevarat subcomponent
-        oferta_parent = effective_parent or (neconf.get("oferta_display_parent_cod") if is_subcomp else None)
+        # oferta_display_parent_cod pt subcomponente reale SI coduri $ cu parinte
+        is_oferta_dollar_with_parent = oferta_cod.startswith('$') and neconf.get("oferta_display_parent_cod")
+        oferta_parent = effective_parent or (neconf.get("oferta_display_parent_cod") if (is_subcomp or is_oferta_dollar_with_parent) else None)
         # Col 6: oferta cod ierarhic — principal sus+stânga (bold), secundar jos+dreapta indentat
         if oferta_parent and oferta_cod and oferta_cod != oferta_parent:
             p6 = row[6].paragraphs[0]

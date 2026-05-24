@@ -988,9 +988,10 @@ def extract_articles_v3(page_classifications: list) -> list:
                 comp["source_pages"] = source_pages
             section_articles.extend(components)
 
-        # Deduplicare
+        # Deduplicare — foloseste deviz_key (nu deviz_cod) pt a pastra sub-grupuri distincte
+        # ex: CF08A03 in BLOC A si CF08A03 in BLOC B sunt articole DIFERITE (grupuri diferite)
         for art in section_articles:
-            key = (art.get("cod", "").upper(), art.get("deviz", deviz_cod), art.get("cantitate", 0))
+            key = (art.get("cod", "").upper(), art.get("deviz_key", art.get("deviz", deviz_cod)), art.get("cantitate", 0))
             if key not in seen:
                 seen[key] = len(all_articles)
                 all_articles.append(art)
