@@ -482,7 +482,8 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
     if tip != "ARTICOL_LIPSA":
         oferta_cod = str(neconf.get("oferta_cod", ""))
         # principal oferta: din ref (pt articole matched/neconf) sau din oferta (pt EXTRA)
-        oferta_parent = effective_parent or neconf.get("oferta_display_parent_cod")
+        # oferta_display_parent_cod folosit NUMAI daca articolul e cu adevarat subcomponent
+        oferta_parent = effective_parent or (neconf.get("oferta_display_parent_cod") if is_subcomp else None)
         # Col 6: oferta cod ierarhic — principal sus+stânga (bold), secundar jos+dreapta indentat
         if oferta_parent and oferta_cod and oferta_cod != oferta_parent:
             p6 = row[6].paragraphs[0]
