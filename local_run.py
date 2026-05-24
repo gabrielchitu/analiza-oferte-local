@@ -98,6 +98,24 @@ def run_pipeline(client_config: ClientConfig, subcomponent_mode: str = "full") -
                            subcomponent_mode=subcomponent_mode)
 
 
+def _headers_from_articles(arts: list) -> dict:
+    """Reconstruieste deviz_headers din metadatele articolelor."""
+    from shared.deviz_header_extractor import DevizHeader
+    headers: dict = {}
+    for a in arts:
+        cod = (a.get("deviz") or "").strip()
+        if not cod or cod in headers:
+            continue
+        dh = a.get("deviz_header") or {}
+        key = (a.get("deviz_key") or "").strip()
+        obj1 = dh.get("obiectivul")
+        obj2 = dh.get("obiectul")
+        cat = dh.get("categoria")
+        valid = bool(key) and not key.startswith("__INCOMPLETE__")
+        headers[cod] = DevizHeader(obj1, obj2, cat, key, valid, "metadata", cod)
+    return headers
+
+
 def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, oferta_di_list: list,
                             subcomponent_mode: str = "full") -> None:
     """
@@ -266,23 +284,7 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
                 art['cod'] = art['cod'].rstrip('+')
             logger.info(f"  [NORMALIZE] Removed '+' suffix from {len(articles_with_plus)} article codes")
 
-        from shared.deviz_header_extractor import DevizHeader
         from shared.deviz_matcher import match_devize_by_3layer, match_devize_by_denomination, remap_devize_in_articles, remap_devize_by_code_preference
-
-        def _headers_from_articles(arts: list) -> dict:
-            headers: dict = {}
-            for a in arts:
-                cod = (a.get("deviz") or "").strip()
-                if not cod or cod in headers:
-                    continue
-                dh = a.get("deviz_header") or {}
-                key = (a.get("deviz_key") or "").strip()
-                obj1 = dh.get("obiectivul")
-                obj2 = dh.get("obiectul")
-                cat = dh.get("categoria")
-                valid = bool(key) and not key.startswith("__INCOMPLETE__")
-                headers[cod] = DevizHeader(obj1, obj2, cat, key, valid, "metadata", cod)
-            return headers
 
         # Strategy 0-3: matching pe cod/denominatia devizului (remap art["deviz"])
         deviz_mapping = match_devize_by_denomination(ref_articles, oferta_articles)
@@ -996,6 +998,21 @@ def compare_and_report(
         ref_articles, oferta_norm, client, model, include_prices=include_prices
     )
 
+    # Holistic group-based comparison
+    from shared.group_comparator import compare_by_groups
+    from shared.report_builder import build_raport_holistic
+    _ref_dh = _headers_from_articles(ref_articles)
+    _oferta_dh = _headers_from_articles(oferta_norm)
+    _holistic = compare_by_groups(
+        ref_articles, oferta_norm, _ref_dh, _oferta_dh, client, model
+    )
+    raport_holistic = build_raport_holistic(_holistic)
+    logger.info(
+        f"  [HOLISTIC] {raport_holistic['sumar']['total_matched_groups']} grupuri matchate, "
+        f"{raport_holistic['sumar']['total_ref_only_groups']} ref-only, "
+        f"{raport_holistic['sumar']['total_oferta_only_groups']} oferta-only"
+    )
+
     # v7.0: ARTICOL_ORPHAN eliminat — articolele cu deviz greșit devin ARTICOL_EXTRA
 
     # Marcheaza EXTRA suspecte (codul exista in referinta dar cu alta denumire)
@@ -1094,6 +1111,7 @@ def compare_and_report(
         "ref_articles": ref_articles,
         "oferta_articles": oferta_norm,
         "raport_ierarhic": raport_ierarhic,
+        "raport_holistic": raport_holistic,
     }
     comparison_mode = "cu_pret" if include_prices else "fara_pret"
 
@@ -1121,6 +1139,17 @@ def compare_and_report(
         logger.info(f"  DOCX: {docx_path.name}")
     except Exception as e:
         logger.warning(f"  DOCX failed: {e}")
+
+    # Holistic JSON
+    try:
+        holistic_path = output_dir / f"holistic_oferta_{oferta_nr}.json"
+        holistic_path.write_text(
+            json.dumps(raport_holistic, ensure_ascii=False, default=str, indent=2),
+            encoding="utf-8"
+        )
+        logger.info(f"  Holistic JSON: {holistic_path.name}")
+    except Exception as e:
+        logger.warning(f"  Holistic JSON failed: {e}")
 
     return neconformitati, comp
 
