@@ -112,16 +112,67 @@ def compare_by_groups(
     ref_cods = set(ref_by_deviz.keys())
     oferta_cods = set(oferta_by_deviz.keys())
 
-    # 3-layer group matching
+    # 3-layer group matching (cross-code: oferta_cod != ref_cod)
     group_mapping = match_devize_by_3layer(ref_deviz_headers, oferta_deviz_headers)
 
     # Build complete mapping: oferta_cod → ref_cod
+    # Same-code devizes (oferta_cod == ref_cod) sunt verificate prin similitudine 3-layer
+    # Daca similitudinea e slaba, NU sunt perechi (vor fi ref-only/oferta-only)
+    from difflib import SequenceMatcher
+
+    def _quick_3layer_sim(rh, oh) -> float:
+        """Similitudine rapida intre doua DevizHeader-uri (0.0-1.0)."""
+        import re as _re
+        from shared.deviz_header_extractor import _normalize as _n
+
+        def _norm(text: str) -> str:
+            t = _n(text)
+            # Strip prefix numeric (ex: "001 ", "01 ", "003 ") pt robustete OCR
+            t = _re.sub(r'^\d{1,3}\s+', '', t)
+            return t.strip()
+
+        scores = []
+        _MIN_OBJ2 = 0.80  # obj2 trebuie sa fie cel putin 80% similar
+        _MIN_CAT  = 0.80  # categoria trebuie sa fie cel putin 80% similar
+        pairs = [
+            (rh.obiectivul, oh.obiectivul, 0.0),
+            (rh.obiectul,   oh.obiectul,   _MIN_OBJ2),
+            (rh.categoria,  oh.categoria,  _MIN_CAT),
+        ]
+        for a, b, min_s in pairs:
+            if a and b:
+                na, nb = _norm(a), _norm(b)
+                if na and nb:
+                    s = SequenceMatcher(None, na, nb).ratio()
+                    if min_s > 0 and s < min_s:
+                        return 0.0
+                    scores.append(s)
+        return sum(scores) / len(scores) if scores else 0.0
+
+    _SAME_CODE_THRESHOLD = 0.75
+
     full_mapping: dict[str, str] = {}
     for oferta_cod in oferta_cods:
         if oferta_cod in group_mapping:
+            # Cross-code match (3-layer)
             full_mapping[oferta_cod] = group_mapping[oferta_cod]
         elif oferta_cod in ref_cods:
-            full_mapping[oferta_cod] = oferta_cod
+            # Same code — verifica similitudinea continutului 3-layer
+            rh = ref_deviz_headers.get(oferta_cod)
+            oh = oferta_deviz_headers.get(oferta_cod)
+            if rh and oh and rh.is_valid and oh.is_valid:
+                sim = _quick_3layer_sim(rh, oh)
+                if sim >= _SAME_CODE_THRESHOLD:
+                    full_mapping[oferta_cod] = oferta_cod  # verificat OK
+                else:
+                    logger.info(
+                        f"[GC] Acelasi cod {oferta_cod} dar continut DIFERIT "
+                        f"(sim={sim:.2f} < {_SAME_CODE_THRESHOLD}) → oferta-only"
+                    )
+                    # Nu se adauga in full_mapping → va fi oferta-only
+            else:
+                # Nu putem verifica (header incomplet) → presupunem OK
+                full_mapping[oferta_cod] = oferta_cod
 
     matched_ref_cods: set[str] = set()
     matched_oferta_cods: set[str] = set()
