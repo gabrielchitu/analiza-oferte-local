@@ -431,7 +431,9 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
     # Col 1: categorie de lucrări (deviz) — identic cu v6.f
     ref_cod = neconf.get('ref_cod', '')
     parent_cod_ref = neconf.get("parent_cod_ref") if is_subcomp else None
-    display_parent = neconf.get("display_parent_cod") if ref_cod.startswith('$') else None
+    # display_parent_cod folosit NUMAI daca articolul e cu adevarat subcomponent
+    # Articole $-codate cu is_component=False sunt PRINCIPALE si nu au parinte afisat
+    display_parent = neconf.get("display_parent_cod") if is_subcomp else None
     effective_parent = parent_cod_ref or display_parent
 
     deviz_cod = neconf.get("deviz_ref", "")

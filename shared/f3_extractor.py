@@ -874,19 +874,21 @@ def extract_articles_v3(page_classifications: list) -> list:
     # Procesează fiecare deviz cu TOATE paginile sale împreună
     for deviz_cod, pages_in_deviz in pages_by_deviz.items():
         # Combină liniile din toate paginile aceluiași deviz
+        # Construim si un mapping line_index → page_number pt tracking per-articol
         all_lines = []
+        line_page_map: list = []   # line_page_map[i] = page_number pt linia i din all_lines
         deviz_den = ""
         source_pages: list = []
         for pc in pages_in_deviz:
             raw_lines = pc.get("lines", [])
-            # Respecta f3_line_end daca pagina are sfarsit detectat de end-detection
             f3_end = pc.get("f3_line_end")
             lines = raw_lines[:f3_end] if f3_end is not None else raw_lines
+            phys = pc.get("page_number")
             if lines:
                 all_lines.extend(lines)
+                line_page_map.extend([phys] * len(lines))
             if not deviz_den:
                 deviz_den = pc.get("deviz_den", "")
-            phys = pc.get("page_number")
             if phys is not None:
                 source_pages.append(phys)
         source_pages = sorted(set(source_pages))
@@ -909,10 +911,33 @@ def extract_articles_v3(page_classifications: list) -> list:
 
         section_articles = extract_articles_regex(all_lines, deviz_cod, deviz_den)
 
+        # Construieste un index rapid: cod → prima linie din all_lines unde apare
+        # Suporta format "NR COD ..." (eg "1 EA02A1 buc") si "COD ..." direct
+        import re as _re
+        _NR_COD_RE = _re.compile(r'^\d+[\.,]?\s+([A-Z$][A-Z0-9_.#\-]{2,})', _re.IGNORECASE)
+        _COD_ONLY_RE = _re.compile(r'^([A-Z$][A-Z0-9_.#\-]{2,})', _re.IGNORECASE)
+        _cod_line_cache: dict = {}
+        for _li, _line in enumerate(all_lines):
+            _line_s = _line.strip()
+            if not _line_s:
+                continue
+            m = _NR_COD_RE.match(_line_s) or _COD_ONLY_RE.match(_line_s)
+            if m:
+                tok = m.group(1)
+                if tok and tok not in _cod_line_cache:
+                    _cod_line_cache[tok] = _li
+
         for art in section_articles:
             art["deviz"] = deviz_cod
             art["deviz_denumire"] = deviz_den
-            art["source_pages"] = source_pages  # pagini fizice PDF de unde provine devizul
+            # Determina pagina specifica a acestui articol din line_page_map
+            art_cod = (art.get("cod") or "").strip()
+            art_page = None
+            if art_cod and art_cod in _cod_line_cache:
+                li = _cod_line_cache[art_cod]
+                if li < len(line_page_map):
+                    art_page = line_page_map[li]
+            art["source_pages"] = [art_page] if art_page is not None else source_pages
             # is_component set by regex parser — don't override
             art["denumire"] = _normalize_denom(art.get("denumire", ""))
 
