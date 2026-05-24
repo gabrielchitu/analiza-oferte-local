@@ -1,1 +1,532 @@
-{}
+{
+  "7c6b7915ab74a0df": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ",
+    "categoria": "1.1 ARHITECTURA - DESFIINTARE"
+  },
+  "cd9a024cfcf9dc9e": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ",
+    "categoria": "1.2 INSTALATII SANITARE"
+  },
+  "369861215c9620b9": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ",
+    "categoria": "1.3 INSTALATII CURENTI TARI"
+  },
+  "8643271ae76873f4": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ",
+    "categoria": "1.4 INSTALATII TERMICE"
+  },
+  "b008b7823072f5eb": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "2.1 ARHITECTURA - LUCRARI NOI"
+  },
+  "c5a2e0d594c160ed": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "2.2 REZISTENTA"
+  },
+  "5087a009661d3360": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "2.3 INSTALATII SANITARE"
+  },
+  "a147d7a0164880cd": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "2.4 INSTALATII CURENTI TARI"
+  },
+  "9bbacd884285961e": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "2.5 INSTALATII CURENTI SLABI"
+  },
+  "df528e713697bc50": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "2.6 INSTALATII TERMICE"
+  },
+  "8a185e99e2128a7d": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "3.0 CONSTRUIRE SALĂ DE SPORT",
+    "categoria": "3.1 ARHITECTURA - LUCRARI NOI"
+  },
+  "d31ce2c9ac88ffc3": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "3.0 CONSTRUIRE SALA DE SPORT",
+    "categoria": "3.2 REZISTENTA"
+  },
+  "9de5d19f718cc6f7": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "3.0 CONSTRUIRE SALĂ DE SPORT",
+    "categoria": "3.3 INSTALATII SANITARE"
+  },
+  "a02052fc1ff5836b": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "3.0 CONSTRUIRE SALA DE SPORT",
+    "categoria": "3.4 INSTALATII TERMICE"
+  },
+  "807ae6a7a08c2ac5": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "4.0 RETELE EXTERIOARE",
+    "categoria": "4.1 INSTALATII SANITARE"
+  },
+  "d981dcf2ab1c53a2": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "4.0 RETELE EXTERIOARE",
+    "categoria": "4.2 INSTALATII CURENTI TARI"
+  },
+  "94827d271669a9e5": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "5.0 AMENAJAREA INCINTEI",
+    "categoria": "5.1 ARHITECTURA - DESFIINTARE & LUCRARI NOI"
+  },
+  "f11714574d0104d1": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "6.0 ÎMPREJMUIRE TEREN",
+    "categoria": "6.1 ARHITECTURA - DESFIINTARE & LUCRARI NOI"
+  },
+  "894c0f0814c8306c": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "6.0 ÎMPREJMUIRE TEREN",
+    "categoria": "6.2 REZISTENTA"
+  },
+  "aa7b78f1e905bd1a": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "7.0 AMENAJARE SPATII VERZI",
+    "categoria": "7.1 SPATII VERZI"
+  },
+  "7dee5797f6685a22": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "8.0 ORGANIZAREA EXECUTIEI",
+    "categoria": "8.1 ORGANIZAREA EXECUTIEI"
+  },
+  "640de7510746060b": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "9.0 MONTAJ ECHIPAMENTE",
+    "categoria": "9.1 MONTAJ ECHIPAMENTE"
+  },
+  "90aa4d98376ea02e": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "001 1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ",
+    "categoria": "001 1.1 ARHITECTURA DESFIINTARE"
+  },
+  "6fbb1983639fafb0": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "001 1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ",
+    "categoria": "002 1.2 INSTALATII SANITARE"
+  },
+  "5ccc99705de6ceee": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "001 1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ",
+    "categoria": "003 1.3 INSTALATII CURENTI TARI"
+  },
+  "c520cd21f8a795fc": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "001 1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ",
+    "categoria": "004 1.4 INSTALATII TERMICE"
+  },
+  "b99dd9076de11df6": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "002 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "001 2.1 ARHITECTURA - LUCRARI NOI"
+  },
+  "e97dba4ab70bd011": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "002 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "002 2.2 REZISTENTA"
+  },
+  "c9146301c74f0be5": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "002 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "003 2.3 INSTALATII SANITARE"
+  },
+  "533e9a58450336a5": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "002 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "004 2.4 INSTALATII CURENTI TARI"
+  },
+  "5a1fd18964981650": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "002 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "005 2.5 INSTALATII CURENTI SLABI"
+  },
+  "8f191fd691b371f9": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "002 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "006 2.6 INSTALATII TERMICE"
+  },
+  "d2a74ff59c661643": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "003 3.0 CONSTRUIRE SALA DE SPORT",
+    "categoria": "001 3.1 ARHITECTURA - LUCRARI NOI"
+  },
+  "4399d4d0ee4f12e9": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "003 3.0 CONSTRUIRE SALA DE SPORT",
+    "categoria": "002 3.2 REZISTENTA"
+  },
+  "3b7ed7a486e17ede": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "003 3.0 CONSTRUIRE SALA DE SPORT",
+    "categoria": "003 3.3 INSTALATII SANITARE"
+  },
+  "8283d6a7cacf1f5a": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "003 3.0 CONSTRUIRE SALA DE SPORT",
+    "categoria": "004 3.4 INSTALATII TERMICE"
+  },
+  "68dba4c035327fbb": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "004 4.0 RETELE EXTERIOARE",
+    "categoria": "001 4.1 INSTALATII SANITARE"
+  },
+  "21ffc62ddd9738cb": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "004 4.0 RETELE EXTERIOARE",
+    "categoria": "002 4.2 INSTALATII CURENTI TARI"
+  },
+  "9d75d0c93c87418e": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "005 5.0 AMENAJAREA INCINTEI",
+    "categoria": "001 5.1 ARHITECTURA - DESFIINTARE & LUCRARI NOI"
+  },
+  "bc701f7e680b6226": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "006 6.0 ÎMPREJMUIRE TEREN",
+    "categoria": "001 6.1 ARHITECTURA - DESFIINTARE & LUCRARI NOI"
+  },
+  "aa056c829e8b79b6": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "006 6.0 ÎMPREJMUIRE TEREN",
+    "categoria": "002 6.2 REZISTENTA"
+  },
+  "00acad500d40807a": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "007 7.0 AMENAJARE SPATII VERZI",
+    "categoria": "001 7.1 SPATII VERZI"
+  },
+  "95f534e64c5681fa": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "008 8.0 ORGANIZAREA EXECUTIEI",
+    "categoria": "001 8.1 ORGANIZAREA EXECUTIEI"
+  },
+  "672d6e61e757a0c0": {
+    "obiectivul": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI",
+    "obiectul": "009 9.0 MONTAJ ECHIPAMENTE",
+    "categoria": "001 9.1 MONTAJ ECHIPAMENTE"
+  },
+  "55a9d10d354fa331": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "001 1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ",
+    "categoria": "001 1.1 ARHITECTURA DESFIINTARE"
+  },
+  "da68ae84d7c16a9f": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "001 1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ",
+    "categoria": "002 1.2 INSTALATII SANITARE"
+  },
+  "b8d4864628774eb3": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "001 1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ",
+    "categoria": "003 1.3 INSTALATII CURENTI TARI"
+  },
+  "cc8311e7c550660d": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "001 1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ",
+    "categoria": "004 1.4 INSTALATII TERMICE"
+  },
+  "866890e890ef17d6": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "002 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "001 2.1 ARHITECTURA - LUCRARI NOI"
+  },
+  "8133f899c9fca6bb": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "002 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "002 2.2 REZISTENTA"
+  },
+  "55781a347e41a47c": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "002 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "003 2.3 INSTALATII SANITARE"
+  },
+  "7ece157dfd15ea4c": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "002 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "004 2.4 INSTALATII CURENTI TARI"
+  },
+  "54637e3414054151": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "002 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "005 2.5 INSTALATII CURENTI SLABI"
+  },
+  "2cc869ba635823c6": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "002 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ",
+    "categoria": "006 2.6 INSTALATII TERMICE"
+  },
+  "0ab71581f38000b3": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "003 3.0 CONSTRUIRE SALA DE SPORT",
+    "categoria": "001 3.1 ARHITECTURA - LUCRARI NOI"
+  },
+  "322d06a9d2a744b1": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "003 3.0 CONSTRUIRE SALA DE SPORT",
+    "categoria": "002 3.2 REZISTENTA"
+  },
+  "d8d8005728a72a2d": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "003 3.0 CONSTRUIRE SALA DE SPORT",
+    "categoria": "003 3.3 INSTALATII SANITARE"
+  },
+  "516886415bac0419": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "003 3.0 CONSTRUIRE SALA DE SPORT",
+    "categoria": "004 3.4 INSTALATII TERMICE"
+  },
+  "8f4bc655f719b631": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "004 4.0 RETELE EXTERIOARE",
+    "categoria": "001 4.1 INSTALATII SANITARE"
+  },
+  "31cc509b172303bb": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "004 4.0 RETELE EXTERIOARE",
+    "categoria": "002 4.2 INSTALATII CURENTI TARI"
+  },
+  "5d0f1201bab67442": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "005 5.0 AMENAJAREA INCINTEI",
+    "categoria": "001 5.1 ARHITECTURA - DESFIINTARE & LUCRARI NOI"
+  },
+  "226599cad3dfadbe": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "006 6.0 ÎMPREJMUIRE TEREN",
+    "categoria": "001 6.1 ARHITECTURA - DESFIINTARE & LUCRARI NOI"
+  },
+  "5200198811ae0f87": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "006 6.0 ÎMPREJMUIRE TEREN",
+    "categoria": "002 6.2 REZISTENTA"
+  },
+  "7ddf607e77264346": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "007 7.0 AMENAJARE SPATII VERZI",
+    "categoria": "001 7.1 SPATII VERZI"
+  },
+  "1c2a22003006f08b": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "008 8.0 ORGANIZAREA EXECUTIEI",
+    "categoria": "001 8.1 ORGANIZAREA EXECUTIEI"
+  },
+  "78484d9408aa944d": {
+    "obiectivul": "SCN1164928_REAB, EXTIND ȘI MODERN ȘCOALĂ ȘI CONSTRUIRE SALĂ",
+    "obiectul": "009 9.0 MONTAJ ECHIPAMENTE",
+    "categoria": "001 9.1 MONTAJ ECHIPAMENTE"
+  },
+  "8b518102f3ce0736": {
+    "obiectivul": null,
+    "obiectul": "Corp B",
+    "categoria": null
+  },
+  "e00217d53758af5c": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "d3a6b8d9af24d6de": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "a61451e4bfcbd340": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "e29771d0a42178b5": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "2 LUCRARI CONEXE BLOC A",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "b36230b61b01a237": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "2 LUCRARI CONEXE BLOC A",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "ce19f845372bbd63": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "3 ORGANIZARE SANTIER",
+    "categoria": "BLC7 ORGANIZARE SANTIER"
+  },
+  "c7d8b22776312ff1": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "3 ORGANIZARE SANTIER",
+    "categoria": "BLC6 ORGANIZARE SANTIER"
+  },
+  "f8238fc146961ebf": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A",
+    "categoria": "001 BLC1 ARHITECTURA"
+  },
+  "c47562993908a607": {
+    "obiectivul": null,
+    "obiectul": null,
+    "categoria": null
+  },
+  "fe93d0268a0d6b05": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A",
+    "categoria": "002 BLC2 INSTALATII"
+  },
+  "8df483c18e31c845": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A",
+    "categoria": "003 BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "30acddeda55229af": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "002 2 LUCRARI CONEXE BLOC A",
+    "categoria": "001 BLC4 REZISTENTA"
+  },
+  "db92b408678d2baf": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "002 2 LUCRARI CONEXE BLOC A",
+    "categoria": "002 BLC5 ARHITECTURA"
+  },
+  "991f6820a63d7205": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "003 3 ORGANIZARE SANTIER",
+    "categoria": "001 BLC7 ORGANIZARE SANTIER"
+  },
+  "31ddd577ca3df7cc": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B",
+    "categoria": "003 BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "42e5f17630531114": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "003 3 LUCRARI SPATII SERVICII - SEDII BLOC B - NEELIGIBL",
+    "categoria": "001 BLC6 ARHITECTURA - NEELIGIBIL"
+  },
+  "d91fefb4b1e85079": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "004 4 ORGANIZARE SANTIER",
+    "categoria": "001 BLC7 ORGANIZARE SANTIER"
+  },
+  "d67a1ff30380a9eb": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "c0d75226c9097bd4": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "2d12dfa780ace06b": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "e9ada6a6ab07a68c": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "0c4a76771b624042": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "1d83259034dce6c5": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "3 ORGANIZARE SANTIER",
+    "categoria": "BLC7 ORGANIZARE SANTIER"
+  },
+  "4f09d310cb49c85a": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "3 ORGANIZARE SANTIER",
+    "categoria": "BLC6 ORGANIZARE SANTIER"
+  },
+  "d91bc6078a3957e3": {
+    "obiectivul": "01 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A",
+    "categoria": "01 BLC 1 ARHITECTURA"
+  },
+  "3f2dd5f3d9df116f": {
+    "obiectivul": "01 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A",
+    "categoria": "02 BLC2 INSTALATII"
+  },
+  "b8e3518ba6247faa": {
+    "obiectivul": "01 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A",
+    "categoria": "03 BLC 3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "b47c084084178968": {
+    "obiectivul": "01 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A",
+    "categoria": "01 BLC4 REZISTENTA"
+  },
+  "73ad9ec9edbbf462": {
+    "obiectivul": "01 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A",
+    "categoria": "02 BLC5 ARHITECTURA"
+  },
+  "661421b16ca76ded": {
+    "obiectivul": "01 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "3 ORGANIZARE SANTIER",
+    "categoria": "1 BLC7 ORGANIZARE SANTIER"
+  },
+  "b14bd47260244067": {
+    "obiectivul": "05 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "3 LUCRARI SPATII SERVICII - SEDII BLOC B - NEELIGIBIL",
+    "categoria": "01 BLC6 ARHITECTURA-NEELIGIBIL"
+  },
+  "93067d4e03396d28": {
+    "obiectivul": "05 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "4 ORGANIZARE SANTIER",
+    "categoria": "1 BLC7 ORGANIZARE SANTIER"
+  },
+  "dfe62f339b774c54": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "ca5ceee5892ff82e": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "44ba2835546e845d": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "30c30c30061f402f": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "2 LUCRARI CONEXE BLOC A",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "d57db73e1138bad6": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "2 LUCRARI CONEXE BLOC A",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "231b7214310717c0": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "3 ORGANIZARE DE SANTIER BLOC A",
+    "categoria": "BLC6 ORGANIZARE DE SANTIER"
+  },
+  "7b3f416b416e55c8": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "4 ORGANIZARE DE SANTIER BLOC B",
+    "categoria": "BLC7 ORGANIZARE DE SANTIER"
+  }
+}
