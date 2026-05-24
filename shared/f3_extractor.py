@@ -200,7 +200,11 @@ def _apply_parent_inheritance(articole: list) -> list:
                     art['cantitate_originala'] = art.get('cantitate')
                     art['um_originala'] = art.get('um')
                     art['cantitate'] = art.get('cantitate') or parent_art.get('cantitate')
-                    art['um'] = art.get('um') or parent_art.get('um')
+                    # Articolele $-codate NU mostenesc UM-ul parintelui — UM-ul lor e
+                    # propriu (ex: '%' din denumire "material marunt %") sau gol.
+                    # Mostenirea UM-ului parintelui (kw, m, etc.) produce UM_DIFERIT false.
+                    if not cod.startswith('$'):
+                        art['um'] = art.get('um') or parent_art.get('um')
                     art['cant_mostenita'] = True
 
         # Moștenire cant/UM pentru is_component=True (logica existentă)
