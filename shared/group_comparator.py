@@ -48,6 +48,13 @@ def _lipsa_neconf(art: dict, deviz_cod: str, deviz_den: str = "") -> dict:
         "ref_cantitate": art.get("cantitate", 0),
         "nr_ordine_ref": art.get("nr_ordine", 0),
         "oferta_cod": "", "oferta_denumire": "", "oferta_um": "", "oferta_cantitate": "",
+        # Metadata ierarhie — necesara pt afisarea parintelui in raport
+        "is_component": art.get("is_component", False),
+        "parent_cod_ref": art.get("parent_cod") or art.get("parent_code"),
+        "display_parent_cod": art.get("display_parent_cod"),
+        "ref_source_pages": art.get("source_pages", []),
+        "oferta_source_pages": [],
+        "nr_ordine_oferta": None,
     }
 
 
@@ -61,6 +68,14 @@ def _extra_neconf(art: dict, ref_deviz_cod: str = "", deviz_den: str = "") -> di
         "oferta_um": art.get("um", ""),
         "oferta_cantitate": art.get("cantitate", 0),
         "ref_cod": "", "ref_denumire": "", "ref_um": "", "ref_cantitate": "",
+        # Metadata ierarhie
+        "is_component": art.get("is_component", False),
+        "parent_cod_ref": art.get("parent_cod") or art.get("parent_code"),
+        "display_parent_cod": art.get("display_parent_cod"),
+        "ref_source_pages": [],
+        "oferta_source_pages": art.get("source_pages", []),
+        "nr_ordine_ref": None,
+        "nr_ordine_oferta": art.get("nr_ordine", 0),
     }
 
 
