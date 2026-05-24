@@ -127,29 +127,23 @@ def test_match_global_separates_articles_without_deviz():
     assert len(matches) == 0
 
 
-def test_deviz_key_field_preferred_over_deviz():
-    """_deviz_key() trebuie sa prefere campul deviz_key al articolului."""
+def test_deviz_key_uses_deviz_cod():
+    """_deviz_key() foloseste deviz_cod normalizat. deviz_key e metadata, nu matching key."""
     import sys
     sys.path.insert(0, '.')
     from AgentComparator_local import _deviz_key
 
     art_with_key = {
         "deviz": "226108",
-        "deviz_key": "abc123def456789a",
+        "deviz_key": "abc123def456789a",  # metadata, NOT used for matching
         "cod": "EA02A1",
-    }
-    art_incomplete = {
-        "deviz": "226108",
-        "deviz_key": "__INCOMPLETE__:abc123",
-        "cod": "CA01A",
     }
     art_without_key = {
         "deviz": "226108",
         "cod": "CA01A",
     }
 
-    assert _deviz_key(art_with_key) == "abc123def456789a"
-    # INCOMPLETE prefix → fallback to deviz_cod
-    assert _deviz_key(art_incomplete) == "226108"
-    # No deviz_key → fallback to deviz_cod normalized
+    # _deviz_key always uses deviz_cod (deviz_key is group metadata for holistic report)
+    assert _deviz_key(art_with_key) == "226108"
+    # No deviz_key → same behavior
     assert _deviz_key(art_without_key) == "226108"
