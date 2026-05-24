@@ -300,3 +300,136 @@ def test_subcomponent_mode_fields_shows_cod_similar():
     """Mode=fields: COD_SIMILAR for sub-component is NOT suppressed (only DIFERENTA_CAMP/UM_DIFERIT)."""
     doc = _load_doc_with_mode('fields', sub_nc_tip='COD_SIMILAR')
     assert _count_data_rows(doc) >= 1, "fields mode: COD_SIMILAR should still appear"
+
+
+def test_format_page_range_single():
+    from shared.report_word import _format_page_range
+    assert _format_page_range([5]) == "5"
+
+
+def test_format_page_range_continuous():
+    from shared.report_word import _format_page_range
+    assert _format_page_range([3, 4, 5]) == "3-5"
+
+
+def test_format_page_range_discontinuous():
+    from shared.report_word import _format_page_range
+    assert _format_page_range([3, 5, 7]) == "3, 5, 7"
+
+
+def test_format_page_range_empty():
+    from shared.report_word import _format_page_range
+    assert _format_page_range([]) == ""
+
+
+def test_deviz_heading_accepts_page_params():
+    """_add_deviz_heading accepts ref_pages and oferta_pages without error."""
+    from docx import Document
+    from shared.report_word import _add_deviz_heading
+
+    doc = Document()
+    table = doc.add_table(rows=0, cols=11)
+    # Should not raise even with page info
+    _add_deviz_heading(table, "1-01", "STRUCTURA", ref_count=2, oferta_count=2,
+                       ref_pages=[12, 13], oferta_pages=[28])
+    cell_text = table.rows[-1].cells[0].text
+    assert "PDF pag." in cell_text
+    assert "12-13" in cell_text
+    assert "28" in cell_text
+
+
+def test_generate_word_holistic_runs():
+    """generate_word with raport_holistic in comp does not crash."""
+    from shared.report_word import generate_word
+    from shared.group_comparator import HolisticComparison
+    from shared.report_builder import build_raport_holistic
+
+    hc = HolisticComparison(
+        matched_groups=[{
+            "ref_deviz_cod": "D1", "oferta_deviz_cod": "D1",
+            "ref_header": None, "oferta_header": None,
+            "ref_articles": [], "oferta_articles": [],
+            "neconformitati": [], "matches": [],
+        }],
+        ref_only_groups=[],
+        oferta_only_groups=[],
+        ungrouped=[],
+    )
+    raport_holistic = build_raport_holistic(hc)
+    comp = {
+        "neconformitati": [], "oferta_nr": 1, "source_file": "test",
+        "deviz_mismatches": [], "matches": 0, "total_neconformitati": 0,
+        "raport_holistic": raport_holistic,
+    }
+    session = {"client_name": "Test Client", "obiect_investitii": ""}
+
+    doc_bytes = generate_word(session, comp)
+    assert doc_bytes is not None and len(doc_bytes) > 1000
+
+
+def test_neconf_row_shows_page_numbers():
+    """_add_neconf_row afiseaza pag.ref/oferta si nr_ordine in Nr. crt. coloana."""
+    from docx import Document
+    from shared.report_word import _add_neconf_row
+
+    doc = Document()
+    table = doc.add_table(rows=0, cols=11)
+    nc = {
+        "tip": "DIFERENTA_CAMP", "camp": "cantitate",
+        "ref_cod": "EA02A1", "ref_denumire": "test", "ref_um": "mp",
+        "ref_cantitate": 10.0, "oferta_cantitate": 9.0,
+        "oferta_cod": "EA02A1", "oferta_denumire": "test", "oferta_um": "mp",
+        "deviz_ref": "D1", "deviz_denumire": "Test",
+        "nr_ordine_ref": 3, "nr_ordine_oferta": 7,
+        "ref_source_pages": [12, 13], "oferta_source_pages": [28],
+        "is_component": False,
+    }
+    _add_neconf_row(table, 1, nc, {})
+    cell_text = table.rows[0].cells[0].text
+
+    assert "12" in cell_text   # ref page
+    assert "28" in cell_text   # oferta page
+    assert "3" in cell_text    # nr_ordine_ref
+    assert "7" in cell_text    # nr_ordine_oferta
+
+
+def test_generate_word_holistic_summary_correct():
+    """Summary line in holistic mode arata matched_articles din holistic sumar."""
+    from shared.report_word import generate_word
+    from shared.group_comparator import HolisticComparison
+    from shared.report_builder import build_raport_holistic
+    from docx import Document
+    import io
+
+    hc = HolisticComparison(
+        matched_groups=[{
+            "ref_deviz_cod": "D1", "oferta_deviz_cod": "D1",
+            "ref_header": None, "oferta_header": None,
+            "ref_articles": [], "oferta_articles": [],
+            "neconformitati": [], "matches": list(range(42)),
+        }],
+        ref_only_groups=[], oferta_only_groups=[], ungrouped=[],
+    )
+    raport_holistic = build_raport_holistic(hc)
+    assert raport_holistic["sumar"]["total_matched_articles"] == 42
+
+    comp = {
+        "neconformitati": [], "oferta_nr": 1, "source_file": "test",
+        "deviz_mismatches": [], "matches": 0,
+        "total_neconformitati": 5,
+        "ref_art_count": 100, "oferta_art_count": 95,
+        "raport_holistic": raport_holistic,
+    }
+    session = {"client_name": "Test", "obiect_investitii": ""}
+
+    doc_bytes = generate_word(session, comp)
+    doc = Document(io.BytesIO(doc_bytes))
+
+    summary_text = ""
+    for para in doc.paragraphs:
+        if "Matched:" in para.text:
+            summary_text = para.text
+            break
+
+    assert "42" in summary_text, f"Expected 42 in summary, got: {summary_text}"
+    assert "Matched: 0" not in summary_text

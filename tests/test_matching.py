@@ -125,3 +125,51 @@ def test_match_global_separates_articles_without_deviz():
     assert fara_deviz[0][0] == 'ref'
     assert fara_deviz[0][1]['cod'] == 'TF24A'
     assert len(matches) == 0
+
+
+def test_deviz_key_uses_deviz_cod():
+    """_deviz_key() foloseste deviz_cod normalizat. deviz_key e metadata, nu matching key."""
+    import sys
+    sys.path.insert(0, '.')
+    from AgentComparator_local import _deviz_key
+
+    art_with_key = {
+        "deviz": "226108",
+        "deviz_key": "abc123def456789a",  # metadata, NOT used for matching
+        "cod": "EA02A1",
+    }
+    art_without_key = {
+        "deviz": "226108",
+        "cod": "CA01A",
+    }
+
+    # _deviz_key always uses deviz_cod (deviz_key is group metadata for holistic report)
+    assert _deviz_key(art_with_key) == "226108"
+    # No deviz_key → same behavior
+    assert _deviz_key(art_without_key) == "226108"
+
+
+def test_enrich_sets_source_pages():
+    from AgentComparator_local import _enrich
+    ref_art = {"cod": "EA02A1", "deviz": "D1", "nr_ordine": 3,
+               "source_pages": [12, 13], "denumire": "test", "um": "mp",
+               "cantitate": 1.0, "is_component": False, "parent_cod": ""}
+    oferta_art = {"cod": "EA02A1", "deviz": "D1", "nr_ordine": 7,
+                  "source_pages": [28], "denumire": "test", "um": "mp", "cantitate": 1.0}
+    nc = {"tip": "DIFERENTA_CAMP"}
+    _enrich(nc, ref_art, oferta_art, "D1", "Test Deviz")
+    assert nc["ref_source_pages"] == [12, 13]
+    assert nc["oferta_source_pages"] == [28]
+    assert nc["nr_ordine_ref"] == 3
+    assert nc["nr_ordine_oferta"] == 7
+
+
+def test_enrich_lipsa_no_oferta_source_pages():
+    from AgentComparator_local import _enrich
+    ref_art = {"cod": "EA02A1", "deviz": "D1", "nr_ordine": 5,
+               "source_pages": [12], "denumire": "t", "um": "mp",
+               "cantitate": 1.0, "is_component": False, "parent_cod": ""}
+    nc = {"tip": "ARTICOL_LIPSA"}
+    _enrich(nc, ref_art, {}, "D1", "Test")
+    assert nc["ref_source_pages"] == [12]
+    assert nc.get("oferta_source_pages", []) == []

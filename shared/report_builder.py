@@ -132,6 +132,8 @@ def build_raport_ierarhic(
                 'status_match': status,
                 'neconformitati': ncs,
                 'subarticole': subarticole_out,
+                'ref_source_pages': art.get('source_pages', []),
+                'oferta_source_pages': [],
             })
 
         devize_out.append({
@@ -168,4 +170,42 @@ def build_raport_ierarhic(
         'devize': devize_out,
         'erori_extractie': erori_extractie,
         'articole_nelocalizate': articole_nelocalizate,
+    }
+
+
+def build_raport_holistic(holistic_comparison) -> dict:
+    """
+    Build holistic report structure from HolisticComparison.
+
+    Returns dict with matched_groups, ref_only_groups, oferta_only_groups,
+    ungrouped, and sumar counts.
+    """
+    from collections import Counter
+
+    all_ncs = []
+    for mg in holistic_comparison.matched_groups:
+        all_ncs.extend(mg.get("neconformitati", []))
+    for rg in holistic_comparison.ref_only_groups:
+        all_ncs.extend(rg.get("neconformitati", []))
+    for og in holistic_comparison.oferta_only_groups:
+        all_ncs.extend(og.get("neconformitati", []))
+
+    tips = Counter(n.get("tip", "") for n in all_ncs)
+    total_matched_arts = sum(
+        len(mg.get("matches", [])) for mg in holistic_comparison.matched_groups
+    )
+
+    return {
+        "matched_groups": holistic_comparison.matched_groups,
+        "ref_only_groups": holistic_comparison.ref_only_groups,
+        "oferta_only_groups": holistic_comparison.oferta_only_groups,
+        "ungrouped": holistic_comparison.ungrouped,
+        "sumar": {
+            "total_matched_groups": len(holistic_comparison.matched_groups),
+            "total_ref_only_groups": len(holistic_comparison.ref_only_groups),
+            "total_oferta_only_groups": len(holistic_comparison.oferta_only_groups),
+            "total_ungrouped_articles": len(holistic_comparison.ungrouped),
+            "total_matched_articles": total_matched_arts,
+            "neconformitati_by_tip": dict(tips),
+        },
     }

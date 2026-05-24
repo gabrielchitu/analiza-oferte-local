@@ -103,6 +103,7 @@ def _enrich(neconf: dict, ref_art: dict, oferta_art: dict,
         "parent_nr_ordine_ref": ref_art.get("parent_nr_ordine"),
         "display_parent_cod": ref_art.get("display_parent_cod"),
         "cant_mostenita": ref_art.get("cant_mostenita", False),
+        "ref_source_pages": ref_art.get("source_pages", []),
     })
     if oferta_art:
         neconf.update({
@@ -120,6 +121,7 @@ def _enrich(neconf: dict, ref_art: dict, oferta_art: dict,
             "oferta_val_transport": oferta_art.get("val_transport", 0),
             "nr_ordine_oferta": oferta_art.get("nr_ordine"),
             "oferta_display_parent_cod": oferta_art.get("display_parent_cod"),
+            "oferta_source_pages": oferta_art.get("source_pages", []),
         })
     return neconf
 
@@ -143,17 +145,14 @@ def _normalize_deviz_code(deviz_cod: str) -> str:
 def _deviz_key(art: dict) -> str:
     """Returneaza cheia de deviz normalizata pentru un articol.
 
-    Uses deviz code (numeric ID like '226108') as primary key.
-    deviz_denumire (name) varies due to OCR differences and formatting.
-    Using denomination as key causes matching to fail when same article
-    appears in same deviz section with slightly different OCR text.
+    Uses deviz code as primary key — 3-layer canonical is applied via art["deviz"]
+    remap in local_run.py before matching, not here.
     """
-    # Primary: use deviz code (reliable, numeric) - normalized for OCR variations
     deviz_cod = (art.get("deviz") or "").strip()
     if deviz_cod:
         return _normalize_deviz_code(deviz_cod)
 
-    # Fallback: use normalized denomination if no code
+    # Last fallback: use normalized denomination if no code
     raw = (art.get("deviz_denumire") or "").strip().upper()
     raw = re.sub(r'^(\d+\s+)+', '', raw).strip()
     raw = re.sub(r'\b(OB|NR|CAP|ART)[\s.]*(\d+)', r'\1\2', raw)
@@ -826,6 +825,15 @@ def match_global(
     # ARTICOL_LIPSA / DEVIZ_MISMATCH
     # If code exists anywhere in offer (any deviz), prefer DEVIZ_MISMATCH over LIPSA.
     _all_offer_codes = {clean_code(k[1]) for k in oferta_by_key.keys() if k[1]}
+
+    # Devize care au cel putin un articol normativ (non-$) in oferta
+    # → sub-resursele $ din ref pentru acele devize NU sunt LIPSA genuine
+    # (sunt componente breviar ale articolelor normative din oferta)
+    _devize_cu_normative_oferta = set(
+        _deviz_key(a) for a in oferta_articole
+        if not (a.get("cod", "")).startswith("$")
+    )
+
     for ref_art in still_unmatched_ref:
         # skip articole fara cantitate (capitole/anteturi, nu articole reale)
         if not ref_art.get("cantitate"):
@@ -833,6 +841,14 @@ def match_global(
         deviz_cod = ref_art.get("deviz", "")
         deviz_den = ref_art.get("deviz_denumire", "")
         ref_code = clean_code(ref_art.get("cod", ""))
+
+        # Sub-resurse eDevize ($-coduri) din devize cu normative matchate
+        # → nu sunt LIPSA genuine (sunt componente ale articolelor normative matchate)
+        if (ref_art.get("cod", "").startswith("$")
+                and _deviz_key(ref_art) in _devize_cu_normative_oferta
+                and not ref_art.get("is_component")):
+            continue
+
         if ref_code and ref_code in _all_offer_codes:
             neconf = {
                 "tip": "DEVIZ_MISMATCH",

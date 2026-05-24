@@ -200,7 +200,11 @@ def _apply_parent_inheritance(articole: list) -> list:
                     art['cantitate_originala'] = art.get('cantitate')
                     art['um_originala'] = art.get('um')
                     art['cantitate'] = art.get('cantitate') or parent_art.get('cantitate')
-                    art['um'] = art.get('um') or parent_art.get('um')
+                    # Articolele $-codate NU mostenesc UM-ul parintelui — UM-ul lor e
+                    # propriu (ex: '%' din denumire "material marunt %") sau gol.
+                    # Mostenirea UM-ului parintelui (kw, m, etc.) produce UM_DIFERIT false.
+                    if not cod.startswith('$'):
+                        art['um'] = art.get('um') or parent_art.get('um')
                     art['cant_mostenita'] = True
 
         # Moștenire cant/UM pentru is_component=True (logica existentă)
@@ -858,30 +862,70 @@ def extract_articles_v3(page_classifications: list) -> list:
             if not pc.get("deviz_den"):
                 pc["deviz_den"] = last_deviz_den
 
-    # Grupează paginile F3 pe deviz pentru a menține last_nr_crt corect
-    pages_by_deviz = defaultdict(list)
+    # Grupează paginile F3 pe DEVIZ_KEY (nu pe deviz_cod).
+    # deviz_key = hash(OBIECTIVUL + OBIECTUL + CATEGORIA) extras din headerul FIECAREI pagini.
+    # Paginile cu acelasi deviz_cod dar obiect diferit (ex: BLC1/BLOC A vs BLC1/BLOC B)
+    # primesc deviz_key diferit → grupuri separate → matching corect.
+    from shared.deviz_header_extractor import _extract_from_lines as _exfl, _make_deviz_key as _mdk
+
+    pages_by_deviz = defaultdict(list)   # cheie = (deviz_cod_norm, deviz_key)
+    group_headers: dict = {}             # deviz_key → (obj1, obj2, cat) pentru deviz_header pe articole
+    _last_deviz_key: str = ""
+    _last_obj1 = _last_obj2 = _last_cat = None
+
     for pc in page_classifications:
         if not pc.get("is_f3"):
             continue
         if pc.get("header_only"):
-            continue  # pagini cover eDevize — nu conțin articole
+            continue
 
-        deviz_cod = pc.get("deviz_cod", "")
-        deviz_cod = _normalize_deviz_cod(deviz_cod)
-        if deviz_cod:
-            pages_by_deviz[deviz_cod].append(pc)
+        deviz_cod = _normalize_deviz_cod(pc.get("deviz_cod", ""))
+        if not deviz_cod:
+            continue
 
-    # Procesează fiecare deviz cu TOATE paginile sale împreună
-    for deviz_cod, pages_in_deviz in pages_by_deviz.items():
+        # Extrage 3-layer din headerul ACESTEI pagini
+        page_lines = pc.get("lines", [])[:30]
+        obj1, obj2, cat = _exfl(page_lines)
+
+        if obj2 or cat:
+            # Pagina are header propriu (obj2 sau cat detectat)
+            # OBIECTIVUL poate lipsi pe paginile care nu il repeat explicit → mostenire
+            if obj1 is None and _last_obj1 is not None:
+                obj1 = _last_obj1
+            _last_obj1, _last_obj2, _last_cat = obj1, obj2, cat
+            dkey, _ = _mdk(obj1, obj2, cat)
+            _last_deviz_key = dkey
+            # Salveaza headerul pentru acest grup
+            if dkey not in group_headers:
+                group_headers[dkey] = (obj1, obj2, cat)
+        else:
+            # Pagina de continuare → mosteneste deviz_key de la pagina precedenta
+            dkey = _last_deviz_key
+
+        group_key = (deviz_cod, dkey)
+        pages_by_deviz[group_key].append(pc)
+
+    # Procesează fiecare grup (deviz_cod, deviz_key) cu paginile sale
+    for (deviz_cod, group_deviz_key), pages_in_deviz in pages_by_deviz.items():
         # Combină liniile din toate paginile aceluiași deviz
+        # Construim si un mapping line_index → page_number pt tracking per-articol
         all_lines = []
+        line_page_map: list = []   # line_page_map[i] = page_number pt linia i din all_lines
         deviz_den = ""
+        source_pages: list = []
         for pc in pages_in_deviz:
-            lines = pc.get("lines", [])
+            raw_lines = pc.get("lines", [])
+            f3_end = pc.get("f3_line_end")
+            lines = raw_lines[:f3_end] if f3_end is not None else raw_lines
+            phys = pc.get("page_number")
             if lines:
                 all_lines.extend(lines)
+                line_page_map.extend([phys] * len(lines))
             if not deviz_den:
                 deviz_den = pc.get("deviz_den", "")
+            if phys is not None:
+                source_pages.append(phys)
+        source_pages = sorted(set(source_pages))
 
         if not all_lines:
             continue
@@ -901,9 +945,38 @@ def extract_articles_v3(page_classifications: list) -> list:
 
         section_articles = extract_articles_regex(all_lines, deviz_cod, deviz_den)
 
+        # Construieste un index rapid: cod → prima linie din all_lines unde apare
+        # Suporta format "NR COD ..." (eg "1 EA02A1 buc") si "COD ..." direct
+        import re as _re
+        _NR_COD_RE = _re.compile(r'^\d+[\.,]?\s+([A-Z$][A-Z0-9_.#\-]{2,})', _re.IGNORECASE)
+        _COD_ONLY_RE = _re.compile(r'^([A-Z$][A-Z0-9_.#\-]{2,})', _re.IGNORECASE)
+        _cod_line_cache: dict = {}
+        for _li, _line in enumerate(all_lines):
+            _line_s = _line.strip()
+            if not _line_s:
+                continue
+            m = _NR_COD_RE.match(_line_s) or _COD_ONLY_RE.match(_line_s)
+            if m:
+                tok = m.group(1)
+                if tok and tok not in _cod_line_cache:
+                    _cod_line_cache[tok] = _li
+
         for art in section_articles:
             art["deviz"] = deviz_cod
             art["deviz_denumire"] = deviz_den
+            # Determina pagina specifica a acestui articol din line_page_map
+            art_cod = (art.get("cod") or "").strip()
+            art_page = None
+            if art_cod and art_cod in _cod_line_cache:
+                li = _cod_line_cache[art_cod]
+                if li < len(line_page_map):
+                    art_page = line_page_map[li]
+            art["source_pages"] = [art_page] if art_page is not None else source_pages
+            # deviz_key = hash(OBIECTIVUL + OBIECTUL + CATEGORIA) al grupului
+            art["deviz_key"] = group_deviz_key
+            # deviz_header consistent cu deviz_key (text din headerul paginii)
+            hdr = group_headers.get(group_deviz_key, (None, None, None))
+            art["deviz_header"] = {"obiectivul": hdr[0], "obiectul": hdr[1], "categoria": hdr[2]}
             # is_component set by regex parser — don't override
             art["denumire"] = _normalize_denom(art.get("denumire", ""))
 
@@ -911,11 +984,14 @@ def extract_articles_v3(page_classifications: list) -> list:
         for pc in pages_in_deviz:
             section_text = "\n".join(pc.get("lines", []))
             components = _extract_components_from_section(section_text, deviz_cod, deviz_den)
+            for comp in components:
+                comp["source_pages"] = source_pages
             section_articles.extend(components)
 
-        # Deduplicare
+        # Deduplicare — foloseste deviz_key (nu deviz_cod) pt a pastra sub-grupuri distincte
+        # ex: CF08A03 in BLOC A si CF08A03 in BLOC B sunt articole DIFERITE (grupuri diferite)
         for art in section_articles:
-            key = (art.get("cod", "").upper(), art.get("deviz", deviz_cod), art.get("cantitate", 0))
+            key = (art.get("cod", "").upper(), art.get("deviz_key", art.get("deviz", deviz_cod)), art.get("cantitate", 0))
             if key not in seen:
                 seen[key] = len(all_articles)
                 all_articles.append(art)

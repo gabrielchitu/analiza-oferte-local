@@ -1,80 +1,112 @@
-# Session State — 2026-05-23 (FINAL)
+# Session State — 2026-05-24 (v11.0)
 
-## Baseline COMPLET (post toate fix-urile sesiunii 2026-05-23)
+## Baseline FINAL (post v11.0)
 
-| Client | O | matched | LIPSA | EXTRA | DEVIZ_MM | DD |
-|--------|---|---------|-------|-------|----------|----|
-| Blocuri Racari | 1 | 314 | 47 | 0 | 20 | 0 |
-| Blocuri Racari | 2 | 551 | 2 | 0 | 28 | 2 |
-| Blocuri Racari | 3 | 414 | 21 | 5 | 14 | 46 |
-| Blocuri Racari | 4 | 316 | 49 | 1 | 9 | 3 |
-| Camin Maneciu | 1 | 1056 | 1 | 36 | 2 | 56 |
-| Camin Maneciu | 2 | 1066 | 84 | 41 | 5 | 117 |
-| **Scoala Dragomiresti** | **1** | **904** | **2** | **0** | **1** | **0** |
-| **Scoala Dragomiresti** | **2** | **904** | **2** | **1** | **1** | **1** |
-| Scoala Sportiva Racari | 1 | 2152 | 2 | 122 | 6 | 139 |
-| Scoala Sportiva Racari | 2 | 1119 | 4 | 55 | 325 | 28 |
-| Scoala Sportiva Racari | 3 | 2404 | 6 | 318 | 299 | 44 |
+| Client | O | matched_arts | matched_groups | ref-only | oferta-only | Note |
+|--------|---|-------------|----------------|----------|-------------|------|
+| Blocuri Racari | 1 | 299 | 22 | 1 | 2 | |
+| Blocuri Racari | 2 | 541 | 22 | 1 | 0 | |
+| Blocuri Racari | 3 | 460 | 23 | 0 | 2 | |
+| Blocuri Racari | 4 | 286 | 17 | 6 | 2 | |
+| Camin Maneciu | 1 | 875 | 19 | 0 | 16 | |
+| Camin Maneciu | 2 | 895 | 13 | 6 | 22 | |
+| **Scoala Dragomiresti** | **1** | **904** | **22** | **0** | **0** | ✅ perfect |
+| **Scoala Dragomiresti** | **2** | **904** | **22** | **0** | **0** | ✅ perfect |
+| Scoala Sportiva Racari | 1 | 2168 | **0** | 13 | 84 | ❌ 0 holistic |
+| Scoala Sportiva Racari | 2 | 1159 | **0** | 13 | 75 | ❌ 0 holistic |
+| Scoala Sportiva Racari | 3 | 2280 | **0** | 13 | 32 | ❌ 0 holistic |
 
-**SD matched 910→904**: 6 articole false (D20MM/D25MM/D32MM/D40MM) eliminate din ref+oferte.
-**SD O2 DD=1** = IA35B1 "vas inertial" vs "puffer" — genuina.
+**SD matched=904** — baseline principal.
+**SSR holistic=0** — header F3 SSR incompatibil cu 3-layer extractor → bug activ.
 
-## Fix-uri sesiunea 2026-05-22/23 (cronologic)
+## Arhitectura v11.0
 
-1. **Parser scatter** — `is_f3_um` single-token. BR O3 +19.
-2. **SD DEVIZ_MM 624→1** — `_CATEGORIA_OPT_RE` decimal + Strategy 0 numeric.
-3. **Strategy 0 format-aware** — padded-int only, evita CM regresia.
-4. **Client + ofertant în raport** — `client_config.name`, `_extract_ofertant_name`.
-5. **COD_SIMILAR mereu** — Layer 2.1, 2.6.
-6. **DESCRIERE_DIFERITA** — Jaccard 0.50 pe cuvinte dupa OCR cleanup.
-7. **cant=0 filter** — articole capitol excluse din LIPSA/DEVIZ_MM.
-8. **DD OCR cleanup** — l: notatie, garbage financiar, vo=+po, header tabel.
-9. **Sistem hybrid abrevieri** — dict static ABREVIERI_F3 + LLM learner. SD DD 14→6.
-10. **Normalizare diacritice** — ă→a, â→a, î→i, ș→s, ț→t. SD DD 6→0.
-11. **Header tabel strip** — "nr capitol de lucrari u.m" → stripped.
+### deviz_key = hash(OBIECTIVUL + OBIECTUL + CATEGORIA)
+- Identificator canonic per grup de articole
+- Generat PER PAGINA F3 (nu per deviz_cod)
+- BLC1 cu 6 blocuri → 6 deviz_key distincte (BLOC A, A2, A3, A4, B, C)
+- Deduplicare articole pe (cod, deviz_key, cantitate) — nu pe (cod, deviz_cod)
 
-## Fix-uri sesiunea 2026-05-23 (subcomponent mode)
+### Flux extract_document()
+```
+1. load page_classes (checkpoint)
+2. _apply_end_detection() [in-memory]
+3. extract_articles_v3() [grupeaza pe deviz_key per-pagina, seteaza deviz_key+deviz_header]
+4. fallback deviz_key din extract_deviz_headers() pt articole INCOMPLETE
+5. match_devize_by_3layer() [Strategy 4, pt devize nemapate dupa Strategy 0-3]
+6. compare_and_report() → match_global() + compare_by_groups() + generate_word()
+```
 
-12. **`--subcomponents {full,fields,summary}`** — CLI param in `multi_client_run.py`.
-    - `full` (default): tot vizibil, filename normal `Raport_Oferta_N.docx`
-    - `fields`: suprima DIFERENTA_CAMP + UM_DIFERIT pt sub-componente, filename `_fields`
-    - `summary`: suprima tot pt sub-componente matched, filename `_summary`
-    - Filtru in `_generate_word_hierarchical` — JSON neatins
-    - Filtru pe: `is_component=True` SAU `cod.startswith('$')`
+### compare_by_groups()
+- Grupeaza articole dupa deviz_key (nu deviz_cod)
+- Same-code deviz: verifica similitudine 3-layer inainte de pairing
+- match_devize_by_3layer: strip prefix numeric in _3layer_sim (robustete OCR)
+- ref-only → ARTICOL_LIPSA, oferta-only → ARTICOL_EXTRA
+- _lipsa_neconf/_extra_neconf: copiaza is_component, parent_cod, source_pages
 
-13. **Fix D20MM/D25MM extrase gresit** — `shared/f3_extractor.py`
-    - Root cause: OCR wrapeaza "SA04A01> - Teava PN16, D20mm" pe 2 linii
-    - "D20mm" pe linie separata → parser crea articol D20MM cu cant din linia urmatoare
-    - Fix: filtru `^D\d+MM$` cu denumire goala, INAINTE de `_apply_parent_inheritance`
-    - Rezultat: `display_parent_cod` pt `$`-coduri = SA04A01 (corect), nu D20MM
-    - 6 articole false eliminate per rulare
+### Raport Word holistic
+- _generate_word_holistic(): sectiuni matched/ref-only/oferta-only/ungrouped
+- Nr.crt: pag.ref/pag.of + (nr_ordine_ref/nr_ordine_of)
+- display_parent_cod: afisat pt is_component=True SI $-coduri cu parinte
+- $-coduri: NU mai mostenesc UM de la parinte
 
-## Sistem Abrevieri — Rulare LLM Learner
+## Known Issues (activ in sesiunea urmatoare)
 
+| # | Client | Issue | Status |
+|---|--------|-------|--------|
+| 1 | SSR | holistic=0 grupuri — header F3 SSR format incompatibil | **PRIORITAR** |
+| 2 | BR O2 | DEVIZ_MISMATCH ridicat | Neinvestigat |
+| 3 | CM O2 | 6 ref-only, 22 oferta-only | Neinvestigat |
+| 4 | General | SSR: _extract_from_lines nu gaseste Obiectul/Categoria in paginile SSR | Cauza probabala issue 1 |
+
+## Bug SSR (de investigat la urmatoarea sesiune)
+
+SSR are 0 grupuri holistic matched. Cauza: `_extract_from_lines()` nu extrage
+obj2/cat din headerele F3 ale SSR. Paginile SSR au format diferit — probabil
+"Stadiul fizic: XXXX DENUMIRE" pe o singura linie (fara "Obiectivul:" si "Obiectul:" separate).
+
+**Start de debugging:**
 ```bash
-.venv/bin/python3 shared/abbreviation_learner.py --show          # preview
-.venv/bin/python3 shared/abbreviation_learner.py --client "..."  # validare LLM
+.venv/bin/python3 -c "
+import json; from pathlib import Path
+from shared.deviz_header_extractor import _extract_from_lines
+ckpt = list(Path('output_AO/Scoala Sportiva Racari/checkpoints').glob('di_referinta_page_classes_*.json'))[0]
+d = json.loads(ckpt.read_text())
+pcs = d if isinstance(d, list) else d.get('page_classes', [])
+for pc in pcs:
+    if pc.get('is_f3') and not pc.get('header_only'):
+        lines = pc.get('lines', [])[:20]
+        obj1, obj2, cat = _extract_from_lines(lines)
+        if obj2 or cat:
+            print(f'pag {pc[\"page_number\"]}: obj2={obj2} cat={cat}')
+            break
+        else:
+            print(f'pag {pc[\"page_number\"]}: FAILED. lines[:5]={lines[:5]}')
+            break
+"
 ```
 
 ## Comenzi utile
 
 ```bash
-# Mod summary (fara diferente sub-componente)
-.venv/bin/python3 multi_client_run.py --client "Scoala Dragomiresti" --subcomponents summary
+# Pipeline
+.venv/bin/python3 multi_client_run.py --client "Scoala Dragomiresti" 2>&1 | rtk log
 
-# Mod fields (fara diferente cantitate/UM sub-componente)
-.venv/bin/python3 multi_client_run.py --client "Scoala Dragomiresti" --subcomponents fields
+# Holistic JSON
+python3 -c "
+import json; from pathlib import Path
+h = json.loads(Path('output_AO/Scoala Dragomiresti/holistic_oferta_1.json').read_text())
+s = h['sumar']
+print(s)
+"
 
-# Mod complet (default)
-.venv/bin/python3 multi_client_run.py --client "Scoala Dragomiresti"
+# Push (necesita SSH)
+# git push origin refactor/v10 && git push origin v11.0
+
+# Teste
+.venv/bin/python3 -m pytest tests/ -q \
+  --ignore=tests/test_compound_deviz_extraction.py \
+  --ignore=tests/test_subcomponent_matching.py \
+  --ignore=tests/shared/test_f3_regex_parser_multiline.py \
+  --ignore=tests/test_normalize_cod.py
 ```
-
-## Known Issues
-1. IZDO3D1 OCR — acceptat
-2. CM O2 LIPSA=84 — neinvestigat
-3. SSR DEVIZ_MM/EXTRA — neinvestigat
-4. DD CM reziduale (56/117) — candidati LLM learner
-5. BR O3 DD=46 — unele borderline
-
-## Ce urmează
-Refactorizare sau investigare SSR/CM.

@@ -11,6 +11,7 @@ import json
 import logging
 from datetime import datetime
 from dataclasses import dataclass, field
+from shared.f3_knowledge import F3Knowledge
 
 logger = logging.getLogger(__name__)
 
@@ -724,6 +725,39 @@ def _classify_pages_llm(
         classifications = raw.get("page_classifications", [])
         if not classifications:
             logger.warning(f"[PC] LLM returned empty page_classifications for {len(ambiguous)} pages — treating all as NON_F3")
+
+        # Self-learning: salveaza pattern-uri noi descoperite de LLM in knowledge base
+        try:
+            _knowledge = F3Knowledge()
+            _learned_count = 0
+            _page_lines_map = {p.get("page_number"): p.get("lines", []) for p in ambiguous}
+            for item in raw.get("page_classifications", []):
+                page_num = item.get("page_number")
+                is_f3 = item.get("is_f3", False)
+                lines = _page_lines_map.get(page_num, [])
+                if not lines:
+                    continue
+                # Extrage primul line distinctiv (>= 5 chars, nu numar pur, nu prea lung)
+                # Exclude header-uri eDevize generice care apar pe toate paginile
+                _GENERIC_HEADERS = frozenset({
+                    "antet stanga", "edevize", "beneficiar", "antet dreapta",
+                    "sectiunea tehnica", "formular generat", "www.edevize.ro",
+                })
+                for line in lines[:15]:
+                    stripped = line.strip()
+                    if (len(stripped) >= 5
+                            and not stripped.isdigit()
+                            and len(stripped) <= 100
+                            and stripped.lower() not in _GENERIC_HEADERS):
+                        source_type = "start" if is_f3 else "end"
+                        _knowledge.learn(stripped, "exact", source_type=source_type, source="llm")
+                        _learned_count += 1
+                        break
+            if _learned_count:
+                logger.info(f"[PC] F3Knowledge: learned {_learned_count} new patterns from LLM")
+        except Exception as e:
+            logger.warning(f"[PC] F3Knowledge learn failed (non-critical): {e}")
+
         return {
             item["page_number"]: {
                 "is_f3": bool(item.get("is_f3", False)),
@@ -958,6 +992,60 @@ def _get_subcomponent_sample(results: list, pages: list) -> str:
                 break
 
     return " ".join(samples[:3])
+
+
+def _apply_end_detection(page_classifications: list, knowledge) -> list:
+    """
+    Post-processing: detecteaza sfarsitul tabelelor F3 si restarteaza detectia
+    pe aceeasi pagina daca incepe un nou tabel F3.
+
+    Adauga campuri optionale la rezultate:
+      f3_line_end: int — index linie unde s-a terminat tabelul F3 (exclusiv)
+      f3_restart_line: int — index linie unde incepe un nou tabel F3 pe aceeasi pagina
+    """
+    in_f3 = False
+    results = list(page_classifications)  # nu modifica lista originala
+
+    for i, pc in enumerate(results):
+        if not pc.get("is_f3", False):
+            in_f3 = False
+            continue
+
+        if pc.get("header_only"):
+            continue
+
+        in_f3 = True
+        lines = pc.get("lines", [])
+        end_result = knowledge.find_end_marker(lines)
+
+        if end_result is None:
+            continue  # F3 continua normal pe aceasta pagina
+
+        end_idx, _ = end_result
+        results[i] = dict(pc)  # copie pentru a nu modifica originala
+        results[i]["f3_line_end"] = end_idx
+        in_f3 = False
+
+        # Same-page restart: cauta start marker in liniile ramase dupa end
+        remaining = lines[end_idx + 1:]
+        for j, line in enumerate(remaining):
+            if knowledge.find_start_marker([line]) is not None:
+                results[i]["f3_restart_line"] = end_idx + 1 + j
+                in_f3 = True
+                break
+
+        # Pagina urmatoare: daca nu avem restart, urmatoarele pagini F3-INHERITED
+        # trebuie re-evaluate. Le marcam is_f3=False daca erau INHERITED.
+        if not in_f3:
+            for j in range(i + 1, len(results)):
+                next_pc = results[j]
+                if next_pc.get("is_f3") and not next_pc.get("deviz_cod"):
+                    results[j] = dict(next_pc)
+                    results[j]["is_f3"] = False
+                else:
+                    break  # pagina cu deviz explicit — oprim
+
+    return results
 
 
 def classify_pages(

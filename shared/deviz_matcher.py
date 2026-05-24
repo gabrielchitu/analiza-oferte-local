@@ -398,3 +398,109 @@ def remap_devize_in_articles(articles: list, mapping: dict) -> list:
         logger.info(f"[DM] Remapped {remapped_count} articles to new devizes")
 
     return result
+
+
+def match_devize_by_3layer(
+    ref_deviz_headers: dict,
+    oferta_deviz_headers: dict,
+    threshold: float = 0.75,
+) -> dict:
+    """
+    Mapeaza devize ref↔oferta pe baza similaritatii 3-layer (OBIECTIVUL+Obiectul+Categoria).
+
+    Args:
+        ref_deviz_headers: {deviz_cod → DevizHeader} pentru referinta
+        oferta_deviz_headers: {deviz_cod → DevizHeader} pentru oferta
+        threshold: similaritate minima (0.0-1.0) pentru a considera doua devize identice
+
+    Returns:
+        {oferta_deviz_cod → ref_deviz_cod} — mapare pentru remap_devize_in_articles()
+    """
+    from shared.deviz_header_extractor import _normalize
+
+    # Praguri per-layer: obiectul si categoria trebuie sa se potriveasca bine
+    # pentru a evita confundarea blocurilor (BLOC A ≠ BLOC B)
+    _MIN_OBJ2 = 0.85   # obiectul trebuie sa fie cel putin 85% similar
+    _MIN_CAT  = 0.90   # categoria (BLC1 vs BLC2) trebuie sa fie cel putin 90% similar
+
+    def _3layer_sim(h_ref, h_oferta) -> float:
+        """Returneaza media similaritatilor per-layer, sau 0.0 daca vreun layer critic esueaza."""
+        import re as _re
+
+        def _norm(text: str) -> str:
+            t = _normalize(text)
+            # Strip prefix numeric (ex: "002 ", "001 ", "07 ") — format oferta romanesc
+            t = _re.sub(r'^\d{1,3}\s+', '', t)
+            return t.strip()
+
+        scores = []
+        pairs = [
+            (h_ref.obiectivul, h_oferta.obiectivul, 0.0),
+            (h_ref.obiectul,   h_oferta.obiectul,   _MIN_OBJ2),
+            (h_ref.categoria,  h_oferta.categoria,  _MIN_CAT),
+        ]
+        for a, b, min_score in pairs:
+            if a and b:
+                na, nb = _norm(a), _norm(b)
+                if na and nb:
+                    s = SequenceMatcher(None, na, nb).ratio()
+                    if min_score > 0 and s < min_score:
+                        return 0.0  # layer critic sub prag → nu e acelasi deviz
+                    scores.append(s)
+        return sum(scores) / len(scores) if scores else 0.0
+
+    ref_cods = set(ref_deviz_headers.keys())
+    mapping: dict[str, str] = {}
+    # Rezerva ref_cods VERIFICATE: acelasi cod + similitudine >= threshold
+    # (same code dar continut diferit → NU e rezervat, poate fi remanat)
+    _same_code_reserved: set[str] = set()
+    # oferta_cod → ref_cod pentru devizele same-code confirmate
+    _same_code_pairs: dict[str, str] = {}
+    for cod in ref_cods & set(oferta_deviz_headers.keys()):
+        rh = ref_deviz_headers.get(cod)
+        oh = oferta_deviz_headers.get(cod)
+        if rh and oh and rh.is_valid and oh.is_valid:
+            if _3layer_sim(rh, oh) >= threshold:
+                _same_code_reserved.add(cod)
+                _same_code_pairs[cod] = cod
+        else:
+            _same_code_reserved.add(cod)
+            _same_code_pairs[cod] = cod
+
+    # used_ref NU include devizele same-code — ele pot fi reutilizate pt ref
+    # devize cu continut identic dar cod diferit (ex: BLC6 ref ≡ BLC7 oferta)
+    used_ref: set[str] = set()
+
+    # Pass 1: devize oferta cu cod DIFERIT de ref → remap pe similitudine
+    for oferta_cod, oferta_h in sorted(oferta_deviz_headers.items()):
+        if not oferta_h.is_valid:
+            continue
+        if oferta_cod in _same_code_reserved:
+            continue  # same-code confirmed → handled by direct match
+
+        best_ref_cod = None
+        best_score = 0.0
+
+        for ref_cod, ref_h in ref_deviz_headers.items():
+            if not ref_h.is_valid or ref_cod in used_ref:
+                continue
+            score = _3layer_sim(ref_h, oferta_h)
+            if score > best_score:
+                best_score = score
+                best_ref_cod = ref_cod
+
+        if best_ref_cod and best_score >= threshold:
+            mapping[oferta_cod] = best_ref_cod
+            used_ref.add(best_ref_cod)
+            if oferta_cod != best_ref_cod:
+                logger.info(
+                    f"[DM-3L] {oferta_cod} → {best_ref_cod} "
+                    f"(score={best_score:.2f})"
+                )
+
+
+    logger.info(
+        f"[DM-3L] 3-layer mapping: {len(mapping)} devize mapate "
+        f"({sum(1 for k,v in mapping.items() if k != v)} remapari reale)"
+    )
+    return mapping
