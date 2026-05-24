@@ -336,3 +336,32 @@ def test_deviz_heading_accepts_page_params():
     assert "PDF pag." in cell_text
     assert "12-13" in cell_text
     assert "28" in cell_text
+
+
+def test_generate_word_holistic_runs():
+    """generate_word with raport_holistic in comp does not crash."""
+    from shared.report_word import generate_word
+    from shared.group_comparator import HolisticComparison
+    from shared.report_builder import build_raport_holistic
+
+    hc = HolisticComparison(
+        matched_groups=[{
+            "ref_deviz_cod": "D1", "oferta_deviz_cod": "D1",
+            "ref_header": None, "oferta_header": None,
+            "ref_articles": [], "oferta_articles": [],
+            "neconformitati": [], "matches": [],
+        }],
+        ref_only_groups=[],
+        oferta_only_groups=[],
+        ungrouped=[],
+    )
+    raport_holistic = build_raport_holistic(hc)
+    comp = {
+        "neconformitati": [], "oferta_nr": 1, "source_file": "test",
+        "deviz_mismatches": [], "matches": 0, "total_neconformitati": 0,
+        "raport_holistic": raport_holistic,
+    }
+    session = {"client_name": "Test Client", "obiect_investitii": ""}
+
+    doc_bytes = generate_word(session, comp)
+    assert doc_bytes is not None and len(doc_bytes) > 1000

@@ -193,6 +193,36 @@ def _format_page_range(pages: list) -> str:
     return ", ".join(str(p) for p in pages)
 
 
+def _add_group_heading(table, group_type: str, ref_header, oferta_header,
+                       ref_deviz_cod: str = "", oferta_deviz_cod: str = "") -> None:
+    """Rand separator de grup cu informatii 3-layer (OBIECTIVUL/Obiectul/Categoria)."""
+    sep_cells = table.add_row().cells
+    sep_cells[0].merge(sep_cells[10])
+
+    header = ref_header or oferta_header
+    if header:
+        obj1 = (getattr(header, 'obiectivul', None) or "")[:60]
+        obj2 = (getattr(header, 'obiectul', None) or "")[:60]
+        cat = (getattr(header, 'categoria', None) or "")[:60]
+        label = f"OBIECTIVUL: {obj1}  │  Obiectul: {obj2}  │  Categoria: {cat}"
+    else:
+        label = f"Deviz: {ref_deviz_cod or oferta_deviz_cod}"
+
+    if group_type == "ref_only":
+        label = f"[GRUP ABSENT DIN OFERTA]  {label}"
+        fill = "FFB3B3"
+    elif group_type == "oferta_only":
+        label = f"[GRUP ABSENT DIN REFERINTA]  {label}"
+        fill = "FFE0B3"
+    else:
+        fill = GRAY_FILL
+
+    run = sep_cells[0].paragraphs[0].add_run(label)
+    run.bold = True
+    _style_cell(sep_cells[0], 8, bold=True)
+    _set_cell_shading(sep_cells[0], fill)
+
+
 def _add_deviz_heading(table, deviz_cod: str, deviz_den: str,
                        ref_count: int, oferta_count: int,
                        ref_pages: list = None, oferta_pages: list = None) -> None:
@@ -969,6 +999,74 @@ def _generate_word_flat(doc, neconformitati: list, deviz_mismatches_list: list,
         _add_audit_section(doc, audit_data)
 
 
+def _generate_word_holistic(doc, raport_holistic: dict, comp: dict,
+                             subcomponent_mode: str = "full") -> None:
+    """
+    Genereaza continut Word in structura holistica (group-based).
+    Sectiuni: matched, ref-only (LIPSA), oferta-only (EXTRA), ungrouped.
+    """
+    table = doc.add_table(rows=3, cols=11)
+    table.style = "Table Grid"
+    _set_col_widths(table)
+    ofertant_name = comp.get("ofertant") or comp.get("source_file", "")
+    _build_header(table, ofertant_name)
+
+    deviz_map: dict = {}
+    suppressed = SUPPRESSED_BY_MODE.get(subcomponent_mode, frozenset())
+    row_nr = 0
+
+    def _visible(ncs_list: list) -> list:
+        if not suppressed:
+            return ncs_list
+        return [n for n in ncs_list if n.get("tip") not in suppressed]
+
+    # --- Grupuri matchate ---
+    for mg in raport_holistic.get("matched_groups", []):
+        _add_group_heading(table, "matched",
+                           mg.get("ref_header"), mg.get("oferta_header"),
+                           mg.get("ref_deviz_cod", ""), mg.get("oferta_deviz_cod", ""))
+        visible = _visible(mg.get("neconformitati", []))
+        if visible:
+            for nc in visible:
+                row_nr += 1
+                _add_neconf_row(table, row_nr, nc, deviz_map)
+        else:
+            info_row = table.add_row().cells
+            info_row[0].merge(info_row[10])
+            info_row[0].paragraphs[0].add_run("  ✓ Grup conform — fara neconformitati").italic = True
+            _style_cell(info_row[0], 8)
+
+    # --- Grupuri doar in referinta (LIPSA) ---
+    for rg in raport_holistic.get("ref_only_groups", []):
+        _add_group_heading(table, "ref_only",
+                           rg.get("ref_header"), None,
+                           ref_deviz_cod=rg.get("ref_deviz_cod", ""))
+        for nc in rg.get("neconformitati", []):
+            row_nr += 1
+            _add_neconf_row(table, row_nr, nc, deviz_map)
+
+    # --- Grupuri doar in oferta (EXTRA) ---
+    for og in raport_holistic.get("oferta_only_groups", []):
+        _add_group_heading(table, "oferta_only",
+                           None, og.get("oferta_header"),
+                           oferta_deviz_cod=og.get("oferta_deviz_cod", ""))
+        for nc in og.get("neconformitati", []):
+            row_nr += 1
+            _add_neconf_row(table, row_nr, nc, deviz_map)
+
+    # --- Articole fara grup ---
+    ungrouped = raport_holistic.get("ungrouped", [])
+    if ungrouped:
+        ug_cells = table.add_row().cells
+        ug_cells[0].merge(ug_cells[10])
+        run = ug_cells[0].paragraphs[0].add_run(
+            f"[ARTICOLE FARA GRUP — {len(ungrouped)} articole fara deviz detectat]"
+        )
+        run.bold = True
+        _style_cell(ug_cells[0], 8, bold=True)
+        _set_cell_shading(ug_cells[0], "FFCCFF")
+
+
 def generate_word(
     session: dict,
     comp: dict,
@@ -1028,9 +1126,13 @@ def generate_word(
         f"Neconformități: {total_neconf}"
     ).bold = True
 
-    # ── Dispatch: hierarchical or flat ───────────────────────────────
+    # ── Dispatch: holistic, hierarchical, or flat ────────────────────
+    raport_holistic = comp.get('raport_holistic')
     raport_ierarhic = comp.get('raport_ierarhic')
-    if raport_ierarhic:
+    if raport_holistic:
+        _generate_word_holistic(doc, raport_holistic, comp,
+                                subcomponent_mode=subcomponent_mode)
+    elif raport_ierarhic:
         _generate_word_hierarchical(doc, raport_ierarhic, comp,
                                     deviz_mismatches_list, devize_extra,
                                     devize_lipsa, audit_data,
