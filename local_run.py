@@ -99,20 +99,24 @@ def run_pipeline(client_config: ClientConfig, subcomponent_mode: str = "full") -
 
 
 def _headers_from_articles(arts: list) -> dict:
-    """Reconstruieste deviz_headers din metadatele articolelor."""
+    """Reconstruieste deviz_headers din metadatele articolelor, keyed by deviz_key.
+
+    deviz_key = hash(OBIECTIVUL + OBIECTUL + CATEGORIA) — identificator canonic al grupului.
+    Acelasi deviz_cod (ex: BLC1) poate genera mai multe deviz_key (BLOC A, BLOC B, etc.).
+    """
     from shared.deviz_header_extractor import DevizHeader
     headers: dict = {}
     for a in arts:
-        cod = (a.get("deviz") or "").strip()
-        if not cod or cod in headers:
+        key = (a.get("deviz_key") or "").strip()
+        if not key or key in headers:
             continue
         dh = a.get("deviz_header") or {}
-        key = (a.get("deviz_key") or "").strip()
         obj1 = dh.get("obiectivul")
         obj2 = dh.get("obiectul")
         cat = dh.get("categoria")
+        cod = (a.get("deviz") or "").strip()
         valid = bool(key) and not key.startswith("__INCOMPLETE__")
-        headers[cod] = DevizHeader(obj1, obj2, cat, key, valid, "metadata", cod)
+        headers[key] = DevizHeader(obj1, obj2, cat, key, valid, "metadata", cod)
     return headers
 
 
@@ -710,15 +714,20 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
     articles = extract_articles_v3(page_classes)
     logger.info(f"  {len(articles)} articole extrase din linii")
 
-    # Ataseaza deviz_key si deviz_header la fiecare articol
+    # deviz_key si deviz_header sunt acum setate per-pagina de extract_articles_v3().
+    # NU suprascriem — fiecare articol are deviz_key corect din sub-grupul sau de pagini.
+    # Fallback pt articolele fara deviz_key valid (din devize fara header detectat):
     for art in articles:
-        dh = deviz_headers.get(art.get("deviz", ""))
-        art["deviz_key"] = dh.deviz_key if dh else art.get("deviz", "")
-        art["deviz_header"] = {
-            "obiectivul": dh.obiectivul if dh else None,
-            "obiectul": dh.obiectul if dh else None,
-            "categoria": dh.categoria if dh else None,
-        }
+        existing_key = (art.get("deviz_key") or "").strip()
+        if not existing_key or existing_key.startswith("__INCOMPLETE__"):
+            dh = deviz_headers.get(art.get("deviz", ""))
+            if dh and dh.is_valid:
+                art["deviz_key"] = dh.deviz_key
+                art["deviz_header"] = {
+                    "obiectivul": dh.obiectivul,
+                    "obiectul": dh.obiectul,
+                    "categoria": dh.categoria,
+                }
 
     # Deduplicate by 4-tuple: (deviz, cod, um, cantitate)
     # If same article appears multiple times with identical quantity and UM, keep only one

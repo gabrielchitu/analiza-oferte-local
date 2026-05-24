@@ -862,21 +862,51 @@ def extract_articles_v3(page_classifications: list) -> list:
             if not pc.get("deviz_den"):
                 pc["deviz_den"] = last_deviz_den
 
-    # Grupează paginile F3 pe deviz pentru a menține last_nr_crt corect
-    pages_by_deviz = defaultdict(list)
+    # Grupează paginile F3 pe DEVIZ_KEY (nu pe deviz_cod).
+    # deviz_key = hash(OBIECTIVUL + OBIECTUL + CATEGORIA) extras din headerul FIECAREI pagini.
+    # Paginile cu acelasi deviz_cod dar obiect diferit (ex: BLC1/BLOC A vs BLC1/BLOC B)
+    # primesc deviz_key diferit → grupuri separate → matching corect.
+    from shared.deviz_header_extractor import _extract_from_lines as _exfl, _make_deviz_key as _mdk
+
+    pages_by_deviz = defaultdict(list)   # cheie = (deviz_cod_norm, deviz_key)
+    group_headers: dict = {}             # deviz_key → (obj1, obj2, cat) pentru deviz_header pe articole
+    _last_deviz_key: str = ""
+    _last_obj1 = _last_obj2 = _last_cat = None
+
     for pc in page_classifications:
         if not pc.get("is_f3"):
             continue
         if pc.get("header_only"):
-            continue  # pagini cover eDevize — nu conțin articole
+            continue
 
-        deviz_cod = pc.get("deviz_cod", "")
-        deviz_cod = _normalize_deviz_cod(deviz_cod)
-        if deviz_cod:
-            pages_by_deviz[deviz_cod].append(pc)
+        deviz_cod = _normalize_deviz_cod(pc.get("deviz_cod", ""))
+        if not deviz_cod:
+            continue
 
-    # Procesează fiecare deviz cu TOATE paginile sale împreună
-    for deviz_cod, pages_in_deviz in pages_by_deviz.items():
+        # Extrage 3-layer din headerul ACESTEI pagini
+        page_lines = pc.get("lines", [])[:30]
+        obj1, obj2, cat = _exfl(page_lines)
+
+        if obj2 or cat:
+            # Pagina are header propriu (obj2 sau cat detectat)
+            # OBIECTIVUL poate lipsi pe paginile care nu il repeat explicit → mostenire
+            if obj1 is None and _last_obj1 is not None:
+                obj1 = _last_obj1
+            _last_obj1, _last_obj2, _last_cat = obj1, obj2, cat
+            dkey, _ = _mdk(obj1, obj2, cat)
+            _last_deviz_key = dkey
+            # Salveaza headerul pentru acest grup
+            if dkey not in group_headers:
+                group_headers[dkey] = (obj1, obj2, cat)
+        else:
+            # Pagina de continuare → mosteneste deviz_key de la pagina precedenta
+            dkey = _last_deviz_key
+
+        group_key = (deviz_cod, dkey)
+        pages_by_deviz[group_key].append(pc)
+
+    # Procesează fiecare grup (deviz_cod, deviz_key) cu paginile sale
+    for (deviz_cod, group_deviz_key), pages_in_deviz in pages_by_deviz.items():
         # Combină liniile din toate paginile aceluiași deviz
         # Construim si un mapping line_index → page_number pt tracking per-articol
         all_lines = []
@@ -942,6 +972,11 @@ def extract_articles_v3(page_classifications: list) -> list:
                 if li < len(line_page_map):
                     art_page = line_page_map[li]
             art["source_pages"] = [art_page] if art_page is not None else source_pages
+            # deviz_key = hash(OBIECTIVUL + OBIECTUL + CATEGORIA) al grupului
+            art["deviz_key"] = group_deviz_key
+            # deviz_header consistent cu deviz_key (text din headerul paginii)
+            hdr = group_headers.get(group_deviz_key, (None, None, None))
+            art["deviz_header"] = {"obiectivul": hdr[0], "obiectul": hdr[1], "categoria": hdr[2]}
             # is_component set by regex parser — don't override
             art["denumire"] = _normalize_denom(art.get("denumire", ""))
 

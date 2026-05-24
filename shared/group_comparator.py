@@ -20,11 +20,20 @@ class HolisticComparison:
 
 
 def _articles_by_deviz(articles: list) -> dict:
+    """Grupeaza articolele dupa deviz_key (hash OBIECTIVUL+OBIECTUL+CATEGORIA).
+
+    deviz_key e identificatorul canonic al grupului.
+    Fallback la deviz_cod pt articolele fara deviz_key valid.
+    """
     result = defaultdict(list)
     for a in articles:
-        cod = (a.get("deviz") or "").strip()
-        if cod:
-            result[cod].append(a)
+        key = (a.get("deviz_key") or "").strip()
+        if key and not key.startswith("__INCOMPLETE__"):
+            result[key].append(a)
+        else:
+            cod = (a.get("deviz") or "").strip()
+            if cod:
+                result[f"__cod__{cod}"].append(a)
     return dict(result)
 
 

@@ -425,6 +425,14 @@ def match_devize_by_3layer(
 
     def _3layer_sim(h_ref, h_oferta) -> float:
         """Returneaza media similaritatilor per-layer, sau 0.0 daca vreun layer critic esueaza."""
+        import re as _re
+
+        def _norm(text: str) -> str:
+            t = _normalize(text)
+            # Strip prefix numeric (ex: "002 ", "001 ", "07 ") — format oferta romanesc
+            t = _re.sub(r'^\d{1,3}\s+', '', t)
+            return t.strip()
+
         scores = []
         pairs = [
             (h_ref.obiectivul, h_oferta.obiectivul, 0.0),
@@ -433,7 +441,7 @@ def match_devize_by_3layer(
         ]
         for a, b, min_score in pairs:
             if a and b:
-                na, nb = _normalize(a), _normalize(b)
+                na, nb = _norm(a), _norm(b)
                 if na and nb:
                     s = SequenceMatcher(None, na, nb).ratio()
                     if min_score > 0 and s < min_score:
