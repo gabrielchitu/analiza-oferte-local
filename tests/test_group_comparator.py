@@ -81,3 +81,44 @@ def test_group_match_different_codes_same_content():
     mg = result.matched_groups[0]
     assert mg["ref_deviz_cod"] == "D1"
     assert mg["oferta_deviz_cod"] == "D2"
+
+
+def test_build_raport_holistic_structure():
+    from shared.group_comparator import HolisticComparison
+    from shared.report_builder import build_raport_holistic
+
+    hc = HolisticComparison(
+        matched_groups=[{
+            "ref_deviz_cod": "D1", "oferta_deviz_cod": "D1",
+            "ref_header": None, "oferta_header": None,
+            "ref_articles": [{"cod": "EA02A1", "deviz": "D1", "cantitate": 1.0,
+                               "denumire": "test", "um": "mp", "is_component": False,
+                               "nr_ordine": 1, "parent_cod": ""}],
+            "oferta_articles": [],
+            "neconformitati": [{"tip": "ARTICOL_LIPSA", "ref_cod": "EA02A1",
+                                "deviz_ref": "D1", "deviz_denumire": ""}],
+            "matches": [],
+        }],
+        ref_only_groups=[],
+        oferta_only_groups=[{
+            "oferta_deviz_cod": "D2", "oferta_header": None,
+            "articles": [{"cod": "CB01A", "deviz": "D2", "cantitate": 5.0,
+                          "denumire": "extra", "um": "mc", "is_component": False,
+                          "nr_ordine": 1, "parent_cod": ""}],
+            "neconformitati": [{"tip": "ARTICOL_EXTRA", "oferta_cod": "CB01A",
+                                "deviz_ref": "", "deviz_denumire": ""}],
+        }],
+        ungrouped=[{"source": "ref", "cod": "??", "deviz": ""}],
+    )
+
+    raport = build_raport_holistic(hc)
+
+    assert "matched_groups" in raport
+    assert "ref_only_groups" in raport
+    assert "oferta_only_groups" in raport
+    assert "ungrouped" in raport
+    assert "sumar" in raport
+    assert raport["sumar"]["total_matched_groups"] == 1
+    assert raport["sumar"]["total_ref_only_groups"] == 0
+    assert raport["sumar"]["total_oferta_only_groups"] == 1
+    assert raport["sumar"]["total_ungrouped_articles"] == 1
