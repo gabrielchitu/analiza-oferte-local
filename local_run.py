@@ -1030,10 +1030,11 @@ def compare_and_report(
     _ref_dh = {}
     _oferta_dh = {}
 
-    # Reconstruct DevizHeader objects from checkpoint persisted data
-    # Key by deviz_key (hash) to match article grouping in compare_by_groups
+    # Reconstruct DevizHeader objects from checkpoint data.
+    # New format: keyed by deviz_key (hash). Old format: keyed by deviz_cod.
+    # Both handled — store by deviz_key hash for compare_by_groups lookup.
     if isinstance(ref_checkpoint_data, dict) and "deviz_headers" in ref_checkpoint_data:
-        for deviz_cod, hdr_data in ref_checkpoint_data["deviz_headers"].items():
+        for ck, hdr_data in ref_checkpoint_data["deviz_headers"].items():
             hdr = DevizHeader(
                 obiectivul=hdr_data.get('obiectivul'),
                 obiectul=hdr_data.get('obiectul'),
@@ -1041,20 +1042,17 @@ def compare_and_report(
                 deviz_key=hdr_data.get('deviz_key', ''),
                 is_valid=hdr_data.get('is_valid', False),
                 source="checkpoint",
-                deviz_cod=hdr_data.get('deviz_cod', deviz_cod),
+                deviz_cod=hdr_data.get('deviz_cod', ck),
             )
-            # Key by deviz_key, not deviz_cod
-            deviz_key = hdr_data.get('deviz_key', '')
+            deviz_key = hdr_data.get('deviz_key', '') or ck
             if deviz_key:
                 _ref_dh[deviz_key] = hdr
-            # Also keep deviz_cod key for fallback
-            _ref_dh[deviz_cod] = hdr
     else:
         logger.warning("  [HEADERS] Ref deviz_headers not found in checkpoint, using fallback")
         _ref_dh = _headers_from_articles(ref_articles)
 
     if isinstance(checkpoint_data, dict) and "deviz_headers" in checkpoint_data:
-        for deviz_cod, hdr_data in checkpoint_data["deviz_headers"].items():
+        for ck, hdr_data in checkpoint_data["deviz_headers"].items():
             hdr = DevizHeader(
                 obiectivul=hdr_data.get('obiectivul'),
                 obiectul=hdr_data.get('obiectul'),
@@ -1062,14 +1060,11 @@ def compare_and_report(
                 deviz_key=hdr_data.get('deviz_key', ''),
                 is_valid=hdr_data.get('is_valid', False),
                 source="checkpoint",
-                deviz_cod=hdr_data.get('deviz_cod', deviz_cod),
+                deviz_cod=hdr_data.get('deviz_cod', ck),
             )
-            # Key by deviz_key, not deviz_cod
-            deviz_key = hdr_data.get('deviz_key', '')
+            deviz_key = hdr_data.get('deviz_key', '') or ck
             if deviz_key:
                 _oferta_dh[deviz_key] = hdr
-            # Also keep deviz_cod key for fallback
-            _oferta_dh[deviz_cod] = hdr
     else:
         logger.warning("  [HEADERS] Oferta deviz_headers not found in checkpoint, using fallback")
         _oferta_dh = _headers_from_articles(oferta_norm)

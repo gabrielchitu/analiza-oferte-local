@@ -216,23 +216,50 @@ def extract_deviz_headers(
     llm_client=None,
     model: str = "",
 ) -> dict[str, "DevizHeader"]:
+    """Extract deviz headers, return dict keyed by deviz_key (hash).
+
+    Mirrors extract_articles_v3() page logic: each distinct building
+    (unique OBIECTIVUL + Obiectul + Categoria) gets its own entry,
+    even when multiple buildings share the same deviz_cod (e.g. BLC5
+    covers BLOC A, A2, A3, A4, B, C — each gets its own deviz_key).
+    """
     cache = DevizHeaderCache()
-    pages_by_deviz: dict[str, list[dict]] = defaultdict(list)
+
+    # Per-page header extraction, same inheritance logic as extract_articles_v3()
+    group_data: dict = {}  # deviz_key → {obj1, obj2, cat, deviz_cod, header_lines}
+    _last_obj1 = _last_obj2 = _last_cat = None
+    _last_deviz_key: str = ""
 
     for pc in page_classifications:
-        if pc.get("is_f3") and not pc.get("header_only"):
-            cod = (pc.get("deviz_cod") or "").strip()
-            if cod:
-                pages_by_deviz[cod].append(pc)
+        if not pc.get("is_f3") or pc.get("header_only"):
+            continue
+        cod = (pc.get("deviz_cod") or "").strip()
+        if not cod:
+            continue
+
+        lines = pc.get("lines", [])[:30]
+        obj1, obj2, cat = _extract_from_lines(lines)
+
+        if obj2 or cat:
+            # Page has its own header — inherit OBIECTIVUL if missing
+            if obj1 is None and _last_obj1 is not None:
+                obj1 = _last_obj1
+            _last_obj1, _last_obj2, _last_cat = obj1, obj2, cat
+            dkey, _ = _make_deviz_key(obj1, obj2, cat)
+            _last_deviz_key = dkey
+            if dkey not in group_data:
+                group_data[dkey] = {
+                    'obj1': obj1, 'obj2': obj2, 'cat': cat,
+                    'deviz_cod': cod, 'header_lines': lines,
+                }
+        # Continuation pages (no new header) don't create new groups
 
     result: dict[str, DevizHeader] = {}
 
-    for deviz_cod, pages in pages_by_deviz.items():
-        header_lines: list[str] = []
-        for pc in pages[:2]:
-            header_lines.extend(pc.get("lines", [])[:30])
-            if len(header_lines) >= 30:
-                break
+    for dkey, gd in group_data.items():
+        obj1, obj2, cat = gd['obj1'], gd['obj2'], gd['cat']
+        deviz_cod = gd['deviz_cod']
+        header_lines = gd['header_lines']
 
         cache_key = hashlib.md5(
             "\n".join(header_lines[:20]).encode()
@@ -242,12 +269,10 @@ def extract_deviz_headers(
         if cached:
             obj1, obj2, cat = cached
             key, valid = _make_deviz_key(obj1, obj2, cat)
-            result[deviz_cod] = DevizHeader(obj1, obj2, cat, key, valid, "cache", deviz_cod)
+            result[key] = DevizHeader(obj1, obj2, cat, key, valid, "cache", deviz_cod)
             continue
 
-        obj1, obj2, cat = _extract_from_lines(header_lines)
         source = "regex"
-
         if any(x is None for x in [obj1, obj2, cat]) and llm_client:
             llm_result = _extract_via_llm(header_lines, llm_client, model)
             if llm_result:
@@ -257,8 +282,8 @@ def extract_deviz_headers(
                 source = "llm"
 
         cache.put(cache_key, obj1, obj2, cat)
-
         key, valid = _make_deviz_key(obj1, obj2, cat)
+
         if not valid:
             logger.warning(
                 f"[DHX] Deviz {deviz_cod}: header incomplet "
@@ -267,6 +292,6 @@ def extract_deviz_headers(
                 f"cat={'OK' if cat else 'NULL'})"
             )
 
-        result[deviz_cod] = DevizHeader(obj1, obj2, cat, key, valid, source, deviz_cod)
+        result[key] = DevizHeader(obj1, obj2, cat, key, valid, source, deviz_cod)
 
     return result
