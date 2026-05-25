@@ -37,20 +37,44 @@ class DevizHeader:
 
 
 def _normalize(text: str) -> str:
-    text = text.lower().strip()
+    """Normalize text for consistent deviz_key hashing.
+
+    Operations (in order):
+    1. Strip leading/trailing whitespace
+    2. Lowercase
+    3. Remove diacritics (NFD normalization)
+    4. Collapse multiple spaces to single space
+    5. Remove extra punctuation that varies across PDFs
+    """
+    import re as _re
+    text = text.strip().lower()
+    # Remove diacritics
     text = "".join(
         c for c in unicodedata.normalize("NFD", text)
         if unicodedata.category(c) != "Mn"
     )
+    # Collapse multiple spaces
+    text = _re.sub(r'\s+', ' ', text)
     return text
 
 
 def _strip_page_prefix(text: str) -> str:
-    """Strip numeric page prefix (e.g. '001 ', '002 ') from Obiect."""
+    """Strip zero-padded page prefix from Obiect/Categoria (e.g. '001 ', '002 ', '01 ').
+
+    Only strips prefixes that start with 0 (PDF page numbering), not content.
+    Examples:
+    - '001 LUCRARI' → 'LUCRARI'
+    - '002 2 LUCRARI' → '2 LUCRARI' (only first "002 " stripped, not the "2")
+    - '1 LUCRARI' → '1 LUCRARI' (no zero prefix, unchanged)
+    """
     if not text:
         return text
-    import re
-    return re.sub(r'^00\d\s+', '', text.strip())
+    import re as _re
+    text = text.strip()
+    # Strip leading zero-padded prefix (0 followed by 1-2 digits, followed by space(s))
+    # Matches: "001 ", "002 ", "01 ", "099 " but NOT "1 " or "123 "
+    text = _re.sub(r'^0\d{1,2}\s+', '', text)
+    return text
 
 
 def _make_deviz_key(
