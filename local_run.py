@@ -326,8 +326,8 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
         _, comp = compare_and_report(
             ref_articles, oferta_articles, oferta_nr, oferta_path, client, model,
             ofertant_name=ofertant_name, ref_di_json=ref_di_raw,
-            checkpoint_data=oferta_checkpoint_data, client_config=client_config,
-            subcomponent_mode=subcomponent_mode,
+            checkpoint_data=oferta_checkpoint_data, ref_checkpoint_data=ref_checkpoint_data,
+            client_config=client_config, subcomponent_mode=subcomponent_mode,
         )
 
         # Generate JSON report grouped by deviz
@@ -711,6 +711,18 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
     logger.info(f"  {len(deviz_headers)} devize cu header extras ({valid_count} valide, "
                 f"{len(deviz_headers) - valid_count} incomplete)")
 
+    # Persist deviz_headers to checkpoint_data for use in compare_by_groups()
+    checkpoint_data['deviz_headers'] = {
+        k: {
+            'obiectivul': v.obiectivul,
+            'obiectul': v.obiectul,
+            'categoria': v.categoria,
+            'is_valid': v.is_valid,
+            'deviz_cod': v.deviz_cod,
+        }
+        for k, v in deviz_headers.items()
+    }
+
     articles = extract_articles_v3(page_classes)
     logger.info(f"  {len(articles)} articole extrase din linii")
 
@@ -881,6 +893,7 @@ def compare_and_report(
     ofertant_name: str = "",
     ref_di_json: dict = None,
     checkpoint_data: dict = None,
+    ref_checkpoint_data: dict = None,
     client_config: ClientConfig = None,
     subcomponent_mode: str = "full",
 ):
@@ -1010,31 +1023,41 @@ def compare_and_report(
     # Holistic group-based comparison
     from shared.group_comparator import compare_by_groups
     from shared.report_builder import build_raport_holistic
-    from shared.deviz_header_extractor import extract_deviz_headers
+    from shared.deviz_header_extractor import DevizHeader
 
-    # Use original page-level headers (not reconstructed from articles)
-    # Extract from checkpoint page_classes if available
+    # Load original page-level headers from checkpoint (persisted in extract_document())
     _ref_dh = {}
     _oferta_dh = {}
 
-    try:
-        # Try to get page_classes from ref checkpoint
-        if isinstance(checkpoint_ref_data, dict) and "page_classes" in checkpoint_ref_data:
-            _ref_dh = extract_deviz_headers(checkpoint_ref_data["page_classes"], client, model)
-        else:
-            _ref_dh = _headers_from_articles(ref_articles)
-    except Exception as e:
-        logger.warning(f"  Failed to extract ref headers from checkpoint: {e}, falling back to articles")
+    # Reconstruct DevizHeader objects from checkpoint persisted data
+    if isinstance(ref_checkpoint_data, dict) and "deviz_headers" in ref_checkpoint_data:
+        for deviz_cod, hdr_data in ref_checkpoint_data["deviz_headers"].items():
+            _ref_dh[deviz_cod] = DevizHeader(
+                obiectivul=hdr_data.get('obiectivul'),
+                obiectul=hdr_data.get('obiectul'),
+                categoria=hdr_data.get('categoria'),
+                deviz_key=deviz_cod,
+                is_valid=hdr_data.get('is_valid', False),
+                source="checkpoint",
+                deviz_cod=hdr_data.get('deviz_cod', deviz_cod),
+            )
+    else:
+        logger.warning("  [HEADERS] Ref deviz_headers not found in checkpoint, using fallback")
         _ref_dh = _headers_from_articles(ref_articles)
 
-    try:
-        # Try to get page_classes from oferta checkpoint
-        if isinstance(checkpoint_oferta_data, dict) and "page_classes" in checkpoint_oferta_data:
-            _oferta_dh = extract_deviz_headers(checkpoint_oferta_data["page_classes"], client, model)
-        else:
-            _oferta_dh = _headers_from_articles(oferta_norm)
-    except Exception as e:
-        logger.warning(f"  Failed to extract oferta headers from checkpoint: {e}, falling back to articles")
+    if isinstance(checkpoint_data, dict) and "deviz_headers" in checkpoint_data:
+        for deviz_cod, hdr_data in checkpoint_data["deviz_headers"].items():
+            _oferta_dh[deviz_cod] = DevizHeader(
+                obiectivul=hdr_data.get('obiectivul'),
+                obiectul=hdr_data.get('obiectul'),
+                categoria=hdr_data.get('categoria'),
+                deviz_key=deviz_cod,
+                is_valid=hdr_data.get('is_valid', False),
+                source="checkpoint",
+                deviz_cod=hdr_data.get('deviz_cod', deviz_cod),
+            )
+    else:
+        logger.warning("  [HEADERS] Oferta deviz_headers not found in checkpoint, using fallback")
         _oferta_dh = _headers_from_articles(oferta_norm)
 
     logger.info(f"  [HEADERS] Ref: {len(_ref_dh)} deviz_keys, Oferta: {len(_oferta_dh)} deviz_keys")
