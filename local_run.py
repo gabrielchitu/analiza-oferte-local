@@ -719,6 +719,7 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
             'categoria': v.categoria,
             'is_valid': v.is_valid,
             'deviz_cod': v.deviz_cod,
+            'deviz_key': v.deviz_key,
         }
         for k, v in deviz_headers.items()
     }
@@ -1030,32 +1031,45 @@ def compare_and_report(
     _oferta_dh = {}
 
     # Reconstruct DevizHeader objects from checkpoint persisted data
+    # Key by deviz_key (hash) to match article grouping in compare_by_groups
     if isinstance(ref_checkpoint_data, dict) and "deviz_headers" in ref_checkpoint_data:
         for deviz_cod, hdr_data in ref_checkpoint_data["deviz_headers"].items():
-            _ref_dh[deviz_cod] = DevizHeader(
+            hdr = DevizHeader(
                 obiectivul=hdr_data.get('obiectivul'),
                 obiectul=hdr_data.get('obiectul'),
                 categoria=hdr_data.get('categoria'),
-                deviz_key=deviz_cod,
+                deviz_key=hdr_data.get('deviz_key', ''),
                 is_valid=hdr_data.get('is_valid', False),
                 source="checkpoint",
                 deviz_cod=hdr_data.get('deviz_cod', deviz_cod),
             )
+            # Key by deviz_key, not deviz_cod
+            deviz_key = hdr_data.get('deviz_key', '')
+            if deviz_key:
+                _ref_dh[deviz_key] = hdr
+            # Also keep deviz_cod key for fallback
+            _ref_dh[deviz_cod] = hdr
     else:
         logger.warning("  [HEADERS] Ref deviz_headers not found in checkpoint, using fallback")
         _ref_dh = _headers_from_articles(ref_articles)
 
     if isinstance(checkpoint_data, dict) and "deviz_headers" in checkpoint_data:
         for deviz_cod, hdr_data in checkpoint_data["deviz_headers"].items():
-            _oferta_dh[deviz_cod] = DevizHeader(
+            hdr = DevizHeader(
                 obiectivul=hdr_data.get('obiectivul'),
                 obiectul=hdr_data.get('obiectul'),
                 categoria=hdr_data.get('categoria'),
-                deviz_key=deviz_cod,
+                deviz_key=hdr_data.get('deviz_key', ''),
                 is_valid=hdr_data.get('is_valid', False),
                 source="checkpoint",
                 deviz_cod=hdr_data.get('deviz_cod', deviz_cod),
             )
+            # Key by deviz_key, not deviz_cod
+            deviz_key = hdr_data.get('deviz_key', '')
+            if deviz_key:
+                _oferta_dh[deviz_key] = hdr
+            # Also keep deviz_cod key for fallback
+            _oferta_dh[deviz_cod] = hdr
     else:
         logger.warning("  [HEADERS] Oferta deviz_headers not found in checkpoint, using fallback")
         _oferta_dh = _headers_from_articles(oferta_norm)

@@ -209,11 +209,22 @@ def compare_by_groups(
         ncs, matches = _compare_articles_in_group(
             ref_arts, of_arts, ref_cod, llm_client, llm_model
         )
+        # Build deviz_denumire from header (3 elements, not hash)
+        ref_hdr = ref_deviz_headers.get(ref_cod)
+        oferta_hdr = oferta_deviz_headers.get(oferta_cod)
+
+        def _header_to_string(hdr):
+            if not hdr:
+                return ""
+            parts = [hdr.obiectivul, hdr.obiectul, hdr.categoria]
+            return " | ".join(p for p in parts if p)
+
         result.matched_groups.append({
             "ref_deviz_cod": ref_cod,
             "oferta_deviz_cod": oferta_cod,
-            "ref_header": ref_deviz_headers.get(ref_cod),
-            "oferta_header": oferta_deviz_headers.get(oferta_cod),
+            "ref_header": ref_hdr,
+            "oferta_header": oferta_hdr,
+            "deviz_denumire": _header_to_string(ref_hdr) or _header_to_string(oferta_hdr),
             "ref_articles": ref_arts,
             "oferta_articles": of_arts,
             "neconformitati": ncs,
@@ -226,11 +237,19 @@ def compare_by_groups(
     # Ref-only → LIPSA
     for ref_cod in sorted(ref_cods - matched_ref_cods):
         arts = ref_by_deviz.get(ref_cod, [])
-        deviz_den = arts[0].get("deviz_denumire", "") if arts else ""
+        ref_hdr = ref_deviz_headers.get(ref_cod)
+        # Use header 3-element string instead of article deviz_denumire
+        deviz_den = ""
+        if ref_hdr:
+            parts = [ref_hdr.obiectivul, ref_hdr.obiectul, ref_hdr.categoria]
+            deviz_den = " | ".join(p for p in parts if p)
+        if not deviz_den:
+            deviz_den = arts[0].get("deviz_denumire", "") if arts else ""
         ncs = [_lipsa_neconf(a, ref_cod, deviz_den) for a in arts if a.get("cantitate")]
         result.ref_only_groups.append({
             "ref_deviz_cod": ref_cod,
-            "ref_header": ref_deviz_headers.get(ref_cod),
+            "ref_header": ref_hdr,
+            "deviz_denumire": deviz_den,
             "articles": arts,
             "neconformitati": ncs,
         })
@@ -239,11 +258,19 @@ def compare_by_groups(
     # Oferta-only → EXTRA
     for oferta_cod in sorted(oferta_cods - matched_oferta_cods):
         arts = oferta_by_deviz.get(oferta_cod, [])
-        deviz_den = arts[0].get("deviz_denumire", "") if arts else ""
+        oferta_hdr = oferta_deviz_headers.get(oferta_cod)
+        # Use header 3-element string instead of article deviz_denumire
+        deviz_den = ""
+        if oferta_hdr:
+            parts = [oferta_hdr.obiectivul, oferta_hdr.obiectul, oferta_hdr.categoria]
+            deviz_den = " | ".join(p for p in parts if p)
+        if not deviz_den:
+            deviz_den = arts[0].get("deviz_denumire", "") if arts else ""
         ncs = [_extra_neconf(a, "", deviz_den) for a in arts if a.get("cantitate")]
         result.oferta_only_groups.append({
             "oferta_deviz_cod": oferta_cod,
-            "oferta_header": oferta_deviz_headers.get(oferta_cod),
+            "oferta_header": oferta_hdr,
+            "deviz_denumire": deviz_den,
             "articles": arts,
             "neconformitati": ncs,
         })
