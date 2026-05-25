@@ -194,7 +194,7 @@ def _format_page_range(pages: list) -> str:
 
 
 def _add_group_heading(table, group_type: str, ref_header, oferta_header,
-                       ref_deviz_cod: str = "", oferta_deviz_cod: str = "") -> None:
+                       ref_deviz_cod: str = "", oferta_deviz_cod: str = "", deviz_denumire: str = "") -> None:
     """Rand separator de grup cu informatii 3-layer (OBIECTIVUL/Obiectul/Categoria)."""
     sep_cells = table.add_row().cells
     sep_cells[0].merge(sep_cells[10])
@@ -205,6 +205,8 @@ def _add_group_heading(table, group_type: str, ref_header, oferta_header,
         obj2 = (getattr(header, 'obiectul', None) or "")[:60]
         cat = (getattr(header, 'categoria', None) or "")[:60]
         label = f"OBIECTIVUL: {obj1}  │  Obiectul: {obj2}  │  Categoria: {cat}"
+    elif deviz_denumire:
+        label = f"Deviz: {deviz_denumire}"
     else:
         label = f"Deviz: {ref_deviz_cod or oferta_deviz_cod}"
 
@@ -1040,7 +1042,8 @@ def _generate_word_holistic(doc, raport_holistic: dict, comp: dict,
     for mg in raport_holistic.get("matched_groups", []):
         _add_group_heading(table, "matched",
                            mg.get("ref_header"), mg.get("oferta_header"),
-                           mg.get("ref_deviz_cod", ""), mg.get("oferta_deviz_cod", ""))
+                           mg.get("ref_deviz_cod", ""), mg.get("oferta_deviz_cod", ""),
+                           mg.get("deviz_denumire", ""))
         visible = _visible(mg.get("neconformitati", []))
         if visible:
             for nc in visible:
@@ -1056,7 +1059,8 @@ def _generate_word_holistic(doc, raport_holistic: dict, comp: dict,
     for rg in raport_holistic.get("ref_only_groups", []):
         _add_group_heading(table, "ref_only",
                            rg.get("ref_header"), None,
-                           ref_deviz_cod=rg.get("ref_deviz_cod", ""))
+                           ref_deviz_cod=rg.get("ref_deviz_cod", ""),
+                           deviz_denumire=rg.get("deviz_denumire", ""))
         for nc in rg.get("neconformitati", []):
             row_nr += 1
             _add_neconf_row(table, row_nr, nc, deviz_map)
@@ -1065,7 +1069,8 @@ def _generate_word_holistic(doc, raport_holistic: dict, comp: dict,
     for og in raport_holistic.get("oferta_only_groups", []):
         _add_group_heading(table, "oferta_only",
                            None, og.get("oferta_header"),
-                           oferta_deviz_cod=og.get("oferta_deviz_cod", ""))
+                           oferta_deviz_cod=og.get("oferta_deviz_cod", ""),
+                           deviz_denumire=og.get("deviz_denumire", ""))
         for nc in og.get("neconformitati", []):
             row_nr += 1
             _add_neconf_row(table, row_nr, nc, deviz_map)

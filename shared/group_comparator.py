@@ -219,12 +219,30 @@ def compare_by_groups(
             parts = [hdr.obiectivul, hdr.obiectul, hdr.categoria]
             return " | ".join(p for p in parts if p)
 
+        # If header not found by key, try by deviz_cod from articles
+        deviz_den = _header_to_string(ref_hdr) or _header_to_string(oferta_hdr)
+        if not deviz_den and ref_arts:
+            deviz_cod_from_art = ref_arts[0].get("deviz", "").strip()
+            if deviz_cod_from_art:
+                fallback_ref = ref_deviz_headers.get(deviz_cod_from_art)
+                fallback_of = oferta_deviz_headers.get(deviz_cod_from_art)
+                deviz_den = _header_to_string(fallback_ref) or _header_to_string(fallback_of)
+        # Last resort: use article header metadata
+        if not deviz_den and ref_arts and ref_arts[0].get("deviz_header"):
+            hdr_dict = ref_arts[0].get("deviz_header", {})
+            parts = [hdr_dict.get("obiectivul", ""), hdr_dict.get("obiectul", ""), hdr_dict.get("categoria", "")]
+            deviz_den = " | ".join(p for p in parts if p)
+        if not deviz_den and of_arts and of_arts[0].get("deviz_header"):
+            hdr_dict = of_arts[0].get("deviz_header", {})
+            parts = [hdr_dict.get("obiectivul", ""), hdr_dict.get("obiectul", ""), hdr_dict.get("categoria", "")]
+            deviz_den = " | ".join(p for p in parts if p)
+
         result.matched_groups.append({
             "ref_deviz_cod": ref_cod,
             "oferta_deviz_cod": oferta_cod,
             "ref_header": ref_hdr,
             "oferta_header": oferta_hdr,
-            "deviz_denumire": _header_to_string(ref_hdr) or _header_to_string(oferta_hdr),
+            "deviz_denumire": deviz_den,
             "ref_articles": ref_arts,
             "oferta_articles": of_arts,
             "neconformitati": ncs,
@@ -243,8 +261,19 @@ def compare_by_groups(
         if ref_hdr:
             parts = [ref_hdr.obiectivul, ref_hdr.obiectul, ref_hdr.categoria]
             deviz_den = " | ".join(p for p in parts if p)
-        if not deviz_den:
-            deviz_den = arts[0].get("deviz_denumire", "") if arts else ""
+        # Fallback: try lookup by deviz_cod from first article
+        if not deviz_den and arts:
+            deviz_cod_from_art = arts[0].get("deviz", "").strip()
+            if deviz_cod_from_art:
+                fallback_hdr = ref_deviz_headers.get(deviz_cod_from_art)
+                if fallback_hdr:
+                    parts = [fallback_hdr.obiectivul, fallback_hdr.obiectul, fallback_hdr.categoria]
+                    deviz_den = " | ".join(p for p in parts if p)
+        # Last resort: use article header if set
+        if not deviz_den and arts and arts[0].get("deviz_header"):
+            hdr_dict = arts[0].get("deviz_header", {})
+            parts = [hdr_dict.get("obiectivul", ""), hdr_dict.get("obiectul", ""), hdr_dict.get("categoria", "")]
+            deviz_den = " | ".join(p for p in parts if p)
         ncs = [_lipsa_neconf(a, ref_cod, deviz_den) for a in arts if a.get("cantitate")]
         result.ref_only_groups.append({
             "ref_deviz_cod": ref_cod,
@@ -264,8 +293,19 @@ def compare_by_groups(
         if oferta_hdr:
             parts = [oferta_hdr.obiectivul, oferta_hdr.obiectul, oferta_hdr.categoria]
             deviz_den = " | ".join(p for p in parts if p)
-        if not deviz_den:
-            deviz_den = arts[0].get("deviz_denumire", "") if arts else ""
+        # Fallback: try lookup by deviz_cod from first article
+        if not deviz_den and arts:
+            deviz_cod_from_art = arts[0].get("deviz", "").strip()
+            if deviz_cod_from_art:
+                fallback_hdr = oferta_deviz_headers.get(deviz_cod_from_art)
+                if fallback_hdr:
+                    parts = [fallback_hdr.obiectivul, fallback_hdr.obiectul, fallback_hdr.categoria]
+                    deviz_den = " | ".join(p for p in parts if p)
+        # Last resort: use article header if set
+        if not deviz_den and arts and arts[0].get("deviz_header"):
+            hdr_dict = arts[0].get("deviz_header", {})
+            parts = [hdr_dict.get("obiectivul", ""), hdr_dict.get("obiectul", ""), hdr_dict.get("categoria", "")]
+            deviz_den = " | ".join(p for p in parts if p)
         ncs = [_extra_neconf(a, "", deviz_den) for a in arts if a.get("cantitate")]
         result.oferta_only_groups.append({
             "oferta_deviz_cod": oferta_cod,
