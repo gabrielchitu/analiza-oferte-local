@@ -78,14 +78,32 @@ result = compare_by_groups(ref_articles, oferta_articles, ref_dh, oferta_dh)
 
 ---
 
-## Remaining Issues After Layer 2
+## Architecture Issue Identified: deviz_key Mismatch
 
-| # | Issue | Analysis |
-|---|-------|----------|
-| **1** | BR O1: 20 DEVIZ_MISMATCH still present (unchanged from 22 total) | Root cause ≠ headers—headers now matched. New hypothesis: articles themselves have wrong deviz_key assignment. |
-| **2** | CM O1/O2: 0 matched_groups despite headers present | Ref has 19 deviz codes, offer has 35-36. Ref extraction not finding all building types. |
-| **3** | SD O2: 0 matched_groups (22 deviz codes, both sides) | Headers loaded but keys don't match. May be different building/phase classification. |
-| **4** | SSR: JSON parse error in pattern library | Unrelated to Layer 2; fix pattern_library.json corruption. |
+**Root cause:** Ref and oferta extract different deviz_keys for same buildings
+- deviz_key = MD5(OBIECTIVUL | Obiectul | Categoria)
+- Same building: ref key ≠ oferta key (OCR/formatting differences)
+- Articles grouped by deviz_key, headers keyed by deviz_cod
+- Result: Headers not found when looking up by article deviz_key
+
+**Impact on current results:**
+- BR O1: Matched groups 18→5 (when changed to deviz_key keying)
+- Deviz_denumire empty in reports (headers not found)
+- All clients affected: different deviz_keys prevent cross-document matching
+
+## Next Session: Two Options
+
+**Option A (Recommended):** Fix deviz_key normalization
+- Strip more prefixes, normalize OCR variants
+- Ensure same building → same deviz_key across documents
+- Enables proper page-level grouping and header matching
+
+**Option B (Quick):** Revert to deviz_cod grouping
+- Change _articles_by_deviz to group by deviz (code) not deviz_key (hash)
+- Headers will be found (keyed by deviz_cod)
+- Trade: lose page-level grouping capability
+
+**See memory:** session_2026_05_25_layer2_and_reporting.md for architecture notes
 
 ---
 
