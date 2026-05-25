@@ -1,5 +1,7 @@
 # Pipeline — Diagrama de Secvență
-**Actualizat:** 2026-05-25 | **Versiune:** v11.x (holistic group matching)
+**Actualizat:** 2026-05-25 | **Versiune:** v11.x (holistic group matching, deviz_cod remapping removed)
+
+> **2026-05-25 Cleanup:** Removed Strategy 0-3 (match_devize_by_denomination) and Phase 1 deviz_matcher blocks. Holistic path (ETAPA 3.5) uses deviz_key hash exclusively. ~66 lines removed; baseline verified unchanged.
 
 ---
 

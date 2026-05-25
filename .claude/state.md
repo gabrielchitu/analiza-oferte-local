@@ -1,4 +1,4 @@
-# Session State — 2026-05-25 (post dedup-fix + deviz_cod elimination)
+# Session State — 2026-05-25 (post code cleanup: deviz_cod remapping removed)
 
 ## Baseline Holistic Results — CURRENT
 
@@ -60,6 +60,17 @@ deviz_display = " | ".join(parts[-2:]) if len(parts) >= 2 else deviz_den_full
 - display_parent_cod: afisat pt is_component=True SI $-coduri cu parinte
 - $-coduri: NU mai mostenesc UM de la parinte
 - Col 1 "Categoria de lucrari": `Obiectul | Categoria` (ultimele 2 parti din deviz_denumire)
+
+## Cleanup (2026-05-25)
+
+Removed dead deviz_cod string remapping code:
+- `reconcile_missing_devize()` block — no longer needed for holistic
+- `match_devize_by_denomination/3layer` remapping — overridden by compare_by_groups anyway
+- Phase 1 inside compare_and_report() — unused art["deviz"] remapping
+
+**~66 lines deleted. Baseline verified unchanged: BR O1/O2=35/0/0, O3=35/0/3, O4=32/3/12**
+
+Modules `shared/deviz_reconciler.py` and `shared/deviz_matcher.py` still exist but unreferenced (dead code, can clean later).
 
 ## Known Issues (activ in sesiunea urmatoare)
 

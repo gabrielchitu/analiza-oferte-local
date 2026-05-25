@@ -1,5 +1,5 @@
 # Architecture Schema — Diagrama Completă Flux
-**Actualizat:** 2026-05-25 | **Versiune:** v11.x (holistic group matching)
+**Actualizat:** 2026-05-25 | **Versiune:** v11.x (holistic group matching, deviz_cod remapping removed)
 
 ---
 
@@ -114,20 +114,9 @@
 ╚══════════════════════════════════════════════════════════════════════════╝
                              │
                              ▼
-╔══════════════════════════════════════════════════════════════════════════╗
-║  ETAPA 3 — DEVIZ MAPPING                                                 ║
-║  shared/deviz_matcher.py                                                 ║
-╠══════════════════════════════════════════════════════════════════════════╣
-║                                                                          ║
-║  match_devize_by_denomination(ref_arts, oferta_arts):                   ║
-║   → construieste mapping: deviz_oferta_cod → deviz_ref_cod              ║
-║   → fuzzy match pe denumirile devizelor (SequenceMatcher)               ║
-║   → aplica remapping la articolele ofertei                              ║
-║                                                                          ║
-║  CHECKPOINT: checkpoints/di_<doc>_deviz_mapping_<hash>.json            ║
-║                                                                          ║
-║  ⚠ Known issue: nu mapeaza text↔numeric (SD DEVIZ_MM=600+)              ║
-║    Ref: "4.1-01 STRUCTURA" vs Oferta: cod eDevize numeric               ║
+║  ⚠ ETAPA 3 REMOVED (2026-05-25): deviz_matcher.py dead code              ║
+║    Old Strategy 0-3 (match_devize_by_denomination) removed               ║
+║    Holistic path (ETAPA 3.5) handles all deviz matching via deviz_key    ║
 ╚══════════════════════════════════════════════════════════════════════════╝
                              │
                              ▼

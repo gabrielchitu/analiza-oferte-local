@@ -4,6 +4,24 @@
 
 ---
 
+## TASK COMPLETED: Code Cleanup — deviz_cod String Remapping Removal (2026-05-25)
+
+**Change:** Removed all dead deviz_cod string remapping code. Holistic path uses deviz_key hash exclusively.
+
+**Removed:**
+- `reconcile_missing_devize()` block (local_run.py:212-276) — deviz code reconciliation
+- `match_devize_by_denomination()` + `remap_devize_in_articles()` block (local_run.py:291-307) — Strategy 0-3/4 remapping
+- Phase 1 deviz_matcher inside `compare_and_report()` (local_run.py:857-864) — unused art["deviz"] remapping
+- Unused imports from `shared.deviz_reconciler` and `shared.deviz_matcher`
+
+**Reason:** Holistic `compare_by_groups()` does its own 3-layer matching and overrides art["deviz"] with hash anyway. Old code was inoffensive but unmaintained dead weight.
+
+**Baseline:** BR O1/O2=35/0/0, O3=35/0/3, O4=32/3/12 ✅ verified unchanged
+
+**~66 lines removed. Committed + pushed.**
+
+---
+
 ## TASK COMPLETED: Dedup Fix + deviz_cod Elimination (2026-05-25)
 
 **Issue:** "4 ORGANIZARE SANTIER | BLC7" aparea ca grup absent din oferta, desi exista in referinta.
