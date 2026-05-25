@@ -45,13 +45,26 @@ def _normalize(text: str) -> str:
     return text
 
 
+def _strip_page_prefix(text: str) -> str:
+    """Strip numeric page prefix (e.g. '001 ', '002 ') from Obiect."""
+    if not text:
+        return text
+    import re
+    return re.sub(r'^00\d\s+', '', text.strip())
+
+
 def _make_deviz_key(
     obiectivul: str | None,
     obiectul: str | None,
     categoria: str | None,
 ) -> tuple[str, bool]:
     is_valid = all(x is not None for x in [obiectivul, obiectul, categoria])
-    parts = [_normalize(x) if x is not None else "\x00" for x in [obiectivul, obiectul, categoria]]
+
+    # Strip "00X " prefix from Obiect (from oferta pages)
+    clean_obiectul = _strip_page_prefix(obiectul) if obiectul else None
+    clean_categoria = _strip_page_prefix(categoria) if categoria else None
+
+    parts = [_normalize(x) if x is not None else "\x00" for x in [obiectivul, clean_obiectul, clean_categoria]]
     raw = " | ".join(parts)
     key = hashlib.md5(raw.encode()).hexdigest()[:16]
     if not is_valid:
