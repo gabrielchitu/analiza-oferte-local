@@ -96,13 +96,16 @@ def _compare_articles_in_group(
         return ncs, []
     from AgentComparator_local import match_global
 
-    # Normalize deviz_key so match_global can match by (deviz_key, cod).
-    # Ref and oferta groups may have different deviz_keys (matched by group_comparator),
-    # so we unify them to the ref group's key before comparison.
-    ref_key = (ref_arts[0].get("deviz_key") or "").strip() if ref_arts else ""
-    if ref_key:
+    # Normalize oferta deviz_cod to ref group's deviz_cod before match_global.
+    # match_global matches by (deviz_cod, cod_articol).  Ref and oferta groups were
+    # matched by group_comparator (same 3-layer header), but may have different
+    # deviz_cods (e.g. ref="BLC6", oferta="BLC7" for same building).
+    # Setting oferta deviz = ref deviz makes Stage-1 key-matching work correctly.
+    ref_deviz_cod = (ref_arts[0].get("deviz") or "").strip() if ref_arts else ""
+    ref_deviz_key = (ref_arts[0].get("deviz_key") or "").strip() if ref_arts else ""
+    if ref_deviz_cod:
         oferta_arts = [
-            {**a, "deviz_key": ref_key, "deviz": ref_arts[0].get("deviz", a.get("deviz", ""))}
+            {**a, "deviz": ref_deviz_cod, "deviz_key": ref_deviz_key or a.get("deviz_key", "")}
             for a in oferta_arts
         ]
 
