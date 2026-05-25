@@ -1010,8 +1010,35 @@ def compare_and_report(
     # Holistic group-based comparison
     from shared.group_comparator import compare_by_groups
     from shared.report_builder import build_raport_holistic
-    _ref_dh = _headers_from_articles(ref_articles)
-    _oferta_dh = _headers_from_articles(oferta_norm)
+    from shared.deviz_header_extractor import extract_deviz_headers
+
+    # Use original page-level headers (not reconstructed from articles)
+    # Extract from checkpoint page_classes if available
+    _ref_dh = {}
+    _oferta_dh = {}
+
+    try:
+        # Try to get page_classes from ref checkpoint
+        if isinstance(checkpoint_ref_data, dict) and "page_classes" in checkpoint_ref_data:
+            _ref_dh = extract_deviz_headers(checkpoint_ref_data["page_classes"], client, model)
+        else:
+            _ref_dh = _headers_from_articles(ref_articles)
+    except Exception as e:
+        logger.warning(f"  Failed to extract ref headers from checkpoint: {e}, falling back to articles")
+        _ref_dh = _headers_from_articles(ref_articles)
+
+    try:
+        # Try to get page_classes from oferta checkpoint
+        if isinstance(checkpoint_oferta_data, dict) and "page_classes" in checkpoint_oferta_data:
+            _oferta_dh = extract_deviz_headers(checkpoint_oferta_data["page_classes"], client, model)
+        else:
+            _oferta_dh = _headers_from_articles(oferta_norm)
+    except Exception as e:
+        logger.warning(f"  Failed to extract oferta headers from checkpoint: {e}, falling back to articles")
+        _oferta_dh = _headers_from_articles(oferta_norm)
+
+    logger.info(f"  [HEADERS] Ref: {len(_ref_dh)} deviz_keys, Oferta: {len(_oferta_dh)} deviz_keys")
+
     _holistic = compare_by_groups(
         ref_articles, oferta_norm, _ref_dh, _oferta_dh, client, model
     )
