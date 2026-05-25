@@ -201,9 +201,9 @@ def _add_group_heading(table, group_type: str, ref_header, oferta_header,
 
     header = ref_header or oferta_header
     if header:
-        obj1 = (getattr(header, 'obiectivul', None) or "")[:60]
-        obj2 = (getattr(header, 'obiectul', None) or "")[:60]
-        cat = (getattr(header, 'categoria', None) or "")[:60]
+        obj1 = (getattr(header, 'obiectivul', None) or "").strip()
+        obj2 = (getattr(header, 'obiectul', None) or "").strip()
+        cat = (getattr(header, 'categoria', None) or "").strip()
         label = f"OBIECTIVUL: {obj1}  │  Obiectul: {obj2}  │  Categoria: {cat}"
     elif deviz_denumire:
         label = f"Deviz: {deviz_denumire}"
