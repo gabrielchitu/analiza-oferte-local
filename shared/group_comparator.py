@@ -82,17 +82,17 @@ def _extra_neconf(art: dict, ref_deviz_cod: str = "", deviz_den: str = "") -> di
 def _compare_articles_in_group(
     ref_arts: list,
     oferta_arts: list,
-    deviz_cod: str,
+    group_key: str,
     llm_client,
     llm_model: str,
 ) -> tuple[list, list]:
     if not ref_arts and not oferta_arts:
         return [], []
     if not ref_arts:
-        ncs = [_extra_neconf(a, deviz_cod) for a in oferta_arts if a.get("cantitate")]
+        ncs = [_extra_neconf(a, group_key) for a in oferta_arts if a.get("cantitate")]
         return ncs, []
     if not oferta_arts:
-        ncs = [_lipsa_neconf(a, deviz_cod) for a in ref_arts if a.get("cantitate")]
+        ncs = [_lipsa_neconf(a, group_key) for a in ref_arts if a.get("cantitate")]
         return ncs, []
     from AgentComparator_local import match_global
 
@@ -240,15 +240,8 @@ def compare_by_groups(
             parts = [hdr.obiectivul, hdr.obiectul, hdr.categoria]
             return " | ".join(p for p in parts if p)
 
-        # If header not found by key, try by deviz_cod from articles
         deviz_den = _header_to_string(ref_hdr) or _header_to_string(oferta_hdr)
-        if not deviz_den and ref_arts:
-            deviz_cod_from_art = ref_arts[0].get("deviz", "").strip()
-            if deviz_cod_from_art:
-                fallback_ref = ref_deviz_headers.get(deviz_cod_from_art)
-                fallback_of = oferta_deviz_headers.get(deviz_cod_from_art)
-                deviz_den = _header_to_string(fallback_ref) or _header_to_string(fallback_of)
-        # Last resort: use article header metadata
+        # Fallback: use article's embedded deviz_header metadata
         if not deviz_den and ref_arts and ref_arts[0].get("deviz_header"):
             hdr_dict = ref_arts[0].get("deviz_header", {})
             parts = [hdr_dict.get("obiectivul", ""), hdr_dict.get("obiectul", ""), hdr_dict.get("categoria", "")]
@@ -280,20 +273,10 @@ def compare_by_groups(
     for ref_cod in sorted(ref_cods - matched_ref_cods):
         arts = ref_by_deviz.get(ref_cod, [])
         ref_hdr = ref_deviz_headers.get(ref_cod)
-        # Use header 3-element string instead of article deviz_denumire
         deviz_den = ""
         if ref_hdr:
             parts = [ref_hdr.obiectivul, ref_hdr.obiectul, ref_hdr.categoria]
             deviz_den = " | ".join(p for p in parts if p)
-        # Fallback: try lookup by deviz_cod from first article
-        if not deviz_den and arts:
-            deviz_cod_from_art = arts[0].get("deviz", "").strip()
-            if deviz_cod_from_art:
-                fallback_hdr = ref_deviz_headers.get(deviz_cod_from_art)
-                if fallback_hdr:
-                    parts = [fallback_hdr.obiectivul, fallback_hdr.obiectul, fallback_hdr.categoria]
-                    deviz_den = " | ".join(p for p in parts if p)
-        # Last resort: use article header if set
         if not deviz_den and arts and arts[0].get("deviz_header"):
             hdr_dict = arts[0].get("deviz_header", {})
             parts = [hdr_dict.get("obiectivul", ""), hdr_dict.get("obiectul", ""), hdr_dict.get("categoria", "")]
@@ -312,20 +295,10 @@ def compare_by_groups(
     for oferta_cod in sorted(oferta_cods - matched_oferta_cods):
         arts = oferta_by_deviz.get(oferta_cod, [])
         oferta_hdr = oferta_deviz_headers.get(oferta_cod)
-        # Use header 3-element string instead of article deviz_denumire
         deviz_den = ""
         if oferta_hdr:
             parts = [oferta_hdr.obiectivul, oferta_hdr.obiectul, oferta_hdr.categoria]
             deviz_den = " | ".join(p for p in parts if p)
-        # Fallback: try lookup by deviz_cod from first article
-        if not deviz_den and arts:
-            deviz_cod_from_art = arts[0].get("deviz", "").strip()
-            if deviz_cod_from_art:
-                fallback_hdr = oferta_deviz_headers.get(deviz_cod_from_art)
-                if fallback_hdr:
-                    parts = [fallback_hdr.obiectivul, fallback_hdr.obiectul, fallback_hdr.categoria]
-                    deviz_den = " | ".join(p for p in parts if p)
-        # Last resort: use article header if set
         if not deviz_den and arts and arts[0].get("deviz_header"):
             hdr_dict = arts[0].get("deviz_header", {})
             parts = [hdr_dict.get("obiectivul", ""), hdr_dict.get("obiectul", ""), hdr_dict.get("categoria", "")]
