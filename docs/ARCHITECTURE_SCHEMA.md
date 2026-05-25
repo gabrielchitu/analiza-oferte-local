@@ -1,5 +1,5 @@
 # Architecture Schema — Diagrama Completă Flux
-**Actualizat:** 2026-05-22 | **Versiune:** v8.0
+**Actualizat:** 2026-05-25 | **Versiune:** v11.x (holistic group matching)
 
 ---
 
@@ -102,12 +102,15 @@
 ║      "L:" prefix, ">>>" marker, ".L" suffix                             ║
 ║      → is_component=True, parent_cod setat                              ║
 ║                                                                          ║
-║  2e. Deduplicare pe (cod, deviz, cantitate)                              ║
+║  2e. Deduplicare pe (deviz_key, cod, um, cantitate)                      ║
+║      ⚠ deviz_key (hash MD5) nu deviz_cod string — mai multe grupuri    ║
+║        logice pot imparti acelasi deviz_cod (BLC7 = 2 grupuri distincte)║
 ║  2f. Mostenire cantitate/UM pentru componente                            ║
 ║  2g. _apply_parent_inheritance: parent_cod, parent_nr_ordine            ║
 ║                                                                          ║
 ║  Output: lista articole                                                  ║
-║   [{cod, deviz, cant, um, denumire, is_component, parent_cod, ...}]     ║
+║   [{cod, deviz, deviz_key, deviz_header, cant, um, denumire,            ║
+║     is_component, parent_cod, ...}]                                      ║
 ╚══════════════════════════════════════════════════════════════════════════╝
                              │
                              ▼
@@ -129,12 +132,42 @@
                              │
                              ▼
 ╔══════════════════════════════════════════════════════════════════════════╗
-║  ETAPA 4 — MATCHING                                                      ║
+║  ETAPA 3.5 — HOLISTIC GROUP COMPARISON (calea principala)                ║
+║  shared/group_comparator.py + shared/deviz_header_extractor.py          ║
+╠══════════════════════════════════════════════════════════════════════════╣
+║                                                                          ║
+║  extract_deviz_headers(page_classifications):                            ║
+║   → extrage OBIECTIVUL + Obiectul + Categoria per deviz din pagini F3   ║
+║   → genereaza DevizHeader{obiectivul, obiectul, categoria, deviz_key}   ║
+║   → dict keyed by deviz_key (hash) — NU deviz_cod                       ║
+║                                                                          ║
+║  compare_by_groups(ref_arts, oferta_arts, ref_dh, oferta_dh):           ║
+║   1. _articles_by_deviz(): grupeaza pe deviz_key hash                   ║
+║   2. match_devize_by_3layer(): potriveste grupuri ref↔oferta             ║
+║      (similitudine 3-strat: OBIECTIVUL + Obiectul + Categoria)           ║
+║      + same-code verify: verifica similitudine inainte de pairing        ║
+║   3. Per grup potrivit: _compare_articles_in_group()                    ║
+║      → art["deviz"] = ref_dkey (hash) inainte de match_global           ║
+║      → DEVIZ_MISMATCH imposibil in grup → reclasificat ca ARTICOL_LIPSA ║
+║   4. Grupuri ref-only → ARTICOL_LIPSA                                   ║
+║   5. Grupuri oferta-only → ARTICOL_EXTRA                                ║
+║                                                                          ║
+║  deviz_denumire = "OBIECTIVUL | Obiectul | Categoria" (3 elemente)      ║
+║  Col 1 raport afiseaza: Obiectul | Categoria (ultimele 2 parti)         ║
+║  OBIECTIVUL e in heading-ul grupului — NU se duplica in col 1           ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+                             │
+                             ▼
+╔══════════════════════════════════════════════════════════════════════════╗
+║  ETAPA 4 — MATCHING (per grup)                                           ║
 ║  AgentComparator_local.py → match_global()                               ║
 ║  + shared/article_matcher.py (Layer 2/2.1/2.5)                          ║
 ╠══════════════════════════════════════════════════════════════════════════╣
 ║                                                                          ║
-║  Cheie matching: (deviz_cod, article_cod)                                ║
+║  Cheie matching: (deviz_key_hash, article_cod)                           ║
+║  ⚠ art["deviz"] e setat la deviz_key hash de compare_by_groups()       ║
+║    inainte de apelul match_global — NU deviz_cod string                 ║
 ║                                                                          ║
 ║  ┌─ LAYER 1: N:M EXACT pe (deviz, cod) ─────────────────────────────┐  ║
 ║  │  Grupeaza ref si oferta dupa (deviz, cod)                         │  ║
@@ -197,19 +230,18 @@
 ║  shared/report_builder.py + shared/report_word.py                       ║
 ╠══════════════════════════════════════════════════════════════════════════╣
 ║                                                                          ║
-║  build_raport_ierarhic(ref_articles, neconformitati, matches):          ║
-║   → organizeaza pe deviz, ierarhic (principal + subcomponente)           ║
-║   → nr_ordine, display_parent_cod pentru subarticole                    ║
-║                                                                          ║
-║  generate_word(raport_ierarhic):                                         ║
-║   → Tabel 11 coloane: tip/cod/denumire/um/cant_ref/cant_of/preturi      ║
-║   → Coduri culoare: LIPSA=rosu, EXTRA=galben, DEVIZ_MM=albastru         ║
-║   → Grupuri deviz cu headere                                             ║
+║  _generate_word_holistic(holistic_result):                               ║
+║   → Sectiuni: matched_groups / ref_only_groups / oferta_only_groups     ║
+║   → Heading grup: OBIECTIVUL | Obiectul | Categoria                     ║
+║   → Col 1 "Categoria de lucrari": Obiectul | Categoria (2 parti finale) ║
+║   → OBIECTIVUL NU repetat in col 1 — e deja in heading                  ║
+║   → Nr.crt: pag.ref/pag.of + (nr_ordine_ref/nr_ordine_of)              ║
+║   → display_parent_cod: afisat pt is_component=True + $-coduri          ║
 ║                                                                          ║
 ║  Output per oferta:                                                      ║
 ║   output_AO/<ClientName>/Raport_Oferta_N.docx                           ║
-║   output_AO/<ClientName>/comparatie_oferta_N.json                       ║
-║   output_AO/<ClientName>/comparatie_deviz_oferta_N.json                 ║
+║   output_AO/<ClientName>/holistic_oferta_N.json                         ║
+║   output_AO/<ClientName>/comparatie_oferta_N.json  (legacy)             ║
 ╚══════════════════════════════════════════════════════════════════════════╝
                              │
                              ▼
@@ -248,31 +280,51 @@
 ```python
 {
     "cod":            str,    # "EA02A1", "$2200012", "CK26A"
-    "deviz":          str,    # "BLC2", "1-02", "226208"
-    "deviz_denumire": str,    # "BLC2 INSTALATII"
+    "deviz":          str,    # "BLC2", "1-02", "226208"  — cod string (display only)
+    "deviz_key":      str,    # md5 hash "4d91083264aeebaa" — IDENTIFICATOR CANONIC
+    "deviz_header":   dict,   # {"obiectivul": ..., "obiectul": ..., "categoria": ...}
     "denumire":       str,    # descriere articol, multiline
     "um":             str,    # "m", "mp", "buc", "mc", ""
     "cantitate":      float,  # 170.0
     "is_component":   bool,   # True pt subcomponente
     "parent_cod":     str,    # cod parinte pt subcomponente
     "nr_ordine":      int,    # pozitia in deviz
+    "source_pages":   list,   # pagini PDF sursa
 }
 ```
 
-### Neconformitate (output comparator)
+### DevizHeader (output deviz_header_extractor)
+
+```python
+DevizHeader(
+    obiectivul = "EFICIENTIZARE ENERGETICA ...",
+    obiectul   = "ORGANIZARE DE SANTIER",
+    categoria  = "BLC7 ORGANIZARE SANTIER",
+    deviz_key  = "4d91083264aeebaa",    # md5(normalized 3 elemente)
+    is_valid   = True,
+    source     = "regex",               # "regex" | "llm" | "cache"
+    deviz_cod  = "BLC7",                # cod PDF (display only, nu e unic)
+)
+```
+
+### Neconformitate (output group_comparator + comparator)
 
 ```python
 {
-    "tip":            str,    # "ARTICOL_LIPSA", "DEVIZ_MISMATCH", etc.
-    "ref_cod":        str,    # cod din referinta
-    "oferta_cod":     str,    # cod din oferta (pt EXTRA)
-    "deviz_ref":      str,    # deviz in referinta
-    "ref_cantitate":  float,
+    "tip":              str,    # "ARTICOL_LIPSA", "ARTICOL_EXTRA", "UM_DIFERIT", etc.
+    "ref_cod":          str,    # cod din referinta
+    "oferta_cod":       str,    # cod din oferta (pt EXTRA)
+    "deviz_ref":        str,    # deviz_key hash (identificator grup)
+    "deviz_denumire":   str,    # "OBIECTIVUL | Obiectul | Categoria" (3 elemente)
+    "ref_cantitate":    float,
     "oferta_cantitate": float,
-    "ref_um":         str,
-    "oferta_um":      str,
-    "nr_ordine_ref":  int,
-    "parent_cod_ref": str,
+    "ref_um":           str,
+    "oferta_um":        str,
+    "nr_ordine_ref":    int,
+    "nr_ordine_oferta": int,
+    "is_component":     bool,
+    "parent_cod_ref":   str,
+    "ref_source_pages": list,
 }
 ```
 
@@ -291,12 +343,20 @@ multi_client_run.py
     │       ├── _preprocess_scattered_format()  ← FIX 2026-05-22
     │       ├── _preprocess_compound_um()
     │       └── _merge_wrapped_codes()
+    ├── shared/deviz_header_extractor.py       ← extrage DevizHeader per grup
+    │   └── DevizHeaderCache (JSON persistence)
     ├── shared/deviz_matcher.py
+    │   └── match_devize_by_3layer()           ← potrivire grupuri ref↔oferta
+    ├── shared/group_comparator.py             ← compare_by_groups() PRINCIPAL
+    │   ├── _articles_by_deviz()               ← grupeaza pe deviz_key hash
+    │   ├── _compare_articles_in_group()
+    │   └── AgentComparator_local.py (import intern)
     ├── AgentComparator_local.py
     │   ├── shared/article_matcher.py (Layer 2/2.1/2.5)
     │   └── shared/comparator.py (field-level diffs)
-    ├── shared/report_builder.py
     └── shared/report_word.py
+        ├── _generate_word_holistic()          ← CALEA PRINCIPALA
+        └── _generate_word_hierarchical()      ← legacy
 
 run_diagnostics.py
     ├── shared/client_config.py
@@ -306,21 +366,18 @@ run_diagnostics.py
 
 ---
 
-## Metrici Baseline (2026-05-22, v8.0)
+## Metrici Baseline Holistic — Curent (2026-05-25)
 
-| Client | O | matched | LIPSA | EXTRA | DEVIZ_MM |
-|--------|---|---------|-------|-------|----------|
-| Blocuri Racari | 1 | 308 | 47 | 0 | 20 |
-| Blocuri Racari | 2 | 551 | 2 | 0 | 28 |
-| Blocuri Racari | 3 | 414 | 21 | 5 | - |
-| Blocuri Racari | 4 | 316 | 49 | 1 | 9 |
-| Camin Maneciu | 1 | 1056 | 1 | 36 | 2 |
-| Camin Maneciu | 2 | 1066 | 84 | 41 | 5 |
-| Scoala Dragomiresti | 1 | 651 | 6 | 0 | 624 |
-| Scoala Dragomiresti | 2 | 691 | 6 | 1 | 602 |
-| Scoala Sportiva Racari | 1 | 2152 | 2 | 122 | 11 |
-| Scoala Sportiva Racari | 2 | 1142 | 4 | 56 | 328 |
-| Scoala Sportiva Racari | 3 | 2260 | 6 | 315 | 325 |
+| Client | O | matched_groups | ref-only | oferta-only | Note |
+|--------|---|----------------|----------|-------------|------|
+| Blocuri Racari | 1 | 35 | 0 | 0 | ✅ perfect |
+| Blocuri Racari | 2 | 35 | 0 | 0 | ✅ perfect |
+| Blocuri Racari | 3 | 35 | 0 | 3 | neinvestigat |
+| Blocuri Racari | 4 | 32 | 3 | 12 | structura diferita |
+| **Scoala Dragomiresti** | **1** | **22** | **0** | **0** | ✅ perfect |
+| **Scoala Dragomiresti** | **2** | **22** | **0** | **0** | ✅ perfect |
+| Scoala Sportiva Racari | 1-3 | 0 | — | — | ❌ header format incompatibil |
+| Camin Maneciu | — | — | — | — | neverificat |
 
 ---
 
@@ -328,9 +385,8 @@ run_diagnostics.py
 
 | # | Issue | Files | Prioritate |
 |---|-------|-------|------------|
-| 1 | IZDO3D1 OCR O/0 — Layer 1 consuma cheia gresita | AgentComparator | Low/acceptat |
-| 2 | BR O3 EXTRA=5 — de investigat | - | Medium |
-| 3 | SD DEVIZ_MM=600+ — text vs numeric cod in deviz_matcher | deviz_matcher.py | High |
-| 4 | CM O2 LIPSA=84 — neinvestigat | - | Medium |
-| 5 | SSR O3 EXTRA=315 — neinvestigat | - | High |
-| 6 | SSR O2/O3 DEVIZ_MM=300+ — neinvestigat | - | High |
+| 1 | SSR 0 holistic grupuri — `_extract_from_lines` nu gaseste Obiectul/Categoria din format SSR | deviz_header_extractor.py | **HIGH** |
+| 2 | BR O3: 3 oferta-only neinvestigate | group_comparator.py | Medium |
+| 3 | BR O4: 3 ref-only, 12 oferta-only — structura diferita | - | Medium |
+| 4 | CM: groups mismatch ref/oferta | - | Medium |
+| 5 | IZDO3D1 OCR O/0 — Layer 1 consuma cheia gresita | AgentComparator | Low/acceptat |

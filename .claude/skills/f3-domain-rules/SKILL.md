@@ -169,12 +169,30 @@ producând articole cu `cantitate=0` (bug rezolvat 2026-05-22, commit: scatter-f
 
 ## 5. Cheie Matching
 
+### Cheie articol in match_global (Stage-1)
 ```python
-key = (deviz_cod, article_cod)
-# ex: ("BLC2", "EA02A1"), ("1-02", "$2200012")
+_art_key = (art["deviz"], cod_articol)
+# art["deviz"] e setat de compare_by_groups() la deviz_key HASH inainte de match_global
+# ex: ("4d91083264aeebaa", "EA02A1")
 ```
 
-### Deviz cod formate valide
+### deviz_key vs deviz_cod — REGULA CRITICA
+```
+deviz_key = md5(OBIECTIVUL + OBIECTUL + CATEGORIA)  ← unic, canonical, FOLOSIT CA KEY
+deviz_cod = "BLC7", "1-01", "4.1-02"               ← NU unic, NU folosit ca key/lookup
+```
+**Acelasi deviz_cod poate acoperi mai multe grupuri logice.**
+Ex: BLC7 = "3 ORGANIZARE SANTIER" (pag 18-19) + "4 ORGANIZARE SANTIER" (pag 102-127) — hash-uri diferite.
+Folosind deviz_cod ca key → al doilea grup pierdut la deduplicare.
+
+### Deduplicare articole (local_run.py)
+```python
+# CORECT:
+key = (art.get("deviz_key") or art.get("deviz"), art.get("cod"), art.get("um"), art.get("cantitate"))
+# GRESIT (bug rezolvat 2026-05-25): art.get("deviz") = cod string → pierde grupuri duplicate
+```
+
+### Deviz cod formate valide (pentru afisare, nu pentru lookup)
 | Format | Exemplu | Sursa |
 |--------|---------|-------|
 | BLC prefix | `BLC1`, `BLC2`, `BLC7` | Oferte cu bloc separate |
@@ -182,7 +200,7 @@ key = (deviz_cod, article_cod)
 | Numeric pur | `226208`, `226428` | eDevize cod intern |
 | Text | `001-001`, `002-002` | Variante eDevize |
 
-### Normalizare deviz cod
+### Normalizare deviz cod (pentru afisare/clasificare pagini)
 ```python
 U→0  (OCR)
 _normalize_deviz_cod(cod): strip leading zeros, uppercase
@@ -253,6 +271,8 @@ Filename suffix: `Raport_Oferta_N_fields.docx`, `Raport_Oferta_N_summary.docx`.
 | `TRA01A15P` in 5 devize | Normal — acelasi cod poate aparea in devize multiple |
 | `$7650374` cu ref.um='' | Lenient UM post-proc → MATCHED + UM_DIFERIT |
 | Continuare pagina (header_only) | Pagina cu doar header nu se proceseaza (is skipped) |
+| BLC7 cu 2 grupuri distincte | deviz_cod="BLC7" dar deviz_key diferit (hash) — NICIODATA folosit deviz_cod ca lookup key |
+| `ref_deviz_headers.get("BLC7")` | INTOTDEAUNA None — dict e keyed by hash, nu cod string (bug eliminat 2026-05-25) |
 | Bare `82` in READING cu cant=0 | _finalize() + _WAITING (tratata ca NR_CRT nou) |
 | Bare `82` in READING cu cant>0 | _is_nr_crt() check: price_count==0 and cant>0 → True → _finalize() |
 | `D20MM`, `D25MM`, `D32MM`, `D40MM` | **NU sunt coduri reale.** Sunt headere de grup eDevize (diametru). OCR wrapeaza "SA04A01> - Teava PN16, D20mm" pe 2 linii → parser crea articol fals. Filtru in `f3_extractor.py`: `^D\d+MM$` + denumire goala → eliminat INAINTE de `_apply_parent_inheritance`. |
