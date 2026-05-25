@@ -440,11 +440,10 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
     display_parent = neconf.get("display_parent_cod") if (is_subcomp or is_dollar_with_parent) else None
     effective_parent = parent_cod_ref or display_parent
 
-    deviz_cod = neconf.get("deviz_ref", "")
-    deviz_den = deviz_map.get(deviz_cod, "")
-    if deviz_den and len(deviz_den) > 40:
-        deviz_den = deviz_den[:37] + "..."
-    deviz_display = f"{deviz_cod} - {deviz_den}" if deviz_den else str(deviz_cod)
+    deviz_den_full = neconf.get("deviz_denumire", "") or neconf.get("deviz_ref", "")
+    parts = [p.strip() for p in deviz_den_full.split(" | ") if p.strip()]
+    # Group heading already shows OBIECTIVUL — column shows Obiectul | Categoria (specific parts)
+    deviz_display = " | ".join(parts[-2:]) if len(parts) >= 2 else deviz_den_full
     row[1].paragraphs[0].add_run(deviz_display).bold = True
 
     # Col 2: cod REF ierarhic — principal sus+stânga, secundar jos+dreapta indentat
@@ -679,13 +678,13 @@ def _add_article_block(doc, art: dict) -> None:
         _add_subarticol_block(doc, sub)
 
 
-def _add_principal_context_row(table, art: dict, deviz_cod: str, deviz_den: str) -> None:
+def _add_principal_context_row(table, art: dict, deviz_denumire: str) -> None:
     """Rând context pentru articolul principal MATCHED când subarticolele lui au neconformitati."""
     row = table.add_row().cells
     nr = art.get('nr_ordine')
     row[0].paragraphs[0].add_run(str(nr) if nr is not None else '')
-    den_short = deviz_den[:37] + '...' if len(deviz_den) > 40 else deviz_den
-    deviz_display = f"{deviz_cod} - {den_short}" if den_short else str(deviz_cod)
+    parts = [p.strip() for p in deviz_denumire.split(" | ") if p.strip()]
+    deviz_display = " | ".join(parts[-2:]) if len(parts) >= 2 else deviz_denumire
     row[1].paragraphs[0].add_run(deviz_display).bold = True
     cod_run = row[2].paragraphs[0].add_run(str(art.get('cod', '')))
     cod_run.bold = True
@@ -838,7 +837,7 @@ def _generate_word_hierarchical(doc, raport: dict, comp: dict,
 
             if not principal_ncs and subs_with_ncs:
                 # Principal MATCHED dar subarticole cu neconf: rand context verde
-                _add_principal_context_row(table, art, dv_cod, dv_den)
+                _add_principal_context_row(table, art, dv_den or dv_cod)
             else:
                 for nc in principal_ncs:
                     row_nr += 1

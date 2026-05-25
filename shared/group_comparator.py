@@ -258,6 +258,9 @@ def compare_by_groups(
             parts = [hdr_dict.get("obiectivul", ""), hdr_dict.get("obiectul", ""), hdr_dict.get("categoria", "")]
             deviz_den = " | ".join(p for p in parts if p)
 
+        for nc in ncs:
+            nc["deviz_denumire"] = deviz_den
+
         result.matched_groups.append({
             "ref_deviz_cod": ref_cod,
             "oferta_deviz_cod": oferta_cod,
