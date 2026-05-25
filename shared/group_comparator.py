@@ -95,9 +95,30 @@ def _compare_articles_in_group(
         ncs = [_lipsa_neconf(a, deviz_cod) for a in ref_arts if a.get("cantitate")]
         return ncs, []
     from AgentComparator_local import match_global
+
+    # Normalize deviz_key so match_global can match by (deviz_key, cod).
+    # Ref and oferta groups may have different deviz_keys (matched by group_comparator),
+    # so we unify them to the ref group's key before comparison.
+    ref_key = (ref_arts[0].get("deviz_key") or "").strip() if ref_arts else ""
+    if ref_key:
+        oferta_arts = [
+            {**a, "deviz_key": ref_key, "deviz": ref_arts[0].get("deviz", a.get("deviz", ""))}
+            for a in oferta_arts
+        ]
+
     ncs, matches, _, _ = match_global(
         ref_arts, oferta_arts, llm_client, llm_model or "", include_prices=False
     )
+
+    # DEVIZ_MISMATCH is impossible within a single group — reclassify as ARTICOL_LIPSA.
+    for nc in ncs:
+        if nc.get("tip") == "DEVIZ_MISMATCH":
+            nc["tip"] = "ARTICOL_LIPSA"
+            nc.setdefault("oferta_cod", "")
+            nc.setdefault("oferta_denumire", "")
+            nc.setdefault("oferta_um", "")
+            nc.setdefault("oferta_cantitate", "")
+
     return ncs, matches
 
 
