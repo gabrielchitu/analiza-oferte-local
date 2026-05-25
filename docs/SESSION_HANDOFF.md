@@ -4,24 +4,21 @@
 
 ---
 
-## TASK COMPLETED: BR Oferta 1 DEVIZ_MISMATCH Fix (2026-05-25)
+## TASK COMPLETED: Deviz Denomination Report Display Fix (2026-05-25)
 
-**Root cause:** BR oferta 1 had 20 false DEVIZ_MISMATCH from cross-BLOC article matching (EC05B1 BLOC A vs BLOC B)
+**Issue:** Reports showed MD5 hashes (e.g., `4d91083264aeebaa`) instead of three-element denomination (e.g., `OBIECTIVUL | Obiectul | Categoria`)
 
-**Layer 1: Page Prefix Normalization** ✅ FIXED (commit e8b2c7e)
-- Issue: Ref extracts `"1 LUCRARI..."` but Offer extracts `"001 1 LUCRARI..."` (page prefix from F3)
-- Fix: Strip "00X " in `_make_deviz_key()` before hashing
-- File: `shared/deviz_header_extractor.py` (function `_strip_page_prefix()` added)
-- Result: -1 false DEVIZ_MISMATCH, +6 matched articles (308→314)
+**Root Cause:** Reports used MD5 hash as deviz denomination fallback when headers not found
+- group_comparator.py fell back to `arts[0].deviz_denumire` which contained hash
+- report_word.py displayed code (hash) when header object was None
 
-**Layer 2: Checkpoint Header Persistence** ✅ FIXED (commit ae25cd4)
-- Issue: `compare_by_groups()` receives reconstructed headers from `_headers_from_articles()`, which loses page-level deviz_keys
-- Solution: Persist deviz_headers to checkpoint_data in extract_document(), load directly in compare_and_report()
-- Files modified:
-  - `local_run.py:715-725`: Serialize deviz_headers to checkpoint_data
-  - `local_run.py:1026-1058`: Load DevizHeader objects from checkpoint instead of page_classes
-  - `local_run.py:329`: Pass ref_checkpoint_data to compare_and_report()
-- Result: Ref & Oferta now have matching 7 deviz_keys, 18 matched groups (up from 0)
+**Fix** ✅ FIXED (commit 78f8418)
+- group_comparator.py: Add fallback chain (3 levels) to extract three-element denomination
+  1. Try header lookup by deviz_key (primary)
+  2. Try header lookup by deviz_cod from article (handles deviz_key mismatch)
+  3. Use article's deviz_header metadata (last resort)
+- report_word.py: Pass deviz_denumire to report builder, use it when header is None
+- Result: All reports now show "OBIECTIVUL | Obiectul | Categoria" instead of hash
 
 ---
 
