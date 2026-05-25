@@ -128,7 +128,6 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
     Refactored to use client_config instead of global paths.
     """
     from shared.deviz_namer import populate_deviz_denominations
-    from shared.deviz_reconciler import reconcile_missing_devize
 
     client, model = _build_client()
 
@@ -209,9 +208,6 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
     )
     logger.info(f"  Salvat: {ref_out.name}")
 
-    ref_deviz_codes = set(a.get("deviz", "") for a in ref_articles if a.get("deviz"))
-    logger.info(f"  {len(ref_deviz_codes)} devize in referinta")
-
     # Load reference DI JSON for validation purposes
     ref_di_raw = json.loads(client_config.reference_file.read_text(encoding="utf-8"))
 
@@ -241,40 +237,6 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
         # Populate missing deviz denominations
         oferta_articles = populate_deviz_denominations(oferta_articles)
 
-        # Identify extra devizes
-        oferta_deviz_codes = set(a.get("deviz", "") for a in oferta_articles if a.get("deviz"))
-        devize_extra = oferta_deviz_codes - ref_deviz_codes - {""}
-        devize_lipsa_din_oferta = ref_deviz_codes - oferta_deviz_codes
-
-        # Reconcile extra devizes
-        if devize_extra:
-            logger.warning(f"  ALERTA: {len(devize_extra)} devize in oferta ABSENTE din referinta: {sorted(devize_extra)}")
-            logger.info(f"  → Reconciliere: re-scanam referinta pentru {sorted(devize_extra)}")
-            ref_articles, unresolved_extra = reconcile_missing_devize(
-                di_path=client_config.reference_file,
-                missing_codes=devize_extra,
-                checkpoint_path=_checkpoint_path(client_config.reference_file, client_config),
-                existing_articles=ref_articles,
-            )
-            ref_articles = populate_deviz_denominations(ref_articles)
-            ref_deviz_codes = {a.get("deviz") for a in ref_articles if a.get("deviz")}
-            for code in unresolved_extra:
-                logger.error(f"  [RECONCILE] Deviz {code} NEGASIT in referinta — posibila eroare OCR/parsare")
-
-        # Reconcile missing devizes
-        if devize_lipsa_din_oferta:
-            logger.info(f"  {len(devize_lipsa_din_oferta)} devize din referinta NEACOPERITE de oferta: {sorted(devize_lipsa_din_oferta)}")
-            logger.info(f"  → Reconciliere: re-scanam oferta {oferta_nr} pentru {sorted(devize_lipsa_din_oferta)}")
-            oferta_articles, unresolved_lipsa = reconcile_missing_devize(
-                di_path=oferta_path,
-                missing_codes=devize_lipsa_din_oferta,
-                checkpoint_path=_checkpoint_path(oferta_path, client_config),
-                existing_articles=oferta_articles,
-            )
-            oferta_articles = populate_deviz_denominations(oferta_articles)
-            for code in unresolved_lipsa:
-                logger.error(f"  [RECONCILE] Deviz {code} NEGASIT in oferta {oferta_nr} — posibila eroare OCR/parsare")
-
         # Filter out TRULY INVALID articles
         invalid_count = sum(1 for a in oferta_articles if is_truly_invalid(a))
         oferta_articles = [a for a in oferta_articles if not is_truly_invalid(a)]
@@ -287,24 +249,6 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
             for art in articles_with_plus:
                 art['cod'] = art['cod'].rstrip('+')
             logger.info(f"  [NORMALIZE] Removed '+' suffix from {len(articles_with_plus)} article codes")
-
-        from shared.deviz_matcher import match_devize_by_3layer, match_devize_by_denomination, remap_devize_in_articles, remap_devize_by_code_preference
-
-        # Strategy 0-3: matching pe cod/denominatia devizului (remap art["deviz"])
-        deviz_mapping = match_devize_by_denomination(ref_articles, oferta_articles)
-        if deviz_mapping:
-            oferta_articles = remap_devize_in_articles(oferta_articles, deviz_mapping)
-            logger.info(f"  [DEVIZ_MAPPER] Remapped {len([a for a in oferta_articles if a.get('_deviz_original')])} articles: {deviz_mapping}")
-            oferta_articles = remap_devize_by_code_preference(oferta_articles, ref_articles, deviz_mapping)
-
-        # Strategy 4 (3-layer): DUPA Strategy 0-3, pt TOATE devizele ofertei
-        # match_devize_by_3layer verifica intern similitudinea si sare peste
-        # devizele cu acelasi cod si continut similar (same-code-reserved logic)
-        ref_dh = _headers_from_articles(ref_articles)
-        oferta_dh = _headers_from_articles(oferta_articles)
-        mapping_3layer = match_devize_by_3layer(ref_dh, oferta_dh)
-        if mapping_3layer:
-            oferta_articles = remap_devize_in_articles(oferta_articles, mapping_3layer)
 
         # Filter out malformed articles
         before_filter = len(oferta_articles)
@@ -906,17 +850,7 @@ def compare_and_report(
     from shared.extraction_validator import mark_suspicious_extras
     from shared.report_excel import generate_excel
     from shared.report_word import generate_word
-    from shared.deviz_matcher import match_devize_by_denomination, remap_devize_in_articles
     from AgentComparator_local import match_global
-
-    # Phase 1: Match devize by denomination (fallback when code extraction fails)
-    # Only applies when offer devizes don't match reference devizes
-    # Skip if already remapped (check for articles with _deviz_original marker)
-    if not any(a.get('_deviz_original') for a in oferta_articles):
-        deviz_mapping = match_devize_by_denomination(ref_articles, oferta_articles)
-        if deviz_mapping:
-            oferta_articles = remap_devize_in_articles(oferta_articles, deviz_mapping)
-            logger.info(f"  [DEVIZ_MATCHER] Applied deviz mapping: {deviz_mapping}")
 
     # Phase 2: Subcomponent code extraction and matching (optional, based on detected format)
     subcomp_stats = {"detected": False, "format": "unknown", "confidence": 0.0}
