@@ -96,18 +96,15 @@ def _compare_articles_in_group(
         return ncs, []
     from AgentComparator_local import match_global
 
-    # Normalize oferta deviz_cod to ref group's deviz_cod before match_global.
-    # match_global matches by (deviz_cod, cod_articol).  Ref and oferta groups were
-    # matched by group_comparator (same 3-layer header), but may have different
-    # deviz_cods (e.g. ref="BLC6", oferta="BLC7" for same building).
-    # Setting oferta deviz = ref deviz makes Stage-1 key-matching work correctly.
-    ref_deviz_cod = (ref_arts[0].get("deviz") or "").strip() if ref_arts else ""
-    ref_deviz_key = (ref_arts[0].get("deviz_key") or "").strip() if ref_arts else ""
-    if ref_deviz_cod:
-        oferta_arts = [
-            {**a, "deviz": ref_deviz_cod, "deviz_key": ref_deviz_key or a.get("deviz_key", "")}
-            for a in oferta_arts
-        ]
+    # match_global uses _art_key = (art["deviz"], cod_articol) for Stage-1 matching.
+    # Architecture requires key = (deviz_key_hash, cod_articol) — not deviz_cod string.
+    # Set art["deviz"] = art["deviz_key"] (hash) on all articles so _art_key
+    # becomes (deviz_key_hash, cod_articol) = the canonical per-group identifier.
+    # Oferta gets ref's deviz_key so both sides share the same hash → Stage-1 matches.
+    ref_dkey = (ref_arts[0].get("deviz_key") or "").strip() if ref_arts else ""
+    if ref_dkey:
+        ref_arts   = [{**a, "deviz": ref_dkey} for a in ref_arts]
+        oferta_arts = [{**a, "deviz": ref_dkey} for a in oferta_arts]
 
     ncs, matches, _, _ = match_global(
         ref_arts, oferta_arts, llm_client, llm_model or "", include_prices=False
