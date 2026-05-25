@@ -59,21 +59,26 @@ def _normalize(text: str) -> str:
 
 
 def _strip_page_prefix(text: str) -> str:
-    """Strip zero-padded page prefix from Obiect/Categoria (e.g. '001 ', '002 ', '01 ').
+    """Strip numeric section/page prefixes from Obiect/Categoria.
 
-    Only strips prefixes that start with 0 (PDF page numbering), not content.
+    Section numbers (1, 2, 3, 4...) and page prefixes (001, 002...) are PDF
+    structure artifacts — the same logical group can appear as chapter 3 in
+    the reference and chapter 4 in the offer. Strip all leading numeric tokens
+    so the hash is based on the descriptive name only.
     Examples:
     - '001 LUCRARI' → 'LUCRARI'
-    - '002 2 LUCRARI' → '2 LUCRARI' (only first "002 " stripped, not the "2")
-    - '1 LUCRARI' → '1 LUCRARI' (no zero prefix, unchanged)
+    - '002 2 LUCRARI CONEXE BLOC B' → 'LUCRARI CONEXE BLOC B'
+    - '3 ORGANIZARE SANTIER' → 'ORGANIZARE SANTIER'
+    - '4 ORGANIZARE SANTIER' → 'ORGANIZARE SANTIER'  (matches ref above)
+    - 'BLC5 ARHITECTURA' → 'BLC5 ARHITECTURA'  (no numeric prefix, unchanged)
     """
     if not text:
         return text
     import re as _re
     text = text.strip()
-    # Strip leading zero-padded prefix (0 followed by 1-2 digits, followed by space(s))
-    # Matches: "001 ", "002 ", "01 ", "099 " but NOT "1 " or "123 "
-    text = _re.sub(r'^0\d{1,2}\s+', '', text)
+    # Strip all leading numeric tokens (section/page numbers) iteratively
+    while _re.match(r'^\d+\s', text):
+        text = _re.sub(r'^\d+\s+', '', text)
     return text
 
 
