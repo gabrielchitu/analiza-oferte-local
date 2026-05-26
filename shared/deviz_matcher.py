@@ -420,7 +420,9 @@ def match_devize_by_3layer(
 
     # Praguri per-layer: obiectul si categoria trebuie sa se potriveasca bine
     # pentru a evita confundarea blocurilor (BLOC A ≠ BLOC B)
-    _MIN_OBJ2 = 0.85   # obiectul trebuie sa fie cel putin 85% similar
+    # _MIN_OBJ2=0.78: "3 ORGANIZARE SANTIER" ↔ "3 ORGANIZARE DE SANTIER BLOC A" = 0.800 → OK
+    #                 "3 ORGANIZARE SANTIER" ↔ "4 ORGANIZARE DE SANTIER BLOC B" = 0.760 → FAIL (correct)
+    _MIN_OBJ2 = 0.78   # obiectul trebuie sa fie cel putin 78% similar
     _MIN_CAT  = 0.90   # categoria (BLC1 vs BLC2) trebuie sa fie cel putin 90% similar
 
     def _3layer_sim(h_ref, h_oferta) -> float:
@@ -429,8 +431,9 @@ def match_devize_by_3layer(
 
         def _norm(text: str) -> str:
             t = _normalize(text)
-            # Strip prefix numeric (ex: "002 ", "001 ", "07 ") — format oferta romanesc
-            t = _re.sub(r'^\d{1,3}\s+', '', t)
+            # Strip ONLY zero-padded page prefix (ex: "001 ", "002 ", "01 ")
+            # NOT chapter numbers ("3 ", "4 ") which are semantically significant
+            t = _re.sub(r'^0\d{1,2}\s+', '', t)
             return t.strip()
 
         scores = []

@@ -892,6 +892,10 @@ def extract_articles_v3(page_classifications: list) -> list:
             # OBIECTIVUL poate lipsi pe paginile care nu il repeat explicit → mostenire
             if obj1 is None and _last_obj1 is not None:
                 obj1 = _last_obj1
+            # Moștenește obj2 dacă lipsește (pagini de continuare cu cat inline dar fără Obiectul:)
+            # ex: "STADIUL FIZIC: BLC1 ARHITECTURA" fără "OBIECTUL:" → obj2=None dar cat=truthy
+            if obj2 is None and _last_obj2 is not None:
+                obj2 = _last_obj2
             _last_obj1, _last_obj2, _last_cat = obj1, obj2, cat
             dkey, _ = _mdk(obj1, obj2, cat)
             _last_deviz_key = dkey
@@ -950,6 +954,9 @@ def extract_articles_v3(page_classifications: list) -> list:
         import re as _re
         _NR_COD_RE = _re.compile(r'^\d+[\.,]?\s+([A-Z$][A-Z0-9_.#\-]{2,})', _re.IGNORECASE)
         _COD_ONLY_RE = _re.compile(r'^([A-Z$][A-Z0-9_.#\-]{2,})', _re.IGNORECASE)
+        # Index: cod → lista TUTUROR aparițiilor (line index) în ordine secvențială.
+        # Consumăm câte o apariție per articol (FIFO) — extract_articles_regex
+        # produce articolele în ordine documentului, deci prima apariție = primul articol.
         _cod_line_cache: dict = {}
         for _li, _line in enumerate(all_lines):
             _line_s = _line.strip()
@@ -958,8 +965,8 @@ def extract_articles_v3(page_classifications: list) -> list:
             m = _NR_COD_RE.match(_line_s) or _COD_ONLY_RE.match(_line_s)
             if m:
                 tok = m.group(1)
-                if tok and tok not in _cod_line_cache:
-                    _cod_line_cache[tok] = _li
+                if tok:
+                    _cod_line_cache.setdefault(tok, []).append(_li)
 
         for art in section_articles:
             art["deviz"] = deviz_cod
@@ -967,8 +974,8 @@ def extract_articles_v3(page_classifications: list) -> list:
             # Determina pagina specifica a acestui articol din line_page_map
             art_cod = (art.get("cod") or "").strip()
             art_page = None
-            if art_cod and art_cod in _cod_line_cache:
-                li = _cod_line_cache[art_cod]
+            if art_cod and _cod_line_cache.get(art_cod):
+                li = _cod_line_cache[art_cod].pop(0)  # consuma prima aparitie neutilizata
                 if li < len(line_page_map):
                     art_page = line_page_map[li]
             art["source_pages"] = [art_page] if art_page is not None else source_pages
@@ -984,8 +991,9 @@ def extract_articles_v3(page_classifications: list) -> list:
         for pc in pages_in_deviz:
             section_text = "\n".join(pc.get("lines", []))
             components = _extract_components_from_section(section_text, deviz_cod, deviz_den)
+            pc_page = pc.get("page_number")
             for comp in components:
-                comp["source_pages"] = source_pages
+                comp["source_pages"] = [pc_page] if pc_page is not None else source_pages
             section_articles.extend(components)
 
         # Deduplicare — foloseste deviz_key (nu deviz_cod) pt a pastra sub-grupuri distincte

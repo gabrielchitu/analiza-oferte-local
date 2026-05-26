@@ -39,6 +39,12 @@ def clean_code(cod: str) -> str:
     # Remove artifact characters: ^, #, @, -, [, ], (, ), etc.
     # Keep only: letters (A-Z), digits (0-9), and $ prefix
     cleaned = re.sub(r'[^A-Z0-9$]', '', cod)
+    # Strip leading zeros from trailing numeric suffix (formatare OCR)
+    # RPCE07A01 → RPCE07A1, IZF03A01 → IZF03A1
+    cleaned = re.sub(r'(?<=[A-Z])0+(\d+)$', r'\1', cleaned)
+    # Dollar codes: $0003831 → $3831
+    if cleaned.startswith('$') and len(cleaned) > 1:
+        cleaned = '$' + re.sub(r'^0+', '', cleaned[1:]) or cleaned
     return cleaned
 
 

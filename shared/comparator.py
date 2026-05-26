@@ -47,12 +47,20 @@ def compare_articles(ref: dict, oferta: dict, include_prices: bool = True) -> li
     import re as _re
     # 1. Expandează abrevieri (dict static + learned din LLM)
     from shared.abbreviations import expand_abbreviations, are_learned_equivalent
+    from AgentComparator_local import clean_code as _clean_code
+
+    # Dacă codurile sunt identice (după normalizare), descrierea e doar text informativ.
+    # O3/O4 folosesc abrevieri sistematice → Jaccard scăzut pe același articol.
+    # Codul este identificatorul canonic — nu verifica descrierea pentru perechi exacte.
+    _ref_cod_clean = _clean_code(ref.get("cod") or "")
+    _of_cod_clean = _clean_code(oferta.get("cod") or "")
+    _same_code = bool(_ref_cod_clean and _ref_cod_clean == _of_cod_clean)
 
     # Verificare rapidă: pereche deja confirmată ca echivalentă de LLM
     ref_raw = (ref.get("denumire") or "").lower().strip()
     oferta_raw = (oferta.get("denumire") or "").lower().strip()
-    if ref_raw and oferta_raw and are_learned_equivalent(ref_raw, oferta_raw):
-        # Pereche confirmată echivalentă de LLM → nu genera DESCRIERE_DIFERITA
+    if _same_code or (ref_raw and oferta_raw and are_learned_equivalent(ref_raw, oferta_raw)):
+        # Cod identic sau pereche confirmată LLM → nu genera DESCRIERE_DIFERITA
         pass  # continuă cu verificările numerice
 
     _OCR_ARTIFACTS = _re.compile(
@@ -92,28 +100,36 @@ def compare_articles(ref: dict, oferta: dict, include_prices: bool = True) -> li
 
     ref_den = _clean_den((ref.get("denumire") or "").lower())
     oferta_den = _clean_den((oferta.get("denumire") or "").lower())
-    if ref_den and oferta_den and len(ref_den) > 10 and len(oferta_den) > 10:
+    if not _same_code and ref_den and oferta_den and len(ref_den) > 10 and len(oferta_den) > 10:
         # Jaccard pe cuvinte — robust la zgomot OCR (cratime, spatii, split cuvinte)
+        def _norm_alnum(s):
+            # Colasc spațiile din interiorul codurilor alfanumerice mixte: "ip 65" → "ip65"
+            # Evită false DESCRIERE_DIFERITA pt variații de formatare OCR (ex: "ip65" vs "ip 65")
+            return _re.sub(r'(?<=[a-z])(\s+)(?=\d)|(?<=\d)(\s+)(?=[a-z])', '', s)
         def _word_tokens(s):
-            return set(_re.sub(r'[^a-z0-9]', ' ', s).split()) - {'', '-'}
+            return set(_re.sub(r'[^a-z0-9]', ' ', _norm_alnum(s)).split()) - {'', '-'}
         r_tok = _word_tokens(ref_den)
         o_tok = _word_tokens(oferta_den)
         if r_tok and o_tok:
-            inter = len(r_tok & o_tok)
-            union = len(r_tok | o_tok)
-            sim = inter / union  # Jaccard pur — robust la OCR, sensibil la diferente reale
-            if sim < 0.50:
-                entry = {
-                    "tip": "DESCRIERE_DIFERITA",
-                    "camp": "denumire",
-                    "ref": ref_den[:150],
-                    "oferta": oferta_den[:150],
-                    "similaritate": round(sim, 2),
-                }
-                # Marchează perechile borderline (0.25-0.50) pentru validare LLM ulterioară
-                if sim >= 0.25:
-                    entry["borderline_llm"] = True
-                neconf.append(entry)
+            # Dacă un set e subset al celuilalt → oferta e mai specifică sau trunchiat OCR, nu conflict
+            if r_tok <= o_tok or o_tok <= r_tok:
+                pass  # nu genera DESCRIERE_DIFERITA
+            else:
+                inter = len(r_tok & o_tok)
+                union = len(r_tok | o_tok)
+                sim = inter / union  # Jaccard pur — robust la OCR, sensibil la diferente reale
+                if sim < 0.50:
+                    entry = {
+                        "tip": "DESCRIERE_DIFERITA",
+                        "camp": "denumire",
+                        "ref": ref_den[:150],
+                        "oferta": oferta_den[:150],
+                        "similaritate": round(sim, 2),
+                    }
+                    # Marchează perechile borderline (0.25-0.50) pentru validare LLM ulterioară
+                    if sim >= 0.25:
+                        entry["borderline_llm"] = True
+                    neconf.append(entry)
     fields_to_check = CANTITATE_FIELDS + (PRICE_FIELDS if include_prices else [])
     for field in fields_to_check:
         r_val = ref.get(field, 0.0) or 0.0

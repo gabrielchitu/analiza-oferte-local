@@ -172,8 +172,9 @@ def compare_by_groups(
 
         def _norm(text: str) -> str:
             t = _n(text)
-            # Strip prefix numeric (ex: "001 ", "01 ", "003 ") pt robustete OCR
-            t = _re.sub(r'^\d{1,3}\s+', '', t)
+            # Strip ONLY zero-padded page prefix (ex: "001 ", "01 ", "003 ")
+            # NOT chapter numbers ("3 ", "4 ") which are semantically significant
+            t = _re.sub(r'^0\d{1,2}\s+', '', t)
             return t.strip()
 
         scores = []

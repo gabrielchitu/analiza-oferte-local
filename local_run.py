@@ -98,6 +98,127 @@ def run_pipeline(client_config: ClientConfig, subcomponent_mode: str = "full") -
                            subcomponent_mode=subcomponent_mode)
 
 
+def _normalize_obiectivul_cross_doc(
+    ref_articles: list,
+    oferta_articles: list,
+    client,
+    model: str,
+) -> tuple[list, dict]:
+    """Detecteaza semantic daca obiectivul ofertei == obiectivul referintei (limba romana).
+    Daca da, normalizeaza obiectivul din oferta la forma canonica din referinta si
+    recompute deviz_key pentru toate articolele ofertei.
+
+    Returns: (oferta_articles_patched, mapping {of_obj1 → ref_obj1})
+    """
+    from shared.deviz_header_extractor import _make_deviz_key
+
+    ref_obj1s = {
+        (a.get("deviz_header") or {}).get("obiectivul", "").strip()
+        for a in ref_articles
+        if (a.get("deviz_header") or {}).get("obiectivul", "").strip()
+    }
+    of_obj1s = {
+        (a.get("deviz_header") or {}).get("obiectivul", "").strip()
+        for a in oferta_articles
+        if (a.get("deviz_header") or {}).get("obiectivul", "").strip()
+    }
+
+    if not ref_obj1s or not of_obj1s or ref_obj1s == of_obj1s:
+        return oferta_articles, {}
+
+    ref_list = "\n".join(f"- {x}" for x in sorted(ref_obj1s))
+    of_list = "\n".join(f"- {x}" for x in sorted(of_obj1s))
+
+    prompt = (
+        "Esti expert in documente de constructii romanesti.\n"
+        "Compara obiectivele de investitii din doua documente (referinta si oferta).\n\n"
+        f"Obiectiv(e) REFERINTA:\n{ref_list}\n\n"
+        f"Obiectiv(e) OFERTA:\n{of_list}\n\n"
+        "Pentru fiecare obiectiv din OFERTA, determina daca se refera la ACELASI proiect de constructie "
+        "ca unul din REFERINTA (chiar daca formularea este diferita).\n"
+        "Raspunde STRICT JSON, fara text suplimentar:\n"
+        '{"mappings": [{"from": "text_din_oferta", "to": "text_din_referinta"}]}\n'
+        "Incluzi DOAR perechile unde esti sigur ca e acelasi proiect. Lista goala daca nicio pereche."
+    )
+
+    try:
+        resp = client.chat.completions.create(
+            model=model,
+            max_tokens=512,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        text = resp.choices[0].message.content.strip()
+        if text.startswith("```"):
+            import re as _re
+            text = _re.sub(r'^```(?:json)?\s*', '', text)
+            text = _re.sub(r'\s*```\s*$', '', text)
+        data = json.loads(text.strip())
+        mappings = data.get("mappings", [])
+    except Exception as e:
+        logger.warning(f"[OBJ1-NORM] LLM call failed: {e}")
+        return oferta_articles, {}
+
+    # Snap "to" to exact ref text (LLM may return slightly different wording)
+    from difflib import get_close_matches
+    snapped = {}
+    for m in mappings:
+        from_text = m.get("from", "").strip()
+        to_text = m.get("to", "").strip()
+        if not from_text or not to_text:
+            continue
+        if to_text in ref_obj1s:
+            snapped[from_text] = to_text
+        else:
+            matches = get_close_matches(to_text, ref_obj1s, n=1, cutoff=0.7)
+            if matches:
+                snapped[from_text] = matches[0]
+                logger.info(f"[OBJ1-NORM] Snapped '{to_text}' → '{matches[0]}'")
+
+    obj1_map = snapped
+    if not obj1_map:
+        logger.info("[OBJ1-NORM] LLM: no obiectivul equivalences found")
+        return oferta_articles, {}
+
+    logger.info(f"[OBJ1-NORM] Mapped obiectivul: {obj1_map}")
+
+    patched = 0
+    for art in oferta_articles:
+        hdr = art.get("deviz_header") or {}
+        old_obj1 = (hdr.get("obiectivul") or "").strip()
+        if old_obj1 not in obj1_map:
+            continue
+        new_obj1 = obj1_map[old_obj1]
+        hdr["obiectivul"] = new_obj1
+        art["deviz_header"] = hdr
+        new_key, _ = _make_deviz_key(new_obj1, hdr.get("obiectul"), hdr.get("categoria"))
+        art["deviz_key"] = new_key
+        patched += 1
+
+    logger.info(f"[OBJ1-NORM] Patched {patched}/{len(oferta_articles)} articles")
+    return oferta_articles, obj1_map
+
+
+def _rekey_checkpoint_deviz_headers(checkpoint_data: dict, oferta_articles: list) -> None:
+    """Rebuild deviz_headers in checkpoint_data keyed by new deviz_key after obiectivul normalization."""
+    if not checkpoint_data:
+        return
+    new_headers = {}
+    for art in oferta_articles:
+        dkey = (art.get("deviz_key") or "").strip()
+        if not dkey or dkey.startswith("__INCOMPLETE__") or dkey in new_headers:
+            continue
+        hdr = art.get("deviz_header") or {}
+        new_headers[dkey] = {
+            "obiectivul": hdr.get("obiectivul"),
+            "obiectul": hdr.get("obiectul"),
+            "categoria": hdr.get("categoria"),
+            "deviz_key": dkey,
+            "is_valid": True,
+            "deviz_cod": art.get("deviz", ""),
+        }
+    checkpoint_data["deviz_headers"] = new_headers
+
+
 def _headers_from_articles(arts: list) -> dict:
     """Reconstruieste deviz_headers din metadatele articolelor, keyed by deviz_key.
 
@@ -259,6 +380,14 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
         filtered_count = before_filter - len(oferta_articles)
         if filtered_count > 0:
             logger.info(f"  [FILTER] Removed {filtered_count} malformed articles ($ prefix + empty denomination)")
+
+        # Normalize obiectivul cross-doc: LLM detecteaza daca ref si oferta au acelasi proiect
+        # si normalizeaza la forma canonica din referinta, recomputand deviz_key
+        oferta_articles, _obj1_map = _normalize_obiectivul_cross_doc(
+            ref_articles, oferta_articles, client, model
+        )
+        if _obj1_map:
+            _rekey_checkpoint_deviz_headers(oferta_checkpoint_data, oferta_articles)
 
         oferta_out = client_config.output_dir / f"oferta_{oferta_nr}.json"
         oferta_out.write_text(
@@ -674,11 +803,19 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
     # deviz_key si deviz_header sunt acum setate per-pagina de extract_articles_v3().
     # NU suprascriem — fiecare articol are deviz_key corect din sub-grupul sau de pagini.
     # Fallback pt articolele fara deviz_key valid (din devize fara header detectat):
+    # deviz_headers este keyed by hash, nu deviz_cod — construim index secundar by cod.
+    _dh_by_cod: dict[str, list] = {}
+    for _dh_val in deviz_headers.values():
+        if _dh_val.is_valid:
+            _dh_by_cod.setdefault(_dh_val.deviz_cod, []).append(_dh_val)
+
     for art in articles:
         existing_key = (art.get("deviz_key") or "").strip()
         if not existing_key or existing_key.startswith("__INCOMPLETE__"):
-            dh = deviz_headers.get(art.get("deviz", ""))
-            if dh and dh.is_valid:
+            art_cod = art.get("deviz", "")
+            candidates = _dh_by_cod.get(art_cod, [])
+            if len(candidates) == 1:
+                dh = candidates[0]
                 art["deviz_key"] = dh.deviz_key
                 art["deviz_header"] = {
                     "obiectivul": dh.obiectivul,

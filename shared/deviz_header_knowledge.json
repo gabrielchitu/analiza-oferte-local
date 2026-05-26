@@ -1593,5 +1593,755 @@
     "obiectivul": null,
     "obiectul": null,
     "categoria": "Echipam gos apa ext"
+  },
+  "a75f23e0cb714f0f": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "5a008179c4fb566a": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "e2787d6d5be8b4c0": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "164ce4ff68114487": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "2 LUCRARI CONEXE BLOC A2",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "305ec61981bb80c0": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "2 LUCRARI CONEXE BLOC A2",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "5fd4acc729f45614": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "7ac571434985cb79": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "4344c8e6add82c4a": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "3b8b979bfb1d46e0": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "2 LUCRARI CONEXE BLOC A3",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "c2920672ec818a17": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "2 LUCRARI CONEXE BLOC A3",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "4eabfeb4085d6935": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "fd899cd4ca85fdbd": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "ca583a9aba22a1b3": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "6e8b4d8647418a52": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "2 LUCRARI CONEXE BLOC A4",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "9857c240746b2832": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "2 LUCRARI CONEXE BLOC A4",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "5416fd01954a4561": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "05b0fe27d741780d": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "72a5934e149e9920": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "3ebac1f071693756": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "2 LUCRARI CONEXE BLOC B",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "cb227333287bfac1": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "2 LUCRARI CONEXE BLOC B",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "ab7876ade88a3fcf": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "3 LUCRARI SPATII SERVICII-SEDII BLOC B - NEELIGIBL",
+    "categoria": "BLC6 ARHITECTURA-NEELIGIBIL"
+  },
+  "58c9c07f132c1ff7": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "4 ORGANIZARE SANTIER",
+    "categoria": "BLC7 ORGANIZARE SANTIER"
+  },
+  "754a0021997603c0": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A, B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "ba2f1c0a7b1eaaf2": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "23fe3d45d729adf6": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "c3ecc12ba611504d": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "2 LUCRARI CONEXE BLOC C",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "10ccfc021da3681c": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "2 LUCRARI CONEXE BLOC C",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "9dbb625c994b6194": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "3 LUCRARI SPATII SERVICII-SEDII BLOC C - NEELIGIBL",
+    "categoria": "BLC6 ARHITECTURA-NEELIGIBIL"
+  },
+  "ff6511d8649659c3": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B",
+    "categoria": "001 BLC1 ARHITECTURA"
+  },
+  "0254e43b6330776d": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B",
+    "categoria": "002 BLC2 INSTALATII"
+  },
+  "05f664dda87a1a46": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "002 2 LUCRARI CONEXE BLOC B",
+    "categoria": "001 BLC4 REZISTENTA"
+  },
+  "a825584c61befcc5": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "002 2 LUCRARI CONEXE BLOC B",
+    "categoria": "002 BLC5 ARHITECTURA"
+  },
+  "13cdbc3759f879c7": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "001 BLC1 ARHITECTURA"
+  },
+  "08a7d93ea6527703": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "002 BLC2 INSTALATII"
+  },
+  "6d881dfbbb933324": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "003 BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "6db6fe6776843015": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "002 2 LUCRARI CONEXE BLOC C",
+    "categoria": "001 BLC4 REZISTENTA"
+  },
+  "21d90a647c096045": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "002 2 LUCRARI CONEXE BLOC C",
+    "categoria": "002 BLC5 ARHITECTURA"
+  },
+  "f505929575a16c29": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "003 3 LUCRARI SPATII SERVICII - SEDII BLOC C - NEELIGIBL",
+    "categoria": "001 BLC6 ARHITECTURA - NEELIGIBIL"
+  },
+  "25cf80b24ee7e978": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2",
+    "categoria": "001 BLC1 ARHITECTURA"
+  },
+  "fb7b834a1e12dac1": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2",
+    "categoria": "002 BLC2 INSTALATII"
+  },
+  "2edc458b13099612": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2",
+    "categoria": "003 BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "1a2c43c671d8ec16": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "002 2 LUCRARI CONEXE BLOC A2",
+    "categoria": "001 BLC4 REZISTENTA"
+  },
+  "c8aa4717c313e54a": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "002 2 LUCRARI CONEXE BLOC A2",
+    "categoria": "002 BLC5 ARHITECTURA"
+  },
+  "ec345f73143464e8": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "003 3 ORGANIZARE SANTIER",
+    "categoria": "001 BLC6 ORGANIZARE SANTIER"
+  },
+  "909f6858dfab000e": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3",
+    "categoria": "001 BLC1 ARHITECTURA"
+  },
+  "fe7a4046a901d320": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3",
+    "categoria": "002 BLC2 INSTALATII"
+  },
+  "e095b22f7be17d08": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3",
+    "categoria": "003 BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "cc7a8bf39b22066f": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "002 2 LUCRARI CONEXE BLOC A3",
+    "categoria": "001 BLC4 REZISTENTA"
+  },
+  "49a1421eaf471aff": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "002 2 LUCRARI CONEXE BLOC A3",
+    "categoria": "002 BLC5 ARHITECTURA"
+  },
+  "acb24eed39d92be5": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "001 BLC1 ARHITECTURA"
+  },
+  "900bb97ae276fe88": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "002 BLC2 INSTALATII"
+  },
+  "ab9345af3b4dd241": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "003 BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "964cad70e7980440": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "002 2 LUCRARI CONEXE BLOC A4",
+    "categoria": "001 BLC4 REZISTENTA"
+  },
+  "8b73b8d196667161": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "002 2 LUCRARI CONEXE BLOC A4",
+    "categoria": "002 BLC5 ARHITECTURA"
+  },
+  "8e9f2cd689ea3a84": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "6a4fa700ecbc537c": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "17147008d26f4c37": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "a2c45807a22bbd80": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A2",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "8e001555caf82eae": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A2",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "a01d48f6a9facfa1": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "2a2d65878984d5ec": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "de12c84b1fde4a51": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "38c23cebcbb1a74c": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A3",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "0501ae68304c83f6": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A3",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "e4c10bed49c6f73a": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "9ff9403c12501e61": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "bf694ab6149216bf": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "0ac46c74d2a01acc": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A4",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "236342783f7ea3a7": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A4",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "84db40367e06a439": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "b66abff4ccf0e3e8": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "58eed64552a37600": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "8d720acb988808f6": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "2 LUCRARI CONEXE BLOC B",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "5e4aa332e21e2176": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "2 LUCRARI CONEXE BLOC B",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "2535108b2a3d5d27": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "3 LUCRARI SPATII SERVICII - SEDII BLOC B - NEELIGIBL",
+    "categoria": "BLC6 ARHITECTURA - NEELIGIBIL"
+  },
+  "47ccfc2b7d482cb2": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "4 ORGANIZARE SANTIER",
+    "categoria": "BLC7 ORGANIZARE SANTIER"
+  },
+  "bbd0d28b1982795b": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "d931e98f251c41f2": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "05018f5ea006cbcb": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "5f9d8502994e76ef": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "2 LUCRARI CONEXE BLOC C",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "96dc108646a7fc32": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "2 LUCRARI CONEXE BLOC C",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "6af21f702abe4d1f": {
+    "obiectivul": "SCN1165486_EFICIENTIZARE ENERGETICA A BLOCURILOR A, B, C, A2,",
+    "obiectul": "3 LUCRARI SPATII SERVICII - SEDII BLOC C - NEELIGIBL",
+    "categoria": "BLC6 ARHITECTURA - NEELIGIBIL"
+  },
+  "fb515dc0ea263fa5": {
+    "obiectivul": "02 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2",
+    "categoria": "01 BLC 1 ARHITECTURA"
+  },
+  "84f136f50c584ef8": {
+    "obiectivul": "02 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2",
+    "categoria": "02 BLC2 INSTALATII"
+  },
+  "43446a28f5f84040": {
+    "obiectivul": "02 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2",
+    "categoria": "03 BLC 3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "1ac4779985f8f836": {
+    "obiectivul": "02 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A2",
+    "categoria": "01 BLC4 REZISTENTA"
+  },
+  "19ef0ca501103c28": {
+    "obiectivul": "02 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A2",
+    "categoria": "02 BLC5 ARHITECTURA"
+  },
+  "9ddfb2d75350418a": {
+    "obiectivul": "02 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "3 ORGANIZARE SANTIER",
+    "categoria": "1 BLC7 ORGANIZARE SANTIER"
+  },
+  "565ed4c6adc12a22": {
+    "obiectivul": "03 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3",
+    "categoria": "01 BLC 1 ARHITECTURA"
+  },
+  "eb22236aa19ecaed": {
+    "obiectivul": "03 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3",
+    "categoria": "02 BLC2 INSTALATII"
+  },
+  "dc41aa7b74d76050": {
+    "obiectivul": "03 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3",
+    "categoria": "03 BLC 3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "db5d0e89cfabd217": {
+    "obiectivul": "03 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A3",
+    "categoria": "01 BLC4 REZISTENTA"
+  },
+  "b8756e54aa8801c3": {
+    "obiectivul": "03 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A3",
+    "categoria": "02 BLC5 ARHITECTURA"
+  },
+  "e5ca8a1679d2cc14": {
+    "obiectivul": "03 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "3 ORGANIZARE SANTIER",
+    "categoria": "1 BLC7 ORGANIZARE SANTIER"
+  },
+  "8bb75e42069608fb": {
+    "obiectivul": "04 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "01 BLC 1 ARHITECTURA"
+  },
+  "962ca17792b9327b": {
+    "obiectivul": "04 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "02 BLC2 INSTALATII"
+  },
+  "8ef01f08a33f3fe8": {
+    "obiectivul": "04 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "03 BLC 3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "cb1182d32f4845f9": {
+    "obiectivul": "04 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A4",
+    "categoria": "01 BLC4 REZISTENTA"
+  },
+  "8676e1700be80e43": {
+    "obiectivul": "04 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "2 LUCRARI CONEXE BLOC A4",
+    "categoria": "02 BLC5 ARHITECTURA"
+  },
+  "e165a2420b9e8540": {
+    "obiectivul": "04 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "3 ORGANIZARE SANTIER",
+    "categoria": "1 BLC7 ORGANIZARE SANTIER"
+  },
+  "386022c4acaf01e6": {
+    "obiectivul": "05 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B",
+    "categoria": "01 BLC 1 ARHITECTURA"
+  },
+  "7d6ab2b6e359ddd2": {
+    "obiectivul": "05 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B",
+    "categoria": "02 BLC2 INSTALATII"
+  },
+  "69595b45991799b7": {
+    "obiectivul": "05 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B",
+    "categoria": "03 BLC 3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "741c65af9e1b04b0": {
+    "obiectivul": "05 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "2 LUCRARI CONEXE BLOC B",
+    "categoria": "01 BLC4 REZISTENTA"
+  },
+  "792bdfc0578d6355": {
+    "obiectivul": "05 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "2 LUCRARI CONEXE BLOC B",
+    "categoria": "02 BLC5 ARHITECTURA"
+  },
+  "f19930ed2975d222": {
+    "obiectivul": "06 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "01 BLC 1 ARHITECTURA"
+  },
+  "0c7567cefa3e5244": {
+    "obiectivul": "06 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "02 BLC2 INSTALATII"
+  },
+  "c3b832d24d7e0aab": {
+    "obiectivul": "06 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "03 BLC 3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "b02df5a580335a07": {
+    "obiectivul": "06 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "2 LUCRARI CONEXE BLOC C",
+    "categoria": "01 BLC4 REZISTENTA"
+  },
+  "080f02558d103c32": {
+    "obiectivul": "06 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "2 LUCRARI CONEXE BLOC C",
+    "categoria": "02 BLC5 ARHITECTURA"
+  },
+  "34fc549133abc640": {
+    "obiectivul": "06 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "3 LUCRARI SPATII SERVICII - SEDII BLOC C - NEELIGIBIL",
+    "categoria": "01 BLC6 ARHITECTURA-NEELIGIBIL"
+  },
+  "bb37530eb20dd58f": {
+    "obiectivul": "06 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI,",
+    "obiectul": "4 ORGANIZARE SANTIER",
+    "categoria": "1 BLC7 ORGANIZARE SANTIER"
+  },
+  "359ef4e7d0d47e13": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": null,
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "62e1f7347940164a": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": null,
+    "categoria": "BLC2 INSTALATII"
+  },
+  "3c63afaa22773716": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": null,
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "22b0e7a27cc38818": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": null,
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "fb387c2b55c92ca6": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": null,
+    "categoria": "BLC6 ORGANIZARE DE SANTIER"
+  },
+  "6e7e23a9db23e84b": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "963b56182aa60430": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "bbd2b35496cf6c0f": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "84c91ad081da29d0": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "2 LUCRARI CONEXE BLOC A2",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "dadaddcca91d7c4a": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "2 LUCRARI CONEXE BLOC A2",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "8655086363762fe0": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "3 ORGANIZARE DE SANTIER BLOC A2",
+    "categoria": "BLC6 ORGANIZARE DE SANTIER"
+  },
+  "d86123dc92d9f11c": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "bfb2742e74a05e91": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "99606b8411c99762": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "81260213dc3ceb27": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "2 LUCRARI CONEXE BLOC A3",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "b7eec88c3d401b32": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "2 LUCRARI CONEXE BLOC A3",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "b0e3c915e063cc7b": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "3 ORGANIZARE DE SANTIER BLOC A3",
+    "categoria": "BLC6 ORGANIZARE DE SANTIER"
+  },
+  "66704a7ba60b26a4": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "f37b7c064df65a13": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "2173bf8ea1bb9613": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "83d969ef0573dff4": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "2 LUCRARI CONEXE BLOC A4",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "d9ba1c759ac06ec0": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "2 LUCRARI CONEXE BLOC A4",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "d0a167e462ac33d4": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "3 ORGANIZARE DE SANTIER BLOC A4",
+    "categoria": "BLC6 ORGANIZARE DE SANTIER"
+  },
+  "8e1d80a5f0165c7d": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "d4bba1554613ee66": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "873581031565d9ef": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "08d6bc586226e0d5": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "2 LUCRARI CONEXE BLOC B",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "b1730d4feabcaa97": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "2 LUCRARI CONEXE BLOC B",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "11c868a61ab601c9": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "3 LUCRARI SPATII SERVICII- SEDII BLOC B- NEELIGIBIL",
+    "categoria": "BLC6 ARHITECTURA- NEELIGIBIL"
+  },
+  "44a584ed4bba93b4": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": null,
+    "categoria": "BLC6 ARHITECTURA- NEELIGIBIL"
+  },
+  "cc5259062887dea4": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": null,
+    "categoria": "BLC7 ORGANIZARE DE SANTIER"
+  },
+  "63a93dc0a0078b27": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "91823f5ec4864e8e": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "BLC2 INSTALATII"
+  },
+  "95a89cb7a262b6ad": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+  },
+  "ac1375c0bafc7a7e": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "2 LUCRARI CONEXE BLOC C",
+    "categoria": "BLC4 REZISTENTA"
+  },
+  "431c8885cd3d558d": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "2 LUCRARI CONEXE BLOC C",
+    "categoria": "BLC5 ARHITECTURA"
+  },
+  "20bd34c1d7ce6b0f": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "3 LUCRARI SPATII SERVICII- SEDII BLOC C- NEELIGIBIL",
+    "categoria": "BLC6 ARHITECTURA- NEELIGIBIL"
+  },
+  "71415f74734f2b38": {
+    "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
+    "obiectul": "4 ORGANIZARE DE SANTIER BLOC C",
+    "categoria": "BLC7 ORGANIZARE DE SANTIER"
   }
 }

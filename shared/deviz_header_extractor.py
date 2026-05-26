@@ -55,6 +55,8 @@ def _normalize(text: str) -> str:
     )
     # Collapse multiple spaces
     text = _re.sub(r'\s+', ' ', text)
+    # Normalize spaces after commas ("A, B,C" → "A,B,C") — OCR/PDF variation
+    text = _re.sub(r',\s+', ',', text)
     return text
 
 
@@ -84,7 +86,7 @@ def _make_deviz_key(
 ) -> tuple[str, bool]:
     is_valid = all(x is not None for x in [obiectivul, obiectul, categoria])
 
-    # Strip "00X " prefix from Obiect (from oferta pages)
+    # Strip "00X " prefix from Obiect/Categoria (from oferta pages)
     clean_obiectul = _strip_page_prefix(obiectul) if obiectul else None
     clean_categoria = _strip_page_prefix(categoria) if categoria else None
 
@@ -244,6 +246,10 @@ def extract_deviz_headers(
             # Page has its own header — inherit OBIECTIVUL if missing
             if obj1 is None and _last_obj1 is not None:
                 obj1 = _last_obj1
+            # Inherit obj2 for continuation pages with inline cat but no Obiectul: line
+            # e.g. "STADIUL FIZIC: BLC1 ARHITECTURA" without "OBIECTUL:" → obj2=None, cat truthy
+            if obj2 is None and _last_obj2 is not None:
+                obj2 = _last_obj2
             _last_obj1, _last_obj2, _last_cat = obj1, obj2, cat
             dkey, _ = _make_deviz_key(obj1, obj2, cat)
             _last_deviz_key = dkey

@@ -473,6 +473,45 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
         # Check if QTY line is valid (number with optional comma/dot)
         is_valid_qty = re.match(r'^[\d\.,]+$', next_qty_line)
 
+        # Varianta: "CODE BREVIAR_NR UM" colasate pe o linie (ex: "MDTC5506025 82 BUCATA")
+        # PDF-ul a unit codul, nr_breviar și UM-ul pe aceeași linie.
+        # Detectăm: CODE \d+ UM unde UM e token valid, QTY pe linia i+2.
+        if is_valid_code and not is_valid_um:
+            _m_code_nr_um = re.match(
+                r'^([A-Z$][A-Z0-9]{3,})\s+\d+\s+([A-Z]+(?:\s+[A-Z]+)?)\s*$',
+                next_code_line, re.IGNORECASE
+            )
+            if _m_code_nr_um:
+                _um_candidate = _m_code_nr_um.group(2).strip().upper()
+                _qty_candidate = next_um_line.strip()  # i+2 e cantitatea
+                if (_um_candidate.split()[0].rstrip('.') in UM_KNOWN and
+                        re.match(r'^[\d\.,]+$', _qty_candidate)):
+                    # Rearanjează: cod separat, UM și QTY pe linii separate
+                    _actual_code = _m_code_nr_um.group(1)
+                    desc_parts = []
+                    j = i + 3
+                    while j < len(lines):
+                        desc_line = lines[j].strip()
+                        if re.match(r'^\d+$', desc_line):
+                            break
+                        if (re.match(r'^[A-Z]{1,5}\d{1,4}', desc_line, re.IGNORECASE) or
+                                re.match(r'^(\$[A-Z0-9]{4,})', desc_line, re.IGNORECASE) or
+                                re.match(r'^(\d{4,9})(?!\d)', desc_line)):
+                            break
+                        if _PRICE_LABEL_RE.match(desc_line) or (desc_line and SKIP_RE.search(desc_line)):
+                            break
+                        if desc_line:
+                            desc_parts.append(desc_line)
+                        j += 1
+                    description = ' '.join(desc_parts)
+                    result.append(f"{line} {_actual_code} - {description}")
+                    result.append(_um_candidate)
+                    result.append(_qty_candidate)
+                    combined_count += 1
+                    logger.debug(f"[SCATTER] CODE+NR+UM merged line: {next_code_line!r}")
+                    i = j
+                    continue
+
         if is_valid_code and is_valid_um and is_valid_qty:
             # Collect description lines (everything after qty until next code or counter)
             desc_parts = []
