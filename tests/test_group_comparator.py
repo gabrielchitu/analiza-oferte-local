@@ -1,4 +1,5 @@
 import pytest
+import json
 from shared.group_comparator import compare_by_groups, HolisticComparison
 
 
@@ -130,3 +131,52 @@ def test_holistic_comparison_has_match_trace():
     hc = HolisticComparison()
     assert hasattr(hc, "match_trace")
     assert isinstance(hc.match_trace, dict)
+
+
+def test_apply_knowledge_returns_pairs(tmp_path, monkeypatch):
+    """_apply_knowledge matches known ref_den/oferta_den pairs to deviz keys."""
+    from shared import group_comparator as gc
+    from shared.deviz_header_extractor import DevizHeader, _make_deviz_key
+
+    def _make_hdr(obj1, obj2, cat, cod="X"):
+        key, valid = _make_deviz_key(obj1, obj2, cat)
+        return DevizHeader(obj1, obj2, cat, key, valid, "test", cod)
+
+    ref_hdr = _make_hdr("Proj", "Obj1", "Cat1")
+    oferta_hdr = _make_hdr("Proj", "Obj1", "Cat1 tip I")
+    rkey = ref_hdr.deviz_key
+    okey = oferta_hdr.deviz_key
+
+    kf = tmp_path / "group_match_knowledge.json"
+    kf.write_text(json.dumps({
+        "TestClient": [
+            {"ref_den": "Proj | Obj1 | Cat1", "oferta_den": "Proj | Obj1 | Cat1 tip I"}
+        ]
+    }))
+    monkeypatch.setattr(gc, "_KNOWLEDGE_PATH", kf)
+
+    result = gc._apply_knowledge(
+        remaining_ref={rkey},
+        remaining_oferta={okey},
+        ref_deviz_headers={rkey: ref_hdr},
+        oferta_deviz_headers={okey: oferta_hdr},
+        client_name="TestClient",
+    )
+    assert (rkey, okey) in result
+
+
+def test_save_knowledge_deduplicates(tmp_path, monkeypatch):
+    """_save_knowledge deduplicates on (ref_den, oferta_den)."""
+    from shared import group_comparator as gc
+
+    kf = tmp_path / "group_match_knowledge.json"
+    kf.write_text("{}")
+    monkeypatch.setattr(gc, "_KNOWLEDGE_PATH", kf)
+
+    pair = {"ref_den": "A | B | C", "oferta_den": "A | B | C tip I"}
+    gc._save_knowledge("MyClient", [pair])
+    gc._save_knowledge("MyClient", [pair])  # second call — same pair
+
+    data = json.loads(kf.read_text())
+    assert len(data["MyClient"]) == 1
+    assert data["MyClient"][0]["ref_den"] == "A | B | C"

@@ -5,8 +5,11 @@ Every article belongs to a deviz group (OBIECTIVUL + Obiectul + Categoria).
 Groups matched 3-layer ref↔oferta. Unmatched ref → LIPSA. Unmatched oferta → EXTRA.
 """
 import logging
+import json
+from pathlib import Path
 from dataclasses import dataclass, field
 from collections import defaultdict
+
 logger = logging.getLogger(__name__)
 
 
@@ -20,6 +23,66 @@ def _den_string(hdr) -> str:
         getattr(hdr, "categoria", None),
     ]
     return " | ".join(p for p in parts if p)
+
+
+_KNOWLEDGE_PATH = Path(__file__).parent / "group_match_knowledge.json"
+
+
+def _apply_knowledge(
+    remaining_ref: set,
+    remaining_oferta: set,
+    ref_deviz_headers: dict,
+    oferta_deviz_headers: dict,
+    client_name: str,
+) -> list[tuple[str, str]]:
+    """Return (ref_key, oferta_key) pairs from persisted knowledge for this client."""
+    if not client_name or not remaining_ref or not remaining_oferta:
+        return []
+    try:
+        knowledge = json.loads(_KNOWLEDGE_PATH.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+    pairs = knowledge.get(client_name, [])
+    if not pairs:
+        return []
+    ref_den_to_key = {
+        _den_string(ref_deviz_headers.get(k)): k
+        for k in remaining_ref
+        if _den_string(ref_deviz_headers.get(k))
+    }
+    oferta_den_to_key = {
+        _den_string(oferta_deviz_headers.get(k)): k
+        for k in remaining_oferta
+        if _den_string(oferta_deviz_headers.get(k))
+    }
+    result = []
+    for p in pairs:
+        rk = ref_den_to_key.get(p.get("ref_den", ""))
+        ok = oferta_den_to_key.get(p.get("oferta_den", ""))
+        if rk and ok:
+            result.append((rk, ok))
+    return result
+
+
+def _save_knowledge(client_name: str, new_pairs: list[dict]) -> None:
+    """Append new (ref_den, oferta_den) pairs to knowledge file, deduplicating."""
+    if not client_name or not new_pairs:
+        return
+    try:
+        knowledge = json.loads(_KNOWLEDGE_PATH.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        knowledge = {}
+    existing = knowledge.get(client_name, [])
+    seen = {(p["ref_den"], p["oferta_den"]) for p in existing}
+    for p in new_pairs:
+        key = (p.get("ref_den", ""), p.get("oferta_den", ""))
+        if key[0] and key[1] and key not in seen:
+            existing.append({"ref_den": key[0], "oferta_den": key[1]})
+            seen.add(key)
+    knowledge[client_name] = existing
+    _KNOWLEDGE_PATH.write_text(
+        json.dumps(knowledge, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
 
 
 @dataclass
