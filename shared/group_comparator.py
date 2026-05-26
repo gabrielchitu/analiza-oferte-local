@@ -85,6 +85,81 @@ def _save_knowledge(client_name: str, new_pairs: list[dict]) -> None:
     )
 
 
+_LLM_GROUP_SYSTEM_PROMPT = (
+    "Ești expert în devize de construcții românești.\n"
+    "Mai jos sunt grupuri din REFERINȚĂ și OFERTĂ care nu s-au potrivit automat.\n"
+    "Textele pot fi abreviate diferit pentru aceeași categorie. "
+    "Pot fi de lungimi diferite, în schimb înseamnă același obiectiv sau obiect "
+    "sau categorie de lucrări / stadiu fizic.\n\n"
+    'Returnează JSON cu cheia "matches":\n'
+    '{"matches": [{"ref": "<ref_den_exact>", "oferta": "<oferta_den_exact>"}]}\n\n'
+    "Omite perechile nesigure. Dacă nu există nicio potrivire clară, returnează "
+    '{"matches": []}.'
+)
+
+
+def _llm_match_groups(
+    remaining_ref: set,
+    remaining_oferta: set,
+    ref_deviz_headers: dict,
+    oferta_deviz_headers: dict,
+    llm_client,
+    llm_model: str,
+) -> list[tuple[str, str, str, str]]:
+    """LLM-assisted group matching. Returns [(ref_key, oferta_key, ref_den, oferta_den)]."""
+    if not llm_client or not remaining_ref or not remaining_oferta:
+        return []
+    ref_den_to_key = {
+        _den_string(ref_deviz_headers.get(k)): k
+        for k in remaining_ref
+        if _den_string(ref_deviz_headers.get(k))
+    }
+    oferta_den_to_key = {
+        _den_string(oferta_deviz_headers.get(k)): k
+        for k in remaining_oferta
+        if _den_string(oferta_deviz_headers.get(k))
+    }
+    if not ref_den_to_key or not oferta_den_to_key:
+        return []
+    ref_list = "\n".join(f'{i + 1}. "{d}"' for i, d in enumerate(ref_den_to_key))
+    oferta_list = "\n".join(f'{i + 1}. "{d}"' for i, d in enumerate(oferta_den_to_key))
+    user_prompt = (
+        f"REFERINȚĂ (grupuri nematched):\n{ref_list}\n\n"
+        f"OFERTĂ (grupuri nematched):\n{oferta_list}"
+    )
+    try:
+        resp = llm_client.chat.completions.create(
+            model=llm_model,
+            temperature=0.0,
+            response_format={"type": "json_object"},
+            messages=[
+                {"role": "system", "content": _LLM_GROUP_SYSTEM_PROMPT},
+                {"role": "user", "content": user_prompt},
+            ],
+            max_tokens=1000,
+        )
+        parsed = json.loads(resp.choices[0].message.content)
+    except Exception as e:
+        logger.warning(f"[GC] LLM group match failed: {e}")
+        return []
+    pairs_raw = parsed.get("matches", []) if isinstance(parsed, dict) else []
+    result = []
+    for item in pairs_raw:
+        ref_den = item.get("ref", "")
+        oferta_den = item.get("oferta", "")
+        rk = ref_den_to_key.get(ref_den)
+        ok = oferta_den_to_key.get(oferta_den)
+        if not rk:
+            logger.warning(f"[GC] LLM suggested unknown ref_den: {ref_den!r}")
+            continue
+        if not ok:
+            logger.warning(f"[GC] LLM suggested unknown oferta_den: {oferta_den!r}")
+            continue
+        result.append((rk, ok, ref_den, oferta_den))
+    logger.info(f"[GC] LLM matched {len(result)} additional groups")
+    return result
+
+
 @dataclass
 class HolisticComparison:
     matched_groups: list = field(default_factory=list)

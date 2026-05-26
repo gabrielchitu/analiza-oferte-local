@@ -180,3 +180,70 @@ def test_save_knowledge_deduplicates(tmp_path, monkeypatch):
     data = json.loads(kf.read_text())
     assert len(data["MyClient"]) == 1
     assert data["MyClient"][0]["ref_den"] == "A | B | C"
+
+
+def test_llm_match_groups_valid_response():
+    """_llm_match_groups parses valid LLM JSON and returns matched pairs."""
+    from shared import group_comparator as gc
+    from shared.deviz_header_extractor import DevizHeader, _make_deviz_key
+
+    def _make_hdr(obj1, obj2, cat):
+        key, valid = _make_deviz_key(obj1, obj2, cat)
+        return DevizHeader(obj1, obj2, cat, key, valid, "test", "X")
+
+    ref_hdr = _make_hdr("Proj", "Obj1", "Cat ref")
+    oferta_hdr = _make_hdr("Proj", "Obj1", "Cat oferta")
+    rkey = ref_hdr.deviz_key
+    okey = oferta_hdr.deviz_key
+
+    class FakeMessage:
+        content = json.dumps({"matches": [
+            {"ref": "Proj | Obj1 | Cat ref", "oferta": "Proj | Obj1 | Cat oferta"}
+        ]})
+
+    class FakeChoice:
+        message = FakeMessage()
+
+    class FakeResp:
+        choices = [FakeChoice()]
+
+    class FakeClient:
+        class chat:
+            class completions:
+                @staticmethod
+                def create(**kwargs):
+                    return FakeResp()
+
+    result = gc._llm_match_groups(
+        remaining_ref={rkey},
+        remaining_oferta={okey},
+        ref_deviz_headers={rkey: ref_hdr},
+        oferta_deviz_headers={okey: oferta_hdr},
+        llm_client=FakeClient(),
+        llm_model="test-model",
+    )
+    assert len(result) == 1
+    assert result[0][0] == rkey   # ref_key
+    assert result[0][1] == okey   # oferta_key
+
+
+def test_llm_match_groups_api_error():
+    """_llm_match_groups returns [] when LLM call raises."""
+    from shared import group_comparator as gc
+
+    class BadClient:
+        class chat:
+            class completions:
+                @staticmethod
+                def create(**kwargs):
+                    raise ConnectionError("API down")
+
+    result = gc._llm_match_groups(
+        remaining_ref={"k1"},
+        remaining_oferta={"k2"},
+        ref_deviz_headers={},
+        oferta_deviz_headers={},
+        llm_client=BadClient(),
+        llm_model="test",
+    )
+    assert result == []
