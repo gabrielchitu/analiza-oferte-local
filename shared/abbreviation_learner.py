@@ -57,22 +57,23 @@ def _collect_borderline_pairs(client_name: str) -> list[dict]:
 
     pairs = []
     for i in range(1, 10):
-        f = cfg.output_dir / f"comparatie_oferta_{i}.json"
+        f = cfg.output_dir / f"holistic_oferta_{i}.json"
         if not f.exists():
             continue
-        comp = json.loads(f.read_text(encoding="utf-8"))
-        for nc in comp.get("neconformitati", []):
-            if nc.get("tip") != "DESCRIERE_DIFERITA":
-                continue
-            sim = nc.get("similaritate", 0)
-            if BORDERLINE_LOW <= sim <= BORDERLINE_HIGH:
-                pairs.append({
-                    "ref": nc.get("ref", ""),
-                    "oferta": nc.get("oferta", ""),
-                    "sim": sim,
-                    "oferta_nr": i,
-                    "ref_cod": nc.get("ref_cod", ""),
-                })
+        holistic = json.loads(f.read_text(encoding="utf-8"))
+        for mg in holistic.get("matched_groups", []):
+            for nc in mg.get("neconformitati", []):
+                if nc.get("tip") != "DESCRIERE_DIFERITA":
+                    continue
+                sim = nc.get("similaritate", 0)
+                if BORDERLINE_LOW <= sim <= BORDERLINE_HIGH:
+                    pairs.append({
+                        "ref": nc.get("ref", ""),
+                        "oferta": nc.get("oferta", ""),
+                        "sim": sim,
+                        "oferta_nr": i,
+                        "ref_cod": nc.get("ref_cod", ""),
+                    })
 
     logger.info(f"[LEARNER] {client_name}: {len(pairs)} perechi borderline (sim {BORDERLINE_LOW}-{BORDERLINE_HIGH})")
     return pairs
