@@ -192,6 +192,52 @@ def _llm_match_groups(
     return result
 
 
+def _deviz_cod_prefix_match(
+    remaining_ref: set,
+    remaining_oferta: set,
+    ref_deviz_headers: dict,
+    oferta_deviz_headers: dict,
+) -> list[tuple[str, str]]:
+    """Match ref group to offer group when ref.deviz_cod is a prefix of offer.categoria.
+
+    Handles ISDP-style ref docs where the F3 header has 'Deviz oferta 226108 STRUCTURA...'
+    and the offer has 'Stadiul fizic: 226108 STRUCTURA...' extracted as CATEGORIA.
+    Example: ref deviz_cod='226108' matches offer categoria='226108 STRUCTURA DE REZISTENTA...'.
+    """
+    _MIN_COD_LEN = 4
+    result: list[tuple[str, str]] = []
+    matched_ref: set[str] = set()
+    matched_oferta: set[str] = set()
+
+    for ref_key in sorted(remaining_ref):
+        rh = ref_deviz_headers.get(ref_key)
+        if not rh or not rh.deviz_cod or len(rh.deviz_cod.strip()) < _MIN_COD_LEN:
+            continue
+        cod = rh.deviz_cod.strip()
+        for oferta_key in sorted(remaining_oferta):
+            if oferta_key in matched_oferta:
+                continue
+            oh = oferta_deviz_headers.get(oferta_key)
+            if not oh or not oh.categoria:
+                continue
+            # Normalize offer CATEGORIA before prefix check:
+            # - Strip "oferta " (ISDP format: "Deviz oferta 226108...")
+            # - Strip leading page-number prefix like "001 " (eDevize multi-doc format)
+            import re as _re
+            cat = oh.categoria.strip()
+            if cat.lower().startswith("oferta "):
+                cat = cat[7:].strip()
+            cat = _re.sub(r'^\d{1,3}\s+', '', cat)
+            if cat.startswith(cod):
+                result.append((ref_key, oferta_key))
+                matched_ref.add(ref_key)
+                matched_oferta.add(oferta_key)
+                break
+    if result:
+        logger.info(f"[GC] deviz_cod prefix matched {len(result)} groups")
+    return result
+
+
 @dataclass
 class HolisticComparison:
     matched_groups: list = field(default_factory=list)
@@ -506,6 +552,20 @@ def compare_by_groups(
             logger.info(f"[GC] {mtype.capitalize()} match: ref {ref_key} ↔ oferta {oferta_key}")
 
     if remaining_ref_keys and remaining_oferta_keys:
+        # Phase 1.5: deviz_cod prefix match (deterministic, no LLM)
+        cod_pairs = _deviz_cod_prefix_match(
+            remaining_ref_keys, remaining_oferta_keys,
+            ref_deviz_headers, oferta_deviz_headers,
+        )
+        _run_secondary_match([
+            (rk, ok, "deviz_cod_prefix",
+             _den_string(ref_deviz_headers.get(rk)),
+             _den_string(oferta_deviz_headers.get(ok)))
+            for rk, ok in cod_pairs
+        ])
+        remaining_ref_keys -= matched_ref_cods
+        remaining_oferta_keys -= matched_oferta_cods
+
         # Knowledge phase
         knowledge_pairs = _apply_knowledge(
             remaining_ref_keys, remaining_oferta_keys,
