@@ -1016,6 +1016,36 @@ def _generate_word_flat(doc, neconformitati: list, deviz_mismatches_list: list,
         _add_audit_section(doc, audit_data)
 
 
+def _add_unassigned_section(doc, unassigned_articles: list) -> None:
+    if not unassigned_articles:
+        return
+
+    doc.add_heading("Articole neasignate — deviz neidentificat", level=2)
+    intro = doc.add_paragraph(
+        "Articolele de mai jos nu au putut fi atribuite unui grup deviz "
+        "(Obiectiv + Obiect + Categorie). Verificați manual pagina sursă din document."
+    )
+    intro.runs[0].italic = True
+
+    tbl = doc.add_table(rows=1, cols=5)
+    tbl.style = "Table Grid"
+    hdr = tbl.rows[0].cells
+    for i, text in enumerate(["Sursă", "Cod", "Denumire", "Deviz detectat", "Pagini"]):
+        hdr[i].paragraphs[0].add_run(text).bold = True
+        _set_cell_shading(hdr[i], "D3D3D3")
+
+    for art in unassigned_articles:
+        row = tbl.add_row().cells
+        row[0].text = "REF" if art.get("source") == "ref" else "OFERTĂ"
+        row[1].text = art.get("cod", "")
+        row[2].text = (art.get("denumire") or "")[:80]
+        row[3].text = art.get("deviz", "")
+        pages = art.get("source_pages", [])
+        row[4].text = ", ".join(str(p) for p in pages) if pages else "—"
+        for cell in row:
+            _set_cell_shading(cell, "FFFACD")
+
+
 def _generate_word_holistic(doc, raport_holistic: dict, comp: dict,
                              subcomponent_mode: str = "full") -> None:
     """
@@ -1085,6 +1115,10 @@ def _generate_word_holistic(doc, raport_holistic: dict, comp: dict,
         run.bold = True
         _style_cell(ug_cells[0], 8, bold=True)
         _set_cell_shading(ug_cells[0], "FFCCFF")
+
+    # --- Articole neasignate (deviz_key INCOMPLETE) ---
+    unassigned = raport_holistic.get("unassigned_articles", [])
+    _add_unassigned_section(doc, unassigned)
 
 
 def generate_word(
