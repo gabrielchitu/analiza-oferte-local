@@ -247,3 +247,22 @@ def test_llm_match_groups_api_error():
         llm_model="test",
     )
     assert result == []
+
+
+def test_compare_by_groups_match_trace_structure():
+    """compare_by_groups populates match_trace with all required keys."""
+    ref_arts = [_make_article("EA02A1", "D1")]
+    oferta_arts = [_make_article("EA02A1", "D1")]
+    ref_dh = {"key_D1": _make_header("Proj A", "Obj D1", "Cat D1", "D1")}
+    oferta_dh = {"key_D1": _make_header("Proj A", "Obj D1", "Cat D1", "D1")}
+    result = compare_by_groups(ref_arts, oferta_arts, ref_dh, oferta_dh, client_name="TestClient")
+    trace = result.match_trace
+    for key in ("ref_groups", "oferta_groups", "matched", "ref_only", "oferta_only"):
+        assert key in trace, f"match_trace missing key: {key}"
+    assert len(trace["matched"]) == 1
+    assert trace["matched"][0]["match_type"] in ("same_code", "cross_3layer", "knowledge", "llm")
+    assert "ref_key" in trace["matched"][0]
+    assert "oferta_key" in trace["matched"][0]
+    assert "ref_den" in trace["matched"][0]
+    assert "ref_groups" in trace and len(trace["ref_groups"]) == 1
+    assert trace["ref_groups"][0]["n_articles"] == 1

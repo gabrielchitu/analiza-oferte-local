@@ -286,6 +286,7 @@ def compare_by_groups(
     oferta_deviz_headers: dict,
     llm_client=None,
     llm_model: str = "",
+    client_name: str = "",
 ) -> HolisticComparison:
     """
     Holistic group-based comparison.
@@ -360,31 +361,32 @@ def compare_by_groups(
 
     _SAME_CODE_THRESHOLD = 0.75
 
+    match_type_for: dict[str, str] = {}
     full_mapping: dict[str, str] = {}
     for oferta_cod in oferta_cods:
         if oferta_cod in group_mapping:
-            # Cross-code match (3-layer)
             full_mapping[oferta_cod] = group_mapping[oferta_cod]
+            match_type_for[oferta_cod] = "cross_3layer"
         elif oferta_cod in ref_cods:
-            # Same code — verifica similitudinea continutului 3-layer
             rh = ref_deviz_headers.get(oferta_cod)
             oh = oferta_deviz_headers.get(oferta_cod)
             if rh and oh and rh.is_valid and oh.is_valid:
                 sim = _quick_3layer_sim(rh, oh)
                 if sim >= _SAME_CODE_THRESHOLD:
-                    full_mapping[oferta_cod] = oferta_cod  # verificat OK
+                    full_mapping[oferta_cod] = oferta_cod
+                    match_type_for[oferta_cod] = "same_code"
                 else:
                     logger.info(
                         f"[GC] Acelasi cod {oferta_cod} dar continut DIFERIT "
                         f"(sim={sim:.2f} < {_SAME_CODE_THRESHOLD}) → oferta-only"
                     )
-                    # Nu se adauga in full_mapping → va fi oferta-only
             else:
-                # Nu putem verifica (header incomplet) → presupunem OK
                 full_mapping[oferta_cod] = oferta_cod
+                match_type_for[oferta_cod] = "same_code"
 
     matched_ref_cods: set[str] = set()
     matched_oferta_cods: set[str] = set()
+    _trace_matched: list = []
 
     for oferta_cod, ref_cod in sorted(full_mapping.items()):
         if ref_cod in matched_ref_cods:
@@ -426,6 +428,87 @@ def compare_by_groups(
         matched_ref_cods.add(ref_cod)
         matched_oferta_cods.add(oferta_cod)
         logger.info(f"[GC] Matched: ref {ref_cod} ↔ oferta {oferta_cod}")
+        _trace_matched.append({
+            "ref_key": ref_cod,
+            "oferta_key": oferta_cod,
+            "match_type": match_type_for.get(oferta_cod, "same_code"),
+            "ref_den": _den_string(ref_deviz_headers.get(ref_cod)),
+            "oferta_den": _den_string(oferta_deviz_headers.get(oferta_cod)),
+        })
+
+    # Phase 2: knowledge + LLM for remaining unmatched groups.
+    # Runs BEFORE ref_only/oferta_only population so those loops see final matched state.
+    remaining_ref_keys = ref_cods - matched_ref_cods
+    remaining_oferta_keys = oferta_cods - matched_oferta_cods
+
+    def _run_secondary_match(pairs_with_type):
+        """pairs_with_type: [(ref_key, oferta_key, match_type, ref_den, oferta_den)]"""
+        for ref_key, oferta_key, mtype, ref_den, oferta_den in pairs_with_type:
+            if ref_key in matched_ref_cods or oferta_key in matched_oferta_cods:
+                continue
+            r_arts = ref_by_deviz.get(ref_key, [])
+            o_arts = oferta_by_deviz.get(oferta_key, [])
+            ncs2, matches2 = _compare_articles_in_group(
+                r_arts, o_arts, ref_key, llm_client, llm_model
+            )
+            r_hdr2 = ref_deviz_headers.get(ref_key)
+            o_hdr2 = oferta_deviz_headers.get(oferta_key)
+            den2 = _den_string(r_hdr2) or _den_string(o_hdr2)
+            for nc in ncs2:
+                nc["deviz_denumire"] = den2
+            result.matched_groups.append({
+                "ref_deviz_cod": ref_key,
+                "oferta_deviz_cod": oferta_key,
+                "ref_header": r_hdr2,
+                "oferta_header": o_hdr2,
+                "deviz_denumire": den2,
+                "ref_articles": r_arts,
+                "oferta_articles": o_arts,
+                "neconformitati": ncs2,
+                "matches": matches2,
+            })
+            matched_ref_cods.add(ref_key)
+            matched_oferta_cods.add(oferta_key)
+            _trace_matched.append({
+                "ref_key": ref_key, "oferta_key": oferta_key,
+                "match_type": mtype,
+                "ref_den": ref_den,
+                "oferta_den": oferta_den,
+            })
+            logger.info(f"[GC] {mtype.capitalize()} match: ref {ref_key} ↔ oferta {oferta_key}")
+
+    if remaining_ref_keys and remaining_oferta_keys:
+        # Knowledge phase
+        knowledge_pairs = _apply_knowledge(
+            remaining_ref_keys, remaining_oferta_keys,
+            ref_deviz_headers, oferta_deviz_headers, client_name,
+        )
+        _run_secondary_match([
+            (rk, ok, "knowledge", _den_string(ref_deviz_headers.get(rk)), _den_string(oferta_deviz_headers.get(ok)))
+            for rk, ok in knowledge_pairs
+        ])
+
+        # Update remaining for LLM phase
+        remaining_ref_keys -= matched_ref_cods
+        remaining_oferta_keys -= matched_oferta_cods
+
+        # LLM phase
+        _new_llm_pairs: list[dict] = []
+        if remaining_ref_keys and remaining_oferta_keys and llm_client:
+            llm_results = _llm_match_groups(
+                remaining_ref_keys, remaining_oferta_keys,
+                ref_deviz_headers, oferta_deviz_headers,
+                llm_client, llm_model,
+            )
+            _run_secondary_match([
+                (rk, ok, "llm", rd, od) for rk, ok, rd, od in llm_results
+            ])
+            _new_llm_pairs = [
+                {"ref_den": rd, "oferta_den": od}
+                for rk, ok, rd, od in llm_results
+                if rk in matched_ref_cods  # only actually matched
+            ]
+        _save_knowledge(client_name, _new_llm_pairs)
 
     # Ref-only → LIPSA
     for ref_cod in sorted(ref_cods - matched_ref_cods):
@@ -477,4 +560,23 @@ def compare_by_groups(
         f"{len(result.oferta_only_groups)} oferta-only, "
         f"{len(result.ungrouped)} ungrouped"
     )
+    result.match_trace = {
+        "ref_groups": [
+            {"deviz_key": k, "den": _den_string(ref_deviz_headers.get(k)), "n_articles": len(ref_by_deviz.get(k, []))}
+            for k in sorted(ref_cods)
+        ],
+        "oferta_groups": [
+            {"deviz_key": k, "den": _den_string(oferta_deviz_headers.get(k)), "n_articles": len(oferta_by_deviz.get(k, []))}
+            for k in sorted(oferta_cods)
+        ],
+        "matched": _trace_matched,
+        "ref_only": [
+            {"deviz_key": k, "den": _den_string(ref_deviz_headers.get(k)), "n_articles": len(ref_by_deviz.get(k, []))}
+            for k in sorted(ref_cods - matched_ref_cods)
+        ],
+        "oferta_only": [
+            {"deviz_key": k, "den": _den_string(oferta_deviz_headers.get(k)), "n_articles": len(oferta_by_deviz.get(k, []))}
+            for k in sorted(oferta_cods - matched_oferta_cods)
+        ],
+    }
     return result
