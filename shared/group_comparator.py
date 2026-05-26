@@ -7,8 +7,22 @@ Groups matched 3-layer ref↔oferta. Unmatched ref → LIPSA. Unmatched oferta �
 import logging
 from dataclasses import dataclass, field
 from collections import defaultdict
+import json
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
+
+
+def _den_string(hdr) -> str:
+    """Canonical denomination for a DevizHeader: 'obj1 | obj2 | cat'."""
+    if not hdr:
+        return ""
+    parts = [
+        getattr(hdr, "obiectivul", None),
+        getattr(hdr, "obiectul", None),
+        getattr(hdr, "categoria", None),
+    ]
+    return " | ".join(p for p in parts if p)
 
 
 @dataclass
@@ -18,6 +32,7 @@ class HolisticComparison:
     oferta_only_groups: list = field(default_factory=list)
     ungrouped: list = field(default_factory=list)
     unassigned_articles: list = field(default_factory=list)
+    match_trace: dict = field(default_factory=dict)
 
 
 def _articles_by_deviz(articles: list, unassigned_out: list | None = None) -> dict:
@@ -244,13 +259,7 @@ def compare_by_groups(
         ref_hdr = ref_deviz_headers.get(ref_cod)
         oferta_hdr = oferta_deviz_headers.get(oferta_cod)
 
-        def _header_to_string(hdr):
-            if not hdr:
-                return ""
-            parts = [hdr.obiectivul, hdr.obiectul, hdr.categoria]
-            return " | ".join(p for p in parts if p)
-
-        deviz_den = _header_to_string(ref_hdr) or _header_to_string(oferta_hdr)
+        deviz_den = _den_string(ref_hdr) or _den_string(oferta_hdr)
         # Fallback: use article's embedded deviz_header metadata
         if not deviz_den and ref_arts and ref_arts[0].get("deviz_header"):
             hdr_dict = ref_arts[0].get("deviz_header", {})

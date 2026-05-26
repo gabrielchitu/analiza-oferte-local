@@ -123,3 +123,10 @@ def test_build_raport_holistic_structure():
     assert raport["sumar"]["total_ref_only_groups"] == 0
     assert raport["sumar"]["total_oferta_only_groups"] == 1
     assert raport["sumar"]["total_ungrouped_articles"] == 1
+
+
+def test_holistic_comparison_has_match_trace():
+    from shared.group_comparator import HolisticComparison
+    hc = HolisticComparison()
+    assert hasattr(hc, "match_trace")
+    assert isinstance(hc.match_trace, dict)
