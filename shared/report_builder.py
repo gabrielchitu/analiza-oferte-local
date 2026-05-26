@@ -195,11 +195,13 @@ def build_raport_holistic(holistic_comparison) -> dict:
         len(mg.get("matches", [])) for mg in holistic_comparison.matched_groups
     )
 
+    unassigned = holistic_comparison.unassigned_articles
     return {
         "matched_groups": holistic_comparison.matched_groups,
         "ref_only_groups": holistic_comparison.ref_only_groups,
         "oferta_only_groups": holistic_comparison.oferta_only_groups,
         "ungrouped": holistic_comparison.ungrouped,
+        "unassigned_articles": unassigned,
         "sumar": {
             "total_matched_groups": len(holistic_comparison.matched_groups),
             "total_ref_only_groups": len(holistic_comparison.ref_only_groups),
@@ -207,5 +209,7 @@ def build_raport_holistic(holistic_comparison) -> dict:
             "total_ungrouped_articles": len(holistic_comparison.ungrouped),
             "total_matched_articles": total_matched_arts,
             "neconformitati_by_tip": dict(tips),
+            "total_unassigned_ref": sum(1 for a in unassigned if a.get("source") == "ref"),
+            "total_unassigned_oferta": sum(1 for a in unassigned if a.get("source") == "oferta"),
         },
     }
