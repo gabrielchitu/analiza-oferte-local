@@ -7,7 +7,6 @@ Folosire:
 
 Input:  input_AO/di_referinta.json + input_AO/di_oferta_N.json
 Output: output_AO/referinta.json, output_AO/oferta_N.json,
-        output_AO/comparatie_oferta_N.json,
         output_AO/Raport_Oferta_N.xlsx, output_AO/Raport_Oferta_N.docx
 
 Checkpoint: output_AO/checkpoints/di_X_page_classes.json
@@ -23,13 +22,11 @@ import json
 import logging
 import os
 import sys
-from collections import Counter
 from pathlib import Path
 
 import anthropic
 from dotenv import load_dotenv
 
-from shared.report_json import generate_json_by_deviz
 from shared.client_config import ClientConfig
 from shared.f3_page_classifier import _resolve_partial_keys_fallback
 
@@ -396,23 +393,12 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
         )
 
         logger.info(f"\n--- Comparare OFERTA {oferta_nr} ---")
-        _, comp = compare_and_report(
+        comp = compare_and_report(
             ref_articles, oferta_articles, oferta_nr, oferta_path, client, model,
             ofertant_name=ofertant_name, ref_di_json=ref_di_raw,
             checkpoint_data=oferta_checkpoint_data, ref_checkpoint_data=ref_checkpoint_data,
             client_config=client_config, subcomponent_mode=subcomponent_mode,
         )
-
-        # Generate JSON report grouped by deviz
-        if comp and comp.get('neconformitati'):
-            session = {"client_name": client_config.name if client_config else "", "obiect_investitii": ""}
-            json_report = generate_json_by_deviz(session, comp)
-
-            json_file = client_config.output_dir / f"comparatie_deviz_oferta_{oferta_nr}.json"
-            with open(json_file, 'w', encoding='utf-8') as f:
-                json.dump(json_report, f, ensure_ascii=False, indent=2)
-
-            logger.info(f"  JSON by deviz: {json_file.name}")
 
     logger.info("\n" + "=" * 50)
     logger.info("  DONE")
@@ -983,15 +969,11 @@ def compare_and_report(
 ):
     """Compara oferta cu referinta si genereaza raport XLSX + DOCX."""
     from shared.deviz_normalizer import normalize_devize
-    from shared.deviz_mismatch_detector import detect_deviz_mismatches
-    from shared.extraction_validator import mark_suspicious_extras
     from shared.report_excel import generate_excel
     from shared.report_word import generate_word
-    from AgentComparator_local import match_global
 
     # Phase 2: Subcomponent code extraction and matching (optional, based on detected format)
     subcomp_stats = {"detected": False, "format": "unknown", "confidence": 0.0}
-    subcomp_anomalies = []  # Will be populated if subcomponent anomalies found
     if checkpoint_data and checkpoint_data.get("subcomponent_format"):
         from shared.subcomponent_formats import SubcomponentFormat, SUBCOMPONENT_PATTERNS
         from shared.subcomponent_extractor import (
@@ -1031,18 +1013,9 @@ def compare_and_report(
                     "code_group": SUBCOMPONENT_PATTERNS[SubcomponentFormat(fmt_str)]["code_group"]
                 }
 
-                # Track anomalies: subcomponent codes in offer but not in reference
-                subcomp_anomalies = _track_subcomponent_anomalies(oferta_articles, ref_lookup, fmt_info)
-
-                if subcomp_anomalies:
-                    logger.warning(f"  [SUBCOMP_PHASE2] Found {len(subcomp_anomalies)} articles with unknown subcomponent codes")
-                    subcomp_stats["anomalies"] = len(subcomp_anomalies)
-                    # Log first few anomalies
-                    for anom in subcomp_anomalies[:3]:
-                        logger.debug(f"    - {anom['cod']}: subcomp code {anom['subcomp_code']}")
-                else:
-                    logger.info(f"  [SUBCOMP_PHASE2] All subcomponent codes match reference")
-                    subcomp_stats["anomalies"] = 0
+                # Subcomponent anomaly tracking removed (old pipeline)
+                subcomp_stats["anomalies"] = 0
+                logger.info(f"  [SUBCOMP_PHASE2] Subcomponent stats collected")
 
                 # Extract from offer articles (for statistics)
                 offer_subcomp_codes = {}
@@ -1064,35 +1037,6 @@ def compare_and_report(
 
     # Normalizeaza devizele ofertei sa corespunda cu cele din referinta
     oferta_norm = normalize_devize(ref_articles, oferta_articles, client, model)
-
-    # Detectare deviz mismatch (devize din oferta cu cod diferit dar articole similare)
-    deviz_mismatches = detect_deviz_mismatches(ref_articles, oferta_norm)
-    _deviz_remap: dict = {}  # oferta_deviz → ref_deviz pentru mismatch-uri cu overlap inalt
-    if deviz_mismatches:
-        for m in deviz_mismatches:
-            logger.warning(
-                f"  [DEVIZ_MISMATCH] Deviz {m['oferta_deviz']} din oferta (~{m['overlap_score']:.0%} overlap) "
-                f"pare echivalentul lui {m['ref_deviz']} din referinta "
-                f"({m['oferta_art_count']} vs {m['ref_art_count']} articole)"
-            )
-            # Remap automat cand overlap e foarte inalt (≥90%): redenumeste codul deviz
-            # in articolele ofertei astfel incat Layer 1 sa le potriveasca cu referinta.
-            # Ofertantul a numerotata devizele diferit (226113 vs 226118) — acelasi continut.
-            if m['overlap_score'] >= 0.9:
-                _deviz_remap[m['oferta_deviz']] = m['ref_deviz']
-
-    if _deviz_remap:
-        for art in oferta_norm:
-            old = art.get('deviz', '')
-            if old in _deviz_remap:
-                art['deviz'] = _deviz_remap[old]
-                art['_deviz_original'] = old  # pastram originalul pt raport
-        logger.info(f"  Remap devize oferta: {_deviz_remap}")
-
-    # Matching 3 straturi — returneaza si cheile REF match-uite
-    neconformitati, matches, matched_ref_keys, articole_fara_deviz = match_global(
-        ref_articles, oferta_norm, client, model, include_prices=include_prices
-    )
 
     # Holistic group-based comparison
     from shared.group_comparator import compare_by_groups
@@ -1154,104 +1098,26 @@ def compare_and_report(
         f"{raport_holistic['sumar']['total_oferta_only_groups']} oferta-only"
     )
 
-    # v7.0: ARTICOL_ORPHAN eliminat — articolele cu deviz greșit devin ARTICOL_EXTRA
-
-    # Marcheaza EXTRA suspecte (codul exista in referinta dar cu alta denumire)
-    # Build ref DI text from JSON if provided, otherwise use empty string
-    ref_di_text = ""
-    if ref_di_json:
-        ref_di_text = json.dumps(ref_di_json, ensure_ascii=False)
-    neconformitati = mark_suspicious_extras(neconformitati, ref_di_text, ref_articole=ref_articles)
-
-    # Adauga anomalii subcomponente la neconformitati (Phase 2)
-    for anom in subcomp_anomalies:
-        neconformitati.append({
-            'tip': 'SUBCOMP_EXTRA',
-            'deviz_ref': anom['deviz'],
-            'deviz_denumire': f'Subcomponent anomaly',
-            'is_component': True,
-            'ref_cod': f"SUBCOMP:{anom['subcomp_code']}",
-            'ref_denumire': f"Unknown subcomponent code {anom['subcomp_code']}",
-            'ref_um': '',
-            'ref_cantitate': 0,
-            'oferta_cod': anom['cod'],
-            'oferta_denom': anom['subcomp_code'],
-            'oferta_denumire': f"Subcomponent code {anom['subcomp_code']}",
-            'oferta_um': '',
-            'oferta_cantitate': 0,
-            'motiv': f'Articol {anom["cod"]}: contains subcomponent code {anom["subcomp_code"]} not found in reference',
-        })
-
-    # Colecteaza devize_extra si devize_lipsa pentru raport
-    from collections import defaultdict as _defaultdict
-    ref_devize_set = {a.get('deviz', '') for a in ref_articles if a.get('deviz')}
-    oferta_devize_set = {a.get('deviz', '') for a in oferta_norm if a.get('deviz')}
-
-    oferta_devize_art_count = _defaultdict(int)
-    for a in oferta_norm:
-        oferta_devize_art_count[a.get('deviz', '')] += 1
-    ref_devize_art_count = _defaultdict(int)
-    for a in ref_articles:
-        ref_devize_art_count[a.get('deviz', '')] += 1
-    ref_devize_den = {}
-    for a in ref_articles:
-        d = a.get('deviz', ''); n = a.get('deviz_denumire', '')
-        if d and n:
-            ref_devize_den[d] = n
-
-    _devize_extra = [
-        {
-            'deviz': d,
-            'denumire': next((a.get('deviz_denumire', '') for a in oferta_norm
-                              if a.get('deviz') == d), ''),
-            'art_count': oferta_devize_art_count[d],
-        }
-        for d in sorted(oferta_devize_set - ref_devize_set - {''})
-    ]
-    _devize_lipsa = [
-        {
-            'deviz': d,
-            'denumire': ref_devize_den.get(d, ''),
-            'art_count': ref_devize_art_count[d],
-        }
-        for d in sorted(ref_devize_set - oferta_devize_set - {''})
-    ]
-
-    # Salveaza JSON comparatie
-    output_dir = client_config.output_dir if client_config else OUTPUT_DIR
-    comparatie_path = output_dir / f"comparatie_oferta_{oferta_nr}.json"
-    logger.debug(f"DEBUG: Before JSON save, neconformitati has {len(neconformitati)} items")
-    comparatie_path.write_text(
-        json.dumps({
-            "oferta_nr": oferta_nr,
-            "neconformitati": neconformitati,
-            "total_neconformitati": len(neconformitati),
-            "matches": len(matches),
-            "deviz_mismatches": deviz_mismatches,
-        }, ensure_ascii=False, indent=2),
-        encoding="utf-8",
+    _h_sumar = raport_holistic.get("sumar", {})
+    logger.info(
+        f"  [HOLISTIC] Neconformitati: {_h_sumar.get('neconformitati_by_tip', {})} "
+        f"(total: {sum(_h_sumar.get('neconformitati_by_tip', {}).values())})"
     )
+    logger.info(f"  [HOLISTIC] Matched: {_h_sumar.get('total_matched_articles', 0)} articole")
+    _n_unassigned = _h_sumar.get('total_unassigned_ref', 0) + _h_sumar.get('total_unassigned_oferta', 0)
+    if _n_unassigned:
+        logger.warning(f"  [HOLISTIC] Neasignate: {_n_unassigned} articole fara deviz_key valid")
 
-    tipuri = Counter(n["tip"] for n in neconformitati)
-    logger.info(f"  Neconformitati: {dict(tipuri)} (total: {len(neconformitati)})")
-    logger.info(f"  Matched: {len(matches)} articole")
-
-    # Obiecte necesare rapoartelor
-    from shared.report_builder import build_raport_ierarhic
-    raport_ierarhic = build_raport_ierarhic(ref_articles, neconformitati, matches,
-                                            articole_fara_deviz=articole_fara_deviz)
-
+    output_dir = client_config.output_dir if client_config else OUTPUT_DIR
     session = {"client_name": client_config.name if client_config else "", "obiect_investitii": ""}
     comp = {
         "oferta_nr": oferta_nr,
         "source_file": oferta_path.name,
         "ofertant": ofertant_name or f"Oferta {oferta_nr}",
-        "neconformitati": neconformitati,
         "ref_art_count": len(ref_articles),
         "oferta_art_count": len(oferta_norm),
         "ref_articles": ref_articles,
         "oferta_articles": oferta_norm,
-        "raport_ierarhic": raport_ierarhic,
         "raport_holistic": raport_holistic,
     }
     comparison_mode = "cu_pret" if include_prices else "fara_pret"
@@ -1272,8 +1138,6 @@ def compare_and_report(
         docx_bytes = generate_word(
             session, comp,
             comparison_mode=comparison_mode,
-            devize_extra=_devize_extra,
-            devize_lipsa=_devize_lipsa,
             subcomponent_mode=subcomponent_mode,
         )
         docx_path.write_bytes(docx_bytes)
@@ -1292,7 +1156,7 @@ def compare_and_report(
     except Exception as e:
         logger.warning(f"  Holistic JSON failed: {e}")
 
-    return neconformitati, comp
+    return comp
 
 
 def main():
