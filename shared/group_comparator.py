@@ -73,7 +73,7 @@ def _save_knowledge(client_name: str, new_pairs: list[dict]) -> None:
     except (FileNotFoundError, json.JSONDecodeError):
         knowledge = {}
     existing = knowledge.get(client_name, [])
-    seen = {(p["ref_den"], p["oferta_den"]) for p in existing}
+    seen = {(p.get("ref_den", ""), p.get("oferta_den", "")) for p in existing}
     for p in new_pairs:
         key = (p.get("ref_den", ""), p.get("oferta_den", ""))
         if key[0] and key[1] and key not in seen:
