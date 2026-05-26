@@ -728,46 +728,11 @@ def _classify_pages_llm(
         if not classifications:
             logger.warning(f"[PC] LLM returned empty page_classifications for {len(ambiguous)} pages — treating all as NON_F3")
 
-        # Self-learning: salveaza pattern-uri noi descoperite de LLM in knowledge base
-        try:
-            _knowledge = F3Knowledge()
-            _learned_count = 0
-            _page_lines_map = {p.get("page_number"): p.get("lines", []) for p in ambiguous}
-            for item in raw.get("page_classifications", []):
-                page_num = item.get("page_number")
-                is_f3 = item.get("is_f3", False)
-                lines = _page_lines_map.get(page_num, [])
-                if not lines:
-                    continue
-                # Extrage primul line distinctiv (>= 5 chars, nu numar pur, nu prea lung)
-                # Exclude header-uri eDevize generice care apar pe toate paginile
-                _GENERIC_HEADERS = frozenset({
-                    "antet stanga", "edevize", "beneficiar", "antet dreapta",
-                    "sectiunea tehnica", "formular generat", "www.edevize.ro",
-                })
-                # Exclude pagination patterns (Pag N, Page N, etc.) — appear on every page
-                import re as _re_learn
-                _PAGINATION_RE = _re_learn.compile(r'^pag(?:e|ina)?\s*\.?\s*\d+$', _re_learn.IGNORECASE)
-                # Only learn START markers (is_f3=True) — end markers need manual curation.
-                # Learning end markers from first-line of non-F3 pages is unreliable:
-                # common header text ("OBIECTIV:", "SECTIUNEA FINANCIARA") appears
-                # within F3 pages too and would truncate article extraction to 0.
-                if not is_f3:
-                    continue
-                for line in lines[:15]:
-                    stripped = line.strip()
-                    if (len(stripped) >= 5
-                            and not stripped.isdigit()
-                            and len(stripped) <= 100
-                            and stripped.lower() not in _GENERIC_HEADERS
-                            and not _PAGINATION_RE.match(stripped)):
-                        _knowledge.learn(stripped, "exact", source_type="start", source="llm")
-                        _learned_count += 1
-                        break
-            if _learned_count:
-                logger.info(f"[PC] F3Knowledge: learned {_learned_count} new patterns from LLM")
-        except Exception as e:
-            logger.warning(f"[PC] F3Knowledge learn failed (non-critical): {e}")
+        # NOTE: LLM-based self-learning for markers is DISABLED.
+        # Auto-learned start markers produced false positives ("Beneficiar:", "TOTAL X (fara TVA)",
+        # "SECTIUNEA FINANCIARA") causing wrong F3 restarts.
+        # Auto-learned end markers produced catastrophic false positives ("Pag N") → 0 articles.
+        # f3_markers_knowledge.json is manually curated only.
 
         return {
             item["page_number"]: {

@@ -100,6 +100,9 @@ _LLM_GROUP_SYSTEM_PROMPT = (
 )
 
 
+_LLM_CHUNK_SIZE = 15  # max groups per LLM call — keeps response well under 2000 tokens
+
+
 def _llm_match_groups(
     remaining_ref: set,
     remaining_oferta: set,
@@ -108,7 +111,11 @@ def _llm_match_groups(
     llm_client,
     llm_model: str,
 ) -> list[tuple[str, str, str, str]]:
-    """LLM-assisted group matching. Returns [(ref_key, oferta_key, ref_den, oferta_den)]."""
+    """LLM-assisted group matching. Returns [(ref_key, oferta_key, ref_den, oferta_den)].
+
+    Splits into chunks of _LLM_CHUNK_SIZE when there are many unmatched groups,
+    preventing token limit truncation on large offer documents.
+    """
     if not llm_client or not remaining_ref or not remaining_oferta:
         return []
     ref_den_to_key = {
@@ -123,45 +130,64 @@ def _llm_match_groups(
     }
     if not ref_den_to_key or not oferta_den_to_key:
         return []
-    ref_list = "\n".join(f'{i + 1}. "{d}"' for i, d in enumerate(ref_den_to_key))
-    oferta_list = "\n".join(f'{i + 1}. "{d}"' for i, d in enumerate(oferta_den_to_key))
-    user_prompt = (
-        f"REFERINȚĂ (grupuri nematched):\n{ref_list}\n\n"
-        f"OFERTĂ (grupuri nematched):\n{oferta_list}"
-    )
-    try:
-        resp = llm_client.chat.completions.create(
-            model=llm_model,
-            temperature=0.0,
-            response_format={"type": "json_object"},
-            messages=[
-                {"role": "system", "content": _LLM_GROUP_SYSTEM_PROMPT},
-                {"role": "user", "content": user_prompt},
-            ],
-            max_tokens=2000,
+
+    ref_dens = list(ref_den_to_key)
+    oferta_dens = list(oferta_den_to_key)
+    result: list[tuple[str, str, str, str]] = []
+    matched_ref: set[str] = set()
+    matched_oferta: set[str] = set()
+
+    # Chunk ref groups; send all oferta groups each time (match is N:M per chunk)
+    for chunk_start in range(0, len(ref_dens), _LLM_CHUNK_SIZE):
+        ref_chunk = [d for d in ref_dens[chunk_start:chunk_start + _LLM_CHUNK_SIZE]
+                     if d not in matched_ref]
+        oferta_remaining = [d for d in oferta_dens if d not in matched_oferta]
+        if not ref_chunk or not oferta_remaining:
+            break
+
+        ref_list = "\n".join(f'{i + 1}. "{d}"' for i, d in enumerate(ref_chunk))
+        oferta_list = "\n".join(f'{i + 1}. "{d}"' for i, d in enumerate(oferta_remaining))
+        user_prompt = (
+            f"REFERINȚĂ (grupuri nematched):\n{ref_list}\n\n"
+            f"OFERTĂ (grupuri nematched):\n{oferta_list}"
         )
-        if not resp.choices:
-            logger.warning("[GC] LLM group match: empty choices in response")
-            return []
-        parsed = json.loads(resp.choices[0].message.content)
-    except Exception as e:
-        logger.warning(f"[GC] LLM group match failed: {e}")
-        return []
-    _raw = parsed.get("matches", []) if isinstance(parsed, dict) else []
-    pairs_raw = _raw if isinstance(_raw, list) else []
-    result = []
-    for item in pairs_raw:
-        ref_den = item.get("ref", "")
-        oferta_den = item.get("oferta", "")
-        rk = ref_den_to_key.get(ref_den)
-        ok = oferta_den_to_key.get(oferta_den)
-        if not rk:
-            logger.warning(f"[GC] LLM suggested unknown ref_den: {ref_den!r}")
+        try:
+            resp = llm_client.chat.completions.create(
+                model=llm_model,
+                temperature=0.0,
+                response_format={"type": "json_object"},
+                messages=[
+                    {"role": "system", "content": _LLM_GROUP_SYSTEM_PROMPT},
+                    {"role": "user", "content": user_prompt},
+                ],
+                max_tokens=2000,
+            )
+            if not resp.choices:
+                logger.warning("[GC] LLM group match: empty choices in response")
+                continue
+            parsed = json.loads(resp.choices[0].message.content)
+        except Exception as e:
+            logger.warning(f"[GC] LLM group match failed: {e}")
             continue
-        if not ok:
-            logger.warning(f"[GC] LLM suggested unknown oferta_den: {oferta_den!r}")
-            continue
-        result.append((rk, ok, ref_den, oferta_den))
+
+        _raw = parsed.get("matches", []) if isinstance(parsed, dict) else []
+        for item in (_raw if isinstance(_raw, list) else []):
+            ref_den = item.get("ref", "")
+            oferta_den = item.get("oferta", "")
+            rk = ref_den_to_key.get(ref_den)
+            ok = oferta_den_to_key.get(oferta_den)
+            if not rk:
+                logger.warning(f"[GC] LLM suggested unknown ref_den: {ref_den!r}")
+                continue
+            if not ok:
+                logger.warning(f"[GC] LLM suggested unknown oferta_den: {oferta_den!r}")
+                continue
+            if rk in matched_ref or ok in matched_oferta:
+                continue
+            result.append((rk, ok, ref_den, oferta_den))
+            matched_ref.add(ref_den)
+            matched_oferta.add(oferta_den)
+
     logger.info(f"[GC] LLM matched {len(result)} additional groups")
     return result
 
