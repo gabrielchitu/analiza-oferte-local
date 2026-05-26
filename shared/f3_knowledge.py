@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 import re
 from pathlib import Path
@@ -30,9 +32,15 @@ class F3Knowledge:
                     return line
         return None
 
-    def find_end_marker(self, lines: list) -> tuple | None:
-        """Return (line_index, matched_line) or None."""
+    def find_end_marker(self, lines: list, skip_header_lines: int = 20) -> tuple | None:
+        """Return (line_index, matched_line) or None.
+
+        Skips first skip_header_lines lines — page headers (PROIECTANT:, OBIECTIV:, etc.)
+        appear in the first ~10 lines and must not trigger as false end-markers.
+        """
         for i, line in enumerate(lines):
+            if i < skip_header_lines:
+                continue
             for m in self._data.get("end_markers", []):
                 if self._matches(line, m):
                     return (i, line)
