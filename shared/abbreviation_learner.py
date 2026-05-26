@@ -2,7 +2,7 @@
 LLM-based abbreviation learner pentru DESCRIERE_DIFERITA borderline.
 
 Flux:
-  1. Citește comparatie_oferta_N.json → extrage DD cu sim 0.30-0.55
+  1. Citește holistic_oferta_N.json → extrage DD cu sim 0.25-0.55
   2. Filtrează perechile deja cunoscute
   3. Trimite batch la Claude Haiku pentru validare DA/NU
   4. Salvează perechile confirmate în learned_abbreviations.json
