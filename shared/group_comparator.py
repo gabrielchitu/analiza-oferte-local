@@ -17,13 +17,14 @@ class HolisticComparison:
     ref_only_groups: list = field(default_factory=list)
     oferta_only_groups: list = field(default_factory=list)
     ungrouped: list = field(default_factory=list)
+    unassigned_articles: list = field(default_factory=list)
 
 
-def _articles_by_deviz(articles: list) -> dict:
+def _articles_by_deviz(articles: list, unassigned_out: list | None = None) -> dict:
     """Grupeaza articolele dupa deviz_key (hash OBIECTIVUL+OBIECTUL+CATEGORIA).
 
     deviz_key e identificatorul canonic al grupului.
-    Fallback la deviz_cod pt articolele fara deviz_key valid.
+    Articles with __INCOMPLETE__ deviz_key sunt colectate in unassigned_out.
     """
     result = defaultdict(list)
     for a in articles:
@@ -33,7 +34,9 @@ def _articles_by_deviz(articles: list) -> dict:
         else:
             cod = (a.get("deviz") or "").strip()
             if cod:
-                result[f"__cod__{cod}"].append(a)
+                if unassigned_out is not None:
+                    unassigned_out.append(a)
+                # NU adăugat în result → nu apare ca ref-only/oferta-only cu cheie ciudată
     return dict(result)
 
 
@@ -151,8 +154,14 @@ def compare_by_groups(
     ref_valid = [a for a in ref_articles if (a.get("deviz") or "").strip()]
     oferta_valid = [a for a in oferta_articles if (a.get("deviz") or "").strip()]
 
-    ref_by_deviz = _articles_by_deviz(ref_valid)
-    oferta_by_deviz = _articles_by_deviz(oferta_valid)
+    unassigned_ref: list = []
+    unassigned_oferta: list = []
+    ref_by_deviz = _articles_by_deviz(ref_valid, unassigned_out=unassigned_ref)
+    oferta_by_deviz = _articles_by_deviz(oferta_valid, unassigned_out=unassigned_oferta)
+    result.unassigned_articles = (
+        [{"source": "ref", **a} for a in unassigned_ref] +
+        [{"source": "oferta", **a} for a in unassigned_oferta]
+    )
 
     ref_cods = set(ref_by_deviz.keys())
     oferta_cods = set(oferta_by_deviz.keys())
