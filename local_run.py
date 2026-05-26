@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 #!/usr/bin/env python3
 """
 local_run.py — Analizator local oferte constructii.
@@ -1089,7 +1091,8 @@ def compare_and_report(
     logger.info(f"  [HEADERS] Ref: {len(_ref_dh)} deviz_keys, Oferta: {len(_oferta_dh)} deviz_keys")
 
     _holistic = compare_by_groups(
-        ref_articles, oferta_norm, _ref_dh, _oferta_dh, client, model
+        ref_articles, oferta_norm, _ref_dh, _oferta_dh, client, model,
+        client_name=client_config.name if client_config else "",
     )
     raport_holistic = build_raport_holistic(_holistic)
     logger.info(
@@ -1155,6 +1158,17 @@ def compare_and_report(
         logger.info(f"  Holistic JSON: {holistic_path.name}")
     except Exception as e:
         logger.warning(f"  Holistic JSON failed: {e}")
+
+    # Matching debug trace
+    try:
+        debug_path = output_dir / f"matching_debug_oferta_{oferta_nr}.json"
+        debug_path.write_text(
+            json.dumps(_holistic.match_trace, ensure_ascii=False, default=str, indent=2),
+            encoding="utf-8",
+        )
+        logger.info(f"  Matching debug: {debug_path.name}")
+    except Exception as e:
+        logger.warning(f"  Matching debug failed: {e}")
 
     return comp
 

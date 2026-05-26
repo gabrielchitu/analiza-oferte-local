@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 # func-analiza-oferte/shared/f3_page_classifier.py
 """
 Page-aware F3 classifier for DI JSON pages.
@@ -743,14 +745,23 @@ def _classify_pages_llm(
                     "antet stanga", "edevize", "beneficiar", "antet dreapta",
                     "sectiunea tehnica", "formular generat", "www.edevize.ro",
                 })
+                # Exclude pagination patterns (Pag N, Page N, etc.) — appear on every page
+                import re as _re_learn
+                _PAGINATION_RE = _re_learn.compile(r'^pag(?:e|ina)?\s*\.?\s*\d+$', _re_learn.IGNORECASE)
+                # Only learn START markers (is_f3=True) — end markers need manual curation.
+                # Learning end markers from first-line of non-F3 pages is unreliable:
+                # common header text ("OBIECTIV:", "SECTIUNEA FINANCIARA") appears
+                # within F3 pages too and would truncate article extraction to 0.
+                if not is_f3:
+                    continue
                 for line in lines[:15]:
                     stripped = line.strip()
                     if (len(stripped) >= 5
                             and not stripped.isdigit()
                             and len(stripped) <= 100
-                            and stripped.lower() not in _GENERIC_HEADERS):
-                        source_type = "start" if is_f3 else "end"
-                        _knowledge.learn(stripped, "exact", source_type=source_type, source="llm")
+                            and stripped.lower() not in _GENERIC_HEADERS
+                            and not _PAGINATION_RE.match(stripped)):
+                        _knowledge.learn(stripped, "exact", source_type="start", source="llm")
                         _learned_count += 1
                         break
             if _learned_count:
