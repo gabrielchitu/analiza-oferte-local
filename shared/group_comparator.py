@@ -4,6 +4,8 @@ Holistic group-based comparison.
 Every article belongs to a deviz group (OBIECTIVUL + Obiectul + Categoria).
 Groups matched 3-layer ref↔oferta. Unmatched ref → LIPSA. Unmatched oferta → EXTRA.
 """
+from __future__ import annotations
+
 import logging
 import json
 from pathlib import Path

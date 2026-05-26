@@ -8,6 +8,8 @@ Flux:
   4. learned_pairs.json încărcat la startup → expandate tot în _clean_den()
 """
 
+from __future__ import annotations
+
 import json
 import re
 import logging
