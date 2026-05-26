@@ -954,6 +954,9 @@ def extract_articles_v3(page_classifications: list) -> list:
         import re as _re
         _NR_COD_RE = _re.compile(r'^\d+[\.,]?\s+([A-Z$][A-Z0-9_.#\-]{2,})', _re.IGNORECASE)
         _COD_ONLY_RE = _re.compile(r'^([A-Z$][A-Z0-9_.#\-]{2,})', _re.IGNORECASE)
+        # Coduri numerice catalog (ex: "500002561 - Plasa din fibra de sticla") — stocate FĂRĂ $
+        # Extractor adaugă $ la coduri numerice pure → lookup trebuie să caute și fără prefix
+        _NUMERIC_COD_RE = _re.compile(r'^(\d{4,10})\s*[-–]')
         # Index: cod → lista TUTUROR aparițiilor (line index) în ordine secvențială.
         # Consumăm câte o apariție per articol (FIFO) — extract_articles_regex
         # produce articolele în ordine documentului, deci prima apariție = primul articol.
@@ -967,6 +970,10 @@ def extract_articles_v3(page_classifications: list) -> list:
                 tok = m.group(1)
                 if tok:
                     _cod_line_cache.setdefault(tok, []).append(_li)
+            else:
+                mn = _NUMERIC_COD_RE.match(_line_s)
+                if mn:
+                    _cod_line_cache.setdefault(mn.group(1), []).append(_li)
 
         for art in section_articles:
             art["deviz"] = deviz_cod
@@ -976,6 +983,11 @@ def extract_articles_v3(page_classifications: list) -> list:
             art_page = None
             if art_cod and _cod_line_cache.get(art_cod):
                 li = _cod_line_cache[art_cod].pop(0)  # consuma prima aparitie neutilizata
+                if li < len(line_page_map):
+                    art_page = line_page_map[li]
+            elif art_cod.startswith('$') and _cod_line_cache.get(art_cod[1:]):
+                # Coduri numerice: extractor adaugă $, dar în text apar fără prefix
+                li = _cod_line_cache[art_cod[1:]].pop(0)
                 if li < len(line_page_map):
                     art_page = line_page_map[li]
             art["source_pages"] = [art_page] if art_page is not None else source_pages
