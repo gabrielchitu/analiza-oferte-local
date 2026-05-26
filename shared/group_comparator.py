@@ -138,11 +138,15 @@ def _llm_match_groups(
             ],
             max_tokens=1000,
         )
+        if not resp.choices:
+            logger.warning("[GC] LLM group match: empty choices in response")
+            return []
         parsed = json.loads(resp.choices[0].message.content)
     except Exception as e:
         logger.warning(f"[GC] LLM group match failed: {e}")
         return []
-    pairs_raw = parsed.get("matches", []) if isinstance(parsed, dict) else []
+    _raw = parsed.get("matches", []) if isinstance(parsed, dict) else []
+    pairs_raw = _raw if isinstance(_raw, list) else []
     result = []
     for item in pairs_raw:
         ref_den = item.get("ref", "")
