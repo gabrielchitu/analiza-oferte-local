@@ -30,8 +30,8 @@ def _safe_json_parse(raw: str) -> dict:
         return json.loads(raw)
     except json.JSONDecodeError:
         pass
-    # 2. Strip markdown fences: ```json ... ``` sau ``` ... ```
-    m = re.search(r'```(?:json)?\s*([\s\S]+?)\s*```', raw)
+    # 2. Strip markdown fences: ```json ... ``` sau ``` ... ``` (inclusiv trunchiat)
+    m = re.search(r'```(?:json)?\s*([\s\S]+?)\s*(?:```|$)', raw)
     if m:
         try:
             return json.loads(m.group(1))
@@ -109,7 +109,11 @@ class _Completions:
                 if parsed:
                     content = json.dumps(parsed, ensure_ascii=False)
                 else:
-                    logger.warning(f"[Adapter] LLM nu a returnat JSON valid: {content[:200]}")
+                    if content:
+                        logger.warning(f"[Adapter] LLM nu a returnat JSON valid: {content[:200]}")
+                    else:
+                        logger.warning("[Adapter] LLM a returnat continut gol")
+                    content = "{}"  # garantam JSON valid pentru caller
 
             return _Response(content)
 

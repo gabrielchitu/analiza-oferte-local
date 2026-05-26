@@ -138,7 +138,7 @@ def _llm_match_groups(
                 {"role": "system", "content": _LLM_GROUP_SYSTEM_PROMPT},
                 {"role": "user", "content": user_prompt},
             ],
-            max_tokens=1000,
+            max_tokens=2000,
         )
         if not resp.choices:
             logger.warning("[GC] LLM group match: empty choices in response")
