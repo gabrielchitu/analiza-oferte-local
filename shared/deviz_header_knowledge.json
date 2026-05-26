@@ -2343,5 +2343,455 @@
     "obiectivul": "Executie lucrari de Eficientizare energetica a blocurilor A, B, C, A2, A3, A4 din orasul",
     "obiectul": "4 ORGANIZARE DE SANTIER BLOC C",
     "categoria": "BLC7 ORGANIZARE DE SANTIER"
+  },
+  "1ddd28f1202ca28a": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "1 TEREN DE TENIS ACOPERIT",
+    "categoria": "226113 ARHITECTURA -teren tenis acoperit"
+  },
+  "de8701b99320ef19": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "2 VESTIAR TEREN TENIS SI GRUPURI SANITARE PUBLICE",
+    "categoria": "226218 ARHITECTURA teren tenis si grupuri sanitare"
+  },
+  "0e7520e86146dd0a": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "2 VESTIAR TEREN TENIS SI GRUPURI SANITARE PUBLICE",
+    "categoria": "226228 INSTALATII SANITARE OB.2"
+  },
+  "cff3a2291c3c87b5": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "2 VESTIAR TEREN TENIS SI GRUPURI SANITARE PUBLICE",
+    "categoria": "226238 MONTAT BOILER OB.2"
+  },
+  "d4cebc152699ab19": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "2 VESTIAR TEREN TENIS SI GRUPURI SANITARE PUBLICE",
+    "categoria": "226248 INSTAI.ATII VENTILATIE OB.2"
+  },
+  "c595596e21884e13": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "2 VESTIAR TEREN TENIS SI GRUPURI SANITARE PUBLICE",
+    "categoria": "226258 INSTALATII DE ÎNCĂLZIRE OB.2"
+  },
+  "eec964432abf6cbc": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "2 VESTIAR TEREN TENIS SI GRUPURI SANITARE PUBLICE",
+    "categoria": "226268 INSTALATII ELECTRICE CURENTI TARI OB.2"
+  },
+  "c350c6cbc6c1b682": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "2 VESTIAR TEREN TENIS SI GRUPURI SANITARE PUBLICE",
+    "categoria": "226278 INSTALATIE VOCE-DATE-OB.2"
+  },
+  "1236b4cc44bae122": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "2 VESTIAR TEREN TENIS SI GRUPURI SANITARE PUBLICE",
+    "categoria": "226288 SISTEM SUPRAVEGHEREA VIDEO -OB2"
+  },
+  "4c2a4568c5d38bc9": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "3 AMENAJARI EXTERIOARE",
+    "categoria": "226318 ÎMPREJMUIRE TEREN FOTBAL -380 ML"
+  },
+  "66d790494b279fd5": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "3 AMENAJARI EXTERIOARE",
+    "categoria": "226328 ARHITECTURA GRADENE"
+  },
+  "38dabdac5e037e43": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "3 AMENAJARI EXTERIOARE",
+    "categoria": "226338 TEREN FOTBAL"
+  },
+  "bfe092a5a0af214c": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "3 AMENAJARI EXTERIOARE",
+    "categoria": "226348 SPATII VERZI"
+  },
+  "5f82e40726bd201a": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "3 AMENAJARI EXTERIOARE",
+    "categoria": "226358 ALEI PIETONALE SI CAROSABILE"
+  },
+  "7c3ca85a5adb2a7a": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "3 AMENAJARI EXTERIOARE",
+    "categoria": "226368 Instalatie irigatie spatii verzi"
+  },
+  "bb8b538bdba0a8c5": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "4 VESTIARE FOTBALISTI SI SALA FITNESS",
+    "categoria": "226418 ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS"
+  },
+  "afb81da054f06d72": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "4 VESTIARE FOTBALISTI SI SALA FITNESS",
+    "categoria": "226428 INSTALATII SANITARE OB 4"
+  },
+  "047fe100e3e5afd9": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "4 VESTIARE FOTBALISTI SI SALA FITNESS",
+    "categoria": "226438 MONTAJ BOILER OB 4"
+  },
+  "0a28cca0a06f8095": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "4 VESTIARE FOTBALISTI SI SALA FITNESS",
+    "categoria": "226448 INSTALATIE VENTILATIE OB 4"
+  },
+  "35545cfed7e93d42": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "4 VESTIARE FOTBALISTI SI SALA FITNESS",
+    "categoria": "226458 INSTALATII INCALZIRE OB 4"
+  },
+  "98e273f4d1cf256b": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "4 VESTIARE FOTBALISTI SI SALA FITNESS",
+    "categoria": "226468 INST CLIMATIZARE OB 4"
+  },
+  "5d03f2e22a708abb": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "4 VESTIARE FOTBALISTI SI SALA FITNESS",
+    "categoria": "226478 INSTALATII ELECTRICE CURENTI TARI OB 4"
+  },
+  "77cae68e94c2d533": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "4 VESTIARE FOTBALISTI SI SALA FITNESS",
+    "categoria": "226488 INSTALATIE VOCE DATE OB 4"
+  },
+  "6772c6d1d469e354": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "4 VESTIARE FOTBALISTI SI SALA FITNESS",
+    "categoria": "226498 SISTEM SUPRAVEGHERE VIDEO"
+  },
+  "d06e1e53892a5649": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "5 GRUPURI SANITARE PUBLICE",
+    "categoria": "226518 ARHITECTURA GRUPURI SANITARE PUBLICE"
+  },
+  "496e132e0a3f766d": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "5 GRUPURI SANITARE PUBLICE",
+    "categoria": "226528 INSTALATII SANITARE OB 5"
+  },
+  "fdcc7befbe9ad20c": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "5 GRUPURI SANITARE PUBLICE",
+    "categoria": "226538 INSTALATII VENTILATIE OB 5"
+  },
+  "de64702dfb362414": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "5 GRUPURI SANITARE PUBLICE",
+    "categoria": "226548 INSTALATII TERMICE"
+  },
+  "0d7080373b251f60": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "5 GRUPURI SANITARE PUBLICE",
+    "categoria": "226558 INSTALATII ELECTRICE CURENTI TARI OB 5"
+  },
+  "8204128a96d1801d": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "5 GRUPURI SANITARE PUBLICE",
+    "categoria": "226568 INSTALATIE VOCE DATE OB 5"
+  },
+  "f17de639da160e47": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "5 GRUPURI SANITARE PUBLICE",
+    "categoria": "226578 SISTEM SUPRAVEGHERE VIDEO OB 5"
+  },
+  "aca9358150439111": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "6 UTILITATI- RETELE EXTERIOARE",
+    "categoria": "226U18 CANALIZARE"
+  },
+  "ff2ce8cbc266a559": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "6 UTILITATI- RETELE EXTERIOARE",
+    "categoria": "226U28 ALIMENTARE CU E.E, SI ILUMINAT EXTERIOR"
+  },
+  "8e1864c5142fa99e": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "7 ORGANIZARE SANTIER",
+    "categoria": "226708 ORG SANTIER- MONTARE WC ECOLOGIC"
+  },
+  "97336c93ab729da8": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
+    "obiectul": "7 ORGANIZARE SANTIER",
+    "categoria": "226728 CHELTUIELI CONEXE ORGANIZARII DE SANTIER"
+  },
+  "7ba674e9ad747913": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0001 45000000 TEREN DE TENIS ACOPERIT",
+    "categoria": "oferta 226108 STRUCTURA DE REZISTENTA CUPOLA"
+  },
+  "77920d3f19504db8": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0001 45000000 TEREN DE TENIS ACOPERIT",
+    "categoria": "oferta 226118 ARHITECTURA -teren tenis"
+  },
+  "fa94e0e28eca01fc": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0002 45000000 VESTIAR TEREN TENIS SI",
+    "categoria": "oferta 226208 STRUCTURA DE REZISTENTA"
+  },
+  "700575a4e677f7d2": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0002 45000000 VESTIAR TEREN TENIS SI",
+    "categoria": "oferta 226208 STRUCTURA DE REZISTENTA (vestiar)"
+  },
+  "494858110fc39ef8": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0002 45000000 VESTIAR TEREN TENIS SI",
+    "categoria": "oferta 226218 ARHITECTURA teren tenis si"
+  },
+  "b1a086f42da15983": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0002 45000000 VESTIAR TEREN TENIS SI",
+    "categoria": "oferta 226228 INSTALATII SANITARE OB.2"
+  },
+  "2c8f5c049d35cb9e": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0002 45000000 VESTIAR TEREN TENIS SI",
+    "categoria": "oferta 226278 INSTALATIE VOCE-DATE-OB.2"
+  },
+  "3a43c61c2d4a148b": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0002 45000000 VESTIAR TEREN TENIS SI",
+    "categoria": "oferta 226288 SISTEM SUPRAVEGHEREA"
+  },
+  "f5edf866e584fad7": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0002 45000000 VESTIAR TEREN TENIS SI",
+    "categoria": "oferta 226288 SISTEM SUPRAVEGHEREA VIDEO -OB2"
+  },
+  "e97f411bd56d9623": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0002 45000000 VESTIAR TEREN TENIS SI",
+    "categoria": "oferta 226268 INSTALATII ELECTRICE curenti"
+  },
+  "f0db5a01bf44b46f": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0003 45000000 AMENAJARI EXTERIOARE",
+    "categoria": "oferta 226308 STRUCTURA DE REZISTENTA-"
+  },
+  "549bb6360d6eae9f": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0003 45000000 AMENAJARI EXTERIOARE",
+    "categoria": "oferta 226308 STRUCTURA DE REZISTENTA- (graden)"
+  },
+  "e28d2c38dd306c45": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0003 45000000 AMENAJARI EXTERIOARE",
+    "categoria": "oferta 226318 IMPREJMUIRE TEREN FOTBAL -"
+  },
+  "454460596c20ea4b": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0003 45000000 AMENAJARI EXTERIOARE",
+    "categoria": "oferta 226318 IMPREJMUIRE TEREN FOTBAL -380 ML"
+  },
+  "09552339a9d8d4c2": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0003 45000000 AMENAJARI EXTERIOARE",
+    "categoria": "Beneficiar:"
+  },
+  "9be6beac0623bed7": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0003 45000000 AMENAJARI EXTERIOARE",
+    "categoria": "oferta 226328 ARHITECTURA GRADENE"
+  },
+  "2d089413966c6092": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0003 45000000 AMENAJARI EXTERIOARE",
+    "categoria": "oferta 226338 TEREN FOTBAL"
+  },
+  "a1bf03ca8a73f272": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0003 45000000 AMENAJARI EXTERIOARE",
+    "categoria": "oferta 226348 SPATII VERZI"
+  },
+  "88326d54acff670c": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0003 45000000 AMENAJARI EXTERIOARE",
+    "categoria": "oferta 226358 ALEI PIETONALE SI CAROSABILE"
+  },
+  "d86a11a71bd86fad": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0004 45000000 VESTIARE FOTBALISTI SI SALA",
+    "categoria": "oferta 226408 STRUCTURA DE REZISTENTA"
+  },
+  "a03fc778cddaf3b8": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0004 45000000 VESTIARE FOTBALISTI SI SALA",
+    "categoria": "oferta 226408 STRUCTURA DE REZISTENTA (vestiar)"
+  },
+  "c525549f48a671bf": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0004 45000000 VESTIARE FOTBALISTI SI SALA",
+    "categoria": "oferta 226418 ARHITECTURA VESTIARE"
+  },
+  "c8f6beb81be87f86": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0004 45000000 VESTIARE FOTBALISTI SI SALA",
+    "categoria": "oferta 226418 ARHITECTURA VESTIARE FOTBALIST"
+  },
+  "0dc5f9f7be1c764a": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0004 45000000 VESTIARE FOTBALISTI SI SALA",
+    "categoria": "oferta 226428 INSTALATII SANITARE OB.4"
+  },
+  "ed790e7c36e01b91": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0004 45000000 VESTIARE FOTBALISTI SI SALA",
+    "categoria": "oferta 226438 MONTAJ BOILER OB.4"
+  },
+  "397e31222aa7c221": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0004 45000000 VESTIARE FOTBALISTI SI SALA",
+    "categoria": "oferta 226448 INSTALATII VENTILATIE OB.4"
+  },
+  "a99a7b890fbf23d1": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0004 45000000 VESTIARE FOTBALISTI SI SALA",
+    "categoria": "oferta 226458 INSTALATII INCALZIRE OB.4"
+  },
+  "53fc63d4e1c67c14": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0004 45000000 VESTIARE FOTBALISTI SI SALA",
+    "categoria": "Beneficiar:"
+  },
+  "78104901a6f3e479": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0004 45000000 VESTIARE FOTBALISTI SI SALA",
+    "categoria": "oferta 226488 INSTALATIE VOCE-DATE-OB.4"
+  },
+  "38061f70849e8320": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0004 45000000 VESTIARE FOTBALISTI SI SALA",
+    "categoria": "oferta 226498 SISTEM SUPRAVEGHEREA"
+  },
+  "2834973a3e2f731c": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0004 45000000 VESTIARE FOTBALISTI SI SALA",
+    "categoria": "oferta 226498 SISTEM SUPRAVEGHEREA VIDEO -OB4"
+  },
+  "017744adda6de719": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0004 45000000 VESTIARE FOTBALISTI SI SALA",
+    "categoria": "oferta 226478 INSTALATII ELECTRICE curenti"
+  },
+  "3002eee6d17d310a": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0005 45000000 GRUPURI SANITARE PUBLICE",
+    "categoria": "oferta 226508 STRUCTURA DE REZISTENTA"
+  },
+  "9d457410bcf5b8de": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0005 45000000 GRUPURI SANITARE PUBLICE",
+    "categoria": "oferta 226508 STRUCTURA DE REZISTENTA (grupuri)"
+  },
+  "932d98fbfc3f9b10": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0005 45000000 GRUPURI SANITARE PUBLICE",
+    "categoria": "Beneficiar:"
+  },
+  "84bf6b43639cb8e7": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0005 45000000 GRUPURI SANITARE PUBLICE",
+    "categoria": "oferta 226518 ARHITECTURA grupuri sanitare"
+  },
+  "e1bc7a49d2d17a56": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0005 45000000 GRUPURI SANITARE PUBLICE",
+    "categoria": "oferta 226528 INSTALATII SANITARE OB.5"
+  },
+  "0f8836ca26b128c9": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0005 45000000 GRUPURI SANITARE PUBLICE",
+    "categoria": "oferta 226538 INSTALATII VENTILATIE OB.5"
+  },
+  "f7d5c28758186b2c": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0005 45000000 GRUPURI SANITARE PUBLICE",
+    "categoria": "oferta 226548 INSTALATII TERMICE"
+  },
+  "add83479fb789b7a": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0005 45000000 GRUPURI SANITARE PUBLICE",
+    "categoria": "oferta 226578 SISTEM SUPRAVEGHEREA"
+  },
+  "8675ce062b11a6ea": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0005 45000000 GRUPURI SANITARE PUBLICE",
+    "categoria": "oferta 226578 SISTEM SUPRAVEGHEREA VIDEO -OB5"
+  },
+  "484512f05f26b640": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0005 45000000 GRUPURI SANITARE PUBLICE",
+    "categoria": "oferta 226568 INSTALATIE VOCE-DATE-OB.5"
+  },
+  "5376cb567b446aae": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0005 45000000 GRUPURI SANITARE PUBLICE",
+    "categoria": "oferta 226558 INSTALATII ELECTRICE curenti"
+  },
+  "2c5991b446d24345": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0006 45000000 UTILITATI-RETELE EXTERIOARE",
+    "categoria": "oferta 226008 ALIMENTARE CU APA"
+  },
+  "03a4f39abf7e466c": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0006 45000000 UTILITATI-RETELE EXTERIOARE",
+    "categoria": "oferta 226018 CANALIZARE"
+  },
+  "22e4073cc8026b91": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0006 45000000 UTILITATI-RETELE EXTERIOARE",
+    "categoria": "oferta 226038 TELECOMUNICATII"
+  },
+  "aefa97bf37cee000": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0006 45000000 UTILITATI-RETELE EXTERIOARE",
+    "categoria": "oferta 226368 INSTALATIE IRIGATIE SPATII"
+  },
+  "972c5bc641267b8b": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0006 45000000 UTILITATI-RETELE EXTERIOARE",
+    "categoria": "oferta 226028 ALIMENTARE CU E.E. SI"
+  },
+  "041d27547f4349fb": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0006 45000000 UTILITATI-RETELE EXTERIOARE",
+    "categoria": "oferta 226028 ALIMENTARE CU E.E. SI ILUMINAT"
+  },
+  "e285e310f6046761": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0007 45000000 ORGANIZARE SANTIER",
+    "categoria": "Beneficiar:"
+  },
+  "3d42bd532fcc380e": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0007 45000000 ORGANIZARE SANTIER",
+    "categoria": "oferta 226718 ORG.SANTIER- CONTAINER"
+  },
+  "878af704f4117e92": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0007 45000000 ORGANIZARE SANTIER",
+    "categoria": "oferta 226708 ORG SANTIER- MONTARE WC"
+  },
+  "06b42ee567c95392": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0007 45000000 ORGANIZARE SANTIER",
+    "categoria": "oferta 226708 ORG SANTIER- MONTARE WC ECOLOGIC"
+  },
+  "87668e49260442a4": {
+    "obiectivul": "SCN1164693 - 0226 45000000 EXTINDERE SI",
+    "obiectul": "0007 45000000 ORGANIZARE SANTIER",
+    "categoria": "oferta 226F08 MONTAJ SISTEM PANOU"
+  },
+  "5dd1d41c0fe5d698": {
+    "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RACARI",
+    "obiectul": "e",
+    "categoria": null
   }
 }
