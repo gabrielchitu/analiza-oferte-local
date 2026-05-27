@@ -832,14 +832,6 @@ def match_global(
     # If code exists anywhere in offer (any deviz), prefer DEVIZ_MISMATCH over LIPSA.
     _all_offer_codes = {clean_code(k[1]) for k in oferta_by_key.keys() if k[1]}
 
-    # Devize care au cel putin un articol normativ (non-$) in oferta
-    # → sub-resursele $ din ref pentru acele devize NU sunt LIPSA genuine
-    # (sunt componente breviar ale articolelor normative din oferta)
-    _devize_cu_normative_oferta = set(
-        _deviz_key(a) for a in oferta_articole
-        if not (a.get("cod", "")).startswith("$")
-    )
-
     for ref_art in still_unmatched_ref:
         # skip articole fara cantitate (capitole/anteturi, nu articole reale)
         if not ref_art.get("cantitate"):
@@ -847,13 +839,6 @@ def match_global(
         deviz_cod = ref_art.get("deviz", "")
         deviz_den = ref_art.get("deviz_denumire", "")
         ref_code = clean_code(ref_art.get("cod", ""))
-
-        # Sub-resurse eDevize ($-coduri) din devize cu normative matchate
-        # → nu sunt LIPSA genuine (sunt componente ale articolelor normative matchate)
-        if (ref_art.get("cod", "").startswith("$")
-                and _deviz_key(ref_art) in _devize_cu_normative_oferta
-                and not ref_art.get("is_component")):
-            continue
 
         if ref_code and ref_code in _all_offer_codes:
             neconf = {

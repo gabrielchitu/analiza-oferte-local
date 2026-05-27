@@ -1062,6 +1062,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             state = _WAITING
             waiting_lines = 0
             _after_linked = True
+            explicit_component_marker = True  # N.L marks next article as sub-resource
             continue
         # Bare "L" handler: linked marker on separate line (multi-line format in offer 2)
         m_bare_l = BARE_L_RE.match(line)
@@ -1080,6 +1081,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 state = _WAITING
                 waiting_lines = 0
                 _after_linked = True
+                explicit_component_marker = True  # L marker → next article is sub-resource
                 continue
         # Dot "L" handler: ".L" marker on separate line (variant with dot prefix)
         m_dot_l = DOT_L_RE.match(line)
@@ -1093,6 +1095,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             state = _WAITING
             waiting_lines = 0
             _after_linked = True
+            explicit_component_marker = True  # .L marker → next article is sub-resource
             continue
 
         # Prefixed "L:" handler: linked subcomponent marker (MANECIU format)
@@ -1119,6 +1122,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         # These appear in breviar tables as sub-items under a main article
         m_subitem = NR_SUBITEM_RE.match(line)
         if m_subitem:
+            prev_nr = last_nr_crt  # save before finalize
             if state == _READING:
                 _finalize()
             # Extract base article number from "34.1" → 34
@@ -1130,6 +1134,11 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             cod = ''; denumire_parts = []; um = ''; cantitate = 0.0; preturi = []
             state = _WAITING
             waiting_lines = 0
+            # Only mark as component if base_nr refers to the just-finalized article
+            # (e.g. "5.1" after article nr=5 → sub-resource of 5)
+            # If base_nr > prev article nr, it's a new main article at decimal position
+            if base_nr == prev_nr and prev_nr > 0:
+                explicit_component_marker = True
             continue
 
         price_count = len(preturi)
@@ -1151,7 +1160,10 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             m_bi = NR_BREVIAR_INLINE_RE.match(line)
             if m_ai or m_ni or m_si or m_bi:
                 m = m_ai or m_ni or m_si or m_bi
-                last_nr_crt = int(m.group(1))
+                _nr_val = int(m.group(1))
+                if _nr_val == current_parent_nr and current_parent_nr > 0:
+                    explicit_component_marker = True
+                last_nr_crt = _nr_val
                 if m_bi:
                     cod = m.group(2)
                 elif m_ni:
@@ -1251,7 +1263,10 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 m_bi = NR_BREVIAR_INLINE_RE.match(line)
                 if m_ai or m_ni or m_si or m_bi:
                     m = m_ai or m_ni or m_si or m_bi
-                    last_nr_crt = int(m.group(1))
+                    _nr_val = int(m.group(1))
+                    if _nr_val == current_parent_nr and current_parent_nr > 0:
+                        explicit_component_marker = True
+                    last_nr_crt = _nr_val
                     if m_bi:
                         cod = m.group(2)
                     elif m_ni:
@@ -1342,6 +1357,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                     continue
                 _finalize()
                 last_nr_crt = int(m.group(1))
+                if last_nr_crt == current_parent_nr and current_parent_nr > 0:
+                    explicit_component_marker = True
                 cod = (m.group(2) if m_bi else ('$' + m.group(2)) if m_ni else re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', m.group(2).upper()))
                 denumire_parts = []
                 # Extrage primul UM valid din tokenii rămași pe linie (grup 3 din NR_ALPHA_INLINE_RE sau NR_SINGLE_INLINE_RE)
@@ -1386,12 +1403,16 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 # If we have NO code or NO quantity yet, treat bare NR as new article start
                 _finalize()
                 last_nr_crt = bare_nr_val
+                if last_nr_crt == current_parent_nr and current_parent_nr > 0:
+                    explicit_component_marker = True
                 state = _WAITING
                 waiting_lines = 0
                 continue
             elif _is_nr_crt(line, _READING, price_count, cantitate):
                 _finalize()
                 last_nr_crt = int(NR_CRT_RE.match(line).group(1))
+                if last_nr_crt == current_parent_nr and current_parent_nr > 0:
+                    explicit_component_marker = True
                 state = _WAITING
                 waiting_lines = 0
                 continue
@@ -1420,6 +1441,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             if m_ncd:
                 _finalize()
                 last_nr_crt = int(m_ncd.group(1))
+                if last_nr_crt == current_parent_nr and current_parent_nr > 0:
+                    explicit_component_marker = True
                 raw_cod = re.sub(r'[-@%>#*^+]+$|\s*\[\d*\]?\s*$', '', m_ncd.group(2).upper())
                 raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
                 cod = raw_cod
@@ -1434,6 +1457,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             if m_concat:
                 _finalize()
                 last_nr_crt = int(m_concat.group(1))
+                if last_nr_crt == current_parent_nr and current_parent_nr > 0:
+                    explicit_component_marker = True
                 raw_cod = (m_concat.group(2) + (m_concat.group(3) or '')).upper()
                 raw_cod = re.sub(r'[-@%>#*^+]+$|\s*\[\d*\]?\s*$', '', raw_cod)
                 raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
