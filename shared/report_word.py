@@ -1,6 +1,7 @@
 import io
 from datetime import date
 from itertools import groupby
+from typing import Optional
 from docx import Document
 from docx.shared import Pt, RGBColor, Cm
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -593,6 +594,40 @@ def _add_deviz_summary_row(table, row_nr: int, neconf_count: int, ref_total: int
 
 def _count_main_articles(articles: list) -> int:
     return sum(1 for a in articles if not a.get("is_component", False))
+
+
+def _add_group_totals_row(table, ref_count: Optional[int], oferta_count: Optional[int]) -> None:
+    """Append mirrored totals row after a holistic group.
+
+    Cols 0-1: "TOTAL GRUP"
+    Cols 2-5: "Referință: N articole" (empty when ref_count is None)
+    Cols 6-9: "Ofertă: M articole"   (empty when oferta_count is None)
+    Col 10:   empty
+    """
+    cells = table.add_row().cells
+
+    # Label: merge cols 0-1
+    cells[0].merge(cells[1])
+    cells[0].paragraphs[0].add_run("TOTAL GRUP").bold = True
+    _style_cell(cells[0], 9, bold=True)
+    _set_cell_shading(cells[0], GRAY_FILL)
+
+    # Ref side: merge cols 2-5
+    cells[2].merge(cells[5])
+    if ref_count is not None:
+        cells[2].paragraphs[0].add_run(f"Referință: {ref_count} articole principale").bold = True
+        _style_cell(cells[2], 9, bold=True)
+    _set_cell_shading(cells[2], GRAY_FILL)
+
+    # Offer side: merge cols 6-9
+    cells[6].merge(cells[9])
+    if oferta_count is not None:
+        cells[6].paragraphs[0].add_run(f"Ofertă: {oferta_count} articole principale").bold = True
+        _style_cell(cells[6], 9, bold=True)
+    _set_cell_shading(cells[6], GRAY_FILL)
+
+    # Col 10: empty
+    _set_cell_shading(cells[10], GRAY_FILL)
 
 
 # ── Hierarchical DOCX helpers ──────────────────────────────────────────────
