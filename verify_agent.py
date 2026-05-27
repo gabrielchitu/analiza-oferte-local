@@ -179,7 +179,7 @@ def _diagnose_and_fix(findings: list[Finding], client_name: str,
                     model=model, max_tokens=200,
                     messages=[{"role": "user", "content": prompt}],
                 )
-                f.hypothesis = resp.choices[0].message.content.strip()
+                f.hypothesis = (resp.choices[0].message.content or "").strip()
             except Exception as e:
                 print(f"[AGENT] LLM diagnosis failed for {f.check}: {e}")
 
@@ -193,10 +193,13 @@ def _diagnose_and_fix(findings: list[Finding], client_name: str,
                 model=model, max_tokens=500,
                 messages=[{"role": "user", "content": prompt}],
             )
-            content = resp.choices[0].message.content.strip()
+            content = (resp.choices[0].message.content or "").strip()
             # strip markdown fences if present
             if content.startswith("```"):
-                content = "\n".join(content.split("\n")[1:-1])
+                import re as _re
+                m = _re.search(r'```(?:json)?\s*([\s\S]+?)\s*(?:```|$)', content)
+                if m:
+                    content = m.group(1)
             pairs = json.loads(content)
             valid = [p for p in pairs if isinstance(p, dict)
                      and p.get("confidence", 0) >= 0.7
