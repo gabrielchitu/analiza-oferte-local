@@ -153,7 +153,7 @@ def main() -> None:
     if args.verify_only:
         findings = verify_client(cfg.output_dir, thresholds)
         report = _generate_md_report(args.client, [], findings, "verify-only")
-        report_path = cfg.output_dir / f"verify_report_{datetime.date.today()}.md"
+        report_path = cfg.output_dir / f"verify_report_{datetime.datetime.now().strftime('%Y-%m-%d_%H%M%S')}.md"
         report_path.write_text(report)
         print(f"[AGENT] Report saved: {report_path}")
         _print_summary(findings)
@@ -201,7 +201,7 @@ def main() -> None:
     # Final check after last pipeline run
     findings = verify_client(cfg.output_dir, thresholds)
     report = _generate_md_report(args.client, iterations, findings, stopped_reason)
-    report_path = cfg.output_dir / f"verify_report_{datetime.date.today()}.md"
+    report_path = cfg.output_dir / f"verify_report_{datetime.datetime.now().strftime('%Y-%m-%d_%H%M%S')}.md"
     report_path.write_text(report)
     print(f"[AGENT] Report saved: {report_path}")
     _print_summary(findings)
