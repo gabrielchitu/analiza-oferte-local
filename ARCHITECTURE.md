@@ -1,5 +1,5 @@
 # ARHITECTURA — Sistem Analiză Oferte Construcții
-**Actualizat:** 2026-05-27 | **Versiune pipeline:** v12.0 (tag: 12.0)
+**Actualizat:** 2026-05-27 | **Versiune pipeline:** v12.1 (tag: 12.1)
 
 ---
 
@@ -118,11 +118,14 @@ INPUT: Azure Document Intelligence JSON (di_referinta.json + di_oferta_N.json)
 | `multi_client_run.py` | Entry point principal — meniu interactiv sau `--client "Nume"` |
 | `local_run.py` | Legacy — root di_oferta files |
 | `run_diagnostics.py` | Diagnostics (nu re-ruleaza pipeline) — `--client`, `--no-docx` |
+| `verify_agent.py` | Verificare output pipeline — 6 checks, loop convergenta, raport MD |
 
 **Comanda tipica:**
 ```bash
 python3 multi_client_run.py --client "Blocuri Racari"
 python3 run_diagnostics.py --client "Blocuri Racari"
+python3 verify_agent.py --client "Blocuri Racari" --verify-only
+python3 verify_agent.py --client "Camin Maneciu" --max-iter 2
 ```
 
 ---
@@ -134,7 +137,8 @@ analiza-oferte-local/
 ├── multi_client_run.py          # Entry point v8.0
 ├── local_run.py                 # Pipeline orchestration (1100+ linii)
 ├── run_diagnostics.py           # Diagnostics CLI
-├── AgentComparator_local.py     # Matching engine (Layer 1-3)
+├── verify_agent.py              # Verification agent CLI (v12.1)
+├── AgentComparator_local.py     # Matching engine (Layer 1-3) + OCR learned patterns
 ├── shared/
 │   ├── client_config.py         # ClientConfig: detectie clienti, path resolution
 │   ├── f3_page_classifier.py    # Page classification (local + LLM) — LLM marker learning DISABLED
@@ -151,6 +155,9 @@ analiza-oferte-local/
 │   ├── comparator.py            # compare_articles (UM_DIFERIT, DIFERENTA_CAMP)
 │   ├── group_comparator.py      # Holistic group matching (Phase 1/1.5/2 knowledge+LLM)
 │   ├── group_match_knowledge.json # Per-client LLM group match cache (nu sterge fara motiv)
+│   ├── pipeline_verifier.py     # 6 structural checks pe holistic_oferta_N.json (v12.1)
+│   ├── agent_knowledge.json     # Jurnal runs + thresholds per client (v12.1)
+│   ├── ocr_patterns_knowledge.json # OCR substitutii aditionale — ADDITIVE, nu suprascrie hardcoded
 │   ├── report_builder.py        # build_raport_holistic (pipeline) + build_raport_ierarhic (legacy)
 │   ├── report_word.py           # generate_word (DOCX tabel 11 col, holistic+flat+ierarhic)
 │   ├── diagnostics_builder.py   # Phase 0/1/2 analysis + JSON
@@ -181,6 +188,7 @@ analiza-oferte-local/
     │   ├── holistic_oferta_N.json          # raport holistic complet
     │   ├── matching_debug_oferta_N.json    # match_trace grupuri
     │   ├── referinta.json                  # articole extrase referinta
+    │   ├── verify_report_YYYY-MM-DD_HHMMSS.md  # raport verificare (v12.1)
     │   └── checkpoints/
     │       └── di_oferta_N_page_classes_<hash>.json
     ├── Raport_Verificare_Blocuri_Racari.docx  # cross-check consolidat vs blocuri
@@ -286,10 +294,12 @@ key = (deviz_cod, article_cod)  # ex: ("BLC2", "EA02A1")
 | Layer | Mecanism | Activ |
 |-------|----------|-------|
 | 1 | N:M exact pe (deviz, cod) | ✅ |
-| 2 | Normalized cod: strip `$` prefix, `_normalize_cod` (I→1, O→0) | ✅ |
+| 2 | Normalized cod: strip `$` prefix, `_normalize_cod` (I→1, O→0) + OCR learned patterns | ✅ |
 | 2.1 | Trailing digit: IC35D ↔ IC35D1 | ✅ |
 | 2.5 | Cod similar OCR (SequenceMatcher ≥ 0.80) | ✅ Fix: N:M complet |
 | 3 | LLM fuzzy | ❌ disabled |
+
+**OCR learned patterns (v12.1):** `_normalize_cod` incarca `shared/ocr_patterns_knowledge.json` la startup. Union cu regulile hardcodate (L→1, I→1, O→0). Regulile hardcodate NU pot fi suprascrise. Fisierul porneste gol — se adauga MANUAL noi substitutii.
 
 **Layer 2 Fix (v12.0, commit d1d8bc0):** Eliminat `and (diffs or arith)` guard din COD_SIMILAR — perechi OCR (SA131↔SA13I, IZLO5XF↔IZL05XF) se normalizeaza via `_normalize_cod` (I→1, O→0) → match in Layer 2 N:M, nu Layer 2.5. Fara guard, genereaza COD_SIMILAR corect.
 
@@ -380,7 +390,7 @@ Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
 
 ---
 
-## 9. BASELINE METRICI (v12.0, 2026-05-27)
+## 9. BASELINE METRICI (v12.1, 2026-05-27)
 
 ### Holistic Group Matching (grouped per client)
 
@@ -388,15 +398,16 @@ Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
 |--------|---|----------------|----------|-------------|----------|-------------------|
 | Blocuri Racari | 1 | 35 | 0 | 0 | — | **0** ✅ |
 | Blocuri Racari | 2 | 35 | 0 | 0 | — | **0** ✅ |
-| Blocuri Racari | 3 | 35 | 0 | 0 | — | **0** ✅ |
-| Blocuri Racari | 4 | 35 | 0 | 0 | — | **0** ✅ |
+| Blocuri Racari | 3 | 35 | 0 | 2 | — | **0** ✅ |
+| Blocuri Racari | 4 | 35 | 0 | 3 | — | **0** ✅ |
 | BR BLOC A-C (each) | 1-4 | varies | 0 | 0 | varies | **0** ✅ |
 | Scoala Dragomiresti | 1 | 22 | 0 | 0 | 24 | **0** ✅ |
 | Scoala Dragomiresti | 2 | 22 | 0 | 0 | 26 | **0** ✅ |
-| Camin Maneciu | — | — | — | — | — | neverificat |
+| Camin Maneciu | 1 | 35 | 0 | 0 | 245 | **0** ✅ |
+| Camin Maneciu | 2 | 35 | 0 | 0 | 488 | **0** ✅ |
 | Scoala Sportiva Racari | — | — | — | — | — | neverificat |
 
-**Invariant verificat:** Ecuatia `ref_main - LIPSA = off_main - EXTRA` se respecta in toate grupurile (0 violari silentioase pe 7 clienti x 4 oferte = 28 rulari).
+**Invariant verificat:** Ecuatia `ref_main - LIPSA = off_main - EXTRA` se respecta in toate grupurile (0 violari silentioase pe 9 clienti verificati).
 
 **_count_main_articles (v12.0):** Filtrare stricta — `not is_component AND cantitate > 0`. Aliniata cu `match_global` pentru consistenta DOCX ↔ JSON.
 
@@ -411,13 +422,49 @@ Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
 
 ---
 
+## 9b. VERIFICATION AGENT (v12.1)
+
+### verify_agent.py
+
+CLI de autoverificare output pipeline. Pur Python, fara LLM.
+
+```bash
+python3 verify_agent.py --client "Camin Maneciu" --verify-only   # check only, raport MD
+python3 verify_agent.py --client "Camin Maneciu" --max-iter 2    # loop + re-run pipeline
+```
+
+### shared/pipeline_verifier.py — 6 Checks
+
+| # | Check | Conditie | Severitate |
+|---|-------|----------|------------|
+| 1 | SILENT_VIOLATION | `ref_main - LIPSA != off_main - EXTRA` AND `ncs == []` | CRITICAL |
+| 2 | OFERTA_ONLY_GROUP | orice grup in `oferta_only_groups` | HIGH |
+| 3 | REF_ONLY_GROUP | orice grup in `ref_only_groups` | HIGH |
+| 4 | HIGH_EXTRA | grup matched cu `ARTICOL_EXTRA > 3` (default) | MEDIUM |
+| 5 | HIGH_LIPSA | grup matched cu `ARTICOL_LIPSA > 3` (default) | MEDIUM |
+| 6 | COD_SIMILAR_CLUSTER | grup matched cu `COD_SIMILAR > 5` (default) | LOW |
+| 7 | EMPTY_MATCHED_GROUP | grup matched cu `ref_articles=[]` sau `oferta_articles=[]` | HIGH |
+
+Thresholds configurabile per client in `shared/agent_knowledge.json`.
+
+### Knowledge Files
+
+- `shared/agent_knowledge.json` — jurnal runs (timestamp, nc_before/after, findings_count) per client
+- `shared/ocr_patterns_knowledge.json` — OCR substitutii aditionale. Format:
+  ```json
+  {"char_substitutions": [{"from": "B", "to": "8", "source": "manual", ...}], "suffix_patterns": []}
+  ```
+  **ADDITIVE:** union cu hardcodate din `_normalize_cod`. Hardcodate (L/I/O) NU pot fi suprascrise.
+
+---
+
 ## 10. KNOWN ISSUES ACTIVE
 
 | # | Issue | Client | Prioritate | Status |
 |---|-------|--------|------------|--------|
 | 1 | SSR structural mismatch — ref 1-2 grupuri/obiect, oferta 8-12 sub-devize/obiect | SSR | Arhitectural | Documentat, necesita strategie noua (1→many matching) |
 | 2 | SSR "U" codes (226U08/226U18 ref ≠ 226028/226018 offer) | SSR | Medium | Neinvestigat |
-| 3 | CM groups — mismatch ref/oferta nerezolvat | CM | Medium | Neinvestigat |
+| 3 | CM HIGH_EXTRA masiv — 37 MEDIUM findings, 733 NC total | CM | Medium | Diagnostic: subcomponente ofertate ca principale sau granularitate deviz diferita |
 | 4 | 16 teste pre-existente failure | toate | Low | ImportError functii sterse/redenumite — safe to ignore |
 
 ---
