@@ -1,10 +1,31 @@
 # Project State — Multi-Client Pipeline
 
-**Status:** ✅ RELEASED (v8.0)
-**Date:** 2026-05-21
+**Status:** ✅ RELEASED (v11.2)
+**Date:** 2026-05-27
 **Branch:** main
 
 ## Completed Tasks
+
+### Group Totals Row in Holistic DOCX Report (v11.2)
+
+Per-group article count summary row after each group in holistic DOCX report.
+
+**Files:**
+- `shared/report_word.py` — `_count_main_articles` + `_add_group_totals_row` + 3 call sites in `_generate_word_holistic`
+- `tests/shared/test_report_word_totals.py` — 11 tests (unit + integration + shading)
+
+**Quality:**
+- ✅ 11/11 tests passing
+- ✅ Smoke test: 35 TOTAL GRUP rows in Blocuri Racari Raport_Oferta_1.docx
+- ✅ Commits: 61879bc → f6cd0ad
+
+### Holistic Group Matching + SSR deviz_cod Prefix (v11.1.x)
+
+LLM group matching with knowledge cache, deviz_cod prefix matching for ISDP/eDevize format compatibility.
+
+**Key files:** `shared/group_comparator.py`, `shared/group_match_knowledge.json`, `shared/f3_knowledge.py`, `shared/f3_markers_knowledge.json`
+
+**Critical stability fix:** ALL LLM marker learning disabled in `f3_page_classifier.py` — false positives caused "Pag N" as end markers → 0 articles extracted. `f3_markers_knowledge.json` is MANUAL ONLY.
 
 ### Multi-Client Pipeline Refactor (v8.0)
 

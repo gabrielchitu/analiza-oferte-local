@@ -1,5 +1,5 @@
 # ARHITECTURA — Sistem Analiză Oferte Construcții
-**Actualizat:** 2026-05-22 | **Versiune pipeline:** v8.0 (tag: 8.0)
+**Actualizat:** 2026-05-27 | **Versiune pipeline:** v11.2 (tag: v11.2)
 
 ---
 
@@ -74,14 +74,38 @@ INPUT: Azure Document Intelligence JSON (di_referinta.json + di_oferta_N.json)
 └─────────────────────────────────────────────────────────────────────────────
     ↓
 ┌─────────────────────────────────────────────────────────────────────────────
+│ ETAPA 4.5: HOLISTIC GROUP COMPARATOR (shared/group_comparator.py)
+│   Activ cand local_run foloseste modul holistic (implicit).
+│   4.5a. Grupeaza articole dupa deviz_key (MD5 hash de OBIECTIVUL|OBIECTUL|CATEGORIA)
+│   4.5b. Matching grupuri in 3 faze:
+│       Phase 1  (same-code)    — deviz_key identic in ref si oferta
+│       Phase 1.5 (deviz_cod prefix) — ref.deviz_cod prefix al offer.categoria
+│           Normalizeaza CATEGORIA: strip "oferta ", strip "^\d{1,3} " (ISDP/eDevize)
+│       Phase 2  (knowledge)    — shared/group_match_knowledge.json (per-client cache)
+│       Phase 2  (LLM fallback) — Claude API cu denomination strings, chunk=15
+│   4.5c. Output: HolisticComparison (matched_groups, ref_only_groups, oferta_only_groups)
+│       Fiecare grup contine: ref_articles, oferta_articles, neconformitati, matches
+│   4.5d. match_trace salvat in matching_debug_oferta_N.json
+│
+│ IMPORTANT — f3_markers_knowledge.json: MANUAL ONLY
+│   ALL LLM marker learning este DISABLED in f3_page_classifier.py.
+│   Motivatie: auto-invatate "Pag N" ca end-markers → f3_line_end=2 → 0 articole extrase.
+│   Fisierul contine doar intrari cu "source": "manual". Nu adauga "source": "llm".
+└─────────────────────────────────────────────────────────────────────────────
+    ↓
+┌─────────────────────────────────────────────────────────────────────────────
 │ ETAPA 5: REPORTING
 │   5a. build_raport_ierarhic (shared/report_builder.py)
 │       - Organizeaza neconformitati pe deviz, ierarhic
 │       - nr_ordine, display_parent_cod pentru subarticole
 │   5b. generate_word (shared/report_word.py)
-│       - Tabel 11 coloane: tip/cod/denumire/um/cant/preturi
+│       - Tabel 11 coloane (landscape A4): cols 0-1=label, 2-5=CERINȚĂ(ref), 6-9=CE A OFERTAT, 10=obs
+│       - Mod holistic: _generate_word_holistic — grupuri match/ref_only/oferta_only
+│         Dupa fiecare grup: rand TOTAL GRUP cu nr articole principale (stanga=ref, dreapta=oferta)
+│         _count_main_articles filtra is_component=True
+│       - Mod flat: _generate_word_flat (fallback)
 │       - Coduri color: LIPSA=rosu, EXTRA=galben, DEVIZ_MM=albastru
-│   5c. JSON output: comparatie_oferta_N.json + comparatie_deviz_oferta_N.json
+│   5c. JSON output: holistic_oferta_N.json + matching_debug_oferta_N.json
 │   Output: output_AO/<ClientName>/Raport_Oferta_N.docx + JSON
 └─────────────────────────────────────────────────────────────────────────────
     ↓
@@ -122,9 +146,11 @@ analiza-oferte-local/
 ├── AgentComparator_local.py     # Matching engine (Layer 1-3)
 ├── shared/
 │   ├── client_config.py         # ClientConfig: detectie clienti, path resolution
-│   ├── f3_page_classifier.py    # Page classification (local + LLM)
+│   ├── f3_page_classifier.py    # Page classification (local + LLM) — LLM marker learning DISABLED
 │   ├── f3_extractor.py          # Article extraction & grouping
 │   ├── f3_regex_parser.py       # Regex state machine parser (1600+ linii)
+│   ├── f3_knowledge.py          # F3Knowledge: find_start/end_marker (skip_header_lines=20)
+│   ├── f3_markers_knowledge.json # Markeri F3 start/end — MANUAL ONLY, nu adauga source:llm
 │   ├── pattern_detector.py      # Document layout pattern detection
 │   ├── deviz_matcher.py         # Deviz matching/assignment (fuzzy)
 │   ├── deviz_catalog.py         # Dynamic deviz text map din referinta
@@ -132,12 +158,19 @@ analiza-oferte-local/
 │   ├── deviz_normalizer.py      # Deviz cod normalization
 │   ├── article_matcher.py       # match_unmatched_global (Layer 2/2.1/2.5)
 │   ├── comparator.py            # compare_articles (UM_DIFERIT, DIFERENTA_CAMP)
+│   ├── group_comparator.py      # Holistic group matching (Phase 1/1.5/2 knowledge+LLM)
+│   ├── group_match_knowledge.json # Per-client LLM group match cache (nu sterge fara motiv)
 │   ├── report_builder.py        # build_raport_ierarhic
-│   ├── report_word.py           # generate_word (DOCX tabel 11 col)
+│   ├── report_word.py           # generate_word (DOCX tabel 11 col, holistic+flat+ierarhic)
 │   ├── diagnostics_builder.py   # Phase 0/1/2 analysis + JSON
 │   └── diagnostics_word.py      # DOCX diagnostic
 ├── tests/
-│   ├── shared/test_client_config.py
+│   ├── shared/
+│   │   ├── test_client_config.py
+│   │   ├── test_f3_knowledge.py
+│   │   ├── test_f3_page_classifier_*.py
+│   │   ├── test_f3_regex_parser_*.py
+│   │   └── test_report_word_totals.py  # 11 teste group totals row
 │   ├── test_diagnostics.py      # 17 teste
 │   └── ... (alte teste)
 ├── input_AO/
@@ -279,7 +312,46 @@ NU este LIPSA reala. Fix propus: deviz_matcher mai agresiv.
 
 ---
 
-## 7. DIAGNOSTICS (run_diagnostics.py)
+## 7. HOLISTIC GROUP COMPARATOR (shared/group_comparator.py)
+
+### deviz_key
+
+```python
+deviz_key = md5(f"{obiectivul}|{obiectul}|{categoria}").hexdigest()
+```
+
+Cheie canonică per grup. NICIODATĂ `deviz_cod` ca lookup key (string instabil, duplicat).
+
+### Faze de matching
+
+| Faza | Mecanism | Note |
+|------|----------|------|
+| Phase 1 | Same deviz_key (exact) | Deterministic |
+| Phase 1.5 | deviz_cod prefix al offer.categoria | ISDP/eDevize compat. Strip "oferta ", strip `^\d{1,3} ` |
+| Phase 2a | group_match_knowledge.json (per-client cache) | Populate dupa LLM |
+| Phase 2b | LLM fallback (Claude API) | chunk=15 grupuri, max_tokens=2000 |
+
+### SSR Structural Mismatch (documentat, nefixat)
+
+Scoala Sportiva Racari: ref are 1-2 grupuri per obiect, oferta are 8-12 sub-devize per obiect.
+Phase 1.5 (deviz_cod prefix) rezolva ~9-12/13 ref grupuri.
+Restul (sub-devize oferta extra) ramane oferta_only — **arhitectura bijective nu suporta 1→many**.
+Fix ar necesita strategie noua: ref deviz_cod ↔ offer CATEGORIA prefix matching multi-target.
+
+### group_match_knowledge.json
+
+Cache LLM per client. Structura: `{"ClientName": [{"ref_den": "...", "oferta_den": "..."}]}`.
+**Nu sterge fara motiv** — re-populare necesita API calls costisitoare.
+**Nu pastra intrari invalide** — verifica dupa fiecare run LLM ca perechile sunt corecte.
+
+### f3_markers_knowledge.json + f3_knowledge.py
+
+`find_end_marker` sare primele 20 linii (`skip_header_lines=20`) pentru a evita header-uri ca "Pag N".
+**LLM marker learning este DISABLED** — istoricul: "Pag N" auto-invatat ca end-marker → `f3_line_end=2` → 0 articole extrase pe toate clientii.
+
+---
+
+## 8. DIAGNOSTICS (run_diagnostics.py)
 
 ### Faze
 
@@ -301,7 +373,7 @@ Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
 
 ---
 
-## 8. BASELINE METRICI (2026-05-22, post toate fix-urile)
+## 9. BASELINE METRICI (2026-05-22, post toate fix-urile)
 
 | Client | O | matched | LIPSA | EXTRA | DEVIZ_MM | DD | Note |
 |--------|---|---------|-------|-------|----------|----|------|
@@ -328,7 +400,7 @@ Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
 
 ---
 
-## 9. KNOWN ISSUES ACTIVE
+## 10. KNOWN ISSUES ACTIVE
 
 | # | Issue | Client | Prioritate | Status |
 |---|-------|--------|------------|--------|
@@ -338,10 +410,12 @@ Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
 | 4 | CM O2 LIPSA=84 | CM | Medium | Neinvestigat |
 | 5 | SSR O3 EXTRA=315 | SSR | High | Neinvestigat |
 | 6 | SSR O2/O3 DEVIZ_MM=328/325 | SSR | High | Neinvestigat |
+| 7 | SSR structural mismatch (1 ref grup → 8-12 offer sub-devize) | SSR | Arhitectural | Documentat, nefixabil cu matching bijective |
+| 8 | SSR "U" codes (226U08/226U18 ref ≠ 226028/226018 offer) | SSR | Medium | LLM confuz cu context mic, acceptat |
 
 ---
 
-## 10. CHECKPOINTING
+## 11. CHECKPOINTING
 
 Checkpoints per oferta (evita re-clasificare LLM):
 ```
@@ -359,7 +433,7 @@ find "output_AO/<Client>/checkpoints" -name "*.json" -delete
 
 ---
 
-## 11. TESTE
+## 12. TESTE
 
 ```bash
 .venv/bin/python3 -m pytest tests/ -q \
@@ -371,4 +445,8 @@ Teste care esueaza (pre-existente, nu regresii):
 - `test_compound_deviz_extraction.py` — ImportError functie stearsa
 - `test_subcomponent_matching.py` — ImportError functie redenumita
 
-Total teste: 17 (diagnostics) + 6 (client_config) + 17 (multi_client) + altele.
+Total teste: 17 (diagnostics) + 6 (client_config) + 17 (multi_client) + 11 (report_word_totals) + altele.
+
+Pre-existente failures (nu sunt regresii):
+- `test_compound_deviz_extraction.py` — ImportError functie stearsa
+- `test_subcomponent_matching.py` — ImportError functie redenumita
