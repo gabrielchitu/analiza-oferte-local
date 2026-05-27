@@ -369,6 +369,15 @@ def match_global(
         for ra, oferta_art in paired_strict:
             diffs = compare_articles(ra, oferta_art, include_prices=include_prices)
             arith = check_arithmetic(oferta_art) if include_prices else []
+            if bool(ra.get("is_component")) != bool(oferta_art.get("is_component")):
+                nc_comp = {
+                    "tip": "DIFERENTA_CAMP",
+                    "camp": "tip_articol",
+                    "ref": "subcomponenta" if ra.get("is_component") else "articol_principal",
+                    "oferta": "subcomponenta" if oferta_art.get("is_component") else "articol_principal",
+                }
+                _enrich(nc_comp, ra, oferta_art, deviz_cod, deviz_den)
+                neconformitati.append(nc_comp)
             for d in diffs + arith:
                 _enrich(d, ra, oferta_art, deviz_cod, deviz_den)
             neconformitati.extend(diffs + arith)
@@ -421,7 +430,7 @@ def match_global(
             ref_cod = ref_art.get("cod", "")
             diffs = compare_articles(ref_art, oferta_art, include_prices=include_prices)
             arith = check_arithmetic(oferta_art) if include_prices else []
-            if ref_cod != original_oferta_cod and (diffs or arith):
+            if ref_cod != original_oferta_cod:
                 neconf = {
                     "tip": "COD_SIMILAR",
                     "motiv_similaritate": f"Cod similar: referinta '{ref_cod}', ofertat '{original_oferta_cod}'",
@@ -540,7 +549,7 @@ def match_global(
                 original_oferta_cod = match_ea.get("cod", "")
                 diffs = compare_articles(ref_art, match_ea, include_prices=include_prices)
                 arith = check_arithmetic(match_ea) if include_prices else []
-                if ref_art.get("cod", "") != original_oferta_cod and (diffs or arith):
+                if ref_art.get("cod", "") != original_oferta_cod:
                     neconf = {
                         "tip": "COD_SIMILAR",
                         "motiv_similaritate": f"Cod variant: referinta '{ref_art.get('cod')}', ofertat '{original_oferta_cod}'",
@@ -685,11 +694,12 @@ def match_global(
                 deviz_cod = ref_art.get("deviz", "")
                 deviz_den = ref_art.get("deviz_denumire", "")
                 diffs = compare_articles(ref_art, best_art, include_prices=include_prices)
-                if diffs:
+                oferta_cod_val = best_art.get("cod", "")
+                if ref_cod != oferta_cod_val:
                     neconf = {
                         "tip": "COD_SIMILAR",
                         "motiv_similaritate": (
-                            f"Cod similar (OCR): '{ref_cod}' ↔ '{best_art.get('cod','')}'"
+                            f"Cod similar (OCR): '{ref_cod}' ↔ '{oferta_cod_val}'"
                         ),
                     }
                     _enrich(neconf, ref_art, best_art, deviz_cod, deviz_den)
@@ -700,7 +710,7 @@ def match_global(
                 matches.append({
                     "ref_cod": ref_cod,
                     "ref_denumire": ref_art.get("denumire", ""),
-                    "oferta_cod": best_art.get("cod", ""),
+                    "oferta_cod": oferta_cod_val,
                     "oferta_denumire": best_art.get("denumire", ""),
                 })
 
@@ -854,61 +864,9 @@ def match_global(
         neconformitati.append(neconf)
 
     # ARTICOL_EXTRA — instante neacoperite din oferta (chei nemat-uite + exces N:M)
-    # But first, try to fuzzy match by denomination
-    from difflib import SequenceMatcher
-
-    def _normalize_denom(s):
-        return (s or "").lower().strip()
-
-    def _denom_similarity(d1, d2):
-        """Fuzzy match denomination strings."""
-        n1 = _normalize_denom(d1)
-        n2 = _normalize_denom(d2)
-        if not n1 or not n2 or len(n1) < 3 or len(n2) < 3:
-            return 0.0
-        return SequenceMatcher(None, n1, n2).ratio()
-
     extras_to_report = [a for k in unmatched_oferta_keys for a in oferta_by_key[k]] + extra_from_nm
 
-    # Try fuzzy matching extras to reference by denomination
-    fuzzy_matched = set()
     for oferta_art in extras_to_report:
-        oferta_cod = oferta_art.get("cod", "")
-        oferta_denom = oferta_art.get("denumire", "")
-
-        if not oferta_denom or len(oferta_denom) < 3:
-            continue
-
-        # Find best denomination match in reference
-        best_match = None
-        best_score = 0
-        for ref_art in ref_dedup:
-            ref_denom = ref_art.get("denumire", "")
-            if not ref_denom:
-                continue
-            score = _denom_similarity(oferta_denom, ref_denom)
-            if score > best_score:
-                best_score = score
-                best_match = ref_art
-
-        # If fuzzy match found with reasonable score, mark as match instead of extra
-        if best_match and best_score >= 0.45:  # Threshold: 45% similarity
-            fuzzy_matched.add(id(oferta_art))
-            match = {
-                "ref_cod": best_match.get("cod", ""),
-                "ref_denom": best_match.get("denumire", ""),
-                "oferta_cod": oferta_cod,
-                "oferta_denom": oferta_denom,
-                "fuzzy_match_score": best_score,
-                "deviz": oferta_art.get("deviz", ""),
-            }
-            matches.append(match)
-            logger.debug(f"[FUZZ] Fuzzy matched by denom: {oferta_cod} → {best_match.get('cod', '')} (score={best_score:.2f})")
-
-    for oferta_art in extras_to_report:
-        if id(oferta_art) in fuzzy_matched:
-            continue  # Skip, already fuzzy matched
-
         norm_cod = _normalize_cod(oferta_art.get("cod", ""))
         if norm_cod in ref_component_cods:
             continue

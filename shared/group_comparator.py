@@ -268,6 +268,18 @@ def _articles_by_deviz(articles: list, unassigned_out: list | None = None) -> di
     return dict(result)
 
 
+def _dedup_articles(arts: list) -> list:
+    """Remove duplicate articles with identical (cod, um, cantitate) within a group."""
+    seen = {}
+    result = []
+    for a in arts:
+        key = (a.get("cod", ""), a.get("um", ""), a.get("cantitate", 0))
+        if key not in seen:
+            seen[key] = True
+            result.append(a)
+    return result
+
+
 def _lipsa_neconf(art: dict, deviz_cod: str, deviz_den: str = "") -> dict:
     return {
         "tip": "ARTICOL_LIPSA",
@@ -465,8 +477,8 @@ def compare_by_groups(
     for oferta_cod, ref_cod in sorted(full_mapping.items()):
         if ref_cod in matched_ref_cods:
             continue
-        ref_arts = ref_by_deviz.get(ref_cod, [])
-        of_arts = oferta_by_deviz.get(oferta_cod, [])
+        ref_arts = _dedup_articles(ref_by_deviz.get(ref_cod, []))
+        of_arts = _dedup_articles(oferta_by_deviz.get(oferta_cod, []))
         ncs, matches = _compare_articles_in_group(
             ref_arts, of_arts, ref_cod, llm_client, llm_model
         )
@@ -520,8 +532,8 @@ def compare_by_groups(
         for ref_key, oferta_key, mtype, ref_den, oferta_den in pairs_with_type:
             if ref_key in matched_ref_cods or oferta_key in matched_oferta_cods:
                 continue
-            r_arts = ref_by_deviz.get(ref_key, [])
-            o_arts = oferta_by_deviz.get(oferta_key, [])
+            r_arts = _dedup_articles(ref_by_deviz.get(ref_key, []))
+            o_arts = _dedup_articles(oferta_by_deviz.get(oferta_key, []))
             ncs2, matches2 = _compare_articles_in_group(
                 r_arts, o_arts, ref_key, llm_client, llm_model
             )

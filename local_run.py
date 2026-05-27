@@ -388,12 +388,6 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
         if _obj1_map:
             _rekey_checkpoint_deviz_headers(oferta_checkpoint_data, oferta_articles)
 
-        oferta_out = client_config.output_dir / f"oferta_{oferta_nr}.json"
-        oferta_out.write_text(
-            json.dumps({"articole": oferta_articles}, ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
-
         logger.info(f"\n--- Comparare OFERTA {oferta_nr} ---")
         comp = compare_and_report(
             ref_articles, oferta_articles, oferta_nr, oferta_path, client, model,
