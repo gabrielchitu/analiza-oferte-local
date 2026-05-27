@@ -591,6 +591,10 @@ def _add_deviz_summary_row(table, row_nr: int, neconf_count: int, ref_total: int
     _set_cell_shading(cells[10], GRAY_FILL)
 
 
+def _count_main_articles(articles: list) -> int:
+    return sum(1 for a in articles if not a.get("is_component", False))
+
+
 # ── Hierarchical DOCX helpers ──────────────────────────────────────────────
 
 
