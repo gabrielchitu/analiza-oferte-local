@@ -5,18 +5,13 @@ verify_agent.py — Pipeline verification agent.
 Usage:
     python3 verify_agent.py --client "Camin Maneciu"
     python3 verify_agent.py --client "Camin Maneciu" --verify-only
-    python3 verify_agent.py --client "Camin Maneciu" --max-iter 5 --no-llm
+    python3 verify_agent.py --client "Camin Maneciu" --max-iter 5
 """
 import argparse
 import json
 import datetime
-import os
 import sys
 from pathlib import Path
-from typing import Optional
-
-from dotenv import load_dotenv
-load_dotenv(override=True)
 
 from shared.client_config import ClientConfig
 from shared.pipeline_verifier import verify_client, count_total_nc, Finding
@@ -25,7 +20,6 @@ AGENT_KNOWLEDGE_FILE = Path("shared/agent_knowledge.json")
 INPUT_BASE = Path("input_AO")
 OUTPUT_BASE = Path("output_AO")
 CONVERGENCE_THRESHOLD = 0.05  # stop if nc reduction < 5%
-GROUP_MATCH_KNOWLEDGE_FILE = Path("shared/group_match_knowledge.json")
 
 
 # ── Knowledge helpers ─────────────────────────────────────────────────────────
@@ -66,7 +60,7 @@ def _record_run(knowledge: dict, client_name: str, iteration: int,
 def _generate_md_report(client_name: str, iterations: list[dict],
                          findings: list[Finding], stopped_reason: str) -> str:
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-    mode = "verify-only" if not iterations else "auto-fix"
+    mode = "verify-only" if not iterations else "loop"
     n_iter = len(iterations)
 
     lines = [
@@ -110,8 +104,6 @@ def _generate_md_report(client_name: str, iterations: list[dict],
         for f in bucket:
             lines.append(f"### Oferta {f.oferta_n} — {f.group_den}")
             lines.append(f"- **Check:** {f.check}  |  **Value:** {f.value}  |  **Threshold:** {f.threshold}")
-            if f.hypothesis:
-                lines.append(f"- **Diagnoza:** {f.hypothesis}")
             lines.append("")
 
     lines += [
@@ -121,115 +113,6 @@ def _generate_md_report(client_name: str, iterations: list[dict],
     ]
 
     return "\n".join(lines)
-
-
-# ── LLM diagnosis & auto-fix ──────────────────────────────────────────────────
-
-_DIAGNOSIS_PROMPT = """\
-Esti un expert in analiza ofertelor de constructii. Ti se da un finding din pipeline-ul de analiza.
-Explica in 1-2 propozitii cauza probabila si actiunea recomandata. Raspunde in romana. Fii concis.
-
-Finding: {check}
-Grup: {group_den}
-Valoare: {value} (threshold: {threshold})
-"""
-
-_GROUP_MATCH_PROMPT = """\
-Esti un expert in analiza ofertelor de constructii romanesti.
-Ai urmatoarele grupuri de deviz DIN OFERTA care nu au corespondent in referinta:
-{oferta_groups}
-
-Returneaza un JSON array cu perechile probabile ref→oferta. Format strict:
-[{{"ref_den": "...", "oferta_den": "...", "confidence": 0.0-1.0}}]
-Daca nu esti sigur (confidence < 0.7), nu include perechea.
-Daca nu gasesti nicio pereche, returneaza [].
-"""
-
-
-def _get_llm_client():
-    """Returns (client, model) or (None, '') if unavailable."""
-    try:
-        import anthropic
-        from anthropic_adapter import AnthropicAdapter
-        api_key = os.environ.get("ANTHROPIC_API_KEY")
-        if not api_key:
-            return None, ""
-        model = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-6")
-        client = AnthropicAdapter(anthropic.Anthropic(api_key=api_key), model=model)
-        return client, model
-    except Exception:
-        return None, ""
-
-
-def _diagnose_and_fix(findings: list[Finding], client_name: str,
-                      knowledge: dict) -> list[str]:
-    """LLM diagnosis + auto-fix for eligible findings. Returns action strings."""
-    llm_client, model = _get_llm_client()
-    if not llm_client:
-        return []
-
-    actions: list[str] = []
-
-    # Diagnose HIGH_EXTRA and HIGH_LIPSA (text only, no auto-fix)
-    for f in findings:
-        if f.check in ("HIGH_EXTRA", "HIGH_LIPSA") and f.hypothesis is None:
-            try:
-                prompt = _DIAGNOSIS_PROMPT.format(
-                    check=f.check, group_den=f.group_den,
-                    value=f.value, threshold=f.threshold,
-                )
-                resp = llm_client.chat.completions.create(
-                    model=model, max_tokens=200,
-                    messages=[{"role": "user", "content": prompt}],
-                )
-                f.hypothesis = (resp.choices[0].message.content or "").strip()
-            except Exception as e:
-                print(f"[AGENT] LLM diagnosis failed for {f.check}: {e}")
-
-    # Auto-fix OFERTA_ONLY_GROUP via group_match_knowledge
-    oferta_only = [f for f in findings if f.check == "OFERTA_ONLY_GROUP"]
-    if oferta_only:
-        oferta_dens = "\n".join(f"- {f.group_den}" for f in oferta_only)
-        try:
-            prompt = _GROUP_MATCH_PROMPT.format(oferta_groups=oferta_dens)
-            resp = llm_client.chat.completions.create(
-                model=model, max_tokens=500,
-                messages=[{"role": "user", "content": prompt}],
-            )
-            content = (resp.choices[0].message.content or "").strip()
-            # strip markdown fences if present
-            if content.startswith("```"):
-                import re as _re
-                m = _re.search(r'```(?:json)?\s*([\s\S]+?)\s*(?:```|$)', content)
-                if m:
-                    content = m.group(1)
-            pairs = json.loads(content)
-            valid = [p for p in pairs if isinstance(p, dict)
-                     and p.get("confidence", 0) >= 0.7
-                     and "ref_den" in p and "oferta_den" in p]
-            if valid:
-                gm = json.loads(GROUP_MATCH_KNOWLEDGE_FILE.read_text()) \
-                    if GROUP_MATCH_KNOWLEDGE_FILE.exists() else {}
-                existing = gm.get(client_name, [])
-                existing_oferta_dens = {e.get("oferta_den") for e in existing}
-                new_pairs = [p for p in valid
-                             if p["oferta_den"] not in existing_oferta_dens]
-                if new_pairs:
-                    gm[client_name] = existing + [
-                        {"ref_den": p["ref_den"], "oferta_den": p["oferta_den"]}
-                        for p in new_pairs
-                    ]
-                    GROUP_MATCH_KNOWLEDGE_FILE.write_text(
-                        json.dumps(gm, indent=2, ensure_ascii=False)
-                    )
-                    actions.append(
-                        f"group_match_knowledge: +{len(new_pairs)} perechi "
-                        f"({', '.join(p['oferta_den'][:40] for p in new_pairs)})"
-                    )
-        except Exception as e:
-            print(f"[AGENT] LLM group match failed: {e}")
-
-    return actions
 
 
 # ── Pipeline runner ───────────────────────────────────────────────────────────
@@ -245,11 +128,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Pipeline verification agent")
     parser.add_argument("--client", required=True, help="Client name (must match input_AO folder)")
     parser.add_argument("--verify-only", action="store_true",
-                        help="Run checks only, no knowledge updates, no re-run")
+                        help="Run checks only, no re-run")
     parser.add_argument("--max-iter", type=int, default=3,
-                        help="Max auto-fix iterations (default: 3)")
-    parser.add_argument("--no-llm", action="store_true",
-                        help="Skip LLM diagnosis and auto-fix")
+                        help="Max loop iterations (default: 3)")
     args = parser.parse_args()
 
     cfg = ClientConfig.from_folder(args.client, INPUT_BASE, OUTPUT_BASE)
@@ -260,7 +141,6 @@ def main() -> None:
     knowledge = load_agent_knowledge()
     thresholds = get_client_thresholds(knowledge, args.client)
 
-    # First pipeline run
     print(f"[AGENT] Running pipeline for '{args.client}'...")
     _run_pipeline(cfg)
 
@@ -273,7 +153,7 @@ def main() -> None:
         _print_summary(findings)
         return
 
-    # Auto-fix loop
+    # Loop
     iterations: list[dict] = []
     prev_nc = count_total_nc(cfg.output_dir)
     stopped_reason = f"max-iter ({args.max_iter})"
@@ -283,27 +163,20 @@ def main() -> None:
         findings = verify_client(cfg.output_dir, thresholds)
         nc_after = count_total_nc(cfg.output_dir)
 
-        actions: list[str] = []
-        if not args.no_llm:
-            actions = _diagnose_and_fix(findings, args.client, knowledge)
-            if actions:
-                save_agent_knowledge(knowledge)
-
         _record_run(knowledge, args.client, i, prev_nc, nc_after,
-                    len(findings), actions)
+                    len(findings), [])
         save_agent_knowledge(knowledge)
 
         iterations.append({
             "iteration": i, "nc_before": prev_nc, "nc_after": nc_after,
-            "findings_count": len(findings), "actions": actions,
+            "findings_count": len(findings), "actions": [],
         })
 
-        # Convergence check (from iter 2 onward)
         if i > 1:
             reduction = (prev_nc - nc_after) / max(prev_nc, 1)
             if reduction < CONVERGENCE_THRESHOLD:
                 stopped_reason = f"convergenta (reducere {reduction:.1%} < {CONVERGENCE_THRESHOLD:.0%})"
-                print(f"[AGENT] Convergenta atinsa la iter {i}: {stopped_reason}")
+                print(f"[AGENT] Convergenta la iter {i}: {stopped_reason}")
                 break
 
         prev_nc = nc_after
@@ -312,7 +185,6 @@ def main() -> None:
             print(f"[AGENT] Re-running pipeline...")
             _run_pipeline(cfg)
 
-    # Use findings from last iteration (hypotheses already set by LLM)
     report = _generate_md_report(args.client, iterations, findings, stopped_reason)
     report_path = cfg.output_dir / f"verify_report_{datetime.datetime.now().strftime('%Y-%m-%d_%H%M%S')}.md"
     report_path.write_text(report)
