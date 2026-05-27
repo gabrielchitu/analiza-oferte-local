@@ -8,8 +8,8 @@ Folosire:
     python3 local_run.py
 
 Input:  input_AO/di_referinta.json + input_AO/di_oferta_N.json
-Output: output_AO/referinta.json, output_AO/oferta_N.json,
-        output_AO/Raport_Oferta_N.xlsx, output_AO/Raport_Oferta_N.docx
+Output: output_AO/referinta.json, output_AO/holistic_oferta_N.json,
+        output_AO/Raport_Oferta_N.docx
 
 Checkpoint: output_AO/checkpoints/di_X_page_classes.json
     Daca exista, sare peste clasificarea LLM (util la re-rulare dupa crash).
