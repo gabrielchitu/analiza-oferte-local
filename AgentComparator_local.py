@@ -12,8 +12,28 @@ from collections import defaultdict
 
 from shared.comparator import compare_articles, check_arithmetic, _normalize_um
 from shared.article_matcher import match_unmatched_global
+import json as _json
+from pathlib import Path as _Path
 
 logger = logging.getLogger(__name__)
+
+_OCR_PATTERNS_FILE = _Path(__file__).parent / "shared" / "ocr_patterns_knowledge.json"
+_HARDCODED_FROM = {'L', 'I', 'O'}  # chars handled by hardcoded rules in _normalize_cod
+
+
+def _load_ocr_learned() -> dict:
+    try:
+        data = _json.loads(_OCR_PATTERNS_FILE.read_text())
+        return {
+            r["from"].upper(): r["to"]
+            for r in data.get("char_substitutions", [])
+            if r["from"].upper() not in _HARDCODED_FROM
+        }
+    except Exception:
+        return {}
+
+
+_OCR_LEARNED: dict = _load_ocr_learned()
 
 
 def clean_code(cod: str) -> str:
@@ -64,6 +84,9 @@ def _normalize_cod(cod: str) -> str:
     # OCR fix: letter 'O' often confused with digit '0' — normalize to '0'
     # IZDO4D1 → IZD04D1 (O becomes 0 in PDF)
     cod = cod.replace('O', '0')
+    # Apply learned OCR patterns (additive — never override hardcoded above)
+    for src, dst in _OCR_LEARNED.items():
+        cod = cod.replace(src, dst)
     if cod.startswith('$'):
         num = re.sub(r'[^0-9]', '', cod[1:])  # extrage doar cifrele
         if len(num) >= 8:
