@@ -615,14 +615,16 @@ def _add_group_totals_row(table, ref_count: Optional[int], oferta_count: Optiona
     # Ref side: merge cols 2-5
     cells[2].merge(cells[5])
     if ref_count is not None:
-        cells[2].paragraphs[0].add_run(f"Referință: {ref_count} articole principale").bold = True
+        _ref_label = "articol principal" if ref_count == 1 else "articole principale"
+        cells[2].paragraphs[0].add_run(f"Referință: {ref_count} {_ref_label}").bold = True
         _style_cell(cells[2], 9, bold=True)
     _set_cell_shading(cells[2], GRAY_FILL)
 
     # Offer side: merge cols 6-9
     cells[6].merge(cells[9])
     if oferta_count is not None:
-        cells[6].paragraphs[0].add_run(f"Ofertă: {oferta_count} articole principale").bold = True
+        _of_label = "articol principal" if oferta_count == 1 else "articole principale"
+        cells[6].paragraphs[0].add_run(f"Ofertă: {oferta_count} {_of_label}").bold = True
         _style_cell(cells[6], 9, bold=True)
     _set_cell_shading(cells[6], GRAY_FILL)
 

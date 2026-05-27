@@ -1,4 +1,3 @@
-import pytest
 from docx import Document
 from shared.report_word import _count_main_articles, _add_group_totals_row, GRAY_FILL
 
@@ -67,6 +66,10 @@ def test_add_group_totals_row_matched_adds_one_row():
     initial_count = len(table.rows)
     _add_group_totals_row(table, ref_count=10, oferta_count=8)
     assert len(table.rows) == initial_count + 1
+    # All cells must be gray-shaded
+    row = table.rows[-1]
+    for cell in [row.cells[0], row.cells[2], row.cells[6], row.cells[10]]:
+        assert _get_shading_fill(cell).upper() == GRAY_FILL.upper()
 
 
 def test_add_group_totals_row_matched_text():
