@@ -1,12 +1,12 @@
 # Project State — Multi-Client Pipeline
 
-**Status:** ✅ ACTIVE (post-v11.2)
+**Status:** ✅ ACTIVE (v12.0)
 **Date:** 2026-05-27
 **Branch:** main
 
 ## Completed Tasks
 
-### Comparator Invariant Fixes (post-v11.2, commit d1d8bc0)
+### Comparator Invariant Fixes + Verification Reports (v12.0)
 
 Invariant: "0-NC matched group → ref_main_count == off_main_count". 0 violations across all 8 target clients.
 
@@ -25,6 +25,20 @@ Invariant: "0-NC matched group → ref_main_count == off_main_count". 0 violatio
 **Quality:**
 - ✅ 214/230 tests pass; 16 pre-existing failures unrelated
 - ✅ 0 invariant violations across: Blocuri Racari, BR BLOC A/A2/A3/A4/B/C, Scoala Dragomiresti
+
+### Verification Report — Blocuri Racari Cross-Check (v12.0)
+
+One-shot client-facing Word report (`output_AO/Raport_Verificare_Blocuri_Racari.docx`) documenting:
+- **Ecuatie conservare:** 0 violări silențioase pe toți 7 clienți (28 rulări total)
+- **Cross-check BR consolidat vs. suma blocuri individuale:** 601 vs. 628 articole, diferență constantă de 27 la toate 4 ofertele
+- **Cauza diferenței:** 9 coduri comune (șantier/organizare/transport) apar 3× în PDF-ul consolidat (3 obiecte) vs. 6× în suma blocurilor individuale — structura PDF-ului, nu eroare pipeline
+
+Generator: `/tmp/gen_report.py` (rulat ad-hoc, nu integrat în pipeline).
+
+### 6 Clienți Blocuri Individuale Adăugați (v12.0)
+
+`input_AO/BR BLOC A/`, `A2/`, `A3/`, `A4/`, `B/`, `C/` — di_referinta.json + di_oferta_1-4.json per bloc.
+Toate 6 rulează prin `multi_client_run.py --client "BR BLOC X"`. 0 violări invariant.
 
 ### Group Totals Row in Holistic DOCX Report (v11.2)
 
@@ -71,9 +85,21 @@ All 6 implementation tasks complete + released to origin/main with tag 8.0.
 
 ## Current State
 
-**No active tasks.** Pipeline refactor is complete and shipped. All work committed to main, tagged 8.0, released.
+**v12.0 released.** Invariant verificat pe toți clienții activi. Urmează: SSR (Scoala Sportiva Racari) și Camin Maneciu — structural mismatch nerezolvat (SSR: ref 2 grupuri/obiect vs. ofertă 8+ sub-devize/obiect).
 
-**Next decision point:** If additional multi-client features needed (e.g., batch mode, client presets, output filtering), create new task list per feature.
+**Clienți activi verificați (0 violări invariant):**
+- Blocuri Racari (consolidat) + BR BLOC A/A2/A3/A4/B/C
+- Scoala Dragomiresti
+
+**Clienți în așteptare:**
+- Scoala Sportiva Racari — structural mismatch SSR, grup matching LLM activ dar neoptimizat
+- Camin Maneciu — nerulatâ din v12.0
+
+**Unde să pornești dacă continui:**
+1. Rulează `python3 multi_client_run.py` → alege clientul
+2. Verifică `holistic_oferta_N.json` — `matched_groups`, `ref_only_groups`, `oferta_only_groups`
+3. Rapoarte DOCX în `output_AO/<client>/Raport_Oferta_N.docx`
+4. Pentru debugging grup matching: `matching_debug_oferta_N.json`
 
 ## Usage
 
@@ -105,7 +131,7 @@ Use `rtk` prefix for all Bash commands (git, grep, etc.) to save ~60-90% tokens 
 
 **python3** — RTK nu rescrie automat python3 (no rewrite). Comprima output cu pipe:
 ```bash
-.venv/bin/python3 multi_client_run.py --client "Blocuri Racari" 2>&1 | rtk log
+rtk proxy python3 multi_client_run.py --client "Blocuri Racari" 2>&1 | rtk log
 ```
 
 `rtk log` grupeaza errors/warnings cu count, elimina duplicatele. `rtk summary` prea agresiv — pierde informatia.

@@ -2793,5 +2793,30 @@
     "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RACARI",
     "obiectul": "e",
     "categoria": null
+  },
+  "f87b487bf0f5771a": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "3 ORGANIZARE SANTIER",
+    "categoria": "BLC6 ORGANIZARE SANTIER"
+  },
+  "4b784a8b7e3d78c7": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "003 3 ORGANIZARE SANTIER",
+    "categoria": "001 BLC6 ORGANIZARE SANTIER"
+  },
+  "8b68a9c03071ccd6": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "002 BLC2 INSTALATII"
+  },
+  "fe7b4fbd65af0be8": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "BLC1 ARHITECTURA"
+  },
+  "59e2f35745a4d6ab": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN",
+    "obiectul": "003 3 LUCRARI SPATII SERVICII - SEDII BLOC C - NEELIGIBL",
+    "categoria": "001 BLC6 ARHITECTURA - NEELIGIBIL"
   }
 }
