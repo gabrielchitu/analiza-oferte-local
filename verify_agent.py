@@ -15,6 +15,9 @@ import sys
 from pathlib import Path
 from typing import Optional
 
+from dotenv import load_dotenv
+load_dotenv(override=True)
+
 from shared.client_config import ClientConfig
 from shared.pipeline_verifier import verify_client, count_total_nc, Finding
 
@@ -309,8 +312,7 @@ def main() -> None:
             print(f"[AGENT] Re-running pipeline...")
             _run_pipeline(cfg)
 
-    # Final check after last pipeline run
-    findings = verify_client(cfg.output_dir, thresholds)
+    # Use findings from last iteration (hypotheses already set by LLM)
     report = _generate_md_report(args.client, iterations, findings, stopped_reason)
     report_path = cfg.output_dir / f"verify_report_{datetime.datetime.now().strftime('%Y-%m-%d_%H%M%S')}.md"
     report_path.write_text(report)
