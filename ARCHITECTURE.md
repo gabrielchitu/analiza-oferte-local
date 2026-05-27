@@ -30,21 +30,11 @@ INPUT: Azure Document Intelligence JSON (di_referinta.json + di_oferta_N.json)
 └─────────────────────────────────────────────────────────────────────────────
     ↓
 ┌─────────────────────────────────────────────────────────────────────────────
-│ ETAPA 3: DEVIZ MAPPING (shared/deviz_matcher.py)
-│   3a. match_devize_by_denomination — 4 strategii în ordine:
-│
-│   Strategy 0 (NOU 2026-05-22): Numeric structural matching
-│       Extrage (obj_int, cat_int) din cod compound:
-│         "001-004" → (1, 4)   [offer: 3-digit-padded]
-│         "1.0-1.4" → (1, 4)   [ref: decimal format]
-│       Map direct când (obj_int, cat_int) identic.
-│       Rezolva problema "INSTALATII SANITARE" identical in mai multe obiecte.
-│
-│   Strategy 1: Exact code match (oferta_deviz == ref_deviz)
-│   Strategy 2: Exact denomination match (normalized text)
-│   Strategy 3: Fuzzy match (SequenceMatcher, prag 0.70)
-│
-│   3b. Output: deviz_mapping dict {deviz_oferta → deviz_ref}
+│ ETAPA 3: DEVIZ MAPPING — ⚠️ LEGACY (neapelat din pipeline principal)
+│   shared/deviz_matcher.py::match_devize_by_denomination există în cod
+│   dar nu este apelat din local_run.py. Inlocuit de group_comparator.py
+│   care grupeaza direct dupa deviz_key (OBIECTIVUL|OBIECTUL|CATEGORIA hash).
+│   Fisierul deviz_matcher.py poate fi sters daca nu mai e nevoie de fallback.
 └─────────────────────────────────────────────────────────────────────────────
     ↓
 ┌─────────────────────────────────────────────────────────────────────────────
@@ -95,9 +85,9 @@ INPUT: Azure Document Intelligence JSON (di_referinta.json + di_oferta_N.json)
     ↓
 ┌─────────────────────────────────────────────────────────────────────────────
 │ ETAPA 5: REPORTING
-│   5a. build_raport_ierarhic (shared/report_builder.py)
-│       - Organizeaza neconformitati pe deviz, ierarhic
-│       - nr_ordine, display_parent_cod pentru subarticole
+│   5a. build_raport_holistic (shared/report_builder.py)
+│       - Converteste HolisticComparison → dict serializabil cu sumar
+│       - build_raport_ierarhic EXISTS în cod dar nu e apelat din pipeline
 │   5b. generate_word (shared/report_word.py)
 │       - Tabel 11 coloane (landscape A4): cols 0-1=label, 2-5=CERINȚĂ(ref), 6-9=CE A OFERTAT, 10=obs
 │       - Mod holistic: _generate_word_holistic — grupuri match/ref_only/oferta_only
@@ -105,7 +95,8 @@ INPUT: Azure Document Intelligence JSON (di_referinta.json + di_oferta_N.json)
 │         _count_main_articles filtra is_component=True
 │       - Mod flat: _generate_word_flat (fallback)
 │       - Coduri color: LIPSA=rosu, EXTRA=galben, DEVIZ_MM=albastru
-│   5c. JSON output: holistic_oferta_N.json + matching_debug_oferta_N.json
+│   5c. JSON output: holistic_oferta_N.json (raport complet) +
+│       matching_debug_oferta_N.json (match_trace grupuri)
 │   Output: output_AO/<ClientName>/Raport_Oferta_N.docx + JSON
 └─────────────────────────────────────────────────────────────────────────────
     ↓
@@ -160,7 +151,7 @@ analiza-oferte-local/
 │   ├── comparator.py            # compare_articles (UM_DIFERIT, DIFERENTA_CAMP)
 │   ├── group_comparator.py      # Holistic group matching (Phase 1/1.5/2 knowledge+LLM)
 │   ├── group_match_knowledge.json # Per-client LLM group match cache (nu sterge fara motiv)
-│   ├── report_builder.py        # build_raport_ierarhic
+│   ├── report_builder.py        # build_raport_holistic (pipeline) + build_raport_ierarhic (legacy)
 │   ├── report_word.py           # generate_word (DOCX tabel 11 col, holistic+flat+ierarhic)
 │   ├── diagnostics_builder.py   # Phase 0/1/2 analysis + JSON
 │   └── diagnostics_word.py      # DOCX diagnostic
@@ -181,11 +172,12 @@ analiza-oferte-local/
 └── output_AO/
     ├── <ClientName>/
     │   ├── Raport_Oferta_N.docx
-    │   ├── comparatie_oferta_N.json
-    │   ├── comparatie_deviz_oferta_N.json
+    │   ├── holistic_oferta_N.json          # raport holistic complet
+    │   ├── matching_debug_oferta_N.json    # match_trace grupuri
+    │   ├── oferta_N.json                   # articole extrase oferta
+    │   ├── referinta.json                  # articole extrase referinta
     │   └── checkpoints/
-    │       ├── di_oferta_N_page_classes_<hash>.json
-    │       └── di_oferta_N_deviz_mapping_<hash>.json
+    │       └── di_oferta_N_page_classes_<hash>.json
     └── diagnostics.json / diagnostics.docx
 ```
 
@@ -406,7 +398,7 @@ Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
 |---|-------|--------|------------|--------|
 | 1 | IZDO3D1 OCR (O vs 0) | BR toate | Low | Acceptat |
 | 2 | BR O3 EXTRA=5 | BR O3 | Medium | De investigat |
-| 3 | SD DEVIZ_MM=2 | SD | Resolved | ✅ fix _CATEGORIA_OPT_RE + Strategy 0 |
+| 3 | SD DEVIZ_MM=2 | SD | Resolved | ✅ fix _CATEGORIA_OPT_RE (line 109) |
 | 4 | CM O2 LIPSA=84 | CM | Medium | Neinvestigat |
 | 5 | SSR O3 EXTRA=315 | SSR | High | Neinvestigat |
 | 6 | SSR O2/O3 DEVIZ_MM=328/325 | SSR | High | Neinvestigat |
