@@ -869,6 +869,27 @@ def match_global(
     for oferta_art in extras_to_report:
         norm_cod = _normalize_cod(oferta_art.get("cod", ""))
         if norm_cod in ref_component_cods:
+            if oferta_art.get("is_component"):
+                continue  # offer also treats as component — breakdown detail, not discrepancy
+            # ref=component, offer=main article — structural reclassification, report it
+            deviz_cod_e = oferta_art.get("deviz", "")
+            deviz_den_e = oferta_art.get("deviz_denumire", "")
+            nc_comp = {
+                "tip": "DIFERENTA_CAMP",
+                "camp": "tip_articol",
+                "ref": "subcomponenta",
+                "oferta": "articol_principal",
+                "deviz_ref": deviz_cod_e,
+                "deviz_denumire": deviz_den_e,
+                "is_component": False,
+                "ref_cod": oferta_art.get("cod", ""),
+                "ref_denumire": "",
+                "oferta_cod": oferta_art.get("cod", ""),
+                "oferta_denumire": oferta_art.get("denumire", ""),
+                "oferta_um": oferta_art.get("um", ""),
+                "oferta_cantitate": oferta_art.get("cantitate", ""),
+            }
+            neconformitati.append(nc_comp)
             continue
         deviz_den = oferta_art.get("deviz_denumire", "")
         if "e Devize" in deviz_den:

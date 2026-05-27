@@ -593,7 +593,10 @@ def _add_deviz_summary_row(table, row_nr: int, neconf_count: int, ref_total: int
 
 
 def _count_main_articles(articles: list) -> int:
-    return sum(1 for a in articles if not a.get("is_component", False))
+    return sum(
+        1 for a in articles
+        if not a.get("is_component", False) and (a.get("cantitate") or 0) > 0
+    )
 
 
 def _add_group_totals_row(table, ref_count: Optional[int], oferta_count: Optional[int]) -> None:

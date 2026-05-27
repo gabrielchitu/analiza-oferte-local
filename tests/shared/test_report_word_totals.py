@@ -8,27 +8,36 @@ def test_count_main_articles_empty():
 
 def test_count_main_articles_all_main():
     articles = [
-        {"cod": "A01", "is_component": False},
-        {"cod": "A02"},  # missing key → not a component
-        {"cod": "A03", "is_component": False},
+        {"cod": "A01", "is_component": False, "cantitate": 1.0},
+        {"cod": "A02", "cantitate": 2.5},  # missing is_component → not a component
+        {"cod": "A03", "is_component": False, "cantitate": 0.5},
     ]
     assert _count_main_articles(articles) == 3
 
 
 def test_count_main_articles_filters_components():
     articles = [
-        {"cod": "A01", "is_component": False},
-        {"cod": "A01-sub1", "is_component": True},
-        {"cod": "A01-sub2", "is_component": True},
-        {"cod": "A02", "is_component": False},
+        {"cod": "A01", "is_component": False, "cantitate": 1.0},
+        {"cod": "A01-sub1", "is_component": True, "cantitate": 1.0},
+        {"cod": "A01-sub2", "is_component": True, "cantitate": 1.0},
+        {"cod": "A02", "is_component": False, "cantitate": 1.0},
     ]
     assert _count_main_articles(articles) == 2
 
 
+def test_count_main_articles_filters_zero_cantitate():
+    articles = [
+        {"cod": "A01", "is_component": False, "cantitate": 1.0},
+        {"cod": "A02", "is_component": False, "cantitate": 0.0},  # cant=0 → excluded
+        {"cod": "A03", "is_component": False},  # no cantitate → excluded
+    ]
+    assert _count_main_articles(articles) == 1
+
+
 def test_count_main_articles_all_components():
     articles = [
-        {"cod": "X01", "is_component": True},
-        {"cod": "X02", "is_component": True},
+        {"cod": "X01", "is_component": True, "cantitate": 1.0},
+        {"cod": "X02", "is_component": True, "cantitate": 1.0},
     ]
     assert _count_main_articles(articles) == 0
 
@@ -126,8 +135,8 @@ def _make_matched_group(n_ref=3, n_oferta=2, n_neconformitati=0):
         "ref_header": None,
         "oferta_header": None,
         "deviz_denumire": "Test deviz",
-        "ref_articles": [{"cod": f"R{i}", "is_component": False} for i in range(n_ref)],
-        "oferta_articles": [{"cod": f"O{i}", "is_component": False} for i in range(n_oferta)],
+        "ref_articles": [{"cod": f"R{i}", "is_component": False, "cantitate": 1.0} for i in range(n_ref)],
+        "oferta_articles": [{"cod": f"O{i}", "is_component": False, "cantitate": 1.0} for i in range(n_oferta)],
         "neconformitati": [],
         "matches": n_oferta,
     }
@@ -138,7 +147,7 @@ def _make_ref_only_group(n_articles=4):
         "ref_deviz_cod": "REF02",
         "ref_header": None,
         "deviz_denumire": "Ref only deviz",
-        "articles": [{"cod": f"R{i}", "is_component": False} for i in range(n_articles)],
+        "articles": [{"cod": f"R{i}", "is_component": False, "cantitate": 1.0} for i in range(n_articles)],
         "neconformitati": [],
     }
 
@@ -148,7 +157,7 @@ def _make_oferta_only_group(n_articles=5):
         "oferta_deviz_cod": "OFF02",
         "oferta_header": None,
         "deviz_denumire": "Oferta only deviz",
-        "articles": [{"cod": f"O{i}", "is_component": False} for i in range(n_articles)],
+        "articles": [{"cod": f"O{i}", "is_component": False, "cantitate": 1.0} for i in range(n_articles)],
         "neconformitati": [],
     }
 
