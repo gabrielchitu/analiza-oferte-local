@@ -1,10 +1,30 @@
 # Project State — Multi-Client Pipeline
 
-**Status:** ✅ RELEASED (v11.2)
+**Status:** ✅ ACTIVE (post-v11.2)
 **Date:** 2026-05-27
 **Branch:** main
 
 ## Completed Tasks
+
+### Comparator Invariant Fixes (post-v11.2, commit d1d8bc0)
+
+Invariant: "0-NC matched group → ref_main_count == off_main_count". 0 violations across all 8 target clients.
+
+**Root causes fixed (parser, commit c295137):**
+- `NR_SUBITEM` (`x.y` decimal marker): only sets `explicit_component_marker=True` when `base_nr == last_nr_crt`
+- Same-nr inline detection: set `explicit_component_marker` when nr equals `current_parent_nr`
+- Linked markers (`NR_LINKED`, `BARE_L`, `DOT_L`): set `explicit_component_marker=True`
+
+**Root causes fixed (comparator, commit d1d8bc0):**
+- Layer 2 COD_SIMILAR: removed `and (diffs or arith)` guard — OCR pairs (SA131↔SA13I, IZLO5XF↔IZL05XF) always generate COD_SIMILAR (root cause: `_normalize_cod` maps I→1/O→0, so these match in Layer 2 N:M, NOT Layer 2.5)
+- `is_component` mismatch: generate `DIFERENTA_CAMP(tip_articol)` in Layer 1 when matched articles classify differently — fixes `$4202729` silent count divergence in Scoala Dragomiresti
+- Removed fuzzy denomination matching (45% threshold silently absorbed ARTICOL_EXTRA NCs)
+- Added `_dedup_articles` in `group_comparator.py` — fixes BLC7 duplicate deviz (Blocuri Racari oferta_3)
+- Removed garbage `oferta_N.json` output from `local_run.py`
+
+**Quality:**
+- ✅ 214/230 tests pass; 16 pre-existing failures unrelated
+- ✅ 0 invariant violations across: Blocuri Racari, BR BLOC A/A2/A3/A4/B/C, Scoala Dragomiresti
 
 ### Group Totals Row in Holistic DOCX Report (v11.2)
 
