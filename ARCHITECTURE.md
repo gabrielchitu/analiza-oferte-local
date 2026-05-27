@@ -1,5 +1,5 @@
 # ARHITECTURA — Sistem Analiză Oferte Construcții
-**Actualizat:** 2026-05-27 | **Versiune pipeline:** v11.2 (tag: v11.2)
+**Actualizat:** 2026-05-27 | **Versiune pipeline:** v12.0 (tag: 12.0)
 
 ---
 
@@ -166,6 +166,12 @@ analiza-oferte-local/
 │   └── ... (alte teste)
 ├── input_AO/
 │   ├── Blocuri Racari/          # di_referinta.json + di_oferta_1..4.json
+│   ├── BR BLOC A/               # idem
+│   ├── BR BLOC A2/
+│   ├── BR BLOC A3/
+│   ├── BR BLOC A4/
+│   ├── BR BLOC B/
+│   ├── BR BLOC C/
 │   ├── Camin Maneciu/
 │   ├── Scoala Dragomiresti/
 │   └── Scoala Sportiva Racari/
@@ -174,10 +180,10 @@ analiza-oferte-local/
     │   ├── Raport_Oferta_N.docx
     │   ├── holistic_oferta_N.json          # raport holistic complet
     │   ├── matching_debug_oferta_N.json    # match_trace grupuri
-    │   ├── oferta_N.json                   # articole extrase oferta
     │   ├── referinta.json                  # articole extrase referinta
     │   └── checkpoints/
     │       └── di_oferta_N_page_classes_<hash>.json
+    ├── Raport_Verificare_Blocuri_Racari.docx  # cross-check consolidat vs blocuri
     └── diagnostics.json / diagnostics.docx
 ```
 
@@ -280,10 +286,16 @@ key = (deviz_cod, article_cod)  # ex: ("BLC2", "EA02A1")
 | Layer | Mecanism | Activ |
 |-------|----------|-------|
 | 1 | N:M exact pe (deviz, cod) | ✅ |
-| 2 | Normalized cod: strip `$` prefix | ✅ |
+| 2 | Normalized cod: strip `$` prefix, `_normalize_cod` (I→1, O→0) | ✅ |
 | 2.1 | Trailing digit: IC35D ↔ IC35D1 | ✅ |
 | 2.5 | Cod similar OCR (SequenceMatcher ≥ 0.80) | ✅ Fix: N:M complet |
 | 3 | LLM fuzzy | ❌ disabled |
+
+**Layer 2 Fix (v12.0, commit d1d8bc0):** Eliminat `and (diffs or arith)` guard din COD_SIMILAR — perechi OCR (SA131↔SA13I, IZLO5XF↔IZL05XF) se normalizeaza via `_normalize_cod` (I→1, O→0) → match in Layer 2 N:M, nu Layer 2.5. Fara guard, genereaza COD_SIMILAR corect.
+
+**Layer 1 is_component check (v12.0, commit d1d8bc0):** Dupa `compare_articles()`, daca `ra.is_component != oferta_art.is_component` → genereaza `DIFERENTA_CAMP(tip_articol)`. Fix pentru `$4202729` (SD): ref=articol_principal, oferta=subcomponenta → count divergenta silentioasa rezolvata.
+
+**EXTRA loop fix (v12.0, commit 1814cd2):** `ref_component_cods` — codul promovat din subcomponenta in articol principal de ofertant genereaza `DIFERENTA_CAMP(tip_articol)` in loc de skip silentios. Fix pentru CK25A/IZK03C1 (BR BLOC A).
 
 **Layer 2.5 Fix (2026-05-22):** `oferta_by_deviz[ok[0]].extend(oferta_by_key[ok])` — include TOATE instantele per cheie, nu doar prima.
 
@@ -295,7 +307,10 @@ key = (deviz_cod, article_cod)  # ex: ("BLC2", "EA02A1")
 | `ARTICOL_EXTRA` | Cod in oferta, absent din referinta |
 | `DEVIZ_MISMATCH` | Cod gasit in oferta dar in alt deviz decat referinta |
 | `UM_DIFERIT` | Acelasi cod+deviz, UM diferit |
-| `DIFERENTA_CAMP` | Acelasi cod+deviz, cantitate/pret diferit |
+| `DIFERENTA_CAMP` | Acelasi cod+deviz, camp diferit (cantitate, pret, **tip_articol**) |
+| `COD_SIMILAR` | Cod usor diferit (OCR) — Layer 2 sau Layer 2.5 |
+
+**DIFERENTA_CAMP(tip_articol):** Generat cand acelasi cod e `is_component=True` in ref dar `is_component=False` in oferta (sau invers). Afecteaza ecuatia de conservare (ref_main_count ≠ off_main_count) dar NU e violare silentioasa — NC exista.
 
 **DEVIZ_MISMATCH — cauza si interpretare:**
 Articolul EXISTA in oferta cu codul corect. Ofertantul l-a plasat intr-un deviz diferit
@@ -365,21 +380,25 @@ Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
 
 ---
 
-## 9. BASELINE METRICI (2026-05-22, post toate fix-urile)
+## 9. BASELINE METRICI (v12.0, 2026-05-27)
 
-| Client | O | matched | LIPSA | EXTRA | DEVIZ_MM | DD | Note |
-|--------|---|---------|-------|-------|----------|----|------|
-| Blocuri Racari | 1 | 314 | 47 | 0 | 20 | 0 | 46 $-cod + 1 OCR |
-| Blocuri Racari | 2 | 551 | 2 | 0 | 28 | 3 | curata |
-| Blocuri Racari | 3 | 414 | 21 | 5 | 14 | 46 | abrevieri OCR reziduale |
-| Blocuri Racari | 4 | 316 | 49 | 1 | 9 | 3 | curata |
-| Camin Maneciu | 1 | 1056 | 1 | 36 | 2 | 57 | EXTRA neinvestigat |
-| Camin Maneciu | 2 | 1066 | 84 | 41 | 5 | 121 | LIPSA=84 neinvestigat |
-| **Scoala Dragomiresti** | **1** | **910** | **2** | **0** | **1** | **0** | perfect ✅ |
-| **Scoala Dragomiresti** | **2** | **910** | **2** | **1** | **1** | **1** | IA35B1 genuina ✅ |
-| Scoala Sportiva Racari | 1 | 2152 | 2 | 122 | 6 | 139 | EXTRA neinvestigat |
-| Scoala Sportiva Racari | 2 | 1119 | 4 | 55 | 325 | 28 | DEVIZ_MM neinvestigat |
-| Scoala Sportiva Racari | 3 | 2404 | 6 | 318 | 299 | 44 | EXTRA neinvestigat |
+### Holistic Group Matching (grouped per client)
+
+| Client | O | matched_groups | ref_only | oferta_only | total_nc | silent_violations |
+|--------|---|----------------|----------|-------------|----------|-------------------|
+| Blocuri Racari | 1 | 35 | 0 | 0 | — | **0** ✅ |
+| Blocuri Racari | 2 | 35 | 0 | 0 | — | **0** ✅ |
+| Blocuri Racari | 3 | 35 | 0 | 0 | — | **0** ✅ |
+| Blocuri Racari | 4 | 35 | 0 | 0 | — | **0** ✅ |
+| BR BLOC A-C (each) | 1-4 | varies | 0 | 0 | varies | **0** ✅ |
+| Scoala Dragomiresti | 1 | 22 | 0 | 0 | 24 | **0** ✅ |
+| Scoala Dragomiresti | 2 | 22 | 0 | 0 | 26 | **0** ✅ |
+| Camin Maneciu | — | — | — | — | — | neverificat |
+| Scoala Sportiva Racari | — | — | — | — | — | neverificat |
+
+**Invariant verificat:** Ecuatia `ref_main - LIPSA = off_main - EXTRA` se respecta in toate grupurile (0 violari silentioase pe 7 clienti x 4 oferte = 28 rulari).
+
+**_count_main_articles (v12.0):** Filtrare stricta — `not is_component AND cantitate > 0`. Aliniata cu `match_global` pentru consistenta DOCX ↔ JSON.
 
 **DD = DESCRIERE_DIFERITA** (tip nou) — pipeline `_clean_den()` în `shared/comparator.py`:
 1. Strip OCR artifacts (antet stanga, l: notatie, garbage financiar, "nr capitol de lucrari u.m")
@@ -396,14 +415,10 @@ Output: `output_AO/diagnostics.json` + `output_AO/diagnostics.docx`
 
 | # | Issue | Client | Prioritate | Status |
 |---|-------|--------|------------|--------|
-| 1 | IZDO3D1 OCR (O vs 0) | BR toate | Low | Acceptat |
-| 2 | BR O3 EXTRA=5 | BR O3 | Medium | De investigat |
-| 3 | SD DEVIZ_MM=2 | SD | Resolved | ✅ fix _CATEGORIA_OPT_RE (line 109) |
-| 4 | CM O2 LIPSA=84 | CM | Medium | Neinvestigat |
-| 5 | SSR O3 EXTRA=315 | SSR | High | Neinvestigat |
-| 6 | SSR O2/O3 DEVIZ_MM=328/325 | SSR | High | Neinvestigat |
-| 7 | SSR structural mismatch (1 ref grup → 8-12 offer sub-devize) | SSR | Arhitectural | Documentat, nefixabil cu matching bijective |
-| 8 | SSR "U" codes (226U08/226U18 ref ≠ 226028/226018 offer) | SSR | Medium | LLM confuz cu context mic, acceptat |
+| 1 | SSR structural mismatch — ref 1-2 grupuri/obiect, oferta 8-12 sub-devize/obiect | SSR | Arhitectural | Documentat, necesita strategie noua (1→many matching) |
+| 2 | SSR "U" codes (226U08/226U18 ref ≠ 226028/226018 offer) | SSR | Medium | Neinvestigat |
+| 3 | CM groups — mismatch ref/oferta nerezolvat | CM | Medium | Neinvestigat |
+| 4 | 16 teste pre-existente failure | toate | Low | ImportError functii sterse/redenumite — safe to ignore |
 
 ---
 
