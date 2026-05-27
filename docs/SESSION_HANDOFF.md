@@ -1,7 +1,7 @@
 # Session Handoff — Analizator Oferte Constructii
 
 > Citeste acest fisier la inceputul unei sesiuni noi. Contine starea actuala a proiectului.
-> **Ultima actualizare:** 2026-05-27 | **Versiune:** v12.0
+> **Ultima actualizare:** 2026-05-27 | **Versiune:** v12.1
 
 ---
 
@@ -17,7 +17,7 @@ Pipeline Python care analizeaza oferte de constructii romanesti:
 
 ---
 
-## Stare Clienti (v12.0)
+## Stare Clienti (v12.1)
 
 | Client | Status | Oferte | Observatii |
 |--------|--------|--------|------------|
@@ -30,7 +30,7 @@ Pipeline Python care analizeaza oferte de constructii romanesti:
 | BR BLOC C  | ✅ OK | 1-4 | 0 violari invariant |
 | Scoala Dragomiresti | ✅ OK | 1-2 | 22 grupuri matched, 0 violari |
 | Scoala Sportiva Racari | ⚠️ PARTIAL | — | Structural mismatch — vezi Known Issues |
-| Camin Maneciu | ❓ NEVERIFICAT | — | Nerulatâ din v12.0 |
+| Camin Maneciu | ⚠️ HIGH_EXTRA | 1-2 | 0 CRITICAL/HIGH, 37 MEDIUM (HIGH_EXTRA extractie), 733 NC total |
 
 ---
 
@@ -116,6 +116,10 @@ Nu adauga `"source": "llm"` in acest fisier.
 | `shared/group_match_knowledge.json` | Cache LLM per client — nu sterge |
 | `shared/f3_markers_knowledge.json` | Markeri F3 — MANUAL ONLY |
 | `shared/pattern_library.json` | Pattern detection |
+| `verify_agent.py` | Verification agent CLI — 6 checks, loop, MD report |
+| `shared/pipeline_verifier.py` | 6 structural checks pe holistic_oferta_N.json |
+| `shared/agent_knowledge.json` | Jurnal runs + thresholds per client |
+| `shared/ocr_patterns_knowledge.json` | OCR patterns aditionale (additive, MANUAL ONLY) |
 
 ---
 
@@ -128,8 +132,11 @@ Nu adauga `"source": "llm"` in acest fisier.
 - Restul ramane `oferta_only` — matching bijective nu suporta 1→many
 - **Fix ar necesita:** strategie noua unde un ref grup poate acoperi mai multi offer sub-devize
 
-### Camin Maneciu
-- Nerulatâ din v12.0. Starea anterioara: group mismatch ref/oferta, neinvestigat
+### Camin Maneciu — HIGH_EXTRA (v12.1)
+- Rulat v12.1: 0 CRITICAL, 0 HIGH, 37 MEDIUM (HIGH_EXTRA/LIPSA), 733 NC total
+- Pattern: EXTRA mari in fiecare grup de instalatii = fragmentare articole in oferta vs referinta
+- Causa probabila: subcomponente ofertate ca articole principale, sau devize cu granularitate diferita
+- Nu sunt grupuri inventate (0 oferta_only_groups) — toate matched, problema la nivel articol
 
 ---
 
@@ -166,6 +173,10 @@ rtk proxy python3 -m pytest tests/ -q \
 
 # Reset checkpoints client
 find "output_AO/Scoala Dragomiresti/checkpoints" -name "*.json" -delete
+
+# Verification agent
+python3 verify_agent.py --client "Camin Maneciu" --verify-only
+python3 verify_agent.py --client "Camin Maneciu" --max-iter 2
 ```
 
 ---

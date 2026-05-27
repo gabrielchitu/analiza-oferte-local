@@ -1,6 +1,6 @@
 # Project State — Multi-Client Pipeline
 
-**Status:** ✅ ACTIVE (v12.0)
+**Status:** ✅ ACTIVE (v12.1)
 **Date:** 2026-05-27
 **Branch:** main
 
@@ -83,9 +83,24 @@ All 6 implementation tasks complete + released to origin/main with tag 8.0.
 
 **Release:** https://github.com/gabrielchitu/analiza-oferte-local/releases/tag/8.0
 
+### Verification Agent (v12.1)
+
+Agent de autoverificare output pipeline. 6 checks structurale pe `holistic_oferta_N.json`, loop convergenta, raport MD.
+
+**Files:**
+- `verify_agent.py` — CLI orchestrator (`--client`, `--verify-only`, `--max-iter`)
+- `shared/pipeline_verifier.py` — 6 checks: SILENT_VIOLATION, OFERTA_ONLY_GROUP, REF_ONLY_GROUP, HIGH_EXTRA, HIGH_LIPSA, COD_SIMILAR_CLUSTER, EMPTY_MATCHED_GROUP
+- `shared/agent_knowledge.json` — jurnal runs per client
+- `shared/ocr_patterns_knowledge.json` — OCR patterns aditionale (additive union cu hardcodate)
+- `AgentComparator_local.py` — `_normalize_cod` incarca ocr_patterns_knowledge.json la startup
+
+**Quality:** 236 passed, 16 pre-existing failures (neschimbate)
+
+**CM verify-only result:** 0 CRITICAL, 0 HIGH, 37 MEDIUM (HIGH_EXTRA/LIPSA), 733 NC, toate grupurile matched.
+
 ## Current State
 
-**v12.0 released.** Invariant verificat pe toți clienții activi. Urmează: SSR (Scoala Sportiva Racari) și Camin Maneciu — structural mismatch nerezolvat (SSR: ref 2 grupuri/obiect vs. ofertă 8+ sub-devize/obiect).
+**v12.1 released.** Verification agent functional. CM verificat — 37 MEDIUM findings (HIGH_EXTRA in grupuri de instalatii, erori extractie/clasificare articole). SSR nerezolvat.
 
 **Clienți activi verificați (0 violări invariant):**
 - Blocuri Racari (consolidat) + BR BLOC A/A2/A3/A4/B/C
