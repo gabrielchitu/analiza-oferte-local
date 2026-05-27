@@ -103,3 +103,107 @@ def test_add_group_totals_row_oferta_only_no_ref_text():
     offer_text = row.cells[6].text
     assert ref_text.strip() == ""
     assert "7" in offer_text
+
+
+# ── Tests for _generate_word_holistic with group totals ────────────────────
+
+
+from shared.report_word import _generate_word_holistic
+
+
+def _make_holistic_comp():
+    """Minimal comp dict for _generate_word_holistic."""
+    return {"ofertant": "Test SRL", "source_file": "test.pdf"}
+
+
+def _make_matched_group(n_ref=3, n_oferta=2, n_neconformitati=0):
+    return {
+        "ref_deviz_cod": "REF01",
+        "oferta_deviz_cod": "OFF01",
+        "ref_header": None,
+        "oferta_header": None,
+        "deviz_denumire": "Test deviz",
+        "ref_articles": [{"cod": f"R{i}", "is_component": False} for i in range(n_ref)],
+        "oferta_articles": [{"cod": f"O{i}", "is_component": False} for i in range(n_oferta)],
+        "neconformitati": [],
+        "matches": n_oferta,
+    }
+
+
+def _make_ref_only_group(n_articles=4):
+    return {
+        "ref_deviz_cod": "REF02",
+        "ref_header": None,
+        "deviz_denumire": "Ref only deviz",
+        "articles": [{"cod": f"R{i}", "is_component": False} for i in range(n_articles)],
+        "neconformitati": [],
+    }
+
+
+def _make_oferta_only_group(n_articles=5):
+    return {
+        "oferta_deviz_cod": "OFF02",
+        "oferta_header": None,
+        "deviz_denumire": "Oferta only deviz",
+        "articles": [{"cod": f"O{i}", "is_component": False} for i in range(n_articles)],
+        "neconformitati": [],
+    }
+
+
+def _all_row_texts(table):
+    texts = []
+    for row in table.rows:
+        row_text = " | ".join(c.text for c in row.cells)
+        texts.append(row_text)
+    return texts
+
+
+def test_holistic_matched_group_has_totals_row():
+    doc = Document()
+    raport = {
+        "matched_groups": [_make_matched_group(n_ref=3, n_oferta=2)],
+        "ref_only_groups": [],
+        "oferta_only_groups": [],
+        "ungrouped": [],
+        "unassigned_articles": [],
+    }
+    _generate_word_holistic(doc, raport, _make_holistic_comp())
+    all_texts = _all_row_texts(doc.tables[0])
+    assert any("TOTAL GRUP" in t for t in all_texts), "Missing TOTAL GRUP row for matched group"
+    assert any("3" in t and "Referință" in t for t in all_texts), "Missing ref count"
+    assert any("2" in t and "Ofertă" in t for t in all_texts), "Missing offer count"
+
+
+def test_holistic_ref_only_group_has_totals_row_ref_side_only():
+    doc = Document()
+    raport = {
+        "matched_groups": [],
+        "ref_only_groups": [_make_ref_only_group(n_articles=4)],
+        "oferta_only_groups": [],
+        "ungrouped": [],
+        "unassigned_articles": [],
+    }
+    _generate_word_holistic(doc, raport, _make_holistic_comp())
+    all_texts = _all_row_texts(doc.tables[0])
+    assert any("TOTAL GRUP" in t for t in all_texts)
+    assert any("4" in t and "Referință" in t for t in all_texts)
+    # Offer side must be empty
+    total_rows = [t for t in all_texts if "TOTAL GRUP" in t]
+    assert all("Ofertă" not in t for t in total_rows)
+
+
+def test_holistic_oferta_only_group_has_totals_row_offer_side_only():
+    doc = Document()
+    raport = {
+        "matched_groups": [],
+        "ref_only_groups": [],
+        "oferta_only_groups": [_make_oferta_only_group(n_articles=5)],
+        "ungrouped": [],
+        "unassigned_articles": [],
+    }
+    _generate_word_holistic(doc, raport, _make_holistic_comp())
+    all_texts = _all_row_texts(doc.tables[0])
+    assert any("TOTAL GRUP" in t for t in all_texts)
+    assert any("5" in t and "Ofertă" in t for t in all_texts)
+    total_rows = [t for t in all_texts if "TOTAL GRUP" in t]
+    assert all("Referință" not in t for t in total_rows)

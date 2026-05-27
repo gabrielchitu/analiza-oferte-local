@@ -1122,6 +1122,11 @@ def _generate_word_holistic(doc, raport_holistic: dict, comp: dict,
             info_row[0].merge(info_row[10])
             info_row[0].paragraphs[0].add_run("  ✓ Grup conform — fara neconformitati").italic = True
             _style_cell(info_row[0], 8)
+        _add_group_totals_row(
+            table,
+            _count_main_articles(mg.get("ref_articles", [])),
+            _count_main_articles(mg.get("oferta_articles", [])),
+        )
 
     # --- Grupuri doar in referinta (LIPSA) ---
     for rg in raport_holistic.get("ref_only_groups", []):
@@ -1132,6 +1137,7 @@ def _generate_word_holistic(doc, raport_holistic: dict, comp: dict,
         for nc in rg.get("neconformitati", []):
             row_nr += 1
             _add_neconf_row(table, row_nr, nc, deviz_map)
+        _add_group_totals_row(table, _count_main_articles(rg.get("articles", [])), None)
 
     # --- Grupuri doar in oferta (EXTRA) ---
     for og in raport_holistic.get("oferta_only_groups", []):
@@ -1142,6 +1148,7 @@ def _generate_word_holistic(doc, raport_holistic: dict, comp: dict,
         for nc in og.get("neconformitati", []):
             row_nr += 1
             _add_neconf_row(table, row_nr, nc, deviz_map)
+        _add_group_totals_row(table, None, _count_main_articles(og.get("articles", [])))
 
     # --- Articole fara grup ---
     ungrouped = raport_holistic.get("ungrouped", [])
