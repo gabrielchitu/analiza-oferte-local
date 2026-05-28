@@ -68,18 +68,9 @@ def detect_pattern(chapter_text: str, min_confidence: float = 0.70) -> Optional[
             "extraction_rules": best_match.get("extraction_rules", {})
         }
 
-    # No match found - generate new pattern with LLM
-    logger.warning(f"No known pattern matched (best={best_score:.2f}), "
-                   "attempting to generate template with LLM...")
-
-    new_template = generate_pattern_template(chapter_text)
-    save_generated_pattern(new_template)
-
-    return {
-        "pattern_name": new_template["name"],
-        "confidence": 0.50,  # Generated templates start with lower confidence
-        "extraction_rules": new_template.get("extraction_rules", {})
-    }
+    # No match found — LLM generation disabled; use generic fallback in-memory only (do not persist)
+    logger.warning(f"No known pattern matched (best={best_score:.2f}), using generic fallback")
+    return None
 
 
 def generate_pattern_with_llm(chapter_text: str) -> Optional[Dict]:
