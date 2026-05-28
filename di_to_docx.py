@@ -141,6 +141,10 @@ def convert_di_to_docx(di_path: Path, out_path: Path) -> None:
     print(f"  [OK] {out_path.name}")
 
 
+def _abbrev(client_name: str) -> str:
+    return "".join(w[0].upper() for w in client_name.split() if w)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Convert DI JSON to readable DOCX")
     parser.add_argument("--client", required=True, help="Client name (must match input_AO folder)")
@@ -152,17 +156,18 @@ def main() -> None:
         sys.exit(1)
 
     cfg.ensure_output_dirs()
+    abbrev = _abbrev(args.client)
 
     if cfg.reference_file.exists():
         print(f"[DI] Convertesc {cfg.reference_file.name}...")
-        convert_di_to_docx(cfg.reference_file, cfg.output_dir / "DI_Referinta.docx")
+        convert_di_to_docx(cfg.reference_file, cfg.output_dir / f"DI_{abbrev}_Referinta.docx")
     else:
         print(f"[WARN] {cfg.reference_file} lipsește, skip")
 
     for di_path in cfg.offer_files:
         n = di_path.stem.split("_")[-1]
         print(f"[DI] Convertesc {di_path.name}...")
-        convert_di_to_docx(di_path, cfg.output_dir / f"DI_Oferta_{n}.docx")
+        convert_di_to_docx(di_path, cfg.output_dir / f"DI_{abbrev}_Oferta_{n}.docx")
 
 
 if __name__ == "__main__":
