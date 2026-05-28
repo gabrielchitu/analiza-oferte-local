@@ -112,6 +112,12 @@ NR_SINGLE_INLINE_RE = re.compile(
     r'^(\d{1,3})[\s|]+([A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,2})\s*$',
     re.IGNORECASE
 )
+# NR_CRT + COD cu prefix numeric: "052 01003B1" — digit-start normativ codes (digit+letter+digit)
+# Pattern: 1-5 digits + 1 letter + 1-4 digits (e.g., 01003B1, 1003B1, 024A1)
+NR_MIXED_DIGIT_INLINE_RE = re.compile(
+    r'^(\d{1,3})[\s|]+(\d{1,5}[A-Z]\d{1,4}[A-Z]?\d{0,2})\s*$',
+    re.IGNORECASE
+)
 # NR_CRT: integer 1-999 singur pe linie
 NR_CRT_RE = re.compile(r'^(\d{1,3})$')
 # NR_SUBITEM: decimal sub-article marker (ex: "34.1", "23.1" in breviar tables)
@@ -523,6 +529,10 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
                 # Stop at next counter pattern
                 if re.match(r'^\d+$', desc_line):
                     break
+                # Stop at NR+COD inline format: "002 2000068", "004 DF19A1", "006 TRA02A50"
+                # DT format mixes scatter (NR alone on line) with inline (NR COD on same line)
+                if re.match(r'^\d{1,4}\s+(?:[A-Z]{1,5}\d|\d{4,})', desc_line):
+                    break
                 # Stop at next code pattern (conservative check)
                 if (re.match(r'^[A-Z]{1,5}\d{1,4}', desc_line, re.IGNORECASE) or
                         re.match(r'^(\$[A-Z0-9]{4,})', desc_line, re.IGNORECASE) or
@@ -543,7 +553,8 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
             # Line 1: NR CODE - description (matches NR_COD_DESC_RE)
             # Line 2: UM (state machine will pick up as UM)
             # Line 3: QTY (state machine will pick up as QTY)
-            result.append(f"{line} {next_code_line} - {description}")
+            # Use "." placeholder when description is empty — NR_COD_DESC_RE requires (.+) after dash
+            result.append(f"{line} {next_code_line} - {description or '.'}")
             result.append(next_um_line)
             result.append(next_qty_line)
 
@@ -564,6 +575,9 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
                 candidate = lines[k].strip()
                 # Stop at next counter, code, price label, or skip pattern
                 if re.match(r'^\d+$', candidate):
+                    break
+                # Stop at NR+COD inline format: "002 2000068", "004 DF19A1"
+                if re.match(r'^\d{1,4}\s+(?:[A-Z]{1,5}\d|\d{4,})', candidate):
                     break
                 if (re.match(r'^[A-Z]{1,5}\d{1,4}', candidate, re.IGNORECASE) or
                         re.match(r'^(\$[A-Z0-9]{4,})', candidate, re.IGNORECASE) or
@@ -592,7 +606,7 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
 
             if f3_um and f3_qty:
                 description = ' '.join(f3_desc_parts)
-                result.append(f"{line} {next_code_line} - {description}")
+                result.append(f"{line} {next_code_line} - {description or '.'}")
                 result.append(f3_um)
                 result.append(f3_qty)
                 combined_count += 1
@@ -1204,12 +1218,14 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # Format referinţă deviz: "024 CK26A#" sau "024 2200012" (NR+COD pe linie)
             # sau "002 TCB40A1 ASIM" sau "004 ATA01B ASIM BUC." (cu tokeni UM pe aceeași linie)
             # sau "017 W2F05C01 BUC." (NR + single-letter cod)
+            # sau "052 01003B1" (NR + digit-start normativ cod)
             m_ai = NR_ALPHA_INLINE_RE.match(line)
             m_ni = NR_NUMERIC_INLINE_RE.match(line)
             m_si = NR_SINGLE_INLINE_RE.match(line)
             m_bi = NR_BREVIAR_INLINE_RE.match(line)
-            if m_ai or m_ni or m_si or m_bi:
-                m = m_ai or m_ni or m_si or m_bi
+            m_mi = NR_MIXED_DIGIT_INLINE_RE.match(line) if not (m_ai or m_ni or m_si or m_bi) else None
+            if m_ai or m_ni or m_si or m_bi or m_mi:
+                m = m_ai or m_ni or m_si or m_bi or m_mi
                 _nr_val = int(m.group(1))
                 if _nr_val == current_parent_nr and current_parent_nr > 0:
                     explicit_component_marker = True
@@ -1311,8 +1327,9 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 m_ni = NR_NUMERIC_INLINE_RE.match(line)
                 m_si = NR_SINGLE_INLINE_RE.match(line)
                 m_bi = NR_BREVIAR_INLINE_RE.match(line)
-                if m_ai or m_ni or m_si or m_bi:
-                    m = m_ai or m_ni or m_si or m_bi
+                m_mi = NR_MIXED_DIGIT_INLINE_RE.match(line) if not (m_ai or m_ni or m_si or m_bi) else None
+                if m_ai or m_ni or m_si or m_bi or m_mi:
+                    m = m_ai or m_ni or m_si or m_bi or m_mi
                     _nr_val = int(m.group(1))
                     if _nr_val == current_parent_nr and current_parent_nr > 0:
                         explicit_component_marker = True
@@ -1392,12 +1409,14 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # Format referinţă deviz: "024 CK26A#" sau "024 2200012" → finalizează + articol nou
             # sau "002 TCB40A1 ASIM" sau "004 ATA01B ASIM BUC." (cu tokeni UM pe aceeași linie)
             # sau "017 W2F05C01 BUC." (NR + single-letter cod)
+            # sau "052 01003B1" (NR + digit-start normativ cod)
             m_ai = NR_ALPHA_INLINE_RE.match(line)
             m_ni = NR_NUMERIC_INLINE_RE.match(line)
             m_si = NR_SINGLE_INLINE_RE.match(line)
             m_bi = NR_BREVIAR_INLINE_RE.match(line)
-            if m_ai or m_ni or m_si or m_bi:
-                m = m_ai or m_ni or m_si or m_bi
+            m_mi = NR_MIXED_DIGIT_INLINE_RE.match(line) if not (m_ai or m_ni or m_si or m_bi) else None
+            if m_ai or m_ni or m_si or m_bi or m_mi:
+                m = m_ai or m_ni or m_si or m_bi or m_mi
                 # Guard: "82 M" → NR_ALPHA_INLINE matches with cod=M (single UM token).
                 # If current article has no UM yet and the matched "cod" is a known UM,
                 # treat the whole line as NR+UM (not a new article).
