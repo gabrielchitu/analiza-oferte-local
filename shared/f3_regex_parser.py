@@ -925,7 +925,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # Skip coduri deviz-sumar: cod numeric pur ($226XXX) cu denominatie care
             # contine markeri de antet de capitol (pag, formular f3, e devize).
             # Aceste coduri sunt numere de capitol extrase gresit, nu articole reale.
-            elif re.match(r'^\$\d{4,7}$', cod) and (
+            elif re.match(r'^\$\d{4,6}$', cod) and (
                 den_joined.lower().startswith('pag')
                 or re.search(r'formular\s+f3|e\s+devize', den_joined, re.IGNORECASE)
             ):
