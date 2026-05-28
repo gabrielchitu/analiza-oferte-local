@@ -1,1 +1,56 @@
-{}
+{
+  "Camin Maneciu": {
+    "thresholds": {},
+    "runs": [
+      {
+        "timestamp": "2026-05-27T23:03:24",
+        "iteration": 1,
+        "nc_before": 733,
+        "nc_after": 733,
+        "findings_count": 38,
+        "actions": []
+      },
+      {
+        "timestamp": "2026-05-27T23:05:30",
+        "iteration": 2,
+        "nc_before": 733,
+        "nc_after": 733,
+        "findings_count": 38,
+        "actions": []
+      },
+      {
+        "timestamp": "2026-05-27T23:09:00",
+        "iteration": 1,
+        "nc_before": 732,
+        "nc_after": 732,
+        "findings_count": 38,
+        "actions": []
+      },
+      {
+        "timestamp": "2026-05-27T23:11:05",
+        "iteration": 2,
+        "nc_before": 732,
+        "nc_after": 732,
+        "findings_count": 38,
+        "actions": []
+      },
+      {
+        "timestamp": "2026-05-27T23:13:49",
+        "iteration": 1,
+        "nc_before": 733,
+        "nc_after": 733,
+        "findings_count": 38,
+        "actions": []
+      },
+      {
+        "timestamp": "2026-05-27T23:15:53",
+        "iteration": 2,
+        "nc_before": 733,
+        "nc_after": 733,
+        "findings_count": 38,
+        "actions": []
+      }
+    ],
+    "open_issues": []
+  }
+}
