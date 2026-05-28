@@ -121,7 +121,7 @@ SUBCOMP_EXPLICIT_MARKER_RE = re.compile(r'>>>\s*component[a-z]?\s+', re.IGNORECA
 # Subcomponent suffix pattern (.L continuation: 17.L, 19.L, etc.)
 SUBCOMP_SUFFIX_RE = re.compile(r'^(\d+)\.L$', re.IGNORECASE)
 # Prefixed subcomponent format (MANECIU): L:PREFIX -NUMBER:CODE (ex: L:SL30 -0001:2452958)
-SUBCOMP_PREFIXED_RE = re.compile(r'L\s*:\s*([A-Z0-9]+)\s*-\s*([A-Z0-9]*)\s*:\s*([0-9A-Z]+)', re.IGNORECASE)
+SUBCOMP_PREFIXED_RE = re.compile(r'L\s*:\s*([A-Z0-9.]+)\s*-\s*([A-Z0-9]*)\s*:\s*([0-9A-Z]+)', re.IGNORECASE)
 # Hierarchy pattern (1.1, 2.3, etc. under parent 1, 2)
 HIERARCHY_CODE_RE = re.compile(r'^(\d+)\.(\d+)$')
 # NR_LINKED: articol legat ISDP — "N.L" sau "N.M.L" singur pe linie (ex: "6.L", "11.1.L", "11.2.L")
