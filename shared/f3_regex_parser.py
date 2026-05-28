@@ -767,6 +767,48 @@ def _detect_subcomponent(cod: str, last_cod: str, line_text: str) -> tuple:
     return (False, None)
 
 
+_L_INCOMPLETE_RE = re.compile(r'^\s*L\s*:\s*[A-Z0-9]', re.IGNORECASE)
+_L_CONTINUATION_RE = re.compile(r'^\s*[-:]')
+
+
+def _merge_split_l_lines(lines: List[str]) -> List[str]:
+    """Join L: sub-component lines split across 2-3 consecutive OCR lines (CM referinta format).
+
+    Pattern: L: prefix code on line N, continuation on N+1 and possibly N+2.
+    Examples (2-line):
+      ['L : LC52A', '-0067: 6110532'] → ['L : LC52A -0067: 6110532']
+    Examples (3-line):
+      ['L: SL13A', '-M', ': 1100670'] → ['L: SL13A -M : 1100670']
+
+    Merges until SUBCOMP_PREFIXED_RE is satisfied or no continuation line remains.
+    Must run before _DEVIZ_RESOURCE_RE so continuations are not pre-converted.
+    """
+    if not lines:
+        return lines
+    result = []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        stripped = line.strip()
+        if _L_INCOMPLETE_RE.match(stripped) and not SUBCOMP_PREFIXED_RE.search(stripped):
+            merged = stripped
+            j = i + 1
+            while j < len(lines) and _L_CONTINUATION_RE.match(lines[j].strip()):
+                merged = merged + ' ' + lines[j].strip()
+                logger.debug(f"[MERGE_L] step: {repr(merged)}")
+                j += 1
+                if SUBCOMP_PREFIXED_RE.search(merged):
+                    break
+            if j > i + 1:
+                result.append(merged)
+                logger.debug(f"[MERGE_L] final: {repr(merged)}")
+                i = j
+                continue
+        result.append(line)
+        i += 1
+    return result
+
+
 def _merge_wrapped_codes(lines: List[str]) -> List[str]:
     """
     Merge code continuations across lines.
@@ -824,6 +866,9 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
     Returns:
         Lista de articole în formatul standard (compatibil AgentComparator).
     """
+    # Merge split L: sub-component lines (CM format: alpha code + continuation on next line)
+    # Must run before _DEVIZ_RESOURCE_RE to avoid the continuation being pre-converted
+    lines = _merge_split_l_lines(lines)
     # Normalizează format resurse eDevize: '-XXXX:NNNNNNN' → '$NNNNNNN'
     # Apare în referințe cu format de catalog: '-0179:4123329' = resursa $4123329
     _DEVIZ_RESOURCE_RE = re.compile(r'^-\d{4}:(\d+)$')
@@ -921,7 +966,9 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 articole.append(art)
                 logger.debug(f"[PARSER] Articol finalizat: {cod} ({um}, {cantitate}), subcomponents: {subcomp_codes}")
                 last_article_cod = cod if not is_subcomp else last_article_cod
-                explicit_component_marker = False  # Reset after use
+        # Always reset explicit_component_marker — even for skipped articles.
+        # If skipped inside an elif branch above, it would otherwise leak True to the next article.
+        explicit_component_marker = False
         cod = ''
         denumire_parts = []
         um = ''
@@ -1116,6 +1163,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             um = inherited_um; cantitate = 0.0; preturi = []
             state = _READING
             waiting_lines = 0
+            explicit_component_marker = True  # L: articles are always sub-components
             continue
 
         # NR_SUBITEM handler: decimal sub-article marker like "34.1", "23.1"
