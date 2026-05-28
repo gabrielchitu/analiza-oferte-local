@@ -49,7 +49,7 @@ def _observatie(neconf: dict) -> str:
         ref_cod = neconf.get("ref_cod", "")
         oferta_cod = neconf.get("oferta_cod", "")
         motiv = neconf.get("motiv_similaritate", "")
-        return (f"COD SIMILAR — posibilă eroare OCR sau variație\n"
+        return (f"Caracteristici similare, cod diferit\n"
                 f"Ref: {ref_cod}  |  Ofertat: {oferta_cod}\n{motiv}")
     return tip
 

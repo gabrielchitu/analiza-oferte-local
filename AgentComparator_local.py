@@ -456,7 +456,7 @@ def match_global(
             if ref_cod != original_oferta_cod:
                 neconf = {
                     "tip": "COD_SIMILAR",
-                    "motiv_similaritate": f"Cod similar: referinta '{ref_cod}', ofertat '{original_oferta_cod}'",
+                    "motiv_similaritate": f"Caracteristici similare, cod diferit: referință '{ref_cod}' ↔ ofertat '{original_oferta_cod}'",
                 }
                 _enrich(neconf, ref_art, oferta_art, deviz_cod, deviz_den)
                 neconformitati.append(neconf)
@@ -515,7 +515,7 @@ def match_global(
                 if r_art.get("cod", "") != original_oferta_cod:
                     neconf = {
                         "tip": "COD_SIMILAR",
-                        "motiv_similaritate": f"Cod variant: referinta '{r_art.get('cod')}', ofertat '{original_oferta_cod}'",
+                        "motiv_similaritate": f"Caracteristici similare, cod diferit: referință '{r_art.get('cod')}' ↔ ofertat '{original_oferta_cod}'",
                     }
                     _enrich(neconf, r_art, o_art, deviz_cod, deviz_den)
                     neconformitati.append(neconf)
@@ -575,7 +575,7 @@ def match_global(
                 if ref_art.get("cod", "") != original_oferta_cod:
                     neconf = {
                         "tip": "COD_SIMILAR",
-                        "motiv_similaritate": f"Cod variant: referinta '{ref_art.get('cod')}', ofertat '{original_oferta_cod}'",
+                        "motiv_similaritate": f"Caracteristici similare, cod diferit: referință '{ref_art.get('cod')}' ↔ ofertat '{original_oferta_cod}'",
                     }
                     _enrich(neconf, ref_art, match_ea, deviz_cod, deviz_den)
                     neconformitati.append(neconf)
@@ -722,7 +722,7 @@ def match_global(
                     neconf = {
                         "tip": "COD_SIMILAR",
                         "motiv_similaritate": (
-                            f"Cod similar (OCR): '{ref_cod}' ↔ '{oferta_cod_val}'"
+                            f"Caracteristici similare, cod diferit: referință '{ref_cod}' ↔ ofertat '{oferta_cod_val}'"
                         ),
                     }
                     _enrich(neconf, ref_art, best_art, deviz_cod, deviz_den)
@@ -844,7 +844,7 @@ def match_global(
                 if diffs_llm:
                     neconf = {
                         "tip": "COD_SIMILAR",
-                        "motiv_similaritate": fp.get("motiv", "Cod similar identificat automat"),
+                        "motiv_similaritate": fp.get("motiv", "Caracteristici similare, cod diferit — identificat automat"),
                     }
                     _enrich(neconf, ref_art, oferta_art, deviz_val, deviz_den)
                     neconformitati.append(neconf)

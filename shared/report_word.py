@@ -114,9 +114,9 @@ def _observatie_text(neconf: dict) -> str:
         ref_cod = neconf.get("ref_cod", "")
         oferta_cod = neconf.get("oferta_cod", "")
         motiv = neconf.get("motiv_similaritate", "")
-        return (f"Cod similar — posibilă eroare OCR sau variație: "
-                f"referință '{ref_cod}', ofertat '{oferta_cod}'. "
-                f"{motiv}. Necesită verificare manuală.")
+        return (f"Caracteristici similare, cod diferit: "
+                f"referință '{ref_cod}' ↔ ofertat '{oferta_cod}'. "
+                f"{motiv}.")
     if tip == "ARTICOL_ORPHAN":
         ref_deviz = neconf.get("deviz_ref", "")
         cod = neconf.get("ref_cod", "")
