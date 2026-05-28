@@ -1,6 +1,6 @@
 # Project State — Multi-Client Pipeline
 
-**Status:** ✅ ACTIVE (v12.2)
+**Status:** ✅ ACTIVE (v12.3)
 **Date:** 2026-05-28
 **Branch:** main
 
@@ -110,14 +110,36 @@ Three rounds of extraction fixes for Camin Maneciu:
 
 **Result:** CM O1+O2 → 0 genuine ARTICOL_EXTRA; remaining 18 MEDIUM are real catalog differences.
 
+### Drum Tatarani — Client Nou (v12.3, commits c66b90e → 38a0d01)
+
+Format document complet diferit față de ceilalți clienți. Fixes în `shared/deviz_header_extractor.py`:
+
+1. **Multi-line obiectivul/obiectul** — `Obiectivul:\n0232 000000232\nDRUMURI TATARANI` pe 2-3 linii; `_next_lines_value()` merge continuation lines
+2. **`_DEVIZ_OFERTA_LETTERED_RE`** — regex nou pentru coduri deviz cu prefix litere (`ZO0001`, `AN1`, `LC001A`); override față de `_CAT_RE` care altfel colapsează toate devizele pe strada la un grup
+3. **1-digit suffix** `\d{3,6}` → `\d{1,6}` — coduri `AN1`, `AN2` (Aninoasei)
+4. **Trailing letter** `\d{1,6}` → `\d{1,6}[A-Z]?` — cod `LC001A` (Lucrari complementare)
+5. **Stale cache** `deviz_header_knowledge.json` — șters entries cu categoria numerică pură (`0169`, `1000`, `0122`) rămase din înainte de fix
+6. **Knowledge entries O2** — 7 perechi manuale adăugate pentru format oferta_2 (`0050 45230000` prefix vs `0232 000000232` din O1)
+7. **Fix match greșit Padurii** — LLM ↔ PA0005 MARCAJE LATERALE → ref `0004 Acostamente` (greșit); corectat: PA0004↔Acostamente, PA0005↔Marcaje laterale
+
+**Format DT:**
+- Obiectivul: `0232 000000232 DRUMURI TATARANI` (O1) / `0050 45230000 MODERNIZARE DRUMURI...` (O2)
+- Obiectul: `000N N Strada NumeStrada`
+- Categoria: din `Deviz oferta XXNNN Denumire` (NU din `Categoria de lucrari: 0169`)
+- Prefix-uri stradă: ZO=Zoica, BI=Bisericii, BR=Branii, AN=Aninoasei, PA=Padurii, LC=Lucrari complementare, T=Teiului, D=Dobre, MO=Molanesti, VS=Valea Satului
+
+**Rezultat:** O1=189/189 grupuri matched, O2=189/189, 0 violări invariant.
+**Verify agent:** 0 CRITICAL, 0 HIGH; MEDIUM findings sunt HIGH_EXTRA/LIPSA pe devize complexe (Podete, Prefabricate) — neinvestigate încă.
+
 ## Current State
 
-**v12.2.** CM fully verified. 18 MEDIUM findings are genuine (not parser bugs). SSR nerezolvat.
+**v12.3.** DT adăugat și verificat. CM fully verified. SSR nerezolvat.
 
 **Clienți activi verificați (0 violări invariant):**
 - Blocuri Racari (consolidat) + BR BLOC A/A2/A3/A4/B/C
 - Scoala Dragomiresti
 - Camin Maneciu ✅ (0 CRITICAL/HIGH, 18 MEDIUM genuine)
+- Drum Tatarani ✅ (189/189 O1+O2, 0 CRITICAL/HIGH, MEDIUM neinvestigate)
 
 **Clienți în așteptare:**
 - Scoala Sportiva Racari — structural mismatch SSR, grup matching LLM activ dar neoptimizat

@@ -1,7 +1,7 @@
 # Session Handoff — Analizator Oferte Constructii
 
 > Citeste acest fisier la inceputul unei sesiuni noi. Contine starea actuala a proiectului.
-> **Ultima actualizare:** 2026-05-28 | **Versiune:** v12.2
+> **Ultima actualizare:** 2026-05-28 | **Versiune:** v12.3
 
 ---
 
@@ -31,6 +31,7 @@ Pipeline Python care analizeaza oferte de constructii romanesti:
 | Scoala Dragomiresti | ✅ OK | 1-2 | 22 grupuri matched, 0 violari |
 | Scoala Sportiva Racari | ⚠️ PARTIAL | — | Structural mismatch — vezi Known Issues |
 | Camin Maneciu | ✅ OK | 1-2 | 0 CRITICAL/HIGH, **18 MEDIUM genuine** (diferente reale catalog), 35 grupuri matched |
+| Drum Tatarani | ✅ OK | 1-2 | 189/189 grupuri matched O1+O2, 0 CRITICAL/HIGH, MEDIUM neinvestigate |
 
 ---
 
@@ -206,15 +207,20 @@ Coduri afectate: AUT6752, CE23A1, CO06B, RPCP16C, SE03A01, TRA01A20, TSD16B1, TS
 
 ---
 
-## Git State (v12.2, 2026-05-28)
+## Git State (v12.3, 2026-05-28)
 
 ```
 tag: 12.0 → commit eb04c83  (baza stabila)
-main HEAD: b9391a4
+main HEAD: 38a0d01
 ```
 
-Commits recente (v12.2 parser fixes CM):
+Commits recente (v12.3 Drum Tatarani):
+- `38a0d01` fix(knowledge): correct wrong DT match Padurii Acostamente→PA0005 Marcaje
+- `94c67ca` fix(header-extractor): allow trailing letter in deviz codes (LC001A)
+- `bc1ee9c` fix(header-extractor): allow 1-digit suffix in lettered deviz codes (AN1)
+- `c66b90e` fix(header-extractor): DT-format multi-line obiectivul/obiectul + lettered deviz categoria
+
+Commits anterioare (v12.2 parser fixes CM):
 - `b9391a4` fix(parser): allow dot in L: prefix for OCR-corrupted numeric codes
-- `58677d4` docs: add runbook and autoverify-extra local skill
 - `bf5aa46` fix(parser): extract 7-digit catalog codes blocked by SKIP_RE
 - `36e7447` fix(f3-parser): extract CM L: sub-components from 2-3 line OCR splits
