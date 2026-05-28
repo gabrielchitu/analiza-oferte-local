@@ -99,7 +99,11 @@ def _render_pages(doc: Document, pages: list) -> None:
 
 
 def convert_di_to_docx(di_path: Path, out_path: Path) -> None:
-    data = json.loads(di_path.read_text(encoding="utf-8"))
+    try:
+        data = json.loads(di_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, UnicodeDecodeError) as e:
+        print(f"[ERROR] JSON invalid: {di_path}: {e}")
+        sys.exit(1)
     doc = Document()
 
     doc.add_heading(di_path.stem, level=0)
