@@ -1,7 +1,7 @@
 # Project State — Multi-Client Pipeline
 
-**Status:** ✅ ACTIVE (v12.1)
-**Date:** 2026-05-27
+**Status:** ✅ ACTIVE (v12.2)
+**Date:** 2026-05-28
 **Branch:** main
 
 ## Completed Tasks
@@ -96,19 +96,31 @@ Agent de autoverificare output pipeline. 6 checks structurale pe `holistic_ofert
 
 **Quality:** 236 passed, 16 pre-existing failures (neschimbate)
 
-**CM verify-only result:** 0 CRITICAL, 0 HIGH, 37 MEDIUM (HIGH_EXTRA/LIPSA), 733 NC, toate grupurile matched.
+**CM verify-only result (v12.2):** 0 CRITICAL, 0 HIGH, 18 MEDIUM (HIGH_EXTRA/LIPSA genuine catalog differences), 1 LOW COD_SIMILAR.
+
+### Parser Fixes — CM ARTICOL_EXTRA (v12.2, commits bf5aa46 + 36e7447 + b9391a4)
+
+Three rounds of extraction fixes for Camin Maneciu:
+
+1. **SKIP_RE digit range** `^\d{4,8}$` → `^(?:\d{4,6}|\d{8,})$` — 7-digit catalog codes were filtered
+2. **SKIP_RE bare `424`** → `\b424\b(?!\d)` — substring match inside longer codes (e.g. `6719424`)
+3. **`LITRU` not in UM_KNOWN** — added + normalized to `'l'`
+4. **3-line OCR L: merge** + `explicit_component_marker` reset — CM subcomponent extraction
+5. **`SUBCOMP_PREFIXED_RE` dot in prefix** `[A-Z0-9]+` → `[A-Z0-9.]+` — OCR `101.73` (was `10173`) blocked `$2100916` under `ACD04C1`
+
+**Result:** CM O1+O2 → 0 genuine ARTICOL_EXTRA; remaining 18 MEDIUM are real catalog differences.
 
 ## Current State
 
-**v12.1 released.** Verification agent functional. CM verificat — 37 MEDIUM findings (HIGH_EXTRA in grupuri de instalatii, erori extractie/clasificare articole). SSR nerezolvat.
+**v12.2.** CM fully verified. 18 MEDIUM findings are genuine (not parser bugs). SSR nerezolvat.
 
 **Clienți activi verificați (0 violări invariant):**
 - Blocuri Racari (consolidat) + BR BLOC A/A2/A3/A4/B/C
 - Scoala Dragomiresti
+- Camin Maneciu ✅ (0 CRITICAL/HIGH, 18 MEDIUM genuine)
 
 **Clienți în așteptare:**
 - Scoala Sportiva Racari — structural mismatch SSR, grup matching LLM activ dar neoptimizat
-- Camin Maneciu — nerulatâ din v12.0
 
 **Unde să pornești dacă continui:**
 1. Rulează `python3 multi_client_run.py` → alege clientul
