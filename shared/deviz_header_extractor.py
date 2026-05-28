@@ -25,6 +25,17 @@ _CAT_RE = re.compile(
     r'(?:categoria\s+de\s+lucr[aă]ri?|stadiul?\s+fizic|category)\s*[:\-]\s*(.*)',
     re.IGNORECASE
 )
+# DT-format: "Deviz oferta ZO0001 Terasamente 7.70 smp" — letter-prefix deviz codes
+# Used as categoria when "Categoria de lucrari: 0169" would otherwise collapse all devizes
+_DEVIZ_OFERTA_LETTERED_RE = re.compile(
+    r'Deviz\s+oferta\s+([A-Z]{1,3}\d{3,6})\s+(.+?)(?:\s+Categoria|\s+Lista\s+cu|\s+Nr\.|$)',
+    re.IGNORECASE
+)
+# Structural lines that should not be merged into obiectivul/obiectul values
+_STRUCT_LINES = frozenset([
+    'formularul f3', 'lista cu cantitatile de lucrari', 'lista de cantitati',
+    'deviz oferta', 'categoria de lucrari', 'stadiul fizic',
+])
 
 
 @dataclass
@@ -105,42 +116,60 @@ def _extract_from_lines(
 ) -> tuple[str | None, str | None, str | None]:
     """Extrage OBIECTIVUL, Obiectul, Categoria din primele 30 linii.
 
-    Suporta doua formate:
-    - Inline:     'Obiectivul: EFICIENTIZARE ENERGETICA...'
-    - Multi-line: 'Obiectivul:\\n' + 'EFICIENTIZARE ENERGETICA...' (eticheta + valoare pe linii separate)
+    Suporta trei formate:
+    - Inline:      'Obiectivul: EFICIENTIZARE ENERGETICA...'
+    - Multi-line:  'Obiectivul:\\n' + 'EFICIENTIZARE ENERGETICA...'
+    - DT multi-line: 'Obiectivul:\\n' + '0232 000000232\\n' + 'DRUMURI TATARANI'
+                   Categoria vine din 'Deviz oferta ZO0001 Terasamente 7.70 smp'
     """
     obiectivul = obiectul = categoria = None
     lines = header_lines[:30]
 
+    def _is_label(s: str) -> bool:
+        return bool(
+            _OBJ1_RE.match(s) or _OBJ2_RE.match(s) or _CAT_RE.match(s)
+            or any(s.lower().startswith(p) for p in _STRUCT_LINES)
+        )
+
+    def _next_lines_value(idx: int) -> str:
+        """Take 1-2 continuation lines as value (for multi-line DT headers)."""
+        parts = []
+        for j in range(idx + 1, min(idx + 3, len(lines))):
+            nxt = lines[j].strip()
+            if not nxt or _is_label(nxt):
+                break
+            parts.append(nxt)
+        return ' '.join(parts)
+
+    # Priority: scan for DT-format "Deviz oferta [LETTERS+DIGITS] [text]" first
+    # This overrides "Categoria de lucrari: 0169" which would collapse all devizes
+    full_joined = ' '.join(lines)
+    m_dt = _DEVIZ_OFERTA_LETTERED_RE.search(full_joined)
+    if m_dt:
+        # DT format: use "CODE denomination" as categoria
+        categoria = f"{m_dt.group(1).upper()} {m_dt.group(2).strip()}"
+
     for i, line in enumerate(lines):
         s = line.strip()
-
-        def _next_line_value(idx: int) -> str:
-            """Valoarea de pe linia urmatoare, daca linia curenta e doar eticheta."""
-            if idx + 1 < len(lines):
-                nxt = lines[idx + 1].strip()
-                # Nu lua urmatoarea linie daca e ea insasi o eticheta
-                if nxt and not _OBJ1_RE.match(nxt) and not _OBJ2_RE.match(nxt) and not _CAT_RE.match(nxt):
-                    return nxt
-            return ""
 
         if obiectivul is None:
             m = _OBJ1_RE.match(s)
             if m:
                 val = m.group(1).strip().strip("\"'")
-                obiectivul = val if val else _next_line_value(i)
+                obiectivul = val if val else _next_lines_value(i)
 
         if obiectul is None:
             m = _OBJ2_RE.match(s)
             if m:
                 val = m.group(1).strip()
-                obiectul = val if val else _next_line_value(i)
+                obiectul = val if val else _next_lines_value(i)
 
+        # Only extract categoria from _CAT_RE if DT format didn't already set it
         if categoria is None:
             m = _CAT_RE.match(s)
             if m:
                 val = m.group(1).strip()
-                categoria = val if val else _next_line_value(i)
+                categoria = val if val else _next_lines_value(i)
 
         if all(x is not None for x in [obiectivul, obiectul, categoria]):
             break
