@@ -19,6 +19,7 @@ from docx import Document
 from docx.shared import Pt
 from docx.oxml.ns import nsdecls
 from docx.oxml import parse_xml
+from docx.enum.text import WD_LINE_SPACING
 
 from shared.client_config import ClientConfig
 
@@ -90,12 +91,23 @@ def _render_f3_table(doc: Document, table: dict) -> None:
                     runs[0].font.size = Pt(9)
 
 
+def _compact(p, size_pt: float = 8.0) -> None:
+    fmt = p.paragraph_format
+    fmt.space_before = Pt(0)
+    fmt.space_after = Pt(0)
+    fmt.line_spacing_rule = WD_LINE_SPACING.SINGLE
+    for run in p.runs:
+        run.font.size = Pt(size_pt)
+
+
 def _render_pages(doc: Document, pages: list) -> None:
     for page in pages:
         p = doc.add_paragraph(f"--- Pagina {page['page_number']} ---")
         p.style = "Caption"
+        _compact(p, size_pt=7.0)
         for line in page.get("lines", []):
-            doc.add_paragraph(line.get("content", ""))
+            p2 = doc.add_paragraph(line.get("content", ""))
+            _compact(p2, size_pt=8.0)
 
 
 def convert_di_to_docx(di_path: Path, out_path: Path) -> None:
@@ -120,7 +132,9 @@ def convert_di_to_docx(di_path: Path, out_path: Path) -> None:
     if tables:
         _render_metadata(doc, tables[0])
         for i, table in enumerate(tables[1:], start=1):
-            doc.add_heading(f"Tabel {i}", level=2)
+            h = doc.add_heading(f"Tabel {i}", level=2)
+            h.paragraph_format.space_before = Pt(4)
+            h.paragraph_format.space_after = Pt(2)
             _render_f3_table(doc, table)
 
     doc.save(out_path)
