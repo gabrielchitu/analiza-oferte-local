@@ -160,11 +160,11 @@ SKIP_RE = re.compile(
     r'^=\s*$|^NR\.\s+SIMBOL|'
     r'^CANTITATE$|^PU\s|^GR\.\s+|^SPOR\s|'
     r'^(MATERIALE|MANOPERA|UTILAJ|TRANSPORT|GREUTATE|TOTAL|ARTICOL)$|'
-    r'^\d{4,8}$|'  # Pure numeric CPV/metadata codes (e.g., "0004", "45000000")
+    r'^(?:\d{4,6}|\d{8,})$|'  # Pure numeric CPV/metadata codes (e.g., "0004", "45000000"); 7-digit codes are catalog articles
     r'Cheltuieli\s+(directe|indirecte)|Din\s+care:|'
     r'Valoare\s+aferenta|'
     r'PROIECTANT|ORIGEN\s+STUDIE|'
-    r'SIGN\s+|S\.\s+C\.\s+|Artisan|-\s+proiect|424|'
+    r'SIGN\s+|S\.\s+C\.\s+|Artisan|-\s+proiect|\b424\b(?!\d)|'
     r'STE[\-\s]|TARGO|DAMBO|'
     r'\d{3}-?rev[/\s]+\d{4}|'  # Project version codes like "424-rev/2024" or "424 rev 2024"
     r'[A-Z\s]*S\.R\.L\.|[A-Z]{2,}\s+SRL|'  # Company names with SRL/S.R.L.
@@ -203,7 +203,7 @@ _PRICE_LABEL_RE = re.compile(r'^(material|manopera|utilaj|transport)\s*:', re.IG
 UM_KNOWN = {
     # Volum / masa / lungime
     'BUC', 'BUCATA', 'BUCAT', 'MC', 'ML', 'MP', 'MPC', 'KG', 'T', 'TO', 'TON', 'TONA', 'TONE', 'G', 'MG',
-    'L', 'M', 'H', 'DM', 'KM',
+    'L', 'LITRU', 'M', 'H', 'DM', 'KM',
     # Electric
     'KW', 'KWH', 'KVA', 'W',
     # Timp
@@ -334,6 +334,8 @@ def _normalize_um_value(token: str) -> str:
         # Normalize variants to canonical form
         if t in ('BUCATA', 'BUCAT'):  # BUCATA și BUCAT = BUC în română
             return 'buc'
+        if t == 'LITRU':
+            return 'l'
         if t == 'TONE':  # TONE (plural) → tona (singular)
             return 'tona'
         if t in ('ORE', 'OREI'):  # ORE, OREI (plural/genitive) → ora (singular)
