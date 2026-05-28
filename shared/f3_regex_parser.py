@@ -1467,6 +1467,20 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 waiting_lines = 0
                 continue
 
+            # DT-format column category marker: "B2 TONE", "B3 M CUB" — letter+digit prefix before UM
+            # OCR reads "B.II"/"B2" column classification before the actual UM unit.
+            # Must intercept BEFORE _try_parse_cod which treats "B2" as a standalone code.
+            if um == '' and cantitate == 0.0:
+                _m_letdig = re.match(r'^([A-Z]\d)\s+([A-Z]{1,4}(?:\s+[A-Z]{1,4})?)\s*$', line, re.IGNORECASE)
+                if _m_letdig:
+                    _ld_words = _m_letdig.group(2).strip().upper().split()
+                    if len(_ld_words) == 2 and _ld_words[0] == 'M' and _ld_words[1] == 'CUB':
+                        um = 'mc'
+                        continue
+                    if _ld_words and _is_valid_um(_ld_words[0]):
+                        um = _normalize_um_value(_ld_words[0])
+                        continue
+
             # Cod nou cu separator – fără NR_CRT explicit (ex: "30172 - Transport" sau "TRA01A20")
             # BUT: if current article is incomplete (no UM/Qty), usually treat as denomination continuation
             # EXCEPT: if code matches a STRONG pattern (standalone), it's likely a new article
