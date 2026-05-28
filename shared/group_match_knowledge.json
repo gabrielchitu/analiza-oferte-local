@@ -665,10 +665,6 @@
       "oferta_den": "0050 45230000 | 0008 45230000 | BI0010 ASFALT LA CALE POD 20MP"
     },
     {
-      "ref_den": "0021 Drumuri Tatarani | 0012 Strada Padurii | 0004 Acostamente 18cm 32,5mp",
-      "oferta_den": "0050 45230000 | 0012 45230000 | PA0005 MARCAJE LATERALE 162ML"
-    },
-    {
       "ref_den": "0021 Drumuri Tatarani | 0002 Strada Branii | 0003 Piatra sparta 12cm 23,57smp",
       "oferta_den": "0050 45230000 | 0002 45230000 | BR0003 BALAST 15CM 23.57SMP"
     },
@@ -1075,6 +1071,14 @@
     {
       "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0004 BADPS22,4-6cm 4,67smp",
       "oferta_den": "0050 | 0008 45230000 | BI0004 BADPS22.4 - 6CM 4.67SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0012 Strada Padurii | 0004 Acostamente 18cm 32,5mp",
+      "oferta_den": "0050 45230000 | 0012 45230000 | PA0004 ACOSTAMENTE 18CM 32.5MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0012 Strada Padurii | 0005 Marcaje laterale 162ml",
+      "oferta_den": "0050 45230000 | 0012 45230000 | PA0005 MARCAJE LATERALE 162ML"
     }
   ]
 }
