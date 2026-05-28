@@ -1311,6 +1311,14 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                     waiting_lines = 0
                     _after_linked = False
                     continue
+            # DT-format column category marker: "B2 TONE", "B2 M CUB" in WAITING state
+            # Must intercept BEFORE _try_parse_cod which treats "B2" as a standalone code
+            _m_letdig_w = re.match(r'^([A-Z]\d)\s+([A-Z]{1,4}(?:\s+[A-Z]{1,4})?)\s*$', line, re.IGNORECASE)
+            if _m_letdig_w:
+                _ld_words_w = _m_letdig_w.group(2).strip().upper().split()
+                if ((len(_ld_words_w) == 2 and _ld_words_w[0] == 'M' and _ld_words_w[1] == 'CUB') or
+                        (_ld_words_w and _is_valid_um(_ld_words_w[0]))):
+                    continue  # skip column marker, keep waiting for real code
             parsed_cod, parsed_den, parsed_um_hint = _try_parse_cod(line)
             if parsed_cod:
                 cod = parsed_cod
