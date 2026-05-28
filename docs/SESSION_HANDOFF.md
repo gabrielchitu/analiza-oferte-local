@@ -1,7 +1,7 @@
 # Session Handoff — Analizator Oferte Constructii
 
 > Citeste acest fisier la inceputul unei sesiuni noi. Contine starea actuala a proiectului.
-> **Ultima actualizare:** 2026-05-27 | **Versiune:** v12.1
+> **Ultima actualizare:** 2026-05-28 | **Versiune:** v12.2
 
 ---
 
@@ -17,7 +17,7 @@ Pipeline Python care analizeaza oferte de constructii romanesti:
 
 ---
 
-## Stare Clienti (v12.1)
+## Stare Clienti (v12.2)
 
 | Client | Status | Oferte | Observatii |
 |--------|--------|--------|------------|
@@ -30,7 +30,7 @@ Pipeline Python care analizeaza oferte de constructii romanesti:
 | BR BLOC C  | ✅ OK | 1-4 | 0 violari invariant |
 | Scoala Dragomiresti | ✅ OK | 1-2 | 22 grupuri matched, 0 violari |
 | Scoala Sportiva Racari | ⚠️ PARTIAL | — | Structural mismatch — vezi Known Issues |
-| Camin Maneciu | ⚠️ HIGH_EXTRA | 1-2 | 0 CRITICAL/HIGH, 37 MEDIUM (HIGH_EXTRA extractie), 733 NC total |
+| Camin Maneciu | ✅ OK | 1-2 | 0 CRITICAL/HIGH, **18 MEDIUM genuine** (diferente reale catalog), 35 grupuri matched |
 
 ---
 
@@ -45,6 +45,22 @@ Ecuatia echivalenta: `ref_main - LIPSA = off_main - EXTRA`
 - Violare cu NC = ASTEPTAT (ex. `DIFERENTA_CAMP(tip_articol)`)
 
 **Verificat: 0 violari silentioase pe 7 clienti × 4 oferte = 28 rulari (v12.0)**
+
+---
+
+## Fix-uri Majore v12.2 — Parser CM (commits bf5aa46, 36e7447, b9391a4)
+
+5 fix-uri de extractie in `shared/f3_regex_parser.py` pentru Camin Maneciu:
+
+1. **SKIP_RE digit range** `^\d{4,8}$` → `^(?:\d{4,6}|\d{8,})$` — coduri 7 cifre (articole catalog) nu mai sunt filtrate ca CPV metadata
+2. **SKIP_RE `|424|`** → `\b424\b(?!\d)` — substring `424` in coduri lungi (ex. `6719424`) nu mai triggera skip
+3. **`LITRU` in UM_KNOWN** — era tratat ca text denumire; adaugat + normalizat la `'l'`
+4. **Merge 3-line OCR L: + `explicit_component_marker` reset** — subcomponente CM din 2-3 linii rupte de OCR
+5. **`SUBCOMP_PREFIXED_RE` dot in prefix** `[A-Z0-9]+` → `[A-Z0-9.]+` — OCR citeste `10173` ca `101.73`; blocheaza extragerea codului dupa `-0232:`
+
+**Regula de baza SKIP_RE:** `re.search()` (nu `re.match()`) — pattern-urile fara ancore matchuiesc oriunde in linie. 7 cifre = articol catalog; 4-6 cifre = capitol deviz; 8+ cifre = CPV.
+
+**Rezultat:** CM O1+O2 → 0 ARTICOL_EXTRA genuine; 18 MEDIUM ramase sunt diferente reale referinta vs oferta.
 
 ---
 
@@ -132,11 +148,10 @@ Nu adauga `"source": "llm"` in acest fisier.
 - Restul ramane `oferta_only` — matching bijective nu suporta 1→many
 - **Fix ar necesita:** strategie noua unde un ref grup poate acoperi mai multi offer sub-devize
 
-### Camin Maneciu — HIGH_EXTRA (v12.1)
-- Rulat v12.1: 0 CRITICAL, 0 HIGH, 37 MEDIUM (HIGH_EXTRA/LIPSA), 733 NC total
-- Pattern: EXTRA mari in fiecare grup de instalatii = fragmentare articole in oferta vs referinta
-- Causa probabila: subcomponente ofertate ca articole principale, sau devize cu granularitate diferita
-- Nu sunt grupuri inventate (0 oferta_only_groups) — toate matched, problema la nivel articol
+### Camin Maneciu — ✅ REZOLVAT (v12.2)
+- 18 MEDIUM findings sunt diferente GENUINE de catalog (articole diferite in oferta vs referinta)
+- 0 ARTICOL_EXTRA cauzate de erori de extractie
+- 35 grupuri matched, 0 ref-only, 0 oferta-only
 
 ---
 
@@ -191,16 +206,15 @@ Coduri afectate: AUT6752, CE23A1, CO06B, RPCP16C, SE03A01, TRA01A20, TSD16B1, TS
 
 ---
 
-## Git State (v12.0, 2026-05-27)
+## Git State (v12.2, 2026-05-28)
 
 ```
-tag: 12.0 → commit eb04c83
+tag: 12.0 → commit eb04c83  (baza stabila)
+main HEAD: b9391a4
 ```
 
-Commits principale din aceasta versiune:
-- `eb04c83` chore(v12.0): knowledge updates, 6 BR bloc clients, verification report
-- `1814cd2` fix(comparator): surface ref-component/offer-main reclassification as NC
-- `d372876` docs(local_run): update output docstring
-- `8a21695` docs(claude): update invariant fix summary
-- `d1d8bc0` fix(comparator): fix COD_SIMILAR suppression + is_component mismatch
-- `c295137` fix(parser): correct subcomponent detection
+Commits recente (v12.2 parser fixes CM):
+- `b9391a4` fix(parser): allow dot in L: prefix for OCR-corrupted numeric codes
+- `58677d4` docs: add runbook and autoverify-extra local skill
+- `bf5aa46` fix(parser): extract 7-digit catalog codes blocked by SKIP_RE
+- `36e7447` fix(f3-parser): extract CM L: sub-components from 2-3 line OCR splits

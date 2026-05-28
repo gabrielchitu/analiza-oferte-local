@@ -1,5 +1,5 @@
 # Architecture Schema — Diagrama Completă Flux
-**Actualizat:** 2026-05-25 | **Versiune:** v11.x (holistic group matching, deviz_cod remapping removed)
+**Actualizat:** 2026-05-28 | **Versiune:** v12.2 (CM parser fixes, 5 clienți verified)
 
 ---
 
@@ -77,6 +77,13 @@
 ║      └─ _merge_wrapped_codes(lines)                                      ║
 ║           Uneste coduri rupte: "TRI1AA01E" + "3" → "TRI1AA01E3"        ║
 ║                                                                          ║
+║  2b.5. _merge_split_l_lines(lines) — inainte de state machine           ║
+║      Uneste L: split pe 2-3 linii: ['L:SL13A', '-M', ':1100670'] →     ║
+║        ['L:SL13A -M:1100670']                                           ║
+║      ⚠ SKIP_RE ruleaza via re.search() (NU re.match()):                ║
+║        pattern-uri fara ancore matchuiesc ORIUNDE in linie              ║
+║        7 cifre = catalog; 4-6 cifre = capitol; 8+ cifre = CPV          ║
+║                                                                          ║
 ║  2c. State Machine: IDLE → WAITING → READING                            ║
 ║      ┌── _IDLE: asteapta NR_CRT sau cod inline                          ║
 ║      │    Recunoaste: NR_CRT singur, NR+COD inline, NR+COD+DESC inline  ║
@@ -95,12 +102,14 @@
 ║   1. Token UM valid singur pe linie (BUCATA, M, MP, MC...)              ║
 ║   2. Format "82 M" (nr_ordine + UM) via m_um_norm regex                 ║
 ║   3. Guard NR_ALPHA_INLINE: "cod"=UM valid + articol fara UM            ║
-║   UM_KNOWN: BUC, M, MP, MC, ML, KG, T, TON, ORA, ZI, SET, ART...      ║
+║   UM_KNOWN: BUC, M, MP, MC, ML, KG, T, TON, ORA, ZI, SET, ART, LITRU  ║
 ║   UM_SKIP: ASIM, TSCH, SCH, UM, NR, CRT, TOTAL                         ║
 ║                                                                          ║
 ║  2d. Detectie subcomponente                                              ║
 ║      "L:" prefix, ">>>" marker, ".L" suffix                             ║
 ║      → is_component=True, parent_cod setat                              ║
+║      SUBCOMP_PREFIXED_RE: L\s*:\s*([A-Z0-9.]+)\s*-\s*([A-Z0-9]*)\s*:\ ║
+║        Prefix accepta dot (OCR: "101.73" in loc de "10173")             ║
 ║                                                                          ║
 ║  2e. Deduplicare pe (deviz_key, cod, um, cantitate)                      ║
 ║      ⚠ deviz_key (hash MD5) nu deviz_cod string — mai multe grupuri    ║
@@ -355,7 +364,7 @@ run_diagnostics.py
 
 ---
 
-## Metrici Baseline Holistic — Curent (2026-05-25)
+## Metrici Baseline Holistic — Curent (2026-05-28)
 
 | Client | O | matched_groups | ref-only | oferta-only | Note |
 |--------|---|----------------|----------|-------------|------|
@@ -366,7 +375,8 @@ run_diagnostics.py
 | **Scoala Dragomiresti** | **1** | **22** | **0** | **0** | ✅ perfect |
 | **Scoala Dragomiresti** | **2** | **22** | **0** | **0** | ✅ perfect |
 | Scoala Sportiva Racari | 1-3 | 0 | — | — | ❌ header format incompatibil |
-| Camin Maneciu | — | — | — | — | neverificat |
+| **Camin Maneciu** | **1** | **35** | **0** | **0** | ✅ 0 CRITICAL/HIGH, 18 MEDIUM genuine |
+| **Camin Maneciu** | **2** | **35** | **0** | **0** | ✅ 0 CRITICAL/HIGH, 18 MEDIUM genuine |
 
 ---
 
@@ -374,8 +384,7 @@ run_diagnostics.py
 
 | # | Issue | Files | Prioritate |
 |---|-------|-------|------------|
-| 1 | SSR 0 holistic grupuri — `_extract_from_lines` nu gaseste Obiectul/Categoria din format SSR | deviz_header_extractor.py | **HIGH** |
-| 2 | BR O3: 3 oferta-only neinvestigate | group_comparator.py | Medium |
-| 3 | BR O4: 3 ref-only, 12 oferta-only — structura diferita | - | Medium |
-| 4 | CM: groups mismatch ref/oferta | - | Medium |
-| 5 | IZDO3D1 OCR O/0 — Layer 1 consuma cheia gresita | AgentComparator | Low/acceptat |
+| 1 | SSR 0 holistic grupuri — ref 2 grupuri/obiect vs oferta 8+ sub-devize; matching bijective nu suporta 1→many | deviz_header_extractor.py, group_comparator.py | **HIGH** |
+| 2 | BR O3: 3 oferta-only neinvestigate | group_comparator.py | Low |
+| 3 | BR O4: 3 ref-only, 12 oferta-only — structura diferita | — | Low |
+| 4 | IZDO3D1 OCR O/0 — Layer 1 consuma cheia gresita | AgentComparator | Low/acceptat |

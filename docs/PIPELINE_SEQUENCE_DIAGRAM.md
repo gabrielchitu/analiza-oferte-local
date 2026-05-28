@@ -1,7 +1,8 @@
 # Pipeline — Diagrama de Secvență
-**Actualizat:** 2026-05-25 | **Versiune:** v11.x (holistic group matching, deviz_cod remapping removed)
+**Actualizat:** 2026-05-28 | **Versiune:** v12.2
 
-> **2026-05-25 Cleanup:** Removed Strategy 0-3 (match_devize_by_denomination) and Phase 1 deviz_matcher blocks. Holistic path (ETAPA 3.5) uses deviz_key hash exclusively. ~66 lines removed; baseline verified unchanged.
+> **2026-05-25:** Removed Strategy 0-3 (match_devize_by_denomination) and Phase 1 deviz_matcher blocks. Holistic path uses deviz_key hash exclusively.
+> **2026-05-28:** CM parser fixed (SKIP_RE, LITRU, L: merge, SUBCOMP dot). CM verificat ✅.
 
 ---
 
@@ -375,22 +376,10 @@ multi_client_run.main()
         │   ├── extract_document(oferta_path, client, model, ref_deviz_groups, ref_articles)
         │   │   └── [identic cu referinta, in plus: ref_deviz_groups pt LLM partial key resolution]
         │   ├── populate_deviz_denominations(oferta_articles)
-        │   ├── [devize_extra] reconcile_missing_devize(ref_path, missing_codes, ckpt, existing)
-        │   ├── [devize_lipsa] reconcile_missing_devize(oferta_path, missing_codes, ckpt, existing)
-        │   ├── match_devize_by_denomination(ref_arts, oferta_arts)   [Strategy 0-3: cod/den matching]
-        │   │   └── fuzzy SequenceMatcher pe denumiri devize
-        │   ├── remap_devize_in_articles(oferta_arts, deviz_mapping)
-        │   ├── remap_devize_by_code_preference(oferta_arts, ref_arts, deviz_mapping)
-        │   ├── _headers_from_articles(ref_arts)   → ref_dh  {deviz_key → DevizHeader}
+        │   ├── _headers_from_articles(ref_arts)    → ref_dh  {deviz_key → DevizHeader}
         │   ├── _headers_from_articles(oferta_arts) → oferta_dh
-        │   ├── match_devize_by_3layer(ref_dh, oferta_dh)           [Strategy 4]
-        │   │   └── similitudine (OBIECTIVUL, Obiectul, Categoria) ≥ threshold
-        │   ├── remap_devize_in_articles(oferta_arts, mapping_3layer)
         │   └── compare_and_report(ref_arts, oferta_arts, oferta_nr, ...)
-        │       ├── match_devize_by_denomination(...)               [re-verify inainte de match]
-        │       ├── normalize_devize(ref_arts, oferta_arts, client, model)
-        │       ├── detect_deviz_mismatches(ref_arts, oferta_norm)  [overlap ≥ 90% → auto-remap]
-        │       ├── match_global(ref_arts, oferta_norm, client, model)
+        │       ├── match_global(ref_arts, oferta_arts, client, model)
         │       │   ├── Layer 1: N:M exact (deviz_key_hash, cod)
         │       │   ├── Layer 2: normalized cod  [article_matcher.py]
         │       │   │   └── _normalize_cod(): strip $, AUT→$, OCR fixes
@@ -485,8 +474,7 @@ Formatul checkpoint:
 
 | # | Problema | Impact | Fix propus |
 |---|----------|--------|------------|
-| 1 | SSR 0 grupuri holistic — `_extract_from_lines` nu detecteaza format SSR (Stadiul fizic: pe o singura linie) | 0 matched SSR | extinde regex in deviz_header_extractor.py |
+| 1 | SSR 0 grupuri holistic — ref 2 grupuri/obiect vs oferta 8+ sub-devize; matching bijective 1→many | 0 matched SSR | strategie noua in group_comparator.py |
 | 2 | BR O4: 3 ref-only, 12 oferta-only | raport incomplet | investigare structura document |
 | 3 | BR O3: 3 oferta-only | minor | investigare |
-| 4 | CM: grupuri mismatch ref/oferta | raport incomplet | investigare |
-| 5 | IZDO3D1 OCR: Layer 1 consuma IZD03D1 | 1 LIPSA per oferta | low priority/acceptat |
+| 4 | IZDO3D1 OCR: Layer 1 consuma IZD03D1 | 1 LIPSA per oferta | low priority/acceptat |
