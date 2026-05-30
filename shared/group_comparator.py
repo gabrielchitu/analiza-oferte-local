@@ -12,6 +12,12 @@ from pathlib import Path
 from dataclasses import dataclass, field
 from collections import defaultdict
 
+try:
+    from rapidfuzz import fuzz as _rfuzz
+    _RAPIDFUZZ_AVAILABLE = True
+except ImportError:
+    _RAPIDFUZZ_AVAILABLE = False
+
 logger = logging.getLogger(__name__)
 
 
@@ -85,6 +91,48 @@ def _save_knowledge(client_name: str, new_pairs: list[dict]) -> None:
     _KNOWLEDGE_PATH.write_text(
         json.dumps(knowledge, ensure_ascii=False, indent=2), encoding="utf-8"
     )
+
+
+def _match_by_rapidfuzz(
+    remaining_ref: dict,
+    remaining_oferta: dict,
+    threshold: int = 85,
+) -> list[tuple[str, str, str, str]]:
+    """Phase 2a: RapidFuzz partial_token_set_ratio pe 'obiectul + categoria'.
+
+    remaining_ref, remaining_oferta: dict[deviz_key, DevizHeader]
+    Returnează [(ref_key, oferta_key, ref_den, oferta_den)] cu score >= threshold.
+    """
+    if not _RAPIDFUZZ_AVAILABLE or not remaining_ref or not remaining_oferta:
+        return []
+
+    matches = []
+    used_oferta: set[str] = set()
+
+    for rk, rh in sorted(remaining_ref.items()):
+        ref_text = f"{rh.obiectul or ''} {rh.categoria or ''}".strip()
+        if not ref_text:
+            continue
+        best_score, best_ok, best_oh = 0, "", None
+        for ok, oh in sorted(remaining_oferta.items()):
+            if ok in used_oferta:
+                continue
+            off_text = f"{oh.obiectul or ''} {oh.categoria or ''}".strip()
+            if not off_text:
+                continue
+            score = _rfuzz.partial_token_set_ratio(ref_text, off_text)
+            if score > best_score:
+                best_score, best_ok, best_oh = score, ok, oh
+        if best_score >= threshold and best_ok:
+            ref_den = _den_string(rh)
+            oferta_den = _den_string(best_oh)
+            matches.append((rk, best_ok, ref_den, oferta_den))
+            used_oferta.add(best_ok)
+            logger.info(
+                f"[GC] RapidFuzz match (score={best_score}): "
+                f"ref {rk[:8]} ↔ oferta {best_ok[:8]}"
+            )
+    return matches
 
 
 _LLM_GROUP_SYSTEM_PROMPT = (
@@ -577,6 +625,23 @@ def compare_by_groups(
         ])
         remaining_ref_keys -= matched_ref_cods
         remaining_oferta_keys -= matched_oferta_cods
+
+        # Phase 2a: RapidFuzz (deterministic, faster than LLM)
+        if remaining_ref_keys and remaining_oferta_keys:
+            _remaining_ref_hdrs = {k: ref_deviz_headers[k] for k in remaining_ref_keys if k in ref_deviz_headers}
+            _remaining_oferta_hdrs = {k: oferta_deviz_headers[k] for k in remaining_oferta_keys if k in oferta_deviz_headers}
+            rf_pairs = _match_by_rapidfuzz(_remaining_ref_hdrs, _remaining_oferta_hdrs)
+            _run_secondary_match([
+                (rk, ok, "rapidfuzz", rd, od) for rk, ok, rd, od in rf_pairs
+            ])
+            # Salvează în knowledge (evită RapidFuzz la rulări viitoare)
+            _save_knowledge(client_name, [
+                {"ref_den": rd, "oferta_den": od}
+                for rk, ok, rd, od in rf_pairs
+                if rk in matched_ref_cods
+            ])
+            remaining_ref_keys -= matched_ref_cods
+            remaining_oferta_keys -= matched_oferta_cods
 
         # Knowledge phase
         knowledge_pairs = _apply_knowledge(
