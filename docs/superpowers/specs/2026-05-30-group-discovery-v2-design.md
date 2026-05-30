@@ -25,12 +25,21 @@
 
 Grupurile din ofertă fără corespondent în referință (`oferta_only`) sunt **nenaturale** în domeniu: nu pot exista lucrări ofertate fără specificație tehnică. Deci:
 
+### Invariant hard: `oferta_only == 0`
+
+Orice `oferta_only > 0` = bug extracție referință. Agentul **nu acceptă** rezultatul și retriggerează extracția din referință cu profiler alternativ. Fără excepții.
+
+### Invariant soft: `ref_only ≤ MAX_REF_ONLY` (default=2, configurat per-client)
+
+Ofertantul poate omite lucrări — `ref_only` mic e acceptabil. Dacă `ref_only` nu se reduce după N iterații → agentul **întreabă operatorul** (nu ia decizie singur).
+
 | Semnal | Interpretare | Acțiune |
 |--------|-------------|---------|
-| `oferta_only > 3` | Referința n-a descoperit toate grupurile | Re-extracție referință cu profiler alternativ |
-| `oferta_only` scade după retry | Extracție converge | Continuă loop |
-| `oferta_only` stabil după 2 retry | Format nesuportat / document atipic | Escaladare raport |
-| `ref_only` stabil după 2 retry | Diferență reală (ofertant a omis lucrări) | Raport final, fără fix |
+| `oferta_only > 0` | Referința incompletă — grupuri nedescoperite | **Retry obligatoriu** — re-profil referință |
+| `oferta_only` scade spre 0 | Extracție referință converge | Continuă loop |
+| `oferta_only > 0` stabil după N retry | Format nesuportat / document atipic | Escaladare operator obligatorie |
+| `ref_only ≤ 2` | Ofertant a omis lucrări (acceptabil) | Raport, fără retry |
+| `ref_only > 2` după 2 retry | Potențial bug sau omisiune masivă | Întreabă operatorul |
 
 ---
 
@@ -244,31 +253,38 @@ def match_groups_autonomous(
     4. Phase 2c: LLM fallback
     5. Dacă oferta_only > MAX_OFERTA_ONLY → re-profil referință + retry
     """
-    MAX_OFERTA_ONLY = 3
+    MAX_REF_ONLY = 2   # configurat per-client în agent_knowledge.json
     trace = []
-    
+
     for iteration in range(max_iter):
         result = _run_matching_phases(ref_groups, oferta_groups, client_name)
         oferta_only_count = len(result["oferta_only_groups"])
-        
+        ref_only_count = len(result["ref_only_groups"])
+
         trace.append({
             "iteration": iteration,
             "oferta_only_count": oferta_only_count,
-            "ref_only_count": len(result["ref_only_groups"]),
+            "ref_only_count": ref_only_count,
             "matched_count": len(result["matched_groups"]),
             "strategy": result.get("strategy_used")
         })
-        
-        if oferta_only_count <= MAX_OFERTA_ONLY:
-            break  # converged
-            
+
+        # Hard invariant: oferta_only TREBUIE să fie 0
+        if oferta_only_count == 0:
+            break  # converged — continuăm cu ref_only check
+
+        # Retry obligatoriu: re-profil referință cu strategie alternativă
         if iteration < max_iter - 1:
-            # Re-profil referință cu strategie alternativă
             alt_profile = _alternate_profile(di_ref_json, iteration)
             ref_groups = extract_groups(di_ref_json, alt_profile)
-    
+
+    # Dacă oferta_only > 0 după toate retry-urile → flag pentru operator
+    converged = len(result["oferta_only_groups"]) == 0
+    needs_operator = not converged or len(result["ref_only_groups"]) > MAX_REF_ONLY
+
     result["convergence_trace"] = trace
-    result["converged"] = len(result["oferta_only_groups"]) <= MAX_OFERTA_ONLY
+    result["converged"] = converged
+    result["needs_operator_review"] = needs_operator
     return result
 ```
 
@@ -322,9 +338,10 @@ Pas 6 — Commit
 ```
 
 ### Stop conditions
-- `oferta_only == 0` → succes complet
-- `oferta_only` stabil (±0) pe 2 iterații consecutive → escaladare
-- `ref_only` stabil pe 2 iterații → diferență reală, raport final
+- `oferta_only == 0` → succes hard invariant îndeplinit; verifică `ref_only`
+- `oferta_only > 0` după N retry → **întreabă operatorul obligatoriu** (nu raport automat)
+- `ref_only ≤ 2` → acceptabil, raport final fără acțiune
+- `ref_only > 2` stabil → întreabă operatorul
 
 ---
 
