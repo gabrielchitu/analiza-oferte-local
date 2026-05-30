@@ -76,10 +76,41 @@ def _normalize_cod(cod: str) -> str:
     Kept for backward compatibility with Layer 2 fuzzy matching only.
     """
     cod = (cod or "").strip().upper()
+    # Strip special characters FIRST (before OCR replacements)
+    # Caractere speciale (#, @, -, etc.) sunt artefacte software/OCR — stripuim.
+    cod = re.sub(r'[^A-Z0-9$]', '', cod)
+
+    # Handle $ prefixed codes early (numeric only)
+    if cod.startswith('$'):
+        num = re.sub(r'[^0-9]', '', cod[1:])  # extrage doar cifrele
+        if len(num) >= 8:
+            # Codurile de breviar au max 7 cifre; 8+ cifre = cifra OCR in plus → trunchiaza
+            num = num[:7]
+        return '$' + num if num else cod
+
+    # Coduri normative utilaj cu sufix pur numeric (AUT6753, CMP1234 etc.):
+    # unele oferte omit prefixul si scriu doar numarul (6753 → $6753).
+    # Normalizare: AUT6753 → $6753 = identic cu $6753 din oferta.
+    m_util = re.match(r'^[A-Z]{2,5}(\d{4,5})$', cod)
+    if m_util:
+        return '$' + m_util.group(1)
+
+    # Pure numeric codes (no letters) → $prefix
+    if re.match(r'^\d+$', cod):
+        return '$' + cod
+
+    # For valid code patterns, strip artifacts and return as-is
+    # Valid pattern: prefix (2-5 letters) + number (2-4 digits) + optional letter + optional 1-2 digits
+    m = re.match(r'^([A-Z]{2,5}\d{2,4}[A-Z]?\d{0,2})$', cod)
+    if m:
+        # Code already matches valid pattern — no aggressive OCR replacements
+        return m.group(1)
+
+    # For codes that don't match valid pattern, apply aggressive OCR fixes
     # OCR fix: lowercase 'l' often confused with digit '1'
     cod = cod.replace('l', '1').replace('L', '1')
     # OCR fix: letter 'I' often confused with digit '1' — normalize I to 1
-    # SA13I# vs SA131# should be treated as identical
+    # SA13I → SA131 (I becomes 1 in OCR)
     cod = cod.replace('I', '1')
     # OCR fix: letter 'O' often confused with digit '0' — normalize to '0'
     # IZDO4D1 → IZD04D1 (O becomes 0 in PDF)
@@ -87,24 +118,10 @@ def _normalize_cod(cod: str) -> str:
     # Apply learned OCR patterns (additive — never override hardcoded above)
     for src, dst in _OCR_LEARNED.items():
         cod = cod.replace(src, dst)
-    if cod.startswith('$'):
-        num = re.sub(r'[^0-9]', '', cod[1:])  # extrage doar cifrele
-        if len(num) >= 8:
-            # Codurile de breviar au max 7 cifre; 8+ cifre = cifra OCR in plus → trunchiaza
-            num = num[:7]
-        return '$' + num if num else cod
-    if re.match(r'^\d+$', cod):
-        return '$' + cod
-    # Coduri normative utilaj cu sufix pur numeric (AUT6753, CMP1234 etc.):
-    # unele oferte omit prefixul si scriu doar numarul (6753 → $6753).
-    # Normalizare: AUT6753 → $6753 = identic cu $6753 din oferta.
-    m_util = re.match(r'^[A-Z]{2,5}(\d{4,5})$', cod)
-    if m_util:
-        return '$' + m_util.group(1)
-    # Caracterele speciale (#, @, -, etc.) sunt artefacte software/OCR — stripuim.
-    # Codurile valide contin NUMAI [A-Z0-9]. Nu inlocuim # cu 1 (da cod gresit).
+
+    # Extract valid code structure from the OCR-corrected version
     m = re.match(r'^([A-Z]{2,5}\d{2,4}[A-Z]?\d{0,2})', cod)
-    return m.group(1) if m else re.sub(r'[^A-Z0-9]', '', cod)
+    return m.group(1) if m else cod
 
 
 def _enrich(neconf: dict, ref_art: dict, oferta_art: dict,

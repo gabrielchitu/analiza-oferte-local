@@ -47,12 +47,164 @@
     {
       "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.3 Inst incin sanit tip III neeli | 07 Conducte apa incinta",
       "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Instalatii incinta sanitara tip III neeligibil | Conducte apa incinta"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.4 Parcare tip III | 1 Terasamente",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Parcare tip III | Terasamente Beneficiar:"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.1 Cladire camin | 21 Echipam el paratras tip III",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Cladire camin | Echipam el paratras tip III Beneficiar:"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.1 Cladire camin | 15 Echipam el tablouri tip I",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Cladire camin | Echipam el tablouri tip I Beneficiar:"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.1 Cladire camin | 19 Echipam el fotovoltaice tip I",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Cladire camin | Echipam el fotovoltaice tip I Beneficiar:"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.1 Cladire camin | 09 Instalatii termice desf tipII",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Cladire camin | Instalatii termice desf tip II Beneficiar:"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.1 Cladire camin | 18 Echipam panouri solare tip I",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Cladire camin | Echipam panouri solare tip I Beneficiar:"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.1 Cladire camin | 17 Echipam apa calda tip I",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Instalatii incinta sanitara tip III neeligibil | Terasam canal"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.3 Inst incin sanit tip III neeli | 05 Instalatii camin apometru",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Cladire camin | Echipam detect inc tip III Beneficiar:"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.3 Inst incin sanit tip III neeli | 08 Conducte canal incinta",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Cladire camin | Instalatii ventilatii tip I Beneficiar:"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.3 Inst incin sanit tip III neeli | 01 Terasamente apa",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Instalatii incinta sanitara tip III neeligibil | Conducte canal incinta"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.1 Cladire camin | 21 Echipam el paratras tip III",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Instalatii incinta sanitara tip III neeligibil | Camin vane 1,9x1,9xx1,5m"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.1 Cladire camin | 15 Echipam el tablouri tip I",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Instalatii incinta sanitara tip III neeligibil | Instalatii camin apometru"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.1 Cladire camin | 10 Instalatii HAC - tip I",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Instalatii incinta sanitara tip III neeligibil | Conducte apa incinta Beneficiar:"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.3 Inst incin sanit tip III neeli | 06 Inst sanitare GospApa",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Instalatii incinta sanitara tip III neeligibil | Terasam canal Beneficiar:"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.1 Cladire camin | 18 Echipam panouri solare tip I",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Instalatii incinta sanitara tip III neeligibil | Camin vane 1,9x1,9xx1,5m Beneficiar:"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.4 Parcare tip III | 2 Parcare",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Cladire camin | Inst electrice ilum tip I Beneficiar:"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.3 Inst incin sanit tip III neeli | 02 Terasam canal",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Instalatii incinta sanitara tip III neeligibil | Terasamente apa"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.3 Inst incin sanit tip III neeli | 03 Camine canal menajer 7b",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Instalatii incinta sanitara tip III neeligibil | Conducte apa incinta"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.3 Inst incin sanit tip III neeli | 04 Camin vane 1 b 1,9x1,9x1,5m",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Instalatii incinta sanitara tip III neeligibil | Inst sanitare GospApa"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.1 Cladire camin | 19 Echipam el fotovoltaice tip I",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Instalatii incinta sanitara tip III neeligibil | Inst sanitare GospApa Beneficiar:"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.3 Inst incin sanit tip III neeli | 07 Conducte apa incinta",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Cladire camin | Inst detectie incendiu tip III Beneficiar:"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.3 Inst incin sanit tip III neeli | 09 Echipam Gosp apa ext",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Cladire camin | Arhitectura - eligibile tip I Beneficiar:"
+    },
+    {
+      "ref_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | 4.4 Parcare tip III | 1 Terasamente",
+      "oferta_den": "01 \" CRESTERE EFICIENTEI ENERGETICE IN CADRUL CAMINULUI CULTURAL MANECIU, | Cladire camin | Ins electrice tip I Beneficiar:"
     }
   ],
   "Blocuri Racari": [
     {
       "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN | 3 ORGANIZARE SANTIER | BLC7 ORGANIZARE SANTIER",
       "oferta_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A, B,C,A2,A3,A4 DIN | 4 ORGANIZARE DE SANTIER BLOC B | BLC7 ORGANIZARE DE SANTIER"
+    },
+    {
+      "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3 | BLC1 ARHITECTURA Formular F3",
+      "oferta_den": "06 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C | 01 BLC 1 ARHITECTURA"
+    },
+    {
+      "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4 | BLC1 ARHITECTURA Formular F3",
+      "oferta_den": "03 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3 | 01 BLC 1 ARHITECTURA"
+    },
+    {
+      "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4 | BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE Formular F3",
+      "oferta_den": "04 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4 | 03 BLC 3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+    },
+    {
+      "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C | BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE Formular F3",
+      "oferta_den": "04 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4 | 01 BLC 1 ARHITECTURA"
+    },
+    {
+      "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A, B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C | BLC1 ARHITECTURA Formular F3",
+      "oferta_den": "04 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, | 3 ORGANIZARE SANTIER | 1 BLC7 ORGANIZARE SANTIER"
+    },
+    {
+      "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2 | BLC1 ARHITECTURA Formular F3",
+      "oferta_den": "06 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, | 4 ORGANIZARE SANTIER | 1 BLC7 ORGANIZARE SANTIER"
+    },
+    {
+      "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A | BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE Formular F3",
+      "oferta_den": "05 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B | 03 BLC 3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+    },
+    {
+      "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B | BLC1 ARHITECTURA Formular F3",
+      "oferta_den": "03 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3 | 03 BLC 3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+    },
+    {
+      "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2 | BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE Formular F3",
+      "oferta_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2 | 03 BLC 3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+    },
+    {
+      "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B | BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE Formular F3",
+      "oferta_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A, B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 3 ORGANIZARE SANTIER | 1 BLC7 ORGANIZARE SANTIER"
+    },
+    {
+      "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A3 | BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE Formular F3",
+      "oferta_den": "05 EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC B | 01 BLC 1 ARHITECTURA"
+    },
+    {
+      "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 3 LUCRARI SPATII SERVICII-SEDII BLOC B - NEELIGIBL | BLC6 ARHITECTURA-NEELIGIBIL Formular F3",
+      "oferta_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2 | 01 BLC 1 ARHITECTURA"
+    },
+    {
+      "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A | BLC1 ARHITECTURA Formular F3",
+      "oferta_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A, B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A | 03 BLC 3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+    },
+    {
+      "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2 | BLC3 MONTAJ SISTEM PANOURI FOTOVOLTAICE Formular F3",
+      "oferta_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A, B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2 | 03 BLC 3 MONTAJ SISTEM PANOURI FOTOVOLTAICE"
+    },
+    {
+      "ref_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 3 LUCRARI SPATII SERVICII-SEDII BLOC B - NEELIGIBL | BLC6 ARHITECTURA-NEELIGIBIL Formular F3",
+      "oferta_den": "EFICIENTIZARE ENERGETICA A BLOCURILOR A, B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA | 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A2 | 01 BLC 1 ARHITECTURA"
     }
   ],
   "Scoala Sportiva Racari": [
@@ -115,6 +267,22 @@
     {
       "ref_den": "0226 45000000 | 0001 | 0120",
       "oferta_den": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI | 1 TEREN DE TENIS ACOPERIT | 226113 ARHITECTURA -teren tenis acoperit"
+    },
+    {
+      "ref_den": "0226 45000000 | 0006 45000000 | 0120",
+      "oferta_den": "0226 45000000 | 0005 45000000 GRUPURI SANITARE PUBLICE | oferta 226548 INSTALATII TERMICE Beneficiar:"
+    },
+    {
+      "ref_den": "0226 45000000 | 0006 45000000 UTILITATI-RETELE EXTERIOARE | 0120",
+      "oferta_den": "0226 45000000 | 0005 45000000 GRUPURI SANITARE PUBLICE | oferta 226578 SISTEM SUPRAVEGHEREA VIDEO -OB5"
+    },
+    {
+      "ref_den": "0226 45000000 | 0007 45000000 | 0120",
+      "oferta_den": "0226 45000000 | 0003 45000000 AMENAJARI EXTERIOARE | oferta 226328 ARHITECTURA GRADENE"
+    },
+    {
+      "ref_den": "0226 45000000 | 0006 45000000 | 0120",
+      "oferta_den": "0226 45000000 | 006 UTILITATI - RETELE EXTERIOARE | EXTINDERE SI MODERNIZARE BAZA SPORTIVA RACARI 006 UTILITATI - RETELE EXTERIOARE"
     }
   ],
   "BR BLOC A": [
@@ -1079,6 +1247,932 @@
     {
       "ref_den": "0021 Drumuri Tatarani | 0012 Strada Padurii | 0005 Marcaje laterale 162ml",
       "oferta_den": "0050 45230000 | 0012 45230000 | PA0005 MARCAJE LATERALE 162ML"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0009 Str.Vloncesti | 0005 BAPC16-4cm 2,08smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0009 9 Strada Vloncesti | VL0004 BADPS22.4 - 6CM 2.08SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0001 Terasamente 5,4smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0006 6 Strada Molanesti | MO0006 Acostamente 10 cm 61.2 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0018 Strada Minei | 0001 Terasamente 13,68amp",
+      "oferta_den": "0021 Drumuri Tatarani | 0009 9 Strada Vloncesti | VL0005 BAPC16 - 4cm 2.08smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0003 BCR4,5 - 18cm 6,90smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0012 120 Strada Padurii | PA0003 BCR4.5 -18cm 2.30smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0012 Strada Padurii | 0006 Semn.vert.STOP 1bc.",
+      "oferta_den": "0021 Drumuri Tatarani | 0004 4 Strada Teiului | TE0004 BADPS22.4 - 6 cm 3.10 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0002 Balast 15cm 5,4smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0012 120 Strada Padurii | PA0005 Marcaje orizontale 162ml"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0011 Strada Frunzei | 0004 BADPS22,4-6cm 2,35smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0003 3 Strada Dobre | DO0002 Balast 15 cm 7.12 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0012 Strada Padurli | 0003 BCR4,5-18cm 2,30smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0019 19 Strada Soarelui | SO0004 BADPS22.4 - 6cm 105mp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0019 Strada Soarelui | 0004 BADPS22,4-6cm 105mp",
+      "oferta_den": "0021 Drumuri Tatarani | 0018 18 Strada Minei | MI0004 BADPS22.4-6cm 10.32smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0013 Strada Tarinei | 0003 BCR4,5-18cm 2,68smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0008 8 Strada Bisericii | BI0004 BADPS22.4 - 6cm 4.67 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0017 Strada Aninoasei | 0011 Baza din ABPS31,5-8cm",
+      "oferta_den": "0021 Drumuri Tatarani | 0001 1 Strada Zoica | ZO0003 BCR4.5 - 18 cm 6.90 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0010 Str.Gegilor | 0001 BCR4,5-18cm 892mp",
+      "oferta_den": "0021 Drumuri Tatarani | 0001 1 Strada Zoica | ZO0006 Zid R200 - 50 m (10 bc)"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0004 BADPS22,4-6cm 4,80smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0014 14 Strada Pisicesti | PS0004 BADPS22.4-6cm 14.18smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0002 Strada Branii | 0005 BAPC16-4cm 19,03smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0014 14 Strada Pisicesti | PS0009 Semnalizare verticala STOP 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0006 Podet dalat L=5m H=1,5m 1bc.",
+      "oferta_den": "0021 Drumuri Tatarani | 0002 2 Strada Branii | BR0004 BADPS22.4 - 6 cm 19.03 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0012 Parapet cu lisa SP61 - 115m",
+      "oferta_den": "0021 Drumuri Tatarani | 0011 11 Strada Frunzei | FR0005 BAPC16 - 4cm 2.35smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0018 Strada Minei | 0004 BADPS22,4-6cm 10,32smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0006 6 Strada Molanesti | MO0004 BADPS22.4 - 6cm 4.80 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0004 Strada Teiului | 0003 Piatra sparta 12cm 3,50smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0005 5 Strada Valea Ursului | VU0002 Balast 25 cm 12.07 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0009 Str.Vloncesti | 0010 Semn.vert. STOP 1bc.",
+      "oferta_den": "0021 Drumuri Tatarani | 0012 120 Strada Padurii | PA0006 Semn. vert. STOP 1 bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0009 Str.Vloncesti | 0004 BADPS22,4-6cm 2,08smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0004 4 Strada Teiului | TE0002 Balast 15 cm 3.50 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0012 Zid ZCM100 160m (32bc.)",
+      "oferta_den": "0232 000000232 | 0003 3 DRUMURI TATARANI | DO0009 Zid ZCM100 125m (25 bc)"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0006 Acostamente 10cm 61,2mp",
+      "oferta_den": "0021 Drumuri Tatarani | 0017 17 Strada Aninoasei | AN3 Piatra sparta 12cm 32.45smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0017 Strada Aninoasei | 0003 Piatra sparta 12cm 32,45smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0006 6 Strada Molanesti | MO0002 Balast 15 cm 5.4 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0016 Strada Rachitel | 0008 Semnalizare vert. STOP 1bc.",
+      "oferta_den": "0021 Drumuri Tatarani | 0003 3 Strada Dobre | DO0004 BADPS22.4 - 6 cm 6.3 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0014 Strada Pisicesti | 0009 Semnalizare vert.STOP 1bc.",
+      "oferta_den": "0021 Drumuri Tatarani | 0017 17 Strada Aninoasei | AN5 BAPC16-4cm 25.96smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0017 Strada Aninoasei | 0005 BAPC16-4cm 25,96smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0004 4 Strada Teiului | TE0005 BAPC16 - 4cm 3.10 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0004 Strada Teiului | 0002 Balast 15cm 3,50smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0008 8 Strada Bisericii | BI0005 BAPC16 - 4cm 4.67 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0005 BAPC16-4cm 6,3smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0016 16 Strada Rachitei | RA0004 BADPS22.4 1.64smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0005 Strada Valea Ursului | 0003 BCR4,5-18cm 10,87smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0017 17 Strada Aninoasei | AN0011 Baza din ABPS31.5 - 8cm"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0012 Strada Padurii | 0005 Marcaje laterale 162ml",
+      "oferta_den": "0021 Drumuri Tatarani | 0002 2 Strada Branii | BR0005 BAPC16 - 4 cm 19.03 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0017 Strada Aninoasei | 0002 Balast 15cm 32,45smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0001 1 Strada Zoica | ZO0012 Parapet cu lisa SP61=115 m"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0006 Zid R200 -50m (10bc.)",
+      "oferta_den": "0021 Drumuri Tatarani | 0008 8 Strada Bisericii | BI0006 Acostamente 10cm 60mp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0004 BADPS22,4-6cm 6,3smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0003 3 Strada Dobre | DO0006 Podet dalat L=5 m H=1.5 m 1 bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0009 Zid ZCM100 125m (25bc.)",
+      "oferta_den": "0021 Drumuri Tatarani | 0018 18 Strada Minei | MI0001 Terasamente 13.68smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0004 Strada Telului | 0005 BAPC16-4cm 3,10smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0009 9 Strada Vloncesti | VL0010 Semn. vertic. STOP 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0017 Strada Aninoasei | 0001 Terasamente 32,45smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0010 10 Strada Gegilor | GE0001 BCR4.5 - 18cm 892mp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0017 Strada Aninoasei | 0004 BADPS22,4-6cm 25,96smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0011 11 Strada Frunzei | FR0004 BADPS22.4 - 6cm 2.35smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0016 Strada Rachitei | 0004 BADPS22,4-6cm 1,64smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0013 13 Strada Tarinei | TA0003 BCR4.5 -18cm 2.68smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0014 Strada Pisicesti | 0004 BADPS22,4-6cm 14,18smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0003 3 Strada Dobre | DO0005 BAPC 16-4 cm 6.3 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0002 Balast 15cm 7,12smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0017 17 Strada Aninoasei | AN4 BADPS22.4-6cm 25.96smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0004 Strada Telului | 0004 BADPS22,4-6cm 3,10smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0004 4 Strada Teiului | TEO003 strat piatra 12 cm 3.5 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0002 Strada Branii | 0002 Balast 15cm 23,57smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0015 15 Strada Scolii | SC0004 BADPS22.4 -6cm 11.78smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0004 BADPS22,4-6cm 4,67smp",
+      "oferta_den": "0232 000000232 | 0008 8 DRUMURI TATARANI | BI0012 Zid ZCM100 160m (32bc)"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0015 Strada Scolii | 0004 BADPS22,4-6cm 11,78smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0016 16 Strada Rachitei | RA0008 semn. vert. STOP 1bc."
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0011 Strada Frunzei | 0005 BAPC16-4cm 2,35smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0005 5 Strada Valea Ursului | VU0003 BCR 4.5 - 18 cm 10.87 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0005 Strada Valea Ursului | 0002 Balast 25cm 12,07smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0017 17 Strada Aninoasei | AN2 Balast 15cm 32.45smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0002 Strada Branii | 0004 BADPS22,4 - 6cm 19,03smp",
+      "oferta_den": "0021 Drumuri Tatarani | 0002 2 Strada Branii | BR0002 Balast 15 cm 23.57 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0006 Acostam.10cm 60mp.",
+      "oferta_den": "0021 Drumuri Tatarani | 0006 6 Strada Molanesti | MO0001 Terasamente 5.4 smp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0010 Str.Gegilor | 0005 Balast 25cm 225mp",
+      "oferta_den": "0050 45230000 | 0010 45230000 | G0001 BCR4.5 - 18CM 892MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0009 Str.Vloncesti | 0005 BAPC16-4cm 2,08smp",
+      "oferta_den": "0050 45230000 | 0009 45230000 | VL0004 BADPS22.4 - 6CM 2.08SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0001 Terasamente 5,4smp",
+      "oferta_den": "0050 45230000 | 0006 45230000 | M0009 BORDURA MICA 220ML"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0017 Strada Aninoasei | 0008 Sant betonat 18,50smp",
+      "oferta_den": "0050 45230000 | 0008 45230000 | BI0008 PARAPET TIP II PODURI 10M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0015 Strada Scolii | 0002 Balast 15cm 13,26smp",
+      "oferta_den": "0050 45230000 | 0002 45230000 | BR0004 BADPS22.4 - 6CM 19.03 SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0014 Strada Pisicesti | 0002 Balast -15cm 15,94smp",
+      "oferta_den": "0050 45230000 | 0002 45230000 | BR0008 MARCAJ LATERAL 908M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0013 Alee beton 15cm -240mp.",
+      "oferta_den": "0050 45230000 | 0008 45230000 S | BI0016 SEMN. VERT. STOP 2bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0003 BCR4,5 - 18cm 6,90smp",
+      "oferta_den": "0050 45230000 | 0015 45230000 | SC0004 BADPS22.4 - 6CM 11.78SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0012 Strada Padurii | 0006 Semn.vert.STOP 1bc.",
+      "oferta_den": "0050 45230000 | 0012 45230000 | PA0005 MARCAJE LATERALE 162ML"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0018 Strada Minei | 0010 Marcaj lateral 448m",
+      "oferta_den": "0050 45230000 | 0018 45230000 | MI0004 BADPS22.4 - 6CM 10.32SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0007 Placa suprabet.4mc, 556kg f.b.",
+      "oferta_den": "0050 45230000 | 0007 45230000 | VS0004 PARCARE ABPS31.5- 8CM 280MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0013 Strada Tarinei | 0006 Acostamente 18cm 38mp",
+      "oferta_den": "0050 45230000 | 0013 45230000 | TA0005 SEMNALIZARE VERT. STOP 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0002 Balast 15cm 5,4smp",
+      "oferta_den": "0050 45230000 | 0006 45230000 | M0008 PARAPET CU LISA SP61 38ML"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0001 Terasamente 5,27smp",
+      "oferta_den": "0050 | 0008 45230000 | BI0007 PLACA SUPRABET. 4MC , 556KG f.b."
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0019 Strada Soarelui | 0008 Marcaj lateral 436m",
+      "oferta_den": "0050 45230000 | 0019 45230000 | SO0001 TERASAMENTE 135MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0009 Sapa si hidroizolatia 20mp",
+      "oferta_den": "0050 45230000 | 0009 45230000 | VL0008 RIDICARE APA-CANAL 3bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0018 Strada Minei | 0005 BAPC16-4cm 10,32smp",
+      "oferta_den": "0050 45230000 | 0005 45230000 | VU0002 BALAST 25CM 12.07SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0008 Prefabricate P2-50m incl.amen.",
+      "oferta_den": "0050 45230000 | 0003 45230000 | D0011 MARCAJ LATERAL 412M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0007 Acostamente 10cm 82,4mp",
+      "oferta_den": "0050 45230000 | 0007 45230000 | VS0008 ACCESE LATERALE ASF. 120MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0011 Strada Frunzei | 0004 BADPS22,4-6cm 2,35smp",
+      "oferta_den": "0050 45230000 | 0004 45230000 | T0003 PIATRA SPARTA 12CM 3.50SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0007 Str.Valea Satului | 0005 Acc.parcare BAPC16 760mp",
+      "oferta_den": "0050 45230000 | 0017 45230000 | A0005 BAPC16 - 4CM 25.96SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0007 Str.Valea Satului | 0001 Podete casetate P2 5bc.",
+      "oferta_den": "0050 45230000 | 0007 45230000 | VS0005 Acc. parcare BAPC16 760mp"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0011 Strada Frunzei | 0007 Marcaje orizontale 160m",
+      "oferta_den": "0050 45230000 | 0011 45230000 | FR0005 BAPC16 - 4CM 2.35SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0016 Strada Rachitei | 0009 Podet DN600 L=5m 1bc.",
+      "oferta_den": "0050 45230000 | 0016 45230000 | RA0007 MARCAJ LATERAL 112ML"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0017 Strada Aninoasei | 0010 Marcaje laterale 1291m",
+      "oferta_den": "0050 45230000 | 0017 45230000 | A0006 ACOSTAMENT 10CM 649MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0015 Strada Scolii | 0007 Canivou carosabil 10m",
+      "oferta_den": "0050 45230000 | 0015 45230000 | SC0001 TERASAMENTE 13.26SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0012 Strada Padurli | 0003 BCR4,5-18cm 2,30smp",
+      "oferta_den": "0050 | 0003 45230000 | D0001 TERASAMENTE 7.12SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0009 Str.Vloncesti | 0001 Terasamente 2,37smp",
+      "oferta_den": "0050 45230000 | 0009 45230000 | VL0010 SEMN. VERT. STOP 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0009 Str.Vloncesti | 0007 Spargeri, demolari 60mp",
+      "oferta_den": "0050 45230000 | 0009 45230000 | VL0006 ACOSTAMENTE 10CM 30MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0005 Strada Valea Ursului | 0004 Acostamente 18cm 120mp",
+      "oferta_den": "0050 45230000 | 0005 45230000 | VU0006 MARCAJE LATERALE 600M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0007 Zid R150 25m (5bc.)",
+      "oferta_den": "0050 45230000 | 0007 45230000 | VS0007 SEMN PARCARE 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0014 Strada Pisicesti | 0001 Terasamente 15,94smp",
+      "oferta_den": "0050 45230000 | 0014 45230000 | PI0002 BALAST -15CM 15.94SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0014 Strada Pisicesti | 0006 Acostament 10cm 176mp",
+      "oferta_den": "0050 45230000 | 0014 45230000 | PI0008 MARCAJ LATERAL 880M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0018 Strada Minei | 0003 Piatra sparta 12cm 13,68smp",
+      "oferta_den": "0050 45230000 | 0018 45230000 | MI0006 ACOSTAMENTE 10CM 336MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0011 Gabioane H=2m 115m",
+      "oferta_den": "0050 45230000 | 0011 45230000 | FR0006 ACOSTAMENTE 10CM 32MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0020 Organizare de santier | 0003 Macadam ordinar 12cm 800mp",
+      "oferta_den": "0050 45230000 | 0020 45230000 | OS5004 OPERATIUNI BARACI 3buc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0017 Strada Aninoasel | 0006 Acostament 10cm 649mp",
+      "oferta_den": "0050 45230000 | 0017 45230000 | A0008 SANT BETONAT 18.50SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0010 Str.Gegilor | 0003 Semn.vert.STOP 1bc.",
+      "oferta_den": "0050 45230000 | 0003 45230000 | D0006 PODET DALAT L=5m H=1.5m 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0019 Strada Soarelui | 0004 BADPS22,4-6cm 105mp",
+      "oferta_den": "0050 45230000 | 0019 45230000 | SO0008 MARCAJ LATERAL 436M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0004 Strada Teiului | 0009 Semnalizare vert. STOP 1bc.",
+      "oferta_den": "0050 45230000 | 0018 45230000 | MI0011 SEMNALIZARE VERT. STOP 4bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0012 Strada Padurii | 0002 Balast 25cm 2,62smp",
+      "oferta_den": "0050 45230000 | 0012 45230000 | PA0001 TERASAMENTE 2.62SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0002 Strada Branii | 0009 Semnalizare STOP 5buc.",
+      "oferta_den": "0050 45230000 | 0005 45230000 | VU0007 SEMN.VERT. STOP 1buc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0014 Strada Pisicesti | 0007 Zid D200 L=25m (5bc.)",
+      "oferta_den": "0050 45230000 | 0007 45230000 | VS0002 PREFABRICATE P2 - 70M incl. amen"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0005 Strada Valea Ursului | 0001 Terasamente 12,07smp",
+      "oferta_den": "0050 45230000 | 0005 45230000 | VU0003 BCR4.5 - 18CM 10.87SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0013 Strada Tarinei | 0002 Balast 25cm 3,06smp",
+      "oferta_den": "0050 45230000 | 0013 45230000 | TA0003 BCR4.5 - 18CM 2.68SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0002 Strada Branii | 0003 Piatra sparta 12cm 23,57smp",
+      "oferta_den": "0050 45230000 | 0003 45230000 | D0007 ACOSTAMENTE 10CM 82.4MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0019 Strada Soarelui | 0007 Acostamente 10cm 30mp",
+      "oferta_den": "0050 45230000 | 0019 45230000 | SO0006 SOLUTIE ANTIFISURA 620MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0013 Strada Tarinei | 0003 BCR4,5-18cm 2,68smp",
+      "oferta_den": "0050 452 | 0003 45230000 | D0002 BALAST 15 CM 7.12SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0014 Strada Pisicesti | 0005 BAPC16-4cm 14,18smp",
+      "oferta_den": "0050 45230000 | 0005 45230000 | VU0005 ZID ZCM100 25M (5bc)"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0009 Str.Vloncesti | 0003 Piatra sparta 12cm 2,37smp",
+      "oferta_den": "0050 45230000 | 0003 45230000 | D0012 SEMNALIZARE VERT. STOP 1bc."
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0008 Parapet tip II poduri 10m",
+      "oferta_den": "0050 45230000 | 0008 45230000 | BI0006 ACOSTAM. 10CM 60MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0017 Strada Aninoasei | 0011 Baza din ABPS31,5-8cm",
+      "oferta_den": "0050 45230000 | 0011 45230000 | FR0004 BADPS22.4 - 6CM 2.35SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0016 Strada Rachitei | 0007 Marcaj lateral 112ml",
+      "oferta_den": "0050 45230000 | 0016 45230000 STRADA RACHITEI | R00001 TERASAMENTE 1.86SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0010 Str.Gegilor | 0006 Acostamente 18cm 75mp",
+      "oferta_den": "0050 45230000 | 0010 45230000 | G0005 BALAST 15CM 225MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0002 Balast 770mc",
+      "oferta_den": "0050 45230000 | 0001 45230000 | Z0010 GABIOANE H=1M 45M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0004 Strada Teiului | 0008 Marcaje laterale 202m",
+      "oferta_den": "0050 | 0008 45230000 | BI0001 TERASAMENTE 5.27SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0010 Str.Gegilor | 0001 BCR4,5-18cm 892mp",
+      "oferta_den": "0050 45230000 | 0001 45230000 | Z0009 PODET DN800 CP L=5M 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0005 Strada Valea Ursului | 0005 Zid ZCM100 25m (5bc.)",
+      "oferta_den": "0050 | 0008 45230000 | BI0012 ZID ZCM100 160M (32bc)"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0007 Str.Valea Satului | 0008 Accese laterale asf.120mp",
+      "oferta_den": "0050 45230000 | 0008 45230000 | BI0010 ASFALT LA CALE POD 20MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0016 Strada Rachitei | 0002 Balast 15cm 1,86smp",
+      "oferta_den": "0050 45230000 | 0016 45230000 | RA0009 PODET DN600 L=5M 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0004 BADPS22,4-6cm 4,80smp",
+      "oferta_den": "0050 45230000 | 0004 45230000 | T0005 BAPC16 - 4CM 3.10SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0016 Semn. vert. STOP 2bc.",
+      "oferta_den": "0050 45230000 | 0016 45230000 | RA0002 BALAST 15CM 1.86SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0004 Strada Telului | 0001 Terasamente 3,50smp",
+      "oferta_den": "0050 45230000 | 0001 45230000 | Z0011 GABIOANE H=2M 115M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0011 Strada Frunzei | 0006 Acostamente 10cm 32mp",
+      "oferta_den": "0050 45230000 | 0011 45230000 | FR0003 PIATRA SPARTA 12CM 2.67SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0010 Str.Gegilor | 0002 Marcaje laterale 548m",
+      "oferta_den": "0050 45230000 | 0010 45230000 | G0004 TERASAMENTE 225.MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0012 Semnalizare vert. STOP 1bc.",
+      "oferta_den": "0050 45230000 | 0015 45230000 | SC0010 SEMNALIZARE VERT. STOP 2bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0015 Strada Scolii | 0005 BAPC16-4cm 11,78smp",
+      "oferta_den": "0050 45230000 | 0015 45230000 | SC0003 PIATRA SPARTA 12CM 13.26SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0014 Strada Pisicesti | 0003 Piatra sparta-12cm 15,94smp",
+      "oferta_den": "0050 45230000 | 0003 45230000 | D0003 PIATRA SPARTA 12CM 7.12SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0010 Asfalt la cale pod 20mp.",
+      "oferta_den": "0050 | 0008 45230000 | BI0011 PARAPET CU LISA SP61 - 40M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0011 Marcaj lateral 412m",
+      "oferta_den": "0050 45230000 | 0003 45230000 | D0004 BADPS22.4 - 6CM 6.3SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0018 Strada Minei | 0011 Semnalizare vert.STOP 4bc.",
+      "oferta_den": "0050 45230000 | 0018 45230000 | MI0009 CANIVOU ARMAT 10M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0005 Strada Valea Ursului | 0007 Semn.vert. STOP 1buc.",
+      "oferta_den": "0050 45230000 | 0005 45230000 | VU0004 ACOSTAMENTE 18CM 120MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0015 Strada Scolii | 0003 Piatra sparta 12cm 13,26smp",
+      "oferta_den": "0050 | 0003 45230000 | D0008 PREFABRICATE P2 - 50M incl. amen."
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0006 Podet dalat L=5m H=1,5m 1bc.",
+      "oferta_den": "0050 45230000 | 0006 45230000 | M0003 PIATRA SPARTA 12CM 5.4SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0015 Strada Scolii | 0001 Terasamente 13,26smp",
+      "oferta_den": "0050 45230000 | 0001 45230000 | Z0013 MARCAJ LATERAL 406M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0012 Parapet cu lisa SP61 - 115m",
+      "oferta_den": "0050 45230000 | 0017 45230000 | A0011 BAZA DIN ABPS31.5 - 8CM"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0018 Strada Minei | 0008 Accese armate 12cm 43,75mp",
+      "oferta_den": "0050 45230000 | 0018 45230000 | MI0007 SANTURI BETONATE 13.90SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0010 Str.Gegilor | 0004 Terasamente 225mp",
+      "oferta_den": "0050 45230000 | 0010 45230000 | G0006 ACOSTAMENTE 18CM 75MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0013 Strada Tarinel | 0004 Marcaje laterale 190m",
+      "oferta_den": "0050 45230000 | 0013 45230000 | TA0002 BALAST 25CM 3.06SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0017 Strada Aninoasei | 0007 Podete DN600CP L=7m 2buc.",
+      "oferta_den": "0050 45230000 | 0017 45230000 | A0009 ACCESE ARMATE 5M 15bc 132MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0015 Strada Scolii | 0008 Spargeri,demolari 90mp",
+      "oferta_den": "0050 45230000 | 0008 45230000 | BI0009 SAPA SI HIDROIZOLATIA 20MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0009 Str.Vloncesti | 0008 Ridicare apa-canal 3bc.",
+      "oferta_den": "0050 45230000 | 0009 45230000 | VL0003 PIATRA SPARTA 12 CM 2.37SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0014 Mana curenta teava 160m",
+      "oferta_den": "0050 45230000 | 0014 45230000 | PI0004 BADPS22.4 - 6CM 14.18SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0007 Str.Valea Satului | 0003 Bordura mare 70m",
+      "oferta_den": "0050 45230000 | 0007 45230000 | VS0001 PODETE CASETATE P2 5bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0019 Strada Soarelui | 0003 Piatra sparta 12cm 135mp",
+      "oferta_den": "0050 45230000 | 0019 45230000 | SO0007 ACOSTAMENTE 10CM 30MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0020 Organizare de santier | 0002 Balast de rau 30cm 800mp",
+      "oferta_den": "0050 45230000 | 0020 45230000 | OS5005 IMPREJMUIRE PLASA SUDATA 120M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0018 Strada Minei | 0004 BADPS22,4-6cm 10,32smp",
+      "oferta_den": "0050 45230000 | 0018 45230000 | MI0002 BALAST 15CM 13.68SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0011 Strada Frunzei | 0008 Semn. vert. STOP 1bc.",
+      "oferta_den": "0050 45230000 | 0006 45230000 MODERNIZARE DRUMURI DE INTERES LOCAL, MODERNIZARE SI CONSTRUIRE PODETE CASETATE | M0012 SEMNALIZARE VERT. STOP 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0018 Strada Minei | 0007 Santuri betonate 13,90smp",
+      "oferta_den": "0050 45230000 | 0018 45230000 | MI0003 PIATRA SPARTA 12CM 13.68SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0004 Strada Teiului | 0003 Piatra sparta 12cm 3,50smp",
+      "oferta_den": "0050 45230000 | 0004 45230000 | T0008 MARCAJE LATERALE 202M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0001 Terasamente 7,12smp",
+      "oferta_den": "0050 45230000 | 0001 45230000 S | Z0003 BCR4.5 - 18 CM 6.90 SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0004 Strada Teiului | 0006 Acostamente 10cm 40,4mp",
+      "oferta_den": "0050 45230000 | 0006 45230000 | M0011 MARCAJE LATERALE 306M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0012 Strada Padurii | 0004 Acostamente 18cm 32,5mp",
+      "oferta_den": "0050 45230000 | 0012 45230000 | PA0003 BCR4.5 - 18CM 2.30SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0009 Str.Vloncesti | 0010 Semn.vert. STOP 1bc.",
+      "oferta_den": "0050 45230000 | 0009 45230000 | VL0002 BALAST 15CM 2.37SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0018 Strada Minei | 0002 Balast 15cm 13,68smp",
+      "oferta_den": "0050 45230000 | 0018 45230000 | MI0005 BAPC16 - 4CM 10.32SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0003 Piatra sparta 12cm 5,27smp",
+      "oferta_den": "0050 45230000 | 0008 45230000 | BI0005 BAPC16 - 4CM 4.67SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0013 Strada Tarinei | 0001 Terasamente 3,06smp",
+      "oferta_den": "0050 45230000 | 0013 45230000 | TA0004 MARCAJE LATERALE 190M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0002 Balast 15cm 5,27smp",
+      "oferta_den": "0050 | 0002 45230000 | BR0007 PODET DN600 L=7M 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0009 Str.Vloncesti | 0004 BADPS22,4-6cm 2,08smp",
+      "oferta_den": "0050 45230000 | 0009 45230000 | VL0001 TERASAMENTE 2,37SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0020 Organizare de santier | 0004 Operatiuni baraci 3buc.",
+      "oferta_den": "0050 45230000 | 0020 45230000 ORG | OS5001 TERASAMENTE 800MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0012 Zid ZCM100 160m (32bc.)",
+      "oferta_den": "0050 45230000 | 0012 45230000 | PA0004 ACOSTAMENTE 18CM 32.5MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0002 Strada Branii | 0006 Acostamente 10cm 454mp",
+      "oferta_den": "0050 45230000 | 0006 45230000 | M0002 BALAST 15CM 5.4SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0003 Piatra sparta 12cm 5,4smp",
+      "oferta_den": "0050 45230000 | 0006 45230000 | M0007 ZID R150 25M (5bc)"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0003 Piatra sparta 12cm 7,12smp",
+      "oferta_den": "0050 | 0003 45230000 | D0010 SANT BETONAT 211 MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0006 Acostamente 10cm 61,2mp",
+      "oferta_den": "0050 45230000 | 0006 45230000 MODERNIZARE DRUMURI DE INTERES LOCAL, MODERNIZARE SI CONSTRUIRE PODETE CASETATE | M0013 CAMIN VIZITARE 2 buc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0013 Strada Tarinel | 0005 Semnalizare vert.STOP 1bc.",
+      "oferta_den": "0050 45230000 | 0013 45230000 | TA0006 ACOSTAMENTE 18CM 38MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0002 Strada Branii | 0001 Terasamente 23,57smp",
+      "oferta_den": "0050 45230000 | 0001 45230000 | Z0004 DEMOLARI, SPARGERI 203MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0009 Podet DN800 CP L=5m 1bc.",
+      "oferta_den": "0050 45230000 | 0001 45230000 | Z0001 TERASAMENTE 7.70 SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0016 Strada Rachitel | 0008 Semnalizare vert. STOP 1bc.",
+      "oferta_den": "0050 45230000 | 0016 45230000 | RA0004 BADPS22.4 - 6CM 1.64SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0009 Str.Vloncesti | 0006 Acostamente 10cm 30mp",
+      "oferta_den": "0050 | 0006 45230000 | M0010 PREFABRICATE P2 - 110M incl. amen"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0014 Strada Pisicesti | 0009 Semnalizare vert.STOP 1bc.",
+      "oferta_den": "0050 45230000 | 0014 45230000 | PI0001 TERASAMENTE 15.94SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0017 Strada Aninoasei | 0005 BAPC16-4cm 25,96smp",
+      "oferta_den": "0050 45230000 | 0017 45230000 | A0010 MARCAJE LATERALE 1291M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0005 Strada Valea Ursului | 0006 Marcaje laterale 600m",
+      "oferta_den": "0050 45230000 | 0005 45230000 | VU0001 TERASAMENTE 12.07SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 001A Lucrari complementare | 0001 Canivouri armate 1358m",
+      "oferta_den": "0050 45230000 | 0001 45230000 | Z0007 ZID R150 - 65M (13bc)"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0005 BAPC16-4cm 4,80smp",
+      "oferta_den": "0050 45230000 | 0006 45230000 | M0004 BADPS22.4 - 6CM 4.80SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0017 Strada Aninoasei | 0009 Accese armate 5m 15bc 132mp",
+      "oferta_den": "0050 45230000 | 0017 45230000 | A0002 BALAST 15CM 32.54SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0001 Terasamente 7,70smp",
+      "oferta_den": "0050 45230000 | 0001 45230000 | Z0006 ZID R200 - 50M (10bc)"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0002 Strada Branii | 0007 Podet DN600 L=7m 1bc.",
+      "oferta_den": "0050 45230000 | 0002 45230000 | BR003 PIATRA SPARTA 12CM 23.57SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0004 Strada Teiului | 0002 Balast 15cm 3,50smp",
+      "oferta_den": "0050 45230000 | 0004 45230000 MODERNIZARE DRUMURI DE INTERES LOCAL, MODERNIZARE SI CONSTRUIRE PODETE CASETATE | T0001 TERASAMENTE 3.50 SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0008 Zid ZCM100 85m (17bc.)",
+      "oferta_den": "0050 | 0008 45230000 | BI0013 ALEE BETON 15CM - 240MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0005 Strada Valea Ursului | 0003 BCR4,5-18cm 10,87smp",
+      "oferta_den": "0050 | 0003 45230000 S | D0013 CAMIN VIZITARE 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0008 Parapet cu lisa SP61 38ml",
+      "oferta_den": "0050 45230000 | 0008 45230000 | BI0002 BALAST 15CM 5.27SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0012 Strada Padurii | 0005 Marcaje laterale 162ml",
+      "oferta_den": "0050 45230000 | 0012 45230000 | PA0002 BALAST 25CM 2.62SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0019 Strada Soarelui | 0002 Balast 15cm 135mp",
+      "oferta_den": "0050 45230000 | 0019 45230000 | SO0003 PIATRA SPARTA 12CM 135MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0011 Parapet cu lisa SP61 -40m",
+      "oferta_den": "0050 45230000 | 0011 45230000 | FR0001 TERASAMENTE 2.67SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0017 Strada Aninoasei | 0002 Balast 15cm 32,45smp",
+      "oferta_den": "0050 45230000 | 0017 45230000 | A0004 BADPS22.4 - 6CM 25.96SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0006 Zid R200 -50m (10bc.)",
+      "oferta_den": "0050 45230000 | 0001 45230000 | Z0002 BALAST 770 MC"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0015 Strada Scolii | 0010 Semnalizare vert. STOP 2bc.",
+      "oferta_den": "0050 45230000 | 0010 45230000 | G0002 MARCAJE LATERALE 548M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0004 BADPS22,4-6cm 6,3smp",
+      "oferta_den": "0050 45230000 | 0004 45230000 | T0006 ACOSTAMENTE 10CM 40.4MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0009 Zid ZCM100 125m (25bc.)",
+      "oferta_den": "0050 45230000 | 0009 45230000 | VL0007 SPARGERI , DEMOLARI 60MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0004 Strada Telului | 0005 BAPC16-4cm 3,10smp",
+      "oferta_den": "0050 45230000 | 0004 45230000 | T0009 SEMNALIZARE VERT. STOP 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0017 Strada Aninoasei | 0004 BADPS22,4-6cm 25,96smp",
+      "oferta_den": "0050 45230000 | 0004 45230000 | T0002 BALAST 15CM 3.50SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0011 Marcaje laterale 306m",
+      "oferta_den": "0050 45230000 | 0011 45230000 | FR0007 MARCAJE ORIZONTALE 160M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0016 Strada Rachitei | 0004 BADPS22,4-6cm 1,64smp",
+      "oferta_den": "0050 45230000 | 0016 45230000 | RA0003 PIATRA SPARTA 12CM 1.86SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0018 Strada Minei | 0009 Canivou armat 10m",
+      "oferta_den": "0050 45230000 | 0018 45230000 | MI0010 MARCAJ LATERAL 448M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0019 Strada Soarelui | 0006 Solutie antifisura 620mp",
+      "oferta_den": "0050 45230000 | 0019 45230000 | SO0004 BADPS22.4 - 6CM 105MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0014 Strada Pisicesti | 0004 BADPS22,4-6cm 14,18smp",
+      "oferta_den": "0050 45230000 | 0014 45230000 | PI0009 SEMNALIZARE VERT. STOP 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0002 Balast 15cm 7,12smp",
+      "oferta_den": "0050 45230000 | 0002 45230000 | BR0006 ACOSTAMENTE 10CM 454MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0019 Strada Soarelui | 0005 BAPC16-4cm 763mp",
+      "oferta_den": "0050 45230000 | 0019 45230000 | SO0002 BALAST 15CM 135MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0007 Str.Valea Satului | 0002 Prefabricate P2-70m incl. amen",
+      "oferta_den": "0050 45230000 | 0007 45230000 | VS0003 BORDURA MARE 70M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0002 Strada Branii | 0002 Balast 15cm 23,57smp",
+      "oferta_den": "0050 45230000 | 0002 45230000 | BR0003 BALAST 15CM 23.57SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0007 Str.Valea Satului | 0004 Parcare ABPS31,5-8cm 280mp",
+      "oferta_den": "0050 45230000 | 0007 45230000 | VS0009 CAMIN VIZITARE 2buc."
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0018 Strada Minei | 0006 Acostamente 10cm 336mp",
+      "oferta_den": "0050 45230000 | 0018 45230000 | MI0008 ACCESE ARMATE 12CM 43.75MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0011 Strada Frunzel | 0001 Terasamente 2,67smp",
+      "oferta_den": "0050 45230000 | 0011 45230000 | FR0008 SEMN. VERT. STOP 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0015 Marcaje laterale 298m",
+      "oferta_den": "0050 | 0008 45230000 | BI0004 BADPS22.4 - 6CM 4.67SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0016 Strada Rachitei | 0001 Terasamente 1,86smp",
+      "oferta_den": "0050 45230000 | 0001 45230000 | Z0012 PARAPET CU LISA SP61 - 115M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0002 Strada Branii | 0008 Marcaj lateral 908m",
+      "oferta_den": "0050 | 0008 45230000 | BI0014 MANA CURENTA TEAVA 160M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0010 Sant betonat 211mp",
+      "oferta_den": "0050 45230000 | 0003 45230000 | D0009 ZID ZCM100 125m (25bc)"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0004 BADPS22,4-6cm 4,67smp",
+      "oferta_den": "0050 45230000 | 0008 45230000 | BI0003 PIATRA SPARTA 12CM 5.27SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0009 Bordura mica 220ml",
+      "oferta_den": "0050 45230000 | 0009 45230000 ST | VL0005 BAPC16 - 4CM 2.08SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0015 Strada Scolii | 0004 BADPS22,4-6cm 11,78smp",
+      "oferta_den": "0050 45230000 | 0015 45230000 | SC0005 BAPC16 - 4CM 11.78SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0016 Strada Rachitei | 0003 Piatra sparta 12cm 1,86smp",
+      "oferta_den": "0050 45230000 | 0016 45230000 | RA0008 SEMNALIZARE VERT. STOP 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0013 Camin vizitare 1buc.",
+      "oferta_den": "0050 45230000 | 0013 45230000 | TA0001 TERASAMENTE 3.06SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0004 Demolari, spargeri 203mp",
+      "oferta_den": "0050 45230000 | 0001 45230000 S | Z0008 ZID ZCM100 85M (17bc)"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0019 Strada Soarelui | 0001 Terasamente 135mp",
+      "oferta_den": "0050 45230000 | 0019 45230000 | SO0005 BAPC16 - 4CM 763MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0020 Organizare de santier | 0001 Terasamente 800mp",
+      "oferta_den": "0050 45230000 | 0020 45230000 | OS5002 BALAST DE RAU 30CM 800MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0003 Strada Dobre | 0012 Semnalizare vert. STOP 1bc.",
+      "oferta_den": "0050 45230000 | 0012 45230000 | PA0006 SEMN. VERT. STOP 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0010 Gabioane H=1m 45m",
+      "oferta_den": "0050 45230000 | 0010 45230000 | G0003 SEMN . VERT STOP 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0020 Organizare de santier | 0005 Imprejmuire plasa sudata 120m",
+      "oferta_den": "0050 45230000 | 0020 45230000 | OS5003 MACADAM ORDINAR 12CM 800MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0013 Camin vizitare 2buc",
+      "oferta_den": "0050 45230000 | 0006 45230000 | M0001 TERASAMENTE 5.4SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0005 Strada Valea Ursului | 0002 Balast 25cm 12,07smp",
+      "oferta_den": "0050 45230000 | 0002 45230000 | BR0001 TERASAMENTE 23.57 SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0014 Strada Pisicesti | 0008 Marcaj lateral 880m",
+      "oferta_den": "0050 45230000 | 0014 45230000 | PI0003 PIATRA SPARTA - 12CM 15.94SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0006 Strada Molanesti | 0010 Prefabricate P2-110m incl.amen",
+      "oferta_den": "0050 45230000 | 0006 45230000 | M0006 ACOSTAMENTE 10CM 61.2MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0002 Strada Branii | 0004 BADPS22,4 - 6cm 19,03smp",
+      "oferta_den": "0050 45230000 | 0014 45230000 | PI0005 BAPC16 - 4CM 14.18SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0006 Acostam.10cm 60mp.",
+      "oferta_den": "0050 45230000 | 0008 45230000 | BI0015 MARCAJE LATERALE 298M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0009 Str.Vloncesti | 0002 Balast 15cm 2,37smp",
+      "oferta_den": "0050 45230000 | 0002 45230000 S | BR0009 SEMNALIZARE STOP 5buc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0011 Strada Frunzei | 0005 BAPC16-4cm 2,35smp",
+      "oferta_den": "0050 45230000 | 0006 45230000 MODERNIZARE DRUMURI DE INTERES LOCAL, MODERNIZARE SI CONSTRUIRE PODETE CASETATE | M0005 BAPC16 - 4CM 4.80SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0007 Zid R150 -65m (13bc.)",
+      "oferta_den": "0050 45230000 | 0014 45230000 | PI0007 ZID D200 L=25M (5bc)"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0012 Strada Padurii | 0001 Terasamente 2,62smp",
+      "oferta_den": "0050 45230000 | 0015 45230000 | SC0008 SPARGERI , DEMOLARI 90MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0011 Strada Frunzei | 0003 Piatra sparta 12cm 2,67smp",
+      "oferta_den": "0050 45230000 | 0015 45230000 | SC0002 BALAST 15CM 13.26SMP"
+    }
+  ],
+  "Scoala Dragomiresti": [
+    {
+      "ref_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ | 2.6 INSTALATII TERMICE e",
+      "oferta_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 004 4.0 RETELE EXTERIOARE | 001 4.1 INSTALATII SANITARE eDevize"
+    },
+    {
+      "ref_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 6.0 ÎMPREJMUIRE TEREN | 6.2 REZISTENTA e",
+      "oferta_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 002 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ | 002 2.2 REZISTENTA eDevize"
+    },
+    {
+      "ref_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 3.0 CONSTRUIRE SALĂ DE SPORT | 3.3 INSTALATII SANITARE e",
+      "oferta_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 001 1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ | 004 1.4 INSTALATII TERMICE eDevize"
+    },
+    {
+      "ref_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ | 1.1 ARHITECTURA - DESFIINTARE e",
+      "oferta_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 002 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ | 003 2.3 INSTALATII SANITARE eDevize"
+    },
+    {
+      "ref_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 3.0 CONSTRUIRE SALA DE SPORT | 3.2 REZISTENTA e",
+      "oferta_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 003 3.0 CONSTRUIRE SALA DE SPORT | 003 3.3 INSTALATII SANITARE eDevize"
+    },
+    {
+      "ref_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 7.0 AMENAJARE SPATII VERZI | 7.1 SPATII VERZI e",
+      "oferta_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 007 7.0 AMENAJARE SPATII VERZI | 001 7.1 SPATII VERZI eDevize"
+    },
+    {
+      "ref_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 3.0 CONSTRUIRE SALA DE SPORT | 3.4 INSTALATII TERMICE e",
+      "oferta_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 003 3.0 CONSTRUIRE SALA DE SPORT | 004 3.4 INSTALATII TERMICE eDevize"
+    },
+    {
+      "ref_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ | 1.2 INSTALATII SANITARE e",
+      "oferta_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 001 1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ | 001 1.1 ARHITECTURA DESFIINTARE eDevize"
+    },
+    {
+      "ref_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ | 1.4 INSTALATII TERMICE e",
+      "oferta_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 002 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ | 006 2.6 INSTALATII TERMICE eDevize"
+    },
+    {
+      "ref_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ | 2.2 REZISTENTA e",
+      "oferta_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 006 6.0 ÎMPREJMUIRE TEREN | 002 6.2 REZISTENTA eDevize"
+    },
+    {
+      "ref_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 9.0 MONTAJ ECHIPAMENTE | 9.1 MONTAJ ECHIPAMENTE e",
+      "oferta_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 009 9.0 MONTAJ ECHIPAMENTE | 001 9.1 MONTAJ ECHIPAMENTE eDevize"
+    },
+    {
+      "ref_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 4.0 RETELE EXTERIOARE | 4.1 INSTALATII SANITARE e",
+      "oferta_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 001 1.0 DESFIINȚARE PARȚIALĂ ȘCOALĂ | 002 1.2 INSTALATII SANITARE eDevize"
+    },
+    {
+      "ref_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 2.0 REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ | 2.3 INSTALATII SANITARE e",
+      "oferta_den": "REABILITARE, EXTINDERE ȘI MODERNIZARE SEDIU DE ȘCOALĂ ȘI CONSTRUIRE SALĂ DE SPORT ÎN COMUNA DRAGOMIREȘTI, SAT | 003 3.0 CONSTRUIRE SALA DE SPORT | 002 3.2 REZISTENTA eDevize"
     }
   ]
 }
