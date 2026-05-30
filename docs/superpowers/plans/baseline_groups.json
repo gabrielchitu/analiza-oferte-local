@@ -1,0 +1,60 @@
+{
+  "Blocuri Racari": {
+    "oferta_1": {
+      "matched": 35,
+      "ref_only": 0,
+      "oferta_only": 0
+    },
+    "oferta_2": {
+      "matched": 35,
+      "ref_only": 0,
+      "oferta_only": 0
+    },
+    "oferta_3": {
+      "matched": 22,
+      "ref_only": 13,
+      "oferta_only": 15
+    },
+    "oferta_4": {
+      "matched": 35,
+      "ref_only": 0,
+      "oferta_only": 35
+    }
+  },
+  "Camin Maneciu": {
+    "oferta_1": {
+      "matched": 35,
+      "ref_only": 0,
+      "oferta_only": 0
+    },
+    "oferta_2": {
+      "matched": 33,
+      "ref_only": 2,
+      "oferta_only": 29
+    }
+  },
+  "Drum Tatarani": {
+    "oferta_1": {
+      "matched": 189,
+      "ref_only": 0,
+      "oferta_only": 0
+    },
+    "oferta_2": {
+      "matched": 189,
+      "ref_only": 0,
+      "oferta_only": 0
+    }
+  },
+  "Scoala Dragomiresti": {
+    "oferta_1": {
+      "matched": 22,
+      "ref_only": 0,
+      "oferta_only": 0
+    },
+    "oferta_2": {
+      "matched": 9,
+      "ref_only": 13,
+      "oferta_only": 13
+    }
+  }
+}
