@@ -761,7 +761,20 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
 
     # Extract 3-layer deviz headers (OBIECTIVUL / Obiectul / Categoria)
     from shared.deviz_header_extractor import extract_deviz_headers
-    deviz_headers = extract_deviz_headers(page_classes, client, model)
+    from shared.document_profiler import profile_document_cached
+    from shared.group_extractor import extract_groups_as_headers
+
+    _checkpoints_dir = Path(client_config.output_dir) / "checkpoints"
+    _doc_profile = profile_document_cached(di, _checkpoints_dir)
+    logger.info(f"  DocumentProfile: mode={_doc_profile.mode}, tables={_doc_profile.table_count}")
+
+    deviz_headers = extract_groups_as_headers(di, page_classes, _doc_profile)
+    if not deviz_headers:
+        deviz_headers = extract_deviz_headers(page_classes, client, model)
+        logger.info("  GroupExtractor v2: gol — fallback la extract_deviz_headers()")
+    else:
+        logger.info(f"  GroupExtractor v2: {len(deviz_headers)} grupuri (mode={_doc_profile.mode})")
+
     valid_count = sum(1 for h in deviz_headers.values() if h.is_valid)
     logger.info(f"  {len(deviz_headers)} devize cu header extras ({valid_count} valide, "
                 f"{len(deviz_headers) - valid_count} incomplete)")
