@@ -626,24 +626,7 @@ def compare_by_groups(
         remaining_ref_keys -= matched_ref_cods
         remaining_oferta_keys -= matched_oferta_cods
 
-        # Phase 2a: RapidFuzz (deterministic, faster than LLM)
-        if remaining_ref_keys and remaining_oferta_keys:
-            _remaining_ref_hdrs = {k: ref_deviz_headers[k] for k in remaining_ref_keys if k in ref_deviz_headers}
-            _remaining_oferta_hdrs = {k: oferta_deviz_headers[k] for k in remaining_oferta_keys if k in oferta_deviz_headers}
-            rf_pairs = _match_by_rapidfuzz(_remaining_ref_hdrs, _remaining_oferta_hdrs)
-            _run_secondary_match([
-                (rk, ok, "rapidfuzz", rd, od) for rk, ok, rd, od in rf_pairs
-            ])
-            # Salvează în knowledge (evită RapidFuzz la rulări viitoare)
-            _save_knowledge(client_name, [
-                {"ref_den": rd, "oferta_den": od}
-                for rk, ok, rd, od in rf_pairs
-                if rk in matched_ref_cods
-            ])
-            remaining_ref_keys -= matched_ref_cods
-            remaining_oferta_keys -= matched_oferta_cods
-
-        # Knowledge phase
+        # Knowledge phase (BEFORE RapidFuzz — knowledge is more reliable)
         knowledge_pairs = _apply_knowledge(
             remaining_ref_keys, remaining_oferta_keys,
             ref_deviz_headers, oferta_deviz_headers, client_name,
@@ -653,7 +636,23 @@ def compare_by_groups(
             for rk, ok in knowledge_pairs
         ])
 
-        # Update remaining for LLM phase
+        # Update remaining after Knowledge
+        remaining_ref_keys -= matched_ref_cods
+        remaining_oferta_keys -= matched_oferta_cods
+
+        # Phase 2a: RapidFuzz (AFTER Knowledge — heuristic fallback before LLM)
+        if remaining_ref_keys and remaining_oferta_keys:
+            _remaining_ref_hdrs = {k: ref_deviz_headers[k] for k in remaining_ref_keys if k in ref_deviz_headers}
+            _remaining_oferta_hdrs = {k: oferta_deviz_headers[k] for k in remaining_oferta_keys if k in oferta_deviz_headers}
+            rf_pairs = _match_by_rapidfuzz(_remaining_ref_hdrs, _remaining_oferta_hdrs)
+            _run_secondary_match([
+                (rk, ok, "rapidfuzz", rd, od) for rk, ok, rd, od in rf_pairs
+            ])
+            # NOTE: Do NOT save RapidFuzz matches to knowledge — only LLM/human-verified pairs go there
+            remaining_ref_keys -= matched_ref_cods
+            remaining_oferta_keys -= matched_oferta_cods
+
+        # Update remaining before LLM
         remaining_ref_keys -= matched_ref_cods
         remaining_oferta_keys -= matched_oferta_cods
 
