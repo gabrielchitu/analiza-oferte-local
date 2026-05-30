@@ -25,10 +25,11 @@ _CAT_RE = re.compile(
     r'(?:categoria\s+de\s+lucr[aă]ri?|stadiul?\s+fizic|category)\s*[:\-]\s*(.*)',
     re.IGNORECASE
 )
-# DT-format: "Deviz oferta ZO0001 Terasamente 7.70 smp" — letter-prefix deviz codes
-# Used as categoria when "Categoria de lucrari: 0169" would otherwise collapse all devizes
+# "Deviz oferta ZO0001 Terasamente..." (DT), "Deviz oferta 226108 STRUCTURA..." (SSR numeric),
+# "Deviz oferta 226U28 ALIMENTARE..." (SSR hybrid, letter in middle)
+# Used as categoria when "Categoria de lucrari: 0120/0169" would otherwise collapse all devizes per obiect
 _DEVIZ_OFERTA_LETTERED_RE = re.compile(
-    r'Deviz\s+oferta\s+([A-Z]{1,3}\d{1,6}[A-Z]?)\s+(.+?)(?:\s+Categoria|\s+Lista\s+cu|\s+Nr\.|$)',
+    r'Deviz\s+oferta\s+([A-Z0-9]{3,8})\s+(.+?)(?:\s+Categoria|\s+Lista\s+cu|\s+Nr\.|$)',
     re.IGNORECASE
 )
 # Structural lines that should not be merged into obiectivul/obiectul values

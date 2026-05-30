@@ -4909,71 +4909,6 @@
     "obiectul": "009 9.0 MONTAJ ECHIPAMENTE",
     "categoria": "001 9.1 MONTAJ ECHIPAMENTE eDevize"
   },
-  "5c23d0658e391053": {
-    "obiectivul": "0226 45000000",
-    "obiectul": "0001 45000000 TEREN DE TENIS ACOPERIT",
-    "categoria": "0120"
-  },
-  "6e5d1c103bb0990d": {
-    "obiectivul": "0226 45000000",
-    "obiectul": "0001 45000000",
-    "categoria": "0120"
-  },
-  "f8bfe2dba58e85fc": {
-    "obiectivul": "0226 45000000",
-    "obiectul": "0002 45000000 EXTINDERE SI MODERNIZARE BAZA",
-    "categoria": "0120"
-  },
-  "500988a359d98445": {
-    "obiectivul": "0226 45000000",
-    "obiectul": "0002 45000000",
-    "categoria": "0120"
-  },
-  "c30c9114e03cda28": {
-    "obiectivul": "0226 45000000",
-    "obiectul": "0003 45000000",
-    "categoria": "0120"
-  },
-  "ca5e4cbb4bce114e": {
-    "obiectivul": "0226 45000000",
-    "obiectul": "0003 45000000 AMENAJARI EXTERIOARE",
-    "categoria": "0120"
-  },
-  "6777ab49b8a0df27": {
-    "obiectivul": "0226 45000000",
-    "obiectul": "0004 45000000 EXTINDERE SI MODERNIZARE BAZA",
-    "categoria": "0120"
-  },
-  "513fc502e2e9d06d": {
-    "obiectivul": "0226 45000000",
-    "obiectul": "0004 45000000",
-    "categoria": "0120"
-  },
-  "8b20468d813d43d2": {
-    "obiectivul": "0226 45000000",
-    "obiectul": "0005 45000000",
-    "categoria": "0120"
-  },
-  "02e0405d8b8765e1": {
-    "obiectivul": "0226 45000000",
-    "obiectul": "0005 45000000 GRUPURI SANITARE PUBLICE",
-    "categoria": "0120"
-  },
-  "042ba47ca18f592f": {
-    "obiectivul": "0226 45000000",
-    "obiectul": "0006 45000000 UTILITATI-RETELE EXTERIOARE",
-    "categoria": "0120"
-  },
-  "cb7c3b4b5d51d9c7": {
-    "obiectivul": "0226 45000000",
-    "obiectul": "0006 45000000",
-    "categoria": "0120"
-  },
-  "be753b1a2ad17c13": {
-    "obiectivul": "0226 45000000",
-    "obiectul": "0007 45000000",
-    "categoria": "0120"
-  },
   "ec38ad4e2093bc90": {
     "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RĂCARI",
     "obiectul": "1 TEREN DE TENIS ACOPERIT",
@@ -5738,5 +5673,220 @@
     "obiectivul": "EXTINDERE SI MODERNIZARE BAZA SPORTIVA RACARI",
     "obiectul": "008 ORGANIZARE SANTIER",
     "categoria": "002 226708 ORG SANTIER- MONTARE WC ECOLOGIC e"
+  },
+  "5c23d0658e391053": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0001 45000000 TEREN DE TENIS ACOPERIT",
+    "categoria": "226108 STRUCTURA DE REZISTENTA CUPOLA TEREN TENIS"
+  },
+  "6e5d1c103bb0990d": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0001 45000000",
+    "categoria": "226118 ARHITECTURA -teren tenis acoperi t"
+  },
+  "f8bfe2dba58e85fc": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0002 45000000 EXTINDERE SI MODERNIZARE BAZA",
+    "categoria": "226208 STRUCTURA DE REZISTENTA (vestiar, grupuri sanitare)"
+  },
+  "500988a359d98445": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0002 45000000",
+    "categoria": "226218 ARHITECTURA teren tenis si grupuri sanitare"
+  },
+  "957a7c4a9d19bdd7": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0002 45000000",
+    "categoria": "226228 INSTALATII SANITARE OB.2"
+  },
+  "33688c02968ab3eb": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0002 45000000",
+    "categoria": "226238 MONTAT BOILER OB.2"
+  },
+  "1fb3f61fafdfe55a": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0002 45000000",
+    "categoria": "226248 INSTALATII VENTILATIE OB.2"
+  },
+  "ec296e149d818eb8": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0002 45000000",
+    "categoria": "226258 INSTALATII DE INCALZIRE OB.2"
+  },
+  "898e84734de4ec00": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0002 45000000",
+    "categoria": "226268 INSTALATII ELECTRICE tari OB.2 curenti"
+  },
+  "a718a846f3188f93": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0002 45000000",
+    "categoria": "226278 INSTALATIE VOCE-DATE-OB.2"
+  },
+  "e234fa5a5c810ca5": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0002 45000000",
+    "categoria": "226288 SISTEM SUPRAVEGHEREA VIDEO -OB2"
+  },
+  "c30c9114e03cda28": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0003 45000000",
+    "categoria": "226308 STRUCTURA DE REZISTENTA- (graden e 2 BUC)"
+  },
+  "ca5e4cbb4bce114e": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0003 45000000 AMENAJARI EXTERIOARE",
+    "categoria": "226318 IMPREJMUIRE TEREN FOTBAL -380 ML"
+  },
+  "707fbf37b54b241f": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0003 45000000",
+    "categoria": "226328 ARHITECTURA GRADENE"
+  },
+  "2d4b3aee7312bf7a": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0003 45000000 AMENAJARI EXTERIOARE",
+    "categoria": "226338 TEREN FOTBAL"
+  },
+  "2c1c1c8e6ea91746": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0003 45000000",
+    "categoria": "226348 SPATII VERZI"
+  },
+  "41c877b8a39b7c22": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0003 45000000",
+    "categoria": "226358 ALEI PIETONALE SI CAROSABILE"
+  },
+  "6777ab49b8a0df27": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0004 45000000 EXTINDERE SI MODERNIZARE BAZA",
+    "categoria": "226408 STRUCTURA DE REZISTENTA (vestiar e, sala fitness)"
+  },
+  "513fc502e2e9d06d": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0004 45000000",
+    "categoria": "226418 ARHITECTURA VESTIARE FOTBALIST SI SALA FITNESS"
+  },
+  "43d93ba318192844": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0004 45000000",
+    "categoria": "226428 INSTALATII SANITARE OB. 4"
+  },
+  "7e71ed148ddbdb88": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0004 45000000",
+    "categoria": "226438 MONTAJ BOILER OB. 4"
+  },
+  "8068bf1aa278fd92": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0004 45000000",
+    "categoria": "226448 INSTALATII VENTILATIE OB. 4"
+  },
+  "7ee24b22354ceac9": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0004 45000000",
+    "categoria": "226458 INSTALATII INCALZIRE OB. 4"
+  },
+  "0c60ef85cffa73e5": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0004 45000000 EXTINDERE SI MODERNIZARE BAZA",
+    "categoria": "226468 INST. CLIMATIZARE OB. 4"
+  },
+  "813a91779446157f": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0004 45000000",
+    "categoria": "226478 INSTALATII ELECTRICE curenti tari OB.4"
+  },
+  "ace14093e2f04b9e": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0004 45000000 EXTINDERE SI MODERNIZARE BAZA",
+    "categoria": "226488 INSTALATIE VOCE-DATE-OB. 4"
+  },
+  "01fbdff026aed551": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0004 45000000 EXTINDERE SI MODERNIZARE BAZA",
+    "categoria": "226498 SISTEM SUPRAVEGHEREA VIDEO -OB4"
+  },
+  "8b20468d813d43d2": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0005 45000000",
+    "categoria": "226508 STRUCTURA DE REZISTENTA (grupuri sanitare publice)"
+  },
+  "1044a740681dc930": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0005 45000000",
+    "categoria": "226518 ARHITECTURA grupuri sanitare publice"
+  },
+  "02e0405d8b8765e1": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0005 45000000 GRUPURI SANITARE PUBLICE",
+    "categoria": "226528 INSTALATII SANITARE OB.5"
+  },
+  "1c34f39c1fbfffd0": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0005 45000000",
+    "categoria": "226538 INSTALATII VENTILATIE OB.5"
+  },
+  "7735e475073bbf2e": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0005 45000000",
+    "categoria": "226548 INSTALATII TERMICE"
+  },
+  "67fdd2879c21914e": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0005 45000000 GRUPURI SANITARE PUBLICE",
+    "categoria": "226558 INSTALATII ELECTRICE curenti tari OB.5"
+  },
+  "54c8a1d3201fb3a0": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0005 45000000",
+    "categoria": "226578 SISTEM SUPRAVEGHEREA VIDEO -OB5"
+  },
+  "b6ae63b5b2c4ecbf": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0005 45000000 GRUPURI SANITARE PUBLICE",
+    "categoria": "226568 INSTALATIE VOCE-DATE-OB.5"
+  },
+  "042ba47ca18f592f": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0006 45000000 UTILITATI-RETELE EXTERIOARE",
+    "categoria": "226U08 ALIMENTARE CU APA"
+  },
+  "cb7c3b4b5d51d9c7": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0006 45000000",
+    "categoria": "226U18 CANALIZARE"
+  },
+  "a45f2a9514b4b998": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0006 45000000 UTILITATI-RETELE EXTERIOARE",
+    "categoria": "226U28 ALIMENTARE CU E.E. SI ILUMINAT EXTERIOR"
+  },
+  "e07fa0c157e55673": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0006 45000000 UTILITATI-RETELE EXTERIOARE",
+    "categoria": "226U38 TELECOMUNICATII"
+  },
+  "16ecc867aefd0178": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0003 45000000",
+    "categoria": "226368 INSTALATIE IRIGATIE SPATII VERZI"
+  },
+  "be753b1a2ad17c13": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0007 45000000",
+    "categoria": "226718 ORG. SANTIER- CONTAINER"
+  },
+  "063e9b54fe46639b": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0007 45000000",
+    "categoria": "226708 ORG SANTIER- MONTARE WC ECOLOGIC"
+  },
+  "063ddd79886b73ee": {
+    "obiectivul": "0226 45000000",
+    "obiectul": "0003 45000000 AMENAJARI EXTERIOARE",
+    "categoria": "226F08 MONTAJ SISTEM PANOU FOTOVOLTAICE"
   }
 }
