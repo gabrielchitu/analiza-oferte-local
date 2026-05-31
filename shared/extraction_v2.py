@@ -178,6 +178,63 @@ class ExtractionOrchestrator:
             "grupos": grupos,
         }
 
+    def match_reference_with_offer(
+        self, ref_extracted: Dict, oferta_extracted: Dict
+    ) -> Dict:
+        """
+        Match extracted reference with offer using v2 set-based matching.
+
+        Performs group-level matching by deviz_cod, then article-level
+        matching within each matched group. Returns v1-compatible holistic JSON.
+
+        Args:
+            ref_extracted: Extracted reference groups (output from extract_from_di).
+                          Must have structure:
+                          {
+                              "client": str,
+                              "di_file": str,
+                              "extraction_version": "2.0",
+                              "grupos": [group_dict, ...]
+                          }
+            oferta_extracted: Extracted offer grupos (same structure as ref_extracted)
+
+        Returns:
+            Dict with v1-compatible holistic structure:
+            {
+                "client": str,
+                "di_file": str,
+                "extraction_version": "2.0",
+                "matched_groups": [matched_group_dict, ...],
+                "ref_only_groups": [group_dict, ...],
+                "oferta_only_groups": [group_dict, ...],
+                "stats": {
+                    "matched_articles_count": int,
+                    "ref_only_articles_count": int,
+                    "oferta_only_articles_count": int,
+                    "matched_groups_count": int,
+                    "ref_only_groups_count": int,
+                    "oferta_only_groups_count": int
+                }
+            }
+
+        Example:
+            ref_data = orchestrator.extract_from_di(ref_json, "ClientName")
+            offer_data = orchestrator.extract_from_di(offer_json, "ClientName")
+            holistic = orchestrator.match_reference_with_offer(ref_data, offer_data)
+        """
+        from shared.matching_orchestrator_v2 import MatchingOrchestratorV2
+
+        matcher = MatchingOrchestratorV2()
+        holistic = matcher.match(ref_extracted, oferta_extracted)
+
+        logger.info(
+            f"Matching complete: {matcher.stats['matched_groups']} matched groups, "
+            f"{matcher.stats['ref_only_groups']} ref-only, "
+            f"{matcher.stats['oferta_only_groups']} oferta-only"
+        )
+
+        return holistic
+
     def get_extraction_log(self) -> Dict:
         """Return extraction metadata log."""
         return self.extraction_log
