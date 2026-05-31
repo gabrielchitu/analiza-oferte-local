@@ -120,3 +120,109 @@ def fix_hierarchy_ffill(articles: List[Dict]) -> List[Dict]:
         result.append(article_copy)
 
     return result
+
+
+def validate_hierarchy(articles: List[Dict]) -> Dict:
+    """Validate corrected hierarchies against constraints.
+
+    Checks four constraints:
+    1. PARENT_NOT_FOUND: All parent_nr references exist (no dangling references)
+    2. NESTING_TOO_DEEP: Max nesting depth ≤ 3 (0=main, 1=sub, 2=subsub, max 2 dots)
+    3. COMPONENT_NO_PARENT: Components have valid parent_nr (no None after correction)
+    4. CIRCULAR_REFERENCE: No circular references (A→B→C→A is forbidden)
+
+    Args:
+        articles: List of article dictionaries with keys: nr, parent_nr, is_component
+
+    Returns:
+        Dictionary with structure:
+        {
+            "is_valid": bool,
+            "error_count": int,
+            "errors": [
+                {"index": idx, "nr": "...", "error": "PARENT_NOT_FOUND"|"NESTING_TOO_DEEP"|"COMPONENT_NO_PARENT"|"CIRCULAR_REFERENCE"}
+            ]
+        }
+    """
+    if not articles:
+        return {
+            "is_valid": True,
+            "error_count": 0,
+            "errors": [],
+        }
+
+    errors = []
+
+    # Build set of all existing article NRs for parent validation
+    all_nrs = {art.get("nr") for art in articles if art.get("nr")}
+
+    # Check constraints
+    for idx, article in enumerate(articles):
+        nr = article.get("nr")
+        parent_nr = article.get("parent_nr")
+        is_component = article.get("is_component", False)
+
+        # Constraint 1: PARENT_NOT_FOUND - parent_nr must reference existing parent
+        if parent_nr is not None and parent_nr not in all_nrs:
+            errors.append({
+                "index": idx,
+                "nr": nr,
+                "error": "PARENT_NOT_FOUND",
+            })
+
+        # Constraint 2: NESTING_TOO_DEEP - max depth is 2 dots (levels 0, 1, 2)
+        if nr:
+            dot_count = nr.count(".")
+            if dot_count > 2:
+                errors.append({
+                    "index": idx,
+                    "nr": nr,
+                    "error": "NESTING_TOO_DEEP",
+                })
+
+        # Constraint 3: COMPONENT_NO_PARENT - components must have parent_nr
+        if is_component and parent_nr is None:
+            errors.append({
+                "index": idx,
+                "nr": nr,
+                "error": "COMPONENT_NO_PARENT",
+            })
+
+    # Constraint 4: CIRCULAR_REFERENCE - detect circular parent chains
+    for idx, article in enumerate(articles):
+        nr = article.get("nr")
+        parent_nr = article.get("parent_nr")
+
+        if parent_nr is None:
+            continue
+
+        # Trace the parent chain to detect cycles
+        visited = set()
+        current = parent_nr
+
+        while current is not None:
+            if current in visited:
+                # Circular reference detected
+                errors.append({
+                    "index": idx,
+                    "nr": nr,
+                    "error": "CIRCULAR_REFERENCE",
+                })
+                break
+
+            visited.add(current)
+
+            # Find the parent of current
+            next_parent = None
+            for art in articles:
+                if art.get("nr") == current:
+                    next_parent = art.get("parent_nr")
+                    break
+
+            current = next_parent
+
+    return {
+        "is_valid": len(errors) == 0,
+        "error_count": len(errors),
+        "errors": errors,
+    }
