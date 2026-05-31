@@ -15,6 +15,7 @@ from shared.table_extractor import TableExtractor
 from shared.extraction_comparator import ExtractionComparator
 from shared.f3_regex_parser import extract_articles_regex
 from shared.deviz_header_extractor import extract_deviz_headers
+from shared.hierarchy_corrector import HierarchyCorrector
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +37,7 @@ class ExtractionOrchestrator:
         self.template_detector = TemplateDetector()
         self.table_extractor = TableExtractor()
         self.extraction_comparator = ExtractionComparator()
+        self.hierarchy_corrector = HierarchyCorrector()
         self.extraction_log = {"client": "", "pages": []}
 
     def extract_from_di(self, di_json: Dict, client_name: str) -> Dict:
@@ -151,12 +153,18 @@ class ExtractionOrchestrator:
         grupos = []
 
         if all_best_articles:
+            # Step 5a: Apply hierarchy correction to articles in the group
+            corrected_articles, hierarchy_stats = self.hierarchy_corrector.correct(
+                all_best_articles
+            )
+
             grupo = {
                 "deviz_cod": "CONSOLIDATED",
                 "deviz_den": "",
                 "source_pages": source_pages,
-                "articole": all_best_articles,
-                "article_count": len(all_best_articles),
+                "articole": corrected_articles,
+                "article_count": len(corrected_articles),
+                "hierarchy_stats": hierarchy_stats,
             }
             grupos.append(grupo)
 
