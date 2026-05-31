@@ -382,7 +382,7 @@ def _make_article(cod: str, denumire: str, um: str, cantitate: float,
                   subcomponents: list = None,
                   nr_ordine=None,
                   parent_nr_ordine=None) -> Dict:
-    """Create article dict with component tracking.
+    """Create article dict with component tracking and confidence metadata.
 
     Args:
         cod: Article code
@@ -400,10 +400,18 @@ def _make_article(cod: str, denumire: str, um: str, cantitate: float,
     """
     fields = ['pret_material', 'val_material', 'pret_manopera', 'val_manopera',
               'pret_utilaj', 'val_utilaj', 'pret_transport', 'val_transport']
+
+    # Normalize denomination and um for comparison
+    den_normalized = denumire.strip().lower().replace(",", "").replace(".", "").strip()
+    um_normalized = um.lower()
+
+    # Create comparison key: nr_ordine_denomination_normalized
+    comparison_key = f"{nr_ordine}_{den_normalized}" if nr_ordine else den_normalized
+
     art = {
         'cod': cod,
         'denumire': denumire.strip(),
-        'um': um.lower(),
+        'um': um_normalized,
         'cantitate': cantitate,
         'deviz': deviz_cod,
         'deviz_denumire': deviz_den,
@@ -412,6 +420,16 @@ def _make_article(cod: str, denumire: str, um: str, cantitate: float,
         'subcomponents': subcomponents or [],
         'nr_ordine': nr_ordine,
         'parent_nr_ordine': parent_nr_ordine,
+        # Extraction metadata
+        'extraction_source': 'REGEX',
+        'confidence': 0.70,  # Default MEDIUM confidence for regex extraction
+        # Comparison metadata
+        'descriere_normalized': den_normalized,
+        'um_normalized': um_normalized,
+        'cant_numeric': float(cantitate) if cantitate else 0.0,
+        'comparison_key': comparison_key,
+        # Hierarchy fields
+        'parent_nr': None,
     }
     for i, field in enumerate(fields):
         art[field] = preturi[i] if i < len(preturi) else 0.0
