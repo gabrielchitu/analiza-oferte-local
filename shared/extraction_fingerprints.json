@@ -1,0 +1,20 @@
+{
+  "BR_CONSOLIDATED": {
+    "description": "Blocuri Racari consolidated format with multi-column tables",
+    "features": {
+      "num_pages": 128,
+      "num_tables": 228,
+      "primary_table_cols": 6,
+      "primary_table_rows": 46,
+      "text_density": 0.0,
+      "has_multicolumn_primary": true
+    },
+    "accuracy": 0.95,
+    "comment": "Established baseline from Blocuri Racari reference document"
+  },
+  "UNKNOWN": {
+    "description": "Fallback template for unknown documents",
+    "features": {},
+    "accuracy": 0.0
+  }
+}
