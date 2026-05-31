@@ -104,6 +104,41 @@ def generate_v2_report(client_name, oferta_num):
     doc.save(output_path)
     print(f"✓ Saved: {output_path.name}")
 
+def generate_v2_report_from_holistic(holistic_data, output_path, client_name, oferta_num):
+    """Generate v2 report from holistic matching data."""
+    doc = Document()
+    doc.add_heading(f"Raport Extraction v2 - Oferta {oferta_num}", 0)
+    doc.add_paragraph(f"Client: {client_name}")
+    doc.add_paragraph(f"Method: v2 Extraction (Table-Native) + v1 Matching")
+    doc.add_paragraph(f"Date: {date.today()}")
+
+    # Summary
+    doc.add_heading("Summary", level=1)
+    matched = len([g for g in holistic_data.get("matched_groups", []) if g.get("articole")])
+    ref_only = len(holistic_data.get("ref_only_groups", []))
+    oferta_only = len(holistic_data.get("oferta_only_groups", []))
+
+    summary_table = doc.add_table(rows=4, cols=2)
+    summary_table.style = "Light Grid Accent 1"
+    summary_table.rows[0].cells[0].text = "Matched Groups"
+    summary_table.rows[0].cells[1].text = str(matched)
+    summary_table.rows[1].cells[0].text = "Reference-Only Groups"
+    summary_table.rows[1].cells[1].text = str(ref_only)
+    summary_table.rows[2].cells[0].text = "Oferta-Only Groups"
+    summary_table.rows[2].cells[1].text = str(oferta_only)
+    summary_table.rows[3].cells[0].text = "Total Groups"
+    summary_table.rows[3].cells[1].text = str(matched + ref_only + oferta_only)
+
+    # Matched groups
+    doc.add_heading("Matched Groups", level=1)
+    for grupo in holistic_data.get("matched_groups", [])[:10]:  # First 10
+        deviz = grupo.get("deviz_cod", "UNKNOWN")
+        articole_count = len(grupo.get("articole", []))
+        doc.add_paragraph(f"{deviz}: {articole_count} articles")
+
+    # Save
+    doc.save(output_path)
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python3 generate_v2_reports.py 'ClientName'")
