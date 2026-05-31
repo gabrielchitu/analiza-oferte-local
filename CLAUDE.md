@@ -1,3 +1,145 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Development
+
+### Run Tests
+```bash
+pytest                           # All tests
+pytest tests/test_normalize_cod.py -v  # Single file, verbose
+pytest -k "test_name"            # By keyword
+pytest --tb=short                # Brief tracebacks
+```
+
+Pre-existing failures (safe to ignore):
+- `test_compound_deviz_extraction.py` — ImportError: `_extract_compound_deviz` (removed function)
+- `test_subcomponent_matching.py` — ImportError: `_should_match_cant_um` (removed function)
+
+Quality baseline: **214/230 pass** (16 unrelated pre-existing failures).
+
+### Dependencies
+- `anthropic` — Claude API for LLM group matching
+- `python-docx` — DOCX report generation
+- `rapidfuzz` — Fuzzy denomination matching (Phase 2a in comparator)
+- `dotenv` — Load API key from `.env`
+
+`.env` must contain `ANTHROPIC_API_KEY=sk-...`
+
+## Architecture
+
+### Data Flow
+```
+input_AO/{ClientName}/
+  ├─ di_referinta.json (raw PDF extracted reference)
+  └─ di_oferta_N.json (raw PDF extracted offer N)
+         ↓
+   [F3_PAGE_CLASSIFIER]  — Classify pages (table, block, detail, list, free-form)
+   [DEVIZ_HEADER_EXTRACTOR] — Extract deviz codes + categories + titles
+   [F3_REGEX_PARSER]  — Parse articles from text (NR, UM, DESCRIERE, PRET)
+         ↓
+   output_AO/{ClientName}/
+     ├─ referinta.json (structured: groups → articles)
+     └─ oferta_N.json
+         ↓
+   [COMPARATOR] — Layer 1-2.5 matching (NR, COD_SIMILAR, denomination)
+   [GROUP_COMPARATOR] — LLM fallback for unmatched groups
+         ↓
+   output_AO/{ClientName}/
+     ├─ comparatie_oferta_N.json (match results)
+     └─ holistic_oferta_N.json (merged matched + unmatched)
+         ↓
+   [REPORT_WORD] — Generate DOCX with holistic data + per-group totals
+         ↓
+   output_AO/{ClientName}/
+     └─ Raport_Oferta_N.docx
+```
+
+### Key Modules
+
+**Extraction Pipeline:**
+- `shared/f3_page_classifier.py` — Classify pages by layout (LLM-cached, ~10 calls per offer)
+- `shared/deviz_header_extractor.py` — Extract deviz codes, categories, titles from headers. **Client-specific patterns in `_DEVIZ_OFERTA_LETTERED_RE`, `_CAT_RE`**
+- `shared/f3_regex_parser.py` — Parse articles from page text. Uses `SKIP_RE`, `NR_SUBITEM`, `SUBCOMP_PREFIXED_RE` patterns. **Sensitive to OCR artifacts**
+
+**Matching Pipeline:**
+- `AgentComparator_local.py` — Layer 1-2.5 matching. Entry: `match_global(ref_catalog, oferta_articles)`. **Critical invariant: ref_main_count == off_main_count for 0-NC groups**
+- `shared/group_comparator.py` — LLM group fallback + knowledge cache. Uses `group_match_knowledge.json` + `f3_knowledge.py` for context injection
+- `shared/comparator.py` — Core matching logic (NR, COD_SIMILAR, denomination). Functions: `compare_articles()`, `check_arithmetic()`
+
+**Knowledge/Caching:**
+- `shared/group_match_knowledge.json` — Manual LLM→deviz code mappings (additive; LLM result merged with manual)
+- `shared/f3_markers_knowledge.json` — Page end-markers by client. **MANUAL ONLY** (auto-learning disabled after false positives)
+- `shared/f3_knowledge.py` — Client-specific F3 context injected into LLM prompts
+- `shared/ocr_patterns_knowledge.json` — OCR substitution rules (`I→1`, `O→0`, client-specific patterns)
+
+**Output:**
+- `shared/report_word.py` — Generate DOCX. Per-group totals row added via `_add_group_totals_row()`
+- `di_to_docx.py` — Convert raw DI JSON to human-readable DOCX (diagnostic tool, not in main pipeline)
+
+**Verification:**
+- `verify_agent.py` — 6 structural checks on holistic JSON. Checks: SILENT_VIOLATION, OFERTA_ONLY_GROUP, REF_ONLY_GROUP, HIGH_EXTRA, HIGH_LIPSA, EMPTY_MATCHED_GROUP, COD_SIMILAR_CLUSTER
+- `shared/pipeline_verifier.py` — Check logic + convergence loop
+
+### Entry Points
+- `multi_client_run.py` — Interactive menu or `--client "Name"` CLI
+- `local_run.py` — Legacy single-client (uses root `input_AO/di_*.json`)
+- `verify_agent.py` — Verify pipeline output (optional 2nd pass)
+
+## Adding a Client
+
+**Input folder structure:**
+```
+input_AO/NewClient/
+  ├─ di_referinta.json    (required)
+  ├─ di_oferta_1.json     (required, at least 1)
+  ├─ di_oferta_2.json     (optional)
+  └─ di_oferta_N.json
+```
+
+**Detection:** `ClientConfig.detect_clients()` finds all folders with `di_referinta.json`. Menu includes new client automatically.
+
+**Customization (if needed):**
+
+1. **Header extraction issues** → Edit `shared/deviz_header_extractor.py`:
+   - Add client-specific `_DEVIZ_OFERTA_LETTERED_RE` pattern if deviz codes have unusual format
+   - Example: Drum Tatarani uses `ZO0001`, `AN1`, `LC001A` (lettered prefixes) — regex added at line ~50
+
+2. **Article extraction issues** → Edit `shared/f3_regex_parser.py`:
+   - Add/adjust `SKIP_RE` for catalog codes to filter
+   - Adjust `NR_SUBITEM` marker if decimal structure differs
+   - Example: Camin Maneciu 7-digit codes `^\d{4,6}|\d{8,}$`, bare `424` → `\b424\b(?!\d)`
+
+3. **OCR patterns** → Add to `shared/ocr_patterns_knowledge.json`:
+   ```json
+   {
+     "I→1": ["specific code pairs like SA131↔SA13I"],
+     "client_specific": ["pattern1→pattern2"]
+   }
+   ```
+
+4. **Group matching fallback** → Add manual mappings to `shared/group_match_knowledge.json`:
+   ```json
+   {
+     "LLM_group_name": "deviz_code_or_category"
+   }
+   ```
+
+5. **F3 context** → Add client entry to `shared/f3_knowledge.py`:
+   ```python
+   "NewClient": {
+     "markers": ["page_end_keywords"],
+     "deviz_format": "description of header structure"
+   }
+   ```
+
+**Verification:** Run `python3 multi_client_run.py --client "NewClient"`, check:
+- `holistic_oferta_N.json` — matched/ref_only/oferta_only group counts
+- `output_AO/NewClient/Raport_Oferta_N.docx` — visual report
+- `verify_agent.py --client "NewClient" --verify-only` — 0 CRITICAL/HIGH expected
+
+---
+
 # Project State — Multi-Client Pipeline
 
 **Status:** ✅ ACTIVE (v12.3)
