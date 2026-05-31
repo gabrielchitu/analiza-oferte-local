@@ -59,28 +59,38 @@ def detect_broken_hierarchy(articles: List[Dict]) -> List[Dict]:
 
 
 def fix_hierarchy_ffill(articles: List[Dict]) -> List[Dict]:
-    """Fix broken hierarchy using forward fill (ffill) to propagate parent context.
+    """Fix broken hierarchy using forward fill (ffill) with group awareness.
 
-    For component articles with missing parent_nr, inherit parent from the previous
-    article's parent_nr value (if that article is a component) or its own nr (if main).
-    This assumes articles are ordered correctly by extraction.
+    For component articles with missing parent_nr, inherit parent from the current
+    group's parent context. The context is established by main articles
+    (is_component=False) and resets at group boundaries.
 
-    Logic:
-    - When parent_nr is None AND is_component is True, fill from last non-None parent_nr
-    - Reset context when we hit a new main article (is_component=False with parent_nr=None)
+    GROUP-AWARE LOGIC:
+    - Track `current_parent` based on the most recent main article
+    - When a new main article is encountered, update `current_parent` (GROUP BOUNDARY RESET)
+    - For components with missing parent_nr, fill from the current group's parent
+    - This prevents components from inheriting parents from previous groups
+
+    EXAMPLES:
+    ```
+    Article 1 (main, nr="1", parent_nr=None)
+    Article 1.1 (comp, nr="1.1", parent_nr="1")           ✓ Valid
+    Article 1.2 (comp, nr="1.2", parent_nr=None)          → Fixed to "1" (group context)
+    Article 2 (main, nr="2", parent_nr=None)              ← GROUP BOUNDARY: reset current_parent to "2"
+    Article 2.1 (comp, nr="2.1", parent_nr=None)          → Fixed to "2" (NOT "1")
+    ```
 
     Args:
         articles: List of article dictionaries with keys: nr, parent_nr, is_component
 
     Returns:
         List of article dictionaries with:
-        - Fixed parent_nr values (filled from previous valid parent)
+        - Fixed parent_nr values (filled from group's parent context)
         - New field 'hierarchy_corrected' (boolean): True if parent_nr was modified
     """
     if not articles:
         return []
 
-    # Make a copy and add tracking field
     result = []
     current_parent = None
 
@@ -90,15 +100,17 @@ def fix_hierarchy_ffill(articles: List[Dict]) -> List[Dict]:
         is_component = article.get("is_component", False)
         nr = article.get("nr")
 
-        # Update current_parent based on current article
-        if not is_component and article.get("parent_nr") is None:
-            # Main article with no parent_nr: this becomes the context
-            current_parent = nr
-        elif not is_component and article.get("parent_nr") is not None:
-            # Main article with explicit parent_nr: use it as context
-            current_parent = article.get("parent_nr")
+        # GROUP BOUNDARY DETECTION: Update current_parent based on main articles
+        if not is_component:
+            # Main article found: establish/reset the group context
+            if article.get("parent_nr") is None:
+                # Main article with no parent_nr: becomes the group parent
+                current_parent = nr
+            else:
+                # Main article with explicit parent_nr: use it as group parent
+                current_parent = article.get("parent_nr")
 
-        # For components with missing parent_nr, fill from current_parent
+        # FIX MISSING PARENTS: For components without parent_nr, fill from current group
         if is_component and original_parent is None:
             article_copy["parent_nr"] = current_parent
             article_copy["hierarchy_corrected"] = True
