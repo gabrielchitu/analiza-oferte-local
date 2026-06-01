@@ -201,6 +201,9 @@ class ExtractionOrchestrator:
                     "hierarchy_stats": hierarchy_stats,
                 })
 
+        # Filter out PAGE_N fallback groups (unclassified pages → garbage articles)
+        grupos = [g for g in grupos if not str(g.get("deviz_cod", "")).startswith("PAGE_")]
+
         # Step 6: Return unified result
         return {
             "client": client_name,

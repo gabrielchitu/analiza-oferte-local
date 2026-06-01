@@ -411,6 +411,11 @@ class V2EndToEndOrchestrator:
             if stale:
                 logger.debug(f"Stale cache for {cache_key} — re-extracting")
             else:
+                # Filter PAGE_N fallback groups (unclassified pages, garbage articles)
+                cached["grupos"] = [
+                    g for g in grupos
+                    if not str(g.get("deviz_cod", "")).startswith("PAGE_")
+                ]
                 logger.debug(f"Loading cached extraction for {cache_key}")
                 return cached
 
