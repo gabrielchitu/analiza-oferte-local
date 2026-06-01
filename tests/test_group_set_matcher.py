@@ -316,15 +316,15 @@ class TestMatchGroupsByDeviz:
         assert devizes == ["0001", "0002", "0003"]
 
     def test_empty_articole_in_groups(self):
-        """Empty groups cannot be matched by content — go to ref_only / oferta_only."""
+        """Empty groups with same deviz_cod match via fallback; different deviz_cod → unmatched."""
         ref = [{"deviz_cod": "0001", "deviz_den": "Works", "articole": []}]
         oferta = [{"deviz_cod": "0001", "deviz_den": "Works", "articole": []}]
 
         result = match_groups_by_deviz(ref, oferta)
 
-        assert len(result["matched_groups"]) == 0
-        assert len(result["ref_only_groups"]) == 1
-        assert len(result["oferta_only_groups"]) == 1
+        # same deviz_cod + no header text → fallback exact match
+        assert len(result["matched_groups"]) == 1
+        assert result["matched_groups"][0]["stats"]["matched_count"] == 0
 
     def test_complex_scenario(self):
         """Should handle complex scenario with mixed matches."""

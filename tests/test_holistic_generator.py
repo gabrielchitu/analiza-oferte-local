@@ -220,16 +220,22 @@ class TestGenerateHolisticV2:
                 {
                     "deviz_cod": "0001",
                     "deviz_den": "A",
+                    "obiectul": "001 Obiect A",
+                    "categoria": "0001 Excavation",
                     "articole": [{"cod": "SA001"}, {"cod": "SA002"}],
                 },
                 {
                     "deviz_cod": "0002",
                     "deviz_den": "B",
+                    "obiectul": "001 Obiect A",
+                    "categoria": "0002 Transport",
                     "articole": [{"cod": "SA003"}],
                 },
                 {
                     "deviz_cod": "0003",
                     "deviz_den": "C",
+                    "obiectul": "002 Obiect B",
+                    "categoria": "0003 Roof",
                     "articole": [{"cod": "SA004"}],
                 },
             ],
@@ -242,17 +248,23 @@ class TestGenerateHolisticV2:
                 {
                     "deviz_cod": "X001",
                     "deviz_den": "A",
-                    "articole": [{"cod": "SA001"}],  # SA001 matches ref 0001
+                    "obiectul": "001 Obiect A",
+                    "categoria": "X001 Excavation",
+                    "articole": [{"cod": "SA001"}],
                 },
                 {
                     "deviz_cod": "X002",
                     "deviz_den": "B",
-                    "articole": [{"cod": "SA003"}],  # SA003 matches ref 0002
+                    "obiectul": "001 Obiect A",
+                    "categoria": "X002 Transport",
+                    "articole": [{"cod": "SA003"}],
                 },
                 {
                     "deviz_cod": "X004",
                     "deviz_den": "D",
-                    "articole": [{"cod": "SA999"}],  # no match
+                    "obiectul": "002 Obiect B",
+                    "categoria": "X004 Windows",
+                    "articole": [{"cod": "SA999"}],
                 },
             ],
         }
@@ -270,7 +282,7 @@ class TestGenerateHolisticV2:
         assert holistic["stats"]["oferta_only_articles_count"] == 1  # SA999
 
     def test_holistic_stats_group_counts(self):
-        """Stats should have correct group counts (content-based matching)."""
+        """Stats should have correct group counts (header text matching)."""
         ref = {
             "client": "Test",
             "di_file": "ref.json",
@@ -279,11 +291,15 @@ class TestGenerateHolisticV2:
                 {
                     "deviz_cod": "0001",
                     "deviz_den": "A",
+                    "obiectul": "001 Obiect A",
+                    "categoria": "0001 Excavation",
                     "articole": [{"cod": "SA001"}],
                 },
                 {
                     "deviz_cod": "0002",
                     "deviz_den": "B",
+                    "obiectul": "002 Obiect B",
+                    "categoria": "0002 Transport",
                     "articole": [{"cod": "SA002"}],
                 },
             ],
@@ -296,7 +312,9 @@ class TestGenerateHolisticV2:
                 {
                     "deviz_cod": "X001",
                     "deviz_den": "A",
-                    "articole": [{"cod": "SA001"}],  # SA001 matches ref 0001
+                    "obiectul": "001 Obiect A",
+                    "categoria": "X001 Excavation",
+                    "articole": [{"cod": "SA001"}],
                 },
             ],
         }
@@ -308,7 +326,7 @@ class TestGenerateHolisticV2:
         assert holistic["stats"]["oferta_only_groups_count"] == 0
 
     def test_holistic_preserves_group_metadata(self):
-        """Groups should preserve all metadata fields (content-based matching)."""
+        """Groups should preserve all metadata fields (header text matching)."""
         ref = {
             "client": "Test",
             "di_file": "ref.json",
@@ -317,6 +335,8 @@ class TestGenerateHolisticV2:
                 {
                     "deviz_cod": "0001",
                     "deviz_den": "A",
+                    "obiectul": "001 Strada Zoica",
+                    "categoria": "0001 Terasamente",
                     "source_pages": [1, 2],
                     "extra_field": "value",
                     "articole": [{"cod": "SA001"}],
@@ -331,8 +351,10 @@ class TestGenerateHolisticV2:
                 {
                     "deviz_cod": "X001",
                     "deviz_den": "A",
+                    "obiectul": "001 1 Strada Zoica",
+                    "categoria": "X001 Terasamente",
                     "source_pages": [3],
-                    "articole": [{"cod": "SA001"}],  # SA001 matches ref 0001
+                    "articole": [{"cod": "SA001"}],
                 }
             ],
         }

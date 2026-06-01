@@ -1,61 +1,86 @@
-"""Group-level matching using article content (COD-based keys).
+"""Group-level matching using OBIECTUL + CATEGORIA text similarity.
 
-Instead of matching groups by deviz_cod string equality (which fails when
-ref and offer use different deviz_cod formats), this module matches groups
-by the content of their articles using Jaccard similarity on COD key sets.
+Mirrors V1 Phase 2 logic (SequenceMatcher on header text) — same business
+requirement, deterministic implementation without LLM.
 
 Workflow:
-1. For each group, build a set of COD-based article keys (skip NR — repeats 1,2,3 across all groups)
-2. Compute Jaccard similarity for all (ref_group, oferta_group) pairs
+1. Normalize OBIECTUL + CATEGORIA text per group (strip leading code prefixes)
+2. SequenceMatcher similarity for all (ref_group, oferta_group) pairs
 3. Greedy 1:1 assignment by similarity descending
 4. Pairs above threshold → matched; remainder → ref_only / oferta_only
-5. Within each matched group pair, run set-based article matching
+5. Within each matched group: set-based article matching (NR → COD → hash)
 """
 
-import hashlib
+import re
+from difflib import SequenceMatcher
 from typing import Dict, List, Tuple
 
 from shared.set_based_matcher import match_articles_by_key
 
-MATCH_THRESHOLD = 0.15  # minimum Jaccard similarity to consider a group match
+MATCH_THRESHOLD = 0.55  # primary: categoria similarity; lower than V1 (0.80) to compensate
+                        # for SequenceMatcher being stricter than RapidFuzz partial_token
 
 
-def _group_cod_keys(group: Dict) -> set:
-    """Build COD-based key set for a group's articles.
+def _normalize(text: str) -> str:
+    """Strip leading code/number prefixes, lowercase.
 
-    Uses COD (catalog code) as primary key — NOT NR, because NR repeats
-    1, 2, 3... across every group and produces useless intersections.
-    Falls back to hash(descriere+um+cant) when COD absent.
+    Examples:
+      "0001 Strada Zoica"          → "strada zoica"
+      "0001 1 Strada Zoica"        → "strada zoica"
+      "ZO0001 Terasamente 7.70smp" → "terasamente 7.70smp"
+      "0001 Terasamente 7,70smp"   → "terasamente 7,70smp"
+      "0001 45230000"              → "45230000"  (caller checks _has_letters)
     """
-    keys = set()
-    for art in group.get("articole", []):
-        cod = str(art.get("cod", "")).strip()
-        if cod:
-            keys.add(cod)
-            continue
-        descriere = str(art.get("descriere", "")).lower().strip()
-        um = str(art.get("um", "")).lower().strip()
-        cant = str(art.get("cant", "")).strip()
-        combined = f"{descriere}|{um}|{cant}"
-        keys.add(hashlib.md5(combined.encode()).hexdigest()[:8])
-    return keys
+    if not text:
+        return ""
+    t = text.strip()
+    # Strip leading tokens that are alphanumeric codes (e.g. "0001 ", "ZO0001 ", "1 ")
+    t = re.sub(r'^([\dA-Za-z][\dA-Za-z\-]*\s+)+', '', t)
+    return t.lower().strip()
 
 
-def _jaccard(a: set, b: set) -> float:
-    if not a or not b:
+def _has_letters(text: str) -> bool:
+    """True if text contains at least one real letter (not pure digits/codes)."""
+    return bool(re.search(r'[a-zA-Z]', text))
+
+
+def _group_score(ref_group: Dict, oferta_group: Dict) -> float:
+    """Matching score between two groups using OBIECTUL + CATEGORIA.
+
+    Primary: categoria similarity (most specific, always used).
+    Secondary: obiectul similarity, only when both sides have meaningful text
+               (i.e., not pure-numeric codes like EU procurement numbers).
+
+    Score ∈ [0, 1]. MATCH_THRESHOLD applies to this score.
+    """
+    ref_cat = _normalize(ref_group.get("categoria", "") or "")
+    oferta_cat = _normalize(oferta_group.get("categoria", "") or "")
+
+    if not ref_cat or not oferta_cat:
         return 0.0
-    union = a | b
-    return len(a & b) / len(union) if union else 0.0
+
+    cat_sim = SequenceMatcher(None, ref_cat, oferta_cat).ratio()
+
+    ref_obj = _normalize(ref_group.get("obiectul", "") or "")
+    oferta_obj = _normalize(oferta_group.get("obiectul", "") or "")
+
+    if ref_obj and oferta_obj and _has_letters(ref_obj) and _has_letters(oferta_obj):
+        obj_sim = SequenceMatcher(None, ref_obj, oferta_obj).ratio()
+        return 0.7 * cat_sim + 0.3 * obj_sim
+
+    return cat_sim
 
 
 def match_groups_by_deviz(ref_groups: List[Dict], oferta_groups: List[Dict]) -> Dict:
     """
-    Match groups by article content (Jaccard on COD keys), then match
+    Match groups by OBIECTUL + CATEGORIA text similarity, then match
     articles within each matched group pair using set_based_matcher.
 
+    Falls back to deviz_cod string equality when header text is unavailable.
+
     Args:
-        ref_groups: List of reference group dicts with deviz_cod and articole
-        oferta_groups: List of offer group dicts with deviz_cod and articole
+        ref_groups: List of reference group dicts (must have obiectul, categoria)
+        oferta_groups: List of offer group dicts (same structure)
 
     Returns:
         Dict with keys:
@@ -63,36 +88,37 @@ def match_groups_by_deviz(ref_groups: List[Dict], oferta_groups: List[Dict]) -> 
         - ref_only_groups: groups only in reference
         - oferta_only_groups: groups only in offer
     """
-    # Build COD key sets per group
-    ref_key_sets = [_group_cod_keys(g) for g in ref_groups]
-    oferta_key_sets = [_group_cod_keys(g) for g in oferta_groups]
-
-    # Compute all (similarity, ref_idx, oferta_idx) pairs above threshold
+    # Compute all candidate pairs above threshold
     candidates: List[Tuple[float, int, int]] = []
-    for ref_idx, ref_keys in enumerate(ref_key_sets):
-        for oferta_idx, oferta_keys in enumerate(oferta_key_sets):
-            sim = _jaccard(ref_keys, oferta_keys)
-            if sim >= MATCH_THRESHOLD:
-                candidates.append((sim, ref_idx, oferta_idx))
+    for ri, ref_group in enumerate(ref_groups):
+        for oi, oferta_group in enumerate(oferta_groups):
+            score = _group_score(ref_group, oferta_group)
+            if score >= MATCH_THRESHOLD:
+                candidates.append((score, ri, oi))
+            elif score == 0.0:
+                # Fallback: exact deviz_cod match when no header text available
+                if ref_group.get("deviz_cod") == oferta_group.get("deviz_cod"):
+                    candidates.append((1.0, ri, oi))
 
     # Greedy 1:1 assignment, highest similarity first
-    candidates.sort(reverse=True)
+    # Sort descending by sim; for ties keep lower indices first (stable)
+    candidates.sort(key=lambda x: (-x[0], x[1], x[2]))
     used_ref: set = set()
     used_oferta: set = set()
     assignments: List[Tuple[int, int, float]] = []
 
-    for sim, ref_idx, oferta_idx in candidates:
-        if ref_idx in used_ref or oferta_idx in used_oferta:
+    for sim, ri, oi in candidates:
+        if ri in used_ref or oi in used_oferta:
             continue
-        assignments.append((ref_idx, oferta_idx, sim))
-        used_ref.add(ref_idx)
-        used_oferta.add(oferta_idx)
+        assignments.append((ri, oi, sim))
+        used_ref.add(ri)
+        used_oferta.add(oi)
 
     # Build matched groups with article-level matching
     matched_groups = []
-    for ref_idx, oferta_idx, sim in assignments:
-        ref_group = ref_groups[ref_idx]
-        oferta_group = oferta_groups[oferta_idx]
+    for ri, oi, sim in assignments:
+        ref_group = ref_groups[ri]
+        oferta_group = oferta_groups[oi]
 
         article_match = match_articles_by_key(
             ref_group.get("articole", []),
@@ -102,6 +128,8 @@ def match_groups_by_deviz(ref_groups: List[Dict], oferta_groups: List[Dict]) -> 
         matched_groups.append({
             "deviz_cod": ref_group.get("deviz_cod", ""),
             "deviz_den": ref_group.get("deviz_den", ""),
+            "obiectul": ref_group.get("obiectul", ""),
+            "categoria": ref_group.get("categoria", ""),
             "oferta_deviz_cod": oferta_group.get("deviz_cod", ""),
             "match_similarity": round(sim, 3),
             "articole": article_match["matched"],
@@ -110,15 +138,15 @@ def match_groups_by_deviz(ref_groups: List[Dict], oferta_groups: List[Dict]) -> 
             "stats": article_match["stats"],
         })
 
+    # Sort by ref deviz_cod for deterministic output
+    matched_groups.sort(key=lambda g: g.get("deviz_cod", ""))
+
     ref_only_groups = [
         ref_groups[i] for i in range(len(ref_groups)) if i not in used_ref
     ]
     oferta_only_groups = [
         oferta_groups[i] for i in range(len(oferta_groups)) if i not in used_oferta
     ]
-
-    # Sort by ref deviz_cod for deterministic output
-    matched_groups.sort(key=lambda g: g.get("deviz_cod", ""))
 
     return {
         "matched_groups": matched_groups,

@@ -347,28 +347,48 @@ class V2EndToEndOrchestrator:
     def _load_page_classes(
         self, client_config: ClientConfig, di_file_stem: str
     ) -> Optional[List[Dict]]:
-        """Load V1 page_classes checkpoint for a DI file.
-
-        Checkpoints are saved by local_run.py as:
-        output_AO/{Client}/checkpoints/di_{stem}_page_classes_{hash}.json
-
-        Returns page_classes list or None if not found.
-        """
+        """Load V1 page_classes checkpoint for a DI file."""
         checkpoint_dir = client_config.output_dir / "checkpoints"
         if not checkpoint_dir.exists():
             return None
-        pattern = f"{di_file_stem}_page_classes_*.json"
-        matches = list(checkpoint_dir.glob(pattern))
+        matches = list(checkpoint_dir.glob(f"{di_file_stem}_page_classes_*.json"))
         if not matches:
             return None
         with open(matches[0]) as f:
             data = json.load(f)
-        if isinstance(data, list):
-            pcs = data
-        else:
-            pcs = data.get("page_classes", [])
+        pcs = data if isinstance(data, list) else data.get("page_classes", [])
         logger.debug(f"Loaded {len(pcs)} page_classes from {matches[0].name}")
         return pcs
+
+    def _load_deviz_headers(
+        self, client_config: ClientConfig, di_file_stem: str
+    ) -> Dict[str, Dict]:
+        """Load deviz_headers from V1 deviz_mapping checkpoint.
+
+        Returns {deviz_cod: {obiectivul, obiectul, categoria}} or {} if not found.
+        Checkpoints: output_AO/{Client}/checkpoints/di_{stem}_deviz_mapping_{hash}.json
+        """
+        checkpoint_dir = client_config.output_dir / "checkpoints"
+        if not checkpoint_dir.exists():
+            return {}
+        matches = list(checkpoint_dir.glob(f"{di_file_stem}_deviz_mapping_*.json"))
+        if not matches:
+            return {}
+        with open(matches[0]) as f:
+            data = json.load(f)
+        raw = data.get("deviz_headers", {})
+        # Key by deviz_cod for fast lookup
+        result: Dict[str, Dict] = {}
+        for _key, hdr in raw.items():
+            cod = hdr.get("deviz_cod", "")
+            if cod:
+                result[cod] = {
+                    "obiectivul": hdr.get("obiectivul", "") or "",
+                    "obiectul": hdr.get("obiectul", "") or "",
+                    "categoria": hdr.get("categoria", "") or "",
+                }
+        logger.debug(f"Loaded {len(result)} deviz_headers from {matches[0].name}")
+        return result
 
     def _cached_extraction(
         self,
@@ -382,10 +402,14 @@ class V2EndToEndOrchestrator:
         cache_file = self.cache_dir / f"{cache_key}_extracted.json"
         if cache_file.exists():
             cached = json.load(open(cache_file))
-            # Re-extract if cached result is CONSOLIDATED (stale)
             grupos = cached.get("grupos", [])
-            if len(grupos) == 1 and grupos[0].get("deviz_cod") == "CONSOLIDATED":
-                logger.debug(f"Stale CONSOLIDATED cache for {cache_key} — re-extracting")
+            # Re-extract if stale: CONSOLIDATED or missing header fields
+            stale = (
+                (len(grupos) == 1 and grupos[0].get("deviz_cod") == "CONSOLIDATED")
+                or (grupos and "obiectul" not in grupos[0])
+            )
+            if stale:
+                logger.debug(f"Stale cache for {cache_key} — re-extracting")
             else:
                 logger.debug(f"Loading cached extraction for {cache_key}")
                 return cached
@@ -393,15 +417,20 @@ class V2EndToEndOrchestrator:
         doc_type = "oferta" if is_offer else "referinta"
         logger.debug(f"Extracting {doc_type} {client_name}...")
 
-        # Try to load page_classes for proper deviz grouping
         page_classes = None
+        deviz_headers: Dict[str, Dict] = {}
         if client_config and di_file_stem:
             page_classes = self._load_page_classes(client_config, di_file_stem)
             if page_classes:
                 logger.info(f"Using {len(page_classes)} page_classes for {di_file_stem}")
+            deviz_headers = self._load_deviz_headers(client_config, di_file_stem)
+            if deviz_headers:
+                logger.info(f"Using {len(deviz_headers)} deviz_headers for {di_file_stem}")
 
         extracted = self.extraction_orch.extract_from_di(
-            di_json, client_name, page_classes=page_classes
+            di_json, client_name,
+            page_classes=page_classes,
+            deviz_headers=deviz_headers,
         )
 
         with open(cache_file, "w") as f:

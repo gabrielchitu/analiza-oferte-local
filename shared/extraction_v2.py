@@ -42,7 +42,11 @@ class ExtractionOrchestrator:
         self.extraction_log = {"client": "", "pages": []}
 
     def extract_from_di(
-        self, di_json: Dict, client_name: str, page_classes: Optional[List[Dict]] = None
+        self,
+        di_json: Dict,
+        client_name: str,
+        page_classes: Optional[List[Dict]] = None,
+        deviz_headers: Optional[Dict] = None,
     ) -> Dict:
         """Extract articles from DI JSON file.
 
@@ -184,9 +188,13 @@ class ExtractionOrchestrator:
         else:
             for deviz_cod, articles in articles_by_deviz.items():
                 corrected, hierarchy_stats = self.hierarchy_corrector.correct(articles)
+                hdr = (deviz_headers or {}).get(deviz_cod, {})
                 grupos.append({
                     "deviz_cod": deviz_cod,
                     "deviz_den": deviz_den_map.get(deviz_cod, ""),
+                    "obiectivul": hdr.get("obiectivul", ""),
+                    "obiectul": hdr.get("obiectul", ""),
+                    "categoria": hdr.get("categoria", ""),
                     "source_pages": pages_by_deviz[deviz_cod],
                     "articole": corrected,
                     "article_count": len(corrected),
