@@ -303,11 +303,11 @@ class TestMatchGroupsByDeviz:
         assert "oferta" in pair
 
     def test_groups_sorted_by_deviz_cod(self):
-        """All group lists should be sorted by deviz_cod."""
+        """Matched groups should be sorted by deviz_cod (ref side)."""
         ref = [
-            {"deviz_cod": "0003", "deviz_den": "C", "articole": []},
-            {"deviz_cod": "0001", "deviz_den": "A", "articole": []},
-            {"deviz_cod": "0002", "deviz_den": "B", "articole": []},
+            {"deviz_cod": "0003", "deviz_den": "C", "articole": [{"cod": "C001", "descriere": "C"}]},
+            {"deviz_cod": "0001", "deviz_den": "A", "articole": [{"cod": "A001", "descriere": "A"}]},
+            {"deviz_cod": "0002", "deviz_den": "B", "articole": [{"cod": "B001", "descriere": "B"}]},
         ]
 
         result = match_groups_by_deviz(ref, ref)
@@ -316,15 +316,15 @@ class TestMatchGroupsByDeviz:
         assert devizes == ["0001", "0002", "0003"]
 
     def test_empty_articole_in_groups(self):
-        """Should handle groups with empty articole lists."""
+        """Empty groups cannot be matched by content — go to ref_only / oferta_only."""
         ref = [{"deviz_cod": "0001", "deviz_den": "Works", "articole": []}]
         oferta = [{"deviz_cod": "0001", "deviz_den": "Works", "articole": []}]
 
         result = match_groups_by_deviz(ref, oferta)
 
-        matched = result["matched_groups"][0]
-        assert len(matched["articole"]) == 0
-        assert matched["stats"]["matched_count"] == 0
+        assert len(result["matched_groups"]) == 0
+        assert len(result["ref_only_groups"]) == 1
+        assert len(result["oferta_only_groups"]) == 1
 
     def test_complex_scenario(self):
         """Should handle complex scenario with mixed matches."""

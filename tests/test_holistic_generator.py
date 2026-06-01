@@ -220,17 +220,17 @@ class TestGenerateHolisticV2:
                 {
                     "deviz_cod": "0001",
                     "deviz_den": "A",
-                    "articole": [{"nr": "1"}, {"nr": "2"}],
+                    "articole": [{"cod": "SA001"}, {"cod": "SA002"}],
                 },
                 {
                     "deviz_cod": "0002",
                     "deviz_den": "B",
-                    "articole": [{"nr": "3"}],
+                    "articole": [{"cod": "SA003"}],
                 },
                 {
                     "deviz_cod": "0003",
                     "deviz_den": "C",
-                    "articole": [{"nr": "4"}],
+                    "articole": [{"cod": "SA004"}],
                 },
             ],
         }
@@ -240,19 +240,19 @@ class TestGenerateHolisticV2:
             "extraction_version": "2.0",
             "grupos": [
                 {
-                    "deviz_cod": "0001",
+                    "deviz_cod": "X001",
                     "deviz_den": "A",
-                    "articole": [{"nr": "1"}],
+                    "articole": [{"cod": "SA001"}],  # SA001 matches ref 0001
                 },
                 {
-                    "deviz_cod": "0002",
+                    "deviz_cod": "X002",
                     "deviz_den": "B",
-                    "articole": [{"nr": "3"}],
+                    "articole": [{"cod": "SA003"}],  # SA003 matches ref 0002
                 },
                 {
-                    "deviz_cod": "0004",
+                    "deviz_cod": "X004",
                     "deviz_den": "D",
-                    "articole": [{"nr": "5"}],
+                    "articole": [{"cod": "SA999"}],  # no match
                 },
             ],
         }
@@ -260,17 +260,17 @@ class TestGenerateHolisticV2:
         holistic = generate_holistic_v2(ref, oferta)
 
         # Check group counts
-        assert len(holistic["matched_groups"]) == 2  # 0001, 0002
+        assert len(holistic["matched_groups"]) == 2  # 0001↔X001, 0002↔X002
         assert len(holistic["ref_only_groups"]) == 1  # 0003
-        assert len(holistic["oferta_only_groups"]) == 1  # 0004
+        assert len(holistic["oferta_only_groups"]) == 1  # X004
 
         # Check article counts
         assert holistic["stats"]["matched_articles_count"] == 2  # 1 + 1
-        assert holistic["stats"]["ref_only_articles_count"] == 2  # 1 + 1
-        assert holistic["stats"]["oferta_only_articles_count"] == 1  # 1
+        assert holistic["stats"]["ref_only_articles_count"] == 2  # SA002 + SA004
+        assert holistic["stats"]["oferta_only_articles_count"] == 1  # SA999
 
     def test_holistic_stats_group_counts(self):
-        """Stats should have correct group counts."""
+        """Stats should have correct group counts (content-based matching)."""
         ref = {
             "client": "Test",
             "di_file": "ref.json",
@@ -279,12 +279,12 @@ class TestGenerateHolisticV2:
                 {
                     "deviz_cod": "0001",
                     "deviz_den": "A",
-                    "articole": [],
+                    "articole": [{"cod": "SA001"}],
                 },
                 {
                     "deviz_cod": "0002",
                     "deviz_den": "B",
-                    "articole": [],
+                    "articole": [{"cod": "SA002"}],
                 },
             ],
         }
@@ -294,9 +294,9 @@ class TestGenerateHolisticV2:
             "extraction_version": "2.0",
             "grupos": [
                 {
-                    "deviz_cod": "0001",
+                    "deviz_cod": "X001",
                     "deviz_den": "A",
-                    "articole": [],
+                    "articole": [{"cod": "SA001"}],  # SA001 matches ref 0001
                 },
             ],
         }
@@ -308,7 +308,7 @@ class TestGenerateHolisticV2:
         assert holistic["stats"]["oferta_only_groups_count"] == 0
 
     def test_holistic_preserves_group_metadata(self):
-        """Groups should preserve all metadata fields."""
+        """Groups should preserve all metadata fields (content-based matching)."""
         ref = {
             "client": "Test",
             "di_file": "ref.json",
@@ -319,7 +319,7 @@ class TestGenerateHolisticV2:
                     "deviz_den": "A",
                     "source_pages": [1, 2],
                     "extra_field": "value",
-                    "articole": [{"nr": "1"}],
+                    "articole": [{"cod": "SA001"}],
                 }
             ],
         }
@@ -329,10 +329,10 @@ class TestGenerateHolisticV2:
             "extraction_version": "2.0",
             "grupos": [
                 {
-                    "deviz_cod": "0001",
+                    "deviz_cod": "X001",
                     "deviz_den": "A",
                     "source_pages": [3],
-                    "articole": [],
+                    "articole": [{"cod": "SA001"}],  # SA001 matches ref 0001
                 }
             ],
         }
