@@ -499,8 +499,121 @@ Teste care esueaza (pre-existente, nu regresii):
 - `test_compound_deviz_extraction.py` — ImportError functie stearsa
 - `test_subcomponent_matching.py` — ImportError functie redenumita
 
-Total teste: 17 (diagnostics) + 6 (client_config) + 17 (multi_client) + 11 (report_word_totals) + altele.
+Total teste: ~610 (V1 + V2). Baseline: 588 passed, 22 failed (toate pre-existente).
 
-Pre-existente failures (nu sunt regresii):
-- `test_compound_deviz_extraction.py` — ImportError functie stearsa
-- `test_subcomponent_matching.py` — ImportError functie redenumita
+---
+
+## 13. PIPELINE V2 (feature/v2-table-extraction)
+
+Pipeline paralel, independent de V1. Produce `Raport_Oferta_N_v2.docx`.
+
+### Entry Point
+
+```bash
+python3 run_v2_pipeline.py --client "Drum Tatarani"
+python3 run_v2_pipeline.py --client "Drum Tatarani" --oferta 2
+```
+
+### Flux V2
+
+```
+input_AO/<ClientName>/di_referinta.json + di_oferta_N.json
+    ↓
+[V2 S1: TABLE EXTRACTION] — shared/extraction_v2.py::ExtractionOrchestrator
+    1a. TemplateDetector — fingerprint document (shared/template_detector.py)
+    1b. Per-pagina: TableExtractor (Azure DI table → articole)
+                    + RegexExtractor (fallback: f3_regex_parser)
+    1c. ExtractionComparator — alege sursa mai buna per pagina
+    1d. Grupare articole pe deviz_cod din page_classes checkpoint
+    1e. Filtrare PAGE_N (pagini neclasificate cu articole goale)
+    ↓
+[V2 S2: HIERARCHY CORRECTION] — shared/hierarchy_corrector.py
+    2a. Detecteaza relatii parinte-copil rupte (HierarchyAnalyzer)
+    2b. Forward-fill parinte pentru articole orfane
+    2c. Output: articole corectate cu is_component + parent_code corecte
+    ↓
+output: extracted_ref_v2.json + extracted_offer_v2.json
+        (cached in output_AO/<Client>/checkpoints/<stem>_extracted.json)
+    ↓
+[V2 S3: GROUP MATCHING] — shared/group_set_matcher.py
+    3a. OBIECTIVUL/OBIECTUL/CATEGORIA text similarity (SequenceMatcher)
+        - _normalize(): strip prefixe cod numeric/alfanumeric (NU cuvinte)
+        - Pondere: 0.7 * categoria + 0.3 * obiectul (dacă obiectul are litere)
+        - Threshold: 0.55 (mai lax decât V1 0.80 RapidFuzz — SM mai strict)
+        - Fallback: exact deviz_cod când header text absent
+    3b. Greedy 1:1 assignment (sort sim desc, first-come)
+    3c. Per-grup article matching (set_based_matcher):
+        - NR → COD → hash(descriere+um+cant)
+    3d. Output: matched_groups, ref_only_groups, oferta_only_groups
+    ↓
+[V2 S4: REPORT GENERATION]
+    Via report_word.py (identic cu V1, holistic input)
+    Output: output_AO/<Client>/Raport_Oferta_N_v2.docx
+```
+
+### Module V2
+
+```
+shared/
+├── extraction_v2.py          # ExtractionOrchestrator: S1+S2 entry point
+├── template_detector.py      # Fingerprint document tip (DI table vs regex)
+├── table_extractor.py        # Azure DI table → articole (coloane COD/UM/CANT)
+├── extraction_comparator.py  # Alege table vs regex per pagina
+├── hierarchy_analyzer.py     # Detecteaza componente orfane
+├── hierarchy_corrector.py    # Forward-fill parinte
+├── group_set_matcher.py      # S3: group matching OBIECTUL+CATEGORIA
+├── set_based_matcher.py      # S3: article matching NR→COD→hash
+├── holistic_generator.py     # Produce holistic JSON (matched/ref_only/oferta_only)
+├── matching_orchestrator_v2.py # S3 orchestrator
+└── v2_orchestrator.py        # End-to-end: extract→match→report (cu caching)
+run_v2_pipeline.py            # CLI entry point V2
+```
+
+### Outputs V2
+
+```
+output_AO/<Client>/
+├── Raport_Oferta_N_v2.docx       # Raport Word (identic format V1)
+├── holistic_oferta_N_v2.json     # Holistic matching result
+└── checkpoints/
+    ├── <stem>_extracted.json     # Cache extragere V2 (regenerat dacă stale)
+    ├── di_<stem>_deviz_mapping_<hash>.json   # V1 deviz headers (partajat)
+    └── di_<stem>_page_classes_<hash>.json    # V1 page classifier (partajat)
+```
+
+### Performanță V2 pe Drum Tatarani (2026-06-01)
+
+| | V1 (prod) | V2 |
+|-|-----------|----|
+| O1 grupuri matched | 189/189 | 185/189 |
+| O1 ref_only genuine | 0 | 4 (AN1-AN4 Aninoasei, absent offer) |
+| O2 grupuri matched | 189/189 | 188/189 |
+| O2 ref_only genuine | 0 | 1 (BAPC Str.Zoica, absent offer) |
+
+### Limitare V2: Compound deviz_cod collision
+
+Clienți cu multiple sub-grupuri (deviz_key diferit) partajând același deviz_cod în page_classes:
+- **Drum Tatarani:** `0017-0169` → 5 sub-grupuri AN1-AN5
+- **Blocuri Racari:** `001-001` etc. → 6 instanțe per bloc
+- **Scoala Sportiva Racari:** `4-2264` etc. → 10 instanțe
+
+V1 identifică grupuri prin deviz_key (MD5 hash unic per sub-grup).
+V2 identifică prin deviz_cod → coliziunile creează un singur grup în loc de mai multe.
+
+**Fix viitor:** `_load_deviz_headers()` să returneze {deviz_key → header}, page_classes să stocheze deviz_key per pagina, sau inspectarea conținutului paginii pentru sub-grup detection.
+
+### Checkpointing V2
+
+`_cached_extraction()` în v2_orchestrator salvează extragerea per fișier.
+Cache invalidat când: CONSOLIDATED group OR `obiectul` lipsă din primul grup.
+Filtrare PAGE_N aplicată și la load din cache (nu doar la extragere fresh).
+
+### Teste V2
+
+```bash
+pytest tests/test_group_set_matcher.py      # 13 teste S3 group matching
+pytest tests/test_holistic_generator.py     # 10 teste holistic JSON
+pytest tests/test_set_based_matcher.py      # articole matching
+pytest tests/test_extraction_v2_regression.py  # E2E (necesită V2 rulat anterior)
+pytest tests/test_e2e_set_matching.py       # E2E matching pe toți clienții
+```
