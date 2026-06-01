@@ -61,6 +61,8 @@ def match_groups_by_deviz(ref_groups: List[Dict], oferta_groups: List[Dict]) -> 
                 "deviz_cod": deviz,
                 "deviz_den": ref_group.get("deviz_den", ""),
                 "articole": article_match["matched"],
+                "ref_only": article_match["ref_only"],
+                "oferta_only": article_match["oferta_only"],
                 "stats": article_match["stats"],
             }
         )
