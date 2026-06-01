@@ -362,11 +362,12 @@ class V2EndToEndOrchestrator:
 
     def _load_deviz_headers(
         self, client_config: ClientConfig, di_file_stem: str
-    ) -> Dict[str, Dict]:
+    ) -> Dict[str, List[Dict]]:
         """Load deviz_headers from V1 deviz_mapping checkpoint.
 
-        Returns {deviz_cod: {obiectivul, obiectul, categoria}} or {} if not found.
-        Checkpoints: output_AO/{Client}/checkpoints/di_{stem}_deviz_mapping_{hash}.json
+        Returns {deviz_cod: [list of {obiectivul, obiectul, categoria}]} in
+        document order. Multiple entries per deviz_cod occur when several logical
+        groups share the same compound code (e.g. "0017-0169" → AN1..AN5).
         """
         checkpoint_dir = client_config.output_dir / "checkpoints"
         if not checkpoint_dir.exists():
@@ -377,17 +378,21 @@ class V2EndToEndOrchestrator:
         with open(matches[0]) as f:
             data = json.load(f)
         raw = data.get("deviz_headers", {})
-        # Key by deviz_cod for fast lookup
-        result: Dict[str, Dict] = {}
+        result: Dict[str, List[Dict]] = {}
         for _key, hdr in raw.items():
             cod = hdr.get("deviz_cod", "")
             if cod:
-                result[cod] = {
+                entry = {
                     "obiectivul": hdr.get("obiectivul", "") or "",
                     "obiectul": hdr.get("obiectul", "") or "",
                     "categoria": hdr.get("categoria", "") or "",
                 }
-        logger.debug(f"Loaded {len(result)} deviz_headers from {matches[0].name}")
+                result.setdefault(cod, []).append(entry)
+        multi = sum(1 for v in result.values() if len(v) > 1)
+        logger.debug(
+            f"Loaded {len(result)} deviz_headers from {matches[0].name}"
+            + (f" ({multi} with multiple sub-groups)" if multi else "")
+        )
         return result
 
     def _cached_extraction(
@@ -400,13 +405,25 @@ class V2EndToEndOrchestrator:
         is_offer: bool = False,
     ) -> Dict:
         cache_file = self.cache_dir / f"{cache_key}_extracted.json"
+
+        # Load deviz_headers first (lightweight JSON, needed for stale detection)
+        deviz_headers: Dict[str, List[Dict]] = {}
+        if client_config and di_file_stem:
+            deviz_headers = self._load_deviz_headers(client_config, di_file_stem)
+
         if cache_file.exists():
             cached = json.load(open(cache_file))
             grupos = cached.get("grupos", [])
-            # Re-extract if stale: CONSOLIDATED or missing header fields
+            # Stale: CONSOLIDATED, missing header fields, or compound deviz_cod not split
+            has_unsplit_compound = any(
+                "__" not in str(g.get("deviz_cod", ""))
+                and len(deviz_headers.get(str(g.get("deviz_cod", "")), [])) > 1
+                for g in grupos
+            )
             stale = (
                 (len(grupos) == 1 and grupos[0].get("deviz_cod") == "CONSOLIDATED")
                 or (grupos and "obiectul" not in grupos[0])
+                or has_unsplit_compound
             )
             if stale:
                 logger.debug(f"Stale cache for {cache_key} — re-extracting")
@@ -423,14 +440,16 @@ class V2EndToEndOrchestrator:
         logger.debug(f"Extracting {doc_type} {client_name}...")
 
         page_classes = None
-        deviz_headers: Dict[str, Dict] = {}
         if client_config and di_file_stem:
             page_classes = self._load_page_classes(client_config, di_file_stem)
             if page_classes:
                 logger.info(f"Using {len(page_classes)} page_classes for {di_file_stem}")
-            deviz_headers = self._load_deviz_headers(client_config, di_file_stem)
             if deviz_headers:
-                logger.info(f"Using {len(deviz_headers)} deviz_headers for {di_file_stem}")
+                multi = sum(1 for v in deviz_headers.values() if len(v) > 1)
+                logger.info(
+                    f"Using {len(deviz_headers)} deviz_headers for {di_file_stem}"
+                    + (f" ({multi} compound)" if multi else "")
+                )
 
         extracted = self.extraction_orch.extract_from_di(
             di_json, client_name,

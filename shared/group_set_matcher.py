@@ -22,18 +22,20 @@ MATCH_THRESHOLD = 0.55  # primary: categoria similarity; lower than V1 (0.80) to
 
 
 def _normalize(text: str) -> str:
-    """Strip leading code/number prefixes, lowercase.
+    """Strip leading code/number prefixes, normalize punctuation, lowercase.
 
     Only strips tokens that are numeric codes or letter+digit codes.
     Does NOT strip regular words like "Terasamente", "Acostamente".
 
     Examples:
-      "0001 Strada Zoica"          → "strada zoica"
-      "0001 1 Strada Zoica"        → "strada zoica"
-      "ZO0001 Terasamente 7.70smp" → "terasamente 7.70smp"
-      "BI0006 Acostamente 10cm"    → "acostamente 10cm"
-      "0001 Terasamente 7,70smp"   → "terasamente 7,70smp"
-      "0001 45230000"              → "45230000"  (caller checks _has_letters)
+      "0001 Strada Zoica"           → "strada zoica"
+      "0001 1 Strada Zoica"         → "strada zoica"
+      "ZO0001 Terasamente 7.70smp"  → "terasamente 7.70smp"
+      "BI0006 Acostamente 10cm"     → "acostamente 10cm"
+      "0001 Terasamente 7,70smp"    → "terasamente 7.70smp"
+      "M0005 BAPC16 - 4CM 4.80SMP" → "4cm 4.80smp"
+      "0005 BAPC16-4cm 4,80smp"    → "4cm 4.80smp"
+      "0001 45230000"               → "45230000"  (caller checks _has_letters)
     """
     if not text:
         return ""
@@ -42,6 +44,12 @@ def _normalize(text: str) -> str:
     # or letter-prefix codes (e.g. "ZO0001 ", "BI0006 ", "AN1 ", "LC001A ")
     # Does NOT strip regular words (they lack embedded digits right after letters)
     t = re.sub(r'^((?:\d+|[A-Z]{1,4}\d+[A-Z]?)\s+)+', '', t)
+    # Strip code-dash prefix: "BAPC16-4cm" → "4cm" (code attached to content by dash)
+    t = re.sub(r'^[A-Za-z]{1,4}\d+[A-Za-z]?-', '', t)
+    # Normalize separators: comma decimal → period, leading dash artifact → strip
+    t = t.replace(',', '.')
+    t = re.sub(r'^\s*-\s*', '', t)
+    t = re.sub(r'\s+', ' ', t)
     return t.lower().strip()
 
 

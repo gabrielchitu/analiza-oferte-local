@@ -21,6 +21,86 @@ from shared.hierarchy_corrector import HierarchyCorrector
 logger = logging.getLogger(__name__)
 
 
+def _split_articles(articles: List, hdrs_list: List[Dict]) -> List[List]:
+    """Split articles into len(hdrs_list) sub-groups.
+
+    Strategy 1 (primary): COD header detection.
+      Each sub-group starts with a marker article where:
+        - cod == first token of the sub-group's categoria (e.g. "AN1", "BI0006")
+        - cantitate == 0  AND  nr_ordine is None
+      Consecutive same-code markers are deduplicated (OCR end-of-form artifacts).
+      Marker articles themselves are excluded from output groups.
+
+    Strategy 2 (fallback): NR reset detection.
+      When NR goes from >2 back to ≤2 between consecutive articles.
+
+    Returns [articles] (no split) if neither strategy yields exactly n groups.
+    """
+    n = len(hdrs_list)
+    if n <= 1 or not articles:
+        return [articles]
+
+    # --- Strategy 1: COD header markers ---
+    header_codes = set()
+    for hdr in hdrs_list:
+        cat = hdr.get("categoria", "")
+        if cat:
+            header_codes.add(cat.split()[0])
+
+    if header_codes:
+        groups: List[List] = []
+        current: List = []
+        current_header: Optional[str] = None
+
+        for art in articles:
+            cod = art.get("cod", "")
+            nr_ordine = art.get("nr_ordine")
+            cant = float(art.get("cantitate") or 0)
+
+            if cod in header_codes and nr_ordine is None and cant == 0:
+                if cod == current_header:
+                    continue  # duplicate end-of-form marker — skip
+                if current:
+                    groups.append(current)
+                    current = []
+                current_header = cod
+                continue  # skip header marker article
+
+            current.append(art)
+
+        if current:
+            groups.append(current)
+
+        if len(groups) == n:
+            return groups
+
+    # --- Strategy 2: NR reset (fallback) ---
+    groups2: List[List] = [[]]
+    prev_nr: Optional[int] = None
+
+    for art in articles:
+        nr_str = art.get("nr")
+        nr_int = None
+        if nr_str is not None:
+            try:
+                nr_int = int(str(nr_str).split(".")[0])
+            except (ValueError, TypeError):
+                pass
+
+        if nr_int is not None and prev_nr is not None and nr_int <= 2 and prev_nr > 2:
+            groups2.append([])
+
+        groups2[-1].append(art)
+        if nr_int is not None:
+            prev_nr = nr_int
+
+    if len(groups2) == n:
+        return groups2
+
+    # Both strategies failed — return single group (safe fallback, no regression)
+    return [articles]
+
+
 class ExtractionOrchestrator:
     """Orchestrate full extraction pipeline (v2).
 
@@ -46,7 +126,7 @@ class ExtractionOrchestrator:
         di_json: Dict,
         client_name: str,
         page_classes: Optional[List[Dict]] = None,
-        deviz_headers: Optional[Dict] = None,
+        deviz_headers: Optional[Dict[str, List[Dict]]] = None,
     ) -> Dict:
         """Extract articles from DI JSON file.
 
@@ -187,19 +267,30 @@ class ExtractionOrchestrator:
             })
         else:
             for deviz_cod, articles in articles_by_deviz.items():
-                corrected, hierarchy_stats = self.hierarchy_corrector.correct(articles)
-                hdr = (deviz_headers or {}).get(deviz_cod, {})
-                grupos.append({
-                    "deviz_cod": deviz_cod,
-                    "deviz_den": deviz_den_map.get(deviz_cod, ""),
-                    "obiectivul": hdr.get("obiectivul", ""),
-                    "obiectul": hdr.get("obiectul", ""),
-                    "categoria": hdr.get("categoria", ""),
-                    "source_pages": pages_by_deviz[deviz_cod],
-                    "articole": corrected,
-                    "article_count": len(corrected),
-                    "hierarchy_stats": hierarchy_stats,
-                })
+                hdrs_list = (deviz_headers or {}).get(deviz_cod, [])
+
+                if len(hdrs_list) > 1:
+                    # Multiple logical groups share this deviz_cod — split into sub-groups
+                    sub_groups = _split_articles(articles, hdrs_list)
+                else:
+                    sub_groups = [articles]
+
+                for i, sub_arts in enumerate(sub_groups):
+                    hdr = hdrs_list[i] if i < len(hdrs_list) else (hdrs_list[0] if hdrs_list else {})
+                    corrected, hierarchy_stats = self.hierarchy_corrector.correct(sub_arts)
+                    # Append sub-index to keep deviz_cod unique when split
+                    group_cod = deviz_cod if len(sub_groups) == 1 else f"{deviz_cod}__{i}"
+                    grupos.append({
+                        "deviz_cod": group_cod,
+                        "deviz_den": deviz_den_map.get(deviz_cod, ""),
+                        "obiectivul": hdr.get("obiectivul", ""),
+                        "obiectul": hdr.get("obiectul", ""),
+                        "categoria": hdr.get("categoria", ""),
+                        "source_pages": pages_by_deviz[deviz_cod],
+                        "articole": corrected,
+                        "article_count": len(corrected),
+                        "hierarchy_stats": hierarchy_stats,
+                    })
 
         # Filter out PAGE_N fallback groups (unclassified pages → garbage articles)
         grupos = [g for g in grupos if not str(g.get("deviz_cod", "")).startswith("PAGE_")]
