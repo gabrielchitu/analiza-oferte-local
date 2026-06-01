@@ -1,7 +1,7 @@
 """V2EndToEndOrchestrator - Full v2 pipeline orchestration.
 
 Coordinates extraction (S1-S2), matching (S3), and report generation (S4)
-into a single end-to-end workflow that produces V1-identical Raport_Oferta_N.docx.
+into a single end-to-end workflow that produces Raport_Oferta_N_v2.docx.
 
 Entry point: orchestrator.run(client_config, oferta_num)
 """
@@ -493,7 +493,7 @@ class V2EndToEndOrchestrator:
 
             output_dir = client_config.output_dir
             output_dir.mkdir(parents=True, exist_ok=True)
-            report_path = output_dir / f"Raport_Oferta_{oferta_num}.docx"
+            report_path = output_dir / f"Raport_Oferta_{oferta_num}_v2.docx"
             with open(report_path, "wb") as f:
                 f.write(doc_bytes)
 
