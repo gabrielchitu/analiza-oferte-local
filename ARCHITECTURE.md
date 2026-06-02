@@ -581,31 +581,42 @@ output_AO/<Client>/
     └── di_<stem>_page_classes_<hash>.json    # V1 page classifier (partajat)
 ```
 
-### Performanță V2 pe Drum Tatarani (2026-06-01)
+### Performanță V2 — toți clienții (2026-06-02)
 
-| | V1 (prod) | V2 |
-|-|-----------|----|
-| O1 grupuri matched | 189/189 | 185/189 |
-| O1 ref_only genuine | 0 | 4 (AN1-AN4 Aninoasei, absent offer) |
-| O2 grupuri matched | 189/189 | 188/189 |
-| O2 ref_only genuine | 0 | 1 (BAPC Str.Zoica, absent offer) |
+| Client | V1 | V2 | Note |
+|--------|----|----|------|
+| Drum Tatarani O1 | 189/189 | 189/189 ✅ | — |
+| Drum Tatarani O2 | 189/189 | 189/189 ✅ | — |
+| Blocuri Racari O1 | 35/35 | 34/35 ✅ | 1 ref_only genuine (BLC6 ORGANIZARE absent offer) |
+| Blocuri Racari O2 | 35/35 | 35/35 ✅ | — |
+| Blocuri Racari O3 | 35/35 | 34/35 ✅ | 1 ref_only genuine |
+| Blocuri Racari O4 | 0/35 (fail V1) | 35/35 ✅ | V2 mai bun decât V1 |
+| BR BLOC A/A2/A3/A4 | 6/6 | 6/6 ✅ | — |
+| BR BLOC B/C | 7/7 | 7/7 ✅ | — |
+| Camin Maneciu O1/O2 | 35/35 | 35/35 ✅ | — |
+| Scoala Dragomiresti O1/O2 | 22/22 | 22/22 ✅ | — |
+| Scoala Sportiva Racari | ~9-10/41 | ~9-10/41 ⚠️ | structural mismatch (V1 și V2) |
 
-### Limitare V2: Compound deviz_cod collision
+### Compound deviz_cod split (2026-06-02)
 
-Clienți cu multiple sub-grupuri (deviz_key diferit) partajând același deviz_cod în page_classes:
-- **Drum Tatarani:** `0017-0169` → 5 sub-grupuri AN1-AN5
-- **Blocuri Racari:** `001-001` etc. → 6 instanțe per bloc
-- **Scoala Sportiva Racari:** `4-2264` etc. → 10 instanțe
+**Problema:** Blocuri Racari are 7 deviz_cods (BLC1-BLC7) dar 35 grupuri logice (6 blocuri per cod,
+diferențiate de OBIECTUL). V1 le distinge prin deviz_key = MD5(obiectivul|obiectul|categoria).
 
-V1 identifică grupuri prin deviz_key (MD5 hash unic per sub-grup).
-V2 identifică prin deviz_cod → coliziunile creează un singur grup în loc de mai multe.
+**Fix implementat în `extraction_v2.py`:**
+1. `page_deviz_map` stochează `(cod, den, obj_text, cat_text)` 4-tuple.
+   - `obj_text` = `f"{num} {text}"` din `page_classes[i].obiectul` (dict) — forward-fill per deviz_cod.
+   - Reset `prev_obj` când deviz_cod se schimbă (evită contaminarea între grupuri).
+2. `articles_by_deviz` key = `(deviz_cod, obj_text)` tuple — split automat la obiectul diferit.
+3. Grupuri cu același deviz_cod → `BLC4__0`, `BLC4__1`, ..., `BLC4__5`.
+4. Fallback `_split_articles()` (COD header markers / NR reset) pentru coduri cu 1 key dar N hdrs.
 
-**Fix viitor:** `_load_deviz_headers()` să returneze {deviz_key → header}, page_classes să stocheze deviz_key per pagina, sau inspectarea conținutului paginii pentru sub-grup detection.
+**Regulă importantă:** page_classes `categoria` poate conține text brut cu garbage OCR. Câmpurile
+finale ale grupului (obiectul, categoria) vin întotdeauna din **deviz_headers** (curat), nu page_classes.
 
 ### Checkpointing V2
 
 `_cached_extraction()` în v2_orchestrator salvează extragerea per fișier.
-Cache invalidat când: CONSOLIDATED group OR `obiectul` lipsă din primul grup.
+Cache invalidat când: CONSOLIDATED group, `obiectul` lipsă, sau grup compound ne-splituit (fără `__`).
 Filtrare PAGE_N aplicată și la load din cache (nu doar la extragere fresh).
 
 ### Teste V2

@@ -174,12 +174,18 @@ Pipeline V2 este o implementare alternativă, independentă de V1, cu aceleași 
 - ✅ Fallback: exact deviz_cod match când text header indisponibil
 - ✅ Greedy 1:1 assignment (sortare descrescătoare după sim, primul câștigă)
 
-**Performanță actuală (Drum Tatarani):**
-- O1: 185/189 grupuri matched (4 ref_only genuine: lucrări absente din ofertă)
-- O2: 188/189 grupuri matched (1 ref_only genuine)
+**Performanță actuală (toți clienții verificați, 2026-06-02):**
+- Drum Tatarani: 189/189 O1+O2 ✅
+- Blocuri Racari consolidat: 34-35/35 (1 ref_only genuine per O1/O3 = BLC6 ORGANIZARE absent ofertă)
+- BR BLOC A/A2/A3/A4/B/C: 6/6 sau 7/7 pe toate ofertele ✅
+- Camin Maneciu: 35/35 O1+O2 ✅
+- Scoala Dragomiresti: 22/22 O1+O2 ✅
+- Scoala Sportiva Racari: 9-10/41 ⚠️ (mismatch structural — nerezolvat în V1 și V2)
 
-**Limitare documentată:**
-- Compound deviz_cod: când >1 grup din deviz_mapping partajează același deviz_cod în page_classes (DT, BR, SSR) → V2 creează un singur grup în loc de multiple → ref_only suplimentare
+**Mecanism compound deviz_cod (implementat):**
+Când multiple grupuri logice partajează același deviz_cod în page_classes dar au OBIECTUL diferit
+(ex: BLC4 pentru BLOC A, A2, A3, A4, B, C), V2 folosește `(deviz_cod, obiectul_text)` ca cheie
+compusă, split automat pe baza valorilor per-pagină din page_classes.
 
 ---
 
@@ -231,7 +237,7 @@ Implementare: set-based (NR → COD → hash) în `shared/set_based_matcher.py`.
 | BR BLOC A/A2/A3/A4/B/C | ✅ 0 violări | N/A | 6 blocuri × 4 oferte |
 | Scoala Dragomiresti | ✅ 0 violări | N/A | |
 | Camin Maneciu | ✅ 0 CRITICAL/HIGH | N/A | 18 MEDIUM genuine |
-| Drum Tatarani | ✅ 189/189 | ✅ 185-188/189 | Compound deviz_cod limitare |
+| Drum Tatarani | ✅ 189/189 | ✅ 189/189 | — |
 | Scoala Sportiva Racari | ⚠️ structural mismatch | N/A | nerezolvat |
 
 ---

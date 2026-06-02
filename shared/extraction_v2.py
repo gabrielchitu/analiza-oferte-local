@@ -166,19 +166,53 @@ class ExtractionOrchestrator:
         # extract_deviz_headers expects page_classifications list
         pages = di_json.get("pages", [])
 
-        # Build page_idx → (deviz_cod, deviz_den) map from page_classes if available
-        page_deviz_map: Dict[int, tuple] = {}
+        # Build page_idx → (deviz_cod, deviz_den, obiectul_text, categoria_text) map
+        # obiectul_text/categoria_text are forward-filled within same deviz_cod so that
+        # pages following the first header page inherit the right group assignment.
+        page_deviz_map: Dict[int, Tuple[str, str, str, str]] = {}
         if page_classes:
+            prev_cod, prev_obj, prev_cat = "", "", ""
             for idx, pc in enumerate(page_classes):
-                cod = pc.get("deviz_cod", "")
-                den = pc.get("deviz_den", "")
+                cod = pc.get("deviz_cod", "") or ""
+                den = pc.get("deviz_den", "") or ""
                 if cod:
-                    page_deviz_map[idx] = (cod, den)
+                    obj_raw = pc.get("obiectul") or ""
+                    if isinstance(obj_raw, dict):
+                        num = obj_raw.get("num", "") or ""
+                        txt = obj_raw.get("text", "") or ""
+                        obj_text = f"{num} {txt}".strip() if num else txt
+                    else:
+                        obj_text = str(obj_raw) if obj_raw else ""
+                    cat_raw = pc.get("categoria") or ""
+                    if isinstance(cat_raw, dict):
+                        num = cat_raw.get("num", "") or ""
+                        txt = cat_raw.get("text", "") or ""
+                        cat_text = f"{num} {txt}".strip() if num else txt
+                    else:
+                        cat_text = str(cat_raw) if cat_raw else ""
+                    # Forward-fill within same deviz_cod only.
+                    # Reset when deviz_cod changes to avoid inheriting the previous
+                    # group's obiectul on the first page of a new group.
+                    if cod == prev_cod:
+                        if not obj_text:
+                            obj_text = prev_obj
+                        if not cat_text:
+                            cat_text = prev_cat
+                    # else: new deviz_cod group — keep obj_text/cat_text as-is (may be empty)
+                    page_deviz_map[idx] = (cod, den, obj_text, cat_text)
+                    prev_cod = cod
+                    prev_obj = obj_text
+                    prev_cat = cat_text
 
-        # Step 3: Extract articles per page, grouped by deviz_cod
-        articles_by_deviz: Dict[str, List] = defaultdict(list)
+        # Step 3: Extract articles per page, grouped by (deviz_cod, obiectul_text).
+        # Using obiectul as secondary key handles clients where multiple logical groups
+        # share the same deviz_cod in page_classes but differ by obiectul (e.g. BR BLOCS).
+        GroupKey = Tuple[str, str]  # (deviz_cod, obiectul_text)
+        articles_by_deviz: Dict[GroupKey, List] = defaultdict(list)
         deviz_den_map: Dict[str, str] = {}
-        pages_by_deviz: Dict[str, List] = defaultdict(list)
+        pages_by_deviz: Dict[GroupKey, List] = defaultdict(list)
+        obj_text_by_key: Dict[GroupKey, str] = {}
+        cat_text_by_key: Dict[GroupKey, str] = {}
 
         for page_idx, page in enumerate(pages):
             page_articles_table = []
@@ -186,13 +220,19 @@ class ExtractionOrchestrator:
 
             # Get deviz_cod for this page from page_classes or fallback
             if page_idx in page_deviz_map:
-                page_deviz_cod, page_deviz_den = page_deviz_map[page_idx]
+                page_deviz_cod, page_deviz_den, page_obj, page_cat = page_deviz_map[page_idx]
             else:
                 page_deviz_cod = page.get("deviz_cod", f"PAGE_{page_idx}")
                 page_deviz_den = page.get("deviz_den", "")
+                page_obj, page_cat = "", ""
+
+            group_key: GroupKey = (page_deviz_cod, page_obj)
 
             if page_deviz_cod and page_deviz_cod not in deviz_den_map:
                 deviz_den_map[page_deviz_cod] = page_deviz_den
+            if group_key not in obj_text_by_key:
+                obj_text_by_key[group_key] = page_obj
+                cat_text_by_key[group_key] = page_cat
 
             # Try table extraction
             if "tables" in page and page.get("tables"):
@@ -229,8 +269,8 @@ class ExtractionOrchestrator:
             )
 
             if best_articles:
-                articles_by_deviz[page_deviz_cod].extend(best_articles)
-                pages_by_deviz[page_deviz_cod].append(page_idx)
+                articles_by_deviz[group_key].extend(best_articles)
+                pages_by_deviz[group_key].append(page_idx)
 
             self.extraction_log["pages"].append(
                 {
@@ -244,14 +284,19 @@ class ExtractionOrchestrator:
                 }
             )
 
-        # Step 5: Build grupos — one per deviz_cod with hierarchy correction
+        # Step 5: Build grupos — one per (deviz_cod, obiectul_text) compound key.
+        # When multiple groups share the same deviz_cod (different obiectul), they get
+        # unique deviz_cod suffixes (__0, __1, …) so downstream code treats them separately.
         grupos = []
+
+        all_page_keys = set(articles_by_deviz.keys())
+        is_page_fallback = all_page_keys and all(
+            k[0].startswith("PAGE_") for k in all_page_keys
+        )
 
         if not articles_by_deviz:
             pass  # no articles extracted
-        elif len(articles_by_deviz) == 1 and "PAGE_0" in articles_by_deviz or all(
-            k.startswith("PAGE_") for k in articles_by_deviz
-        ):
+        elif is_page_fallback:
             # Fallback: no page_classes available → single CONSOLIDATED group
             all_articles = []
             for arts in articles_by_deviz.values():
@@ -266,27 +311,80 @@ class ExtractionOrchestrator:
                 "hierarchy_stats": hierarchy_stats,
             })
         else:
-            for deviz_cod, articles in articles_by_deviz.items():
+            # Group compound keys by deviz_cod to assign sequential suffixes
+            from collections import defaultdict as _dd
+            keys_by_cod: Dict[str, List[GroupKey]] = _dd(list)
+            for gk in articles_by_deviz.keys():
+                keys_by_cod[gk[0]].append(gk)
+
+            for deviz_cod, gkeys in keys_by_cod.items():
                 hdrs_list = (deviz_headers or {}).get(deviz_cod, [])
+                n_keys = len(gkeys)
 
-                if len(hdrs_list) > 1:
-                    # Multiple logical groups share this deviz_cod — split into sub-groups
-                    sub_groups = _split_articles(articles, hdrs_list)
-                else:
-                    sub_groups = [articles]
+                for i, gkey in enumerate(gkeys):
+                    articles = articles_by_deviz[gkey]
+                    obj_text = obj_text_by_key.get(gkey, "")
+                    cat_text = cat_text_by_key.get(gkey, "")
 
-                for i, sub_arts in enumerate(sub_groups):
-                    hdr = hdrs_list[i] if i < len(hdrs_list) else (hdrs_list[0] if hdrs_list else {})
-                    corrected, hierarchy_stats = self.hierarchy_corrector.correct(sub_arts)
-                    # Append sub-index to keep deviz_cod unique when split
-                    group_cod = deviz_cod if len(sub_groups) == 1 else f"{deviz_cod}__{i}"
+                    # When only 1 compound-key for this deviz_cod AND >1 deviz_headers:
+                    # fallback to _split_articles (e.g. DT's 0017-0169 with no per-page obiectul)
+                    if n_keys == 1 and len(hdrs_list) > 1:
+                        sub_groups = _split_articles(articles, hdrs_list)
+                        for j, sub_arts in enumerate(sub_groups):
+                            hdr = hdrs_list[j] if j < len(hdrs_list) else (hdrs_list[0] if hdrs_list else {})
+                            corrected, hierarchy_stats = self.hierarchy_corrector.correct(sub_arts)
+                            group_cod = deviz_cod if len(sub_groups) == 1 else f"{deviz_cod}__{j}"
+                            grupos.append({
+                                "deviz_cod": group_cod,
+                                "deviz_den": deviz_den_map.get(deviz_cod, ""),
+                                "obiectivul": hdr.get("obiectivul", ""),
+                                "obiectul": hdr.get("obiectul", ""),
+                                "categoria": hdr.get("categoria", ""),
+                                "source_pages": pages_by_deviz[gkey],
+                                "articole": corrected,
+                                "article_count": len(corrected),
+                                "hierarchy_stats": hierarchy_stats,
+                            })
+                        continue
+
+                    # Normal case: each compound key → one grupo.
+                    # Use deviz_headers for the canonical obiectul/categoria text —
+                    # page_classes values are raw OCR and may contain administrative
+                    # garbage that hurts matching scores.  page_classes obj_text is
+                    # used only as the split key (above); deviz_headers is the source
+                    # of truth for the actual header content.
+                    hdr_obiectivul, hdr_obiectul, hdr_categoria = "", obj_text, cat_text
+                    if hdrs_list:
+                        if len(hdrs_list) == 1:
+                            hdr_obiectivul = hdrs_list[0].get("obiectivul", "")
+                            hdr_obiectul = hdrs_list[0].get("obiectul", "") or obj_text
+                            hdr_categoria = hdrs_list[0].get("categoria", "") or cat_text
+                        else:
+                            # For compound groups, pick the header entry whose
+                            # obiectul best matches the compound key's obj_text
+                            best_hdr = hdrs_list[0]
+                            best_score = 0.0
+                            for hdr in hdrs_list:
+                                hdr_obj = hdr.get("obiectul", "") or ""
+                                if obj_text and hdr_obj:
+                                    from difflib import SequenceMatcher
+                                    sc = SequenceMatcher(None, obj_text.lower(), hdr_obj.lower()).ratio()
+                                    if sc > best_score:
+                                        best_score, best_hdr = sc, hdr
+                            hdr_obiectivul = best_hdr.get("obiectivul", "")
+                            hdr_obiectul = best_hdr.get("obiectul", "") or obj_text
+                            hdr_categoria = best_hdr.get("categoria", "") or cat_text
+
+                    corrected, hierarchy_stats = self.hierarchy_corrector.correct(articles)
+                    # Make deviz_cod unique when multiple keys share same cod
+                    group_cod = deviz_cod if n_keys == 1 else f"{deviz_cod}__{i}"
                     grupos.append({
                         "deviz_cod": group_cod,
                         "deviz_den": deviz_den_map.get(deviz_cod, ""),
-                        "obiectivul": hdr.get("obiectivul", ""),
-                        "obiectul": hdr.get("obiectul", ""),
-                        "categoria": hdr.get("categoria", ""),
-                        "source_pages": pages_by_deviz[deviz_cod],
+                        "obiectivul": hdr_obiectivul,
+                        "obiectul": hdr_obiectul,
+                        "categoria": hdr_categoria,
+                        "source_pages": pages_by_deviz[gkey],
                         "articole": corrected,
                         "article_count": len(corrected),
                         "hierarchy_stats": hierarchy_stats,
