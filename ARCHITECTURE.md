@@ -628,3 +628,130 @@ pytest tests/test_set_based_matcher.py      # articole matching
 pytest tests/test_extraction_v2_regression.py  # E2E (necesită V2 rulat anterior)
 pytest tests/test_e2e_set_matching.py       # E2E matching pe toți clienții
 ```
+
+---
+
+## 14. V1 vs V2 — Comparație Pipeline
+
+Documentație completă: `docs/V1_VS_V2.md`
+
+### Diagrama Secvențială Comparativă
+
+```
+INPUT: di_referinta.json + di_oferta_N.json
+          │
+          ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ ETAPA COMUNĂ: PAGE CLASSIFICATION (shared/f3_page_classifier.py)            │
+│   LLM batch (~10 calls/offer) → page_classes checkpoint                     │
+│   Output: per-page {deviz_cod, deviz_den, obiectivul, obiectul, categoria}  │
+│   ⚠️  Shared: V2 reutilizează checkpointul V1 — 0 API calls dacă există     │
+└───────────────────────────────────┬─────────────────────────────────────────┘
+                                    │
+              ┌─────────────────────┴──────────────────────┐
+              │                                             │
+              ▼                                             ▼
+  ┌───────────────────────┐                   ┌───────────────────────────┐
+  │  PIPELINE V1          │                   │  PIPELINE V2              │
+  │  (producție)          │                   │  (development)            │
+  └───────────────────────┘                   └───────────────────────────┘
+              │                                             │
+              ▼                                             ▼
+  ┌───────────────────────┐                   ┌───────────────────────────┐
+  │ S1: ARTICLE EXTRACT   │                   │ S1: ARTICLE EXTRACT       │
+  │                       │                   │                           │
+  │ f3_extractor.py +     │                   │ extraction_v2.py          │
+  │ f3_regex_parser.py    │                   │   TemplateDetector        │
+  │                       │                   │   TableExtractor (DI tbl) │
+  │ State machine:        │                   │   + RegexExtractor (fbk)  │
+  │ IDLE→WAIT→READING     │                   │   ExtractionComparator    │
+  │                       │                   │                           │
+  │ Subcomp inline (L:,   │                   │ HierarchyCorrector        │
+  │ >>>, .L, SUBCOMP_RE)  │                   │   (post-extragere)        │
+  │                       │                   │                           │
+  │ Tuning per-client:    │                   │ Universal — fără config   │
+  │ SKIP_RE, NR_SUBITEM   │                   │ per-client                │
+  └──────────┬────────────┘                   └────────────┬──────────────┘
+             │                                             │
+             ▼                                             ▼
+  ┌───────────────────────┐                   ┌───────────────────────────┐
+  │ S2: GROUP IDENTITY    │                   │ S2: GROUP IDENTITY        │
+  │                       │                   │                           │
+  │ deviz_key =           │                   │ compound key =            │
+  │ MD5(OBV|OBL|CAT)      │                   │ (deviz_cod, obj_text)     │
+  │                       │                   │                           │
+  │ Calculat la matching  │                   │ Construit în extragere    │
+  │ (group_comparator.py) │                   │ Forward-fill per cod;     │
+  │                       │                   │ reset la cod nou          │
+  │ 1 cod = 1 grup        │                   │ 1 cod = N grupuri         │
+  │ (via hash distinct)   │                   │ (BLC4__0..BLC4__5)        │
+  └──────────┬────────────┘                   └────────────┬──────────────┘
+             │                                             │
+             ▼                                             ▼
+  ┌───────────────────────┐                   ┌───────────────────────────┐
+  │ S3: GROUP MATCHING    │                   │ S3: GROUP MATCHING        │
+  │                       │                   │                           │
+  │ Phase 1: exact key    │                   │ SequenceMatcher pe        │
+  │ Phase 1.5: cod prefix │                   │ OBIECTUL+CATEGORIA        │
+  │ Phase 2a: knowledge   │                   │ (normalize: strip cod,    │
+  │   cache (JSON)        │                   │  nu cuvinte normale)      │
+  │ Phase 2b: LLM Claude  │                   │                           │
+  │   (runtime API call)  │                   │ score = 0.7*cat +         │
+  │                       │                   │         0.3*obj           │
+  │ Non-determinist       │                   │ threshold 0.55            │
+  │ Necesită API key      │                   │                           │
+  │ Produce matching_debug│                   │ 100% determinist          │
+  │                       │                   │ 0 API calls runtime       │
+  └──────────┬────────────┘                   └────────────┬──────────────┘
+             │                                             │
+             ▼                                             ▼
+  ┌───────────────────────┐                   ┌───────────────────────────┐
+  │ S4: ARTICLE MATCHING  │                   │ S4: ARTICLE MATCHING      │
+  │                       │                   │                           │
+  │ Multi-layer:          │                   │ Set-based:                │
+  │ L1: exact N:M         │                   │ 1. NR (număr ordine)      │
+  │ L2: normalize cod     │                   │ 2. COD (exact)            │
+  │     (I→1, O→0, OCR)   │                   │ 3. hash(den+um+cant)      │
+  │ L2.1: trailing digit  │                   │                           │
+  │ L2.5: fuzzy OCR ≥0.80 │                   │ Fără fuzzy/OCR-aware      │
+  │ L3: LLM (disabled)    │                   │ Determinist               │
+  └──────────┬────────────┘                   └────────────┬──────────────┘
+             │                                             │
+             ▼                                             ▼
+  ┌───────────────────────┐                   ┌───────────────────────────┐
+  │ S5: REPORT            │                   │ S5: REPORT                │
+  │                       │                   │                           │
+  │ report_word.py        │                   │ report_word.py            │
+  │ holistic_oferta_N     │                   │ holistic_oferta_N_v2      │
+  │   .json               │                   │   .json                   │
+  │ matching_debug        │                   │ (fără matching_debug)     │
+  │   _oferta_N.json      │                   │                           │
+  │ Raport_Oferta_N.docx  │                   │ Raport_Oferta_N_v2.docx   │
+  └───────────────────────┘                   └───────────────────────────┘
+```
+
+### Tabel Decizii Arhitecturale
+
+| Decizie | V1 | V2 | Motivație |
+|---------|----|----|-----------|
+| Sursă extragere | Regex text brut | Tabel DI + fallback regex | DI table mai precisă geometric |
+| Identitate grup | MD5(header text) | (cod, obiectul) tuple | Split automat fără LLM |
+| Rezolvare grup ambiguu | LLM Claude API | Rămâne nerezolvat | V2 preferă precizie > recall |
+| OCR la cod articol | I→1, O→0, learned patterns | Absent | V2 mai simplu, mai puțin robust |
+| Corectare ierarhie | Inline în parser | Post-processing separat | Decuplare = testabilitate |
+| Reproducibilitate | Parțial (LLM) | Totală | Cerință V2 |
+| Config per-client | Da (5+ fișiere) | Minimal | Universal prin design |
+
+### LLM Budget Comparativ
+
+```
+V1 per ofertă nouă (client nou):
+  Page classification:  ~10 API calls  (cached după prima rulare)
+  Group matching:       2-20 API calls (depinde de grupuri nerezolvate)
+  TOTAL:               ~12-30 calls
+
+V2 per ofertă:
+  Page classification:  0 calls  (reutilizează checkpoint V1)
+  Group matching:       0 calls  (SequenceMatcher pur)
+  TOTAL:               0 calls  (dacă V1 a rulat anterior)
+```
