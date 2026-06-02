@@ -142,6 +142,7 @@ def match_groups_by_deviz(ref_groups: List[Dict], oferta_groups: List[Dict]) -> 
         matched_groups.append({
             "deviz_cod": ref_group.get("deviz_cod", ""),
             "deviz_den": ref_group.get("deviz_den", ""),
+            "obiectivul": ref_group.get("obiectivul", ""),
             "obiectul": ref_group.get("obiectul", ""),
             "categoria": ref_group.get("categoria", ""),
             "oferta_deviz_cod": oferta_group.get("deviz_cod", ""),

@@ -109,6 +109,57 @@ def _make_articol_extra(art: Dict, deviz_cod: str, deviz_den: str) -> Dict:
     }
 
 
+def _make_header(group: Dict):
+    """Build a header object with .obiectivul/.obiectul/.categoria from a V2 group dict.
+
+    report_word._add_group_heading() reads these via getattr — SimpleNamespace works.
+    Falls back to empty strings so the label degrades gracefully rather than crashing.
+    """
+    import types
+    return types.SimpleNamespace(
+        obiectivul=(group.get("obiectivul") or "").strip(),
+        obiectul=(group.get("obiectul") or "").strip(),
+        categoria=(group.get("categoria") or "").strip(),
+    )
+
+
+def _parse_header_str(val):
+    """Parse V1 holistic ref_header/oferta_header back to a header object.
+
+    V1 saves DevizHeader namedtuple as its str() repr:
+      "DevizHeader(obiectivul='...', obiectul='...', categoria='...', ...)"
+    When loaded from JSON it's a plain string — getattr on it returns None.
+    This converts it back to a SimpleNamespace with the right attributes.
+    """
+    import re
+    import types
+    if val is None:
+        return None
+    if not isinstance(val, str):
+        # Already an object (shouldn't happen via JSON, but be safe)
+        return val
+    if not val.startswith("DevizHeader("):
+        # Unknown format — wrap as empty header so label uses deviz_denumire fallback
+        return types.SimpleNamespace(obiectivul="", obiectul="", categoria="")
+    fields: Dict[str, str] = {}
+    for field in ("obiectivul", "obiectul", "categoria"):
+        m = re.search(rf"{field}='([^']*)'", val)
+        fields[field] = m.group(1) if m else ""
+    return types.SimpleNamespace(**fields)
+
+
+def _fix_holistic_headers(holistic: Dict) -> Dict:
+    """Convert all ref_header/oferta_header strings in V1 holistic to header objects."""
+    for mg in holistic.get("matched_groups", []):
+        mg["ref_header"] = _parse_header_str(mg.get("ref_header"))
+        mg["oferta_header"] = _parse_header_str(mg.get("oferta_header"))
+    for rg in holistic.get("ref_only_groups", []):
+        rg["ref_header"] = _parse_header_str(rg.get("ref_header"))
+    for og in holistic.get("oferta_only_groups", []):
+        og["oferta_header"] = _parse_header_str(og.get("oferta_header"))
+    return holistic
+
+
 def _build_v1_holistic(v2_holistic: Dict) -> Dict:
     """Convert V2 holistic JSON to V1-compatible holistic for report_word.py.
 
@@ -171,10 +222,10 @@ def _build_v1_holistic(v2_holistic: Dict) -> Dict:
             neconformitati.append(nc)
             neconf_by_tip["ARTICOL_EXTRA"] = neconf_by_tip.get("ARTICOL_EXTRA", 0) + 1
 
-        header = f"{deviz_cod} {deviz_den}".strip()
+        header = _make_header(mg)
         v1_matched_groups.append({
             "ref_deviz_cod": deviz_cod,
-            "oferta_deviz_cod": deviz_cod,
+            "oferta_deviz_cod": mg.get("oferta_deviz_cod", deviz_cod),
             "ref_header": header,
             "oferta_header": header,
             "deviz_denumire": deviz_den,
@@ -194,10 +245,9 @@ def _build_v1_holistic(v2_holistic: Dict) -> Dict:
             nc = _make_articol_lipsa(art, deviz_cod, deviz_den)
             neconformitati.append(nc)
             neconf_by_tip["ARTICOL_LIPSA"] = neconf_by_tip.get("ARTICOL_LIPSA", 0) + 1
-        header = f"{deviz_cod} {deviz_den}".strip()
         v1_ref_only_groups.append({
             "ref_deviz_cod": deviz_cod,
-            "ref_header": header,
+            "ref_header": _make_header(rg),
             "deviz_denumire": deviz_den,
             "articles": articles,
             "neconformitati": neconformitati,
@@ -213,10 +263,9 @@ def _build_v1_holistic(v2_holistic: Dict) -> Dict:
             nc = _make_articol_extra(art, deviz_cod, deviz_den)
             neconformitati.append(nc)
             neconf_by_tip["ARTICOL_EXTRA"] = neconf_by_tip.get("ARTICOL_EXTRA", 0) + 1
-        header = f"{deviz_cod} {deviz_den}".strip()
         v1_oferta_only_groups.append({
             "oferta_deviz_cod": deviz_cod,
-            "oferta_header": header,
+            "oferta_header": _make_header(og),
             "deviz_denumire": deviz_den,
             "articles": articles,
             "neconformitati": neconformitati,
@@ -636,6 +685,8 @@ class V2EndToEndOrchestrator:
             v1_holistic = self._load_v1_holistic(client_config, oferta_num)
             if v1_holistic:
                 logger.info("Using V1 holistic JSON for report generation")
+                # ref_header/oferta_header saved as DevizHeader str repr — parse back
+                _fix_holistic_headers(v1_holistic)
             else:
                 logger.info("V1 holistic not found, building from V2 holistic")
                 v1_holistic = _build_v1_holistic(holistic)
