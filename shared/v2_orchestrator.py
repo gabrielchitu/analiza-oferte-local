@@ -6,8 +6,11 @@ into a single end-to-end workflow that produces Raport_Oferta_N_v2.docx.
 Entry point: orchestrator.run(client_config, oferta_num)
 """
 
+import hashlib
+import inspect
 import json
 import logging
+import os
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -260,6 +263,9 @@ class V2EndToEndOrchestrator:
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
 
+        self._llm_client = None
+        self._llm_model: Optional[str] = None
+
     def run(self, client_config: ClientConfig, oferta_num: int) -> Dict:
         """Execute full v2 pipeline for one offer.
 
@@ -338,6 +344,117 @@ class V2EndToEndOrchestrator:
             "cache_hit": False,
         }
 
+    # ── Self-contained checkpoint generation ──────────────────────────────────
+
+    def _build_llm_client(self):
+        """Lazy-init LLM client from env vars. Only called when checkpoint absent."""
+        if self._llm_client is None:
+            import anthropic
+            from anthropic_adapter import AnthropicAdapter
+            api_key = os.environ.get("ANTHROPIC_API_KEY")
+            if not api_key:
+                raise RuntimeError(
+                    "ANTHROPIC_API_KEY required: page_classes checkpoint missing "
+                    "and V2 needs to run page classifier. "
+                    "Run V1 pipeline first (python3 multi_client_run.py) to generate checkpoints, "
+                    "or set ANTHROPIC_API_KEY in .env."
+                )
+            model = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-6")
+            self._llm_client = AnthropicAdapter(anthropic.Anthropic(api_key=api_key), model=model)
+            self._llm_model = model
+        return self._llm_client, self._llm_model
+
+    @staticmethod
+    def _clf_hash() -> str:
+        """Classifier source hash — same algorithm as V1 _checkpoint_path()."""
+        import shared.f3_page_classifier as _clf_module
+        return hashlib.md5(inspect.getsource(_clf_module).encode()).hexdigest()[:12]
+
+    def _ensure_page_classes_checkpoint(
+        self, di_path: Path, di_json: Dict, client_config: ClientConfig
+    ) -> None:
+        """Run page classifier and save checkpoint if it doesn't exist yet."""
+        checkpoint_dir = client_config.output_dir / "checkpoints"
+        if list(checkpoint_dir.glob(f"{di_path.stem}_page_classes_*.json")):
+            return  # already exists
+
+        logger.info(
+            f"[V2] page_classes checkpoint absent for {di_path.stem} — running classifier "
+            f"(~10 LLM calls, 2-5 min)..."
+        )
+        from shared.f3_page_classifier import classify_pages
+
+        llm_client, llm_model = self._build_llm_client()
+        pages = di_json.get("pages", [])
+        page_classes, checkpoint_data = classify_pages(pages, llm_client, llm_model)
+
+        checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        clf_hash = self._clf_hash()
+        ckpt_path = checkpoint_dir / f"{di_path.stem}_page_classes_{clf_hash}.json"
+        with open(ckpt_path, "w", encoding="utf-8") as f:
+            json.dump(
+                {"page_classes": page_classes, "metadata": checkpoint_data},
+                f, indent=2, ensure_ascii=False,
+            )
+        logger.info(f"[V2] Saved page_classes checkpoint: {ckpt_path.name}")
+
+    def _ensure_deviz_mapping_checkpoint(
+        self, di_path: Path, di_json: Dict, client_config: ClientConfig
+    ) -> None:
+        """Run deviz header extraction and save checkpoint if it doesn't exist yet."""
+        checkpoint_dir = client_config.output_dir / "checkpoints"
+        if list(checkpoint_dir.glob(f"{di_path.stem}_deviz_mapping_*.json")):
+            return  # already exists
+
+        # Need page_classes to extract headers
+        pc_matches = list(checkpoint_dir.glob(f"{di_path.stem}_page_classes_*.json"))
+        if not pc_matches:
+            logger.warning(
+                f"[V2] Cannot build deviz_mapping for {di_path.stem}: "
+                f"page_classes checkpoint missing."
+            )
+            return
+
+        with open(pc_matches[0], encoding="utf-8") as f:
+            raw = json.load(f)
+        page_classes = raw if isinstance(raw, list) else raw.get("page_classes", [])
+
+        logger.info(f"[V2] deviz_mapping checkpoint absent for {di_path.stem} — extracting headers...")
+
+        # TABLE-based extraction first (no LLM); fallback to LINES-based
+        from shared.deviz_header_extractor import extract_deviz_headers
+        try:
+            from shared.group_extractor import extract_groups_as_headers
+            from shared.document_profiler import profile_document_cached
+            _doc_profile = profile_document_cached(di_json, checkpoint_dir)
+            deviz_headers = extract_groups_as_headers(di_json, page_classes, _doc_profile)
+        except Exception:
+            deviz_headers = {}
+
+        if not deviz_headers:
+            deviz_headers = extract_deviz_headers(page_classes)
+
+        serialized = {
+            k: {
+                "obiectivul": v.obiectivul,
+                "obiectul": v.obiectul,
+                "categoria": v.categoria,
+                "is_valid": v.is_valid,
+                "deviz_cod": v.deviz_cod,
+                "deviz_key": v.deviz_key,
+            }
+            for k, v in deviz_headers.items()
+        }
+
+        clf_hash = self._clf_hash()
+        ckpt_path = checkpoint_dir / f"{di_path.stem}_deviz_mapping_{clf_hash}.json"
+        with open(ckpt_path, "w", encoding="utf-8") as f:
+            json.dump(
+                {"metadata": {}, "deviz_groups": [], "validation": {}, "deviz_headers": serialized},
+                f, indent=2, ensure_ascii=False,
+            )
+        logger.info(f"[V2] Saved deviz_mapping checkpoint: {ckpt_path.name} ({len(serialized)} headers)")
+
     def _load_di_json(self, file_path: Path) -> Dict:
         if not file_path.exists():
             raise FileNotFoundError(f"DI JSON not found: {file_path}")
@@ -405,6 +522,20 @@ class V2EndToEndOrchestrator:
         is_offer: bool = False,
     ) -> Dict:
         cache_file = self.cache_dir / f"{cache_key}_extracted.json"
+
+        # Ensure checkpoints exist — generate them if V1 hasn't run yet
+        if client_config and di_file_stem:
+            di_path = (
+                client_config.reference_file
+                if not is_offer
+                else next(
+                    (f for f in client_config.offer_files if di_file_stem in f.stem),
+                    None,
+                )
+            )
+            if di_path and di_path.exists():
+                self._ensure_page_classes_checkpoint(di_path, di_json, client_config)
+                self._ensure_deviz_mapping_checkpoint(di_path, di_json, client_config)
 
         # Load deviz_headers first (lightweight JSON, needed for stale detection)
         deviz_headers: Dict[str, List[Dict]] = {}
