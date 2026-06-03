@@ -5888,5 +5888,445 @@
     "obiectivul": "0226 45000000",
     "obiectul": "0003 45000000 AMENAJARI EXTERIOARE",
     "categoria": "226F08 MONTAJ SISTEM PANOU FOTOVOLTAICE"
+  },
+  "f87b487bf0f5771a": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA",
+    "obiectul": "3 ORGANIZARE SANTIER",
+    "categoria": "BLC6 ORGANIZARE SANTIER Formular F3"
+  },
+  "4b784a8b7e3d78c7": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD.DAMBOVITA",
+    "obiectul": "003 3 ORGANIZARE SANTIER",
+    "categoria": "001 BLC6 ORGANIZARE SANTIER e"
+  },
+  "8b68a9c03071ccd6": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD.DAMBOVITA",
+    "obiectul": "001 1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC A4",
+    "categoria": "002 BLC2 INSTALATII e"
+  },
+  "fe7b4fbd65af0be8": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD. DAMBOVITA",
+    "obiectul": "1 LUCRARI DE EFICIENTIZARE ENERGETICA BLOC C",
+    "categoria": "BLC1 ARHITECTURA Formular F3"
+  },
+  "59e2f35745a4d6ab": {
+    "obiectivul": "EFICIENTIZARE ENERGETICA A BLOCURILOR A,B,C,A2,A3,A4 DIN ORASUL RACARI, JUD.DAMBOVITA",
+    "obiectul": "003 3 LUCRARI SPATII SERVICII - SEDII BLOC C - NEELIGIBL",
+    "categoria": "001 BLC6 ARHITECTURA - NEELIGIBIL e"
+  },
+  "3be2c7b4fdc9ac80": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "8 Amenajarea terenului Formular F3"
+  },
+  "f2785081a127e403": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVĂ A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "9 Amenajări pentru protecția mediului și aducerea terenului la starea inițială"
+  },
+  "61cdc1f8d794345b": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "12 Asigurare utilitati Formular F3"
+  },
+  "e51961c59745d770": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "1 Copertina - CAV-MANECIU Formular F3"
+  },
+  "02f1b53b07938880": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVĂ A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MĂNECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "2 Platforma betonata - CAV-MĂNECIU Formular F3"
+  },
+  "87fb32fb572924a3": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "3 Platforma carosabila - CAV-MANECIU Formular F3"
+  },
+  "275ad0bdfe8c1956": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "4 Sistematizare - CAV-MANECIU Formular F3"
+  },
+  "c4140f75761af89f": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "5 Instalatii sanitare - CAV-MANECIU Formular F3"
+  },
+  "380c7bd0455a6546": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "6 Instalatii electrice - CAV-MANECIU Formular F3"
+  },
+  "dab9b3949c060e28": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "10 Lucrări de construcții și instalații aferente organizării de santier Formular F3"
+  },
+  "5209934d1dbb1299": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "11 Cheltuieli conexe organizării santierului Formular F3"
+  },
+  "134354b15ef8f8e5": {
+    "obiectivul": "0386 45000000",
+    "obiectul": "0001 45000000",
+    "categoria": "CAVMN1 COPERTINA"
+  },
+  "533862f2e889d6c4": {
+    "obiectivul": "0386 45000000",
+    "obiectul": "0001 45000000",
+    "categoria": "CAVMN2 PLATFORMA BETONATA"
+  },
+  "9fb9840a8adb50ad": {
+    "obiectivul": "0386 45000000",
+    "obiectul": "0001 45000000",
+    "categoria": "CAVMN3 PLATFORMA CAROSABILA"
+  },
+  "7941412014a73820": {
+    "obiectivul": "0386 45000000",
+    "obiectul": "0001 45000000",
+    "categoria": "CAVMN5 INSTALATII SANITARE"
+  },
+  "90d14448c8dbf02f": {
+    "obiectivul": "0386 45000000",
+    "obiectul": "0001 45000000",
+    "categoria": "CAVMN6 INSTALATII ELECTRICE"
+  },
+  "ef7a3de9f7089e68": {
+    "obiectivul": "0386 45000000",
+    "obiectul": "0001 45000000",
+    "categoria": "CAVMN7 AMENAJAREA TERENULUI"
+  },
+  "4a6387d9ef1056fa": {
+    "obiectivul": "0386 45000000",
+    "obiectul": "0001 45000000",
+    "categoria": "CAVMN8 AMENAJARI PENTRU PROTECTIA MEDIULUI SI ADUCEREA TERENULUI LA STAREA INITIALA"
+  },
+  "139ee32420bd6036": {
+    "obiectivul": "0386 45000000",
+    "obiectul": "0001 45000000",
+    "categoria": "CAVMN9 ASIGURARE UTILITATI"
+  },
+  "e8e93c3dac92cd3d": {
+    "obiectivul": "0386 45000000",
+    "obiectul": "0001 45000000",
+    "categoria": "CAVM10 CHELTUIELI CONEXE ORGANIZARII DE SANTIER"
+  },
+  "afc05d5f4d80ec21": {
+    "obiectivul": "0386 45000000",
+    "obiectul": "0001 45000000",
+    "categoria": "CAVM11 LUCRARI DE CONSTRUCTII SI INSTAL ATII AFERENTE ORGANIZARII DE SANTIER"
+  },
+  "9d41716c36488a68": {
+    "obiectivul": "0386 45000000",
+    "obiectul": "0001 45000000",
+    "categoria": "CAVMN4 SISTEMATIZARE"
+  },
+  "4e751bd3c7012b58": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "1 Copertina - CAV Maneciu Beneficiar:"
+  },
+  "044d68d67a46a815": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "1 Copertina - CAV Maneciu"
+  },
+  "dc4947ce534d956a": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "2 Platforma betonata - CAV Maneciu Beneficiar:"
+  },
+  "6610e11c670e5411": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "2 Platforma betonata - CAV Maneciu"
+  },
+  "59289898b28c9b06": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "3 Platforma carosabila - CAV Maneciu Beneficiar:"
+  },
+  "f164295774380e32": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "3 Platforma carosabila - CAV Maneciu"
+  },
+  "f97d59aacf865c6e": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "4 Sistematizare - CAV Maneciu Beneficiar:"
+  },
+  "f417f4287cf5faa2": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "4 Sistematizare - CAV Maneciu"
+  },
+  "f9f94ffa95670ed4": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "5 Instalatii sanitare - CAV Maneciu Beneficiar:"
+  },
+  "8381c88b9f48f441": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "5 Instalatii sanitare - CAV Maneciu"
+  },
+  "5e5a5de624c62c68": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "6 Instalatii electrice - CAV Maneciu Beneficiar:"
+  },
+  "ccb80a7a44e1f631": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "6 Instalatii electrice - CAV Maneciu"
+  },
+  "4c0625c0ab362725": {
+    "obiectivul": "Centru de colectare selectivă a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "10 Lucrări de construcții și instalații aferente organizării de şantier"
+  },
+  "0db62427789ba7cb": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "11 Cheltuieli conexe organizarii santierului Beneficiar:"
+  },
+  "59defa792223716e": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "12 Asigurare utilitati Beneficiar:"
+  },
+  "23b667fb9154c64b": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "12 Asigurare utilitati"
+  },
+  "33a9a3e22fdfa492": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "9 Amenajări pentru protecția mediului și aducerea terenului la starea inițială"
+  },
+  "dfc2d0232c53cc1c": {
+    "obiectivul": "Centru de colectare selectiva a deșeurilor prin aport voluntar în comuna Maneciu județul",
+    "obiectul": "CAV- Maneciu",
+    "categoria": "8 Amenajarea terenului Beneficiar:"
+  },
+  "45cd605954433d6f": {
+    "obiectivul": "SCN1148047_CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "001 AMENAJAREA TERENULUI",
+    "categoria": "8 Amenajarea terenului e"
+  },
+  "b04d749e4e497a5b": {
+    "obiectivul": "SCN1148047_CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "001 AMENAJAREA TERENULUI",
+    "categoria": "9 Amenajari pentru protectia mediuluisi aducerea terenului la starea initiala"
+  },
+  "1c10a9dba7cd5fb5": {
+    "obiectivul": "SCN1148047_CENTRU DE COLECTARE SELECTIVĂ A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "002 Asigurarea utilitatilor necesare",
+    "categoria": "12 Asigurare utilitati e"
+  },
+  "27fc5df03e9d0815": {
+    "obiectivul": "SCN1148047_CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "003 25.4 CAV-MANECIU",
+    "categoria": "1 Copertina - CAV-MANECIU e"
+  },
+  "05b83945c0073519": {
+    "obiectivul": "SCN1148047_CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MĂNECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "003 25.4 CAV-MANECIU",
+    "categoria": "2 Platforma betonata - CAV-MĂNECIU e"
+  },
+  "1f51bbb71b2cda3a": {
+    "obiectivul": "SCN1148047_CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "003 25.4 CAV-MANECIU",
+    "categoria": "3 Platforma carosabila - CAV-MANECIU e"
+  },
+  "f0f349d855eb66e5": {
+    "obiectivul": "SCN1148047_CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "003 25.4 CAV-MANECIU",
+    "categoria": "4 Sistematizare - CAV-MĂNECIU e"
+  },
+  "2f3eb2146c139477": {
+    "obiectivul": "SCN1148047_CENTRU DE COLECTARE SELECTIVĂ A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "003 25.4 CAV-MANECIU",
+    "categoria": "5 Instalatii sanitare - CAV-MANECIU e"
+  },
+  "9d9793967910b2f6": {
+    "obiectivul": "SCN1148047_CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "003 25.4 CAV-MANECIU",
+    "categoria": "6 Instalatii electrice - CAV-MĂNECIU e"
+  },
+  "4b45dd1970c3bdde": {
+    "obiectivul": "SCN1148047_CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "003 25.4 CAV-MANECIU",
+    "categoria": "7 Montaj echipamente - CAV-MANECIU e"
+  },
+  "3705f6a466ae0985": {
+    "obiectivul": "SCN1148047_CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "004 Organizare de santier",
+    "categoria": "10 Lucrari de constructii si instalatii aferente organizarii de santier e"
+  },
+  "69060b23f39dd264": {
+    "obiectivul": "SCN1148047_CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA",
+    "obiectul": "004 Organizare de santier",
+    "categoria": "11 Cheluieli conexe organizarii santierlui e"
+  },
+  "31425e2e63c5e4e2": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "1 Copertina - CAV-MANECIU Beneficiar:"
+  },
+  "3becf2c38b8f8239": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "1 Copertina - CAV-MANECIU"
+  },
+  "8555385e04a55684": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "2 Platforma betonata - CAV-MANECIU Beneficiar:"
+  },
+  "20be30ddb2cb5719": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "2 Platforma betonata - CAV-MANECIU"
+  },
+  "feb850464598ac5a": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "3 Platforma carosabila - CAV-MANECIU Beneficiar:"
+  },
+  "bd49d6dd805cb6f9": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "3 Platforma carosabila - CAV-MANECIU"
+  },
+  "e4cc21428e998869": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "4 Sistematizare - CAV-MANECIU Beneficiar:"
+  },
+  "3dcf945c8e01084b": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "4 Sistematizare - CAV-MANECIU"
+  },
+  "09324300a0d3231f": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "5 Instalatii sanitare - CAV-MANECIU Beneficiar:"
+  },
+  "ee0883f5cd763adc": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "5 Instalatii sanitare - CAV-MANECIU"
+  },
+  "181af70c8597d701": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "6 Instalatii electrice - CAV-MANECIU Beneficiar:"
+  },
+  "e7d4781f55616f64": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "6 Instalatii electrice - CAV-MANECIU"
+  },
+  "c888e9d092883c8e": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "7 Montaj echipamente - CAV-MANECIU Beneficiar:"
+  },
+  "3235d3c13c22a53b": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "8. Amenajarea terenului Beneficiar:"
+  },
+  "69dd731a1e78e94c": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "9.Amenajari pentru protectia mediului si aducerea terenului la starea initiala Beneficiar:"
+  },
+  "d15b40cc7fbb0fcf": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "10.Lucrari de constructii si instalatii aferente organizarii de santier Beneficiar:"
+  },
+  "eca08d661980b4e4": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "10.Lucrari de constructii si instalatii aferente organizarii de santier"
+  },
+  "b9c028f0000eb8e0": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "11Cheltuieli conexe organizarii santierului Beneficiar:"
+  },
+  "28e7c71ce2650031": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "12.Asigurare utilitati Beneficiar:"
+  },
+  "223239e730793c95": {
+    "obiectivul": "CENTRU DE COLECTARE SELECTIVA A DESEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDETUL PRAHOVA",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "12.Asigurare utilitati"
+  },
+  "dce1b2d3bf1284d8": {
+    "obiectivul": "Centru de colectare selectiva a deseurilor prin aport voluntar, in Comuna Maneciu , Judetul Prahova",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "1 1 Copertina - CAV-MANECIU e"
+  },
+  "f63ea308ff1cdee3": {
+    "obiectivul": "Centru de colectare selectiva a deseurilor prin aport voluntar, in Comuna Maneciu , Judetul Prahova",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "2 2 Platforma betonata - CAV-MANECIU e"
+  },
+  "b924e9936f853eba": {
+    "obiectivul": "Centru de colectare selectiva a deseurilor prin aport voluntar, in Comuna Maneciu , Judetul Prahova",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "3 3 Platforma carosabila - CAV-MANECIU e"
+  },
+  "41e1da7f5ef87416": {
+    "obiectivul": "Centru de colectare selectiva a deseurilor prin aport voluntar, in Comuna Maneciu , Judetul Prahova",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "4 4 Sistematizare - CAV-MANECIU e"
+  },
+  "3d42d2752f6a8694": {
+    "obiectivul": "Centru de colectare selectiva a deseurilor prin aport voluntar, in Comuna Maneciu , Judetul Prahova",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "5 5 Instalatii sanitare - CAV-MANECIU e"
+  },
+  "7c4fba3db6ae9f74": {
+    "obiectivul": "Centru de colectare selectiva a deseurilor prin aport voluntar, in Comuna Maneciu , Judetul Prahova",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "6 6 Instalatii electrice -CAV MANECIU e"
+  },
+  "0ed58a52f434b6ee": {
+    "obiectivul": "Centru de colectare selectiva a deseurilor prin aport voluntar, in Comuna Maneciu , Judetul Prahova",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "10 Lucrari de constructii si instalatii aferente organizarii de santier e"
+  },
+  "23528c1b68d806cf": {
+    "obiectivul": "Centru de colectare selectiva a deseurilor prin aport voluntar, in Comuna Maneciu , Judetul Prahova",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "11 11 Cheltuieli conexe organizarii santierului e"
+  },
+  "f75a019a62ee3aca": {
+    "obiectivul": "Centru de colectare selectiva a deseurilor prin aport voluntar, in Comuna Maneciu , Judetul Prahova",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "12 12 Asigurare utilitati e"
+  },
+  "3df9eea4e2bc8789": {
+    "obiectivul": "Centru de colectare selectiva a deseurilor prin aport voluntar, in Comuna Maneciu , Judetul Prahova",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "9 9 Amenajari pentru protectia mediului si aducerea terenului la starea initiala"
+  },
+  "a067205641c23fe9": {
+    "obiectivul": "Centru de colectare selectiva a deseurilor prin aport voluntar, in Comuna Maneciu , Judetul Prahova",
+    "obiectul": "25.4 CAV-MANECIU",
+    "categoria": "8 8 Amenajarea terenului e"
   }
 }

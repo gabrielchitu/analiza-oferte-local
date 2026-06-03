@@ -36,6 +36,7 @@ _DEVIZ_OFERTA_LETTERED_RE = re.compile(
 _STRUCT_LINES = frozenset([
     'formularul f3', 'lista cu cantitatile de lucrari', 'lista de cantitati',
     'deviz oferta', 'categoria de lucrari', 'stadiul fizic',
+    'beneficiar', 'executant', 'proiectant',
 ])
 
 
@@ -175,10 +176,18 @@ def _extract_from_lines(
         if all(x is not None for x in [obiectivul, obiectul, categoria]):
             break
 
-    # Curata valorile goale -> None
-    obiectivul = obiectivul or None
-    obiectul = obiectul or None
-    categoria = categoria or None
+    # Curata valorile goale -> None; strip "Beneficiar:..." artifact suffix
+    _beneficiar_re = re.compile(r'\s*beneficiar\s*:.*$', re.IGNORECASE)
+    # Strip OCR double-number prefix: "2 2 Platforma" → "2 Platforma"
+    _double_num_re = re.compile(r'^(\d+)\s+\1\b')
+    if obiectivul:
+        obiectivul = _beneficiar_re.sub('', obiectivul).strip() or None
+    if obiectul:
+        obiectul = _beneficiar_re.sub('', obiectul).strip() or None
+    if categoria:
+        categoria = _beneficiar_re.sub('', categoria).strip() or None
+        if categoria:
+            categoria = _double_num_re.sub(r'\1', categoria).strip() or None
     return obiectivul, obiectul, categoria
 
 
@@ -306,6 +315,17 @@ def extract_deviz_headers(
         cached = cache.get(cache_key)
         if cached:
             obj1, obj2, cat = cached
+            # Apply cleanup to stale cache values (Beneficiar: strip, double-prefix strip)
+            _ben_re = re.compile(r'\s*beneficiar\s*:.*$', re.IGNORECASE)
+            _dbl_re = re.compile(r'^(\d+)\s+\1\b')
+            if obj1:
+                obj1 = _ben_re.sub('', obj1).strip() or None
+            if obj2:
+                obj2 = _ben_re.sub('', obj2).strip() or None
+            if cat:
+                cat = _ben_re.sub('', cat).strip() or None
+                if cat:
+                    cat = _dbl_re.sub(r'\1', cat).strip() or None
             key, valid = _make_deviz_key(obj1, obj2, cat)
             result[key] = DevizHeader(obj1, obj2, cat, key, valid, "cache", deviz_cod)
             continue
