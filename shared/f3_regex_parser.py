@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 # Include si sufixe designator normativ: ASIM, TSCH (TCB40B1ASIM, CG08A#ASIM)
 # Permite combinatii: '#' urmat opțional de ASIM/TSCH (ex: CG08A#ASIM)
 # Variant suffix: -1#, -2#, etc. (ex: SC07A-1#, SA14B-3#)
-_COD_SUFFIX = r'(?:-\d+)?(?:[#>*@%^+]|\[\d*\]|[\[\]]\d*)?(?:ASIM|TSCH)?[-]?'
+_COD_SUFFIX = r'(?:-\d+)?(?:#\d*|[>*@%^+]|\[\d*\]|[\[\]]\d*)?(?:ASIM|TSCH)?[-]?'
 COD_NORM_RE = re.compile(
     r'^([A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?' + _COD_SUFFIX + r')\s*[-–]\s*(.+)',
     re.IGNORECASE
@@ -189,7 +189,7 @@ NR_COD_DESC_RE = re.compile(
     r'|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}'
     r'|\d{3,5}[A-Z]\d{1,3}(?!\d)'  # digit-letter-digit (00106B011, 01311A1, 02012A1)
     r'|(?:\d{4,9})(?!\d)(?:[@]|\[\d+\])?)'  # Numeric code with negative lookahead
-    r'(?:[#>*@%^+]|\[\d*\]|ASIM|TSCH){0,2}[-]?\s*[-–]\s*(.+)$',
+    r'(?:#\d*|[>*@%^+]|\[\d*\]|ASIM|TSCH){0,2}[-]?\s*[-–]\s*(.+)$',
     re.IGNORECASE
 )
 # NR_CRT directly concatenated with CODE (no separator): "3CF41B01* - Tencuiala..."
@@ -1051,11 +1051,15 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         s = line.strip()
         # Normalizeaza spatiu inainte de sufix bracket: "IA22C1 [1]" → "IA22C1[1]"
         s = re.sub(r'(?<=[A-Z0-9])\s+(\[\d)', r'\1', s, flags=re.IGNORECASE)
+        # Strip OCR trailing-quote artifact before separator: 'TCD09XA" - ...' → 'TCD09XA - ...'
+        s = re.sub(r'^([A-Z][A-Z0-9]+)"(\s*[-–])', r'\1\2', s, flags=re.IGNORECASE)
         # Formate cu separator –: breviar $COD, normativ (2+ litere), single-letter, single-multi-digit, digit-letter-digit, numeric
         for pattern in (COD_BREVIAR_RE, COD_NORM_EXTENDED_RE, COD_NORM_RE, COD_NORM_SINGLE_RE, COD_SIMPLE_LETTER_DIGITS_RE, COD_SINGLE_MULTIDIGIT_RE, COD_DIGIT_LETTER_DIGIT_RE, COD_NUMERIC_RE):
             m = pattern.match(s)
             if m:
                 cod_raw = m.group(1).strip().upper()
+                # Strip #N variant suffix: VC26A#1 → VC26A
+                cod_raw = re.sub(r'#\d+$', '', cod_raw)
                 # Strip variant suffix: SC07A-1# → SC07A (dash + digits + optional #)
                 cod_raw = re.sub(r'[-]\d+[#@!]*$', '', cod_raw)
                 # Strip trailing artifacts: -, >, *, @, %, #, ^
@@ -1074,6 +1078,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         # Cod normativ singur pe linie (simple, extended, single-letter) — cu sufixe opționale
         def _parse_standalone(m):
             cod_raw = m.group(1).strip().upper()
+            # Strip #N variant suffix: VC26A#1 → VC26A
+            cod_raw = re.sub(r'#\d+$', '', cod_raw)
             # Strip variant suffix: SC07A-1# → SC07A
             cod_raw = re.sub(r'[-]\d+[#@!]*$', '', cod_raw)
             cod_raw = re.sub(r'[-@%>#*^]+$', '', cod_raw)
@@ -1118,6 +1124,9 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
 
     for line_idx, raw_line in enumerate(lines):
         line = raw_line.strip()
+        # Strip OCR trailing-quote artifact from codes globally: 'TCD09XA" - ...' → 'TCD09XA - ...'
+        # Handles both standalone lines and scatter-combined 'NR COD" - DESC' lines
+        line = re.sub(r'([A-Z][A-Z0-9]+)"(\s*[-–])', r'\1\2', line, flags=re.IGNORECASE)
         # Skip empty, price labels, and metadata codes — BUT NOT numeric codes in linked article mode
         skip_due_to_filter = SKIP_RE.search(line) or _PRICE_LABEL_RE.match(line)
         # NR_COD_DESC_RE or NR_COD_CONCAT_RE matches are definitively article starts — never skip.
@@ -1254,6 +1263,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                     cod = '$' + m.group(2)
                 else:
                     raw_cod = m.group(2).upper()
+                    raw_cod = re.sub(r'#\d+$', '', raw_cod)
                     raw_cod = re.sub(r'[-@%>#*]+$|\s*\[\d*\]?\s*$', '', raw_cod)
                     raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
                     cod = raw_cod
@@ -1279,7 +1289,9 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 m_ncd = NR_COD_DESC_RE.match(line)
                 if m_ncd:
                     last_nr_crt = int(m_ncd.group(1))
-                    raw_cod = re.sub(r'[-@%>#*^+]+$|\s*\[\d*\]?\s*$', '', m_ncd.group(2).upper())
+                    raw_cod = m_ncd.group(2).upper()
+                    raw_cod = re.sub(r'#\d+$', '', raw_cod)
+                    raw_cod = re.sub(r'[-@%>#*^+]+$|\s*\[\d*\]?\s*$', '', raw_cod)
                     raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
                     cod = raw_cod
                     denumire_parts = [m_ncd.group(3).strip()] if m_ncd.group(3) else []
@@ -1294,6 +1306,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                     if m_concat:
                         last_nr_crt = int(m_concat.group(1))
                         raw_cod = (m_concat.group(2) + (m_concat.group(3) or '')).upper()
+                        raw_cod = re.sub(r'#\d+$', '', raw_cod)
                         raw_cod = re.sub(r'[-@%>#*^+]+$|\s*\[\d*\]?\s*$', '', raw_cod)
                         raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
                         cod = raw_cod
@@ -1390,7 +1403,9 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                     m_ncd = NR_COD_DESC_RE.match(line)
                     if m_ncd:
                         last_nr_crt = int(m_ncd.group(1))
-                        raw_cod = re.sub(r'[-@%>#*^+]+$|\s*\[\d*\]?\s*$', '', m_ncd.group(2).upper())
+                        raw_cod = m_ncd.group(2).upper()
+                        raw_cod = re.sub(r'#\d+$', '', raw_cod)
+                        raw_cod = re.sub(r'[-@%>#*^+]+$|\s*\[\d*\]?\s*$', '', raw_cod)
                         raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
                         cod = raw_cod
                         denumire_parts = [m_ncd.group(3).strip()] if m_ncd.group(3) else []
@@ -1552,7 +1567,9 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 last_nr_crt = int(m_ncd.group(1))
                 if last_nr_crt == current_parent_nr and current_parent_nr > 0:
                     explicit_component_marker = True
-                raw_cod = re.sub(r'[-@%>#*^+]+$|\s*\[\d*\]?\s*$', '', m_ncd.group(2).upper())
+                raw_cod = m_ncd.group(2).upper()
+                raw_cod = re.sub(r'#\d+$', '', raw_cod)
+                raw_cod = re.sub(r'[-@%>#*^+]+$|\s*\[\d*\]?\s*$', '', raw_cod)
                 raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
                 cod = raw_cod
                 denumire_parts = [m_ncd.group(3).strip()] if m_ncd.group(3) else []
