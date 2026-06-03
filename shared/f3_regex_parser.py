@@ -64,9 +64,9 @@ COD_DIGIT_LETTER_DIGIT_STANDALONE_RE = re.compile(
     re.IGNORECASE
 )
 # Cod normativ SINGUR pe linie, cu opțional tokeni sufixe (ASIM, BUC. etc.) — max 3
-# Ex: "TCB40A1", "TCB40A1 ASIM", "IA37E1 ASIM BUC." (format referinţă deviz)
+# Ex: "TCB40A1", "TCB40A1 ASIM", "IA37E1 ASIM BUC.", "YC01RON" (sufix 3 litere moneda)
 COD_NORM_STANDALONE_RE = re.compile(
-    r'^([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?\d?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
+    r'^([A-Z]{1,5}\d{1,4}[A-Z]{0,3}\d{0,2}[A-Z]{0,3}\d?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
     re.IGNORECASE
 )
 # Cod extended SINGUR pe linie: TRI1AA08F1, TRI1AA01C2, TSC35XA1 (format: 2-5L + 1-2D + 1-3L + 1-4D + opt)
@@ -95,7 +95,7 @@ COD_NUMERIC_PIPE_RE = re.compile(
 # NR_CRT + COD NORMATIV pe aceeaşi linie, cu optional tokeni UM (ASIM, BUC. etc.)
 # Ex: "024 CK26A#" sau "002 TCB40A1 ASIM" sau "004 ATA01B ASIM BUC."
 NR_ALPHA_INLINE_RE = re.compile(
-    r'^(\d{1,3})[\s|]+([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?\d?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,2})\s*$',
+    r'^(\d{1,3})[\s|]+([A-Z]{1,5}\d{1,4}[A-Z]{0,3}\d{0,2}[A-Z]{0,3}\d?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,2})\s*$',
     re.IGNORECASE
 )
 # NR_CRT + COD NUMERIC pe aceeaşi linie (format referinţă deviz: "024 2200012" or "024|2200012")
@@ -950,7 +950,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # Acestea sunt fragmente din denominatia articolului precedent splituite de OCR.
             # Pattern restrâns: 1-2 litere + EXACT 2 cifre (DN32, PN10) SAU 1 litera + 3-5 cifre (S474, S7064).
             # VC1011, SD13A1, SA131 (2+ cifre dupa 2 litere) sunt coduri reale — NU se skipuiesc.
-            elif re.match(r'^(?:[A-Z]{1,2}\d{2}|[A-Z]\d{3,5})$', cod):
+            # Exceptie: YC\d{2} (ex: YC01, YC02) sunt coduri de categorie cost IS, nu spec tehnica.
+            elif re.match(r'^(?:[A-Z]{1,2}\d{2}|[A-Z]\d{3,5})$', cod) and not re.match(r'^YC\d', cod):
                 logger.debug(f"[PARSER] Skip spec tehnica (DN/PN/tip material): {cod}")
             # Skip coduri marcatori capitol ISDP: $0001-$0009 (CPV section headers)
             # Apar la inceputul fiecarui deviz in format ISDP, nu sunt articole reale.
