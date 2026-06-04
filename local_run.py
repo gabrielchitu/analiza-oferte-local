@@ -834,56 +834,8 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
         logger.info(f"  {len(articles) - len(deduped)} duplicates removed (same deviz/cod/um/cantitate)")
     articles = deduped
 
-    # Extract articles from tables (structured F3 data)
-    # Tables contain the same articles as pages but in structured format
-    # Extract once from identified tables, not for each deviz separately
-    from shared.table_extractor import extract_articles_from_tables_smart
-    tables = di.get("tables", [])
-    if tables:
-        # Identify which devizes have tables with article data
-        articles_from_tables = extract_articles_from_tables_smart(tables)
-
-        # Merge: tabela are prioritate fata de linii in 3 cazuri:
-        # 1. Duplicat exact (deviz, cod, um, cantitate) → skip
-        # 2. Acelasi (deviz, cod, cantitate) dar UM diferit → tabela inlocuieste
-        # 3. Acelasi (deviz, cod) iar linia are cant=0 (esec parsare) → tabela inlocuieste
-        article_3key = {}   # (deviz, cod, cantitate) -> index in articles
-        article_2key_zero = {}  # (deviz, cod) -> index, doar pt cant=0 (esec parsare)
-        article_4tuple = set()
-        for i, art in enumerate(articles):
-            k3 = (art.get("deviz"), art.get("cod"), art.get("cantitate"))
-            article_3key[k3] = i
-            if (art.get("cantitate") or 0) == 0:
-                article_2key_zero[(art.get("deviz"), art.get("cod"))] = i
-            article_4tuple.add((art.get("deviz"), art.get("cod"), art.get("um"), art.get("cantitate")))
-
-        for art in articles_from_tables:
-            k4 = (art.get("deviz"), art.get("cod"), art.get("um"), art.get("cantitate"))
-            k3 = (art.get("deviz"), art.get("cod"), art.get("cantitate"))
-            k2 = (art.get("deviz"), art.get("cod"))
-            tbl_cant = art.get("cantitate") or 0
-            if k4 in article_4tuple:
-                continue  # duplicat exact
-            if k3 in article_3key:
-                # Acelasi articol, UM diferit — tabela castiga
-                old_idx = article_3key[k3]
-                articles[old_idx] = art
-                article_4tuple.add(k4)
-            elif k2 in article_2key_zero and tbl_cant != 0:
-                # Linia a extras cant=0 (esec) → tabela cu cantitate reala inlocuieste
-                old_idx = article_2key_zero[k2]
-                old_art = articles[old_idx]
-                del article_3key[(old_art.get("deviz"), old_art.get("cod"), 0)]
-                article_2key_zero.pop(k2)
-                articles[old_idx] = art
-                article_3key[k3] = old_idx
-                article_4tuple.add(k4)
-            else:
-                articles.append(art)
-                article_3key[k3] = len(articles) - 1
-                article_4tuple.add(k4)
-
-        logger.info(f"  {len(articles_from_tables)} articole din tabele, {len(articles)} total dupa merge")
+    # Table extraction disabled in v1 (using v2 for table-aware extraction)
+    # v1 uses regex-only extraction for compatibility
 
     # Apply final deduplication for code suffix duplicates (e.g., $0156 vs $3270156)
     # This handles cases where line extraction and table extraction both produce articles

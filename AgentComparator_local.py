@@ -216,36 +216,36 @@ def _art_key(art: dict) -> tuple:
 
 
 def _deduplicate_neconformitati(neconformitati: list) -> list:
-    """Remove duplicate non-conformities for the same (deviz, ref_cod, oferta_cod) pair.
+    """Remove duplicate non-conformities.
 
-    When the same article pair appears multiple times with different issue types,
-    keep only the primary (most important) one. Priority order:
-    1. COD_SIMILAR (code difference detected)
-    2. Others (DIFERENTA_CAMP, UM_DIFERIT)
-    3. ARTICOL_LIPSA, ARTICOL_EXTRA (informational)
+    Per article pair (deviz, ref_cod, oferta_cod):
+    - COD_SIMILAR suppresses all DIFERENTA_CAMP/UM_DIFERIT (COD already explains the mismatch)
+    - Multiple DIFERENTA_CAMP with different `camp` fields ALL survive (e.g. tip_articol + cantitate)
+    - Exact-same (tip, camp) duplicates are collapsed to one
     """
     if not neconformitati:
         return neconformitati
 
-    priority = {
-        'COD_SIMILAR': 3,
-        'DIFERENTA_CAMP': 1,
-        'UM_DIFERIT': 1,
-        'ARTICOL_LIPSA': 0,
-        'ARTICOL_EXTRA': 0,
-    }
-
-    best: dict = {}
-    result_indexed: dict = {}
-
+    from collections import defaultdict
+    pair_ncs: dict = defaultdict(list)
     for nc in neconformitati:
-        key = (nc.get('deviz', ''), nc.get('ref_cod', ''), nc.get('oferta_cod', ''))
-        curr_p = priority.get(nc.get('tip', ''), 0)
-        if key not in best or curr_p > best[key]:
-            best[key] = curr_p
-            result_indexed[key] = nc
+        pair_key = (nc.get('deviz', ''), nc.get('ref_cod', ''), nc.get('oferta_cod', ''))
+        pair_ncs[pair_key].append(nc)
 
-    return list(result_indexed.values())
+    result = []
+    for ncs in pair_ncs.values():
+        cod_similar = [nc for nc in ncs if nc.get('tip') == 'COD_SIMILAR']
+        if cod_similar:
+            result.append(cod_similar[0])
+            continue
+        seen_tip_camp: set = set()
+        for nc in ncs:
+            tip_camp = (nc.get('tip', ''), nc.get('camp', ''))
+            if tip_camp not in seen_tip_camp:
+                seen_tip_camp.add(tip_camp)
+                result.append(nc)
+
+    return result
 
 
 def build_ref_catalog(ref_articole: list) -> dict:
@@ -409,12 +409,15 @@ def match_global(
         for ra, oferta_art in paired_strict:
             diffs = compare_articles(ra, oferta_art, include_prices=include_prices)
             arith = check_arithmetic(oferta_art) if include_prices else []
-            if bool(ra.get("is_component")) != bool(oferta_art.get("is_component")):
+            if ra.get("is_component") and not oferta_art.get("is_component"):
+                # ref=subcomponent but offer=principal: genuine reclassification
+                # Reverse (ref=principal, offer=subcomponent) is document format noise
+                # (offer uses chapter headers 1 → 1.1, 1.2...; ref uses flat NR list)
                 nc_comp = {
                     "tip": "DIFERENTA_CAMP",
                     "camp": "tip_articol",
-                    "ref": "subcomponenta" if ra.get("is_component") else "articol_principal",
-                    "oferta": "subcomponenta" if oferta_art.get("is_component") else "articol_principal",
+                    "ref": "subcomponenta",
+                    "oferta": "articol_principal",
                 }
                 _enrich(nc_comp, ra, oferta_art, deviz_cod, deviz_den)
                 neconformitati.append(nc_comp)
@@ -910,7 +913,19 @@ def match_global(
         norm_cod = _normalize_cod(oferta_art.get("cod", ""))
         if norm_cod in ref_component_cods:
             if oferta_art.get("is_component"):
-                continue  # offer also treats as component — breakdown detail, not discrepancy
+                # Both ref and offer classify as subcomponent — compare cantitate/UM
+                ref_comps = [a for a in ref_articole if a.get("is_component") and
+                             _normalize_cod(a.get("cod", "")) == norm_cod]
+                if ref_comps:
+                    ref_sub = ref_comps[0]
+                    sub_diffs = compare_articles(ref_sub, oferta_art, include_prices=False)
+                    for d in sub_diffs:
+                        if d.get("camp") in ("cantitate", "um"):
+                            _enrich(d, ref_sub, oferta_art,
+                                    oferta_art.get("deviz", ""),
+                                    oferta_art.get("deviz_denumire", ""))
+                            neconformitati.append(d)
+                continue
             # ref=component, offer=main article — structural reclassification, report it
             deviz_cod_e = oferta_art.get("deviz", "")
             deviz_den_e = oferta_art.get("deviz_denumire", "")

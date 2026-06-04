@@ -45,3 +45,33 @@ def test_make_article_parent():
     assert art["parent_code"] is None
     assert art["is_component"] is False
     assert art["subcomponents"] == ["6717077", "6719428"]
+
+
+def test_regex_extraction_includes_confidence():
+    """Regex extraction should include confidence score"""
+    # Use a realistic article format: "1 CF41B01 - ARTICLE DESCRIPTION"
+    lines = [
+        "1",
+        "CF41B01 - ARTICLE DESCRIPTION",
+        "BUC",
+        "10"
+    ]
+
+    result = f3_regex_parser.extract_articles_regex(lines, deviz_cod="0001", deviz_den="TEST")
+
+    assert len(result) > 0, "Should extract article"
+    article = result[0]
+
+    assert "confidence" in article, "Article should have confidence field"
+    assert 0.0 <= article["confidence"] <= 1.0, f"Confidence out of range: {article['confidence']}"
+    assert article["confidence"] >= 0.60, "Regex confidence should be at least MEDIUM (0.60)"
+
+    # Check metadata fields
+    assert "extraction_source" in article, "Article should have extraction_source field"
+    assert article["extraction_source"] == "REGEX", "extraction_source should be 'REGEX'"
+    assert "descriere_normalized" in article, "Article should have descriere_normalized"
+    assert "um_normalized" in article, "Article should have um_normalized"
+    assert "cant_numeric" in article, "Article should have cant_numeric"
+    assert "comparison_key" in article, "Article should have comparison_key"
+    assert "parent_nr" in article, "Article should have parent_nr"
+    assert "is_component" in article, "Article should have is_component"

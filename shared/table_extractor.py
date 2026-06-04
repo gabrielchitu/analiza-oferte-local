@@ -1,439 +1,351 @@
 """
-Extract articles from F3 tables in DI JSON.
+TableExtractor: Parse Azure Document Intelligence table structures (cells with rowIndex/columnIndex)
+to extract articles with hierarchy detection and confidence scoring.
 
-Tables from Document Intelligence have structured format:
-- Cells with row/column indices
-- Header row identifies columns (Nr., Capitol, UM, Cantitate, Preturi)
-- Data rows contain article information
+Maps table cells by row/column to standardized article format with optional parent-child relationships.
 """
+
 import re
-import logging
-from typing import List, Dict
+from typing import List, Dict, Tuple, Optional
 
 
-def _normalize_denom(text: str) -> str:
-    """Normalizeaza DENUMIRE: lowercase, spații, caractere speciale."""
-    if not text:
-        return text
-    text = text.lower()
-    text = text.replace('"', "'").replace('"', "'").replace('"', "'")
-    text = re.sub(r'([A-Z])\.\s+', r'\1 ', text, flags=re.IGNORECASE)
-    text = re.sub(r'\s+', ' ', text)
-    return text.strip()
+# Mapping of unit variations to normalized form
+UM_KNOWN = {
+    "buc": "buc",
+    "bucată": "buc",
+    "bucati": "buc",
+    "t": "t",
+    "ton": "t",
+    "tone": "t",
+    "ml": "ml",
+    "mp": "mp",
+    "m2": "m2",
+    "m²": "m2",
+    "kg": "kg",
+    "l": "l",
+    "litru": "l",
+    "litri": "l",
+    "litru/s": "l",
+    "mc": "mc",
+    "m3": "mc",
+    "m³": "mc",
+    "m": "m",
+    "metru": "m",
+    "metri": "m",
+    "km": "km",
+    "kilometru": "km",
+}
 
 
-def _normalize_deviz_cod_table(cod: str) -> str:
-    """Normalizeaza cod deviz: 226U38 → 226038 (U→0 for consistency)."""
-    if not cod:
-        return cod
-    return cod.replace('U', '0')
-
-logger = logging.getLogger(__name__)
-
-
-def _clean_article_code(code: str) -> str:
-    """Remove OCR artifacts and variant suffixes from article codes.
-
-    Examples:
-    - SE56A# → SE56A (OCR artifact)
-    - SC07A-1# → SC07A (variant suffix)
-    - SC14A# → SC14A
+class TableExtractor:
     """
-    if not code:
-        return code
-    # Remove variant suffix: -\d+# (e.g., -1#, -2#)
-    code = re.sub(r'([-]\d+)[#@!]*$', '', code)
-    # Remove trailing OCR artifacts: #, @, etc. that appear after valid code
-    code = re.sub(r'([A-Z0-9])[#@!]+$', r'\1', code)
-    return code
+    Extract articles from Azure Document Intelligence table structures.
 
-
-def _parse_article_cell(cell_content: str) -> tuple:
+    Expected table format: cells list with rowIndex, columnIndex, content.
+    Header row identifies columns: NR, DESCRIERE, UM, CANT (or CANTITATE).
+    Article rows follow header, one per row.
     """
-    Parse article cell content: 'CODE - DENOMINATION'
-    Returns: (code, denomination) or (None, None)
-    """
-    if not cell_content or not isinstance(cell_content, str):
-        return None, None
 
-    # Match: "CODE - DENOMINATION" with optional code suffix like "-1#"
-    # Use " - " (with spaces) to distinguish from "-1#" (part of code without spaces)
-    # Pattern: CODE(-SUFFIX#)? - DESCRIPTION
-    m = re.match(r'^(\$?\d{4,8}|[A-Z]{2,5}\d{1,4}[A-Z]?(?:-\d+)?(?:#)?|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?(?:-\d+)?(?:#)?)\s*[-–]\s*(.+)',
-                 cell_content.strip(), re.IGNORECASE)
-    if m:
-        code = m.group(1).upper()
-        # Add $ prefix to numeric codes
-        if re.match(r'^\d+$', code):
-            code = '$' + code
-        denom = m.group(2).strip()
-        return code, denom
+    def __init__(self):
+        self.header_row = None
+        self.column_map = {}
 
-    # Fallback: try to extract code even without perfect dash separation
-    # Handles: "SE56A# - Filtru...", "SC07A-1# - Description..." with various separators
-    m2 = re.match(r'^([A-Z0-9#@\-]{2,10})\s*[-–]\s*(.+)', cell_content.strip(), re.IGNORECASE)
-    if m2:
-        code = m2.group(1).upper()
-        code = _clean_article_code(code)
-        if code and len(code) >= 2:  # Valid code
-            denom = m2.group(2).strip()
-            return code, denom
+    def extract(self, table: Dict) -> Tuple[List[Dict], Dict, float]:
+        """
+        Extract articles from table.
 
-    return None, None
+        Args:
+            table: Dict with 'cells' list, each cell has rowIndex, columnIndex, content
 
+        Returns:
+            (articles_list, hierarchy_dict, confidence_float)
+            - articles_list: List of article dicts with nr, descriere, um, cant_numeric, etc.
+            - hierarchy_dict: Maps article_nr → parent_nr (None if root)
+            - confidence_float: Overall extraction confidence (0.0-1.0)
+        """
+        if not table or "cells" not in table:
+            return [], {}, 0.0
 
-def extract_articles_from_tables(tables: List[Dict], deviz_cod: str, deviz_den: str) -> List[Dict]:
-    """
-    Extract articles from F3 format tables.
-
-    Handles two formats:
-    - Format 1 (Reference): Nr. | CODE - NAME | U.M. | Cantitate | Price | Total
-    - Format 2 (Oferta 2): Nr. | CODE | NAME | U.M. | Cantitate | Price | Total
-
-    Args:
-        tables: List of table dicts from DI JSON
-        deviz_cod: Deviz code (e.g., "226018")
-        deviz_den: Deviz denomination
-
-    Returns:
-        List of article dicts in standard format
-    """
-    articole = []
-
-    for table in tables:
-        cells = table.get('cells', [])
+        cells = table["cells"]
         if not cells:
-            continue
+            return [], {}, 0.0
 
-        # Find header row (row 1) to identify columns
-        header_row = {}
-        for cell in cells:
-            if cell.get('row_index') == 1:
-                col_idx = cell.get('column_index')
-                content = cell.get('content', '').strip().upper()
-                header_row[col_idx] = content
+        # Organize cells by row
+        rows = self._organize_by_row(cells)
+        if not rows:
+            return [], {}, 0.0
 
-        if not header_row:
-            continue
+        # Find header row
+        header_idx = self._find_header_row(rows)
+        if header_idx is None:
+            return [], {}, 0.0
 
-        # Identify column positions
-        col_nr = None
-        col_capitol = None
-        col_um = None
-        col_cant = None
-        col_denom = None  # For format 2 where code and denom are separate
+        self.header_row = rows[header_idx]
+        self._build_column_map(self.header_row)
 
-        for col_idx, header in header_row.items():
-            if 'NR' in header or header == '0':
-                col_nr = col_idx
-            elif 'CAPITOL' in header or 'DENUMIRE' in header:
-                col_capitol = col_idx
-            elif 'U.M' in header or 'UM' in header:
-                col_um = col_idx
-            elif 'CANTITAT' in header or header == '3':
-                col_cant = col_idx
+        # Extract articles from remaining rows
+        articles = []
+        for row_idx in sorted(rows.keys()):
+            if row_idx <= header_idx:
+                continue
 
-        # Extract data rows BEFORE heuristic check (rows variable used in heuristic)
+            row = rows[row_idx]
+            article = self._extract_article(row)
+            if article:
+                articles.append(article)
+
+        # Detect parent-child relationships
+        self._detect_hierarchy(articles)
+
+        # Calculate overall confidence
+        confidence = self._calculate_confidence(articles)
+
+        # Build hierarchy dict
+        hierarchy = {art.get("nr"): art.get("parent_nr") for art in articles}
+
+        return articles, hierarchy, confidence
+
+    def _organize_by_row(self, cells: List[Dict]) -> Dict[int, Dict[int, str]]:
+        """
+        Organize cells by rowIndex.
+
+        Returns:
+            Dict[rowIndex] → Dict[columnIndex] → content_string
+        """
         rows = {}
         for cell in cells:
-            row_idx = cell.get('row_index')
-            if row_idx <= 2:
+            row_idx = cell.get("rowIndex")
+            col_idx = cell.get("columnIndex")
+            content = cell.get("content", "").strip()
+
+            if row_idx is None or col_idx is None:
                 continue
 
             if row_idx not in rows:
                 rows[row_idx] = {}
-            rows[row_idx][cell.get('column_index')] = cell.get('content', '')
 
-        # Fallback: If standard columns not found, try heuristic detection
-        # Some tables have sparse headers without explicit CANTITATE/UM labels
-        if col_capitol is None or col_um is None or col_cant is None:
-            # Try fallback: col_capitol=1, col_cant=3, col_um=4 (if they have data)
-            # This handles tables with: Nr. | Code | Empty | Qty | Unit | Empty | Price
-            sample_row = rows.get(min(rows.keys())) if rows else {}
-            if sample_row and col_capitol is None:
-                # Check if col 1 has codes and col 3 has numeric qty
-                col_1_content = sample_row.get(1, '')
-                col_3_content = sample_row.get(3, '')
+            rows[row_idx][col_idx] = content
 
-                # If col 1 looks like a code (starts with letter or digit) and col 3 has a number
-                if col_1_content and re.match(r'^[A-Z0-9]', col_1_content.upper()):
-                    if col_3_content and re.search(r'\d', col_3_content):
-                        # Likely: col 1 = code, col 3 = qty, col 4 = unit
-                        col_capitol = 1
-                        col_cant = 3
-                        col_um = 4
-                        col_denom = None  # Description might be multi-row
-                        logger.debug(f"[TABLE] Using heuristic columns: code={col_capitol}, cant={col_cant}, um={col_um}")
+        return rows
 
-            if col_capitol is None or col_um is None or col_cant is None:
-                continue
+    def _find_header_row(self, rows: Dict[int, Dict[int, str]]) -> Optional[int]:
+        """
+        Find header row by looking for NR, DESCRIERE, UM, CANT keywords.
 
-        # Handle case where header has empty columns before actual content
-        # Some tables have header col 1 empty, col 2 = "CAPITOLUL", but data in col 1 = code, col 2 = denom
-        # Check if column before capitol is empty (has no header content)
-        code_col = col_capitol
-        has_empty_header_before = False
-        if col_capitol > 0:
-            prev_header = header_row.get(col_capitol - 1, '')
-            if not prev_header or prev_header.strip() == '':
-                has_empty_header_before = True
-                code_col = col_capitol - 1
-
-        # Detect format 2: Check if code and denom are in separate columns
-        # This happens when code is in code_col and denom in the next column
-        is_format_2 = False
-        col_denom = None
-
-        if rows and code_col is not None:
-            first_row = rows.get(min(rows.keys())) if rows else {}
-            next_col = code_col + 1
-
-            # Format 2 case 1: empty header before capitol, code in code_col, denom in code_col+1
-            if has_empty_header_before and next_col in first_row and first_row[next_col].strip():
-                is_format_2 = True
-                col_denom = next_col
-            # Format 2 case 2: code_col at capitol but denom in col_capitol+1 (DI parser split)
-            elif code_col == col_capitol and next_col not in header_row and next_col in first_row and first_row[next_col].strip():
-                is_format_2 = True
-                col_denom = next_col
-
-        # Process each article row (rows with article codes)
+        Returns:
+            rowIndex of header row, or None if not found
+        """
         for row_idx in sorted(rows.keys()):
-            row_data = rows[row_idx]
+            row = rows[row_idx]
+            row_text = " ".join(row.values()).upper()
 
-            code = None
-            denom = None
+            # Check for header keywords
+            has_nr = any("NR" in cell.upper() for cell in row.values())
+            has_descriere = any("DESCRIERE" in cell.upper() for cell in row.values())
+            has_um = any(cell.upper() in ["UM", "U.M."] for cell in row.values())
+            has_cant = any(
+                cell.upper() in ["CANT", "CANTITATE", "CANT.", "CANT.TATEA"]
+                for cell in row.values()
+            )
 
-            if is_format_2 and col_denom is not None:
-                # Format 2: Code and denomination in separate columns
-                code_cell = row_data.get(code_col, '').strip() if code_col is not None else ''
-                denom_cell = row_data.get(col_denom, '').strip()
+            if has_nr and has_descriere and has_um and has_cant:
+                return row_idx
 
-                # Extract code from code_cell (may contain extra text like "[1]" or "ASIM")
-                code = None
-                if code_cell:
-                    # Try to extract just the code part, ignoring trailing artifacts
-                    # Match: numeric codes (2100910) or alphanumeric codes (IA22C1, TCB40A1)
-                    m = re.match(r'^(\$?\d{4,8}|[A-Z]{1,3}\d{1,4}[A-Z]?\d{0,2})\b', code_cell.upper())
-                    if m:
-                        code = m.group(1)
-                        # Add $ prefix to numeric codes (like _parse_article_cell does)
-                        if re.match(r'^\d+$', code):
-                            code = '$' + code
-                    else:
-                        # Fallback: clean and use entire cell
-                        code = _clean_article_code(code_cell.upper())
-                        if code and re.match(r'^\d+$', code):
-                            code = '$' + code
+        return None
 
-                # Use denomination as-is
-                if code and denom_cell:
-                    denom = denom_cell
-            else:
-                # Format 1: Combined "CODE - DENOMINATION" in col_capitol
-                capitol_cell = row_data.get(col_capitol, '')
-                code, denom = _parse_article_cell(capitol_cell)
-                # Clean suffix variants: SC07A-1# → SC07A, SE56A# → SE56A
-                if code:
-                    code = _clean_article_code(code)
+    def _build_column_map(self, header_row: Dict[int, str]) -> None:
+        """
+        Build mapping: column_name → columnIndex.
 
-            if not code:
-                continue
+        Populates self.column_map: {nr_col, descriere_col, um_col, cant_col}
+        """
+        self.column_map = {}
 
-            # Get quantity string (might include unit prefix like "99 M")
-            cant_str = row_data.get(col_cant, '').strip()
+        for col_idx, content in header_row.items():
+            upper = content.upper().strip()
 
-            # Extract numeric quantity, handling "99 M" format
-            # Pattern: one or more digits, optional decimal, optional spaces, optional letters
-            cant_match = re.match(r'^([\d,\.]+)\s*[A-Za-z]*', cant_str)
-            if cant_match:
-                cant_numeric = cant_match.group(1)
-            else:
-                cant_numeric = cant_str
+            if upper == "NR":
+                self.column_map["nr"] = col_idx
+            elif upper == "DESCRIERE":
+                self.column_map["descriere"] = col_idx
+            elif upper in ["UM", "U.M."]:
+                self.column_map["um"] = col_idx
+            elif upper in ["CANT", "CANTITATE", "CANT.", "CANT.TATEA"]:
+                self.column_map["cant"] = col_idx
 
+    def _extract_article(self, row: Dict[int, str]) -> Optional[Dict]:
+        """
+        Extract one article from table row.
+
+        Returns:
+            Dict with: nr, descriere, um, cant_numeric, extraction_source, confidence,
+            descriere_normalized, um_normalized, comparison_key, parent_nr, is_component
+            Or None if critical fields missing.
+        """
+        # Get fields from column map
+        nr = row.get(self.column_map.get("nr"), "").strip()
+        descriere = row.get(self.column_map.get("descriere"), "").strip()
+        um_raw = row.get(self.column_map.get("um"), "").strip()
+        cant_raw = row.get(self.column_map.get("cant"), "").strip()
+
+        # Require at least NR and DESCRIERE
+        if not nr or not descriere:
+            return None
+
+        # Normalize UM
+        um_normalized = self._normalize_um(um_raw) if um_raw else None
+        um = self._map_um(um_raw) if um_raw else None
+
+        # Parse quantity
+        cant_numeric = None
+        if cant_raw:
             try:
-                # Handle formats like "198.000" or "198,000" or "99" or "99 M"
-                cant_normalized = cant_numeric.replace(',', '.').replace('.', '', 1) if '.' in cant_numeric and ',' in cant_numeric else cant_numeric.replace(',', '.')
-                cantitate = float(cant_normalized) if cant_normalized else 0.0
-            except ValueError:
-                cantitate = 0.0
+                cant_numeric = float(cant_raw.replace(",", "."))
+            except (ValueError, AttributeError):
+                pass
 
-            # Get UM and normalize (remove dots: "m.c." → "mc")
-            # Combine col_um with any unit prefix in cant_str
-            um = row_data.get(col_um, '').strip().upper()
+        # Normalize description
+        descriere_normalized = self._normalize_descriere(descriere)
 
-            # If cant_str has letters (like "99 M"), add them to the unit
-            um_from_cant = re.search(r'([A-Za-z]+)$', cant_str)
-            if um_from_cant:
-                um = (um_from_cant.group(1) + ' ' + um).strip()
+        # Build comparison key
+        comparison_key = (
+            f"{nr}#{descriere_normalized}#{um_normalized}" if um_normalized else f"{nr}#{descriere_normalized}"
+        )
 
-            um = um.replace('.', '')  # Remove dots: M.C. → MC, m.c. → mc
-            if not um or um in ('0', '1', '2', '3', '4', '5'):
-                um = ''
+        return {
+            "nr": nr,
+            "descriere": descriere,
+            "descriere_normalized": descriere_normalized,
+            "um": um,
+            "um_normalized": um_normalized,
+            "cant": cant_raw,
+            "cant_numeric": cant_numeric,
+            "extraction_source": "TABLE",
+            "confidence": 0.95,  # Tables are highly reliable
+            "comparison_key": comparison_key,
+            "parent_nr": None,
+            "is_component": False,
+        }
 
-            # Build article
-            art = {
-                'cod': code,
-                'denumire': _normalize_denom(denom),
-                'um': um.lower() if um else '',
-                'cantitate': cantitate,
-                'deviz': deviz_cod,
-                'deviz_denumire': deviz_den,
-                'is_component': False,
-                'pret_material': 0.0,
-                'val_material': 0.0,
-                'pret_manopera': 0.0,
-                'val_manopera': 0.0,
-                'pret_utilaj': 0.0,
-                'val_utilaj': 0.0,
-                'pret_transport': 0.0,
-                'val_transport': 0.0,
-            }
-            articole.append(art)
-            logger.debug(f"[TABLE] Articol din tabel: {code} | {deviz_cod}")
+    def _normalize_descriere(self, text: str) -> str:
+        """Normalize DENUMIRE for matching: lowercase, spaces, special characters.
 
-    if articole:
-        logger.info(f"[TABLE] {len(articole)} articole extrase din tabele pentru {deviz_cod}")
+        Resolves: "ROBINET 1/2\"" vs "ROBINET 1/2" (quote char variation)
+                  "PLASA ZN.MONT. LA" vs "PLASA ZN.MONT.LA" (spaces)
+                  "BST500 8 MM" vs "BST500 8 mm" (case)
+        """
+        if not text:
+            return text
+        # lowercase
+        text = text.lower()
+        # normalize quotes: " → ', and other variations
+        text = text.replace('"', "'").replace('"', "'").replace('"', "'")
+        # remove dots after letters (ex: "INOX." → "INOX", "M." → "M")
+        text = re.sub(r'([A-Z])\.\s+', r'\1 ', text, flags=re.IGNORECASE)
+        # remove multiple spaces
+        text = re.sub(r'\s+', ' ', text).strip()
+        return text
 
-    return articole
+    def _normalize_um(self, um: str) -> str:
+        """Normalize unit of measure for comparison.
 
+        Handles common variations:
+        - m cub, m3 → mc (cubic meters)
+        - mp, m² → mp (square meters)
+        - buc, bucata → buc (pieces)
+        - ml, litru → ml
+        - empty/None → "" (preserve empty)
+        """
+        if not um:
+            return ""
 
-def extract_articles_from_tables_smart(tables: List[Dict]) -> List[Dict]:
-    """
-    Smartly extract articles from F3 tables by linking metadata to data tables.
+        um = um.lower().strip()
 
-    Two-pass approach:
-    1. First pass: Find metadata tables (6 rows, 2 cols, "Stadiul fizic:" in row 5)
-       Extract deviz code from row 5, col 1
-    2. Second pass: Find F3 data tables (6 cols, "SECTIUNEA TEHNICA" in row 0)
-       Extract articles using the deviz from the preceding metadata table
+        # Cubic meters: "m cub", "m3", "mc"
+        if um in ["m cub", "m3", "mc"]:
+            return "mc"
+        # Square meters: "mp", "m2", "m²"
+        if um in ["mp", "m2", "m²"]:
+            return "mp"
+        # Pieces: "buc", "bucata", "bucați"
+        if um in ["buc", "bucata", "bucati", "bucații"]:
+            return "buc"
+        # Milliliters: "ml"
+        if um in ["ml"]:
+            return "ml"
+        # Liters: "l", "litru", "litri"
+        if um in ["l", "litru", "litri"]:
+            return "l"
 
-    Ignores non-F3 tables (e.g., materials lists with 8 columns).
+        return um
 
-    Args:
-        tables: List of table dicts from DI JSON
+    def _map_um(self, um_raw: str) -> Optional[str]:
+        """
+        Map raw UM string to normalized form using UM_KNOWN.
 
-    Returns:
-        List of article dicts with correct deviz codes
-    """
-    all_articole = []
+        Args:
+            um_raw: Raw unit string (e.g., "T", "litru", "m2")
 
-    # First pass: Identify metadata tables and their deviz codes
-    metadata_to_deviz = {}  # table_idx -> (deviz_cod, deviz_den)
+        Returns:
+            Normalized unit, or original if not in UM_KNOWN
+        """
+        normalized = um_raw.lower().strip()
+        return UM_KNOWN.get(normalized, um_raw)
 
-    for table_idx, table in enumerate(tables):
-        cells = table.get('cells', [])
-        if not cells:
-            continue
+    def _detect_hierarchy(self, articles: List[Dict]) -> None:
+        """
+        Mark parent-child relationships based on NR format.
 
-        deviz_found = None
+        If NR contains ".", it's a subcomponent (e.g., "1.1" is child of "1").
+        """
+        nr_to_article = {art["nr"]: art for art in articles}
 
-        # Format 1 (Reference): "Stadiul fizic:" in row 5, col 0 → deviz in row 5, col 1
-        for cell in cells:
-            if cell.get('row_index') == 5 and cell.get('column_index') == 0:
-                content = cell.get('content', '').strip()
-                if 'STADIUL' in content.upper():
-                    # Extract deviz from row 5, col 1
-                    for c in cells:
-                        if c.get('row_index') == 5 and c.get('column_index') == 1:
-                            content = c.get('content', '').strip()
-                            # Parse "226U18 CANALIZARE"
-                            m = re.match(r'^([A-Z0-9]{5,8})\s+(.+)$', content)
-                            if m:
-                                deviz_cod = _normalize_deviz_cod_table(m.group(1).upper())
-                                deviz_den = m.group(2).strip()
-                                deviz_found = (deviz_cod, deviz_den)
-                                logger.debug(f"[TABLE] Tabel {table_idx}: Metadata (format 1) deviz {deviz_cod}")
-                            break
-                    break
+        for article in articles:
+            nr = article["nr"]
 
-        # Format 2 (Oferta 2): "oferta XXXXX" pattern in ANY cell
-        if not deviz_found:
-            for cell in cells:
-                content = cell.get('content', '').strip().upper()
-                if 'OFERTA' in content:
-                    # Parse "oferta 226238 MONTAT BOILER"
-                    m = re.search(r'oferta\s+([A-Z0-9]{5,8})\s+(.+)', content, re.IGNORECASE)
-                    if m:
-                        deviz_cod = _normalize_deviz_cod_table(m.group(1).upper())
-                        deviz_den = m.group(2).strip()
-                        deviz_found = (deviz_cod, deviz_den)
-                        logger.debug(f"[TABLE] Tabel {table_idx}: Metadata (format 2 - oferta) deviz {deviz_cod}")
-                        break
+            # Check for subcomponent pattern: "N.M" or "N.M.K", etc.
+            if "." in nr:
+                # Extract parent NR (everything before last dot)
+                parts = nr.split(".")
+                if len(parts) >= 2:
+                    parent_nr = parts[0]
+                    if parent_nr in nr_to_article:
+                        article["parent_nr"] = parent_nr
+                        article["is_component"] = True
 
-        if deviz_found:
-            metadata_to_deviz[table_idx] = deviz_found
+    def _calculate_confidence(self, articles: List[Dict]) -> float:
+        """
+        Calculate overall extraction confidence based on field completeness.
 
-    # Second pass: Find F3 data tables and extract articles
-    processed_tables = set()
+        Returns:
+            Confidence score 0.0-1.0. 1.0 = all articles have all fields.
+        """
+        if not articles:
+            return 0.0
 
-    for table_idx, table in enumerate(tables):
-        cells = table.get('cells', [])
-        if not cells:
-            continue
+        total_score = 0.0
 
-        if table_idx in processed_tables:
-            continue
+        for article in articles:
+            score = 0.0
 
-        # Check if this is an F3 data table
-        is_f3_data = False
-        embedded_deviz_cod = ""
-        embedded_deviz_den = ""
+            # Base: all articles must have nr + descriere (checked in _extract_article)
+            score += 0.4
 
-        for cell in cells:
-            if cell.get('row_index') == 0:
-                content = cell.get('content', '').strip()
-                content_upper = content.upper()
+            # +0.2 if UM present
+            if article.get("um"):
+                score += 0.2
 
-                # Format 1: Standard "SECTIUNEA TEHNICA" header
-                if 'SECTIUNEA' in content_upper:
-                    is_f3_data = True
-                    break
-                # Format 2: Reference format with "CAPITOLUL" or "CANTITATEA" header
-                if 'CAPITOLUL' in content_upper or 'CANTITATE' in content_upper:
-                    is_f3_data = True
-                    break
-                # Format 3: "STADIUL FIZIC: ..." embedded in table (tables 6-8 pattern)
-                # Extract metadata directly: "STADIUL FIZIC: 4.1-02 Structura conexe tip II"
-                if 'STADIUL' in content_upper and 'FIZIC' in content_upper:
-                    # Try to parse: "STADIUL FIZIC: CODE DENOMINATION"
-                    m = re.match(r'STADIUL\s+FIZIC\s*:\s*([A-Z0-9\.]+)\s+(.+)', content, re.IGNORECASE)
-                    if m:
-                        embedded_deviz_cod = m.group(1).strip()
-                        embedded_deviz_den = m.group(2).strip()
-                        is_f3_data = True
-                        logger.debug(f"[TABLE] Tabel {table_idx}: Embedded metadata: {embedded_deviz_cod} | {embedded_deviz_den}")
-                        break
+            # +0.2 if CANT present
+            if article.get("cant_numeric") is not None:
+                score += 0.2
 
-        if not is_f3_data:
-            continue
+            # +0.2 if comparison_key present
+            if article.get("comparison_key"):
+                score += 0.2
 
-        # Determine deviz: use embedded if found, otherwise find preceding metadata table
-        deviz_cod = ""
-        deviz_den = ""
+            total_score += score
 
-        if embedded_deviz_cod:
-            deviz_cod = embedded_deviz_cod
-            deviz_den = embedded_deviz_den
-            logger.debug(f"[TABLE] Tabel {table_idx}: Using embedded deviz: {deviz_cod}")
-        else:
-            # Find the preceding metadata table to get deviz
-            for meta_idx in sorted(metadata_to_deviz.keys(), reverse=True):
-                if meta_idx < table_idx:
-                    deviz_cod, deviz_den = metadata_to_deviz[meta_idx]
-                    logger.debug(f"[TABLE] Tabel {table_idx} (data): Usando deviz from Table {meta_idx}: {deviz_cod}")
-                    break
+        # Average across all articles
+        avg_score = total_score / len(articles) if articles else 0.0
 
-        if not deviz_cod:
-            logger.debug(f"[TABLE] Tabel {table_idx}: No preceding metadata found")
-            continue
-
-        # Extract articles with this deviz
-        articole = extract_articles_from_tables([table], deviz_cod, deviz_den)
-        all_articole.extend(articole)
-        processed_tables.add(table_idx)
-
-        if articole:
-            logger.info(f"[TABLE] Tabel {table_idx}: {len(articole)} articole, deviz {deviz_cod}")
-
-    return all_articole
+        return min(1.0, avg_score)

@@ -1,0 +1,169 @@
+{
+  "BR_CONSOLIDATED": {
+    "description": "Blocuri Racari consolidated format with multi-column tables",
+    "features": {
+      "num_pages": 131.58,
+      "primary_table_rows": 46.45,
+      "text_density": 0.0,
+      "primary_table_cols": 6.0,
+      "num_tables": 232.92,
+      "has_multicolumn_primary": 1.0
+    },
+    "accuracy": 0.95,
+    "comment": "Established baseline from Blocuri Racari reference document",
+    "learned_from": [
+      "Blocuri Racari",
+      "Scoala Dragomiresti"
+    ],
+    "last_seen": "2026-05-31T14:25:25.170400+00:00"
+  },
+  "UNKNOWN": {
+    "description": "Fallback template for unknown documents",
+    "features": {},
+    "accuracy": 0.0
+  },
+  "BR_BLOC_A": {
+    "description": "Template learned from BR BLOC A",
+    "features": {
+      "num_pages": 20,
+      "num_tables": 35,
+      "primary_table_cols": 6,
+      "primary_table_rows": 45,
+      "text_density": 0.0,
+      "has_multicolumn_primary": true
+    },
+    "accuracy": 0.85,
+    "last_seen": "2026-05-31T14:25:25.113024+00:00",
+    "learned_from": [
+      "BR BLOC A"
+    ]
+  },
+  "BR_BLOC_A2": {
+    "description": "Template learned from BR BLOC A2",
+    "features": {
+      "num_pages": 20,
+      "num_tables": 33,
+      "primary_table_cols": 6,
+      "primary_table_rows": 46,
+      "text_density": 0.0,
+      "has_multicolumn_primary": true
+    },
+    "accuracy": 0.85,
+    "last_seen": "2026-05-31T14:25:25.115655+00:00",
+    "learned_from": [
+      "BR BLOC A2"
+    ]
+  },
+  "BR_BLOC_A3": {
+    "description": "Template learned from BR BLOC A3",
+    "features": {
+      "num_pages": 20,
+      "num_tables": 34,
+      "primary_table_cols": 6,
+      "primary_table_rows": 45,
+      "text_density": 0.0,
+      "has_multicolumn_primary": true
+    },
+    "accuracy": 0.85,
+    "last_seen": "2026-05-31T14:25:25.117604+00:00",
+    "learned_from": [
+      "BR BLOC A3"
+    ]
+  },
+  "BR_BLOC_A4": {
+    "description": "Template learned from BR BLOC A4",
+    "features": {
+      "num_pages": 20,
+      "num_tables": 37,
+      "primary_table_cols": 6,
+      "primary_table_rows": 46,
+      "text_density": 0.0,
+      "has_multicolumn_primary": true
+    },
+    "accuracy": 0.85,
+    "last_seen": "2026-05-31T14:25:25.119489+00:00",
+    "learned_from": [
+      "BR BLOC A4"
+    ]
+  },
+  "BR_BLOC_B": {
+    "description": "Template learned from BR BLOC B",
+    "features": {
+      "num_pages": 24,
+      "num_tables": 46,
+      "primary_table_cols": 6,
+      "primary_table_rows": 46,
+      "text_density": 0.0,
+      "has_multicolumn_primary": true
+    },
+    "accuracy": 0.85,
+    "last_seen": "2026-05-31T14:25:25.121942+00:00",
+    "learned_from": [
+      "BR BLOC B"
+    ]
+  },
+  "BR_BLOC_C": {
+    "description": "Template learned from BR BLOC C",
+    "features": {
+      "num_pages": 24,
+      "num_tables": 43,
+      "primary_table_cols": 6,
+      "primary_table_rows": 46,
+      "text_density": 0.0,
+      "has_multicolumn_primary": true
+    },
+    "accuracy": 0.85,
+    "last_seen": "2026-05-31T14:25:25.124330+00:00",
+    "learned_from": [
+      "BR BLOC C"
+    ]
+  },
+  "CM_HIERARCHICAL": {
+    "description": "Template learned from Camin Maneciu",
+    "features": {
+      "num_pages": 81,
+      "num_tables": 98,
+      "primary_table_cols": 14,
+      "primary_table_rows": 60,
+      "text_density": 0.0,
+      "has_multicolumn_primary": true
+    },
+    "accuracy": 0.85,
+    "last_seen": "2026-05-31T14:25:25.146126+00:00",
+    "learned_from": [
+      "Camin Maneciu"
+    ]
+  },
+  "DT_STREETS": {
+    "description": "Template learned from Drum Tatarani",
+    "features": {
+      "num_pages": 258,
+      "num_tables": 358,
+      "primary_table_cols": 11,
+      "primary_table_rows": 54,
+      "text_density": 0.0,
+      "has_multicolumn_primary": true
+    },
+    "accuracy": 0.85,
+    "last_seen": "2026-05-31T14:25:25.159155+00:00",
+    "learned_from": [
+      "Drum Tatarani"
+    ]
+  },
+  "SSR_MIXED": {
+    "description": "Template learned from Scoala Sportiva Racari",
+    "features": {
+      "num_pages": 236,
+      "num_tables": 249,
+      "primary_table_cols": 9,
+      "primary_table_rows": 54,
+      "text_density": 0.0,
+      "has_multicolumn_primary": true
+    },
+    "accuracy": 0.85,
+    "last_seen": "2026-05-31T14:25:25.184467+00:00",
+    "learned_from": [
+      "Scoala Sportiva Racari"
+    ]
+  }
+}
