@@ -910,7 +910,19 @@ def match_global(
         norm_cod = _normalize_cod(oferta_art.get("cod", ""))
         if norm_cod in ref_component_cods:
             if oferta_art.get("is_component"):
-                continue  # offer also treats as component — breakdown detail, not discrepancy
+                # Both ref and offer classify as subcomponent — compare cantitate/UM
+                ref_comps = [a for a in ref_articole if a.get("is_component") and
+                             _normalize_cod(a.get("cod", "")) == norm_cod]
+                if ref_comps:
+                    ref_sub = ref_comps[0]
+                    sub_diffs = compare_articles(ref_sub, oferta_art, include_prices=False)
+                    for d in sub_diffs:
+                        if d.get("camp") in ("cantitate", "um"):
+                            _enrich(d, ref_sub, oferta_art,
+                                    oferta_art.get("deviz", ""),
+                                    oferta_art.get("deviz_denumire", ""))
+                            neconformitati.append(d)
+                continue
             # ref=component, offer=main article — structural reclassification, report it
             deviz_cod_e = oferta_art.get("deviz", "")
             deviz_den_e = oferta_art.get("deviz_denumire", "")

@@ -1283,6 +1283,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 waiting_lines = 0
             elif _is_nr_crt(line, _IDLE, price_count):
                 last_nr_crt = int(NR_CRT_RE.match(line).group(1))
+                if last_nr_crt == current_parent_nr and current_parent_nr > 0:
+                    explicit_component_marker = True
                 state = _WAITING
                 waiting_lines = 0
             else:
@@ -1290,6 +1292,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 m_ncd = NR_COD_DESC_RE.match(line)
                 if m_ncd:
                     last_nr_crt = int(m_ncd.group(1))
+                    if last_nr_crt == current_parent_nr and current_parent_nr > 0:
+                        explicit_component_marker = True
                     raw_cod = m_ncd.group(2).upper()
                     raw_cod = re.sub(r'#\d+$', '', raw_cod)
                     raw_cod = re.sub(r'[-@%>#*^+]+$|\s*\[\d*\]?\s*$', '', raw_cod)
@@ -1306,6 +1310,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                     m_concat = NR_COD_CONCAT_RE.match(line)
                     if m_concat:
                         last_nr_crt = int(m_concat.group(1))
+                        if last_nr_crt == current_parent_nr and current_parent_nr > 0:
+                            explicit_component_marker = True
                         raw_cod = (m_concat.group(2) + (m_concat.group(3) or '')).upper()
                         raw_cod = re.sub(r'#\d+$', '', raw_cod)
                         raw_cod = re.sub(r'[-@%>#*^+]+$|\s*\[\d*\]?\s*$', '', raw_cod)
@@ -1398,12 +1404,16 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 elif _is_nr_crt(line, _IDLE, 0):
                     # NR_CRT nou — actualizează și rămâne în WAITING
                     last_nr_crt = int(NR_CRT_RE.match(line).group(1))
+                    if last_nr_crt == current_parent_nr and current_parent_nr > 0:
+                        explicit_component_marker = True
                     waiting_lines = 0
                 else:
                     # Format "NR COD - DESCRIERE" pe aceeasi linie in WAITING
                     m_ncd = NR_COD_DESC_RE.match(line)
                     if m_ncd:
                         last_nr_crt = int(m_ncd.group(1))
+                        if last_nr_crt == current_parent_nr and current_parent_nr > 0:
+                            explicit_component_marker = True
                         raw_cod = m_ncd.group(2).upper()
                         raw_cod = re.sub(r'#\d+$', '', raw_cod)
                         raw_cod = re.sub(r'[-@%>#*^+]+$|\s*\[\d*\]?\s*$', '', raw_cod)
@@ -1418,6 +1428,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                         m_concat = NR_COD_CONCAT_RE.match(line)
                         if m_concat:
                             last_nr_crt = int(m_concat.group(1))
+                            if last_nr_crt == current_parent_nr and current_parent_nr > 0:
+                                explicit_component_marker = True
                             raw_cod = (m_concat.group(2) + (m_concat.group(3) or '')).upper()
                             raw_cod = re.sub(r'[-@%>#*^+]+$|\s*\[\d*\]?\s*$', '', raw_cod)
                             raw_cod = re.sub(r'(?:ASIM|TSCH)$', '', raw_cod).strip()
