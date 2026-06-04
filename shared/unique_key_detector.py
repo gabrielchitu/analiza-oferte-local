@@ -65,20 +65,25 @@ def detect_article_keys(articles: List[Dict]) -> List[str]:
 
 def get_unique_articles(articles: List[Dict]) -> Dict[str, Dict]:
     """
-    Build dict: key -> article (first occurrence wins).
+    Build dict: key -> article, preserving all occurrences via occurrence-indexed keys.
 
-    Deduplicates articles for set operations. If multiple articles have
-    the same key, only the first is kept.
+    Same catalog code can legitimately appear multiple times in a deviz (e.g. IZF16A01
+    used in two sub-sections: fence foundation + concrete platform). Each occurrence gets
+    a distinct key: first → base_key, second → base_key__1, third → base_key__2, etc.
+    Matching between ref and offer is then done occurrence-by-occurrence in document order.
 
     Args:
         articles: List of article dicts
 
     Returns:
-        Dict mapping unique keys to article dicts
+        Dict mapping occurrence-disambiguated keys to article dicts
     """
-    unique = {}
+    unique: dict = {}
+    occurrence_count: dict = {}
     for art in articles:
-        key = detect_article_key(art)
-        if key not in unique:
-            unique[key] = art
+        base_key = detect_article_key(art)
+        count = occurrence_count.get(base_key, 0)
+        key = base_key if count == 0 else f"{base_key}__{count}"
+        occurrence_count[base_key] = count + 1
+        unique[key] = art
     return unique

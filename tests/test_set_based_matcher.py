@@ -94,8 +94,9 @@ class TestMatchArticlesByKey:
         assert result["ref_only"][0]["nr"] == "1"
         assert result["oferta_only"][0]["nr"] == "2"
 
-    def test_deduplication_ref_duplicates(self):
-        """Should deduplicate ref articles by key."""
+    def test_occurrence_indexed_ref_duplicates(self):
+        """Same key appearing twice in ref gets occurrence-indexed keys (nr=1 → '1', '1__1').
+        Offer has only one occurrence → 1 matched, 1 ref_only."""
         ref_articles = [
             {"nr": "1", "descriere": "A", "um": "T", "cant": "10"},
             {"nr": "1", "descriere": "A", "um": "T", "cant": "10"},
@@ -106,11 +107,14 @@ class TestMatchArticlesByKey:
 
         result = match_articles_by_key(ref_articles, oferta_articles)
 
-        assert result["stats"]["ref_total"] == 1  # Deduped
-        assert len(result["matched"]) == 1
+        assert result["stats"]["ref_total"] == 2   # Both occurrences preserved
+        assert result["stats"]["oferta_total"] == 1
+        assert len(result["matched"]) == 1         # First occurrence matches
+        assert result["stats"]["ref_only_count"] == 1  # Second occurrence is ref_only
 
-    def test_deduplication_oferta_duplicates(self):
-        """Should deduplicate oferta articles by key."""
+    def test_occurrence_indexed_oferta_duplicates(self):
+        """Same key appearing twice in oferta gets occurrence-indexed keys.
+        Ref has only one occurrence → 1 matched, 1 oferta_only."""
         ref_articles = [
             {"nr": "1", "descriere": "A", "um": "T", "cant": "10"},
         ]
@@ -121,11 +125,13 @@ class TestMatchArticlesByKey:
 
         result = match_articles_by_key(ref_articles, oferta_articles)
 
-        assert result["stats"]["oferta_total"] == 1  # Deduped
-        assert len(result["matched"]) == 1
+        assert result["stats"]["oferta_total"] == 2  # Both occurrences preserved
+        assert result["stats"]["ref_total"] == 1
+        assert len(result["matched"]) == 1            # First occurrence matches
+        assert result["stats"]["oferta_only_count"] == 1  # Second is oferta_only
 
-    def test_deduplication_both_sides(self):
-        """Should deduplicate on both ref and oferta."""
+    def test_occurrence_indexed_both_sides(self):
+        """When both sides have the same code twice, both occurrences match pairwise."""
         ref_articles = [
             {"nr": "1", "descriere": "A", "um": "T", "cant": "10"},
             {"nr": "1", "descriere": "A", "um": "T", "cant": "10"},
@@ -139,10 +145,12 @@ class TestMatchArticlesByKey:
 
         result = match_articles_by_key(ref_articles, oferta_articles)
 
-        assert result["stats"]["ref_total"] == 2  # 1 and 2
-        assert result["stats"]["oferta_total"] == 2  # 1 and 2
-        assert len(result["matched"]) == 2
-        assert result["stats"]["ref_articles_count"] == 3  # Original count
+        assert result["stats"]["ref_total"] == 3     # 1, 1__1, 2
+        assert result["stats"]["oferta_total"] == 3  # 1, 2, 2__1
+        assert len(result["matched"]) == 2           # "1" and "2" match
+        assert result["stats"]["ref_only_count"] == 1    # "1__1" unmatched
+        assert result["stats"]["oferta_only_count"] == 1  # "2__1" unmatched
+        assert result["stats"]["ref_articles_count"] == 3
         assert result["stats"]["oferta_articles_count"] == 3
 
     def test_matched_preserve_all_fields(self):
