@@ -216,36 +216,36 @@ def _art_key(art: dict) -> tuple:
 
 
 def _deduplicate_neconformitati(neconformitati: list) -> list:
-    """Remove duplicate non-conformities for the same (deviz, ref_cod, oferta_cod) pair.
+    """Remove duplicate non-conformities.
 
-    When the same article pair appears multiple times with different issue types,
-    keep only the primary (most important) one. Priority order:
-    1. COD_SIMILAR (code difference detected)
-    2. Others (DIFERENTA_CAMP, UM_DIFERIT)
-    3. ARTICOL_LIPSA, ARTICOL_EXTRA (informational)
+    Per article pair (deviz, ref_cod, oferta_cod):
+    - COD_SIMILAR suppresses all DIFERENTA_CAMP/UM_DIFERIT (COD already explains the mismatch)
+    - Multiple DIFERENTA_CAMP with different `camp` fields ALL survive (e.g. tip_articol + cantitate)
+    - Exact-same (tip, camp) duplicates are collapsed to one
     """
     if not neconformitati:
         return neconformitati
 
-    priority = {
-        'COD_SIMILAR': 3,
-        'DIFERENTA_CAMP': 1,
-        'UM_DIFERIT': 1,
-        'ARTICOL_LIPSA': 0,
-        'ARTICOL_EXTRA': 0,
-    }
-
-    best: dict = {}
-    result_indexed: dict = {}
-
+    from collections import defaultdict
+    pair_ncs: dict = defaultdict(list)
     for nc in neconformitati:
-        key = (nc.get('deviz', ''), nc.get('ref_cod', ''), nc.get('oferta_cod', ''))
-        curr_p = priority.get(nc.get('tip', ''), 0)
-        if key not in best or curr_p > best[key]:
-            best[key] = curr_p
-            result_indexed[key] = nc
+        pair_key = (nc.get('deviz', ''), nc.get('ref_cod', ''), nc.get('oferta_cod', ''))
+        pair_ncs[pair_key].append(nc)
 
-    return list(result_indexed.values())
+    result = []
+    for ncs in pair_ncs.values():
+        cod_similar = [nc for nc in ncs if nc.get('tip') == 'COD_SIMILAR']
+        if cod_similar:
+            result.append(cod_similar[0])
+            continue
+        seen_tip_camp: set = set()
+        for nc in ncs:
+            tip_camp = (nc.get('tip', ''), nc.get('camp', ''))
+            if tip_camp not in seen_tip_camp:
+                seen_tip_camp.add(tip_camp)
+                result.append(nc)
+
+    return result
 
 
 def build_ref_catalog(ref_articole: list) -> dict:
