@@ -399,3 +399,160 @@ class TestMatchGroupsByDeviz:
         assert len(a001_matched["articole"]) == 1  # nr=1 matched
         assert a001_matched["stats"]["ref_only_count"] == 1  # nr=2
         assert a001_matched["stats"]["oferta_only_count"] == 1  # nr=5
+
+
+class TestResidualN1Matching:
+    """Tests for residual N:1 matching — offer group merges multiple ref categories."""
+
+    def test_residual_ref_group_matched_via_oferta_only(self):
+        """Offer group merges two ref groups — residual N:1 links second ref to same offer.
+
+        Ref has A (TSG01XA, TSE05XC) and B (bazin, wc).
+        Offer has X (all 4 articles). Primary: X→B (categoria text match). Residual: A→X.
+        """
+        ref = [
+            {
+                "deviz_cod": "A",
+                "deviz_den": "Amenajarea terenului",
+                "categoria": "Amenajarea terenului",
+                "obiectul": "CAV",
+                "articole": [
+                    {"nr": "1", "cod": "TSG01XA", "descriere": "Degajarea terenului"},
+                    {"nr": "2", "cod": "TSE05XC", "descriere": "Nivelarea"},
+                ],
+            },
+            {
+                "deviz_cod": "B",
+                "deviz_den": "Organizare santier",
+                "categoria": "Lucrari de constructii si instalatii aferente organizarii de santier",
+                "obiectul": "CAV",
+                "articole": [
+                    {"nr": "3", "cod": "$4537027", "descriere": "Bazin"},
+                    {"nr": "4", "cod": "$4537028", "descriere": "Wc ecologic"},
+                ],
+            },
+        ]
+        oferta = [
+            {
+                "deviz_cod": "X",
+                "deviz_den": "Organizare santier general",
+                "categoria": "Lucrari de constructii si instalatii aferente organizarii de santier",
+                "obiectul": "CAV",
+                "articole": [
+                    {"nr": "1", "cod": "TSG01XA", "descriere": "Degajarea terenului"},
+                    {"nr": "2", "cod": "TSE05XC", "descriere": "Nivelarea"},
+                    {"nr": "3", "cod": "$4537027", "descriere": "Bazin"},
+                    {"nr": "4", "cod": "$4537028", "descriere": "Wc ecologic"},
+                ],
+            }
+        ]
+
+        result = match_groups_by_deviz(ref, oferta)
+
+        # Both ref groups matched — no ref_only_groups
+        assert len(result["ref_only_groups"]) == 0
+        # X used for both primary + residual — not in oferta_only
+        assert len(result["oferta_only_groups"]) == 0
+        # Two matched_group entries (primary + residual)
+        assert len(result["matched_groups"]) == 2
+
+        primary = next(g for g in result["matched_groups"] if g.get("match_type") != "residual_n1")
+        residual = next(g for g in result["matched_groups"] if g.get("match_type") == "residual_n1")
+
+        # Primary: B→X (categoria text identity)
+        assert primary["deviz_cod"] == "B"
+        assert primary["oferta_deviz_cod"] == "X"
+        assert len(primary["articole"]) == 2  # nr=3,4 matched
+        assert primary["stats"]["oferta_only_count"] == 0  # removed by residual pass
+
+        # Residual: A→X (TSG01XA, TSE05XC from X's oferta_only)
+        assert residual["deviz_cod"] == "A"
+        assert residual["oferta_deviz_cod"] == "X"
+        assert residual["match_type"] == "residual_n1"
+        assert len(residual["articole"]) == 2  # nr=1,2 matched
+        assert len(residual["ref_only"]) == 0
+        assert len(residual["oferta_only"]) == 0
+
+    def test_residual_no_match_when_articles_absent(self):
+        """Ref group B whose articles are not in any offer group's oferta_only stays ref_only."""
+        ref = [
+            {
+                "deviz_cod": "A",
+                "deviz_den": "Group A",
+                "categoria": "Category A",
+                "obiectul": "OBJ",
+                "articole": [{"nr": "1", "descriere": "Art1"}],
+            },
+            {
+                "deviz_cod": "B",
+                "deviz_den": "Group B",
+                "categoria": "Category B completely different",
+                "obiectul": "OBJ",
+                "articole": [{"nr": "99", "descriere": "Completely different article"}],
+            },
+        ]
+        oferta = [
+            {
+                "deviz_cod": "X",
+                "deviz_den": "Group X",
+                "categoria": "Category A",
+                "obiectul": "OBJ",
+                "articole": [{"nr": "1", "descriere": "Art1"}],
+            }
+        ]
+
+        result = match_groups_by_deviz(ref, oferta)
+
+        # Primary: X→A (1:1). B has nr=99 not in X's oferta_only → stays ref_only.
+        assert len(result["matched_groups"]) == 1
+        assert len(result["ref_only_groups"]) == 1
+        assert result["ref_only_groups"][0]["deviz_cod"] == "B"
+        # X oferta_only empty after 1:1 match — primary stats unchanged
+        assert result["matched_groups"][0]["stats"]["oferta_only_count"] == 0
+
+    def test_residual_partial_coverage_below_threshold_stays_unmatched(self):
+        """Ref group with ≤ 50% (< 60% threshold) articles in offer oferta_only stays unmatched.
+
+        RESIDUAL_THRESHOLD = 0.6. A 2-article ref group with only 1 found (50%) must stay ref_only.
+        This prevents OCR artefact groups (e.g. eDevize with 2 articles) from spuriously matching.
+        """
+        ref = [
+            {
+                "deviz_cod": "A",
+                "deviz_den": "Group A",
+                "categoria": "Category A",
+                "obiectul": "OBJ",
+                "articole": [{"nr": "1", "descriere": "Art1"}],
+            },
+            {
+                "deviz_cod": "B",
+                "deviz_den": "OCR artefact group",
+                "categoria": "Category B very different text",
+                "obiectul": "OBJ",
+                # 2 articles; only 1 in offer oferta_only → 50% < 60% threshold
+                "articole": [
+                    {"nr": "10", "descriere": "Art10"},
+                    {"nr": "11", "descriere": "Art11"},
+                ],
+            },
+        ]
+        oferta = [
+            {
+                "deviz_cod": "X",
+                "deviz_den": "Group X",
+                "categoria": "Category A",
+                "obiectul": "OBJ",
+                # Only 1 of B's 2 articles present → 50% coverage < 60% threshold
+                "articole": [
+                    {"nr": "1", "descriere": "Art1"},
+                    {"nr": "10", "descriere": "Art10"},
+                ],
+            }
+        ]
+
+        result = match_groups_by_deviz(ref, oferta)
+
+        # Primary: X→A (1:1). X oferta_only has nr=10 (1 of B's 2 articles = 50% < 60%)
+        assert len(result["matched_groups"]) == 1
+        assert len(result["ref_only_groups"]) == 1
+        assert result["ref_only_groups"][0]["deviz_cod"] == "B"

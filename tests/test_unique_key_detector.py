@@ -176,15 +176,16 @@ class TestGetUniqueArticles:
     """Tests for deduplication and unique article extraction."""
 
     def test_get_unique_articles_removes_duplicates(self):
-        """Should remove duplicate articles (by key)."""
+        """Occurrence-indexed: duplicate nr=1 gets base key '1' and suffix key '1__1'."""
         articles = [
             {"nr": "1", "descriere": "CIMENT", "um": "T", "cant": "125"},
-            {"nr": "1", "descriere": "CIMENT", "um": "T", "cant": "125"},  # Duplicate
+            {"nr": "1", "descriere": "CIMENT", "um": "T", "cant": "125"},  # second occurrence
             {"nr": "2", "descriere": "OTEL", "um": "KG", "cant": "500"},
         ]
         unique = get_unique_articles(articles)
-        assert len(unique) == 2, "Should have 2 unique articles"
-        assert "1" in unique, "Key '1' should exist"
+        assert len(unique) == 3, "Both occurrences preserved + nr=2"
+        assert "1" in unique, "First occurrence at base key"
+        assert "1__1" in unique, "Second occurrence at suffix key"
         assert "2" in unique, "Key '2' should exist"
 
     def test_get_unique_articles_first_occurrence_wins(self):
@@ -213,27 +214,29 @@ class TestGetUniqueArticles:
         assert unique == {}, "Empty list should return empty dict"
 
     def test_get_unique_articles_hash_keys(self):
-        """Should deduplicate articles with hash keys."""
+        """Occurrence-indexed: hash-keyed duplicate gets base and suffix key."""
         articles = [
             {"nr": None, "descriere": "NISIP", "um": "M3", "cant": "50", "cod": None},
-            {"nr": None, "descriere": "NISIP", "um": "M3", "cant": "50", "cod": None},  # Duplicate
+            {"nr": None, "descriere": "NISIP", "um": "M3", "cant": "50", "cod": None},  # second occurrence
             {"nr": None, "descriere": "PIATRA", "um": "M3", "cant": "100", "cod": None},
         ]
         unique = get_unique_articles(articles)
-        assert len(unique) == 2, "Should have 2 unique articles (hash-keyed)"
+        assert len(unique) == 3, "Both NISIP occurrences preserved + PIATRA"
+        nisip_keys = [k for k in unique if unique[k]["descriere"] == "NISIP"]
+        assert len(nisip_keys) == 2, "Two NISIP entries: base + __1 suffix"
 
     def test_get_unique_articles_mixed_keys(self):
-        """Should handle mix of NR, COD, and hash keys."""
+        """Occurrence-indexed: all 4 articles kept; duplicate nr=1 gets suffix key."""
         articles = [
             {"nr": "1", "descriere": "A", "um": "T", "cant": "10", "cod": "C1"},
             {"nr": None, "descriere": "B", "um": "T", "cant": "20", "cod": "C2"},
             {"nr": None, "descriere": "C", "um": "T", "cant": "30", "cod": None},
-            {"nr": "1", "descriere": "A_DUP", "um": "T", "cant": "10", "cod": "C1"},  # Dup of first
+            {"nr": "1", "descriere": "A_DUP", "um": "T", "cant": "10", "cod": "C1"},  # second occurrence
         ]
         unique = get_unique_articles(articles)
-        assert len(unique) == 3, "Should have 3 unique articles"
-        assert "1" in unique, "NR key should exist"
+        assert len(unique) == 4, "All 4 articles preserved with occurrence-indexed keys"
+        assert "1" in unique, "First nr=1 at base key"
+        assert "1__1" in unique, "Second nr=1 at suffix key"
         assert "C2" in unique, "COD key should exist"
-        # Third article should be hash-keyed
         hash_keys = [k for k in unique.keys() if len(k) == 8]
         assert len(hash_keys) == 1, "Should have 1 hash-keyed article"

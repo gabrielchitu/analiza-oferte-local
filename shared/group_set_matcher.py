@@ -16,9 +16,12 @@ from difflib import SequenceMatcher
 from typing import Dict, List, Tuple
 
 from shared.set_based_matcher import match_articles_by_key
+from shared.unique_key_detector import detect_article_key
 
 MATCH_THRESHOLD = 0.55  # primary: categoria similarity; lower than V1 (0.80) to compensate
                         # for SequenceMatcher being stricter than RapidFuzz partial_token
+RESIDUAL_THRESHOLD = 0.6  # min fraction of ref articles found in offer group's oferta_only
+                          # 0.6 prevents spurious 1/2 matches (e.g. OCR artefact groups)
 
 
 def _normalize(text: str) -> str:
@@ -130,13 +133,80 @@ def match_groups_by_deviz(ref_groups: List[Dict], oferta_groups: List[Dict]) -> 
 
     # Build matched groups with article-level matching
     matched_groups = []
+    pair_article_matches: List[Dict] = []
+
     for ri, oi, sim in assignments:
         ref_group = ref_groups[ri]
         oferta_group = oferta_groups[oi]
-
         article_match = match_articles_by_key(
             ref_group.get("articole", []),
             oferta_group.get("articole", []),
+        )
+        pair_article_matches.append(article_match)
+        matched_groups.append({
+            "deviz_cod": ref_group.get("deviz_cod", ""),
+            "deviz_den": ref_group.get("deviz_den", ""),
+            "obiectivul": ref_group.get("obiectivul", ""),
+            "obiectul": ref_group.get("obiectul", ""),
+            "categoria": ref_group.get("categoria", ""),
+            "oferta_deviz_cod": oferta_group.get("deviz_cod", ""),
+            "match_similarity": round(sim, 3),
+            "articole": article_match["matched"],
+            "ref_only": article_match["ref_only"],
+            "oferta_only": article_match["oferta_only"],
+            "stats": article_match["stats"],
+        })
+
+    # === RESIDUAL N:1 PASS ===
+    # When an offer merges multiple ref categories into one group, the primary
+    # greedy 1:1 assigns the offer group to one ref group, leaving others unmatched.
+    # Check if unmatched ref articles appear in already-matched offer groups' oferta_only.
+    residual_candidates: List[Tuple[float, int, int]] = []  # (coverage, uri, pair_idx)
+    for uri in range(len(ref_groups)):
+        if uri in used_ref:
+            continue
+        ref_arts = ref_groups[uri].get("articole", [])
+        if not ref_arts:
+            continue
+        ref_keys = {detect_article_key(a) for a in ref_arts}
+        for pair_idx in range(len(assignments)):
+            oferta_only_keys = {
+                detect_article_key(a) for a in pair_article_matches[pair_idx]["oferta_only"]
+            }
+            overlap = ref_keys & oferta_only_keys
+            coverage = len(overlap) / len(ref_keys)
+            if coverage >= RESIDUAL_THRESHOLD:
+                residual_candidates.append((coverage, uri, pair_idx))
+
+    # Greedy assignment: highest coverage first; each ref group used at most once
+    residual_candidates.sort(key=lambda x: (-x[0], x[1], x[2]))
+    used_ref_residual: set = set()
+
+    for coverage, uri, pair_idx in residual_candidates:
+        if uri in used_ref_residual:
+            continue
+        used_ref_residual.add(uri)
+        used_ref.add(uri)
+
+        ref_group = ref_groups[uri]
+        oi = assignments[pair_idx][1]
+        oferta_group = oferta_groups[oi]
+
+        # Match ref articles against the primary pair's current oferta_only only
+        article_match = match_articles_by_key(
+            ref_group.get("articole", []),
+            pair_article_matches[pair_idx]["oferta_only"],
+        )
+
+        # Shrink primary pair's oferta_only — remove articles claimed by this residual match
+        claimed_keys = {detect_article_key(p["oferta"]) for p in article_match["matched"]}
+        pair_article_matches[pair_idx]["oferta_only"] = [
+            a for a in pair_article_matches[pair_idx]["oferta_only"]
+            if detect_article_key(a) not in claimed_keys
+        ]
+        matched_groups[pair_idx]["oferta_only"] = pair_article_matches[pair_idx]["oferta_only"]
+        matched_groups[pair_idx]["stats"]["oferta_only_count"] = len(
+            pair_article_matches[pair_idx]["oferta_only"]
         )
 
         matched_groups.append({
@@ -146,7 +216,8 @@ def match_groups_by_deviz(ref_groups: List[Dict], oferta_groups: List[Dict]) -> 
             "obiectul": ref_group.get("obiectul", ""),
             "categoria": ref_group.get("categoria", ""),
             "oferta_deviz_cod": oferta_group.get("deviz_cod", ""),
-            "match_similarity": round(sim, 3),
+            "match_similarity": round(coverage, 3),
+            "match_type": "residual_n1",
             "articole": article_match["matched"],
             "ref_only": article_match["ref_only"],
             "oferta_only": article_match["oferta_only"],
