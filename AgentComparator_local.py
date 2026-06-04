@@ -409,12 +409,15 @@ def match_global(
         for ra, oferta_art in paired_strict:
             diffs = compare_articles(ra, oferta_art, include_prices=include_prices)
             arith = check_arithmetic(oferta_art) if include_prices else []
-            if bool(ra.get("is_component")) != bool(oferta_art.get("is_component")):
+            if ra.get("is_component") and not oferta_art.get("is_component"):
+                # ref=subcomponent but offer=principal: genuine reclassification
+                # Reverse (ref=principal, offer=subcomponent) is document format noise
+                # (offer uses chapter headers 1 → 1.1, 1.2...; ref uses flat NR list)
                 nc_comp = {
                     "tip": "DIFERENTA_CAMP",
                     "camp": "tip_articol",
-                    "ref": "subcomponenta" if ra.get("is_component") else "articol_principal",
-                    "oferta": "subcomponenta" if oferta_art.get("is_component") else "articol_principal",
+                    "ref": "subcomponenta",
+                    "oferta": "articol_principal",
                 }
                 _enrich(nc_comp, ra, oferta_art, deviz_cod, deviz_den)
                 neconformitati.append(nc_comp)
