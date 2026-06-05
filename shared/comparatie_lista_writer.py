@@ -1,0 +1,438 @@
+"""Side-by-side comparison DOCX: all ref articles on left, matched oferta on right."""
+from __future__ import annotations
+
+from datetime import date
+from typing import Dict, List, Optional, Tuple
+
+from docx import Document
+from docx.enum.section import WD_ORIENT
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
+from docx.shared import Cm, Pt, RGBColor
+from docx.table import Table
+
+# ── Colors ────────────────────────────────────────────────────────────────────
+FILL_EXTRA = "FFE0CC"   # pale orange  — articol extra în ofertă
+FILL_LIPSA = "CCE5FF"   # pale blue    — articol lipsă în ofertă
+FILL_NC    = "FFFACD"   # pale yellow  — neconformitate (pereche matched)
+FILL_HDR   = "D9D9D9"
+FILL_TOTAL = "F2F2F2"
+TEXT_RED   = RGBColor(0xCC, 0x00, 0x00)
+
+# ── Table layout ──────────────────────────────────────────────────────────────
+# Landscape A4: 29.7 - 2×1.5cm margins = 26.7cm available
+# 0=NrRef 1=CodRef 2=DenRef 3=UMRef 4=CantRef | 5=NrOf 6=CodOf 7=DenOf 8=UMOf 9=CantOf | 10=NC
+N_COLS = 11
+COL_W   = [0.7, 1.6, 5.2, 0.8, 1.4,  0.7, 1.6, 5.2, 0.8, 1.4,  5.3]
+NO_WRAP = {0, 1, 3, 4, 5, 6, 8, 9}   # exclude Denumire (2,7) and NC (10)
+
+
+# ── XML / layout helpers ──────────────────────────────────────────────────────
+
+def _shade(cell, hex_fill: str) -> None:
+    shd = OxmlElement("w:shd")
+    shd.set(qn("w:fill"), hex_fill)
+    cell._element.get_or_add_tcPr().append(shd)
+
+
+def _no_wrap(cell) -> None:
+    tcPr = cell._element.get_or_add_tcPr()
+    tcPr.append(OxmlElement("w:noWrap"))
+
+
+def _fixed_layout(tbl: Table) -> None:
+    tblPr = tbl._tbl.tblPr
+    tblLayout = OxmlElement("w:tblLayout")
+    tblLayout.set(qn("w:type"), "fixed")
+    tblPr.append(tblLayout)
+
+
+def _set_landscape(doc: Document) -> None:
+    sec = doc.sections[0]
+    sec.orientation = WD_ORIENT.LANDSCAPE
+    sec.page_width, sec.page_height = sec.page_height, sec.page_width
+    sec.left_margin   = Cm(1.5)
+    sec.right_margin  = Cm(1.5)
+    sec.top_margin    = Cm(1.5)
+    sec.bottom_margin = Cm(1.5)
+
+
+# ── Formatting helpers ────────────────────────────────────────────────────────
+
+def _fmt_nr(nr_ordine) -> str:
+    if nr_ordine is None:
+        return ""
+    if isinstance(nr_ordine, float) and nr_ordine == int(nr_ordine):
+        return str(int(nr_ordine))
+    return str(nr_ordine)
+
+
+def _fmt_cant(v) -> str:
+    try:
+        f = float(v)
+        return f"{f:.2f}" if f else ""
+    except (TypeError, ValueError):
+        return str(v) if v else ""
+
+
+# ── NC text building ──────────────────────────────────────────────────────────
+
+def _nc_text(nc: dict) -> str:
+    tip = nc.get("tip", "")
+    if tip == "ARTICOL_EXTRA":
+        den = nc.get("oferta_denumire", "")
+        return f"EXTRA: {den}" if den else "EXTRA: absent din referință"
+    if tip == "ARTICOL_LIPSA":
+        den = nc.get("ref_denumire", "")
+        return f"LIPSĂ: {den}" if den else "LIPSĂ: absent din ofertă"
+    if tip == "COD_SIMILAR":
+        return nc.get("motiv_similaritate") or "COD_SIMILAR"
+    if tip == "DIFERENTA_CAMP":
+        camp = nc.get("camp", "")
+        ref_v = nc.get("ref", "")
+        of_v  = nc.get("oferta", "")
+        return f"Câmp {camp}: REF={ref_v} → OF={of_v}"
+    if tip == "DIFERENTA_CANTITATE":
+        ref_c = nc.get("ref_cantitate", "")
+        of_c  = nc.get("oferta_cantitate", "")
+        return f"Cant: REF={ref_c} → OF={of_c}"
+    return tip
+
+
+def _ncs_for(ncs: list, ref_art: Optional[dict], of_art: Optional[dict]) -> list:
+    ref_cod = (ref_art or {}).get("cod") or ""
+    of_cod  = (of_art or {}).get("cod") or ""
+    result  = []
+    for nc in ncs:
+        nc_ref = nc.get("ref_cod") or ""
+        nc_of  = nc.get("oferta_cod") or ""
+        match_ref = ref_cod and nc_ref == ref_cod
+        match_of  = of_cod  and nc_of  == of_cod
+        if match_ref or match_of:
+            # For matched pairs require both sides to agree (avoids cross-contamination)
+            if ref_art and of_art:
+                if (not nc_ref or match_ref) and (not nc_of or match_of):
+                    result.append(nc)
+            else:
+                result.append(nc)
+    return result
+
+
+# ── Nr helpers ────────────────────────────────────────────────────────────────
+
+def _major_nr(art: dict) -> int:
+    nr = art.get("nr_ordine")
+    if nr is None:
+        return 0
+    try:
+        return int(str(nr).split(".")[0])
+    except (ValueError, TypeError):
+        return 0
+
+
+def _sort_key(art: dict):
+    nr = str(art.get("nr_ordine", "0") or "0")
+    parts = nr.split(".")
+    try:
+        return (int(parts[0]), int(parts[1]) if len(parts) > 1 else 0)
+    except (ValueError, IndexError):
+        return (0, 0)
+
+
+# ── Row building ──────────────────────────────────────────────────────────────
+# RowTuple = (ref_art | None, of_art | None, fill_hex | None, [nc_text, ...])
+RowTuple = Tuple[Optional[dict], Optional[dict], Optional[str], List[str]]
+
+
+def _sub_rows(ref_arts, of_arts, ncs, parent_nr, parent_fill) -> List[RowTuple]:
+    """Pair sub-components of a given parent_nr by cod; leftovers appended."""
+    ref_subs = sorted(
+        [a for a in ref_arts if a.get("is_component") and _major_nr(a) == parent_nr],
+        key=_sort_key,
+    )
+    of_subs = sorted(
+        [a for a in of_arts if a.get("is_component") and _major_nr(a) == parent_nr],
+        key=_sort_key,
+    )
+    of_by_cod = {a.get("cod"): a for a in of_subs}
+    remaining = dict(of_by_cod)
+
+    rows: List[RowTuple] = []
+    for rsub in ref_subs:
+        osub = remaining.pop(rsub.get("cod"), None)
+        sub_ncs = _ncs_for(ncs, rsub, osub)
+        fill = parent_fill if not sub_ncs else FILL_NC
+        rows.append((rsub, osub, fill, [_nc_text(nc) for nc in sub_ncs]))
+
+    for osub in remaining.values():
+        rows.append((None, osub, parent_fill, []))
+
+    return rows
+
+
+def _build_matched_rows(group: dict) -> List[RowTuple]:
+    ncs      = group.get("neconformitati", [])
+    ref_arts = group.get("ref_articles", [])
+    of_arts  = group.get("oferta_articles", [])
+
+    ref_main = sorted([a for a in ref_arts if not a.get("is_component")], key=_sort_key)
+    of_main  = sorted([a for a in of_arts  if not a.get("is_component")], key=_sort_key)
+
+    # EXTRA oferta cods from NCs
+    extra_of_cods = {
+        nc["oferta_cod"]
+        for nc in ncs
+        if nc.get("tip") == "ARTICOL_EXTRA" and nc.get("oferta_cod")
+    }
+
+    ref_by_nr = {_major_nr(a): a for a in ref_main}
+    of_normal = [a for a in of_main if a.get("cod") not in extra_of_cods]
+    of_extra  = [a for a in of_main if a.get("cod") in extra_of_cods]
+    of_by_nr  = {_major_nr(a): a for a in of_normal}
+
+    # nrs from ref + nrs in both (normal oferta); extras deferred to end
+    paired_nrs = sorted(set(ref_by_nr) | set(of_by_nr))
+
+    rows: List[RowTuple] = []
+
+    for nr in paired_nrs:
+        ref_art = ref_by_nr.get(nr)
+        of_art  = of_by_nr.get(nr)
+
+        pair_ncs  = _ncs_for(ncs, ref_art, of_art)
+        nc_texts  = [_nc_text(nc) for nc in pair_ncs]
+
+        if ref_art and not of_art:
+            fill = FILL_LIPSA
+            if not nc_texts:
+                nc_texts = ["LIPSĂ: absent din ofertă"]
+        elif not ref_art and of_art:
+            fill = FILL_EXTRA
+            if not nc_texts:
+                nc_texts = ["EXTRA: absent din referință"]
+        elif pair_ncs:
+            fill = FILL_NC
+        else:
+            fill = None
+
+        rows.append((ref_art, of_art, fill, nc_texts))
+        rows.extend(_sub_rows(ref_arts, of_arts, ncs, nr, fill))
+
+    # EXTRA oferta articles appended at end
+    for of_art in of_extra:
+        pair_ncs = _ncs_for(ncs, None, of_art)
+        nc_texts = [_nc_text(nc) for nc in pair_ncs] or ["EXTRA: absent din referință"]
+        rows.append((None, of_art, FILL_EXTRA, nc_texts))
+        rows.extend(_sub_rows([], of_arts, ncs, _major_nr(of_art), FILL_EXTRA))
+
+    return rows
+
+
+def _build_only_rows(group: dict, side: str) -> List[RowTuple]:
+    arts = sorted(group.get("articles", []), key=_sort_key)
+    fill = FILL_LIPSA if side == "ref" else FILL_EXTRA
+    msg  = "Grup absent din ofertă" if side == "ref" else "Grup absent din referință"
+    rows: List[RowTuple] = []
+    for art in arts:
+        if side == "ref":
+            rows.append((art, None, fill, [msg] if not art.get("is_component") else []))
+        else:
+            rows.append((None, art, fill, [msg] if not art.get("is_component") else []))
+    return rows
+
+
+# ── Table / cell writing ──────────────────────────────────────────────────────
+
+def _apply_widths(tbl: Table) -> None:
+    for row in tbl.rows:
+        for i, cell in enumerate(row.cells):
+            cell.width = Cm(COL_W[i])
+            if i in NO_WRAP:
+                _no_wrap(cell)
+
+
+def _build_header(tbl: Table) -> None:
+    _apply_widths(tbl)
+    r0 = tbl.rows[0].cells
+    r1 = tbl.rows[1].cells
+
+    def _hcell(cell, text):
+        cell.text = ""
+        p = cell.paragraphs[0]
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        run = p.add_run(text)
+        run.bold = True
+        run.font.size = Pt(8)
+        _shade(cell, FILL_HDR)
+
+    # Row 0: group spans
+    r0[0].merge(r0[4]);  _hcell(r0[0], "REFERINȚĂ")
+    r0[5].merge(r0[9]);  _hcell(r0[5], "OFERTĂ")
+    r0[10].merge(r1[10]); _hcell(r0[10], "Neconformități")
+
+    # Row 1: column sub-labels
+    sub = ["Nr", "Cod", "Denumire", "UM", "Cant"]
+    for base in (0, 5):
+        for i, lbl in enumerate(sub):
+            cell = r1[base + i]
+            cell.text = ""
+            p = cell.paragraphs[0]
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            run = p.add_run(lbl)
+            run.bold = True
+            run.font.size = Pt(7)
+            _shade(cell, FILL_HDR)
+
+
+def _write_5_cols(cells, art: Optional[dict], offset: int, fill: Optional[str]) -> None:
+    is_comp  = (art or {}).get("is_component", False)
+    fs       = 6 if is_comp else 7
+    grey     = RGBColor(0x55, 0x55, 0x55) if is_comp else None
+    values   = ["", "", "", "", ""]
+    aligns   = ["center", "left", "left", "center", "right"]
+
+    if art:
+        values = [
+            _fmt_nr(art.get("nr_ordine")),
+            art.get("cod", "") or "",
+            art.get("denumire", "") or "",
+            art.get("um", "") or "",
+            _fmt_cant(art.get("cantitate")),
+        ]
+
+    for i, (val, align) in enumerate(zip(values, aligns)):
+        cell = cells[offset + i]
+        cell.text = ""
+        if fill:
+            _shade(cell, fill)
+        p = cell.paragraphs[0]
+        if align == "center":
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        elif align == "right":
+            p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+        run = p.add_run(val)
+        run.font.size = Pt(fs)
+        if grey:
+            run.font.color.rgb = grey
+
+
+def _write_data_row(row, ref_art, of_art, fill, nc_texts) -> None:
+    cells = row.cells
+
+    if fill:
+        for cell in cells:
+            _shade(cell, fill)
+    for i in NO_WRAP:
+        _no_wrap(cells[i])
+
+    _write_5_cols(cells, ref_art, offset=0, fill=fill)
+    _write_5_cols(cells, of_art,  offset=5, fill=fill)
+
+    nc_cell = cells[10]
+    nc_cell.text = ""
+    if fill:
+        _shade(nc_cell, fill)
+    if nc_texts:
+        p = nc_cell.paragraphs[0]
+        for i, t in enumerate(nc_texts):
+            if i > 0:
+                p.add_run().add_break()
+            run = p.add_run(t)
+            run.font.size = Pt(6)
+            run.font.color.rgb = TEXT_RED
+
+
+# ── Group section ─────────────────────────────────────────────────────────────
+
+def _group_title(group: dict, group_type: str) -> str:
+    # Try deviz_denumire first (pipe-separated)
+    dd = group.get("deviz_denumire", "")
+    if dd:
+        parts = [p.strip() for p in dd.split("|")]
+        # Keep last 2 meaningful parts (Obiectul | Categoria)
+        return " | ".join(p for p in parts[-2:] if p)
+    # Fallback: read from first article's deviz_header
+    key = "ref_articles" if group_type != "oferta_only" else "oferta_articles"
+    arts = group.get(key) or group.get("articles", [])
+    for a in arts:
+        dh = a.get("deviz_header") or {}
+        parts = [dh.get("obiectul", ""), dh.get("categoria", "")]
+        label = " | ".join(p for p in parts if p)
+        if label:
+            return label
+    return "?"
+
+
+def _write_group_section(doc: Document, group: dict, group_type: str) -> None:
+    title = _group_title(group, group_type)
+    p = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(6)
+    run = p.add_run(title)
+    run.bold = True
+    run.font.size = Pt(9)
+
+    if group_type == "matched":
+        rows = _build_matched_rows(group)
+    elif group_type == "ref_only":
+        rows = _build_only_rows(group, "ref")
+    else:
+        rows = _build_only_rows(group, "oferta")
+
+    if not rows:
+        return
+
+    tbl = doc.add_table(rows=2 + len(rows) + 1, cols=N_COLS)
+    tbl.style = "Table Grid"
+    _fixed_layout(tbl)
+    _build_header(tbl)
+
+    for i, (ref_art, of_art, fill, nc_texts) in enumerate(rows):
+        _write_data_row(tbl.rows[2 + i], ref_art, of_art, fill, nc_texts)
+
+    # Total row
+    total_row = tbl.rows[-1]
+    total_row.cells[0].merge(total_row.cells[10])
+    tc = total_row.cells[0]
+    tc.text = ""
+    n_ref = sum(1 for r, o, f, n in rows if r and not r.get("is_component"))
+    n_of  = sum(1 for r, o, f, n in rows if o and not o.get("is_component"))
+    run = tc.paragraphs[0].add_run(
+        f"Total grup: REFERINȚĂ {n_ref} articole principale | OFERTĂ {n_of} articole principale"
+    )
+    run.bold = True
+    run.font.size = Pt(7)
+    _shade(tc, FILL_TOTAL)
+
+
+# ── Entry point ───────────────────────────────────────────────────────────────
+
+def build_comparatie_docx(holistic: dict, client_name: str, oferta_nr: int, output_path: str) -> None:
+    """Generate landscape A4 side-by-side comparison DOCX."""
+    doc = Document()
+    _set_landscape(doc)
+
+    for text, bold, size in [
+        (f"Comparație Referință vs Ofertă {oferta_nr} — {client_name}", True, 14),
+        (f"Generat: {date.today().isoformat()}", False, 9),
+    ]:
+        p = doc.add_paragraph()
+        run = p.add_run(text)
+        run.bold = bold
+        run.font.size = Pt(size)
+
+    doc.add_paragraph()
+
+    for group in holistic.get("matched_groups", []):
+        _write_group_section(doc, group, "matched")
+        doc.add_paragraph()
+
+    for group in holistic.get("ref_only_groups", []):
+        _write_group_section(doc, group, "ref_only")
+        doc.add_paragraph()
+
+    for group in holistic.get("oferta_only_groups", []):
+        _write_group_section(doc, group, "oferta_only")
+        doc.add_paragraph()
+
+    doc.save(output_path)
