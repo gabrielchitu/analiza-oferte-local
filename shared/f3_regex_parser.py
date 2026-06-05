@@ -1217,6 +1217,18 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             prev_nr = last_nr_crt  # save before finalize
             if state == _READING:
                 _finalize()
+            elif state == _WAITING and denumire_parts and int(m_subitem.group(1).split('.')[0]) == last_nr_crt:
+                # "NR / description / NR.sub" pattern: article has description only, no cost code.
+                # Use synthetic placeholder cod so comparator dedup filter (if a.get("cod"))
+                # includes this article — otherwise nr_ordine gap remains in holistic.
+                den_j = ' '.join(denumire_parts)
+                placeholder_cod = f'DESCTIP_{last_nr_crt}'
+                art_dc = _make_article(placeholder_cod, den_j, '', 0.0, [], deviz_cod, deviz_den,
+                                       is_component=False, parent_code=None,
+                                       nr_ordine=last_nr_crt, parent_nr_ordine=None)
+                articole.append(art_dc)
+                current_parent_nr = last_nr_crt
+                last_article_cod = placeholder_cod
             # Extract base article number from "34.1" → 34
             subitem_str = m_subitem.group(1)
             base_nr = int(subitem_str.split('.')[0])
@@ -1308,7 +1320,10 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 else:
                     # Format "NRCOD* - DESCRIERE" (concatenated, no separator)
                     m_concat = NR_COD_CONCAT_RE.match(line)
-                    if m_concat:
+                    if m_concat and not (
+                        re.match(r'^\d+$', m_concat.group(2)) and
+                        len(m_concat.group(1)) + len(m_concat.group(2)) >= 10
+                    ):
                         last_nr_crt = int(m_concat.group(1))
                         if last_nr_crt == current_parent_nr and current_parent_nr > 0:
                             explicit_component_marker = True
@@ -1404,8 +1419,10 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 elif _is_nr_crt(line, _IDLE, 0):
                     # NR_CRT nou — actualizează și rămâne în WAITING
                     last_nr_crt = int(NR_CRT_RE.match(line).group(1))
-                    if last_nr_crt == current_parent_nr and current_parent_nr > 0:
-                        explicit_component_marker = True
+                    # Reset marker: only set True when NR matches parent (sub-item context).
+                    # If NR != parent (e.g. column header resets to 1,2,3), clear the flag
+                    # so the next article is not falsely classified as a sub-component.
+                    explicit_component_marker = (last_nr_crt == current_parent_nr and current_parent_nr > 0)
                     waiting_lines = 0
                 else:
                     # Format "NR COD - DESCRIERE" pe aceeasi linie in WAITING
@@ -1426,7 +1443,14 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                         # Format "NRCOD* - DESC" (concatenated NR+CODE, no separator) in WAITING
                         # Handles OCR artifacts where whitespace was lost: "3CF41B01* - Tencuiala..."
                         m_concat = NR_COD_CONCAT_RE.match(line)
-                        if m_concat:
+                        if m_concat and not (
+                            # Reject NR+numeric-COD splits that total 10+ digits:
+                            # "8006721000 - Desc" → NR=800, COD=6721000 is a false split
+                            # of a single 10-digit catalog code. Legitimate concat NR+COD
+                            # never exceeds 9 total digits (e.g. "38 2200012" → 9 digits).
+                            re.match(r'^\d+$', m_concat.group(2)) and
+                            len(m_concat.group(1)) + len(m_concat.group(2)) >= 10
+                        ):
                             last_nr_crt = int(m_concat.group(1))
                             if last_nr_crt == current_parent_nr and current_parent_nr > 0:
                                 explicit_component_marker = True
@@ -1453,9 +1477,17 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                                 um = ''; cantitate = 0.0; preturi = []
                                 state = _READING; waiting_lines = 0; _after_linked = False
                             else:
+                                # Capture first plain description line as denomination.
+                                # Handles "NR / description / NR.sub" — article with no cost
+                                # code of its own, only sub-items (e.g. "3\nEchipamente...\n3.1\nSZ2f01#").
+                                if waiting_lines == 0 and line and len(line) > 3 and not re.match(r'^\d', line):
+                                    denumire_parts = [line]
                                 waiting_lines += 1
                                 if waiting_lines >= 3:
                                     # Nu era articol — numărul era altceva (pagină, preț etc.)
+                                    # Reset marker so it doesn't leak to the next article start.
+                                    explicit_component_marker = False
+                                    denumire_parts = []
                                     state = _IDLE
 
         # ── READING_ARTICLE ──────────────────────────────────────────────────
