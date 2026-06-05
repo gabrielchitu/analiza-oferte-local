@@ -153,7 +153,7 @@ def test_iter_source_groups_skips_empty_article_groups():
 
 
 def test_iter_source_groups_fallback_header_from_deviz_denumire():
-    """When articles list is empty but group exists via only_groups with no deviz_header on art."""
+    """Extract header from ref_only_groups articles via deviz_header field."""
     art = {"cod": "X", "denumire": "D", "um": "mc", "cantitate": 1.0,
            "nr_ordine": 1, "is_component": False, "parent_code": None,
            "pret_material": 0.0, "pret_manopera": 0.0, "pret_utilaj": 0.0, "pret_transport": 0.0,
