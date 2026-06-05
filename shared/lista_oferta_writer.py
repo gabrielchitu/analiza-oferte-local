@@ -92,7 +92,8 @@ def _iter_source_groups(holistic: Dict, source: str) -> Generator[Tuple[Dict, Li
 
 
 HEADER_FILL = "D9D9D9"   # light grey for header rows
-COL_WIDTHS_CM = [1.0, 1.2, 2.0, 2.2, 6.5, 1.2, 1.8, 2.0, 2.0, 1.8, 2.0, 2.0, 2.0, 1.8, 2.0]
+# 11 cols; total 18.0 cm fits A4 portrait with 1.5 cm margins
+COL_WIDTHS_CM = [0.7, 0.9, 1.8, 1.8, 6.5, 0.8, 1.5, 1.0, 1.0, 1.0, 1.0]
 
 
 def _shade_cell(cell, fill_hex: str) -> None:
@@ -119,8 +120,7 @@ def _merge_vertical(table: Table, col: int, row_start: int = 0, row_end: int = 1
 
 
 def _build_table_header(table: Table) -> None:
-    """Write 2-row F3 header into an existing 2-row, 15-col table."""
-    # Set column widths
+    """Write 2-row F3 header into an existing 2-row, 11-col table."""
     for row in table.rows:
         for i, cell in enumerate(row.cells):
             cell.width = Cm(COL_WIDTHS_CM[i])
@@ -128,7 +128,6 @@ def _build_table_header(table: Table) -> None:
     row0 = table.rows[0].cells
     row1 = table.rows[1].cells
 
-    # First 7 columns: merge vertically (span 2 rows)
     labels_row0 = ["Nr.", "Nr.crt", "Cod", "Cod principal", "Denumire", "UM", "Cantitate"]
     for i, label in enumerate(labels_row0):
         _merge_vertical(table, i)
@@ -140,15 +139,8 @@ def _build_table_header(table: Table) -> None:
     _cell_text(row0[7], "Pret unitar (lei/UM)", bold=True, center=True)
     _shade_cell(row0[7], HEADER_FILL)
 
-    # "Valoare (lei)" spans cols 11-14
-    row0[11].merge(row0[14])
-    _cell_text(row0[11], "Valoare (lei)", bold=True, center=True)
-    _shade_cell(row0[11], HEADER_FILL)
-
-    # Row 1: sub-labels for price cols
-    price_labels = ["Material", "Manoperă", "Utilaje", "Transport",
-                    "Material", "Manoperă", "Utilaje", "Transport"]
-    for i, label in enumerate(price_labels):
+    # Row 1: sub-labels for pret cols only (no val section)
+    for i, label in enumerate(["Material", "Manoperă", "Utilaje", "Transport"]):
         _cell_text(row1[7 + i], label, bold=True, center=True)
         _shade_cell(row1[7 + i], HEADER_FILL)
 
@@ -178,19 +170,20 @@ def _write_article_row(row, seq_nr: int, article: Dict) -> None:
         _fmt_price(article.get("pret_manopera", 0.0)),
         _fmt_price(article.get("pret_utilaj", 0.0)),
         _fmt_price(article.get("pret_transport", 0.0)),
-        _fmt_price(article.get("val_material", 0.0)),
-        _fmt_price(article.get("val_manopera", 0.0)),
-        _fmt_price(article.get("val_utilaj", 0.0)),
-        _fmt_price(article.get("val_transport", 0.0)),
     ]
 
     font_size = 7 if article.get("is_component") else 8
+    # 0=Nr center, 1=Nr.crt right, 2=Cod left, 3=CodPrincipal left, 4=Denumire left
+    # 5=UM center, 6=Cantitate right, 7-10=Pret cols right
+    right_cols = {1, 6, 7, 8, 9, 10}
+    center_cols = {0, 5}
 
     for i, (cell, val) in enumerate(zip(row.cells, values)):
         cell.text = ""
         p = cell.paragraphs[0]
-        # Center cols: 0, 1, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 (all except 2, 3, 4 = Cod, Cod principal, Denumire)
-        if i in (0, 1, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14):
+        if i in right_cols:
+            p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+        elif i in center_cols:
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         run = p.add_run(val)
         run.font.size = Pt(font_size)
@@ -210,26 +203,32 @@ def _write_group_section(doc: Document, header: Dict, articles: List[Dict], seq_
     Returns:
         Next sequential number after all articles written
     """
-    # Group title paragraph
     obiectivul = header.get("obiectivul", "")
     obiectul = header.get("obiectul", "")
     categoria = header.get("categoria", "")
-    title_parts = [p for p in [obiectivul, obiectul, categoria] if p]
-    title = " | ".join(title_parts)
 
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(6)
-    run = p.add_run(title)
-    run.bold = True
-    run.font.size = Pt(9)
+    first_line = True
+    for label, val in [
+        ("Obiectivul", obiectivul),
+        ("Obiectul", obiectul),
+        ("Cod de lucrari sau stare fizica", categoria),
+    ]:
+        if val:
+            if not first_line:
+                p.add_run().add_break()
+            run = p.add_run(f"{label}: {val}")
+            run.bold = True
+            run.font.size = Pt(9)
+            first_line = False
 
     # Count main vs subcomponent articles
     main_count = sum(1 for a in articles if not a.get("is_component"))
     sub_count = sum(1 for a in articles if a.get("is_component"))
 
-    # Table: 2 header rows + N article rows + 1 total row
     n_rows = 2 + len(articles) + 1
-    tbl = doc.add_table(rows=n_rows, cols=15)
+    tbl = doc.add_table(rows=n_rows, cols=11)
     tbl.style = "Table Grid"
 
     _build_table_header(tbl)
@@ -240,9 +239,8 @@ def _write_group_section(doc: Document, header: Dict, articles: List[Dict], seq_
         _write_article_row(row, seq_nr=seq, article=art)
         seq += 1
 
-    # Total row
     total_row = tbl.rows[-1]
-    total_row.cells[0].merge(total_row.cells[14])
+    total_row.cells[0].merge(total_row.cells[10])
     total_cell = total_row.cells[0]
     total_cell.text = ""
     run = total_cell.paragraphs[0].add_run(
@@ -276,7 +274,12 @@ def build_docx_for_source(
     """
     doc = Document()
 
-    # Document header
+    section = doc.sections[0]
+    section.left_margin = Cm(1.5)
+    section.right_margin = Cm(1.5)
+    section.top_margin = Cm(1.8)
+    section.bottom_margin = Cm(1.8)
+
     entity_label = "Ofertant" if source == "oferta" else "Proiectant"
     for line, bold, size in [
         (f"Lista articole — {label}", True, 14),
