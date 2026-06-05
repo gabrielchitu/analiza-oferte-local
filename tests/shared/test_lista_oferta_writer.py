@@ -209,10 +209,15 @@ def test_build_table_header_structure():
     assert tbl.rows[0].cells[4].text == "Denumire"
     assert tbl.rows[0].cells[5].text == "UM"
     assert tbl.rows[0].cells[6].text == "Cantitate"
+    # Row 0 merged price group headers
+    assert tbl.rows[0].cells[7].text == "Pret unitar (lei/UM)"
+    assert tbl.rows[0].cells[11].text == "Valoare (lei)"
     # Row 1 price sub-headers
     assert tbl.rows[1].cells[7].text == "Material"
     assert tbl.rows[1].cells[8].text == "Manoperă"
     assert tbl.rows[1].cells[9].text == "Utilaje"
     assert tbl.rows[1].cells[10].text == "Transport"
     assert tbl.rows[1].cells[11].text == "Material"
+    assert tbl.rows[1].cells[12].text == "Manoperă"
+    assert tbl.rows[1].cells[13].text == "Utilaje"
     assert tbl.rows[1].cells[14].text == "Transport"
