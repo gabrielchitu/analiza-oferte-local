@@ -111,19 +111,32 @@ def _nc_text(nc: dict) -> str:
 def _ncs_for(ncs: list, ref_art: Optional[dict], of_art: Optional[dict]) -> list:
     ref_cod = (ref_art or {}).get("cod") or ""
     of_cod  = (of_art or {}).get("cod") or ""
+    ref_nr  = (ref_art or {}).get("nr_ordine")
+    of_nr   = (of_art or {}).get("nr_ordine")
     result  = []
     for nc in ncs:
         nc_ref = nc.get("ref_cod") or ""
         nc_of  = nc.get("oferta_cod") or ""
-        match_ref = ref_cod and nc_ref == ref_cod
-        match_of  = of_cod  and nc_of  == of_cod
-        if match_ref or match_of:
-            # For matched pairs require both sides to agree (avoids cross-contamination)
-            if ref_art and of_art:
-                if (not nc_ref or match_ref) and (not nc_of or match_of):
-                    result.append(nc)
-            else:
+        match_ref = bool(ref_cod and nc_ref == ref_cod)
+        match_of  = bool(of_cod  and nc_of  == of_cod)
+        if not (match_ref or match_of):
+            continue
+        # Narrow by nr_ordine when NC carries it — prevents same-cod cross-contamination
+        nc_ref_nr = nc.get("nr_ordine_ref")
+        nc_of_nr  = nc.get("nr_ordine_oferta")
+        if match_ref and ref_nr is not None and nc_ref_nr is not None:
+            if str(nc_ref_nr) != str(ref_nr):
+                match_ref = False
+        if match_of and of_nr is not None and nc_of_nr is not None:
+            if str(nc_of_nr) != str(of_nr):
+                match_of = False
+        if not (match_ref or match_of):
+            continue
+        if ref_art and of_art:
+            if (not nc_ref or match_ref) and (not nc_of or match_of):
                 result.append(nc)
+        else:
+            result.append(nc)
     return result
 
 
@@ -179,16 +192,20 @@ def _build_matched_rows(group: dict) -> List[RowTuple]:
     ref_main = sorted([a for a in ref_arts if not a.get("is_component")], key=_sort_key)
     of_main  = sorted([a for a in of_arts  if not a.get("is_component")], key=_sort_key)
 
-    # EXTRA oferta cods from NCs
-    extra_of_cods = {
-        nc["oferta_cod"]
+    # EXTRA oferta articles identified by (cod, nr_ordine) — not cod alone
+    # (multiple articles can share a cod; only the specific nr_ordine is EXTRA)
+    extra_of_keys = {
+        (nc["oferta_cod"], nc.get("nr_ordine_oferta"))
         for nc in ncs
         if nc.get("tip") == "ARTICOL_EXTRA" and nc.get("oferta_cod")
     }
 
+    def _art_key(a: dict):
+        return (a.get("cod"), a.get("nr_ordine"))
+
     ref_by_nr = {_major_nr(a): a for a in ref_main}
-    of_normal = [a for a in of_main if a.get("cod") not in extra_of_cods]
-    of_extra  = [a for a in of_main if a.get("cod") in extra_of_cods]
+    of_normal = [a for a in of_main if _art_key(a) not in extra_of_keys]
+    of_extra  = [a for a in of_main if _art_key(a) in extra_of_keys]
     of_by_nr  = {_major_nr(a): a for a in of_normal}
 
     # nrs from ref + nrs in both (normal oferta); extras deferred to end
