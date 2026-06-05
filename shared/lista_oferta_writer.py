@@ -195,3 +195,61 @@ def _write_article_row(row, seq_nr: int, article: Dict) -> None:
         run.font.size = Pt(font_size)
         if article.get("is_component"):
             run.font.color.rgb = RGBColor(0x44, 0x44, 0x44)
+
+
+def _write_group_section(doc: Document, header: Dict, articles: List[Dict], seq_start: int) -> int:
+    """Write group title paragraph + F3 table. Returns next seq_nr.
+
+    Args:
+        doc: Document to write to
+        header: Dict with obiectivul, obiectul, categoria
+        articles: List of article dicts
+        seq_start: Starting sequential number for articles
+
+    Returns:
+        Next sequential number after all articles written
+    """
+    # Group title paragraph
+    obiectivul = header.get("obiectivul", "")
+    obiectul = header.get("obiectul", "")
+    categoria = header.get("categoria", "")
+    title_parts = [p for p in [obiectivul, obiectul, categoria] if p]
+    title = " | ".join(title_parts)
+
+    p = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(6)
+    run = p.add_run(title)
+    run.bold = True
+    run.font.size = Pt(9)
+
+    # Count main vs subcomponent articles
+    main_count = sum(1 for a in articles if not a.get("is_component"))
+    sub_count = sum(1 for a in articles if a.get("is_component"))
+
+    # Table: 2 header rows + N article rows + 1 total row
+    n_rows = 2 + len(articles) + 1
+    tbl = doc.add_table(rows=n_rows, cols=15)
+    tbl.style = "Table Grid"
+
+    _build_table_header(tbl)
+
+    seq = seq_start
+    for i, art in enumerate(articles):
+        row = tbl.rows[2 + i]
+        _write_article_row(row, seq_nr=seq, article=art)
+        seq += 1
+
+    # Total row
+    total_row = tbl.rows[-1]
+    total_row.cells[0].merge(total_row.cells[14])
+    total_cell = total_row.cells[0]
+    total_cell.text = ""
+    run = total_cell.paragraphs[0].add_run(
+        f"Total grup: {main_count} articole principale"
+        + (f" / {sub_count} subcomponente" if sub_count else "")
+    )
+    run.bold = True
+    run.font.size = Pt(8)
+    _shade_cell(total_cell, "F2F2F2")
+
+    return seq

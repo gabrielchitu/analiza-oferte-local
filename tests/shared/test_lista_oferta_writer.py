@@ -1,6 +1,6 @@
 import pytest
 from docx import Document
-from shared.lista_oferta_writer import extract_entity_name, _iter_source_groups, _fmt_nr_crt, _fmt_price, _build_table_header, _write_article_row
+from shared.lista_oferta_writer import extract_entity_name, _iter_source_groups, _fmt_nr_crt, _fmt_price, _build_table_header, _write_article_row, _write_group_section
 import json
 import tempfile
 import os
@@ -281,3 +281,27 @@ def test_write_article_row_with_prices():
     assert cells[8].text == "50,50"     # pret_manopera
     assert cells[12].text == "126,25"   # val_manopera
     assert cells[9].text == ""           # pret_utilaj = 0
+
+
+# Tests for _write_group_section
+def test_write_group_section_adds_paragraph_and_table():
+    doc = Document()
+    header = {"obiectivul": "PROIECT X", "obiectul": "25.4 CAV", "categoria": "1 Copertina"}
+    art1 = _make_full_article(cod="TSD06XA", nr_ordine=1)
+    art2 = _make_full_article(cod="IZF16A", nr_ordine="1.1", is_component=True, parent_code="TSD06XA")
+    _write_group_section(doc, header, [art1, art2], seq_start=1)
+    # Should have: 1 paragraph (group title) + 1 table
+    tables = doc.tables
+    paragraphs = [p for p in doc.paragraphs if p.text.strip()]
+    assert len(tables) == 1
+    assert "Copertina" in paragraphs[0].text or "25.4" in paragraphs[0].text
+    # Table: 2 header rows + 2 article rows + 1 total row = 5 rows
+    assert len(tables[0].rows) == 5
+
+
+def test_write_group_section_returns_next_seq():
+    doc = Document()
+    header = {"obiectivul": "X", "obiectul": "Y", "categoria": "Z"}
+    arts = [_make_full_article(cod=f"A{i}", nr_ordine=i) for i in range(1, 4)]
+    next_seq = _write_group_section(doc, header, arts, seq_start=1)
+    assert next_seq == 4   # started at 1, 3 articles → next is 4
