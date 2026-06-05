@@ -390,32 +390,52 @@ def _write_data_row(row, ref_art, of_art, fill, nc_texts) -> None:
 
 # ── Group section ─────────────────────────────────────────────────────────────
 
-def _group_title(group: dict, group_type: str) -> str:
-    # Try deviz_denumire first (pipe-separated)
-    dd = group.get("deviz_denumire", "")
-    if dd:
-        parts = [p.strip() for p in dd.split("|")]
-        # Keep last 2 meaningful parts (Obiectul | Categoria)
-        return " | ".join(p for p in parts[-2:] if p)
-    # Fallback: read from first article's deviz_header
-    key = "ref_articles" if group_type != "oferta_only" else "oferta_articles"
-    arts = group.get(key) or group.get("articles", [])
+def _header_label(arts: list) -> str:
+    """Extract 'obiectivul | obiectul | categoria' from first article with deviz_header."""
     for a in arts:
         dh = a.get("deviz_header") or {}
-        parts = [dh.get("obiectul", ""), dh.get("categoria", "")]
+        parts = [dh.get("obiectivul", ""), dh.get("obiectul", ""), dh.get("categoria", "")]
         label = " | ".join(p for p in parts if p)
         if label:
             return label
     return "?"
 
 
+def _min_ref_page(group: dict, group_type: str) -> int:
+    """Return min source_page from ref side — used to sort groups by DI order."""
+    if group_type == "oferta_only":
+        arts = group.get("articles", [])
+    elif group_type == "ref_only":
+        arts = group.get("articles", [])
+    else:
+        arts = group.get("ref_articles", [])
+    pages = [p for a in arts for p in (a.get("source_pages") or [])]
+    return min(pages) if pages else 9999
+
+
 def _write_group_section(doc: Document, group: dict, group_type: str) -> None:
-    title = _group_title(group, group_type)
+    ref_arts = group.get("ref_articles") or (group.get("articles", []) if group_type == "ref_only" else [])
+    of_arts  = group.get("oferta_articles") or (group.get("articles", []) if group_type == "oferta_only" else [])
+
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(6)
-    run = p.add_run(title)
-    run.bold = True
-    run.font.size = Pt(9)
+
+    if group_type == "matched":
+        ref_label = _header_label(ref_arts)
+        of_label  = _header_label(of_arts)
+        r1 = p.add_run(f"REF:    {ref_label}")
+        r1.bold = True; r1.font.size = Pt(8)
+        p.add_run().add_break()
+        r2 = p.add_run(f"OFERTĂ: {of_label}")
+        r2.bold = True; r2.font.size = Pt(8)
+        r2.font.color.rgb = RGBColor(0x00, 0x4C, 0x99)
+    elif group_type == "ref_only":
+        r1 = p.add_run(f"REF:    {_header_label(ref_arts)}")
+        r1.bold = True; r1.font.size = Pt(8)
+    else:
+        r2 = p.add_run(f"OFERTĂ: {_header_label(of_arts)}")
+        r2.bold = True; r2.font.size = Pt(8)
+        r2.font.color.rgb = RGBColor(0x00, 0x4C, 0x99)
 
     if group_type == "matched":
         rows = _build_matched_rows(group)
@@ -468,15 +488,20 @@ def build_comparatie_docx(holistic: dict, client_name: str, oferta_nr: int, outp
 
     doc.add_paragraph()
 
-    for group in holistic.get("matched_groups", []):
+    # Sort each group list by minimum ref source_page → preserves DI referință order
+    matched   = sorted(holistic.get("matched_groups", []),      key=lambda g: _min_ref_page(g, "matched"))
+    ref_only  = sorted(holistic.get("ref_only_groups", []),     key=lambda g: _min_ref_page(g, "ref_only"))
+    of_only   = sorted(holistic.get("oferta_only_groups", []),  key=lambda g: _min_ref_page(g, "oferta_only"))
+
+    for group in matched:
         _write_group_section(doc, group, "matched")
         doc.add_paragraph()
 
-    for group in holistic.get("ref_only_groups", []):
+    for group in ref_only:
         _write_group_section(doc, group, "ref_only")
         doc.add_paragraph()
 
-    for group in holistic.get("oferta_only_groups", []):
+    for group in of_only:
         _write_group_section(doc, group, "oferta_only")
         doc.add_paragraph()
 
