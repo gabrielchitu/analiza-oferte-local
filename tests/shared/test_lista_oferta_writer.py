@@ -1,5 +1,5 @@
 import pytest
-from shared.lista_oferta_writer import extract_entity_name, _iter_source_groups
+from shared.lista_oferta_writer import extract_entity_name, _iter_source_groups, _fmt_nr_crt, _fmt_price
 import json
 import tempfile
 import os
@@ -168,3 +168,29 @@ def test_iter_source_groups_fallback_header_from_deviz_denumire():
     assert len(groups) == 1
     header, _ = groups[0]
     assert header["obiectivul"] == "OBJ2"
+
+
+# Tests for _fmt_nr_crt and _fmt_price
+def test_fmt_nr_crt_integer():
+    assert _fmt_nr_crt(1) == "1"
+
+
+def test_fmt_nr_crt_string_subcomp():
+    assert _fmt_nr_crt("9.1") == "9.1"
+
+
+def test_fmt_nr_crt_float_becomes_int():
+    # nr_ordine sometimes stored as float 1.0
+    assert _fmt_nr_crt(1.0) == "1"
+
+
+def test_fmt_price_zero_returns_empty():
+    assert _fmt_price(0.0) == ""
+
+
+def test_fmt_price_nonzero_returns_formatted():
+    assert _fmt_price(1234.5) == "1.234,50"
+
+
+def test_fmt_price_rounds_to_2_decimals():
+    assert _fmt_price(9.999) == "10,00"
