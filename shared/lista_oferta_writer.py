@@ -103,7 +103,7 @@ def _iter_source_groups(holistic: Dict, source: str) -> Generator[Tuple[Dict, Li
 HEADER_FILL = "D9D9D9"   # light grey for header rows
 # 11 cols; total ~18.0 cm fits A4 portrait with 1.5 cm margins
 # Cantitate widened to 1.8 so label fits; price cols 1.1 so "1.234,56" fits
-COL_WIDTHS_CM = [0.7, 0.9, 1.8, 1.8, 5.8, 0.8, 1.8, 1.1, 1.1, 1.1, 1.1]
+COL_WIDTHS_CM = [0.7, 0.9, 1.8, 1.8, 5.6, 1.0, 1.8, 1.1, 1.1, 1.1, 1.1]
 # Cols that must never wrap: all numeric/code cols except Denumire (4)
 _NO_WRAP_COLS = {0, 1, 2, 3, 5, 6, 7, 8, 9, 10}
 
