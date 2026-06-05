@@ -90,14 +90,14 @@ def _iter_source_groups(holistic: Dict, source: str) -> Generator[Tuple[Dict, Li
         if not articles:
             continue
         header = _get_header_from_articles(articles)
-        yield header, articles
+        yield header, articles, group.get("deviz_denumire", "")
 
     for group in only:
         articles = group.get("articles", [])
         if not articles:
             continue
         header = _get_header_from_articles(articles)
-        yield header, articles
+        yield header, articles, group.get("deviz_denumire", "")
 
 
 HEADER_FILL = "D9D9D9"   # light grey for header rows
@@ -226,33 +226,43 @@ def _set_table_fixed_layout(tbl: Table) -> None:
     tblPr.append(tblLayout)
 
 
-def _write_group_section(doc: Document, header: Dict, articles: List[Dict]) -> None:
-    """Write group title paragraph + F3 table. Nr. sequence resets to 1 per group.
+def _is_numeric_only(val: str) -> bool:
+    """True when value contains only digits, spaces, dots — no descriptive text."""
+    import re
+    return bool(val) and bool(re.fullmatch(r'[\d\s.]+', val.strip()))
 
-    Args:
-        doc: Document to write to
-        header: Dict with obiectivul, obiectul, categoria
-        articles: List of article dicts
-    """
+
+def _write_group_section(doc: Document, header: Dict, articles: List[Dict],
+                         deviz_denumire: str = "") -> None:
+    """Write group title paragraph + F3 table. Nr. sequence resets to 1 per group."""
     obiectivul = header.get("obiectivul", "")
-    obiectul = header.get("obiectul", "")
-    categoria = header.get("categoria", "")
+    obiectul   = header.get("obiectul", "")
+    categoria  = header.get("categoria", "")
 
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(6)
-    first_line = True
-    for label, val in [
-        ("Obiectivul", obiectivul),
-        ("Obiectul", obiectul),
-        ("Cod de lucrari sau stare fizica", categoria),
-    ]:
-        if val:
-            if not first_line:
-                p.add_run().add_break()
-            run = p.add_run(f"{label}: {val}")
-            run.bold = True
-            run.font.size = Pt(9)
-            first_line = False
+
+    # When obiectivul/obiectul are pure CPV numbers, use deviz_denumire as title
+    if _is_numeric_only(obiectivul) and deviz_denumire:
+        parts = [s.strip() for s in deviz_denumire.split("|")]
+        title = " | ".join(p for p in parts if p)
+        run = p.add_run(title)
+        run.bold = True
+        run.font.size = Pt(9)
+    else:
+        first_line = True
+        for label, val in [
+            ("Obiectivul", obiectivul),
+            ("Obiectul", obiectul),
+            ("Cod de lucrari sau stare fizica", categoria),
+        ]:
+            if val:
+                if not first_line:
+                    p.add_run().add_break()
+                run = p.add_run(f"{label}: {val}")
+                run.bold = True
+                run.font.size = Pt(9)
+                first_line = False
 
     # Count main vs subcomponent articles
     main_count = sum(1 for a in articles if not a.get("is_component"))
@@ -320,7 +330,7 @@ def build_docx_for_source(
         run.bold = bold
         run.font.size = Pt(size)
 
-    for header, articles in _iter_source_groups(holistic, source=source):
-        _write_group_section(doc, header, articles)
+    for header, articles, deviz_den in _iter_source_groups(holistic, source=source):
+        _write_group_section(doc, header, articles, deviz_denumire=deviz_den)
 
     doc.save(output_path)
