@@ -1,6 +1,6 @@
 import pytest
 from docx import Document
-from shared.lista_oferta_writer import extract_entity_name, _iter_source_groups, _fmt_nr_crt, _fmt_price, _build_table_header
+from shared.lista_oferta_writer import extract_entity_name, _iter_source_groups, _fmt_nr_crt, _fmt_price, _build_table_header, _write_article_row
 import json
 import tempfile
 import os
@@ -221,3 +221,63 @@ def test_build_table_header_structure():
     assert tbl.rows[1].cells[12].text == "Manoperă"
     assert tbl.rows[1].cells[13].text == "Utilaje"
     assert tbl.rows[1].cells[14].text == "Transport"
+
+
+# Tests for _write_article_row
+def _make_full_article(cod="TST01", nr_ordine=1, is_component=False, parent_code=None,
+                       pret_material=0.0, val_material=0.0, pret_manopera=0.0, val_manopera=0.0,
+                       pret_utilaj=0.0, val_utilaj=0.0, pret_transport=0.0, val_transport=0.0):
+    return {
+        "cod": cod, "denumire": "Test article", "um": "mc", "cantitate": 2.5,
+        "nr_ordine": nr_ordine, "is_component": is_component, "parent_code": parent_code,
+        "pret_material": pret_material, "val_material": val_material,
+        "pret_manopera": pret_manopera, "val_manopera": val_manopera,
+        "pret_utilaj": pret_utilaj, "val_utilaj": val_utilaj,
+        "pret_transport": pret_transport, "val_transport": val_transport,
+        "deviz_header": {"obiectivul": "", "obiectul": "", "categoria": ""},
+    }
+
+
+def test_write_article_row_principal():
+    doc = Document()
+    tbl = doc.add_table(rows=0, cols=15)
+    row = tbl.add_row()
+    art = _make_full_article(cod="TSD06XA", nr_ordine=3)
+    _write_article_row(row, seq_nr=3, article=art)
+    cells = row.cells
+    assert cells[0].text == "3"        # Nr sequential
+    assert cells[1].text == "3"        # Nr.crt
+    assert cells[2].text == "TSD06XA"  # Cod
+    assert cells[3].text == ""          # Cod principal (empty for principal)
+    assert cells[4].text == "Test article"
+    assert cells[5].text == "mc"
+    assert cells[6].text == "2.500"    # cantitate 3 decimals
+    assert cells[7].text == ""          # pret_material = 0 → empty
+
+
+def test_write_article_row_subcomponent():
+    doc = Document()
+    tbl = doc.add_table(rows=0, cols=15)
+    row = tbl.add_row()
+    art = _make_full_article(cod="IZF16A", nr_ordine="9.1", is_component=True, parent_code="TRA01A10P")
+    _write_article_row(row, seq_nr=10, article=art)
+    cells = row.cells
+    assert cells[0].text == "10"         # Nr sequential
+    assert cells[1].text == "9.1"        # Nr.crt from nr_ordine
+    assert cells[2].text == "IZF16A"
+    assert cells[3].text == "TRA01A10P"  # Cod principal
+
+
+def test_write_article_row_with_prices():
+    doc = Document()
+    tbl = doc.add_table(rows=0, cols=15)
+    row = tbl.add_row()
+    art = _make_full_article(cod="X", pret_material=100.0, val_material=250.0,
+                              pret_manopera=50.5, val_manopera=126.25)
+    _write_article_row(row, seq_nr=1, article=art)
+    cells = row.cells
+    assert cells[7].text == "100,00"    # pret_material
+    assert cells[11].text == "250,00"   # val_material
+    assert cells[8].text == "50,50"     # pret_manopera
+    assert cells[12].text == "126,25"   # val_manopera
+    assert cells[9].text == ""           # pret_utilaj = 0

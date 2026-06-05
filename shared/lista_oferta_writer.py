@@ -150,3 +150,48 @@ def _build_table_header(table: Table) -> None:
     for i, label in enumerate(price_labels):
         _cell_text(row1[7 + i], label, bold=True, center=True)
         _shade_cell(row1[7 + i], HEADER_FILL)
+
+
+def _write_article_row(row, seq_nr: int, article: Dict) -> None:
+    """Write article data into a 15-cell table row.
+
+    Args:
+        row: docx table row with 15 cells
+        seq_nr: sequential article number (1, 2, 3...)
+        article: article dict with cod, denumire, um, cantitate, nr_ordine, is_component,
+                 parent_code, pret_*, val_*
+    """
+    nr_crt = _fmt_nr_crt(article.get("nr_ordine", ""))
+    parent_code = article.get("parent_code") or ""
+    cantitate = article.get("cantitate", 0)
+
+    values = [
+        str(seq_nr),
+        nr_crt,
+        article.get("cod", ""),
+        parent_code,
+        article.get("denumire", ""),
+        article.get("um", ""),
+        f"{cantitate:.3f}" if cantitate else "",
+        _fmt_price(article.get("pret_material", 0.0)),
+        _fmt_price(article.get("pret_manopera", 0.0)),
+        _fmt_price(article.get("pret_utilaj", 0.0)),
+        _fmt_price(article.get("pret_transport", 0.0)),
+        _fmt_price(article.get("val_material", 0.0)),
+        _fmt_price(article.get("val_manopera", 0.0)),
+        _fmt_price(article.get("val_utilaj", 0.0)),
+        _fmt_price(article.get("val_transport", 0.0)),
+    ]
+
+    font_size = 7 if article.get("is_component") else 8
+
+    for i, (cell, val) in enumerate(zip(row.cells, values)):
+        cell.text = ""
+        p = cell.paragraphs[0]
+        # Center cols: 0, 1, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 (all except 2, 3, 4 = Cod, Cod principal, Denumire)
+        if i in (0, 1, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14):
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        run = p.add_run(val)
+        run.font.size = Pt(font_size)
+        if article.get("is_component"):
+            run.font.color.rgb = RGBColor(0x44, 0x44, 0x44)
