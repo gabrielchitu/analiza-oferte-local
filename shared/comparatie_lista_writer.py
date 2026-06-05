@@ -167,7 +167,7 @@ RowTuple = Tuple[Optional[dict], Optional[dict], Optional[str], List[str]]
 
 
 def _sub_rows(ref_arts, of_arts, ncs, parent_nr, parent_fill) -> List[RowTuple]:
-    """List all ref sub-components on left, all oferta sub-components on right (no pairing)."""
+    """Pair sub-components by nr_ordine. Unpaired → SUBCOMP LIPSĂ / SUBCOMP EXTRA."""
     ref_subs = sorted(
         [a for a in ref_arts if a.get("is_component") and _major_nr(a) == parent_nr],
         key=_sort_key,
@@ -176,11 +176,24 @@ def _sub_rows(ref_arts, of_arts, ncs, parent_nr, parent_fill) -> List[RowTuple]:
         [a for a in of_arts if a.get("is_component") and _major_nr(a) == parent_nr],
         key=_sort_key,
     )
+    ref_by_nr = {a.get("nr_ordine"): a for a in ref_subs}
+    of_by_nr  = {a.get("nr_ordine"): a for a in of_subs}
+    all_nrs   = sorted(
+        set(ref_by_nr) | set(of_by_nr),
+        key=lambda x: _sort_key({"nr_ordine": x}),
+    )
     rows: List[RowTuple] = []
-    for rsub in ref_subs:
-        rows.append((rsub, None, parent_fill, []))
-    for osub in of_subs:
-        rows.append((None, osub, parent_fill, []))
+    for nr in all_nrs:
+        rsub = ref_by_nr.get(nr)
+        osub = of_by_nr.get(nr)
+        if rsub and osub:
+            rows.append((rsub, osub, parent_fill, []))
+        elif rsub:
+            den = rsub.get("denumire", "") or ""
+            rows.append((rsub, None, FILL_LIPSA, [f"SUBCOMP LIPSĂ: {den}" if den else "SUBCOMP LIPSĂ"]))
+        else:
+            den = osub.get("denumire", "") or ""
+            rows.append((None, osub, FILL_EXTRA, [f"SUBCOMP EXTRA: {den}" if den else "SUBCOMP EXTRA"]))
     return rows
 
 
