@@ -24,7 +24,7 @@ TEXT_RED   = RGBColor(0xCC, 0x00, 0x00)
 # Landscape A4: 29.7 - 2×1.5cm margins = 26.7cm available
 # 0=NrRef 1=CodRef 2=DenRef 3=UMRef 4=CantRef | 5=NrOf 6=CodOf 7=DenOf 8=UMOf 9=CantOf | 10=NC
 N_COLS = 11
-COL_W   = [0.7, 1.6, 5.2, 0.8, 1.4,  0.7, 1.6, 5.2, 0.8, 1.4,  5.3]
+COL_W   = [1.0, 1.6, 5.2, 0.8, 1.4,  1.0, 1.6, 5.2, 0.8, 1.4,  4.7]
 NO_WRAP = {0, 1, 3, 4, 5, 6, 8, 9}   # all except Denumire (2,7) and NC (10) — UM included
 
 
