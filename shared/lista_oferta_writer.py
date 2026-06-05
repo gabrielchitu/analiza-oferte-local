@@ -36,16 +36,21 @@ def _get_header_from_articles(articles: List[Dict]) -> Dict:
 
 def _fmt_nr_crt(nr_ordine: Union[int, float, str]) -> str:
     """Format nr_ordine for display. Integers show as '1', subcomponents as '9.1'."""
+    if nr_ordine is None:
+        return ""
     if isinstance(nr_ordine, float) and nr_ordine == int(nr_ordine):
         return str(int(nr_ordine))
     return str(nr_ordine)
 
 
-def _fmt_price(value: float) -> str:
-    """Format price: 0.0 → empty string; else Romanian locale (1.234,50)."""
+def _fmt_price(value: Optional[float]) -> str:
+    """Format price: None/0.0 → empty string; else Romanian locale (1.234,50).
+
+    Uses Python's default rounding (round-half-to-even); adequate for DOCX display.
+    """
     if not value:
         return ""
-    formatted = f"{value:,.2f}"          # "1,234.50"
+    formatted = f"{value:,.2f}"
     # Convert to Romanian locale: swap . and ,
     return formatted.replace(",", "X").replace(".", ",").replace("X", ".")
 
