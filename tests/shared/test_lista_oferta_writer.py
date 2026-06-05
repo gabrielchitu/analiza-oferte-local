@@ -1,6 +1,6 @@
 import pytest
 from docx import Document
-from shared.lista_oferta_writer import extract_entity_name, _iter_source_groups, _fmt_nr_crt, _fmt_price, _build_table_header, _write_article_row, _write_group_section
+from shared.lista_oferta_writer import extract_entity_name, _iter_source_groups, _fmt_nr_crt, _fmt_price, _build_table_header, _write_article_row, _write_group_section, build_docx_for_source
 import json
 import tempfile
 import os
@@ -305,3 +305,60 @@ def test_write_group_section_returns_next_seq():
     arts = [_make_full_article(cod=f"A{i}", nr_ordine=i) for i in range(1, 4)]
     next_seq = _write_group_section(doc, header, arts, seq_start=1)
     assert next_seq == 4   # started at 1, 3 articles → next is 4
+
+
+# Tests for build_docx_for_source
+def _make_holistic_with_one_group():
+    """Create a minimal holistic JSON with one matched group."""
+    art = {
+        "cod": "TSD06XA", "denumire": "Test article", "um": "mc", "cantitate": 2.5,
+        "nr_ordine": 1, "is_component": False, "parent_code": None,
+        "pret_material": 0.0, "pret_manopera": 0.0, "pret_utilaj": 0.0, "pret_transport": 0.0,
+        "val_material": 0.0, "val_manopera": 0.0, "val_utilaj": 0.0, "val_transport": 0.0,
+        "deviz_header": {"obiectivul": "OBJ", "obiectul": "OBL", "categoria": "CAT"},
+    }
+    return {
+        "matched_groups": [{"oferta_articles": [art], "ref_articles": [], "deviz_denumire": "OBJ|OBL|CAT"}],
+        "oferta_only_groups": [],
+        "ref_only_groups": [],
+    }
+
+
+def test_build_docx_for_source_creates_file():
+    holistic = _make_holistic_with_one_group()
+    out = tempfile.mktemp(suffix=".docx")
+    try:
+        build_docx_for_source(
+            holistic=holistic,
+            source="oferta",
+            entity_name="SC. TEST SRL",
+            client_name="Test Client",
+            label="Oferta 1",
+            output_path=out,
+        )
+        assert os.path.exists(out)
+        assert os.path.getsize(out) > 5000
+    finally:
+        if os.path.exists(out):
+            os.unlink(out)
+
+
+def test_build_docx_for_source_header_contains_entity():
+    holistic = _make_holistic_with_one_group()
+    out = tempfile.mktemp(suffix=".docx")
+    try:
+        build_docx_for_source(
+            holistic=holistic,
+            source="oferta",
+            entity_name="SC. KATO SERVICE SRL",
+            client_name="CAV Maneciu",
+            label="Oferta 1",
+            output_path=out,
+        )
+        doc = Document(out)
+        full_text = " ".join(p.text for p in doc.paragraphs)
+        assert "KATO" in full_text
+        assert "CAV Maneciu" in full_text
+    finally:
+        if os.path.exists(out):
+            os.unlink(out)

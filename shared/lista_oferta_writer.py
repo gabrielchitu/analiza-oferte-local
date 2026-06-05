@@ -1,6 +1,7 @@
 """F3-format DOCX list generator for referinta and offer articles."""
 
 import json
+from datetime import date
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Generator, Union
 
@@ -253,3 +254,46 @@ def _write_group_section(doc: Document, header: Dict, articles: List[Dict], seq_
     _shade_cell(total_cell, "F2F2F2")
 
     return seq
+
+
+def build_docx_for_source(
+    holistic: Dict,
+    source: str,
+    entity_name: str,
+    client_name: str,
+    label: str,
+    output_path: str,
+) -> None:
+    """Generate full F3-format DOCX lista for given source ('oferta' or 'referinta').
+
+    Args:
+        holistic: loaded holistic_oferta_N.json dict
+        source: "oferta" or "referinta"
+        entity_name: ofertant or proiectant name
+        client_name: display client name
+        label: "Oferta 1" or "Referinta"
+        output_path: where to save the .docx
+    """
+    doc = Document()
+
+    # Document header
+    entity_label = "Ofertant" if source == "oferta" else "Proiectant"
+    for line, bold, size in [
+        (f"Lista articole — {label}", True, 14),
+        (f"Client: {client_name}", False, 11),
+        (f"{entity_label}: {entity_name}", False, 11),
+        (f"Generat: {date.today().isoformat()}", False, 9),
+    ]:
+        p = doc.add_paragraph()
+        run = p.add_run(line)
+        run.bold = bold
+        run.font.size = Pt(size)
+
+    doc.add_paragraph()  # spacer
+
+    seq = 1
+    for header, articles in _iter_source_groups(holistic, source=source):
+        seq = _write_group_section(doc, header, articles, seq_start=seq)
+        doc.add_paragraph()  # spacer between groups
+
+    doc.save(output_path)
