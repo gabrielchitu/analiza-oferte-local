@@ -239,6 +239,7 @@ def _write_group_section(doc: Document, header: Dict, articles: List[Dict]) -> N
     categoria = header.get("categoria", "")
 
     p = doc.add_paragraph()
+    p.paragraph_format.page_break_before = True
     p.paragraph_format.space_before = Pt(6)
     first_line = True
     for label, val in [

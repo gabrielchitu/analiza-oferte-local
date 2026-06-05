@@ -421,6 +421,7 @@ def _write_group_section(doc: Document, group: dict, group_type: str) -> None:
     of_arts  = group.get("oferta_articles") or (group.get("articles", []) if group_type == "oferta_only" else [])
 
     p = doc.add_paragraph()
+    p.paragraph_format.page_break_before = True
     p.paragraph_format.space_before = Pt(6)
 
     if group_type == "matched":
