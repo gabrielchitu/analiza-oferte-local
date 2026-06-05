@@ -490,8 +490,6 @@ def build_comparatie_docx(holistic: dict, client_name: str, oferta_nr: int, outp
         run.bold = bold
         run.font.size = Pt(size)
 
-    doc.add_paragraph()
-
     # Sort each group list by minimum ref source_page → preserves DI referință order
     matched   = sorted(holistic.get("matched_groups", []),      key=lambda g: _min_ref_page(g, "matched"))
     ref_only  = sorted(holistic.get("ref_only_groups", []),     key=lambda g: _min_ref_page(g, "ref_only"))
@@ -499,14 +497,11 @@ def build_comparatie_docx(holistic: dict, client_name: str, oferta_nr: int, outp
 
     for group in matched:
         _write_group_section(doc, group, "matched")
-        doc.add_paragraph()
 
     for group in ref_only:
         _write_group_section(doc, group, "ref_only")
-        doc.add_paragraph()
 
     for group in of_only:
         _write_group_section(doc, group, "oferta_only")
-        doc.add_paragraph()
 
     doc.save(output_path)

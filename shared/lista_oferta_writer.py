@@ -321,10 +321,7 @@ def build_docx_for_source(
         run.bold = bold
         run.font.size = Pt(size)
 
-    doc.add_paragraph()  # spacer
-
     for header, articles in _iter_source_groups(holistic, source=source):
         _write_group_section(doc, header, articles)
-        doc.add_paragraph()  # spacer between groups
 
     doc.save(output_path)
