@@ -25,7 +25,7 @@ TEXT_RED   = RGBColor(0xCC, 0x00, 0x00)
 # 0=NrRef 1=CodRef 2=DenRef 3=UMRef 4=CantRef | 5=NrOf 6=CodOf 7=DenOf 8=UMOf 9=CantOf | 10=NC
 N_COLS = 11
 COL_W   = [0.7, 1.6, 5.2, 0.8, 1.4,  0.7, 1.6, 5.2, 0.8, 1.4,  5.3]
-NO_WRAP = {0, 1, 3, 4, 5, 6, 8, 9}   # exclude Denumire (2,7) and NC (10)
+NO_WRAP = {0, 1, 3, 4, 5, 6, 8, 9}   # all except Denumire (2,7) and NC (10) — UM included
 
 
 # ── XML / layout helpers ──────────────────────────────────────────────────────
@@ -66,6 +66,14 @@ def _fmt_nr(nr_ordine) -> str:
     if isinstance(nr_ordine, float) and nr_ordine == int(nr_ordine):
         return str(int(nr_ordine))
     return str(nr_ordine)
+
+
+def _fmt_nr_with_page(art: dict) -> tuple[str, str]:
+    """Return (nr_text, page_text) for a two-line nr cell."""
+    nr = _fmt_nr(art.get("nr_ordine"))
+    pages = art.get("source_pages") or []
+    page = f"p.{pages[0]}" if pages else ""
+    return nr, page
 
 
 def _fmt_cant(v) -> str:
@@ -146,7 +154,7 @@ RowTuple = Tuple[Optional[dict], Optional[dict], Optional[str], List[str]]
 
 
 def _sub_rows(ref_arts, of_arts, ncs, parent_nr, parent_fill) -> List[RowTuple]:
-    """Pair sub-components of a given parent_nr by cod; leftovers appended."""
+    """List all ref sub-components on left, all oferta sub-components on right (no pairing)."""
     ref_subs = sorted(
         [a for a in ref_arts if a.get("is_component") and _major_nr(a) == parent_nr],
         key=_sort_key,
@@ -155,19 +163,11 @@ def _sub_rows(ref_arts, of_arts, ncs, parent_nr, parent_fill) -> List[RowTuple]:
         [a for a in of_arts if a.get("is_component") and _major_nr(a) == parent_nr],
         key=_sort_key,
     )
-    of_by_cod = {a.get("cod"): a for a in of_subs}
-    remaining = dict(of_by_cod)
-
     rows: List[RowTuple] = []
     for rsub in ref_subs:
-        osub = remaining.pop(rsub.get("cod"), None)
-        sub_ncs = _ncs_for(ncs, rsub, osub)
-        fill = parent_fill if not sub_ncs else FILL_NC
-        rows.append((rsub, osub, fill, [_nc_text(nc) for nc in sub_ncs]))
-
-    for osub in remaining.values():
+        rows.append((rsub, None, parent_fill, []))
+    for osub in of_subs:
         rows.append((None, osub, parent_fill, []))
-
     return rows
 
 
@@ -286,35 +286,50 @@ def _build_header(tbl: Table) -> None:
 
 
 def _write_5_cols(cells, art: Optional[dict], offset: int, fill: Optional[str]) -> None:
-    is_comp  = (art or {}).get("is_component", False)
-    fs       = 6 if is_comp else 7
-    grey     = RGBColor(0x55, 0x55, 0x55) if is_comp else None
-    values   = ["", "", "", "", ""]
-    aligns   = ["center", "left", "left", "center", "right"]
+    is_comp = (art or {}).get("is_component", False)
+    fs      = 6 if is_comp else 7
+    grey    = RGBColor(0x55, 0x55, 0x55) if is_comp else None
 
-    if art:
-        values = [
-            _fmt_nr(art.get("nr_ordine")),
-            art.get("cod", "") or "",
-            art.get("denumire", "") or "",
-            art.get("um", "") or "",
-            _fmt_cant(art.get("cantitate")),
-        ]
+    # Re-apply noWrap on data row cols (cell.text="" clears tcPr set in _apply_widths)
+    nowrap_local = {0, 1, 3, 4}  # Nr, Cod, UM, Cant (relative to offset)
+    for rel in nowrap_local:
+        _no_wrap(cells[offset + rel])
 
-    for i, (val, align) in enumerate(zip(values, aligns)):
-        cell = cells[offset + i]
+    def _wcell(rel, val, center=False, right=False, two_lines: Optional[str] = None):
+        cell = cells[offset + rel]
         cell.text = ""
         if fill:
             _shade(cell, fill)
         p = cell.paragraphs[0]
-        if align == "center":
+        if center:
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        elif align == "right":
+        elif right:
             p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
         run = p.add_run(val)
         run.font.size = Pt(fs)
         if grey:
             run.font.color.rgb = grey
+        if two_lines is not None:
+            # Second line in smaller, greyed text
+            p.add_run().add_break()
+            r2 = p.add_run(two_lines)
+            r2.font.size = Pt(fs - 1)
+            r2.font.color.rgb = RGBColor(0x77, 0x77, 0x77)
+
+    if art is None:
+        for rel in range(5):
+            cell = cells[offset + rel]
+            cell.text = ""
+            if fill:
+                _shade(cell, fill)
+        return
+
+    nr_text, page_text = _fmt_nr_with_page(art)
+    _wcell(0, nr_text, center=True, two_lines=page_text if page_text else None)
+    _wcell(1, art.get("cod", "") or "")
+    _wcell(2, art.get("denumire", "") or "")
+    _wcell(3, art.get("um", "") or "", center=True)
+    _wcell(4, _fmt_cant(art.get("cantitate")), right=True)
 
 
 def _write_data_row(row, ref_art, of_art, fill, nc_texts) -> None:
