@@ -1,5 +1,6 @@
 import pytest
-from shared.lista_oferta_writer import extract_entity_name, _iter_source_groups, _fmt_nr_crt, _fmt_price
+from docx import Document
+from shared.lista_oferta_writer import extract_entity_name, _iter_source_groups, _fmt_nr_crt, _fmt_price, _build_table_header
 import json
 import tempfile
 import os
@@ -194,3 +195,24 @@ def test_fmt_price_nonzero_returns_formatted():
 
 def test_fmt_price_rounds_to_2_decimals():
     assert _fmt_price(9.999) == "10,00"
+
+
+def test_build_table_header_structure():
+    doc = Document()
+    tbl = doc.add_table(rows=2, cols=15)
+    _build_table_header(tbl)
+    # Row 0 has content in first 7 cells + merged spans for Pret and Val
+    assert tbl.rows[0].cells[0].text == "Nr."
+    assert tbl.rows[0].cells[1].text == "Nr.crt"
+    assert tbl.rows[0].cells[2].text == "Cod"
+    assert tbl.rows[0].cells[3].text == "Cod principal"
+    assert tbl.rows[0].cells[4].text == "Denumire"
+    assert tbl.rows[0].cells[5].text == "UM"
+    assert tbl.rows[0].cells[6].text == "Cantitate"
+    # Row 1 price sub-headers
+    assert tbl.rows[1].cells[7].text == "Material"
+    assert tbl.rows[1].cells[8].text == "Manoperă"
+    assert tbl.rows[1].cells[9].text == "Utilaje"
+    assert tbl.rows[1].cells[10].text == "Transport"
+    assert tbl.rows[1].cells[11].text == "Material"
+    assert tbl.rows[1].cells[14].text == "Transport"
