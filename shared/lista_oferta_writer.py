@@ -76,14 +76,23 @@ def _iter_source_groups(holistic: Dict, source: str) -> Generator[Tuple[Dict, Li
     art_key = "oferta_articles" if source == "oferta" else "ref_articles"
     only_key = "oferta_only_groups" if source == "oferta" else "ref_only_groups"
 
-    for group in holistic.get("matched_groups", []):
+    def _min_page(arts: List[Dict]) -> int:
+        pages = [p for a in arts for p in (a.get("source_pages") or [])]
+        return min(pages) if pages else 9999
+
+    matched = sorted(holistic.get("matched_groups", []),
+                     key=lambda g: _min_page(g.get(art_key, [])))
+    only    = sorted(holistic.get(only_key, []),
+                     key=lambda g: _min_page(g.get("articles", [])))
+
+    for group in matched:
         articles = group.get(art_key, [])
         if not articles:
             continue
         header = _get_header_from_articles(articles)
         yield header, articles
 
-    for group in holistic.get(only_key, []):
+    for group in only:
         articles = group.get("articles", [])
         if not articles:
             continue
