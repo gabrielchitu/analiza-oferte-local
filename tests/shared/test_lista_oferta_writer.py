@@ -246,7 +246,7 @@ def test_write_article_row_principal():
     assert cells[3].text == ""          # Cod principal (empty for principal)
     assert cells[4].text == "Test article"
     assert cells[5].text == "mc"
-    assert cells[6].text == "2.500"    # cantitate 3 decimals
+    assert cells[6].text == "2.50"     # cantitate 2 decimals
     assert cells[7].text == ""          # pret_material = 0 → empty
 
 
@@ -283,7 +283,7 @@ def test_write_group_section_adds_paragraph_and_table():
     header = {"obiectivul": "PROIECT X", "obiectul": "25.4 CAV", "categoria": "1 Copertina"}
     art1 = _make_full_article(cod="TSD06XA", nr_ordine=1)
     art2 = _make_full_article(cod="IZF16A", nr_ordine="1.1", is_component=True, parent_code="TSD06XA")
-    _write_group_section(doc, header, [art1, art2], seq_start=1)
+    _write_group_section(doc, header, [art1, art2])
     # Should have: 1 paragraph (group title) + 1 table
     tables = doc.tables
     paragraphs = [p for p in doc.paragraphs if p.text.strip()]
@@ -293,12 +293,16 @@ def test_write_group_section_adds_paragraph_and_table():
     assert len(tables[0].rows) == 5
 
 
-def test_write_group_section_returns_next_seq():
+def test_write_group_section_seq_resets_per_group():
     doc = Document()
     header = {"obiectivul": "X", "obiectul": "Y", "categoria": "Z"}
     arts = [_make_full_article(cod=f"A{i}", nr_ordine=i) for i in range(1, 4)]
-    next_seq = _write_group_section(doc, header, arts, seq_start=1)
-    assert next_seq == 4   # started at 1, 3 articles → next is 4
+    _write_group_section(doc, header, arts)
+    # Nr. in col 0 must start at 1 and go to 3
+    tbl = doc.tables[0]
+    article_rows = tbl.rows[2:5]  # skip 2 header rows, skip total row
+    assert article_rows[0].cells[0].text == "1"
+    assert article_rows[2].cells[0].text == "3"
 
 
 # Tests for build_docx_for_source

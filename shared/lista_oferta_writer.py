@@ -165,7 +165,7 @@ def _write_article_row(row, seq_nr: int, article: Dict) -> None:
         parent_code,
         article.get("denumire", ""),
         article.get("um", ""),
-        f"{cantitate:.3f}" if cantitate else "",
+        f"{cantitate:.2f}" if cantitate else "",
         _fmt_price(article.get("pret_material", 0.0)),
         _fmt_price(article.get("pret_manopera", 0.0)),
         _fmt_price(article.get("pret_utilaj", 0.0)),
@@ -191,17 +191,21 @@ def _write_article_row(row, seq_nr: int, article: Dict) -> None:
             run.font.color.rgb = RGBColor(0x44, 0x44, 0x44)
 
 
-def _write_group_section(doc: Document, header: Dict, articles: List[Dict], seq_start: int) -> int:
-    """Write group title paragraph + F3 table. Returns next seq_nr.
+def _set_table_fixed_layout(tbl: Table) -> None:
+    """Lock table column widths — prevent Word autofit from resizing columns."""
+    tblPr = tbl._tbl.tblPr
+    tblLayout = OxmlElement("w:tblLayout")
+    tblLayout.set(qn("w:type"), "fixed")
+    tblPr.append(tblLayout)
+
+
+def _write_group_section(doc: Document, header: Dict, articles: List[Dict]) -> None:
+    """Write group title paragraph + F3 table. Nr. sequence resets to 1 per group.
 
     Args:
         doc: Document to write to
         header: Dict with obiectivul, obiectul, categoria
         articles: List of article dicts
-        seq_start: Starting sequential number for articles
-
-    Returns:
-        Next sequential number after all articles written
     """
     obiectivul = header.get("obiectivul", "")
     obiectul = header.get("obiectul", "")
@@ -230,14 +234,13 @@ def _write_group_section(doc: Document, header: Dict, articles: List[Dict], seq_
     n_rows = 2 + len(articles) + 1
     tbl = doc.add_table(rows=n_rows, cols=11)
     tbl.style = "Table Grid"
+    _set_table_fixed_layout(tbl)
 
     _build_table_header(tbl)
 
-    seq = seq_start
     for i, art in enumerate(articles):
         row = tbl.rows[2 + i]
-        _write_article_row(row, seq_nr=seq, article=art)
-        seq += 1
+        _write_article_row(row, seq_nr=i + 1, article=art)
 
     total_row = tbl.rows[-1]
     total_row.cells[0].merge(total_row.cells[10])
@@ -250,8 +253,6 @@ def _write_group_section(doc: Document, header: Dict, articles: List[Dict], seq_
     run.bold = True
     run.font.size = Pt(8)
     _shade_cell(total_cell, "F2F2F2")
-
-    return seq
 
 
 def build_docx_for_source(
@@ -294,9 +295,8 @@ def build_docx_for_source(
 
     doc.add_paragraph()  # spacer
 
-    seq = 1
     for header, articles in _iter_source_groups(holistic, source=source):
-        seq = _write_group_section(doc, header, articles, seq_start=seq)
+        _write_group_section(doc, header, articles)
         doc.add_paragraph()  # spacer between groups
 
     doc.save(output_path)
