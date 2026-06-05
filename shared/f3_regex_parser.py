@@ -950,8 +950,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # Acestea sunt fragmente din denominatia articolului precedent splituite de OCR.
             # Pattern restrâns: 1-2 litere + EXACT 2 cifre (DN32, PN10) SAU 1 litera + 3-5 cifre (S474, S7064).
             # VC1011, SD13A1, SA131 (2+ cifre dupa 2 litere) sunt coduri reale — NU se skipuiesc.
-            # Exceptie: YC\d{2} (ex: YC01, YC02) sunt coduri de categorie cost IS, nu spec tehnica.
-            elif re.match(r'^(?:[A-Z]{1,2}\d{2}|[A-Z]\d{3,5})$', cod) and not re.match(r'^YC\d', cod):
+            # Exceptie: Y[A-Z]\d{2} (ex: YB01, YC01, YD01) sunt coduri categorie cost IS (diferenta pret), nu spec tehnica.
+            elif re.match(r'^(?:[A-Z]{1,2}\d{2}|[A-Z]\d{3,5})$', cod) and not re.match(r'^Y[A-Z]\d', cod):
                 logger.debug(f"[PARSER] Skip spec tehnica (DN/PN/tip material): {cod}")
             # Skip coduri marcatori capitol ISDP: $0001-$0009 (CPV section headers)
             # Apar la inceputul fiecarui deviz in format ISDP, nu sunt articole reale.
