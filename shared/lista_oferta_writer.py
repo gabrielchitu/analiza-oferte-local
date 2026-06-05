@@ -179,10 +179,14 @@ def _write_article_row(row, seq_nr: int, article: Dict) -> None:
     parent_code = article.get("parent_code") or ""
     cantitate = article.get("cantitate", 0)
 
+    cod = article.get("cod", "") or ""
+    if not article.get("is_component") and cod.startswith("$"):
+        cod = cod[1:]
+
     values = [
         str(seq_nr),
         nr_crt,
-        article.get("cod", ""),
+        cod,
         parent_code,
         article.get("denumire", ""),
         article.get("um", ""),

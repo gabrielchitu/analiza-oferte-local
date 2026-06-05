@@ -355,8 +355,11 @@ def _write_5_cols(cells, art: Optional[dict], offset: int, fill: Optional[str]) 
         return
 
     nr_text, page_text = _fmt_nr_with_page(art)
+    cod = art.get("cod", "") or ""
+    if not is_comp and cod.startswith("$"):
+        cod = cod[1:]
     _wcell(0, nr_text, center=True, two_lines=page_text if page_text else None)
-    _wcell(1, art.get("cod", "") or "")
+    _wcell(1, cod)
     _wcell(2, art.get("denumire", "") or "")
     _wcell(3, art.get("um", "") or "", center=True)
     _wcell(4, _fmt_cant(art.get("cantitate")), right=True)
