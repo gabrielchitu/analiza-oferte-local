@@ -85,6 +85,13 @@ COD_SINGLE_MULTIDIGIT_STANDALONE_RE = re.compile(
     r'^([A-Z]\d{2,3}[A-Z]\d{2}' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
     re.IGNORECASE
 )
+# Spec material embedded in description: "TUIA OCCIDENTALIS SMARAGD 14 BUC"
+# All-uppercase name (no digits) + integer quantity + known UM — signals a material spec
+# sub-component written as plain text rather than a structured sub-article.
+EMBEDDED_SPEC_RE = re.compile(
+    r'^([A-ZĂÂÎȘȚ][A-ZĂÂÎȘȚ ().-]+)\s+(\d+)\s+(BUC|ML|MC|KG|MP|M|L|T)\.?\s*$'
+)
+
 # Cod numeric cu spaţiu + descriere + optional |UM (format Breviar materiale referinţă)
 # Ex: "6701362 @COT RACORD WC ORIENTABIL |BUC." sau "6715504[1] PIESA DE CURATIRE |BUC."
 # Acceptă @ prefix în descriere şi [N] bracket suffix în cod
@@ -559,6 +566,11 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
                 # Stop at price labels or footer lines — prevents last-on-page articles
                 # from absorbing footer content and getting skipped by SKIP_RE
                 if _PRICE_LABEL_RE.match(desc_line) or (desc_line and SKIP_RE.search(desc_line)):
+                    break
+                # Stop at embedded material-spec lines ("TUIA OCCIDENTALIS SMARAGD 14 BUC")
+                # so they remain as standalone lines for the main loop spec detection.
+                _m_spec = EMBEDDED_SPEC_RE.match(desc_line)
+                if _m_spec and not re.search(r'\d', _m_spec.group(1)) and len(_m_spec.group(1).split()) >= 2:
                     break
                 if desc_line:
                     desc_parts.append(desc_line)
@@ -1777,6 +1789,35 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 if SUBCOMP_EXPLICIT_MARKER_RE.match(line):
                     explicit_component_marker = True
                 continue
+
+            # Embedded material-spec sub-component: e.g. "TUIA OCCIDENTALIS SMARAGD 14 BUC"
+            # Some offer formats embed a plant/material specification as the last line of
+            # an article's description. Detect and inject as a synthetic sub-component.
+            if cantitate > 0.0 and cod:
+                m_spec = EMBEDDED_SPEC_RE.match(line)
+                if m_spec and not re.search(r'\d', m_spec.group(1)) and len(m_spec.group(1).split()) >= 2:
+                    sub_counter += 1
+                    spec_nr = f"{last_nr_crt}.{sub_counter}"
+                    _spec_name = m_spec.group(1).strip()
+                    # Synthetic cod so comparator doesn't filter it (cod='' → skipped)
+                    _spec_cod = 'SPEC_' + re.sub(r'[^A-Z]', '', _spec_name.upper())[:12]
+                    spec_art = _make_article(
+                        cod=_spec_cod,
+                        denumire=_spec_name,
+                        um=m_spec.group(3).lower(),
+                        cantitate=float(m_spec.group(2)),
+                        preturi=[],
+                        deviz_cod=deviz_cod,
+                        deviz_den=deviz_den,
+                        is_component=True,
+                        parent_code=cod,
+                        subcomponents=[],
+                        nr_ordine=spec_nr,
+                        parent_nr_ordine=last_nr_crt,
+                    )
+                    articole.append(spec_art)
+                    logger.debug(f"[SPEC-SUB] {cod}: extracted embedded spec '{_spec_name}' → {_spec_cod} as {spec_nr}")
+                    continue
 
             # Orice altă linie text → continuare denumire (multi-line)
             # Continue appending text to denomination until UM is found

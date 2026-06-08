@@ -4,6 +4,8 @@ from __future__ import annotations
 from datetime import date
 from typing import Dict, List, Optional, Tuple
 
+from rapidfuzz import fuzz as _fuzz
+
 from docx import Document
 from docx.enum.section import WD_ORIENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -140,6 +142,40 @@ def _ncs_for(ncs: list, ref_art: Optional[dict], of_art: Optional[dict]) -> list
     return result
 
 
+# ── Fuzzy suggestion ──────────────────────────────────────────────────────────
+
+def _fuzzy_suggest(art: Optional[dict], candidates: List[dict], min_score: int = 72) -> Optional[str]:
+    """Find best denomination fuzzy-match for art in candidates.
+
+    Returns annotation string "POSIBIL ACELAȘI MATERIAL (N%): COD — den" or None.
+    Only considers principal articles (not sub-components) with denomination ≥ 5 chars.
+    """
+    if not art or not candidates:
+        return None
+    den = (art.get("denumire") or "").lower().strip()
+    if len(den) < 5:
+        return None
+    best_score = 0
+    best_cand = None
+    for cand in candidates:
+        if cand.get("is_component"):
+            continue
+        cand_den = (cand.get("denumire") or "").lower().strip()
+        if len(cand_den) < 5:
+            continue
+        score = _fuzz.token_set_ratio(den, cand_den)
+        if score > best_score:
+            best_score = score
+            best_cand = cand
+    if best_score >= min_score and best_cand:
+        cand_cod = best_cand.get("cod") or ""
+        if not best_cand.get("is_component") and cand_cod.startswith("$"):
+            cand_cod = cand_cod[1:]
+        cand_den_short = (best_cand.get("denumire") or "")[:45]
+        return f"POSIBIL ACELAȘI MATERIAL ({int(best_score)}%): {cand_cod} — {cand_den_short}"
+    return None
+
+
 # ── Nr helpers ────────────────────────────────────────────────────────────────
 
 def _major_nr(art: dict) -> int:
@@ -237,10 +273,16 @@ def _build_matched_rows(group: dict) -> List[RowTuple]:
             fill = FILL_LIPSA
             if not nc_texts:
                 nc_texts = ["LIPSĂ: absent din ofertă"]
+            suggestion = _fuzzy_suggest(ref_art, of_main)
+            if suggestion:
+                nc_texts.append(suggestion)
         elif not ref_art and of_art:
             fill = FILL_EXTRA
             if not nc_texts:
                 nc_texts = ["EXTRA: absent din referință"]
+            suggestion = _fuzzy_suggest(of_art, ref_main)
+            if suggestion:
+                nc_texts.append(suggestion)
         elif pair_ncs:
             fill = FILL_NC
         else:
@@ -253,8 +295,15 @@ def _build_matched_rows(group: dict) -> List[RowTuple]:
     for of_art in of_extra:
         pair_ncs = _ncs_for(ncs, None, of_art)
         nc_texts = [_nc_text(nc) for nc in pair_ncs] or ["EXTRA: absent din referință"]
+        suggestion = _fuzzy_suggest(of_art, ref_main)
+        if suggestion:
+            nc_texts.append(suggestion)
         rows.append((None, of_art, FILL_EXTRA, nc_texts))
-        rows.extend(_sub_rows([], of_arts, ncs, _major_nr(of_art), FILL_EXTRA))
+        # Only include subs whose parent_code matches this extra article (avoid double-counting
+        # subs that were already paired in the LIPSA section above)
+        _extra_cod = of_art.get("cod")
+        _of_arts_for_extra = [a for a in of_arts if not a.get("is_component") or a.get("parent_code") == _extra_cod]
+        rows.extend(_sub_rows([], _of_arts_for_extra, ncs, _major_nr(of_art), FILL_EXTRA))
 
     return rows
 
@@ -358,6 +407,9 @@ def _write_5_cols(cells, art: Optional[dict], offset: int, fill: Optional[str]) 
     cod = art.get("cod", "") or ""
     if not is_comp and cod.startswith("$"):
         cod = cod[1:]
+    # Hide synthetic SPEC_ prefix — these are embedded material specs, not real codes
+    if cod.startswith("SPEC_"):
+        cod = ""
     _wcell(0, nr_text, center=True, two_lines=page_text if page_text else None)
     _wcell(1, cod)
     _wcell(2, art.get("denumire", "") or "")
