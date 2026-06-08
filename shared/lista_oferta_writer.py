@@ -232,9 +232,20 @@ def _is_numeric_only(val: str) -> bool:
     return bool(val) and bool(re.fullmatch(r'[\d\s.]+', val.strip()))
 
 
+def _nr_sort_key(art: Dict):
+    """Sort key: parse nr_ordine so '1' < '1.1' < '1.2' < '2' < '2.1'."""
+    nr = art.get("nr_ordine", "")
+    try:
+        parts = str(nr).split(".")
+        return (int(parts[0]), int(parts[1]) if len(parts) > 1 else 0)
+    except (ValueError, TypeError):
+        return (9999, 0)
+
+
 def _write_group_section(doc: Document, header: Dict, articles: List[Dict],
                          deviz_denumire: str = "") -> None:
     """Write group title paragraph + F3 table. Nr. sequence resets to 1 per group."""
+    articles = sorted(articles, key=_nr_sort_key)
     obiectivul = header.get("obiectivul", "")
     obiectul   = header.get("obiectul", "")
     categoria  = header.get("categoria", "")
