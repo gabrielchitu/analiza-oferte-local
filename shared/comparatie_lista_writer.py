@@ -468,9 +468,22 @@ def _min_ref_page(group: dict, group_type: str) -> int:
     return min(pages) if pages else 9999
 
 
-def _write_group_section(doc: Document, group: dict, group_type: str) -> None:
+def _write_group_section(doc: Document, group: dict, group_type: str, nc_only: bool = False) -> None:
     ref_arts = group.get("ref_articles") or (group.get("articles", []) if group_type == "ref_only" else [])
     of_arts  = group.get("oferta_articles") or (group.get("articles", []) if group_type == "oferta_only" else [])
+
+    if group_type == "matched":
+        rows = _build_matched_rows(group)
+    elif group_type == "ref_only":
+        rows = _build_only_rows(group, "ref")
+    else:
+        rows = _build_only_rows(group, "oferta")
+
+    if nc_only:
+        rows = [(r, o, f, n) for r, o, f, n in rows if f is not None]
+
+    if not rows:
+        return
 
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(6)
@@ -491,16 +504,6 @@ def _write_group_section(doc: Document, group: dict, group_type: str) -> None:
         r2 = p.add_run(f"OFERTĂ: {_header_label(of_arts)}")
         r2.bold = True; r2.font.size = Pt(8)
         r2.font.color.rgb = RGBColor(0x00, 0x4C, 0x99)
-
-    if group_type == "matched":
-        rows = _build_matched_rows(group)
-    elif group_type == "ref_only":
-        rows = _build_only_rows(group, "ref")
-    else:
-        rows = _build_only_rows(group, "oferta")
-
-    if not rows:
-        return
 
     tbl = doc.add_table(rows=2 + len(rows) + 1, cols=N_COLS)
     tbl.style = "Table Grid"
@@ -527,13 +530,22 @@ def _write_group_section(doc: Document, group: dict, group_type: str) -> None:
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 
-def build_comparatie_docx(holistic: dict, client_name: str, oferta_nr: int, output_path: str) -> None:
-    """Generate landscape A4 side-by-side comparison DOCX."""
+def build_comparatie_docx(holistic: dict, client_name: str, oferta_nr: int, output_path: str, nc_only: bool = False) -> None:
+    """Generate landscape A4 side-by-side comparison DOCX.
+
+    nc_only=True → Raport extract: only rows with neconformitati (LIPSA/EXTRA/NC).
+    nc_only=False → Full comparatie: all rows including clean matches.
+    """
     doc = Document()
     _set_landscape(doc)
 
+    if nc_only:
+        title = f"Raport Neconformități Ofertă {oferta_nr} — {client_name}"
+    else:
+        title = f"Comparație Referință vs Ofertă {oferta_nr} — {client_name}"
+
     for text, bold, size in [
-        (f"Comparație Referință vs Ofertă {oferta_nr} — {client_name}", True, 14),
+        (title, True, 14),
         (f"Generat: {date.today().isoformat()}", False, 9),
     ]:
         p = doc.add_paragraph()
@@ -547,12 +559,12 @@ def build_comparatie_docx(holistic: dict, client_name: str, oferta_nr: int, outp
     of_only   = sorted(holistic.get("oferta_only_groups", []),  key=lambda g: _min_ref_page(g, "oferta_only"))
 
     for group in matched:
-        _write_group_section(doc, group, "matched")
+        _write_group_section(doc, group, "matched", nc_only=nc_only)
 
     for group in ref_only:
-        _write_group_section(doc, group, "ref_only")
+        _write_group_section(doc, group, "ref_only", nc_only=nc_only)
 
     for group in of_only:
-        _write_group_section(doc, group, "oferta_only")
+        _write_group_section(doc, group, "oferta_only", nc_only=nc_only)
 
     doc.save(output_path)

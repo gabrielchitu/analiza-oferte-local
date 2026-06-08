@@ -679,7 +679,7 @@ class V2EndToEndOrchestrator:
         Both paths call shared/report_word.py generate_word() for identical format.
         """
         try:
-            from shared.report_word import generate_word
+            from shared.comparatie_lista_writer import build_comparatie_docx
 
             # Prefer V1 holistic (has proper neconformitati from full V1 pipeline)
             v1_holistic = self._load_v1_holistic(client_config, oferta_num)
@@ -724,13 +724,10 @@ class V2EndToEndOrchestrator:
                 "raport_holistic": v1_holistic,
             }
 
-            doc_bytes = generate_word(session, comp)
-
             output_dir = client_config.output_dir
             output_dir.mkdir(parents=True, exist_ok=True)
             report_path = output_dir / f"Raport_Oferta_{oferta_num}_v2.docx"
-            with open(report_path, "wb") as f:
-                f.write(doc_bytes)
+            build_comparatie_docx(v1_holistic, client_config.name, oferta_num, str(report_path), nc_only=True)
 
             return report_path
 

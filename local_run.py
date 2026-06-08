@@ -931,7 +931,7 @@ def compare_and_report(
     """Compara oferta cu referinta si genereaza raport XLSX + DOCX."""
     from shared.deviz_normalizer import normalize_devize
     from shared.report_excel import generate_excel
-    from shared.report_word import generate_word
+    from shared.comparatie_lista_writer import build_comparatie_docx
 
     # Phase 2: Subcomponent code extraction and matching (optional, based on detected format)
     subcomp_stats = {"detected": False, "format": "unknown", "confidence": 0.0}
@@ -1093,16 +1093,11 @@ def compare_and_report(
     # except Exception as e:
     #     logger.warning(f"  XLSX failed: {e}")
 
-    # Raport DOCX
-    mode_suffix = f"_{subcomponent_mode}" if subcomponent_mode != "full" else ""
-    docx_path = output_dir / f"Raport_Oferta_{oferta_nr}{mode_suffix}.docx"
+    # Raport DOCX — NC-only extract cu layout comparatie
+    docx_path = output_dir / f"Raport_Oferta_{oferta_nr}.docx"
     try:
-        docx_bytes = generate_word(
-            session, comp,
-            comparison_mode=comparison_mode,
-            subcomponent_mode=subcomponent_mode,
-        )
-        docx_path.write_bytes(docx_bytes)
+        client_name = client_config.name if client_config else ""
+        build_comparatie_docx(raport_holistic, client_name, oferta_nr, str(docx_path), nc_only=True)
         logger.info(f"  DOCX: {docx_path.name}")
     except Exception as e:
         logger.warning(f"  DOCX failed: {e}")
