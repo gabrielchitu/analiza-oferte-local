@@ -480,8 +480,12 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
         next_um_line = lines[i + 2].strip()
         next_qty_line = lines[i + 3].strip()
 
-        # Check if next line is a code (normativ, breviar, or digit-letter-digit pattern)
+        # Check if next line is a code (normativ, breviar, or digit-letter-digit pattern).
+        # Exclude material-spec codes like BCR4,5 and C20/25 — comma/slash signals
+        # concrete class or ratio notation, not a catalog normativ code.
         is_valid_code = (
+            not re.search(r'[/,]', next_code_line)
+        ) and (
             # Normativ codes: CA01J1, CK23A, TSC35A22
             re.match(r'^([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2})', next_code_line, re.IGNORECASE) or
             # Extended codes: TRI1AA01C2
