@@ -203,11 +203,12 @@ def test_pass2_prefilter_identical_denominations_no_llm_call():
 
 
 def test_pass2_prefilter_high_jaccard_same_numerics_no_llm_call():
-    # "stalp pentru iluminat public 8m" vs "stalp pt iluminat public 8m" — high jaccard, same "8"
-    matches = [_match("W2A16A", "stalp pentru iluminat public 8m",
-                      oferta_den="stalp pt iluminat public 8m")]
-    ref_arts = [_ref_art("W2A16A", "stalp pentru iluminat public 8m")]
-    oferta_arts = [_oferta_art("W2A16A", "stalp pt iluminat public 8m")]
+    # 12 shared tokens, 1 different (OCR: "a" vs "b") — Jaccard=12/13≈0.923>0.85, same numeric "8"
+    ref_den = "stalp iluminat public stradal de 8m tip a clasa rezistenta otel zincat a"
+    off_den = "stalp iluminat public stradal de 8m tip a clasa rezistenta otel zincat b"
+    matches = [_match("W2A16A", ref_den, oferta_den=off_den)]
+    ref_arts = [_ref_art("W2A16A", ref_den)]
+    oferta_arts = [_oferta_art("W2A16A", off_den)]
     mock_client = MagicMock()
     with patch("shared.semantic_comparator._llm_json") as mock_llm:
         result = semantic_spec_check(matches, ref_arts, oferta_arts, "ctx", mock_client, "model")

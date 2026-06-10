@@ -136,3 +136,83 @@ def semantic_nr_match(ncs: list, deviz_context: str, llm_client, llm_model: str)
     if not to_remove:
         return ncs
     return [nc for nc in ncs if id(nc) not in to_remove] + new_ncs
+
+
+def semantic_spec_check(
+    matches: list,
+    ref_arts: list,
+    oferta_arts: list,
+    deviz_context: str,
+    llm_client,
+    llm_model: str,
+) -> list:
+    """Check already-matched same-code pairs for technically significant denomination differences."""
+    ref_by_cod = {a.get("cod", ""): a for a in ref_arts if a.get("cod")}
+    oferta_by_cod = {a.get("cod", ""): a for a in oferta_arts if a.get("cod")}
+    new_ncs: list[dict] = []
+
+    for m in matches:
+        ref_cod = m.get("ref_cod", "")
+        oferta_cod = m.get("oferta_cod", "")
+        if ref_cod != oferta_cod:
+            continue  # COD_SIMILAR or cross-deviz — not in scope for Pass 2
+        ref_den = m.get("ref_denumire", "")
+        oferta_den = m.get("oferta_denumire", "")
+
+        ref_art = ref_by_cod.get(ref_cod)
+        if ref_art and ref_art.get("is_component"):
+            continue
+
+        norm_ref = _normalize_den(ref_den)
+        norm_off = _normalize_den(oferta_den)
+        if norm_ref == norm_off:
+            continue
+        num_ref = _numeric_tokens(ref_den)
+        num_off = _numeric_tokens(oferta_den)
+        if (norm_ref and norm_off and
+                (norm_ref in norm_off or norm_off in norm_ref) and
+                num_ref == num_off):
+            continue
+        if _jaccard(ref_den, oferta_den) > 0.85 and num_ref == num_off:
+            continue
+
+        oferta_art = oferta_by_cod.get(oferta_cod)
+        user = (
+            f"Context deviz: {deviz_context}\n\n"
+            f"Articolul cu codul {ref_cod} apare în ambele documente cu descrieri diferite:\n"
+            f"REFERINȚĂ: \"{ref_den}\"\n"
+            f"OFERTĂ:    \"{oferta_den}\"\n\n"
+            "Diferența este semnificativă din punct de vedere tehnic și al costului lucrării?\n\n"
+            "Semnificative (exemple): înălțime stalp 8m vs 5m, diametru conductă 110 vs 160mm,\n"
+            "  clasă beton C20/25 vs C30/37, număr canale DVR 16 vs 8.\n"
+            "Nesemnificative (exemple): majuscule/minuscule, prescurtări, ordine cuvinte,\n"
+            "  text OCR incomplet care nu contrazice referința.\n\n"
+            "Răspunde STRICT JSON:\n"
+            "{\n"
+            "  \"diferenta_semnificativa\": true,\n"
+            "  \"nota_specialist\": \"...\"\n"
+            "}"
+        )
+        result = _llm_json(llm_client, llm_model, _PASS2_SYSTEM, user)
+        if result.get("diferenta_semnificativa") is not True:
+            continue
+
+        new_ncs.append({
+            "tip": "SPECIFICATIE_DIFERITA",
+            "deviz_ref": ref_art.get("deviz", "") if ref_art else "",
+            "deviz_denumire": ref_art.get("deviz_denumire", "") if ref_art else "",
+            "is_component": False,
+            "ref_cod": ref_cod,
+            "ref_denumire": ref_den,
+            "oferta_cod": oferta_cod,
+            "oferta_denumire": oferta_den,
+            "ref_um": ref_art.get("um", "") if ref_art else "",
+            "ref_cantitate": ref_art.get("cantitate", "") if ref_art else "",
+            "oferta_um": oferta_art.get("um", "") if oferta_art else "",
+            "oferta_cantitate": oferta_art.get("cantitate", "") if oferta_art else "",
+            "nota_specialist": result.get("nota_specialist", ""),
+            "nr_ordine_ref": ref_art.get("nr_ordine") if ref_art else None,
+            "nr_ordine_oferta": oferta_art.get("nr_ordine") if oferta_art else None,
+        })
+
+    return new_ncs
