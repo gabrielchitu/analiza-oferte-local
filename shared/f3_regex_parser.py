@@ -461,6 +461,7 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
     result = []
     i = 0
     combined_count = 0
+    last_scatter_counter = 0  # track last nr_ordine successfully used in scatter merge
     while i < len(lines):
         line = lines[i].strip()
 
@@ -588,12 +589,17 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
             # Line 2: UM (state machine will pick up as UM)
             # Line 3: QTY (state machine will pick up as QTY)
             # Use "." placeholder when description is empty — NR_COD_DESC_RE requires (.+) after dash
-            result.append(f"{line} {next_code_line} - {description or '.'}")
+            # Auto-increment if counter didn't advance (repeated counter = price column bleed-over)
+            effective_counter = int(line)
+            if effective_counter == last_scatter_counter and last_scatter_counter > 0:
+                effective_counter = last_scatter_counter + 1
+            last_scatter_counter = effective_counter
+            result.append(f"{effective_counter} {next_code_line} - {description or '.'}")
             result.append(next_um_line)
             result.append(next_qty_line)
 
             combined_count += 1
-            logger.debug(f"[SCATTER] Combined scattered format: {line} {next_code_line}")
+            logger.debug(f"[SCATTER] Combined scattered format: {effective_counter} {next_code_line}")
             i = j  # Skip processed lines
             continue
 
@@ -640,11 +646,16 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
 
             if f3_um and f3_qty:
                 description = ' '.join(f3_desc_parts)
-                result.append(f"{line} {next_code_line} - {description or '.'}")
+                # Auto-increment if counter didn't advance (repeated counter = price column bleed-over)
+                effective_counter = int(line)
+                if effective_counter == last_scatter_counter and last_scatter_counter > 0:
+                    effective_counter = last_scatter_counter + 1
+                last_scatter_counter = effective_counter
+                result.append(f"{effective_counter} {next_code_line} - {description or '.'}")
                 result.append(f3_um)
                 result.append(f3_qty)
                 combined_count += 1
-                logger.debug(f"[SCATTER-F3] Combined F3-order scattered: {line} {next_code_line}")
+                logger.debug(f"[SCATTER-F3] Combined F3-order scattered: {effective_counter} {next_code_line}")
                 i = f3_um_idx + 2  # Skip to line after qty
                 continue
 
