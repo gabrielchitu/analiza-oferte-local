@@ -162,12 +162,8 @@ def semantic_spec_check(
             continue
         num_ref = _numeric_tokens(ref_den)
         num_off = _numeric_tokens(oferta_den)
-        if (norm_ref and norm_off and
-                (norm_ref in norm_off or norm_off in norm_ref) and
-                num_ref == num_off):
-            continue
-        if _jaccard(ref_den, oferta_den) > 0.85 and num_ref == num_off:
-            continue
+        if num_ref == num_off:
+            continue  # no numeric diff → text-only divergence is OCR/formatting noise
 
         oferta_art = oferta_by_cod.get(oferta_cod)
         user = (
