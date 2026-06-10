@@ -370,6 +370,23 @@ def _extra_neconf(art: dict, ref_deviz_cod: str = "", deviz_den: str = "") -> di
     }
 
 
+def _deviz_context(ref_arts: list, oferta_arts: list) -> str:
+    """Build a human-readable context string for LLM prompts (group label)."""
+    for arts in (ref_arts, oferta_arts):
+        if not arts:
+            continue
+        hdr = arts[0].get("deviz_header", {})
+        if hdr:
+            parts = [hdr.get("obiectivul", ""), hdr.get("obiectul", ""), hdr.get("categoria", "")]
+            ctx = " | ".join(p for p in parts if p)
+            if ctx:
+                return ctx
+        den = arts[0].get("deviz_denumire", "")
+        if den:
+            return den
+    return ""
+
+
 def _compare_articles_in_group(
     ref_arts: list,
     oferta_arts: list,
@@ -409,6 +426,13 @@ def _compare_articles_in_group(
             nc.setdefault("oferta_denumire", "")
             nc.setdefault("oferta_um", "")
             nc.setdefault("oferta_cantitate", "")
+
+    if llm_client and llm_model:
+        from shared.semantic_comparator import semantic_nr_match, semantic_spec_check
+        ctx = _deviz_context(ref_arts, oferta_arts)
+        ncs = semantic_nr_match(ncs, ctx, llm_client, llm_model)
+        spec_ncs = semantic_spec_check(matches, ref_arts, oferta_arts, ctx, llm_client, llm_model)
+        ncs.extend(spec_ncs)
 
     return ncs, matches
 
