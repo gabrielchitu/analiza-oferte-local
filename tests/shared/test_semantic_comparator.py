@@ -133,3 +133,116 @@ def test_pass1_preserves_other_nc_types():
     assert "DIFERENTA_CAMP" in tips
     assert "UM_DIFERIT" in tips
     assert "COD_NORMATIV_DIFERIT" in tips
+
+
+from shared.semantic_comparator import semantic_spec_check
+
+
+def _match(ref_cod, ref_den, oferta_cod=None, oferta_den=None):
+    return {
+        "ref_cod": ref_cod,
+        "ref_denumire": ref_den,
+        "oferta_cod": oferta_cod or ref_cod,
+        "oferta_denumire": oferta_den or ref_den,
+    }
+
+
+def _ref_art(cod, den, um="buc", cant=1.0, is_component=False, nr=1, deviz="D1", deviz_den="ctx"):
+    return {
+        "cod": cod,
+        "denumire": den,
+        "um": um,
+        "cantitate": cant,
+        "is_component": is_component,
+        "nr_ordine": nr,
+        "deviz": deviz,
+        "deviz_denumire": deviz_den,
+    }
+
+
+def _oferta_art(cod, den, um="buc", cant=1.0, nr=1):
+    return {"cod": cod, "denumire": den, "um": um, "cantitate": cant, "nr_ordine": nr}
+
+
+LLM_SPEC_SIG = {"diferenta_semnificativa": True, "nota_specialist": "Înălțime diferită: 8m vs 5m"}
+LLM_SPEC_NOT = {"diferenta_semnificativa": False, "nota_specialist": ""}
+
+
+def test_pass2_significant_diff_produces_specificatie_diferita():
+    matches = [_match("W2A16A", "stalp pentru iluminat 8m", oferta_den="stalp pentru iluminat 5m")]
+    ref_arts = [_ref_art("W2A16A", "stalp pentru iluminat 8m")]
+    oferta_arts = [_oferta_art("W2A16A", "stalp pentru iluminat 5m")]
+    mock_client = MagicMock()
+    with patch("shared.semantic_comparator._llm_json", return_value=LLM_SPEC_SIG):
+        result = semantic_spec_check(matches, ref_arts, oferta_arts, "ctx", mock_client, "model")
+    assert len(result) == 1
+    assert result[0]["tip"] == "SPECIFICATIE_DIFERITA"
+    assert result[0]["ref_cod"] == "W2A16A"
+    assert result[0]["nota_specialist"] == LLM_SPEC_SIG["nota_specialist"]
+
+
+def test_pass2_no_significant_diff_returns_empty():
+    matches = [_match("W2A16A", "stalp pentru iluminat 8m", oferta_den="stalp pentru iluminat 5m")]
+    ref_arts = [_ref_art("W2A16A", "stalp pentru iluminat 8m")]
+    oferta_arts = [_oferta_art("W2A16A", "stalp pentru iluminat 5m")]
+    mock_client = MagicMock()
+    with patch("shared.semantic_comparator._llm_json", return_value=LLM_SPEC_NOT):
+        result = semantic_spec_check(matches, ref_arts, oferta_arts, "ctx", mock_client, "model")
+    assert result == []
+
+
+def test_pass2_prefilter_identical_denominations_no_llm_call():
+    matches = [_match("W2A16A", "stalp pentru iluminat 8m")]  # same ref+oferta_den
+    ref_arts = [_ref_art("W2A16A", "stalp pentru iluminat 8m")]
+    oferta_arts = [_oferta_art("W2A16A", "stalp pentru iluminat 8m")]
+    mock_client = MagicMock()
+    with patch("shared.semantic_comparator._llm_json") as mock_llm:
+        result = semantic_spec_check(matches, ref_arts, oferta_arts, "ctx", mock_client, "model")
+    mock_llm.assert_not_called()
+    assert result == []
+
+
+def test_pass2_prefilter_high_jaccard_same_numerics_no_llm_call():
+    # "stalp pentru iluminat public 8m" vs "stalp pt iluminat public 8m" — high jaccard, same "8"
+    matches = [_match("W2A16A", "stalp pentru iluminat public 8m",
+                      oferta_den="stalp pt iluminat public 8m")]
+    ref_arts = [_ref_art("W2A16A", "stalp pentru iluminat public 8m")]
+    oferta_arts = [_oferta_art("W2A16A", "stalp pt iluminat public 8m")]
+    mock_client = MagicMock()
+    with patch("shared.semantic_comparator._llm_json") as mock_llm:
+        result = semantic_spec_check(matches, ref_arts, oferta_arts, "ctx", mock_client, "model")
+    mock_llm.assert_not_called()
+    assert result == []
+
+
+def test_pass2_component_articles_excluded():
+    matches = [_match("$12345", "subcomponent DVR")]
+    ref_arts = [_ref_art("$12345", "subcomponent DVR", is_component=True)]
+    oferta_arts = [_oferta_art("$12345", "subcomponent DVR diferit")]
+    mock_client = MagicMock()
+    with patch("shared.semantic_comparator._llm_json") as mock_llm:
+        result = semantic_spec_check(matches, ref_arts, oferta_arts, "ctx", mock_client, "model")
+    mock_llm.assert_not_called()
+    assert result == []
+
+
+def test_pass2_cod_similar_pairs_excluded():
+    # ref_cod != oferta_cod → not in scope for Pass 2
+    matches = [_match("SA131", "Sapatura", oferta_cod="SA13I", oferta_den="Sapatura")]
+    ref_arts = [_ref_art("SA131", "Sapatura")]
+    oferta_arts = [_oferta_art("SA13I", "Sapatura")]
+    mock_client = MagicMock()
+    with patch("shared.semantic_comparator._llm_json") as mock_llm:
+        result = semantic_spec_check(matches, ref_arts, oferta_arts, "ctx", mock_client, "model")
+    mock_llm.assert_not_called()
+    assert result == []
+
+
+def test_pass2_llm_parse_failure_skips_pair():
+    matches = [_match("W2A16A", "stalp 8m", oferta_den="stalp 5m")]
+    ref_arts = [_ref_art("W2A16A", "stalp 8m")]
+    oferta_arts = [_oferta_art("W2A16A", "stalp 5m")]
+    mock_client = MagicMock()
+    with patch("shared.semantic_comparator._llm_json", return_value={}):
+        result = semantic_spec_check(matches, ref_arts, oferta_arts, "ctx", mock_client, "model")
+    assert result == []
