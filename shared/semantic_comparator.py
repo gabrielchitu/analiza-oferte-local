@@ -64,31 +64,24 @@ def _llm_json(llm_client, llm_model: str, system: str, user: str) -> dict:
 
 def semantic_nr_match(ncs: list, deviz_context: str, llm_client, llm_model: str) -> list:
     """Replace LIPSA+EXTRA pairs at same nr_ordine with COD_NORMATIV_DIFERIT where LLM confirms."""
-    main_lipsa = [
-        nc for nc in ncs
-        if nc.get("tip") == "ARTICOL_LIPSA"
-        and not nc.get("is_component")
-        and nc.get("nr_ordine_ref") is not None
-    ]
-    main_extra = [
-        nc for nc in ncs
-        if nc.get("tip") == "ARTICOL_EXTRA"
-        and not nc.get("is_component")
-        and nc.get("nr_ordine_oferta") is not None
-    ]
-    lipsa_by_nr = {nc["nr_ordine_ref"]: nc for nc in main_lipsa}
-    extra_by_nr = {nc["nr_ordine_oferta"]: nc for nc in main_extra}
-    shared_nrs = set(lipsa_by_nr) & set(extra_by_nr)
+    lipsa_by_nr: dict[int, tuple[int, dict]] = {}
+    extra_by_nr: dict[int, tuple[int, dict]] = {}
+    for i, nc in enumerate(ncs):
+        if nc.get("tip") == "ARTICOL_LIPSA" and not nc.get("is_component") and nc.get("nr_ordine_ref") is not None:
+            lipsa_by_nr[nc["nr_ordine_ref"]] = (i, nc)
+        elif nc.get("tip") == "ARTICOL_EXTRA" and not nc.get("is_component") and nc.get("nr_ordine_oferta") is not None:
+            extra_by_nr[nc["nr_ordine_oferta"]] = (i, nc)
 
+    shared_nrs = set(lipsa_by_nr) & set(extra_by_nr)
     if not shared_nrs:
         return ncs
 
-    to_remove: set[int] = set()
+    to_remove: set[int] = set()  # indices into ncs
     new_ncs: list[dict] = []
 
     for nr in sorted(shared_nrs):
-        lipsa_nc = lipsa_by_nr[nr]
-        extra_nc = extra_by_nr[nr]
+        lipsa_idx, lipsa_nc = lipsa_by_nr[nr]
+        extra_idx, extra_nc = extra_by_nr[nr]
         user = (
             f"Context deviz: {deviz_context}\n\n"
             f"REFERINȚĂ: NR={nr} | Cod={lipsa_nc.get('ref_cod','')} | "
@@ -111,8 +104,8 @@ def semantic_nr_match(ncs: list, deviz_context: str, llm_client, llm_model: str)
             continue
         if not result["match"]:
             continue
-        to_remove.add(id(lipsa_nc))
-        to_remove.add(id(extra_nc))
+        to_remove.add(lipsa_idx)
+        to_remove.add(extra_idx)
         new_ncs.append({
             "tip": "COD_NORMATIV_DIFERIT",
             "deviz_ref": lipsa_nc.get("deviz_ref", ""),
@@ -135,7 +128,7 @@ def semantic_nr_match(ncs: list, deviz_context: str, llm_client, llm_model: str)
 
     if not to_remove:
         return ncs
-    return [nc for nc in ncs if id(nc) not in to_remove] + new_ncs
+    return [nc for i, nc in enumerate(ncs) if i not in to_remove] + new_ncs
 
 
 def semantic_spec_check(
