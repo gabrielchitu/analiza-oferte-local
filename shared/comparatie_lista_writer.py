@@ -15,9 +15,11 @@ from docx.shared import Cm, Pt, RGBColor
 from docx.table import Table
 
 # ── Colors ────────────────────────────────────────────────────────────────────
-FILL_EXTRA = "FFE0CC"   # pale orange  — articol extra în ofertă
-FILL_LIPSA = "CCE5FF"   # pale blue    — articol lipsă în ofertă
-FILL_NC    = "FFFACD"   # pale yellow  — neconformitate (pereche matched)
+FILL_EXTRA    = "FFE0CC"   # pale orange  — articol extra în ofertă
+FILL_LIPSA    = "CCE5FF"   # pale blue    — articol lipsă în ofertă
+FILL_NC       = "FFFACD"   # pale yellow  — neconformitate (pereche matched)
+FILL_COD_NORM = "FFD966"   # orange-yellow — COD_NORMATIV_DIFERIT
+FILL_SPEC_DIFF= "FFC000"   # amber        — SPECIFICATIE_DIFERITA
 FILL_HDR   = "D9D9D9"
 FILL_TOTAL = "F2F2F2"
 TEXT_RED   = RGBColor(0xCC, 0x00, 0x00)
@@ -107,6 +109,21 @@ def _nc_text(nc: dict) -> str:
         ref_c = nc.get("ref_cantitate", "")
         of_c  = nc.get("oferta_cantitate", "")
         return f"Cant: REF={ref_c} → OF={of_c}"
+    if tip == "COD_NORMATIV_DIFERIT":
+        diffs = "; ".join(
+            f"{d.get('camp','')}: {d.get('ref','')}→{d.get('oferta','')}"
+            if "ref" in d else d.get("detaliu", "")
+            for d in nc.get("diferente", [])
+        )
+        motiv = nc.get("motiv_llm", "")
+        parts = [p for p in [diffs, motiv] if p]
+        ref_cod = nc.get("ref_cod", "")
+        off_cod = nc.get("oferta_cod", "")
+        prefix = f"COD DIFERIT ({ref_cod}↔{off_cod})"
+        return f"{prefix}: {' | '.join(parts)}" if parts else prefix
+    if tip == "SPECIFICATIE_DIFERITA":
+        nota = nc.get("nota_specialist", "")
+        return f"SPEC DIFERITA: {nota}" if nota else "SPEC DIFERITA: specificație tehnic diferită"
     return tip
 
 
@@ -284,7 +301,13 @@ def _build_matched_rows(group: dict) -> List[RowTuple]:
             if suggestion:
                 nc_texts.append(suggestion)
         elif pair_ncs:
-            fill = FILL_NC
+            tips = {nc.get("tip") for nc in pair_ncs}
+            if "COD_NORMATIV_DIFERIT" in tips:
+                fill = FILL_COD_NORM
+            elif "SPECIFICATIE_DIFERITA" in tips:
+                fill = FILL_SPEC_DIFF
+            else:
+                fill = FILL_NC
         else:
             fill = None
 
