@@ -16,6 +16,8 @@ ORANGE_FILL = "FFB347"
 GRAY_FILL = "D9D9D9"
 SUBCOMP_GRAY_FILL = "E8E8E8"  # Light gray for subcomponents
 LILA_FILL = "C8A0DC"  # Lila pentru DESCRIERE_DIFERITA
+SEMANTIC_MATCH_FILL = "FFD966"  # orange-yellow — COD_NORMATIV_DIFERIT
+SPEC_DIFF_FILL = "FFC000"       # amber — SPECIFICATIE_DIFERITA
 
 # Tipuri de neconformitate suprimate per mod subcomponente
 SUPPRESSED_BY_MODE: dict[str, frozenset] = {
@@ -128,6 +130,18 @@ def _observatie_text(neconf: dict) -> str:
         oferta_val = neconf.get("oferta", "")
         return (f"Descriere diferită (similaritate {sim}): "
                 f"referință '{ref_val}', ofertat '{oferta_val}'")
+    if tip == "COD_NORMATIV_DIFERIT":
+        diffs = "; ".join(
+            f"{d.get('camp','')}: {d.get('ref','')}→{d.get('oferta','')}"
+            if "ref" in d else d.get("detaliu", "")
+            for d in neconf.get("diferente", [])
+        )
+        motiv = neconf.get("motiv_llm", "")
+        parts = [p for p in [diffs, motiv] if p]
+        return " | ".join(parts) if parts else "Cod normativ diferit"
+    if tip == "SPECIFICATIE_DIFERITA":
+        nota = neconf.get("nota_specialist", "")
+        return nota if nota else "Specificație diferită"
     return tip
 
 
@@ -447,74 +461,96 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
     deviz_display = " | ".join(parts[-2:]) if len(parts) >= 2 else deviz_den_full
     row[1].paragraphs[0].add_run(deviz_display).bold = True
 
-    # Col 2: cod REF ierarhic — principal sus+stânga, secundar jos+dreapta indentat
-    badge = _get_subcomponent_badge() if is_subcomp else ''
-    if is_subcomp or display_parent:
-        # Subarticol: principal sus (stânga), secundar jos (dreapta indentat)
-        p2 = row[2].paragraphs[0]
-        if effective_parent:
-            par_run = p2.add_run(effective_parent)
-            par_run.bold = True
-            par_run.font.size = Pt(9)
-            par_run.underline = True
-            p_sub = row[2].add_paragraph()
-        else:
-            p_sub = p2
-        sub_label = f"{badge} {ref_cod}".strip() if badge else ref_cod
-        sub_run = p_sub.add_run(sub_label)
-        sub_run.font.size = Pt(8)
-        p_sub.paragraph_format.left_indent = Pt(14)
+    # Special rendering for semantic NC types that use cols 2-3 differently
+    if tip == "COD_NORMATIV_DIFERIT":
+        ref_text = f"REF: {neconf.get('ref_cod', '')} — {neconf.get('ref_denumire', '')}"
+        off_text = f"OFF: {neconf.get('oferta_cod', '')} — {neconf.get('oferta_denumire', '')}"
+        row[2].paragraphs[0].add_run(ref_text).bold = True
+        row[3].paragraphs[0].add_run(off_text)
+        ref_um_run = row[4].paragraphs[0].add_run(str(neconf.get("ref_um", "")))
+        ref_cant_run = row[5].paragraphs[0].add_run(str(neconf.get("ref_cantitate", "")))
+        row[8].paragraphs[0].add_run(str(neconf.get("oferta_um", "")))
+        row[9].paragraphs[0].add_run(str(neconf.get("oferta_cantitate", "")))
+        oferta_um_run = oferta_cant_run = None
+    elif tip == "SPECIFICATIE_DIFERITA":
+        ref_text = f"REF: {neconf.get('ref_denumire', '')}"
+        off_text = f"OFF: {neconf.get('oferta_denumire', '')}"
+        row[2].paragraphs[0].add_run(ref_text).bold = True
+        row[3].paragraphs[0].add_run(off_text)
+        ref_um_run = row[4].paragraphs[0].add_run(str(neconf.get("ref_um", "")))
+        ref_cant_run = row[5].paragraphs[0].add_run(str(neconf.get("ref_cantitate", "")))
+        row[8].paragraphs[0].add_run(str(neconf.get("oferta_um", "")))
+        row[9].paragraphs[0].add_run(str(neconf.get("oferta_cantitate", "")))
+        oferta_um_run = oferta_cant_run = None
     else:
-        cod_run = row[2].paragraphs[0].add_run(ref_cod)
-        cod_run.bold = True
-        cod_run.font.size = Pt(9)
-
-    denom = str(neconf.get("ref_denumire", ""))
-    if len(denom) > 50:
-        denom = denom[:47] + "..."
-    row[3].paragraphs[0].add_run(denom)
-
-    # Add indentation to denomination for subcomponents
-    if is_subcomp:
-        paragraph = row[3].paragraphs[0]
-        paragraph.paragraph_format.left_indent = Pt(18)  # 18 points indent
-
-    ref_um_run   = row[4].paragraphs[0].add_run(str(neconf.get("ref_um", "")))
-    ref_cant_run = row[5].paragraphs[0].add_run(str(neconf.get("ref_cantitate", "")))
-
-    oferta_um_run = oferta_cant_run = None
-    if tip != "ARTICOL_LIPSA":
-        oferta_cod = str(neconf.get("oferta_cod", ""))
-        # principal oferta: din ref (pt articole matched/neconf) sau din oferta (pt EXTRA)
-        # oferta_display_parent_cod pt subcomponente reale SI coduri $ cu parinte
-        is_oferta_dollar_with_parent = oferta_cod.startswith('$') and neconf.get("oferta_display_parent_cod")
-        oferta_parent = effective_parent or (neconf.get("oferta_display_parent_cod") if (is_subcomp or is_oferta_dollar_with_parent) else None)
-        # Col 6: oferta cod ierarhic — principal sus+stânga (bold), secundar jos+dreapta indentat
-        if oferta_parent and oferta_cod and oferta_cod != oferta_parent:
-            p6 = row[6].paragraphs[0]
-            par6_run = p6.add_run(oferta_parent)
-            par6_run.bold = True
-            par6_run.font.size = Pt(9)
-            par6_run.underline = True
-            p6_sub = row[6].add_paragraph()
-            sub6_run = p6_sub.add_run(oferta_cod)
-            sub6_run.font.size = Pt(8)
-            p6_sub.paragraph_format.left_indent = Pt(14)
+        # Col 2: cod REF ierarhic — principal sus+stânga, secundar jos+dreapta indentat
+        badge = _get_subcomponent_badge() if is_subcomp else ''
+        if is_subcomp or display_parent:
+            # Subarticol: principal sus (stânga), secundar jos (dreapta indentat)
+            p2 = row[2].paragraphs[0]
+            if effective_parent:
+                par_run = p2.add_run(effective_parent)
+                par_run.bold = True
+                par_run.font.size = Pt(9)
+                par_run.underline = True
+                p_sub = row[2].add_paragraph()
+            else:
+                p_sub = p2
+            sub_label = f"{badge} {ref_cod}".strip() if badge else ref_cod
+            sub_run = p_sub.add_run(sub_label)
+            sub_run.font.size = Pt(8)
+            p_sub.paragraph_format.left_indent = Pt(14)
         else:
-            oferta_cod_run = row[6].paragraphs[0].add_run(oferta_cod)
-            oferta_cod_run.bold = True
-            oferta_cod_run.font.size = Pt(9)
-        oferta_denom = str(neconf.get("oferta_denumire", ""))
-        if len(oferta_denom) > 50:
-            oferta_denom = oferta_denom[:47] + "..."
-        row[7].paragraphs[0].add_run(oferta_denom)
+            cod_run = row[2].paragraphs[0].add_run(ref_cod)
+            cod_run.bold = True
+            cod_run.font.size = Pt(9)
 
-        # Add indentation to offer denomination for subcomponents
+        denom = str(neconf.get("ref_denumire", ""))
+        if len(denom) > 50:
+            denom = denom[:47] + "..."
+        row[3].paragraphs[0].add_run(denom)
+
+        # Add indentation to denomination for subcomponents
         if is_subcomp:
-            paragraph = row[7].paragraphs[0]
+            paragraph = row[3].paragraphs[0]
             paragraph.paragraph_format.left_indent = Pt(18)  # 18 points indent
-        oferta_um_run   = row[8].paragraphs[0].add_run(str(neconf.get("oferta_um", "")))
-        oferta_cant_run = row[9].paragraphs[0].add_run(str(neconf.get("oferta_cantitate", "")))
+
+        ref_um_run   = row[4].paragraphs[0].add_run(str(neconf.get("ref_um", "")))
+        ref_cant_run = row[5].paragraphs[0].add_run(str(neconf.get("ref_cantitate", "")))
+
+        oferta_um_run = oferta_cant_run = None
+        if tip != "ARTICOL_LIPSA":
+            oferta_cod = str(neconf.get("oferta_cod", ""))
+            # principal oferta: din ref (pt articole matched/neconf) sau din oferta (pt EXTRA)
+            # oferta_display_parent_cod pt subcomponente reale SI coduri $ cu parinte
+            is_oferta_dollar_with_parent = oferta_cod.startswith('$') and neconf.get("oferta_display_parent_cod")
+            oferta_parent = effective_parent or (neconf.get("oferta_display_parent_cod") if (is_subcomp or is_oferta_dollar_with_parent) else None)
+            # Col 6: oferta cod ierarhic — principal sus+stânga (bold), secundar jos+dreapta indentat
+            if oferta_parent and oferta_cod and oferta_cod != oferta_parent:
+                p6 = row[6].paragraphs[0]
+                par6_run = p6.add_run(oferta_parent)
+                par6_run.bold = True
+                par6_run.font.size = Pt(9)
+                par6_run.underline = True
+                p6_sub = row[6].add_paragraph()
+                sub6_run = p6_sub.add_run(oferta_cod)
+                sub6_run.font.size = Pt(8)
+                p6_sub.paragraph_format.left_indent = Pt(14)
+            else:
+                oferta_cod_run = row[6].paragraphs[0].add_run(oferta_cod)
+                oferta_cod_run.bold = True
+                oferta_cod_run.font.size = Pt(9)
+            oferta_denom = str(neconf.get("oferta_denumire", ""))
+            if len(oferta_denom) > 50:
+                oferta_denom = oferta_denom[:47] + "..."
+            row[7].paragraphs[0].add_run(oferta_denom)
+
+            # Add indentation to offer denomination for subcomponents
+            if is_subcomp:
+                paragraph = row[7].paragraphs[0]
+                paragraph.paragraph_format.left_indent = Pt(18)  # 18 points indent
+            oferta_um_run   = row[8].paragraphs[0].add_run(str(neconf.get("oferta_um", "")))
+            oferta_cant_run = row[9].paragraphs[0].add_run(str(neconf.get("oferta_cantitate", "")))
 
     obs_text = _observatie_text(neconf)
     if is_suspect:
@@ -544,6 +580,10 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
         for cell in row: _set_cell_shading(cell, "FFCC99")
     if tip == "DESCRIERE_DIFERITA":
         for cell in row: _set_cell_shading(cell, LILA_FILL)
+    if tip == "COD_NORMATIV_DIFERIT":
+        for cell in row: _set_cell_shading(cell, SEMANTIC_MATCH_FILL)
+    if tip == "SPECIFICATIE_DIFERITA":
+        for cell in row: _set_cell_shading(cell, SPEC_DIFF_FILL)
 
     if tip == "DIFERENTA_CAMP" and camp == "cantitate":
         ref_cant_run.font.color.rgb = RED
