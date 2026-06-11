@@ -472,6 +472,20 @@ def compare_by_groups(
 
     result = HolisticComparison()
 
+    # Auto-detect DT-style format: obiectul starts with 4-digit code (e.g. "0001 Strada Zoica").
+    # In that format, article-level LLM matching adds no value — articles match by code,
+    # semantic spec checks are meaningless for road works with numeric deviz codes.
+    import re as _re_gc
+    _use_article_llm = True
+    if ref_deviz_headers:
+        _sample_hdr = next(iter(ref_deviz_headers.values()))
+        _obj_sample = (getattr(_sample_hdr, "obiectul", None) or "").strip()
+        if _re_gc.match(r"^\d{4}", _obj_sample):
+            _use_article_llm = False
+            logger.info("[GC] Disabling article-level LLM — numeric object codes detected (DT-style format)")
+    _eff_llm_client = llm_client if _use_article_llm else None
+    _eff_llm_model = llm_model if _use_article_llm else ""
+
     # Collect ungrouped articles
     ungrouped_ref = [a for a in ref_articles if not (a.get("deviz") or "").strip()]
     ungrouped_oferta = [a for a in oferta_articles if not (a.get("deviz") or "").strip()]
@@ -568,7 +582,7 @@ def compare_by_groups(
         ref_arts = _dedup_articles(ref_by_deviz.get(ref_cod, []))
         of_arts = _dedup_articles(oferta_by_deviz.get(oferta_cod, []))
         ncs, matches = _compare_articles_in_group(
-            ref_arts, of_arts, ref_cod, llm_client, llm_model
+            ref_arts, of_arts, ref_cod, _eff_llm_client, _eff_llm_model
         )
         # Build deviz_denumire from header (3 elements, not hash)
         ref_hdr = ref_deviz_headers.get(ref_cod)
@@ -623,7 +637,7 @@ def compare_by_groups(
             r_arts = _dedup_articles(ref_by_deviz.get(ref_key, []))
             o_arts = _dedup_articles(oferta_by_deviz.get(oferta_key, []))
             ncs2, matches2 = _compare_articles_in_group(
-                r_arts, o_arts, ref_key, llm_client, llm_model
+                r_arts, o_arts, ref_key, _eff_llm_client, _eff_llm_model
             )
             r_hdr2 = ref_deviz_headers.get(ref_key)
             o_hdr2 = oferta_deviz_headers.get(oferta_key)
