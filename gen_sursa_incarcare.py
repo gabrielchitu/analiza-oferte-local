@@ -152,6 +152,10 @@ def _run_pipeline(client_name: str, json_path: Path, no_pdf: bool = False, force
     sym = "OK" if status == "OK" else ("WARN" if status == "WARN" else "RED")
     print(f" {sym} {status} (iteratii: {iters})")
 
+    if not extracted:
+        print("  AVERTISMENT: Nu s-au extras devize. Fisierul nu contine pagini F3 valide.")
+        return
+
     # Generate output files
     obiectivul = extracted[0].get("obiectivul", "") if extracted else ""
     acronym = make_acronym(obiectivul) if obiectivul else "PRJ"
