@@ -89,6 +89,8 @@ def match_unmatched_global(
     """
     if not unmatched_ref or not unmatched_oferta:
         return []
+    if openai_client is None:
+        return []
 
     def fmt(arts):
         return "\n".join(

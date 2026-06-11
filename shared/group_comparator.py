@@ -139,7 +139,6 @@ def _match_by_rapidfuzz(
         if not ref_text:
             continue
         ref_obj_nr = _extract_obj_nr(rh)
-        ref_cat_nr = _extract_cat_nr(rh)
         best_score, best_ok, best_oh = 0, "", None
         for ok, oh in sorted(remaining_oferta.items()):
             if ok in used_oferta:
@@ -150,10 +149,6 @@ def _match_by_rapidfuzz(
             # Skip cross-object matches when both sides have 4-digit object codes
             off_obj_nr = _extract_obj_nr(oh)
             if ref_obj_nr and off_obj_nr and ref_obj_nr != off_obj_nr:
-                continue
-            # Skip cross-category matches when both sides have 4-digit category codes
-            off_cat_nr = _extract_cat_nr(oh)
-            if ref_cat_nr and off_cat_nr and ref_cat_nr != off_cat_nr:
                 continue
             score = _rfuzz.partial_token_set_ratio(ref_text, off_text)
             if score > best_score:
