@@ -1,8 +1,8 @@
 # Extraction Pipeline Comparison: v1 (LLM-Powered) vs v2 (Table-Native)
 
-**Date:** 2026-05-31  
-**Status:** Both pipelines operational and tested  
-**Recommendation:** Parallel operation for 2-4 week evaluation period before migration decision
+**Date:** 2026-05-31 (ultima actualizare: 2026-06-11 v3)
+**Status:** V1 = producție (tag v3). V2 = disponibil dar neutilizat în producție.
+**Recommendation:** V1 rămâne calea principală. V2 disponibil pentru evaluare continuă.
 
 ---
 

@@ -1,5 +1,5 @@
 # Architecture Schema — Diagrama Completă Flux
-**Actualizat:** 2026-05-28 | **Versiune:** v12.2 (CM parser fixes, 5 clienți verified)
+**Actualizat:** 2026-06-11 | **Versiune:** v3 (CAV Maneciu verified 5 oferte, semantic comparator, comparatie lista layout fixes)
 
 ---
 
@@ -68,8 +68,10 @@
 ║      ┌─ _preprocess_scattered_format(lines)                              ║
 ║      │    Detecteaza: counter(digit) + cod + desc + UM + QTY separate   ║
 ║      │    Combina in format NR_COD_DESC pentru state machine             ║
-║      │    ⚠ is_f3_um TREBUIE single-token (fix 2026-05-22):             ║
-║      │      len(_f3_um_tokens)==1 — evita "Art. asimilat" false positive ║
+║      │    ⚠ is_f3_um TREBUIE single-token (fix 2026-05-22)              ║
+║      │    ⚠ last_scatter_counter (fix 2026-06-10): auto-increment cand  ║
+║      │      counter == last_used — evita ca pretul unitatii sa devina    ║
+║      │      nr_ordine al articolului urmator (BAZIN CAV Maneciu OS)      ║
 ║      │                                                                   ║
 ║      ├─ _preprocess_compound_um(lines)                                   ║
 ║      │    Combina "82" + "M" (linii separate) → "82 M"                  ║
@@ -210,16 +212,41 @@
 ║                                                                          ║
 ║  Tipuri neconformitate:                                                  ║
 ║                                                                          ║
-║  ARTICOL_LIPSA   — cod in referinta, absent din oferta (sau deviz gresit)║
-║  ARTICOL_EXTRA   — cod in oferta, absent din referinta                   ║
-║  DEVIZ_MISMATCH  — cod gasit in oferta dar in alt deviz decat referinta  ║
-║                    ⚠ NU e LIPSA reala — articolul exista, deviz gresit  ║
-║  UM_DIFERIT      — acelasi cod+deviz, UM diferit                         ║
-║  DIFERENTA_CAMP  — acelasi cod+deviz, cantitate/pret diferit             ║
+║  ARTICOL_LIPSA         — cod in referinta, absent din oferta             ║
+║  ARTICOL_EXTRA         — cod in oferta, absent din referinta             ║
+║  DEVIZ_MISMATCH        — cod gasit in oferta dar in alt deviz            ║
+║  UM_DIFERIT            — acelasi cod+deviz, UM diferit                   ║
+║  DIFERENTA_CAMP        — acelasi cod+deviz, cantitate/camp diferit       ║
+║  COD_SIMILAR           — cod similar OCR (I↔1, O↔0) — Layer 2.5        ║
+║  COD_NORMATIV_DIFERIT  — LIPSA+EXTRA la acelasi nr → alt cod normativ   ║
+║                          (ex: TSD08B01↔CG32B1) — generat de semantic    ║
+║  SPECIFICATIE_DIFERITA — spec numerica diferita in descriere             ║
+║                          (ex: 8m→5m, DN50→DN110) — generat de semantic  ║
 ║                                                                          ║
 ║  compare_articles(ref, oferta): field-level comparison                   ║
 ║   → UM_DIFERIT daca _normalize_um(ref.um) != _normalize_um(oferta.um)  ║
 ║   → DIFERENTA_CAMP pe cantitate, preturi (cu toleranta 0.5%)            ║
+╚══════════════════════════════════════════════════════════════════════════╝
+                             │
+                             ▼
+╔══════════════════════════════════════════════════════════════════════════╗
+║  ETAPA 5b — SEMANTIC COMPARATOR (post-holistic)                          ║
+║  shared/semantic_comparator.py                                           ║
+╠══════════════════════════════════════════════════════════════════════════╣
+║                                                                          ║
+║  Pass 1 — semantic_nr_match(ncs, deviz_context, llm):                   ║
+║   Gaseste perechi LIPSA+EXTRA cu acelasi nr_ordine in acelasi grup       ║
+║   → reclasifica ca COD_NORMATIV_DIFERIT (ofertant a folosit alt cod)    ║
+║   Motiv LLM: descriere diferenta sau matching context                    ║
+║                                                                          ║
+║  Pass 2 — semantic_spec_check(matches, ref_arts, oferta_arts, llm):     ║
+║   Pe perechi matched cu acelasi cod dar descriere diferita               ║
+║   Filtru: cel putin o diferenta NUMERICA in descriere (dim, param)      ║
+║   → genereaza SPECIFICATIE_DIFERITA cu nota_specialist                  ║
+║                                                                          ║
+║  Culori raport comparatie:                                               ║
+║   COD_NORMATIV_DIFERIT  → FFD966 (galben portocaliu)                    ║
+║   SPECIFICATIE_DIFERITA → FFC000 (amber)                                ║
 ╚══════════════════════════════════════════════════════════════════════════╝
                              │
                              ▼
@@ -237,9 +264,35 @@
 ║   → display_parent_cod: afisat pt is_component=True + $-coduri          ║
 ║                                                                          ║
 ║  Output per oferta:                                                      ║
-║   output_AO/<ClientName>/Raport_Oferta_N.docx                           ║
+║   output_AO/<ClientName>/Raport_Oferta_N.docx      (NC-only)            ║
 ║   output_AO/<ClientName>/holistic_oferta_N.json                         ║
-║   output_AO/<ClientName>/comparatie_oferta_N.json  (legacy)             ║
+╚══════════════════════════════════════════════════════════════════════════╝
+                             │
+                             ▼
+╔══════════════════════════════════════════════════════════════════════════╗
+║  ETAPA 6b — COMPARATIE LISTA DOCX (optional, gen_comparatie_lista.py)   ║
+║  shared/comparatie_lista_writer.py                                       ║
+╠══════════════════════════════════════════════════════════════════════════╣
+║                                                                          ║
+║  build_comparatie_docx(holistic, client, oferta_nr, output_path):       ║
+║   → Landscape A4, 11 coloane (5 ref | 5 oferta | 1 NC)                 ║
+║   → TOATE articolele (nu doar NC) — verde=OK, colorat=NC                ║
+║   → tblGrid cu latimi exacte in twips (stabil in orice viewer)          ║
+║   → Margini celule: top/bottom 0.5mm, stanga/dreapta 1mm               ║
+║   → keep_with_next pe header grup                                        ║
+║   → Repeat header rows pe fiecare pagina                                ║
+║   → Fuzzy suggest: pt LIPSA/EXTRA arata potential match din cealalta    ║
+║     parte ("POSIBIL ACELASI MATERIAL (N%): COD — den")                  ║
+║                                                                          ║
+║  Culori:                                                                 ║
+║   ARTICOL_EXTRA        → FFE0CC (portocaliu pal)                        ║
+║   ARTICOL_LIPSA        → CCE5FF (albastru pal)                          ║
+║   NC generic           → FFFACD (galben pal)                            ║
+║   COD_NORMATIV_DIFERIT → FFD966 (galben portocaliu)                     ║
+║   SPECIFICATIE_DIFERITA→ FFC000 (amber)                                 ║
+║                                                                          ║
+║  Output:                                                                 ║
+║   output_AO/<ClientName>/Comparatie_Lista_Oferta_N.docx                 ║
 ╚══════════════════════════════════════════════════════════════════════════╝
                              │
                              ▼
@@ -352,9 +405,13 @@ multi_client_run.py
     ├── AgentComparator_local.py
     │   ├── shared/article_matcher.py (Layer 2/2.1/2.5)
     │   └── shared/comparator.py (field-level diffs)
+    ├── shared/semantic_comparator.py          ← Pass1 COD_NORMATIV_DIFERIT + Pass2 SPEC_DIFERITA
     └── shared/report_word.py
         ├── _generate_word_holistic()          ← CALEA PRINCIPALA
         └── _generate_word_hierarchical()      ← legacy
+
+gen_comparatie_lista.py
+    └── shared/comparatie_lista_writer.py      ← landscape A4, toate articolele, layout fix v3
 
 run_diagnostics.py
     ├── shared/client_config.py
@@ -364,7 +421,7 @@ run_diagnostics.py
 
 ---
 
-## Metrici Baseline Holistic — Curent (2026-05-28)
+## Metrici Baseline Holistic — Curent (2026-06-11)
 
 | Client | O | matched_groups | ref-only | oferta-only | Note |
 |--------|---|----------------|----------|-------------|------|
@@ -372,11 +429,18 @@ run_diagnostics.py
 | Blocuri Racari | 2 | 35 | 0 | 0 | ✅ perfect |
 | Blocuri Racari | 3 | 35 | 0 | 3 | neinvestigat |
 | Blocuri Racari | 4 | 32 | 3 | 12 | structura diferita |
-| **Scoala Dragomiresti** | **1** | **22** | **0** | **0** | ✅ perfect |
-| **Scoala Dragomiresti** | **2** | **22** | **0** | **0** | ✅ perfect |
+| Scoala Dragomiresti | 1 | 22 | 0 | 0 | ✅ perfect |
+| Scoala Dragomiresti | 2 | 22 | 0 | 0 | ✅ perfect |
 | Scoala Sportiva Racari | 1-3 | 0 | — | — | ❌ header format incompatibil |
-| **Camin Maneciu** | **1** | **35** | **0** | **0** | ✅ 0 CRITICAL/HIGH, 18 MEDIUM genuine |
-| **Camin Maneciu** | **2** | **35** | **0** | **0** | ✅ 0 CRITICAL/HIGH, 18 MEDIUM genuine |
+| Camin Maneciu | 1 | 35 | 0 | 0 | ✅ 0 CRITICAL/HIGH, 18 MEDIUM genuine |
+| Camin Maneciu | 2 | 35 | 0 | 0 | ✅ 0 CRITICAL/HIGH, 18 MEDIUM genuine |
+| **CAV Maneciu** | **1** | **11** | **0** | **0** | ✅ **16/16 NC comisie (SOLICI~4)** |
+| **CAV Maneciu** | **2** | **10** | **1** | **0** | 1 ref_only neinvestigat |
+| **CAV Maneciu** | **3** | **11** | **0** | **1** | off_only=EG02A01 Montaj echip. EXTRA |
+| **CAV Maneciu** | **4** | **11** | **0** | **1** | off_only=EG02A01 Montaj echip. EXTRA |
+| **CAV Maneciu** | **5** | **11** | **0** | **0** | ✅ **3/3 NC comisie (SO092A~1)** |
+| Drum Tatarani | 1 | 189 | 0 | 0 | ✅ 0 CRITICAL/HIGH |
+| Drum Tatarani | 2 | 189 | 0 | 0 | ✅ 0 CRITICAL/HIGH |
 
 ---
 
@@ -387,4 +451,4 @@ run_diagnostics.py
 | 1 | SSR 0 holistic grupuri — ref 2 grupuri/obiect vs oferta 8+ sub-devize; matching bijective nu suporta 1→many | deviz_header_extractor.py, group_comparator.py | **HIGH** |
 | 2 | BR O3: 3 oferta-only neinvestigate | group_comparator.py | Low |
 | 3 | BR O4: 3 ref-only, 12 oferta-only — structura diferita | — | Low |
-| 4 | IZDO3D1 OCR O/0 — Layer 1 consuma cheia gresita | AgentComparator | Low/acceptat |
+| 4 | CAV Maneciu O2: 1 ref_only — DUPLEX grup absent sau alt header | group_comparator.py | Low |

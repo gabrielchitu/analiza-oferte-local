@@ -1,7 +1,7 @@
 # Session Handoff — Analizator Oferte Constructii
 
 > Citeste acest fisier la inceputul unei sesiuni noi. Contine starea actuala a proiectului.
-> **Ultima actualizare:** 2026-05-28 | **Versiune:** v12.3
+> **Ultima actualizare:** 2026-06-11 | **Versiune:** v3
 
 ---
 
@@ -11,27 +11,39 @@ Pipeline Python care analizeaza oferte de constructii romanesti:
 1. Azure Document Intelligence JSON (di_referinta.json + di_oferta_N.json) per client
 2. Extrage articolele din F3 (Lista cu cantitati de lucrari) folosind regex state machine
 3. Compara oferta cu referinta pe baza de GRUPURI (OBIECTIVUL + Obiectul + Categoria)
-4. Genereaza rapoarte DOCX cu neconformitati per grup
+4. Semantic comparator: detecteaza COD_NORMATIV_DIFERIT si SPECIFICATIE_DIFERITA
+5. Genereaza Raport_Oferta_N.docx (NC-only) si Comparatie_Lista_Oferta_N.docx (toate articolele, landscape)
 
-**Repo:** `main` branch | **Entry point:** `python3 multi_client_run.py --client "NumeClient"`
+**Repo:** `main` branch, tag `v3` | **Entry point:** `python3 multi_client_run.py --client "NumeClient"`
 
 ---
 
-## Stare Clienti (v12.2)
+## Stare Clienti (v3)
 
 | Client | Status | Oferte | Observatii |
 |--------|--------|--------|------------|
 | Blocuri Racari | ✅ OK | 1-4 | 35 grupuri matched, 0 violari invariant |
-| BR BLOC A | ✅ OK | 1-4 | 0 violari invariant |
-| BR BLOC A2 | ✅ OK | 1-4 | 0 violari invariant |
-| BR BLOC A3 | ✅ OK | 1-4 | 0 violari invariant |
-| BR BLOC A4 | ✅ OK | 1-4 | 0 violari invariant |
-| BR BLOC B  | ✅ OK | 1-4 | 0 violari invariant |
-| BR BLOC C  | ✅ OK | 1-4 | 0 violari invariant |
+| BR BLOC A/A2/A3/A4/B/C | ✅ OK | 1-4 | 0 violari invariant per bloc |
 | Scoala Dragomiresti | ✅ OK | 1-2 | 22 grupuri matched, 0 violari |
 | Scoala Sportiva Racari | ⚠️ PARTIAL | — | Structural mismatch — vezi Known Issues |
-| Camin Maneciu | ✅ OK | 1-2 | 0 CRITICAL/HIGH, **18 MEDIUM genuine** (diferente reale catalog), 35 grupuri matched |
-| Drum Tatarani | ✅ OK | 1-2 | 189/189 grupuri matched O1+O2, 0 CRITICAL/HIGH, MEDIUM neinvestigate |
+| Camin Maneciu | ✅ OK | 1-2 | 35 grupuri matched, 0 violari, 18 MEDIUM genuine |
+| Drum Tatarani | ✅ OK | 1-2 | 189/189 grupuri matched O1+O2, 0 CRITICAL/HIGH |
+| **CAV Maneciu** | ✅ **VERIFICAT** | **1-5** | 11/11 O1/O3-O5, 10/11 O2; 0 violari; **21/21 NC comisie acoperite** |
+
+---
+
+## Baseline Verificare CAV Maneciu (v3) — Ground Truth ✅
+
+Documente comisie in `input_AO/CAV Maneciu/`:
+
+| Doc | Ofertant | Oferta | NC F3 | Acoperire |
+|-----|----------|--------|--------|-----------|
+| `SOLICI~4.DOC` | DARTIM OVY CONSTRUCT / TOP DESIGN | O1 | 16 | **16/16** ✅ |
+| `SOLICI~2.DOC` | DUPLEX DISTRIBUTION / IMPA&I | O3 | 1 | **1/1** ✅ |
+| `SOLICI~3.DOC` | TROIA PREMIUM CONSTRUCT | O4 | 1 | **1/1** ✅ |
+| `SO092A~1.DOC` | ZEB CITY / ROBSAN ALEXINSTAL | O5 | 3 | **3/3** ✅ |
+
+**Total: 21/21 NC din documentele comisiei acoperite de pipeline.**
 
 ---
 
@@ -39,82 +51,70 @@ Pipeline Python care analizeaza oferte de constructii romanesti:
 
 **"0-NC matched group → ref_main_count == off_main_count"**
 
-Ecuatia echivalenta: `ref_main - LIPSA = off_main - EXTRA`
-
+Ecuatia: `ref_main - LIPSA = off_main - EXTRA`
 - `ref_main` / `off_main` = articole cu `is_component=False AND cantitate > 0`
-- Violare SILENTIOASA (fara NC) = BUG in pipeline
-- Violare cu NC = ASTEPTAT (ex. `DIFERENTA_CAMP(tip_articol)`)
+- Violare SILENTIOASA = BUG. Violare cu NC = asteptat.
 
-**Verificat: 0 violari silentioase pe 7 clienti × 4 oferte = 28 rulari (v12.0)**
-
----
-
-## Fix-uri Majore v12.2 — Parser CM (commits bf5aa46, 36e7447, b9391a4)
-
-5 fix-uri de extractie in `shared/f3_regex_parser.py` pentru Camin Maneciu:
-
-1. **SKIP_RE digit range** `^\d{4,8}$` → `^(?:\d{4,6}|\d{8,})$` — coduri 7 cifre (articole catalog) nu mai sunt filtrate ca CPV metadata
-2. **SKIP_RE `|424|`** → `\b424\b(?!\d)` — substring `424` in coduri lungi (ex. `6719424`) nu mai triggera skip
-3. **`LITRU` in UM_KNOWN** — era tratat ca text denumire; adaugat + normalizat la `'l'`
-4. **Merge 3-line OCR L: + `explicit_component_marker` reset** — subcomponente CM din 2-3 linii rupte de OCR
-5. **`SUBCOMP_PREFIXED_RE` dot in prefix** `[A-Z0-9]+` → `[A-Z0-9.]+` — OCR citeste `10173` ca `101.73`; blocheaza extragerea codului dupa `-0232:`
-
-**Regula de baza SKIP_RE:** `re.search()` (nu `re.match()`) — pattern-urile fara ancore matchuiesc oriunde in linie. 7 cifre = articol catalog; 4-6 cifre = capitol deviz; 8+ cifre = CPV.
-
-**Rezultat:** CM O1+O2 → 0 ARTICOL_EXTRA genuine; 18 MEDIUM ramase sunt diferente reale referinta vs oferta.
+**Verificat: 0 violari silentioase pe toti clientii activi.**
 
 ---
 
-## Fix-uri Majore v12.0 (commits d1d8bc0, 1814cd2, c295137)
+## Fix-uri Majore v3
 
-### Parser (c295137)
-- `NR_SUBITEM` (`x.y` decimal): seteaza `explicit_component_marker=True` numai cand `base_nr == last_nr_crt`
-- Same-nr inline: seteaza `explicit_component_marker` cand nr == `current_parent_nr`
-- Linked markers (`NR_LINKED`, `BARE_L`, `DOT_L`): seteaza `explicit_component_marker=True`
+### Comparatie Lista Layout (shared/comparatie_lista_writer.py)
+- `tblGrid` cu latimi exacte in twips → coloane stabile
+- Margini celule: 1.9mm → top/bottom 0.5mm, stanga/dreapta 1mm
+- `keep_with_next=True` pe header grup
+- Repeat header rows pe fiecare pagina
+- Coloana Cod scoasa din noWrap (coduri lungi nu mai debordeza)
+- Eliminat duplicate `_shade` calls
 
-### Comparator (d1d8bc0)
-- **Layer 2 COD_SIMILAR:** eliminat `and (diffs or arith)` guard — perechi OCR (SA131↔SA13I, IZLO5XF↔IZL05XF) genereaza COD_SIMILAR. Cauza: `_normalize_cod` mapeaza I→1/O→0, deci normalizeaza identic → match Layer 2, NU Layer 2.5
-- **is_component mismatch Layer 1:** genereaza `DIFERENTA_CAMP(tip_articol)` cand articolul e `is_component=True` in ref dar `False` in oferta (fix `$4202729` SD)
-- **Eliminat fuzzy denomination matching** (45% threshold absorba silentios ARTICOL_EXTRA NCs)
-- **`_dedup_articles`** in `group_comparator.py` — fix BLC7 grup duplicat (BR O3)
+### Semantic Comparator (shared/semantic_comparator.py)
+**Pass 1 — `semantic_nr_match`:** LIPSA+EXTRA la acelasi nr_ordine → `COD_NORMATIV_DIFERIT`
+**Pass 2 — `semantic_spec_check`:** perechi matched cu spec numerica diferita → `SPECIFICATIE_DIFERITA`
 
-### Comparator (1814cd2)
-- **EXTRA loop:** cand `norm_cod in ref_component_cods` dar `oferta_art.is_component=False` → genereaza `DIFERENTA_CAMP(tip_articol)` in loc de `continue` silentios. Fix CK25A/IZK03C1 (BR BLOC A)
+### Scatter Counter Fix (shared/f3_regex_parser.py)
+`last_scatter_counter` in `_preprocess_scattered_format`: previne ca pretul unitatii
+(ex: `4` lei/luna pt WC) sa fie citit ca nr_ordine al articolului urmator (BAZIN).
+Rezultat: BAZIN CAV Maneciu extras corect ca nr=5, nu nr=4.1.
 
-### Report (f6cd0ad → 61879bc)
-- **`_count_main_articles`:** filtru `cantitate > 0` — aliniat cu `match_global`
-- **`_add_group_totals_row`:** rand gri TOTAL GRUP dupa fiecare grup in DOCX holistic
-- **Eliminat** `oferta_N.json` garbage output din `local_run.py`
+---
+
+## Metrici CAV Maneciu (v3)
+
+| Oferta | Matched | Ref-only | Off-only | Total NC |
+|--------|---------|----------|----------|----------|
+| O1 | 11/11 | 0 | 0 | 134 |
+| O2 | 10/11 | 1 | 0 | 19 |
+| O3 | 11/11 | 0 | 1 | 8 |
+| O4 | 11/11 | 0 | 1 | 16 |
+| O5 | 11/11 | 0 | 0 | 95 (83 EXTRA = subcomp materiale) |
 
 ---
 
 ## Arhitectura Cheie
 
 ### deviz_key = md5(OBIECTIVUL|OBIECTUL|CATEGORIA)
-- **NICIODATA** `deviz_cod` string (ex "BLC7") ca lookup key — instabil, duplicat
-- Mai multe grupuri logice pot imparti acelasi deviz_cod (BLC5 = A, A2, A3, A4, B, C)
+**NICIODATA** `deviz_cod` string ca lookup key — instabil, duplicat.
 
-### Group Matching (shared/group_comparator.py)
+### Group Matching
 ```
-Phase 1   — deviz_key exact (same hash ref si oferta)
+Phase 1   — deviz_key exact hash
 Phase 1.5 — deviz_cod prefix al offer.CATEGORIA (ISDP/eDevize compat)
-Phase 2a  — group_match_knowledge.json (per-client cache LLM)
-Phase 2b  — LLM fallback Claude API (chunk=15, max_tokens=2000)
+Phase 2a  — group_match_knowledge.json (cache LLM)
+Phase 2b  — LLM fallback Claude API
 ```
 
-### Matching Engine (AgentComparator_local.py)
+### Article Matching
 ```
 Layer 1   — N:M exact (deviz, cod)
 Layer 2   — _normalize_cod: I→1, O→0, strip $
 Layer 2.1 — trailing digit: IC35D ↔ IC35D1
 Layer 2.5 — SequenceMatcher ≥ 0.80 (OCR)
-Layer 3   — LLM fuzzy (DISABLED)
 ```
 
-### IMPORTANT: f3_markers_knowledge.json
-**MANUAL ONLY.** ALL LLM marker learning DISABLED in `f3_page_classifier.py`.
-Motivatie: auto-invatate "Pag N" ca end-markers → 0 articole extrase.
-Nu adauga `"source": "llm"` in acest fisier.
+### IMPORTANT: f3_markers_knowledge.json = MANUAL ONLY
+ALL LLM marker learning DISABLED. Auto-learning a generat false positives ("Pag N" ca end-marker → 0 articole extrase).
 
 ---
 
@@ -122,37 +122,32 @@ Nu adauga `"source": "llm"` in acest fisier.
 
 | Fisier | Responsabilitate |
 |--------|-----------------|
-| `multi_client_run.py` | Entry point — meniu sau `--client` |
-| `local_run.py` | Pipeline orchestration (extract + compare + report) |
+| `multi_client_run.py` | Entry point |
+| `local_run.py` | Pipeline orchestration |
 | `AgentComparator_local.py` | Matching engine Layer 1-2.5 |
-| `shared/group_comparator.py` | Holistic group matching, Phase 1/1.5/2 |
-| `shared/f3_page_classifier.py` | Clasificare pagini F3, deviz_cod extraction |
-| `shared/f3_extractor.py` | Extragere articole per grup pagini |
-| `shared/f3_regex_parser.py` | Regex state machine (1600+ linii) |
-| `shared/report_word.py` | DOCX generation, holistic + flat |
+| `shared/group_comparator.py` | Group matching Phase 1-2 |
+| `shared/f3_regex_parser.py` | Regex state machine + scatter fix |
+| `shared/deviz_header_extractor.py` | DevizHeader per grup, client-specific patterns |
+| `shared/semantic_comparator.py` | Pass1 COD_NORMATIV_DIFERIT + Pass2 SPECIFICATIE_DIFERITA |
+| `shared/comparatie_lista_writer.py` | DOCX comparatie landscape (toate articolele) |
+| `shared/report_word.py` | DOCX raport NC-only |
+| `gen_comparatie_lista.py` | CLI generator Comparatie_Lista_Oferta_N.docx |
 | `shared/group_match_knowledge.json` | Cache LLM per client — nu sterge |
 | `shared/f3_markers_knowledge.json` | Markeri F3 — MANUAL ONLY |
-| `shared/pattern_library.json` | Pattern detection |
-| `verify_agent.py` | Verification agent CLI — 6 checks, loop, MD report |
-| `shared/pipeline_verifier.py` | 6 structural checks pe holistic_oferta_N.json |
-| `shared/agent_knowledge.json` | Jurnal runs + thresholds per client |
-| `shared/ocr_patterns_knowledge.json` | OCR patterns aditionale (additive, MANUAL ONLY) |
+| `shared/ocr_patterns_knowledge.json` | OCR patterns — MANUAL ONLY |
+| `verify_agent.py` | Verification agent (6 checks, loop, MD report) |
 
 ---
 
-## Known Issues (pentru sesiunea urmatoare)
+## Known Issues
 
 ### SSR — Structural Mismatch (Scoala Sportiva Racari)
-- Ref: 1-2 grupuri per obiect (OBIECTIVUL|OBIECTUL|CATEGORIA)
-- Oferta: 8-12 sub-devize per obiect
-- Phase 1.5 rezolva partial (deviz_cod prefix matching)
-- Restul ramane `oferta_only` — matching bijective nu suporta 1→many
-- **Fix ar necesita:** strategie noua unde un ref grup poate acoperi mai multi offer sub-devize
+- Ref: 1-2 grupuri per obiect | Oferta: 8-12 sub-devize per obiect
+- Matching bijective nu suporta 1→many → 0 matched
+- Fix: strategie noua in group_comparator (low priority)
 
-### Camin Maneciu — ✅ REZOLVAT (v12.2)
-- 18 MEDIUM findings sunt diferente GENUINE de catalog (articole diferite in oferta vs referinta)
-- 0 ARTICOL_EXTRA cauzate de erori de extractie
-- 35 grupuri matched, 0 ref-only, 0 oferta-only
+### CAV Maneciu O2 — 1 ref_only
+Grup absent din oferta O2 (DUPLEX). Legitim sau alt header — neinvestigat.
 
 ---
 
@@ -160,67 +155,54 @@ Nu adauga `"source": "llm"` in acest fisier.
 
 ```bash
 # Rulare client
-rtk proxy python3 multi_client_run.py --client "Blocuri Racari" 2>&1 | rtk log
+rtk proxy python3 multi_client_run.py --client "CAV Maneciu" 2>&1 | rtk log
+
+# Genereaza comparatie cu TOATE articolele
+python3 gen_comparatie_lista.py --client "CAV Maneciu"
+python3 gen_comparatie_lista.py --client "CAV Maneciu" --oferta 1
 
 # Sumar holistic rapid
-rtk proxy python3 -c "
-import json; from pathlib import Path
-for f in sorted(Path('output_AO/Blocuri Racari').glob('holistic_oferta_*.json')):
-    h = json.loads(f.read_text())
-    mg = len(h.get('matched_groups',[])); ro = len(h.get('ref_only_groups',[])); oo = len(h.get('oferta_only_groups',[]))
-    print(f.name, f'matched={mg} ref_only={ro} oferta_only={oo}')
+python3 -c "
+import json, os; os.chdir('/Users/gabrielchitu/analiza-oferte-local')
+from collections import Counter
+for i in range(1,6):
+    d = json.load(open(f'output_AO/CAV Maneciu/holistic_oferta_{i}.json'))
+    mg=len(d.get('matched_groups',[])); ro=len(d.get('ref_only_groups',[])); oo=len(d.get('oferta_only_groups',[]))
+    cnt=Counter(nc.get('tip') for g in d.get('matched_groups',[]) for nc in g.get('neconformitati',[]))
+    print(f'O{i}: matched={mg} ref={ro} off={oo} nc={sum(cnt.values())}')
 "
-
-# Verificare invariant rapid
-rtk proxy python3 -c "
-import json
-def get_main(arts): return [a for a in arts if not a.get('is_component') and (a.get('cantitate') or 0) > 0]
-data = json.load(open('output_AO/Blocuri Racari/holistic_oferta_1.json'))
-silent = sum(1 for g in data.get('matched_groups',[])
-    if not g.get('neconformitati') and
-    len(get_main(g.get('ref_articles',[]))) != len(get_main(g.get('oferta_articles',[]))))
-print(f'Silent violations: {silent}')
-"
-
-# Teste
-rtk proxy python3 -m pytest tests/ -q \
-  --ignore=tests/test_compound_deviz_extraction.py \
-  --ignore=tests/test_subcomponent_matching.py
-
-# Reset checkpoints client
-find "output_AO/Scoala Dragomiresti/checkpoints" -name "*.json" -delete
 
 # Verification agent
-python3 verify_agent.py --client "Camin Maneciu" --verify-only
-python3 verify_agent.py --client "Camin Maneciu" --max-iter 2
+python3 verify_agent.py --client "CAV Maneciu" --verify-only
+
+# Teste
+pytest tests/ -q --ignore=tests/test_compound_deviz_extraction.py --ignore=tests/test_subcomponent_matching.py
+
+# Reset checkpoints
+find "output_AO/CAV Maneciu/checkpoints" -name "*.json" -delete
 ```
 
 ---
 
 ## Cross-Check Blocuri Racari vs Suma Blocuri Individuale
 
-Documentat in `output_AO/Raport_Verificare_Blocuri_Racari.docx`.
-
-**Concluzie:** BR consolidat (601 articole) ≠ suma blocuri (628). Diferenta de 27 = 9 coduri × 3 aparitii (3 obiecte in PDF consolidat vs 6 blocuri individuale). NU eroare pipeline.
-
-Coduri afectate: AUT6752, CE23A1, CO06B, RPCP16C, SE03A01, TRA01A20, TSD16B1, TSE01D1, VC03A01.
+`output_AO/Raport_Verificare_Blocuri_Racari.docx`: BR consolidat 601 articole vs suma blocuri 628.
+Diferenta de 27 = 9 coduri × 3 aparitii (3 obiecte in PDF consolidat vs 6 blocuri). NU eroare pipeline.
 
 ---
 
-## Git State (v12.3, 2026-05-28)
+## Git State (v3, 2026-06-11)
 
 ```
-tag: 12.0 → commit eb04c83  (baza stabila)
-main HEAD: 38a0d01
+tag: v3 → HEAD main (2026-06-11)
+tag: 12.0 → commit eb04c83 (baza stabila)
 ```
 
-Commits recente (v12.3 Drum Tatarani):
-- `38a0d01` fix(knowledge): correct wrong DT match Padurii Acostamente→PA0005 Marcaje
-- `94c67ca` fix(header-extractor): allow trailing letter in deviz codes (LC001A)
-- `bc1ee9c` fix(header-extractor): allow 1-digit suffix in lettered deviz codes (AN1)
-- `c66b90e` fix(header-extractor): DT-format multi-line obiectivul/obiectul + lettered deviz categoria
-
-Commits anterioare (v12.2 parser fixes CM):
-- `b9391a4` fix(parser): allow dot in L: prefix for OCR-corrupted numeric codes
-- `bf5aa46` fix(parser): extract 7-digit catalog codes blocked by SKIP_RE
-- `36e7447` fix(f3-parser): extract CM L: sub-components from 2-3 line OCR splits
+Commits recente (→ v3):
+- `v3 tag`  fix(report): comparatie layout — tblGrid, cell margins, keep_with_next, repeat headers + baseline docs
+- `52811c7` fix(report): COD_NORMATIV_DIFERIT + SPECIFICATIE_DIFERITA in comparatie_lista_writer
+- `b30d256` fix(semantic): pre-filter SPECIFICATIE_DIFERITA numeric-diff-only
+- `fd5c0c7` feat(report): render COD_NORMATIV_DIFERIT + SPECIFICATIE_DIFERITA in DOCX
+- `3049246` fix(parser): scatter counter auto-increment — BAZIN nr=4.1→5 (CAV Maneciu OS)
+- `930965c` fix(parser): exclude material-spec codes (BCR4/5, C20/25) from scatter preprocessor
+- `38a0d01` fix(knowledge): DT Padurii match corectat PA0005 Marcaje

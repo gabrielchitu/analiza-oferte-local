@@ -1,8 +1,10 @@
 # Pipeline — Diagrama de Secvență
-**Actualizat:** 2026-05-28 | **Versiune:** v12.2
+**Actualizat:** 2026-06-11 | **Versiune:** v3
 
-> **2026-05-25:** Removed Strategy 0-3 (match_devize_by_denomination) and Phase 1 deviz_matcher blocks. Holistic path uses deviz_key hash exclusively.
+> **2026-05-25:** Removed Strategy 0-3 (match_devize_by_denomination). Holistic path uses deviz_key hash exclusively.
 > **2026-05-28:** CM parser fixed (SKIP_RE, LITRU, L: merge, SUBCOMP dot). CM verificat ✅.
+> **2026-06-10:** Scatter counter fix (BAZIN CAV Maneciu nr=4.1→5). Semantic comparator adaugat. CAV Maneciu O1-O5 verificat, 21/21 NC comisie acoperite.
+> **2026-06-11:** Comparatie lista layout fixes (tblGrid, cell margins, keep_with_next, repeat headers). Tag v3.
 
 ---
 
@@ -101,7 +103,18 @@ Utilizator          multi_client_run     local_run          f3_page_classifier  
     │                       │                │◀─ Raport_Oferta_N.docx│                          │                          │                   │                         │
     │                       │                │   holistic_oferta_N.json                         │                          │                   │                         │
     │                       │                │                       │                          │                          │                   │                         │
+    │                       │                │  semantic_nr_match() + semantic_spec_check()     │                   │                         │
+    │                       │                │  (shared/semantic_comparator.py)                 │                   │                         │
+    │                       │                │  → reclasifica LIPSA+EXTRA@same_nr → COD_NORM_DIF│                   │                         │
+    │                       │                │  → detecteaza SPECIFICATIE_DIFERITA pe matched    │                   │                         │
+    │                       │                │                       │                          │                          │                   │                         │
     │◀─ ✓ Pipeline complet  │                │                       │                          │                          │                   │                         │
+    │   (optional post-run) │                │                       │                          │                          │                   │                         │
+    │                       │                │                       │                          │                          │                   │                         │
+    │  gen_comparatie_lista.py ──────────────────────────────────────────────────────────────────────────────────────────────────────────────▶│
+    │  --client "X"         │                │  shared/comparatie_lista_writer.py               │                   │                         │
+    │                       │                │  → Comparatie_Lista_Oferta_N.docx (toate art.)   │                   │                         │
+    │◀─ Comparatie_Lista_N.docx             │                       │                          │                          │                   │                         │
 ```
 
 ---
@@ -140,6 +153,11 @@ _preprocess_scattered_format(lines)
     │                        NR_CRT-ul articolului urmator ca QTY)   │
     │                                                                 │
     │ Fallback: linie nemodificata → state machine o proceseaza direct│
+    │                                                                 │
+    │ ⚠ FIX 2026-06-10: last_scatter_counter                        │
+    │   Daca counter == last_scatter_counter → auto-increment        │
+    │   Previne ca pretul unitatii (ex: 4 lei/luna pt WC) sa fie    │
+    │   interpretat ca nr_ordine pt articolul urmator (BAZIN)        │
     └─────────────────────────────────────────────────────────────────┘
     │
     ▼
@@ -477,4 +495,12 @@ Formatul checkpoint:
 | 1 | SSR 0 grupuri holistic — ref 2 grupuri/obiect vs oferta 8+ sub-devize; matching bijective 1→many | 0 matched SSR | strategie noua in group_comparator.py |
 | 2 | BR O4: 3 ref-only, 12 oferta-only | raport incomplet | investigare structura document |
 | 3 | BR O3: 3 oferta-only | minor | investigare |
-| 4 | IZDO3D1 OCR: Layer 1 consuma IZD03D1 | 1 LIPSA per oferta | low priority/acceptat |
+| 4 | CAV Maneciu O2: 1 ref_only DUPLEX | minor | investigare header deviz |
+
+### Rezolvate in v3 (2026-06-10/11)
+
+| Fix | Impact |
+|-----|--------|
+| Scatter counter (last_scatter_counter) | BAZIN CAV Maneciu nr=4.1→5, 21/21 NC comisie acoperite |
+| Semantic comparator (Pass1+Pass2) | COD_NORMATIV_DIFERIT + SPECIFICATIE_DIFERITA detectate |
+| Comparatie lista layout (tblGrid, margins, keep_with_next) | DOCX stabil in orice viewer, header nu se desparte de tabel |

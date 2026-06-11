@@ -101,7 +101,9 @@ Folosit pentru a asocia grupuri din referință cu grupuri din ofertă, indifere
 | ARTICOL_EXTRA | Articol prezent în ofertă, absent din referință |
 | DIFERENTA_CANT | Cantitate diferită față de referință |
 | DIFERENTA_CAMP | Alt câmp diferit (UM, tip articol, etc.) |
-| COD_SIMILAR | Cod aparent diferit dar similar OCR (I↔1, O↔0) |
+| COD_SIMILAR | Cod aparent diferit dar similar OCR (I↔1, O↔0) — Layer 2.5 |
+| COD_NORMATIV_DIFERIT | LIPSA+EXTRA la același nr_ordine → ofertant a substituit codul normativ |
+| SPECIFICATIE_DIFERITA | Perechi matched cu parametri tehnici diferiți (dimensiuni, diametre) |
 
 ---
 
@@ -224,8 +226,46 @@ Implementare: set-based (NR → COD → hash) în `shared/set_based_matcher.py`.
 - Configurare client-specifică: OCR patterns, group match knowledge, F3 context
 
 ### CN-04: Testare
-- Baseline: 588 teste pass (22 failed pre-existente, neschimbate)
+- Baseline: 214/230 teste pass (16 failed pre-existente, neschimbate)
 - Orice modificare care scade numărul de teste passing = BLOCKER
+
+---
+
+## 6. CERINȚE FUNCȚIONALE ADĂUGATE (v3)
+
+### CR-06: Semantic Comparator
+
+**Descriere:** Clasificare semantică post-holistic a NC-urilor pentru detectarea substituțiilor de cod normativ și diferențelor de specificație.
+
+**Condiții de acceptare:**
+- ✅ Pass 1: ARTICOL_LIPSA + ARTICOL_EXTRA la același `nr_ordine` în același grup → reclasificat `COD_NORMATIV_DIFERIT`
+- ✅ Pass 2: perechi matched cu cel puțin o diferență numerică în descriere → `SPECIFICATIE_DIFERITA` cu nota_specialist
+- ✅ Filtru Pass 2: doar dacă diferența este numerică (nu OCR noise)
+- ✅ Baseline validat: SOLICI~4.DOC 16/16 NC acoperite (CAV Maneciu O1)
+
+**Fișier:** `shared/semantic_comparator.py`
+
+---
+
+### CR-07: Comparație Lista DOCX (toate articolele)
+
+**Descriere:** Raport landscape cu TOATE articolele (matched și NC), side-by-side referință vs ofertă.
+
+**Format:**
+- Landscape A4, 11 coloane: 5 ref | 5 ofertă | 1 NC
+- tblGrid cu lățimi exacte în twips (stabile indiferent de viewer)
+- Margini celule: top/bottom 0.5mm, stânga/dreapta 1mm
+- `keep_with_next` pe header grup → headerul nu se separă de tabel
+- Repeat header rows pe fiecare pagină
+
+**Condiții de acceptare:**
+- ✅ Articolele fără NC = rânduri albe (fără culoare)
+- ✅ Articolele cu NC = colorate conform tipului (EXTRA=portocaliu, LIPSA=albastru, etc.)
+- ✅ Fuzzy suggest pentru LIPSA/EXTRA: "POSIBIL ACELAȘI MATERIAL (N%)"
+- ✅ Total grup la finalul fiecărui grup
+- ✅ Fișier: `Comparatie_Lista_Oferta_N.docx`
+
+**CLI:** `python3 gen_comparatie_lista.py --client "NumeClient" [--oferta N]`
 
 ---
 
