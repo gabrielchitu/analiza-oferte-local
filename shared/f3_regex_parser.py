@@ -92,6 +92,12 @@ EMBEDDED_SPEC_RE = re.compile(
     r'^([A-ZĂÂÎȘȚ][A-ZĂÂÎȘȚ ().-]+)\s+(\d+)\s+(BUC|ML|MC|KG|MP|M|L|T)\.?\s*$'
 )
 
+# Coduri clasa beton/material: C20/25, C30/37, BCR4,5 — contin / sau , in cod
+# Nu sunt normative (nu se potrivesc cu COD_NORM_RE) dar apar ca articole in deviz
+COD_MATERIAL_SPEC_STANDALONE_RE = re.compile(
+    r'^([A-Z]{1,4}\d+[/,]\d+[A-Z]?)(\s+.*)?$', re.IGNORECASE
+)
+
 # Cod numeric cu spaţiu + descriere + optional |UM (format Breviar materiale referinţă)
 # Ex: "6701362 @COT RACORD WC ORIENTABIL |BUC." sau "6715504[1] PIESA DE CURATIRE |BUC."
 # Acceptă @ prefix în descriere şi [N] bracket suffix în cod
@@ -968,7 +974,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 cod = '$' + cod
             den_joined = ' '.join(denumire_parts)
             # Skip coduri cu / (numere proiect: 424/2018, 424-rev/2024)
-            if '/' in cod:
+            # Exceptie: coduri clasa beton/material (C25/30, C30/37, C20/25) — nu se skipuiesc
+            if '/' in cod and not COD_MATERIAL_SPEC_STANDALONE_RE.match(cod):
                 logger.debug(f"[PARSER] Skip cod cu slash: {cod}")
             # Skip token UM capturat gresit ca cod (BUC, MC, MP etc.)
             elif cod.upper() in UM_KNOWN:
@@ -1127,7 +1134,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                               COD_NORM_STANDALONE_RE,
                               COD_NORM_EXTENDED_STANDALONE_RE,
                               COD_NORM_SINGLE_STANDALONE_RE,
-                              COD_SINGLE_MULTIDIGIT_STANDALONE_RE):
+                              COD_SINGLE_MULTIDIGIT_STANDALONE_RE,
+                              COD_MATERIAL_SPEC_STANDALONE_RE):
             m = standalone_re.match(s)
             if m:
                 return _parse_standalone(m)
@@ -1494,7 +1502,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                             line_norm_w = re.sub(r'(?<=[A-Z0-9])\s+(\[\d)', r'\1', line, flags=re.IGNORECASE)
                             m_stand_w = (COD_NORM_STANDALONE_RE.match(line_norm_w) or
                                          COD_NORM_EXTENDED_STANDALONE_RE.match(line_norm_w) or
-                                         COD_NORM_SINGLE_STANDALONE_RE.match(line_norm_w))
+                                         COD_NORM_SINGLE_STANDALONE_RE.match(line_norm_w) or
+                                         COD_MATERIAL_SPEC_STANDALONE_RE.match(line_norm_w))
                             if m_stand_w:
                                 raw_w = m_stand_w.group(1).upper()
                                 raw_w = re.sub(r'[-]\d+[#@!]*$', '', raw_w)
@@ -1621,7 +1630,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             is_strong_code = (COD_NORM_STANDALONE_RE.match(line_norm) or
                              COD_NORM_EXTENDED_STANDALONE_RE.match(line_norm) or
                              COD_NORM_SINGLE_STANDALONE_RE.match(line_norm) or
-                             COD_NUMERIC_BARE_RE.match(line))
+                             COD_NUMERIC_BARE_RE.match(line) or
+                             COD_MATERIAL_SPEC_STANDALONE_RE.match(line_norm))
             if parsed_cod and um == '' and cantitate == 0.0 and not is_strong_code:
                 # Current article is incomplete AND code is weak pattern → treat as denomination continuation
                 # But strong patterns (standalone codes) start new articles
@@ -1671,14 +1681,16 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # (ex: "COL4-A" din "VAS CLOSET COL4-A" ar trebui să rămână denominație).
             is_strong = (COD_NORM_STANDALONE_RE.match(line_norm) or
                         COD_NORM_EXTENDED_STANDALONE_RE.match(line_norm) or
-                        COD_NORM_SINGLE_STANDALONE_RE.match(line_norm))
+                        COD_NORM_SINGLE_STANDALONE_RE.match(line_norm) or
+                        COD_MATERIAL_SPEC_STANDALONE_RE.match(line_norm))
             if parsed_cod and not _numeric_den and (um != '' or cantitate != 0.0 or is_strong) and (
                     COD_NUMERIC_RE.match(line) or COD_NORM_RE.match(line)
                     or COD_NORM_EXTENDED_RE.match(line) or COD_BREVIAR_RE.match(line)
                     or COD_SIMPLE_LETTER_DIGITS_RE.match(line)
                     or COD_NUMERIC_PIPE_RE.match(line) or COD_NORM_STANDALONE_RE.match(line_norm)
                     or COD_NORM_EXTENDED_STANDALONE_RE.match(line_norm)
-                    or COD_NORM_SINGLE_STANDALONE_RE.match(line_norm)):
+                    or COD_NORM_SINGLE_STANDALONE_RE.match(line_norm)
+                    or COD_MATERIAL_SPEC_STANDALONE_RE.match(line_norm)):
                 _finalize()
                 cod = parsed_cod
                 denumire_parts = [parsed_den] if parsed_den else []
