@@ -93,6 +93,17 @@ def _save_knowledge(client_name: str, new_pairs: list[dict]) -> None:
     )
 
 
+def _extract_obj_nr(hdr) -> str | None:
+    """Extract 4-digit leading object code from obiectul (e.g. '0001' from '0001 Strada Zoica').
+
+    Returns None if obiectul doesn't start with a 4-digit code — constraint not applied.
+    """
+    import re
+    obiectul = (getattr(hdr, "obiectul", None) or "").strip()
+    m = re.match(r"^(\d{4}\w?)\b", obiectul)
+    return m.group(1) if m else None
+
+
 def _match_by_rapidfuzz(
     remaining_ref: dict,
     remaining_oferta: dict,
@@ -113,12 +124,17 @@ def _match_by_rapidfuzz(
         ref_text = f"{rh.obiectul or ''} {rh.categoria or ''}".strip()
         if not ref_text:
             continue
+        ref_obj_nr = _extract_obj_nr(rh)
         best_score, best_ok, best_oh = 0, "", None
         for ok, oh in sorted(remaining_oferta.items()):
             if ok in used_oferta:
                 continue
             off_text = f"{oh.obiectul or ''} {oh.categoria or ''}".strip()
             if not off_text:
+                continue
+            # Skip cross-object matches when both sides have 4-digit object codes
+            off_obj_nr = _extract_obj_nr(oh)
+            if ref_obj_nr and off_obj_nr and ref_obj_nr != off_obj_nr:
                 continue
             score = _rfuzz.partial_token_set_ratio(ref_text, off_text)
             if score > best_score:
