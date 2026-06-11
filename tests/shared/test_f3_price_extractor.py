@@ -1,11 +1,15 @@
 import pytest
-from shared.f3_price_extractor import _parse_number, _is_capitol_header, _is_cod_name, _is_um, _is_breakdown_key
+from shared.f3_price_extractor import _parse_number, _is_capitol_header, _is_cod_name, _is_um, _is_breakdown_key, _is_skip
 
 def test_parse_number_simple():
     assert _parse_number("33.22") == pytest.approx(33.22)
 
 def test_parse_number_with_thousands():
     assert _parse_number("7,473.71") == pytest.approx(7473.71)
+
+def test_parse_number_eu_format():
+    """EU format: dot=thousands separator, comma=decimal."""
+    assert _parse_number("1.234,56") == pytest.approx(1234.56)
 
 def test_parse_number_zero():
     assert _parse_number("0.00") == pytest.approx(0.0)
@@ -55,3 +59,15 @@ def test_is_breakdown_key():
     assert _is_breakdown_key("transport:") is True
     assert _is_breakdown_key("material") is False
     assert _is_breakdown_key("TOTAL") is False
+
+def test_is_skip_exact():
+    """Lines in _SKIP_EXACT must be skipped."""
+    assert _is_skip("eDevize") is True
+
+def test_is_skip_regex():
+    """Lines matching _SKIP_RE must be skipped."""
+    assert _is_skip("Pagina 3 din 14") is True
+
+def test_is_skip_no():
+    """Normal cod-name lines must not be skipped."""
+    assert _is_skip("CF38A* - Tencuiala") is False

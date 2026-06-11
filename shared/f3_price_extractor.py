@@ -1,9 +1,6 @@
 """F3 price extractor — parses articles with prices from classified F3 pages."""
 
 import re
-import json
-import hashlib
-from pathlib import Path
 from typing import Optional
 
 _UM_KNOWN = {
@@ -39,19 +36,40 @@ _BREAKDOWN_RE = re.compile(r'^(material|manopera|utilaj|transport):$', re.IGNORE
 
 
 def _parse_number(s: str) -> Optional[float]:
-    """Parse Romanian-format number: '7,473.71' → 7473.71, '225.000' → 225.0."""
-    s = s.strip()
+    """Parse a number in either US or EU format.
+
+    US format: '7,473.71'  (comma=thousands, dot=decimal) → 7473.71
+    EU format: '1.234,56'  (dot=thousands, comma=decimal) → 1234.56
+    Ambiguous: '225.000' treated as dot=decimal → 225.0
+
+    Detection rule: when both separators are present, the one that appears
+    *last* (rightmost) is the decimal separator — identical logic to
+    f3_regex_parser._parse_number so the two modules stay in sync.
+    """
+    s = s.strip().replace(' ', '')
     if not s:
         return None
-    cleaned = s.replace(',', '')
+    if '.' in s and ',' in s:
+        if s.index('.') < s.index(','):
+            # dot comes first → dot=thousands, comma=decimal  (EU)
+            s = s.replace('.', '').replace(',', '.')
+        else:
+            # comma comes first → comma=thousands, dot=decimal  (US)
+            s = s.replace(',', '')
+    else:
+        s = s.replace(',', '.')
     try:
-        return float(cleaned)
+        return float(s)
     except ValueError:
         return None
 
 
 def _is_capitol_header(line: str) -> bool:
-    """All-caps line with no digit prefix and no dash — section header."""
+    """All-caps line with no digit prefix and no dash — section header.
+
+    Note: callers must check `_is_cod_name` first — all-caps cod-name lines
+    (e.g. ``RPCE27A+ - MASTIC BITUMINOS``) satisfy both predicates.
+    """
     s = line.strip()
     if not s or len(s) < 3:
         return False
