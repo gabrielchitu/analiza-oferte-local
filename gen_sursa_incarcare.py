@@ -40,7 +40,7 @@ def _make_llm_client():
 def _pick_client(args_client) -> str:
     clients = ClientConfig.detect_clients(INPUT_BASE)
     if not clients:
-        print("No clients found in input_AO/")
+        print(f"No clients found in {INPUT_BASE}/")
         sys.exit(1)
     if args_client:
         if args_client not in clients:
@@ -160,6 +160,9 @@ def _run_pipeline(client_name: str, json_path: Path, no_pdf: bool = False, force
     docx_path = config.output_dir / f"{base_name}.docx"
     xlsx_path = config.output_dir / f"{base_name}.xlsx"
     pdf_path = config.output_dir / f"{base_name}.pdf"
+
+    for deviz in extracted:
+        deviz['status'] = verification['status']
 
     write_docx(extracted, docx_path)
     print(f"\nOutput generat:")
