@@ -29,7 +29,7 @@ TEXT_RED   = RGBColor(0xCC, 0x00, 0x00)
 # 0=NrRef 1=CodRef 2=DenRef 3=UMRef 4=CantRef | 5=NrOf 6=CodOf 7=DenOf 8=UMOf 9=CantOf | 10=NC
 N_COLS = 11
 COL_W   = [1.0, 1.6, 5.2, 1.0, 1.4,  1.0, 1.6, 5.2, 1.0, 1.4,  4.3]
-NO_WRAP = {0, 1, 3, 4, 5, 6, 8, 9}   # all except Denumire (2,7) and NC (10) — UM included
+NO_WRAP = {0, 3, 4, 5, 8, 9}   # Nr, UM, Cant — Cod (1,6) allowed to wrap for long codes
 
 
 # ── XML / layout helpers ──────────────────────────────────────────────────────
@@ -50,6 +50,45 @@ def _fixed_layout(tbl: Table) -> None:
     tblLayout = OxmlElement("w:tblLayout")
     tblLayout.set(qn("w:type"), "fixed")
     tblPr.append(tblLayout)
+
+
+def _set_tbl_grid(tbl: Table) -> None:
+    """Define column widths at table level (twips) so fixed layout is stable."""
+    tblGrid = OxmlElement("w:tblGrid")
+    for w_cm in COL_W:
+        gc = OxmlElement("w:gridCol")
+        gc.set(qn("w:w"), str(int(round(w_cm * 567))))  # 1cm = 567 twips
+        tblGrid.append(gc)
+    tbl_el = tbl._tbl
+    tbl_pr = tbl_el.find(qn("w:tblPr"))
+    if tbl_pr is not None:
+        tbl_pr.addnext(tblGrid)
+    else:
+        tbl_el.insert(0, tblGrid)
+
+
+def _set_cell_margins(tbl: Table) -> None:
+    """Reduce default cell padding (1.9mm → top/bottom 0.5mm, left/right 1mm)."""
+    tblPr = tbl._tbl.tblPr
+    tblCellMar = OxmlElement("w:tblCellMar")
+    for side, twips in [("top", 28), ("left", 57), ("bottom", 28), ("right", 57)]:
+        elem = OxmlElement(f"w:{side}")
+        elem.set(qn("w:w"), str(twips))
+        elem.set(qn("w:type"), "dxa")
+        tblCellMar.append(elem)
+    tblPr.append(tblCellMar)
+
+
+def _repeat_header_rows(tbl: Table) -> None:
+    """Mark first 2 rows as header rows so they repeat on each page."""
+    for row in tbl.rows[:2]:
+        tr = row._tr
+        trPr = tr.find(qn("w:trPr"))
+        if trPr is None:
+            trPr = OxmlElement("w:trPr")
+            tr.insert(0, trPr)
+        tblHeader = OxmlElement("w:tblHeader")
+        trPr.append(tblHeader)
 
 
 def _set_landscape(doc: Document) -> None:
@@ -392,16 +431,9 @@ def _write_5_cols(cells, art: Optional[dict], offset: int, fill: Optional[str]) 
     fs      = 6 if is_comp else 7
     grey    = RGBColor(0x55, 0x55, 0x55) if is_comp else None
 
-    # Re-apply noWrap on data row cols (cell.text="" clears tcPr set in _apply_widths)
-    nowrap_local = {0, 1, 3, 4}  # Nr, Cod, UM, Cant (relative to offset)
-    for rel in nowrap_local:
-        _no_wrap(cells[offset + rel])
-
     def _wcell(rel, val, center=False, right=False, two_lines: Optional[str] = None):
         cell = cells[offset + rel]
         cell.text = ""
-        if fill:
-            _shade(cell, fill)
         p = cell.paragraphs[0]
         if center:
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -420,10 +452,7 @@ def _write_5_cols(cells, art: Optional[dict], offset: int, fill: Optional[str]) 
 
     if art is None:
         for rel in range(5):
-            cell = cells[offset + rel]
-            cell.text = ""
-            if fill:
-                _shade(cell, fill)
+            cells[offset + rel].text = ""
         return
 
     nr_text, page_text = _fmt_nr_with_page(art)
@@ -454,8 +483,6 @@ def _write_data_row(row, ref_art, of_art, fill, nc_texts) -> None:
 
     nc_cell = cells[10]
     nc_cell.text = ""
-    if fill:
-        _shade(nc_cell, fill)
     if nc_texts:
         p = nc_cell.paragraphs[0]
         for i, t in enumerate(nc_texts):
@@ -510,6 +537,7 @@ def _write_group_section(doc: Document, group: dict, group_type: str, nc_only: b
 
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(6)
+    p.paragraph_format.keep_with_next = True
 
     if group_type == "matched":
         ref_label = _header_label(ref_arts)
@@ -531,7 +559,10 @@ def _write_group_section(doc: Document, group: dict, group_type: str, nc_only: b
     tbl = doc.add_table(rows=2 + len(rows) + 1, cols=N_COLS)
     tbl.style = "Table Grid"
     _fixed_layout(tbl)
+    _set_tbl_grid(tbl)
+    _set_cell_margins(tbl)
     _build_header(tbl)
+    _repeat_header_rows(tbl)
 
     for i, (ref_art, of_art, fill, nc_texts) in enumerate(rows):
         _write_data_row(tbl.rows[2 + i], ref_art, of_art, fill, nc_texts)
