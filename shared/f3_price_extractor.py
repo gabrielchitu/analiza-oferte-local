@@ -311,6 +311,7 @@ def _assemble_deviz(events: list[tuple[str, dict]], header) -> dict:
                 'um': '', 'cantitate': 0.0,
                 'pret_unitar': 0.0, 'total': 0.0,
                 'breakdown': None, 'sub_items': [],
+                'suspect': False,
             }
             in_sub_item = False
 
@@ -363,12 +364,13 @@ def _assemble_deviz(events: list[tuple[str, dict]], header) -> dict:
 
     for cap in capitole:
         for art in cap['articole']:
-            if art['breakdown'] and art['pret_unitar'] > 0:
+            if art['breakdown']:
                 bd = art['breakdown']
                 computed = sum(
                     bd[k]['pret'] for k in ('material', 'manopera', 'utilaj', 'transport')
                 )
                 art['breakdown']['control_ok'] = abs(computed - art['pret_unitar']) < 0.02
+                art['suspect'] = not art['breakdown']['control_ok']
 
     return {
         'deviz_key': header.deviz_key,

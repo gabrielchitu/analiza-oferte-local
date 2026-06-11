@@ -229,3 +229,58 @@ def test_assemble_deviz_sub_item():
     sub = art['sub_items'][0]
     assert sub['nr_crt'] == '1.1'
     assert sub['total'] == pytest.approx(746.62)
+
+
+def test_assemble_deviz_suspect_flag_on_control_ok():
+    """Article with matching breakdown → control_ok=True, suspect=False."""
+    class MockHeader:
+        obiectivul = "TEST"
+        obiectul = "TEST"
+        categoria = "TEST"
+        deviz_key = "test"
+
+    events = _parse_f3_page_lines(_SAMPLE_LINES)
+    deviz = _assemble_deviz(events, MockHeader())
+    art = deviz['capitole'][0]['articole'][0]
+    assert art['breakdown']['control_ok'] is True
+    assert art.get('suspect') is False
+
+
+def test_assemble_deviz_breakdown_control_fail():
+    """Article with mismatched breakdown → control_ok=False, suspect=True."""
+    class MockHeader:
+        obiectivul = "TEST"
+        obiectul = "TEST"
+        categoria = "TEST"
+        deviz_key = "test"
+
+    # Manually craft lines where material pret != pret_unitar
+    lines_bad = [
+        '5 = 3 x 4',
+        'CAPITOL',
+        '1',
+        'CF38A* - Tencuiala pe baza de ciment',
+        'mp',
+        '100.000',
+        '50.00',    # pret_unitar
+        '5,000.00',
+        'material:',
+        '10.00',   # material.pret (sum = 10.00, but pret_unitar = 50.00 → mismatch)
+        '1,000.00',
+        'manopera:',
+        '0.00',
+        '0.00',
+        'utilaj:',
+        '0.00',
+        '0.00',
+        'transport:',
+        '0.00',
+        '0.00',
+        'TOTAL CAPITOL',
+        '5,000.00',
+    ]
+    events = _parse_f3_page_lines(lines_bad)
+    deviz = _assemble_deviz(events, MockHeader())
+    art = deviz['capitole'][0]['articole'][0]
+    assert art['breakdown']['control_ok'] is False
+    assert art.get('suspect') is True
