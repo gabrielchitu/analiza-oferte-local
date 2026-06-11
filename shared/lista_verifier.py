@@ -6,7 +6,9 @@ from typing import Callable, Optional
 
 def _check_count_devize(extracted: list[dict], deviz_headers: dict = None) -> dict:
     found = len(extracted)
-    expected = len(deviz_headers) if deviz_headers else found
+    if deviz_headers is None:
+        return {'ok': None, 'skipped': True, 'found': found, 'expected': None}
+    expected = len(deviz_headers)
     return {'ok': found == expected, 'found': found, 'expected': expected}
 
 
@@ -65,7 +67,6 @@ def _check_total_deviz(extracted: list[dict]) -> dict:
     return {
         'ok': len(failures) == 0,
         'failures': failures,
-        'diff': failures[0]['diff'] if failures else 0.0,
     }
 
 
@@ -91,8 +92,11 @@ def verify(
     status: 'OK' | 'WARN' | 'RED'
     """
     current = extracted
+    checks: dict = {}
+    last_iteration = 0
 
     for iteration in range(1, max_iterations + 1):
+        last_iteration = iteration
         checks = {
             'COUNT_DEVIZE':      _check_count_devize(current, deviz_headers),
             'NR_CRT_GAPS':       _check_nr_crt_gaps(current),
@@ -121,6 +125,6 @@ def verify(
 
     return {
         'status': 'RED',
-        'iterations': max_iterations,
+        'iterations': last_iteration,
         'checks': checks,
     }

@@ -1,5 +1,5 @@
 import pytest
-from shared.lista_verifier import verify, _check_nr_crt_gaps, _check_total_deviz
+from shared.lista_verifier import verify, _check_nr_crt_gaps, _check_total_deviz, _check_total_capitol
 
 
 def _make_deviz(articole_per_capitol, total_deviz=None, capitole_totals=None):
@@ -49,7 +49,7 @@ def test_check_total_deviz_mismatch():
     deviz = _make_deviz([[1, 2, 3]], total_deviz=999.0)
     result = _check_total_deviz([deviz])
     assert result['ok'] is False
-    assert result['diff'] == pytest.approx(969.0, abs=0.1)
+    assert result['failures'][0]['diff'] == pytest.approx(969.0, abs=0.1)
 
 
 def test_verify_ok_status():
@@ -79,3 +79,35 @@ def test_verify_warn_status_breakdown():
     result = verify([deviz])
     assert result['status'] == 'WARN'
     assert result['checks']['BREAKDOWN_CONTROL']['ok'] is False
+
+
+def test_check_total_capitol_mismatch():
+    deviz = _make_deviz([[1, 2, 3]], capitole_totals=[999.0])  # sum=30, declared=999
+    result = _check_total_capitol([deviz])
+    assert result['ok'] is False
+    assert len(result['failures']) == 1
+    assert result['failures'][0]['diff'] == pytest.approx(969.0, abs=0.1)
+
+
+def test_verify_max_iterations_zero():
+    deviz = _make_deviz([[1, 2, 3]])
+    result = verify([deviz], max_iterations=0)
+    # Should not crash; 0 iterations means no checks ran → RED
+    assert result['status'] == 'RED'
+    assert result['iterations'] == 0
+
+
+def test_verify_retry_loop():
+    """reextract_fn called on HIGH failure; second pass returns fixed data."""
+    bad_deviz = _make_deviz([[1, 2, 4]])  # gap at 3
+    good_deviz = _make_deviz([[1, 2, 3]])  # fixed
+
+    call_count = [0]
+    def reextract_fn(data, checks, iteration):
+        call_count[0] += 1
+        return [good_deviz]
+
+    result = verify([bad_deviz], reextract_fn=reextract_fn)
+    assert result['status'] == 'OK'
+    assert call_count[0] == 1
+    assert result['iterations'] == 2
