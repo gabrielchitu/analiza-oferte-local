@@ -2542,5 +2542,31 @@
       "ref_den": "CENTRU DE COLECTARE SELECTIVA A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MANECIU, JUDEȚUL PRAHOVA | 25.4 CAV-MANECIU | 11 Cheltuieli conexe organizării santierului Formular F3",
       "oferta_den": "CENTRU DE COLECTARE SELECTIVĂ A DEȘEURILOR PRIN APORT VOLUNTAR ÎN COMUNA MĂNECIU, JUDEȚUL PRAHOVA | 25.4 CAV-MANECIU | 11 Cheltuieli conexe organizarii santierului e"
     }
+  ],
+  "DT2": [
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0007 Str.Valea Satului | 0007 Semn PARCARE 1bc.",
+      "oferta_den": "0050 45230000 | 0007 45230000 | VS0007 SEMN PARCARE 1bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0007 Str.Valea Satului | 0009 Camin vizitare 2buc.",
+      "oferta_den": "0050 45230000 | 0007 45230000 | VS0009 CAMIN VIZITARE 2buc."
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0012 Strada Padurii | 0001 Terasamente 2,62smp",
+      "oferta_den": "0050 45230000 | 0012 45230000 | PA0001 TERASAMENTE 2.62SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0013 Marcaj lateral 406m",
+      "oferta_den": "0050 45230000 | 0001 45230000 | Z0013 MARCAJ LATERAL 406M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0011 Strada Frunzei | 0003 Piatra sparta 12cm 2,67smp",
+      "oferta_den": "0050 45230000 | 0011 45230000 | FR0003 PIATRA SPARTA 12CM 2.67SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0005 BAPC16-4cm 4,67smp",
+      "oferta_den": "0050 45230000 | 0008 45230000 | BI0005 BAPC16 - 4CM 4.67SMP"
+    }
   ]
 }
