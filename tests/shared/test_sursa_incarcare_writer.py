@@ -138,6 +138,21 @@ def test_write_xlsx_has_rows(tmp_path):
     assert ws.max_row >= 8
 
 
+def test_write_xlsx_red_flag(tmp_path):
+    deviz = _make_sample_deviz(status="RED")
+    out = tmp_path / "test.xlsx"
+    write_xlsx([deviz], out)
+    wb = load_workbook(str(out))
+    ws = wb.active
+    all_text = ' '.join(
+        str(ws.cell(r, c).value or '')
+        for r in range(1, ws.max_row + 1)
+        for c in range(1, 7)
+    )
+    assert 'NECONFIRMAT' in all_text
+    assert 'necesară' in all_text
+
+
 def test_write_pdf_skips_gracefully_if_no_libreoffice(tmp_path, monkeypatch):
     deviz = _make_sample_deviz()
     docx_path = tmp_path / "test.docx"

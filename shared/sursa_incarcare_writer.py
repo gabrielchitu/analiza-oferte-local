@@ -31,6 +31,7 @@ _XLS_HEADER = PatternFill('solid', fgColor='D9D9D9')
 _XLS_BOLD = Font(bold=True)
 _XLS_BOLD_WHITE = Font(bold=True, color='FFFFFF')
 _XLS_SMALL = Font(size=8, italic=True)
+_XLS_SUBITEM = Font(size=8)
 _XLS_CENTER = Alignment(horizontal='center', vertical='center')
 
 
@@ -298,7 +299,7 @@ def write_xlsx(devize: list[dict], output_path: Path) -> None:
 
         # Column headers
         headers = ['Nr.', 'Capitol de lucrări', 'U.M.', 'Cantitatea',
-                   'Preț unitar (fără TVA)', 'TOTALUL (fără TVA)']
+                   'Preț unitar (fără TVA) — Lei', 'TOTALUL (fără TVA) — Lei']
         for ci, h in enumerate(headers, 1):
             c = ws.cell(r, ci, value=h)
             c.fill = _XLS_HEADER
@@ -336,7 +337,7 @@ def write_xlsx(devize: list[dict], output_path: Path) -> None:
                 for sub in art.get('sub_items', []):
                     cod_den_s = f"{sub['cod']} - {sub['denumire']}" if sub['cod'] else sub['denumire']
                     ws.cell(r, 1, value=sub['nr_crt']).alignment = _XLS_CENTER
-                    ws.cell(r, 2, value=cod_den_s).font = Font(size=8)
+                    ws.cell(r, 2, value=cod_den_s).font = _XLS_SUBITEM
                     ws.cell(r, 3, value=sub.get('um', '')).alignment = _XLS_CENTER
                     ws.cell(r, 4, value=sub.get('cantitate', 0)).alignment = _XLS_CENTER
                     ws.cell(r, 5, value=sub.get('pret_unitar', 0)).alignment = _XLS_CENTER
@@ -352,7 +353,7 @@ def write_xlsx(devize: list[dict], output_path: Path) -> None:
 
         # Total deviz row
         is_red = deviz.get('status') == 'RED'
-        total_label = 'TOTAL NECONFIRMAT — verificare manuală' if is_red else 'TOTAL 1 (Cheltuieli directe)'
+        total_label = 'TOTAL NECONFIRMAT — verificare manuală necesară' if is_red else 'TOTAL 1 (Cheltuieli directe)'
         fill = _XLS_RED if is_red else _XLS_YELLOW
         font = _XLS_BOLD_WHITE if is_red else _XLS_BOLD
         for ci in range(1, 7):
