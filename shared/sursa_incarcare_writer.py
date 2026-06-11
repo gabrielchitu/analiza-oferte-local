@@ -1,6 +1,7 @@
 """Generate F3 landscape DOCX from verified extracted sursa-incarcare data."""
 
 import re
+import subprocess
 from pathlib import Path
 
 from docx import Document
@@ -9,6 +10,9 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.section import WD_ORIENT
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
+
+from openpyxl import Workbook
+from openpyxl.styles import PatternFill, Font, Alignment
 
 # Column widths in cm: Nr | Denumire | UM | Cant | Pret | Total
 _COL_W = [1.2, 9.0, 1.5, 2.5, 2.8, 3.0]
@@ -19,6 +23,15 @@ _GRAY_HEX = 'EEEEEE'
 _YELLOW_HEX = 'FFF2CC'
 _RED_HEX = 'FF0000'
 _HEADER_GRAY = 'D9D9D9'
+
+_XLS_GRAY = PatternFill('solid', fgColor='EEEEEE')
+_XLS_YELLOW = PatternFill('solid', fgColor='FFF2CC')
+_XLS_RED = PatternFill('solid', fgColor='FF0000')
+_XLS_HEADER = PatternFill('solid', fgColor='D9D9D9')
+_XLS_BOLD = Font(bold=True)
+_XLS_BOLD_WHITE = Font(bold=True, color='FFFFFF')
+_XLS_SMALL = Font(size=8, italic=True)
+_XLS_CENTER = Alignment(horizontal='center', vertical='center')
 
 
 def make_acronym(obiectivul: str) -> str:
@@ -259,3 +272,105 @@ def write_docx(devize: list[dict], output_path: Path) -> None:
             doc.add_page_break()
         _build_table(doc, deviz)
     doc.save(str(output_path))
+
+
+def write_xlsx(devize: list[dict], output_path: Path) -> None:
+    """Write F3 XLS with same row structure as DOCX (one sheet per deviz)."""
+    wb = Workbook()
+    wb.remove(wb.active)
+
+    col_widths = [8, 55, 8, 14, 16, 16]
+
+    for deviz in devize:
+        sheet_name = (deviz.get('categoria') or 'Deviz')[:31]
+        ws = wb.create_sheet(title=sheet_name)
+
+        for ci, w in enumerate(col_widths, 1):
+            ws.column_dimensions[ws.cell(1, ci).column_letter].width = w
+
+        r = 1
+        # Deviz header row
+        ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=6)
+        cell = ws.cell(r, 1,
+                       value=f"{deviz.get('obiectivul','')} / {deviz.get('obiectul','')} / {deviz.get('categoria','')}")
+        cell.font = _XLS_BOLD
+        r += 1
+
+        # Column headers
+        headers = ['Nr.', 'Capitol de lucrări', 'U.M.', 'Cantitatea',
+                   'Preț unitar (fără TVA)', 'TOTALUL (fără TVA)']
+        for ci, h in enumerate(headers, 1):
+            c = ws.cell(r, ci, value=h)
+            c.fill = _XLS_HEADER
+            c.font = _XLS_BOLD
+            c.alignment = _XLS_CENTER
+        r += 1
+
+        for cap in deviz.get('capitole', []):
+            ws.cell(r, 1, value='').fill = _XLS_GRAY
+            c = ws.cell(r, 2, value=cap['titlu'])
+            c.font = _XLS_BOLD
+            c.fill = _XLS_GRAY
+            for ci in range(3, 7):
+                ws.cell(r, ci).fill = _XLS_GRAY
+            r += 1
+
+            for art in cap.get('articole', []):
+                cod_den = f"{art['cod']} - {art['denumire']}" if art['cod'] else art['denumire']
+                ws.cell(r, 1, value=art['nr_crt']).alignment = _XLS_CENTER
+                ws.cell(r, 2, value=cod_den)
+                ws.cell(r, 3, value=art.get('um', '')).alignment = _XLS_CENTER
+                ws.cell(r, 4, value=art.get('cantitate', 0)).alignment = _XLS_CENTER
+                ws.cell(r, 5, value=art.get('pret_unitar', 0)).alignment = _XLS_CENTER
+                ws.cell(r, 6, value=art.get('total', 0)).alignment = _XLS_CENTER
+                r += 1
+
+                if art.get('breakdown'):
+                    for key in ('material', 'manopera', 'utilaj', 'transport'):
+                        bd = art['breakdown'].get(key, {})
+                        ws.cell(r, 2, value=f"  {key}:").font = _XLS_SMALL
+                        ws.cell(r, 5, value=bd.get('pret', 0)).font = _XLS_SMALL
+                        ws.cell(r, 6, value=bd.get('total', 0)).font = _XLS_SMALL
+                        r += 1
+
+                for sub in art.get('sub_items', []):
+                    cod_den_s = f"{sub['cod']} - {sub['denumire']}" if sub['cod'] else sub['denumire']
+                    ws.cell(r, 1, value=sub['nr_crt']).alignment = _XLS_CENTER
+                    ws.cell(r, 2, value=cod_den_s).font = Font(size=8)
+                    ws.cell(r, 3, value=sub.get('um', '')).alignment = _XLS_CENTER
+                    ws.cell(r, 4, value=sub.get('cantitate', 0)).alignment = _XLS_CENTER
+                    ws.cell(r, 5, value=sub.get('pret_unitar', 0)).alignment = _XLS_CENTER
+                    ws.cell(r, 6, value=sub.get('total', 0)).alignment = _XLS_CENTER
+                    r += 1
+
+            if cap.get('total_capitol') is not None:
+                for ci in range(1, 6):
+                    c = ws.cell(r, ci, value=f'TOTAL {cap["titlu"]}' if ci == 1 else '')
+                    c.font = _XLS_BOLD
+                ws.cell(r, 6, value=cap['total_capitol']).font = _XLS_BOLD
+                r += 1
+
+        # Total deviz row
+        is_red = deviz.get('status') == 'RED'
+        total_label = 'TOTAL NECONFIRMAT — verificare manuală' if is_red else 'TOTAL 1 (Cheltuieli directe)'
+        fill = _XLS_RED if is_red else _XLS_YELLOW
+        font = _XLS_BOLD_WHITE if is_red else _XLS_BOLD
+        for ci in range(1, 7):
+            ws.cell(r, ci).fill = fill
+        ws.cell(r, 1, value=total_label).font = font
+        ws.cell(r, 6, value=deviz.get('total_deviz', 0)).font = font
+
+    wb.save(str(output_path))
+
+
+def write_pdf(docx_path: Path, output_dir: Path) -> bool:
+    """Convert DOCX to PDF via LibreOffice CLI. Returns True on success, False if unavailable."""
+    try:
+        result = subprocess.run(
+            ['soffice', '--headless', '--convert-to', 'pdf',
+             '--outdir', str(output_dir), str(docx_path)],
+            capture_output=True, timeout=60,
+        )
+        return result.returncode == 0
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return False

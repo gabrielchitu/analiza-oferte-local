@@ -1,7 +1,9 @@
+import subprocess
 import pytest
 from pathlib import Path
 from docx import Document
-from shared.sursa_incarcare_writer import make_acronym, write_docx
+from openpyxl import load_workbook
+from shared.sursa_incarcare_writer import make_acronym, write_docx, write_xlsx, write_pdf
 
 
 def test_make_acronym_standard():
@@ -109,3 +111,41 @@ def test_write_docx_red_flag_when_red(tmp_path):
         cell.text for tbl in doc.tables for row in tbl.rows for cell in row.cells
     )
     assert 'NECONFIRMAT' in all_text
+
+
+def test_write_xlsx_creates_file(tmp_path):
+    deviz = _make_sample_deviz()
+    out = tmp_path / "test.xlsx"
+    write_xlsx([deviz], out)
+    assert out.exists()
+    assert out.stat().st_size > 0
+
+
+def test_write_xlsx_sheet_name(tmp_path):
+    deviz = _make_sample_deviz()
+    out = tmp_path / "test.xlsx"
+    write_xlsx([deviz], out)
+    wb = load_workbook(str(out))
+    assert '3.1 ARHITECTURA' in wb.sheetnames[0]
+
+
+def test_write_xlsx_has_rows(tmp_path):
+    deviz = _make_sample_deviz()
+    out = tmp_path / "test.xlsx"
+    write_xlsx([deviz], out)
+    wb = load_workbook(str(out))
+    ws = wb.active
+    assert ws.max_row >= 8
+
+
+def test_write_pdf_skips_gracefully_if_no_libreoffice(tmp_path, monkeypatch):
+    deviz = _make_sample_deviz()
+    docx_path = tmp_path / "test.docx"
+    write_docx([deviz], docx_path)
+
+    def fake_run(*args, **kwargs):
+        raise FileNotFoundError("soffice not found")
+    monkeypatch.setattr(subprocess, "run", fake_run)
+
+    result = write_pdf(docx_path, tmp_path)
+    assert result is False
