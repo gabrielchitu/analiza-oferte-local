@@ -696,9 +696,20 @@ def compare_by_groups(
         remaining_ref_keys -= matched_ref_cods
         remaining_oferta_keys -= matched_oferta_cods
 
-        # LLM phase
+        # LLM phase — skip when both sides use 4-digit numeric object codes.
+        # In that case groups match deterministically by object number; LLM
+        # cannot improve on knowledge + rapidfuzz and only wastes tokens.
+        _skip_llm_numeric = False
+        if remaining_ref_keys and remaining_oferta_keys:
+            import re as _re2
+            sample_ref = next(iter(remaining_ref_keys))
+            rh_sample = ref_deviz_headers.get(sample_ref)
+            obj_sample = (getattr(rh_sample, "obiectul", None) or "").strip()
+            if _re2.match(r"^\d{4}", obj_sample):
+                _skip_llm_numeric = True
+                logger.info("[GC] Skipping LLM phase — numeric object codes detected (DT-style format)")
         _new_llm_pairs: list[dict] = []
-        if remaining_ref_keys and remaining_oferta_keys and llm_client:
+        if remaining_ref_keys and remaining_oferta_keys and llm_client and not _skip_llm_numeric:
             llm_results = _llm_match_groups(
                 remaining_ref_keys, remaining_oferta_keys,
                 ref_deviz_headers, oferta_deviz_headers,
