@@ -284,3 +284,40 @@ def test_assemble_deviz_breakdown_control_fail():
     art = deviz['capitole'][0]['articole'][0]
     assert art['breakdown']['control_ok'] is False
     assert art.get('suspect') is True
+
+
+def test_extract_prices_checkpoint_roundtrip(tmp_path):
+    """extract_prices saves to checkpoint and loads on second call without re-extracting."""
+    from shared.f3_price_extractor import extract_prices
+
+    # Build minimal page_classes and deviz_headers
+    class FakeHeader:
+        obiectivul = "TEST"
+        obiectul = "TEST"
+        categoria = "TEST"
+        deviz_key = "test123"
+        deviz_cod = "3.1"
+        is_valid = True
+
+    page_classes = [{
+        'is_f3': True,
+        'header_only': False,
+        'deviz_cod': '3.1',
+        'page_number': 1,
+        'lines': ['5 = 3 x 4', 'CAPITOL', '1', 'TEST - Article', 'buc', '1.000', '10.00', '10.00', 'TOTAL CAPITOL', '10.00'],
+    }]
+    deviz_headers = {'test123': FakeHeader()}
+    ckpt = tmp_path / 'sursa_extracted_test.json'
+
+    # First call — extracts and saves
+    result1 = extract_prices(page_classes, deviz_headers, checkpoint_path=ckpt)
+    assert ckpt.exists()
+    assert len(result1) == 1
+
+    # Second call — loads from checkpoint (pass empty page_classes to prove no re-extraction)
+    result2 = extract_prices([], {}, checkpoint_path=ckpt)
+    assert result2 == result1
+
+    # force=True — re-extracts even with checkpoint
+    result3 = extract_prices(page_classes, deviz_headers, checkpoint_path=ckpt, force=True)
+    assert len(result3) == 1

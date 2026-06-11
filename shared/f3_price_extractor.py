@@ -67,7 +67,7 @@ def _parse_number(s: str) -> Optional[float]:
 
 
 def _is_capitol_header(line: str) -> bool:
-    """All-caps line with no digit prefix and no dash — section header.
+    """All-caps line with no digits and no dash — section header.
 
     Note: callers must check `_is_cod_name` first — all-caps cod-name lines
     (e.g. ``RPCE27A+ - MASTIC BITUMINOS``) satisfy both predicates.
@@ -200,7 +200,7 @@ def _parse_f3_page_lines(lines: list[str]) -> list[tuple[str, dict]]:
         # SUB-ITEM NR (decimal like "3.1") — only outside the qty/price window
         if _NR_DEC_RE.match(line) and not in_num_window:
             events.append(('SUB_NR', {'nr_crt': line}))
-            # entering a new sub-item's num window when UM follows; reset now
+            # num window opens later when UM fires; no window state change here
             continue
 
         # ARTICLE NR (integer)
