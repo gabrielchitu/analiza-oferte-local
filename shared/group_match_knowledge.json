@@ -2567,6 +2567,42 @@
     {
       "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0005 BAPC16-4cm 4,67smp",
       "oferta_den": "0050 45230000 | 0008 45230000 | BI0005 BAPC16 - 4CM 4.67SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0008 Str.Bisericii | 0006 Acostam.10cm 60mp.",
+      "oferta_den": "0050 45230000 | 0014 45230000 | PI0006 ACOSTAMENT 10CM 176MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0004 Strada Telului | 0007 Podet DN600 L=7m 1bc.",
+      "oferta_den": "0050 45230000 | 0017 45230000 | A0007 PODETE DN600CP L=7M 2bc"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0001 Strada Zoica | 0007 Zid R150 -65m (13bc.)",
+      "oferta_den": "0050 45230000 | 0001 45230000 | Z0007 ZID R150 - 65M (13bc)"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0009 Str.Vloncesti | 0009 Marcaj lateral 146m",
+      "oferta_den": "0050 45230000 | 0009 45230000 | VL0009 MARCAJ LATERAL 146M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0011 Strada Frunzei | 0005 BAPC16-4cm 2,35smp",
+      "oferta_den": "0050 45230000 | 0011 45230000 | FR0005 BAPC16 - 4CM 2.35SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 001A Lucrari complementare | 0001 Canivouri armate 1358m",
+      "oferta_den": "0050 45230000 | 0021 45230000 | LC001A CANIVOURI ARMATE 1358M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0014 Strada Pisicesti | 0007 Zid D200 L=25m (5bc.)",
+      "oferta_den": "0050 45230000 | 0014 45230000 | PI0007 ZID D200 L=25M (5bc)"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0015 Strada Scolii | 0007 Canivou carosabil 10m",
+      "oferta_den": "0050 45230000 | 0015 45230000 | SC0007 CANIVOU CAROSABIL 10M"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0015 Strada Scolii | 0008 Spargeri,demolari 90mp",
+      "oferta_den": "0050 45230000 | 0015 45230000 | SC0008 SPARGERI , DEMOLARI 90MP"
     }
   ]
 }
