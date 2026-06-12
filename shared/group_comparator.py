@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import logging
 import json
+import re
 from pathlib import Path
 from dataclasses import dataclass, field
 from collections import defaultdict
@@ -110,7 +111,6 @@ def _extract_cat_nr(hdr) -> str | None:
     Handles both ref format ('0004 BADPS22...') and offer format ('A0004 BADPS22...',
     'VL0009 MARCAJ...', 'Z0007 ZID...'). Returns None if pattern not found.
     """
-    import re
     categoria = (getattr(hdr, "categoria", None) or "").strip()
     # Offer format: optional letters prefix then 4 digits (e.g. A0004, VL0009, Z0007)
     # Ref format: leading 4 digits (e.g. 0004 BADPS22)
@@ -139,7 +139,8 @@ def _match_by_rapidfuzz(
         if not ref_text:
             continue
         ref_obj_nr = _extract_obj_nr(rh)
-        best_score, best_ok, best_oh = 0, "", None
+        ref_cat_nr = _extract_cat_nr(rh)
+        best_score, best_ok, best_oh, best_cat_match, best_cat_score = 0, "", None, False, 0
         for ok, oh in sorted(remaining_oferta.items()):
             if ok in used_oferta:
                 continue
@@ -150,9 +151,27 @@ def _match_by_rapidfuzz(
             off_obj_nr = _extract_obj_nr(oh)
             if ref_obj_nr and off_obj_nr and ref_obj_nr != off_obj_nr:
                 continue
+            # Skip cross-category matches when both sides have 4-digit category codes
+            # Exception: OS5XXX (Org.santier O2 format) maps to 000X in ref — skip check
+            off_cat_nr = _extract_cat_nr(oh)
+            is_os_format = bool(re.match(r"^OS\d", oh.categoria or ""))
+            if not is_os_format and ref_cat_nr and off_cat_nr and ref_cat_nr != off_cat_nr:
+                continue
             score = _rfuzz.partial_token_set_ratio(ref_text, off_text)
-            if score > best_score:
+            cat_match = bool(ref_cat_nr and off_cat_nr and ref_cat_nr == off_cat_nr)
+            # Tiebreak 1: prefer cat_nr match; Tiebreak 2: categoria-only score
+            # Needed when same-strada groups all score 100 on full text (e.g. DT2 AN1-AN5)
+            cat_score = _rfuzz.partial_token_set_ratio(
+                rh.categoria or "", oh.categoria or ""
+            )
+            better = (
+                score > best_score
+                or (score == best_score and cat_match and not best_cat_match)
+                or (score == best_score and cat_match == best_cat_match and cat_score > best_cat_score)
+            )
+            if better:
                 best_score, best_ok, best_oh = score, ok, oh
+                best_cat_match, best_cat_score = cat_match, cat_score
         if best_score >= threshold and best_ok:
             ref_den = _den_string(rh)
             oferta_den = _den_string(best_oh)
