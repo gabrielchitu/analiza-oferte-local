@@ -65,7 +65,11 @@ def _build_client():
     return AnthropicAdapter(anthropic.Anthropic(api_key=api_key), model=model), model
 
 
-def run_pipeline(client_config: ClientConfig, subcomponent_mode: str = "full") -> None:
+def run_pipeline(
+    client_config: ClientConfig,
+    subcomponent_mode: str = "full",
+    no_semantic_cache: bool = False,
+) -> None:
     """
     Run complete analysis pipeline for a single client.
 
@@ -74,6 +78,7 @@ def run_pipeline(client_config: ClientConfig, subcomponent_mode: str = "full") -
     Args:
         client_config: ClientConfig instance with paths and file list
         subcomponent_mode: Subcomponent extraction mode ("full", "deviz-only", or "skip")
+        no_semantic_cache: If True, disable semantic comparator cache (always call LLM)
     """
     logger.info(f"Starting pipeline for client: {client_config.name}")
     client_config.ensure_output_dirs()
@@ -1049,9 +1054,14 @@ def compare_and_report(
 
     logger.info(f"  [HEADERS] Ref: {len(_ref_dh)} deviz_keys, Oferta: {len(_oferta_dh)} deviz_keys")
 
+    _sem_cache_path = (
+        None if no_semantic_cache
+        else (client_config.output_dir if client_config else OUTPUT_DIR) / "semantic_cache.json"
+    )
     _holistic = compare_by_groups(
         ref_articles, oferta_norm, _ref_dh, _oferta_dh, client, model,
         client_name=client_config.name if client_config else "",
+        semantic_cache_path=_sem_cache_path,
     )
     raport_holistic = build_raport_holistic(_holistic)
     logger.info(

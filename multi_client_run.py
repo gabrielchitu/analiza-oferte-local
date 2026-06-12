@@ -85,6 +85,12 @@ def parse_args() -> argparse.Namespace:
             "summary=hide all except LIPSA/EXTRA"
         ),
     )
+    parser.add_argument(
+        "--no-semantic-cache",
+        action="store_true",
+        default=False,
+        help="Disable semantic comparator cache — always call LLM (useful after article/denomination changes)",
+    )
     return parser.parse_args()
 
 
@@ -138,7 +144,11 @@ def main():
         logger.info(f"Output: {client_config.output_dir}")
         logger.info(f"{'='*60}\n")
 
-        run_pipeline(client_config, subcomponent_mode=args.subcomponents)
+        run_pipeline(
+            client_config,
+            subcomponent_mode=args.subcomponents,
+            no_semantic_cache=args.no_semantic_cache,
+        )
 
         logger.info(f"\n{'='*60}")
         logger.info(f"✓ Pipeline completed successfully for: {client_config.name}")

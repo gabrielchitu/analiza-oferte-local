@@ -6,12 +6,44 @@ Pass 1 (semantic_nr_match): LIPSA+EXTRA pairs at same nr_ordine with different c
 Pass 2 (semantic_spec_check): Already-matched same-code pairs where denominations
   differ significantly from a construction domain specialist perspective.
 """
+import hashlib
 import json
 import logging
 import re
 import unicodedata
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
+
+
+class SemanticCache:
+    """File-backed cache for semantic LLM results. Keys are SHA-256 of deterministic inputs."""
+
+    def __init__(self, path: Path):
+        self._path = path
+        self._data: dict = {}
+        if path.exists():
+            try:
+                self._data = json.loads(path.read_text(encoding="utf-8"))
+                logger.info(f"[SEM] Cache loaded: {len(self._data)} entries from {path.name}")
+            except Exception as e:
+                logger.warning(f"[SEM] Cache load failed ({path}): {e}")
+
+    def _key(self, *parts: str) -> str:
+        return hashlib.sha256("\x00".join(parts).encode()).hexdigest()
+
+    def get(self, *parts: str):
+        return self._data.get(self._key(*parts))
+
+    def put(self, result, *parts: str) -> None:
+        self._data[self._key(*parts)] = result
+        try:
+            self._path.write_text(
+                json.dumps(self._data, ensure_ascii=False, indent=2), encoding="utf-8"
+            )
+        except Exception as e:
+            logger.warning(f"[SEM] Cache save failed: {e}")
+
 
 _PASS1_SYSTEM = (
     "Ești specialist în proiectare și execuție lucrări de construcții"
@@ -62,7 +94,13 @@ def _llm_json(llm_client, llm_model: str, system: str, user: str) -> dict:
         return {}
 
 
-def semantic_nr_match(ncs: list, deviz_context: str, llm_client, llm_model: str) -> list:
+def semantic_nr_match(
+    ncs: list,
+    deviz_context: str,
+    llm_client,
+    llm_model: str,
+    cache: "SemanticCache | None" = None,
+) -> list:
     """Replace LIPSA+EXTRA pairs at same nr_ordine with COD_NORMATIV_DIFERIT where LLM confirms."""
     lipsa_by_nr: dict[int, tuple[int, dict]] = {}
     extra_by_nr: dict[int, tuple[int, dict]] = {}
@@ -82,23 +120,39 @@ def semantic_nr_match(ncs: list, deviz_context: str, llm_client, llm_model: str)
     for nr in sorted(shared_nrs):
         lipsa_idx, lipsa_nc = lipsa_by_nr[nr]
         extra_idx, extra_nc = extra_by_nr[nr]
-        user = (
-            f"Context deviz: {deviz_context}\n\n"
-            f"REFERINȚĂ: NR={nr} | Cod={lipsa_nc.get('ref_cod','')} | "
-            f"\"{lipsa_nc.get('ref_denumire','')}\" | {lipsa_nc.get('ref_um','')} | "
-            f"cant={lipsa_nc.get('ref_cantitate','')}\n"
-            f"OFERTĂ:    NR={nr} | Cod={extra_nc.get('oferta_cod','')} | "
-            f"\"{extra_nc.get('oferta_denumire','')}\" | {extra_nc.get('oferta_um','')} | "
-            f"cant={extra_nc.get('oferta_cantitate','')}\n\n"
-            "Reprezintă aceleași lucrări fizice? Dacă da, listează toate diferențele.\n"
-            "Răspunde STRICT JSON:\n"
-            "{\n"
-            "  \"match\": true,\n"
-            "  \"motiv\": \"...\",\n"
-            "  \"diferente\": [{\"camp\": \"cod_normativ\", \"ref\": \"...\", \"oferta\": \"...\"}]\n"
-            "}"
+
+        cache_key = (
+            "P1",
+            lipsa_nc.get("ref_cod", ""),
+            lipsa_nc.get("ref_denumire", ""),
+            extra_nc.get("oferta_cod", ""),
+            extra_nc.get("oferta_denumire", ""),
         )
-        result = _llm_json(llm_client, llm_model, _PASS1_SYSTEM, user)
+        cached = cache.get(*cache_key) if cache is not None else None
+        if cached is not None:
+            result = cached
+            logger.debug(f"[SEM] P1 cache hit: NR={nr}")
+        else:
+            user = (
+                f"Context deviz: {deviz_context}\n\n"
+                f"REFERINȚĂ: NR={nr} | Cod={lipsa_nc.get('ref_cod','')} | "
+                f"\"{lipsa_nc.get('ref_denumire','')}\" | {lipsa_nc.get('ref_um','')} | "
+                f"cant={lipsa_nc.get('ref_cantitate','')}\n"
+                f"OFERTĂ:    NR={nr} | Cod={extra_nc.get('oferta_cod','')} | "
+                f"\"{extra_nc.get('oferta_denumire','')}\" | {extra_nc.get('oferta_um','')} | "
+                f"cant={extra_nc.get('oferta_cantitate','')}\n\n"
+                "Reprezintă aceleași lucrări fizice? Dacă da, listează toate diferențele.\n"
+                "Răspunde STRICT JSON:\n"
+                "{\n"
+                "  \"match\": true,\n"
+                "  \"motiv\": \"...\",\n"
+                "  \"diferente\": [{\"camp\": \"cod_normativ\", \"ref\": \"...\", \"oferta\": \"...\"}]\n"
+                "}"
+            )
+            result = _llm_json(llm_client, llm_model, _PASS1_SYSTEM, user)
+            if cache is not None:
+                cache.put(result, *cache_key)
+
         if not isinstance(result.get("match"), bool):
             logger.warning(f"[SEM] Pass1 NR={nr}: invalid LLM response, skipping")
             continue
@@ -138,6 +192,7 @@ def semantic_spec_check(
     deviz_context: str,
     llm_client,
     llm_model: str,
+    cache: "SemanticCache | None" = None,
 ) -> list:
     """Check already-matched same-code pairs for technically significant denomination differences."""
     ref_by_cod = {a.get("cod", ""): a for a in ref_arts if a.get("cod")}
@@ -166,23 +221,33 @@ def semantic_spec_check(
             continue  # no numeric diff → text-only divergence is OCR/formatting noise
 
         oferta_art = oferta_by_cod.get(oferta_cod)
-        user = (
-            f"Context deviz: {deviz_context}\n\n"
-            f"Articolul cu codul {ref_cod} apare în ambele documente cu descrieri diferite:\n"
-            f"REFERINȚĂ: \"{ref_den}\"\n"
-            f"OFERTĂ:    \"{oferta_den}\"\n\n"
-            "Diferența este semnificativă din punct de vedere tehnic și al costului lucrării?\n\n"
-            "Semnificative (exemple): înălțime stalp 8m vs 5m, diametru conductă 110 vs 160mm,\n"
-            "  clasă beton C20/25 vs C30/37, număr canale DVR 16 vs 8.\n"
-            "Nesemnificative (exemple): majuscule/minuscule, prescurtări, ordine cuvinte,\n"
-            "  text OCR incomplet care nu contrazice referința.\n\n"
-            "Răspunde STRICT JSON:\n"
-            "{\n"
-            "  \"diferenta_semnificativa\": true,\n"
-            "  \"nota_specialist\": \"...\"\n"
-            "}"
-        )
-        result = _llm_json(llm_client, llm_model, _PASS2_SYSTEM, user)
+
+        cache_key = ("P2", ref_cod, ref_den, oferta_den)
+        cached = cache.get(*cache_key) if cache is not None else None
+        if cached is not None:
+            result = cached
+            logger.debug(f"[SEM] P2 cache hit: cod={ref_cod}")
+        else:
+            user = (
+                f"Context deviz: {deviz_context}\n\n"
+                f"Articolul cu codul {ref_cod} apare în ambele documente cu descrieri diferite:\n"
+                f"REFERINȚĂ: \"{ref_den}\"\n"
+                f"OFERTĂ:    \"{oferta_den}\"\n\n"
+                "Diferența este semnificativă din punct de vedere tehnic și al costului lucrării?\n\n"
+                "Semnificative (exemple): înălțime stalp 8m vs 5m, diametru conductă 110 vs 160mm,\n"
+                "  clasă beton C20/25 vs C30/37, număr canale DVR 16 vs 8.\n"
+                "Nesemnificative (exemple): majuscule/minuscule, prescurtări, ordine cuvinte,\n"
+                "  text OCR incomplet care nu contrazice referința.\n\n"
+                "Răspunde STRICT JSON:\n"
+                "{\n"
+                "  \"diferenta_semnificativa\": true,\n"
+                "  \"nota_specialist\": \"...\"\n"
+                "}"
+            )
+            result = _llm_json(llm_client, llm_model, _PASS2_SYSTEM, user)
+            if cache is not None:
+                cache.put(result, *cache_key)
+
         if result.get("diferenta_semnificativa") is not True:
             continue
 

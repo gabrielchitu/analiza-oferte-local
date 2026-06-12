@@ -423,6 +423,7 @@ def _compare_articles_in_group(
     group_key: str,
     llm_client,
     llm_model: str,
+    semantic_cache=None,
 ) -> tuple[list, list]:
     if not ref_arts and not oferta_arts:
         return [], []
@@ -460,8 +461,8 @@ def _compare_articles_in_group(
     if llm_client and llm_model:
         from shared.semantic_comparator import semantic_nr_match, semantic_spec_check
         ctx = _deviz_context(ref_arts, oferta_arts)
-        ncs = semantic_nr_match(ncs, ctx, llm_client, llm_model)
-        spec_ncs = semantic_spec_check(matches, ref_arts, oferta_arts, ctx, llm_client, llm_model)
+        ncs = semantic_nr_match(ncs, ctx, llm_client, llm_model, cache=semantic_cache)
+        spec_ncs = semantic_spec_check(matches, ref_arts, oferta_arts, ctx, llm_client, llm_model, cache=semantic_cache)
         ncs.extend(spec_ncs)
 
     return ncs, matches
@@ -475,6 +476,7 @@ def compare_by_groups(
     llm_client=None,
     llm_model: str = "",
     client_name: str = "",
+    semantic_cache_path=None,
 ) -> HolisticComparison:
     """
     Holistic group-based comparison.
@@ -483,8 +485,13 @@ def compare_by_groups(
     oferta_only_groups, ungrouped.
     """
     from shared.deviz_matcher import match_devize_by_3layer
+    from shared.semantic_comparator import SemanticCache
 
     result = HolisticComparison()
+
+    _semantic_cache = SemanticCache(semantic_cache_path) if semantic_cache_path is not None else None
+    if _semantic_cache is not None:
+        logger.info(f"[GC] Semantic cache active: {semantic_cache_path}")
 
     # Auto-detect DT-style format: obiectul starts with 4-digit code (e.g. "0001 Strada Zoica").
     # In that format, article-level LLM matching adds no value — articles match by code,
@@ -596,7 +603,8 @@ def compare_by_groups(
         ref_arts = _dedup_articles(ref_by_deviz.get(ref_cod, []))
         of_arts = _dedup_articles(oferta_by_deviz.get(oferta_cod, []))
         ncs, matches = _compare_articles_in_group(
-            ref_arts, of_arts, ref_cod, _eff_llm_client, _eff_llm_model
+            ref_arts, of_arts, ref_cod, _eff_llm_client, _eff_llm_model,
+            semantic_cache=_semantic_cache,
         )
         # Build deviz_denumire from header (3 elements, not hash)
         ref_hdr = ref_deviz_headers.get(ref_cod)
@@ -651,7 +659,8 @@ def compare_by_groups(
             r_arts = _dedup_articles(ref_by_deviz.get(ref_key, []))
             o_arts = _dedup_articles(oferta_by_deviz.get(oferta_key, []))
             ncs2, matches2 = _compare_articles_in_group(
-                r_arts, o_arts, ref_key, _eff_llm_client, _eff_llm_model
+                r_arts, o_arts, ref_key, _eff_llm_client, _eff_llm_model,
+                semantic_cache=_semantic_cache,
             )
             r_hdr2 = ref_deviz_headers.get(ref_key)
             o_hdr2 = oferta_deviz_headers.get(oferta_key)
