@@ -6328,5 +6328,35 @@
     "obiectivul": "Centru de colectare selectiva a deseurilor prin aport voluntar, in Comuna Maneciu , Judetul Prahova",
     "obiectul": "25.4 CAV-MANECIU",
     "categoria": "8 8 Amenajarea terenului e"
+  },
+  "be5308c91ca6ac43": {
+    "obiectivul": "0021 Drumuri Tatarani",
+    "obiectul": "0011 Strada Frunzei",
+    "categoria": "0001 Terasamente 2,67smp"
+  },
+  "cbf768152ca5f44f": {
+    "obiectivul": "0021 Drumuri Tatarani",
+    "obiectul": "0013 Strada Tarinei",
+    "categoria": "0001 Terasamente 3,06smp"
+  },
+  "e5084afdeb999c7c": {
+    "obiectivul": "0021 Drumuri Tatarani",
+    "obiectul": "0018 Strada Minei",
+    "categoria": "0001 Terasamente 13,68amp"
+  },
+  "10d6b5470d4f41db": {
+    "obiectivul": "0232 000000232 DRUMURI TATARANI",
+    "obiectul": "0011 11 Strada Frunzei",
+    "categoria": "FR0002 Balast 15cm 2.67smp"
+  },
+  "1c131ea7bacf3de7": {
+    "obiectivul": "0232 000000232 DRUMURI TATARANI",
+    "obiectul": "0019 19 Strada Soarelui",
+    "categoria": "SO0003 Piatra sparta 12cm 135mp"
+  },
+  "cd1629c84ce59a93": {
+    "obiectivul": "0050 45230000",
+    "obiectul": "0020 45230000 ORGA",
+    "categoria": "OS5001 TERASAMENTE 800MP"
   }
 }

@@ -33,7 +33,24 @@ def _load_ocr_learned() -> dict:
         return {}
 
 
+def _load_code_aliases() -> dict:
+    def _norm_alias_key(v: str) -> str:
+        v = re.sub(r'[^A-Z0-9$]', '', v.strip().upper())
+        if v.startswith('$') and len(v) > 1:
+            stripped = re.sub(r'^0+', '', v[1:])
+            return '$' + stripped if stripped else v
+        # Match clean_code() behavior: strip leading zeros from numeric suffix after letters
+        return re.sub(r'(?<=[A-Z])0+(\d+)$', r'\1', v)
+    try:
+        data = _json.loads(_OCR_PATTERNS_FILE.read_text())
+        return {_norm_alias_key(r["from"]): _norm_alias_key(r["to"])
+                for r in data.get("code_aliases", [])}
+    except Exception:
+        return {}
+
+
 _OCR_LEARNED: dict = _load_ocr_learned()
+_CODE_ALIASES: dict = _load_code_aliases()
 
 
 def clean_code(cod: str) -> str:
@@ -79,6 +96,15 @@ def _normalize_cod(cod: str) -> str:
     # Strip special characters FIRST (before OCR replacements)
     # Caractere speciale (#, @, -, etc.) sunt artefacte software/OCR — stripuim.
     cod = re.sub(r'[^A-Z0-9$]', '', cod)
+
+    # Whole-code aliases (different code systems for same article, e.g. C20/25 ↔ $2110955)
+    if cod in _CODE_ALIASES:
+        result = _CODE_ALIASES[cod]
+        # Strip leading zeros from $-prefix targets to match clean_code() behavior
+        if result.startswith('$') and len(result) > 1:
+            stripped = re.sub(r'^0+', '', result[1:])
+            return '$' + stripped if stripped else result
+        return result
 
     # Handle $ prefixed codes early (numeric only)
     if cod.startswith('$'):

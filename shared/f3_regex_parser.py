@@ -179,6 +179,7 @@ SKIP_RE = re.compile(
     r'^=\s*$|^NR\.\s+SIMBOL|'
     r'^CANTITATE$|^PU\s|^GR\.\s+|^SPOR\s|'
     r'^(MATERIALE|MANOPERA|UTILAJ|TRANSPORT|GREUTATE|TOTAL|ARTICOL)$|'
+    r'^\d{4}\s+\d{8,}|'  # Obiectivul code line format: "0232 000000232" (short-code + CPV)
     r'^(?:\d{4,6}|\d{8,})$|'  # Pure numeric CPV/metadata codes (e.g., "0004", "45000000"); 7-digit codes are catalog articles
     r'Cheltuieli\s+(directe|indirecte)|Din\s+care:|'
     r'Valoare\s+aferenta|'

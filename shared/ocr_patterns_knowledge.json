@@ -1,4 +1,12 @@
 {
   "char_substitutions": [],
-  "suffix_patterns": []
+  "suffix_patterns": [],
+  "code_aliases": [
+    {"from": "C2025",     "to": "$2110955"},
+    {"from": "C810",      "to": "$2000068"},
+    {"from": "C3545",     "to": "$2666666"},
+    {"from": "NMB026821", "to": "$0226820"},
+    {"from": "NMB319721", "to": "$0319720"},
+    {"from": "NMB012000", "to": "$0012022"}
+  ]
 }
