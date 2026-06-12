@@ -506,12 +506,20 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
         # Check if UM line is valid — must match a known UM token.
         # Loose regex alone accepts description words like "T.TARE" (teren tare)
         # which causes misidentification and wrong cantitate extraction.
+        # Also accept "NUMBER UNIT" formats: "100 MC.", "82 SUTE MC" — normative unit
+        # with prefix (100 cubic meters as a unit, or 82 hundred cubic meters).
         _um_tokens = next_um_line.strip().upper().split()
+        _m_num_um = re.match(r'^(\d+)\s+([A-Z]{1,6})\.?\s*$', next_um_line, re.IGNORECASE)
+        _m_num_qual_um = re.match(r'^(\d+)\s+([A-Z]{1,6})\s+([A-Z]{1,6})\.?\s*$', next_um_line, re.IGNORECASE)
         is_valid_um = (
             len(next_um_line) < 20 and
-            re.match(r'^[A-Za-z\s\.]+$', next_um_line) and
-            bool(_um_tokens) and
-            _um_tokens[0].rstrip('.') in UM_KNOWN
+            (
+                (re.match(r'^[A-Za-z\s\.]+$', next_um_line) and
+                 bool(_um_tokens) and
+                 _um_tokens[0].rstrip('.') in UM_KNOWN)
+                or (_m_num_um is not None and _m_num_um.group(2).upper() in UM_KNOWN)
+                or (_m_num_qual_um is not None and _m_num_qual_um.group(3).upper() in UM_KNOWN)
+            )
         )
 
         # Check if QTY line is valid (number with optional comma/dot)
