@@ -99,7 +99,8 @@ def run_pipeline(
     # Continue with existing pipeline logic using these loaded files
     # The pipeline functions below are refactored to accept client_config
     _run_analysis_pipeline(client_config, referinta_data, oferta_data_list,
-                           subcomponent_mode=subcomponent_mode)
+                           subcomponent_mode=subcomponent_mode,
+                           no_semantic_cache=no_semantic_cache)
 
 
 def _normalize_obiectivul_cross_doc(
@@ -246,7 +247,8 @@ def _headers_from_articles(arts: list) -> dict:
 
 
 def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, oferta_di_list: list,
-                            subcomponent_mode: str = "full") -> None:
+                            subcomponent_mode: str = "full",
+                            no_semantic_cache: bool = False) -> None:
     """
     Internal pipeline: extract and compare documents.
 
@@ -399,6 +401,7 @@ def _run_analysis_pipeline(client_config: ClientConfig, ref_di_json: dict, ofert
             ofertant_name=ofertant_name, ref_di_json=ref_di_raw,
             checkpoint_data=oferta_checkpoint_data, ref_checkpoint_data=ref_checkpoint_data,
             client_config=client_config, subcomponent_mode=subcomponent_mode,
+            no_semantic_cache=no_semantic_cache,
         )
 
     logger.info("\n" + "=" * 50)
@@ -932,6 +935,7 @@ def compare_and_report(
     ref_checkpoint_data: dict = None,
     client_config: ClientConfig = None,
     subcomponent_mode: str = "full",
+    no_semantic_cache: bool = False,
 ):
     """Compara oferta cu referinta si genereaza raport XLSX + DOCX."""
     from shared.deviz_normalizer import normalize_devize
