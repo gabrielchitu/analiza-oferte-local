@@ -202,6 +202,7 @@ NR_COD_DESC_RE = re.compile(
     r'|[A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z]?\d?'
     r'|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}'
     r'|\d{3,5}[A-Z]\d{1,3}(?!\d)'  # digit-letter-digit (00106B011, 01311A1, 02012A1)
+    r'|[A-Z]{2,6}-\d+'  # letters-dash-digits: BAPC-16, SORT-10
     r'|(?:\d{4,9})(?!\d)(?:[@]|\[\d+\])?)'  # Numeric code with negative lookahead
     r'(?:#\d*|[>*@%^+]|\[\d*\]|ASIM|TSCH){0,2}[-]?\s*[-–]\s*(.+)$',
     re.IGNORECASE
@@ -501,7 +502,9 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
             # Breviar: $5102437, $6720363
             re.match(r'^(\$[A-Z0-9]{4,})', next_code_line, re.IGNORECASE) or
             # Numeric: 5102437, 6720363
-            re.match(r'^(\d{4,9})(?!\d)', next_code_line)
+            re.match(r'^(\d{4,9})(?!\d)', next_code_line) or
+            # Letters-dash-digits: BAPC-16, SORT-10
+            re.match(r'^([A-Z]{2,6}-\d+)\s*$', next_code_line, re.IGNORECASE)
         )
 
         # Check if UM line is valid — must match a known UM token.
