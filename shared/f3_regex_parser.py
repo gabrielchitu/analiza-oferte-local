@@ -570,8 +570,15 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
             j = i + 4
             while j < len(lines):
                 desc_line = lines[j].strip()
-                # Stop at next counter pattern
+                # Stop at next counter pattern — but absorb trailing small category digits
+                # (e.g., "TEREN CATEG 2" where '2' lands alone on next line, followed by
+                # a 3-digit padded NR like '003' that is the real next article counter).
                 if re.match(r'^\d+$', desc_line):
+                    peek = lines[j + 1].strip() if j + 1 < len(lines) else ''
+                    if re.match(r'^\d{1,4}$', peek):
+                        desc_parts.append(desc_line)
+                        j += 1
+                        continue
                     break
                 # Stop at NR+COD inline format: "002 2000068", "004 DF19A1", "006 TRA02A50"
                 # DT format mixes scatter (NR alone on line) with inline (NR COD on same line)
