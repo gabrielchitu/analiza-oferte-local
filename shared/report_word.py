@@ -18,6 +18,7 @@ SUBCOMP_GRAY_FILL = "E8E8E8"  # Light gray for subcomponents
 LILA_FILL = "C8A0DC"  # Lila pentru DESCRIERE_DIFERITA
 SEMANTIC_MATCH_FILL = "FFD966"  # orange-yellow — COD_NORMATIV_DIFERIT
 SPEC_DIFF_FILL = "FFC000"       # amber — SPECIFICATIE_DIFERITA
+PARAM_DIFF_FILL = "FFB347"      # orange — DIFERENTA_PARAMETRU (parametri tehnici diferiți)
 
 # Tipuri de neconformitate suprimate per mod subcomponente
 SUPPRESSED_BY_MODE: dict[str, frozenset] = {
@@ -119,6 +120,10 @@ def _observatie_text(neconf: dict) -> str:
         return (f"Caracteristici similare, cod diferit: "
                 f"referință '{ref_cod}' ↔ ofertat '{oferta_cod}'. "
                 f"{motiv}.")
+    if tip == "DIFERENTA_PARAMETRU":
+        ref_p = ", ".join(neconf.get("ref_parametri", [])) or "—"
+        off_p = ", ".join(neconf.get("oferta_parametri", [])) or "—"
+        return f"Parametri tehnici diferiți: referință [{ref_p}] ↔ ofertat [{off_p}]"
     if tip == "ARTICOL_ORPHAN":
         ref_deviz = neconf.get("deviz_ref", "")
         cod = neconf.get("ref_cod", "")
@@ -572,6 +577,8 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
         for cell in row: _set_cell_shading(cell, YELLOW_FILL)
     if tip == "COD_SIMILAR":
         for cell in row: _set_cell_shading(cell, "F0F0F0")  # Light grey — caracteristici similare
+    if tip == "DIFERENTA_PARAMETRU":
+        for cell in row: _set_cell_shading(cell, PARAM_DIFF_FILL)  # Orange — parametri tehnici diferiți
     if tip == "ARTICOL_LIPSA":
         for cell in row: _set_cell_shading(cell, YELLOW_FILL)
     if tip == "ARTICOL_EXTRA":

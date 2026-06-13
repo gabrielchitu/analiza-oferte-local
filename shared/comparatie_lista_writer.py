@@ -21,6 +21,7 @@ FILL_COD_SIMILAR = "F0F0F0"   # light grey   — caracteristici similare, cod di
 FILL_NC          = "FFFACD"   # pale yellow  — alte neconformități (pereche matched)
 FILL_COD_NORM    = "FFD966"   # orange-yellow — COD_NORMATIV_DIFERIT
 FILL_SPEC_DIFF   = "FFC000"   # amber        — SPECIFICATIE_DIFERITA
+FILL_PARAM_DIFF  = "FFB347"   # orange       — DIFERENTA_PARAMETRU (parametri tehnici diferiți)
 FILL_HDR   = "D9D9D9"
 FILL_TOTAL = "F2F2F2"
 TEXT_RED   = RGBColor(0xCC, 0x00, 0x00)
@@ -140,6 +141,10 @@ def _nc_text(nc: dict) -> str:
         return f"LIPSĂ: {den}" if den else "LIPSĂ: absent din ofertă"
     if tip == "COD_SIMILAR":
         return nc.get("motiv_similaritate") or "COD_SIMILAR"
+    if tip == "DIFERENTA_PARAMETRU":
+        ref_p = ", ".join(nc.get("ref_parametri", [])) or "—"
+        off_p = ", ".join(nc.get("oferta_parametri", [])) or "—"
+        return f"PARAM DIFERIȚI: REF [{ref_p}] ↔ OF [{off_p}]"
     if tip == "DIFERENTA_CAMP":
         camp = nc.get("camp", "")
         ref_v = nc.get("ref", "")
@@ -346,6 +351,8 @@ def _build_matched_rows(group: dict) -> List[RowTuple]:
                 fill = FILL_COD_NORM
             elif "SPECIFICATIE_DIFERITA" in tips:
                 fill = FILL_SPEC_DIFF
+            elif "DIFERENTA_PARAMETRU" in tips:
+                fill = FILL_PARAM_DIFF
             elif tips <= {"COD_SIMILAR", "DIFERENTA_CAMP", "UM_DIFERIT", "DESCRIERE_DIFERITA"}:
                 fill = FILL_COD_SIMILAR
             else:

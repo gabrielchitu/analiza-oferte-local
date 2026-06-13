@@ -241,6 +241,45 @@ def _art_key(art: dict) -> tuple:
     return (_deviz_key(art), clean_code(art.get("cod") or ""))
 
 
+# ── DIFERENTA_PARAMETRU detection ────────────────────────────────────────────
+# Matches correct business-wise (same article) but with different numeric
+# parameters in the denomination (distance, height, capacity, etc.).
+_PARAM_RE = re.compile(
+    r'\b(\d+(?:[.,]\d+)?)\s*'
+    r'(km|mc|mp|ml|m[23]?|cm|mm|kw[ah]?|kva|kn|bar|mpa|tone?|tona|t|l)\b',
+    re.IGNORECASE,
+)
+
+
+def _extract_param_pairs(text: str) -> frozenset:
+    result = set()
+    for m in _PARAM_RE.finditer(text or ''):
+        val = float(m.group(1).replace(',', '.'))
+        unit = m.group(2).lower()
+        if unit in ('tona', 'tone'):
+            unit = 't'
+        result.add((val, unit))
+    return frozenset(result)
+
+
+def _nc_parametru_diferit(
+    ref_art: dict, off_art: dict, deviz_cod: str, deviz_den: str
+) -> "dict | None":
+    ref_params = _extract_param_pairs(ref_art.get('denumire') or '')
+    off_params = _extract_param_pairs(off_art.get('denumire') or '')
+    if ref_params == off_params:
+        return None
+    ref_only = ref_params - off_params
+    off_only = off_params - ref_params
+    nc: dict = {
+        'tip': 'DIFERENTA_PARAMETRU',
+        'ref_parametri': sorted(f"{v:g} {u}" for v, u in ref_only),
+        'oferta_parametri': sorted(f"{v:g} {u}" for v, u in off_only),
+    }
+    _enrich(nc, ref_art, off_art, deviz_cod, deviz_den)
+    return nc
+
+
 def _deduplicate_neconformitati(neconformitati: list) -> list:
     """Remove duplicate non-conformities.
 
@@ -263,6 +302,10 @@ def _deduplicate_neconformitati(neconformitati: list) -> list:
         cod_similar = [nc for nc in ncs if nc.get('tip') == 'COD_SIMILAR']
         if cod_similar:
             result.append(cod_similar[0])
+            # DIFERENTA_PARAMETRU survives alongside COD_SIMILAR (real business difference)
+            for nc in ncs:
+                if nc.get('tip') == 'DIFERENTA_PARAMETRU':
+                    result.append(nc)
             continue
         seen_tip_camp: set = set()
         for nc in ncs:
@@ -450,6 +493,9 @@ def match_global(
             for d in diffs + arith:
                 _enrich(d, ra, oferta_art, deviz_cod, deviz_den)
             neconformitati.extend(diffs + arith)
+            nc_param = _nc_parametru_diferit(ra, oferta_art, deviz_cod, deviz_den)
+            if nc_param:
+                neconformitati.append(nc_param)
             matches.append({
                 "ref_cod": ra.get("cod", ""),
                 "ref_denumire": ra.get("denumire", ""),
@@ -509,6 +555,9 @@ def match_global(
             for d in diffs + arith:
                 _enrich(d, ref_art, oferta_art, deviz_cod, deviz_den)
             neconformitati.extend(diffs + arith)
+            nc_param = _nc_parametru_diferit(ref_art, oferta_art, deviz_cod, deviz_den)
+            if nc_param:
+                neconformitati.append(nc_param)
             matches.append({
                 "ref_cod": ref_cod,
                 "ref_denumire": ref_art.get("denumire", ""),
@@ -568,6 +617,9 @@ def match_global(
                 for d in diffs + arith:
                     _enrich(d, r_art, o_art, deviz_cod, deviz_den)
                 neconformitati.extend(diffs + arith)
+                nc_param = _nc_parametru_diferit(r_art, o_art, deviz_cod, deviz_den)
+                if nc_param:
+                    neconformitati.append(nc_param)
                 matches.append({
                     "ref_cod": r_art.get("cod", ""),
                     "ref_denumire": r_art.get("denumire", ""),
@@ -628,6 +680,9 @@ def match_global(
                 for d in diffs + arith:
                     _enrich(d, ref_art, match_ea, deviz_cod, deviz_den)
                 neconformitati.extend(diffs + arith)
+                nc_param = _nc_parametru_diferit(ref_art, match_ea, deviz_cod, deviz_den)
+                if nc_param:
+                    neconformitati.append(nc_param)
                 matches.append({
                     "ref_cod": ref_art.get("cod", ""),
                     "ref_denumire": ref_art.get("denumire", ""),
@@ -776,6 +831,9 @@ def match_global(
                 for d in diffs:
                     _enrich(d, ref_art, best_art, deviz_cod, deviz_den)
                 neconformitati.extend(diffs)
+                nc_param = _nc_parametru_diferit(ref_art, best_art, deviz_cod, deviz_den)
+                if nc_param:
+                    neconformitati.append(nc_param)
                 matches.append({
                     "ref_cod": ref_cod,
                     "ref_denumire": ref_art.get("denumire", ""),
@@ -842,6 +900,9 @@ def match_global(
                 for d in diffs:
                     _enrich(d, ref_art, best_art, deviz_cod, deviz_den)
                 neconformitati.extend(diffs)
+            nc_param = _nc_parametru_diferit(ref_art, best_art, deviz_cod, deviz_den)
+            if nc_param:
+                neconformitati.append(nc_param)
             matches.append({
                 "ref_cod": ref_cod,
                 "ref_denumire": ref_art.get("denumire", ""),
