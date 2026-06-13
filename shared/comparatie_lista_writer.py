@@ -209,7 +209,7 @@ def _ncs_for(ncs: list, ref_art: Optional[dict], of_art: Optional[dict]) -> list
 
 # ── Fuzzy suggestion ──────────────────────────────────────────────────────────
 
-def _fuzzy_suggest(art: Optional[dict], candidates: List[dict], min_score: int = 72) -> Optional[str]:
+def _fuzzy_suggest(art: Optional[dict], candidates: List[dict], min_score: int = 85) -> Optional[str]:
     """Find best denomination fuzzy-match for art in candidates.
 
     Returns annotation string "POSIBIL ACELAȘI MATERIAL (N%): COD — den" or None.
