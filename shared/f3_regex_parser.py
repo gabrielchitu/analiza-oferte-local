@@ -190,7 +190,20 @@ SKIP_RE = re.compile(
     r'[A-Z\s]*S\.R\.L\.|[A-Z]{2,}\s+SRL|'  # Company names with SRL/S.R.L.
     r'(?:proiect|project)\s+(?:initial|inițial|integral|actualizat|updated)|'  # Project status phrases
     r'-\s+(?:proiect|project)|'  # "- proiect..." lines from watermarks
-    r'(?:design|studio|solutions?)(?:\s+|\.)*s\.?r\.?l\.?)',  # Design/studio company names
+    r'(?:design|studio|solutions?)(?:\s+|\.)*s\.?r\.?l\.?|'  # Design/studio company names
+    # DT2 eDevize compact page-header codes (appear on every deviz page before actual articles)
+    r'^(?:Obi|Ob[1:])\s*\d{4,6}\s*$|'          # Obi0001, Ob:0001, Ob10001 (OCR i→1) — compact object code
+    r'^Cate\s*\d{4,6}\s*$|'                    # Cate0005, Cate 0001 — compact category code
+    r'^(?:Executant|Obiectiv)\s*\d+\s*$|'      # Executant0002, Obiectiv0021
+    r'^OBIECTIV\s*:|'                           # OBIECTIV: 0021 Drumuri Tatarani
+    r'cu\s+cantit[a-z]+\s+de\s+lucrari\s+pe\s+categorii|'  # page subtitle
+    # eDevize table column headers (appear in header block, not articles)
+    r'^(?:crt\.|Capitolul\s+de\s+lucrari|Denumire\s+resursa)\s*$|'
+    r'^(?:U\.\s*M\.|Pretul\s+unitar|Cantitatea|Valoare[a]?)\s*$|'
+    r'^(?:Observat[il]{1,3}|Corect[il]{1,3})\s*$|'
+    r'^[a-d]\)\s*(?:materiale|manopera|util[aăjl]+|transport)\s*$|'
+    r'^Total\s*\(a\+b\+c\+d\)\s*$|'
+    r'^SECTIUNE\s+(?:TEHNICA|FINANCIARA)\s*$)',
     re.IGNORECASE
 )
 # NR_CRT + COD_NORM/EXTENDED/SINGLE/NUMERIC + separator + descriere pe aceeași linie
