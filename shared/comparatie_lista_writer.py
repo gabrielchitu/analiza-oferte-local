@@ -15,11 +15,12 @@ from docx.shared import Cm, Pt, RGBColor
 from docx.table import Table
 
 # ── Colors ────────────────────────────────────────────────────────────────────
-FILL_EXTRA    = "FFE0CC"   # pale orange  — articol extra în ofertă
-FILL_LIPSA    = "CCE5FF"   # pale blue    — articol lipsă în ofertă
-FILL_NC       = "FFFACD"   # pale yellow  — neconformitate (pereche matched)
-FILL_COD_NORM = "FFD966"   # orange-yellow — COD_NORMATIV_DIFERIT
-FILL_SPEC_DIFF= "FFC000"   # amber        — SPECIFICATIE_DIFERITA
+FILL_EXTRA       = "FFFF99"   # yellow       — articol extra în ofertă (NC relevant)
+FILL_LIPSA       = "FFFF99"   # yellow       — articol lipsă în ofertă (NC relevant)
+FILL_COD_SIMILAR = "F0F0F0"   # light grey   — caracteristici similare, cod diferit
+FILL_NC          = "FFFACD"   # pale yellow  — alte neconformități (pereche matched)
+FILL_COD_NORM    = "FFD966"   # orange-yellow — COD_NORMATIV_DIFERIT
+FILL_SPEC_DIFF   = "FFC000"   # amber        — SPECIFICATIE_DIFERITA
 FILL_HDR   = "D9D9D9"
 FILL_TOTAL = "F2F2F2"
 TEXT_RED   = RGBColor(0xCC, 0x00, 0x00)
@@ -345,6 +346,8 @@ def _build_matched_rows(group: dict) -> List[RowTuple]:
                 fill = FILL_COD_NORM
             elif "SPECIFICATIE_DIFERITA" in tips:
                 fill = FILL_SPEC_DIFF
+            elif tips <= {"COD_SIMILAR", "DIFERENTA_CAMP", "UM_DIFERIT", "DESCRIERE_DIFERITA"}:
+                fill = FILL_COD_SIMILAR
             else:
                 fill = FILL_NC
         else:

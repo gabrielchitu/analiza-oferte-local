@@ -571,9 +571,9 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
     if is_suspect:
         for cell in row: _set_cell_shading(cell, YELLOW_FILL)
     if tip == "COD_SIMILAR":
-        for cell in row: _set_cell_shading(cell, ORANGE_FILL)
+        for cell in row: _set_cell_shading(cell, "F0F0F0")  # Light grey — caracteristici similare
     if tip == "ARTICOL_LIPSA":
-        for cell in row: _set_cell_shading(cell, "FFB3B3")  # Light red for missing articles
+        for cell in row: _set_cell_shading(cell, YELLOW_FILL)
     if tip == "ARTICOL_EXTRA":
         for cell in row: _set_cell_shading(cell, YELLOW_FILL)
     if tip == "ARTICOL_ORPHAN":
