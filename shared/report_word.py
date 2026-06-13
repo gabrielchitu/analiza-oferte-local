@@ -12,6 +12,8 @@ from docx.enum.section import WD_ORIENT
 RED = RGBColor(0xCC, 0x00, 0x00)
 BLACK = RGBColor(0x00, 0x00, 0x00)
 YELLOW_FILL = "FFFF99"
+LIPSA_FILL  = "FFCCCC"  # light red — ARTICOL_LIPSA
+EXTRA_FILL  = "CCFFCC"  # light green — ARTICOL_EXTRA
 ORANGE_FILL = "FFB347"
 GRAY_FILL = "D9D9D9"
 SUBCOMP_GRAY_FILL = "E8E8E8"  # Light gray for subcomponents
@@ -282,7 +284,7 @@ def _add_extra_subheader(table) -> None:
     )
     run.italic = True
     _style_cell(sub[0], 8)
-    _set_cell_shading(sub[0], YELLOW_FILL)
+    _set_cell_shading(sub[0], EXTRA_FILL)
 
 
 def _add_quality_alerts(doc, deviz_mismatches: list,
@@ -580,9 +582,9 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
     if tip == "DIFERENTA_PARAMETRU":
         for cell in row: _set_cell_shading(cell, PARAM_DIFF_FILL)  # Orange — parametri tehnici diferiți
     if tip == "ARTICOL_LIPSA":
-        for cell in row: _set_cell_shading(cell, YELLOW_FILL)
+        for cell in row: _set_cell_shading(cell, LIPSA_FILL)
     if tip == "ARTICOL_EXTRA":
-        for cell in row: _set_cell_shading(cell, YELLOW_FILL)
+        for cell in row: _set_cell_shading(cell, EXTRA_FILL)
     if tip == "ARTICOL_ORPHAN":
         for cell in row: _set_cell_shading(cell, "FFCC99")
     if tip == "DESCRIERE_DIFERITA":

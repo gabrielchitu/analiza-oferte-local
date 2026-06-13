@@ -15,8 +15,8 @@ from docx.shared import Cm, Pt, RGBColor
 from docx.table import Table
 
 # ── Colors ────────────────────────────────────────────────────────────────────
-FILL_EXTRA       = "FFFF99"   # yellow       — articol extra în ofertă (NC relevant)
-FILL_LIPSA       = "FFFF99"   # yellow       — articol lipsă în ofertă (NC relevant)
+FILL_EXTRA       = "CCFFCC"   # light green  — articol extra în ofertă (NC relevant)
+FILL_LIPSA       = "FFCCCC"   # light red    — articol lipsă în ofertă (NC relevant)
 FILL_COD_SIMILAR = "F0F0F0"   # light grey   — caracteristici similare, cod diferit
 FILL_NC          = "FFFACD"   # pale yellow  — alte neconformități (pereche matched)
 FILL_COD_NORM    = "FFD966"   # orange-yellow — COD_NORMATIV_DIFERIT
