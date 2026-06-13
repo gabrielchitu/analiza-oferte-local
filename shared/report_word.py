@@ -24,8 +24,8 @@ PARAM_DIFF_FILL = "FFB347"      # orange — DIFERENTA_PARAMETRU (parametri tehn
 
 # Tipuri de neconformitate suprimate per mod subcomponente
 SUPPRESSED_BY_MODE: dict[str, frozenset] = {
-    "full":    frozenset(),
-    "fields":  frozenset({"DIFERENTA_CAMP", "UM_DIFERIT"}),
+    "full":    frozenset({"COD_SIMILAR"}),
+    "fields":  frozenset({"DIFERENTA_CAMP", "UM_DIFERIT", "COD_SIMILAR"}),
     "summary": frozenset({"DIFERENTA_CAMP", "UM_DIFERIT", "COD_SIMILAR",
                            "DESCRIERE_DIFERITA", "EROARE_ARITMETICA"}),
 }

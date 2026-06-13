@@ -24,6 +24,9 @@ FILL_SPEC_DIFF   = "FFC000"   # amber        — SPECIFICATIE_DIFERITA
 FILL_PARAM_DIFF  = "FFB347"   # orange       — DIFERENTA_PARAMETRU (parametri tehnici diferiți)
 FILL_HDR   = "D9D9D9"
 FILL_TOTAL = "F2F2F2"
+
+# NC types not printed in raport (COD_SIMILAR = match logic artifact, not actionable)
+_SUPPRESSED_TIPS: frozenset = frozenset({"COD_SIMILAR"})
 TEXT_RED   = RGBColor(0xCC, 0x00, 0x00)
 
 # ── Table layout ──────────────────────────────────────────────────────────────
@@ -328,7 +331,8 @@ def _build_matched_rows(group: dict) -> List[RowTuple]:
         ref_art = ref_by_nr.get(nr)
         of_art  = of_by_nr.get(nr)
 
-        pair_ncs  = _ncs_for(ncs, ref_art, of_art)
+        pair_ncs  = [nc for nc in _ncs_for(ncs, ref_art, of_art)
+                     if nc.get("tip") not in _SUPPRESSED_TIPS]
         nc_texts  = [_nc_text(nc) for nc in pair_ncs]
 
         if ref_art and not of_art:
@@ -365,7 +369,8 @@ def _build_matched_rows(group: dict) -> List[RowTuple]:
 
     # EXTRA oferta articles appended at end
     for of_art in of_extra:
-        pair_ncs = _ncs_for(ncs, None, of_art)
+        pair_ncs = [nc for nc in _ncs_for(ncs, None, of_art)
+                    if nc.get("tip") not in _SUPPRESSED_TIPS]
         nc_texts = [_nc_text(nc) for nc in pair_ncs] or ["EXTRA: absent din referință"]
         suggestion = _fuzzy_suggest(of_art, ref_main)
         if suggestion:
