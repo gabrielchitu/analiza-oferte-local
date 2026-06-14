@@ -1791,6 +1791,14 @@
     {
       "ref_den": "0021 Drumuri Tatarani | 0015 Strada Scolii | 0008 Spargeri,demolari 90mp",
       "oferta_den": "0050 45230000 | 0015 45230000 | SC0008 SPARGERI , DEMOLARI 90MP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0002 Strada Branii | 0002 Balast 15cm 23,57smp",
+      "oferta_den": "0050 45230000 | 0002 45230000 | BR0003 BALAST 15CM 23.57SMP"
+    },
+    {
+      "ref_den": "0021 Drumuri Tatarani | 0002 Strada Branii | 0003 Piatra sparta 12cm 23,57smp",
+      "oferta_den": "0050 45230000 | 0002 45230000 | BR003 PIATRA SPARTA 12CM 23.57SMP"
     }
   ]
 }
