@@ -544,7 +544,19 @@ def match_global(
         deviz_den = ref_list[0].get("deviz_denumire", "")
         original_oferta_cod = oferta_list[0].get("cod", "") if oferta_list else ""
 
-        for ref_art, oferta_art in zip(ref_list, oferta_list):
+        # Cantitate-aware pairing: each ref pairs with the offer having the closest
+        # cantitate. Prevents wrong positional pairings when multiple offer articles
+        # share the same norm_key but have different cantitate values.
+        remaining_offers = list(oferta_list)
+        for ref_art in ref_list:
+            if not remaining_offers:
+                still_unmatched_ref.append(ref_art)
+                continue
+            ref_cant = ref_art.get("cantitate", 0) or 0
+            best_idx = min(range(len(remaining_offers)),
+                           key=lambda i: abs((remaining_offers[i].get("cantitate", 0) or 0) - ref_cant))
+            oferta_art = remaining_offers.pop(best_idx)
+
             ref_cod = ref_art.get("cod", "")
             diffs = compare_articles(ref_art, oferta_art, include_prices=include_prices)
             arith = check_arithmetic(oferta_art) if include_prices else []
@@ -567,9 +579,8 @@ def match_global(
                 "oferta_cod": original_oferta_cod,
                 "oferta_denumire": oferta_art.get("denumire", ""),
             })
-        # Exces ref → LIPSA, exces oferta → EXTRA
-        still_unmatched_ref.extend(ref_list[len(oferta_list):])
-        extra_from_nm.extend(oferta_list[len(ref_list):])
+        # Excess offer articles → EXTRA
+        extra_from_nm.extend(remaining_offers)
 
 
     # Layer 2.1: Trailing-digit variant matching — IC35D↔IC35D1, IC41C↔IC41C1, SB09E↔SB09E1
