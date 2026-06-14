@@ -618,7 +618,19 @@ def match_global(
             deviz_den = ref_list[0].get("deviz_denumire", "")
             original_oferta_cod = oferta_list[0].get("cod", "") if oferta_list else ""
 
-            for r_art, o_art in zip(ref_list, oferta_list):
+            # Cantitate-aware pairing (same as Layer 2 N:M): each ref pairs with the
+            # offer article having the closest cantitate, not just positional zip.
+            # Prevents TRA01A05(27.9) from matching TRA01A50(21.25) when TRA01A50(27.9)
+            # exists in the same group.
+            remaining_21 = list(oferta_list)
+            for r_art in ref_list:
+                if not remaining_21:
+                    still_unmatched_ref_21.append(r_art)
+                    continue
+                r_cant = r_art.get("cantitate", 0) or 0
+                best_idx = min(range(len(remaining_21)),
+                               key=lambda i: abs((remaining_21[i].get("cantitate", 0) or 0) - r_cant))
+                o_art = remaining_21.pop(best_idx)
                 diffs = compare_articles(r_art, o_art, include_prices=include_prices)
                 arith = check_arithmetic(o_art) if include_prices else []
                 if r_art.get("cod", "") != original_oferta_cod:
@@ -640,8 +652,7 @@ def match_global(
                     "oferta_cod": o_art.get("cod", ""),
                     "oferta_denumire": o_art.get("denumire", ""),
                 })
-            still_unmatched_ref_21.extend(ref_list[len(oferta_list):])
-            extra_from_nm.extend(oferta_list[len(ref_list):])
+            extra_from_nm.extend(remaining_21)
         still_unmatched_ref = still_unmatched_ref_21
 
     # Layer 2.1b: Check extra_from_nm for variant matches.
@@ -665,14 +676,17 @@ def match_global(
                 if _deviz_key(ea) != ref_deviz:
                     continue
                 ea_cod_clean = clean_code(ea.get("cod", ""))
+                ea_cant = ea.get("cantitate") or 0
                 # Check 1: trailing-digit variant (IC35D1 → IC35D)
+                # Require cantitate within 2%: same trailing-digit family can have
+                # many different cantitate values (e.g. TRA01A50 at 21.25, 27.9, 94.86).
                 if (ea_cod_clean and ea_cod_clean[-1].isdigit()
-                        and ea_cod_clean[:-1] == ref_cod_clean):
+                        and ea_cod_clean[:-1] == ref_cod_clean
+                        and (not ref_cant or abs(ea_cant - ref_cant) / max(abs(ref_cant), 1e-9) < 0.02)):
                     match_ea = ea
                     break
                 # Check 2: normalized code match with same cantitate (CNO1A → CN01A via O→0)
                 ea_norm = _normalize_cod(ea.get("cod", ""))
-                ea_cant = ea.get("cantitate") or 0
                 if (ea_norm == ref_norm and ea_norm != ref_cod_clean
                         and abs(ea_cant - ref_cant) < 0.01):
                     match_ea = ea
@@ -816,10 +830,16 @@ def match_global(
                     cs = _cod_similarity(ref_cod, of_art.get("cod", ""))
                     if cs < _SIM_DET:
                         continue
+                    of_cant = of_art.get("cantitate") or 0
+                    # Gate: Layer 2.5 is for OCR cod errors (same article, mistyped code).
+                    # Same article → same cantitate. Reject candidates where cantitate
+                    # differs by >2% to prevent cross-matching unrelated articles
+                    # (e.g. TRA01A05P cant=25.0 wrongly consuming TRA01A50 cant=21.25).
+                    if ref_cant and abs(of_cant - ref_cant) / max(abs(ref_cant), 1e-9) >= 0.02:
+                        continue
                     dj = _denom_jaccard(ref_art.get("denumire", ""),
                                         of_art.get("denumire", ""))
                     score = cs * 0.6 + dj * 0.4
-                    of_cant = of_art.get("cantitate") or 0
                     cant_match = bool(ref_cant and abs(of_cant - ref_cant) / max(abs(ref_cant), 1e-9) < 0.001)
                     # Prefer cantitate-matching candidate as tiebreaker (avoids cross-match:
                     # TRA01A05[94.86] wrongly consuming TRA01A50[72.25] instead of [94.86])
@@ -831,7 +851,9 @@ def match_global(
                 # Potrivire confirmată
                 oferta_key = _art_key(best_art)
                 matched_oferta_keys.add(oferta_key)
-                unmatched_oferta_keys.discard(oferta_key)
+                # Do NOT discard the group key — another article in the same group
+                # (same cod but different cantitate) may still need matching.
+                # Rebuild unmatched_oferta_keys after this loop.
                 det_matched_oferta_arts.add(id(best_art))
                 matched_by_llm_ref_keys.add(_art_key(ref_art))
                 deviz_cod = ref_art.get("deviz", "")
@@ -863,6 +885,13 @@ def match_global(
         still_unmatched_ref = [a for a in still_unmatched_ref
                                if _art_key(a) not in matched_by_llm_ref_keys]
 
+        # Rebuild unmatched_oferta_keys after Layer 2.5: group keys with at least one
+        # unmatched article remain visible for Layer 2.6.
+        unmatched_oferta_keys = {
+            ok for ok in unmatched_oferta_keys
+            if any(id(a) not in det_matched_oferta_arts for a in oferta_by_key[ok])
+        }
+
         # Layer 2.6: matching pe UM + cantitate + denumire Jaccard in acelasi deviz.
         # Prinde perechi cu cod complet diferit (furnizor diferit, variante de produs):
         #   $7002380 ↔ $7800774 (folie anticondens, acelasi cant+UM)
@@ -881,27 +910,31 @@ def match_global(
             for ok in list(unmatched_oferta_keys):
                 if ok[0] != deviz:
                     continue
-                of_art = oferta_map[ok]
-                if id(of_art) in det_matched_of_26:
-                    continue
-                if _normalize_um(of_art.get("um", "")) != ref_um:
-                    continue
-                of_cant = of_art.get("cantitate", 0) or 0
-                # Cantitate trebuie sa fie identica sau apropiata (<1%)
-                if abs(ref_cant - of_cant) > max(abs(ref_cant), abs(of_cant)) * 0.01 + 0.01:
-                    continue
-                dj = _denom_jaccard(ref_art.get("denumire", ""), of_art.get("denumire", ""))
-                if dj > best_score:
-                    best_score, best_art = dj, of_art
+                # Iterate ALL articles in the group (oferta_map only holds v[0]).
+                # A group key can cover multiple articles with different cantitate
+                # (e.g. TRA01A50 at cant=21.25 AND cant=27.90 share the same key).
+                # Using only the first article causes the cantitate check to fail
+                # for refs with a different cantitate.
+                for of_art in oferta_by_key[ok]:
+                    if id(of_art) in det_matched_of_26:
+                        continue
+                    if _normalize_um(of_art.get("um", "")) != ref_um:
+                        continue
+                    of_cant = of_art.get("cantitate", 0) or 0
+                    # Cantitate trebuie sa fie identica sau apropiata (<1%)
+                    if abs(ref_cant - of_cant) > max(abs(ref_cant), abs(of_cant)) * 0.01 + 0.01:
+                        continue
+                    dj = _denom_jaccard(ref_art.get("denumire", ""), of_art.get("denumire", ""))
+                    if dj > best_score:
+                        best_score, best_art = dj, of_art
 
             if best_art is None or best_score < _DENOM_THRESH_26:
                 continue
 
             ref_cod = ref_art.get("cod", "")
-            oferta_key = _art_key(best_art)
-            matched_oferta_keys.add(oferta_key)
-            unmatched_oferta_keys.discard(oferta_key)
             det_matched_of_26.add(id(best_art))
+            # Do NOT discard the group key yet — other articles in the same group
+            # may still be unmatched. Rebuild unmatched_oferta_keys after the loop.
             matched_by_llm_ref_keys.add(_art_key(ref_art))
             deviz_cod = ref_art.get("deviz", "")
             deviz_den = ref_art.get("deviz_denumire", "")
@@ -928,6 +961,13 @@ def match_global(
                 "oferta_cod": best_art.get("cod", ""),
                 "oferta_denumire": best_art.get("denumire", ""),
             })
+
+        # Remove group keys where every article has been matched in Layer 2.6.
+        # Keys with at least one remaining unmatched article stay in unmatched_oferta_keys.
+        unmatched_oferta_keys = {
+            ok for ok in unmatched_oferta_keys
+            if any(id(a) not in det_matched_of_26 for a in oferta_by_key[ok])
+        }
 
         still_unmatched_ref = [a for a in still_unmatched_ref
                                if _art_key(a) not in matched_by_llm_ref_keys]
