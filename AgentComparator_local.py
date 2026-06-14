@@ -794,7 +794,8 @@ def match_global(
             oferta_cands = oferta_by_deviz.get(deviz, [])
             for ref_art in list(ref_list):
                 ref_cod = ref_art.get("cod", "")
-                best_art, best_score = None, 0.0
+                ref_cant = ref_art.get("cantitate") or 0
+                best_art, best_score, best_cant_match = None, 0.0, False
                 for of_art in oferta_cands:
                     if id(of_art) in det_matched_oferta_arts:
                         continue
@@ -804,8 +805,12 @@ def match_global(
                     dj = _denom_jaccard(ref_art.get("denumire", ""),
                                         of_art.get("denumire", ""))
                     score = cs * 0.6 + dj * 0.4
-                    if score > best_score:
-                        best_score, best_art = score, of_art
+                    of_cant = of_art.get("cantitate") or 0
+                    cant_match = bool(ref_cant and abs(of_cant - ref_cant) / max(abs(ref_cant), 1e-9) < 0.001)
+                    # Prefer cantitate-matching candidate as tiebreaker (avoids cross-match:
+                    # TRA01A05[94.86] wrongly consuming TRA01A50[72.25] instead of [94.86])
+                    if score > best_score or (score == best_score and cant_match and not best_cant_match):
+                        best_score, best_art, best_cant_match = score, of_art, cant_match
                 if best_art is None or _denom_jaccard(
                         ref_art.get("denumire", ""), best_art.get("denumire", "")) < 0.4:
                     continue
@@ -1051,6 +1056,87 @@ def match_global(
             "oferta_display_parent_cod": oferta_art.get("display_parent_cod"),
             "nr_ordine_oferta": oferta_art.get("nr_ordine"),
         })
+
+    # Post-processing: collapse ARTICOL_LIPSA + ARTICOL_EXTRA pairs where:
+    # - cod similarity >= 0.80 (same article family, e.g. TRA01A35 ↔ TRA01A50)
+    # - same cantitate (within 0.1%)
+    # - same UM (normalized)
+    # These are parametric substitutions (distance, height, etc.) missed by Layer 2.5
+    # due to deviz_key mismatch or 1:1 oferta_map limitation.
+    _lipsa_ncs = [nc for nc in neconformitati if nc.get('tip') == 'ARTICOL_LIPSA' and nc.get('ref_cod')]
+    _extra_ncs = [nc for nc in neconformitati if nc.get('tip') == 'ARTICOL_EXTRA' and nc.get('oferta_cod')]
+    _paired_ids: set = set()
+    _pair_new_ncs: list = []
+    _pair_new_matches: list = []
+
+    for lipsa_nc in _lipsa_ncs:
+        if id(lipsa_nc) in _paired_ids:
+            continue
+        lip_cod = lipsa_nc.get('ref_cod', '')
+        lip_cant = lipsa_nc.get('ref_cantitate') or 0
+        lip_um = _normalize_um(lipsa_nc.get('ref_um', ''))
+        if not lip_cant:
+            continue
+        best_extra, best_cs = None, 0.0
+        for extra_nc in _extra_ncs:
+            if id(extra_nc) in _paired_ids:
+                continue
+            ex_cant = extra_nc.get('oferta_cantitate') or 0
+            ex_um = _normalize_um(extra_nc.get('oferta_um', ''))
+            if lip_um != ex_um:
+                continue
+            if abs(ex_cant - lip_cant) / max(abs(lip_cant), 1e-9) >= 0.001:
+                continue
+            cs = _cod_similarity(lip_cod, extra_nc.get('oferta_cod', ''))
+            if cs >= 0.80 and cs > best_cs:
+                best_cs, best_extra = cs, extra_nc
+        if best_extra is None:
+            continue
+        _paired_ids.add(id(lipsa_nc))
+        _paired_ids.add(id(best_extra))
+        deviz_cod = lipsa_nc.get('deviz_ref', '')
+        deviz_den = lipsa_nc.get('deviz_denumire', '')
+        ex_cod = best_extra.get('oferta_cod', '')
+        # Reconstruct article-like dicts for _enrich / _nc_parametru_diferit
+        ref_art_proxy = {
+            'cod': lip_cod, 'denumire': lipsa_nc.get('ref_denumire', ''),
+            'um': lipsa_nc.get('ref_um', ''), 'cantitate': lip_cant,
+            'deviz': deviz_cod, 'deviz_denumire': deviz_den,
+            'is_component': lipsa_nc.get('is_component', False),
+            'source_pages': lipsa_nc.get('ref_source_pages', []),
+            'nr_ordine': lipsa_nc.get('nr_ordine_ref'),
+            'parent_cod': lipsa_nc.get('parent_cod_ref'),
+            'parent_nr_ordine': lipsa_nc.get('parent_nr_ordine_ref'),
+            'display_parent_cod': lipsa_nc.get('display_parent_cod'),
+            'cant_mostenita': lipsa_nc.get('cant_mostenita', False),
+        }
+        off_art_proxy = {
+            'cod': ex_cod, 'denumire': best_extra.get('oferta_denumire', ''),
+            'um': best_extra.get('oferta_um', ''), 'cantitate': ex_cant,
+            'is_component': best_extra.get('is_component', False),
+            'source_pages': best_extra.get('oferta_source_pages', []),
+            'nr_ordine': best_extra.get('nr_ordine_oferta'),
+            'display_parent_cod': best_extra.get('oferta_display_parent_cod'),
+        }
+        cod_sim_nc = {
+            "tip": "COD_SIMILAR",
+            "motiv_similaritate": f"Cod similar, cantitate identica: '{lip_cod}' ↔ '{ex_cod}'",
+        }
+        _enrich(cod_sim_nc, ref_art_proxy, off_art_proxy, deviz_cod, deviz_den)
+        _pair_new_ncs.append(cod_sim_nc)
+        nc_param = _nc_parametru_diferit(ref_art_proxy, off_art_proxy, deviz_cod, deviz_den)
+        if nc_param:
+            _pair_new_ncs.append(nc_param)
+        _pair_new_matches.append({
+            "ref_cod": lip_cod, "ref_denumire": lipsa_nc.get('ref_denumire', ''),
+            "oferta_cod": ex_cod, "oferta_denumire": best_extra.get('oferta_denumire', ''),
+        })
+
+    if _paired_ids:
+        neconformitati = [nc for nc in neconformitati if id(nc) not in _paired_ids]
+        neconformitati.extend(_pair_new_ncs)
+        matches.extend(_pair_new_matches)
+        logger.info(f"[COMP] LIPSA+EXTRA collapse: {len(_pair_new_matches)} perechi → COD_SIMILAR")
 
     # Post-processing: Lenient UM matching for $ codes
     # If EXTRA code is a $ code and exists in reference with same deviz but empty UM,
