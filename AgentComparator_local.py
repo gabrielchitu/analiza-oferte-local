@@ -245,7 +245,7 @@ def _art_key(art: dict) -> tuple:
 # Matches correct business-wise (same article) but with different numeric
 # parameters in the denomination (distance, height, capacity, etc.).
 _PARAM_RE = re.compile(
-    r'\b(\d+(?:[.,]\d+)?)\s*'
+    r'\b(\d+(?:[.,]\s*\d+)?)\s*'
     r'(km|mc|mp|ml|m[23]?|cm|mm|kw[ah]?|kva|kn|bar|mpa|tone?|tona|t|l)\b',
     re.IGNORECASE,
 )
@@ -254,7 +254,8 @@ _PARAM_RE = re.compile(
 def _extract_param_pairs(text: str) -> frozenset:
     result = set()
     for m in _PARAM_RE.finditer(text or ''):
-        val = float(m.group(1).replace(',', '.'))
+        # Strip spaces introduced by OCR between decimal digits (e.g. "1, 25" → 1.25)
+        val = float(m.group(1).replace(',', '.').replace(' ', ''))
         unit = m.group(2).lower()
         if unit in ('tona', 'tone'):
             unit = 't'
