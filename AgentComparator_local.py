@@ -285,7 +285,9 @@ def _deduplicate_neconformitati(neconformitati: list) -> list:
     """Remove duplicate non-conformities.
 
     Per article pair (deviz, ref_cod, oferta_cod):
-    - COD_SIMILAR suppresses all DIFERENTA_CAMP/UM_DIFERIT (COD already explains the mismatch)
+    - When COD_SIMILAR is present: DIFERENTA_CAMP + UM_DIFERIT + DIFERENTA_PARAMETRU all survive
+      (code substitution AND real parametric/quantity/UM differences are both informative).
+      DESCRIERE_DIFERITA is suppressed (code differs → description differs, obvious/redundant).
     - Multiple DIFERENTA_CAMP with different `camp` fields ALL survive (e.g. tip_articol + cantitate)
     - Exact-same (tip, camp) duplicates are collapsed to one
     """
@@ -300,17 +302,13 @@ def _deduplicate_neconformitati(neconformitati: list) -> list:
 
     result = []
     for ncs in pair_ncs.values():
-        cod_similar = [nc for nc in ncs if nc.get('tip') == 'COD_SIMILAR']
-        if cod_similar:
-            result.append(cod_similar[0])
-            # DIFERENTA_PARAMETRU survives alongside COD_SIMILAR (real business difference)
-            for nc in ncs:
-                if nc.get('tip') == 'DIFERENTA_PARAMETRU':
-                    result.append(nc)
-            continue
+        has_cod_similar = any(nc.get('tip') == 'COD_SIMILAR' for nc in ncs)
         seen_tip_camp: set = set()
         for nc in ncs:
-            tip_camp = (nc.get('tip', ''), nc.get('camp', ''))
+            tip = nc.get('tip', '')
+            if has_cod_similar and tip == 'DESCRIERE_DIFERITA':
+                continue
+            tip_camp = (tip, nc.get('camp', ''))
             if tip_camp not in seen_tip_camp:
                 seen_tip_camp.add(tip_camp)
                 result.append(nc)
