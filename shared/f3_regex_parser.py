@@ -1622,6 +1622,26 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                             and next_upper not in UM_KNOWN)):
                     skip_finalize_for_coeff = True
 
+            # eDevize column-separator guard: bare small integer (1-9) appearing between
+            # UM and cantitate in eDevize F3 tables (e.g., DT2 referinta "82 M", "2", "3",
+            # "72,45000"). Peek ahead up to 3 lines (skipping other small integers) to
+            # confirm a decimal cantitate follows before treating this line as separator.
+            if m_bare_nr and cod and um != '' and cantitate == 0.0 and 1 <= bare_nr_val <= 9:
+                _edev_found_decimal = False
+                for _edev_pk in range(1, 4):
+                    if line_idx + _edev_pk >= len(lines):
+                        break
+                    _edev_ln = lines[line_idx + _edev_pk].strip()
+                    if CANT_DECIMAL_RE.match(_edev_ln):
+                        _edev_found_decimal = True
+                        break
+                    _edev_nr = NR_CRT_RE.match(_edev_ln)
+                    if _edev_nr and int(_edev_nr.group(1)) <= 9:
+                        continue
+                    break
+                if _edev_found_decimal:
+                    continue  # Skip eDevize column separator
+
             if m_bare_nr and not skip_finalize_for_coeff and (not cod or cantitate == 0.0):
                 # If we have NO code or NO quantity yet, treat bare NR as new article start
                 _finalize()
