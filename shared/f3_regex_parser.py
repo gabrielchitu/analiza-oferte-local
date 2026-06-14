@@ -996,10 +996,11 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
     explicit_component_marker = False  # True when we just saw >>> componenta marker
     current_parent_nr = 0   # nr_ordine of last finalized main article
     sub_counter = 0         # subarticle counter per parent
+    pending_cantitate = 0.0  # cantitate apărută în WAITING state înainte de COD (eDevize col-order artifact)
 
 
     def _finalize():
-        nonlocal cod, denumire_parts, um, cantitate, preturi, last_article_cod, explicit_component_marker, current_parent_nr, sub_counter
+        nonlocal cod, denumire_parts, um, cantitate, preturi, last_article_cod, explicit_component_marker, current_parent_nr, sub_counter, pending_cantitate
         if cod:
             # Coduri numerice pure → adaugă prefix $
             if re.match(r'^\d+$', cod):
@@ -1046,6 +1047,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
 
                 if um == 'm' and 'cub' in den_joined.lower():
                     um = 'mc'
+
+                # Consume pending cantitate (eDevize column-order artifact: cantitate appears
+                # in WAITING state before the article's COD/UM due to PDF column linearization)
+                if cantitate == 0.0 and um and pending_cantitate > 0.0:
+                    cantitate = pending_cantitate
+                pending_cantitate = 0.0
 
                 # Calculate nr_ordine
                 if not is_subcomp:
@@ -1545,6 +1552,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                                 um = ''; cantitate = 0.0; preturi = []
                                 state = _READING; waiting_lines = 0; _after_linked = False
                             else:
+                                # eDevize column-order artifact: cantitate appears in WAITING state
+                                # before the article's COD (e.g. DT2 referinta page with col-3 data
+                                # embedded between column-index labels). Save for consumption in _finalize().
+                                if CANT_DECIMAL_RE.match(line):
+                                    pending_cantitate = _parse_number(line)
+                                    continue
                                 # Capture first plain description line as denomination.
                                 # Handles "NR / description / NR.sub" — article with no cost
                                 # code of its own, only sub-items (e.g. "3\nEchipamente...\n3.1\nSZ2f01#").
