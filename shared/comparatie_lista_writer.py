@@ -22,6 +22,7 @@ FILL_NC          = "FFFACD"   # pale yellow  — alte neconformități (pereche 
 FILL_COD_NORM    = "FFD966"   # orange-yellow — COD_NORMATIV_DIFERIT
 FILL_SPEC_DIFF   = "FFC000"   # amber        — SPECIFICATIE_DIFERITA
 FILL_PARAM_DIFF  = "F0F0F0"   # pale gray    — DIFERENTA_PARAMETRU (de-emphasized; obs text red)
+FILL_REAL_NC     = "FFD966"   # amber-yellow — DIFERENTA_CAMP + UM_DIFERIT (real actionable NCs)
 FILL_HDR   = "D9D9D9"
 FILL_TOTAL = "F2F2F2"
 
@@ -357,7 +358,9 @@ def _build_matched_rows(group: dict) -> List[RowTuple]:
                 fill = FILL_SPEC_DIFF
             elif "DIFERENTA_PARAMETRU" in tips:
                 fill = FILL_PARAM_DIFF
-            elif tips <= {"COD_SIMILAR", "DIFERENTA_CAMP", "UM_DIFERIT", "DESCRIERE_DIFERITA"}:
+            elif "DIFERENTA_CAMP" in tips or "UM_DIFERIT" in tips:
+                fill = FILL_REAL_NC
+            elif tips <= {"COD_SIMILAR", "DESCRIERE_DIFERITA"}:
                 fill = FILL_COD_SIMILAR
             else:
                 fill = FILL_NC

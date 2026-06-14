@@ -21,6 +21,7 @@ LILA_FILL = "C8A0DC"  # Lila pentru DESCRIERE_DIFERITA
 SEMANTIC_MATCH_FILL = "FFD966"  # orange-yellow — COD_NORMATIV_DIFERIT
 SPEC_DIFF_FILL = "FFC000"       # amber — SPECIFICATIE_DIFERITA
 PARAM_DIFF_FILL = "F0F0F0"      # pale gray — DIFERENTA_PARAMETRU (de-emphasized; obs text already red)
+REAL_NC_FILL    = "FFD966"      # amber-yellow — DIFERENTA_CAMP + UM_DIFERIT (real actionable NCs)
 
 # Tipuri de neconformitate suprimate per mod subcomponente
 SUPPRESSED_BY_MODE: dict[str, frozenset] = {
@@ -595,9 +596,11 @@ def _add_neconf_row(table, row_nr: int, neconf: dict, deviz_map: dict,
         for cell in row: _set_cell_shading(cell, SPEC_DIFF_FILL)
 
     if tip == "DIFERENTA_CAMP" and camp == "cantitate":
+        for cell in row: _set_cell_shading(cell, REAL_NC_FILL)
         ref_cant_run.font.color.rgb = RED
         if oferta_cant_run: oferta_cant_run.font.color.rgb = RED
     elif tip == "UM_DIFERIT":
+        for cell in row: _set_cell_shading(cell, REAL_NC_FILL)
         ref_um_run.font.color.rgb = RED
         if oferta_um_run: oferta_um_run.font.color.rgb = RED
 
