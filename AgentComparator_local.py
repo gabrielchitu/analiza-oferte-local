@@ -383,7 +383,10 @@ def match_global(
     oferta_seen = {}
     oferta_dedup = []
     for a in oferta_articole:
-        if a.get("cod") and not _is_breviar_artifact(a):
+        # Exclude cant_mostenita phantoms (is_component=True sub-entries with inherited cant=0.001)
+        # when a standalone article with the same cod exists — they pollute oferta_by_key and
+        # cause Layer 2 N:M zip to pair ref with the phantom instead of the real article.
+        if a.get("cod") and not _is_breviar_artifact(a) and not a.get("cant_mostenita"):
             key = (a.get("deviz"), a.get("cod"), a.get("um"), a.get("cantitate"))
             if key not in oferta_seen:
                 oferta_dedup.append(a)
