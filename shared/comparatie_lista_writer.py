@@ -21,7 +21,7 @@ FILL_COD_SIMILAR = "F0F0F0"   # light grey   — caracteristici similare, cod di
 FILL_NC          = "FFFACD"   # pale yellow  — alte neconformități (pereche matched)
 FILL_COD_NORM    = "FFD966"   # orange-yellow — COD_NORMATIV_DIFERIT
 FILL_SPEC_DIFF   = "FFC000"   # amber        — SPECIFICATIE_DIFERITA
-FILL_PARAM_DIFF  = "FFB347"   # orange       — DIFERENTA_PARAMETRU (parametri tehnici diferiți)
+FILL_PARAM_DIFF  = "F0F0F0"   # pale gray    — DIFERENTA_PARAMETRU (de-emphasized; obs text red)
 FILL_HDR   = "D9D9D9"
 FILL_TOTAL = "F2F2F2"
 
