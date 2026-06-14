@@ -1258,6 +1258,88 @@ def match_global(
         })
         logger.info(f"[COMP] LIPSA+EXTRA positional collapse: nr={lip_nr} '{lip_cod}' ↔ '{ex_cod}' cs={best_cs:.2f}")
 
+    # Third pass: family-code stem match.
+    # Catches parametric substitutions like TRA01A35↔TRA01A50 where the last 2 chars
+    # are both digits (distance/height/size parameter) and the stem prefix is identical.
+    # cs is typically ~0.75 (below Layer 2.5 threshold) and cantitate can differ legitimately.
+    for lipsa_nc in _lipsa_ncs:
+        if id(lipsa_nc) in _paired_ids:
+            continue
+        lip_cod = lipsa_nc.get('ref_cod', '')
+        if len(lip_cod) < 3 or not lip_cod[-1].isdigit() or not lip_cod[-2].isdigit():
+            continue
+        lip_stem = lip_cod[:-2]
+        lip_cant = lipsa_nc.get('ref_cantitate') or 0
+        lip_um = _normalize_um(lipsa_nc.get('ref_um', ''))
+        best_extra, best_cant_diff = None, float('inf')
+        for extra_nc in _extra_ncs:
+            if id(extra_nc) in _paired_ids:
+                continue
+            ex_cod = extra_nc.get('oferta_cod', '')
+            if len(ex_cod) < 3 or not ex_cod[-1].isdigit() or not ex_cod[-2].isdigit():
+                continue
+            if ex_cod[:-2] != lip_stem:
+                continue
+            ex_um = _normalize_um(extra_nc.get('oferta_um', ''))
+            if lip_um != ex_um:
+                continue
+            ex_cant = extra_nc.get('oferta_cantitate') or 0
+            cant_diff = abs(ex_cant - lip_cant)
+            if cant_diff < best_cant_diff:
+                best_cant_diff = cant_diff
+                best_extra = extra_nc
+        if best_extra is None:
+            continue
+        _paired_ids.add(id(lipsa_nc))
+        _paired_ids.add(id(best_extra))
+        ex_cod = best_extra.get('oferta_cod', '')
+        deviz_cod = lipsa_nc.get('deviz_ref', '')
+        deviz_den = lipsa_nc.get('deviz_denumire', '')
+        ex_cant = best_extra.get('oferta_cantitate') or 0
+        ref_art_proxy = {
+            'cod': lip_cod, 'denumire': lipsa_nc.get('ref_denumire', ''),
+            'um': lipsa_nc.get('ref_um', ''), 'cantitate': lip_cant,
+            'deviz': deviz_cod, 'deviz_denumire': deviz_den,
+            'is_component': lipsa_nc.get('is_component', False),
+            'source_pages': lipsa_nc.get('ref_source_pages', []),
+            'nr_ordine': lipsa_nc.get('nr_ordine_ref'),
+            'parent_cod': lipsa_nc.get('parent_cod_ref'),
+            'parent_nr_ordine': lipsa_nc.get('parent_nr_ordine_ref'),
+            'display_parent_cod': lipsa_nc.get('display_parent_cod'),
+            'cant_mostenita': lipsa_nc.get('cant_mostenita', False),
+        }
+        off_art_proxy = {
+            'cod': ex_cod, 'denumire': best_extra.get('oferta_denumire', ''),
+            'um': best_extra.get('oferta_um', ''), 'cantitate': ex_cant,
+            'is_component': best_extra.get('is_component', False),
+            'source_pages': best_extra.get('oferta_source_pages', []),
+            'nr_ordine': best_extra.get('nr_ordine_oferta'),
+            'display_parent_cod': best_extra.get('oferta_display_parent_cod'),
+        }
+        cod_sim_nc = {
+            "tip": "COD_SIMILAR",
+            "motiv_similaritate": (
+                f"Cod familie (prefix '{lip_stem}', sufix distanta diferit): '{lip_cod}' ↔ '{ex_cod}'"
+            ),
+        }
+        _enrich(cod_sim_nc, ref_art_proxy, off_art_proxy, deviz_cod, deviz_den)
+        _pair_new_ncs.append(cod_sim_nc)
+        diffs = compare_articles(ref_art_proxy, off_art_proxy, include_prices=False)
+        for d in diffs:
+            _enrich(d, ref_art_proxy, off_art_proxy, deviz_cod, deviz_den)
+        _pair_new_ncs.extend(diffs)
+        nc_param = _nc_parametru_diferit(ref_art_proxy, off_art_proxy, deviz_cod, deviz_den)
+        if nc_param:
+            _pair_new_ncs.append(nc_param)
+        _pair_new_matches.append({
+            "ref_cod": lip_cod, "ref_denumire": lipsa_nc.get('ref_denumire', ''),
+            "oferta_cod": ex_cod, "oferta_denumire": best_extra.get('oferta_denumire', ''),
+        })
+        logger.info(
+            f"[COMP] LIPSA+EXTRA family-stem collapse: '{lip_cod}' ↔ '{ex_cod}'"
+            f" stem='{lip_stem}' cant_diff={best_cant_diff:.3f}"
+        )
+
     if _paired_ids:
         neconformitati = [nc for nc in neconformitati if id(nc) not in _paired_ids]
         neconformitati.extend(_pair_new_ncs)
