@@ -197,13 +197,21 @@ SKIP_RE = re.compile(
     r'^(?:Executant|Obiectiv)\s*\d+\s*$|'      # Executant0002, Obiectiv0021
     r'^OBIECTIV\s*:|'                           # OBIECTIV: 0021 Drumuri Tatarani
     r'cu\s+cantit[a-z]+\s+de\s+lucrari\s+pe\s+categorii|'  # page subtitle
+    # DT2 Obiectul line: "0012 120" (4-digit deviz code + 1-3 digit strada number).
+    # Not caught by the \d{4,6} single-token pattern because it has two numbers.
+    r'^\d{4}\s+\d{1,3}\s*$|'
     # eDevize table column headers (appear in header block, not articles)
     r'^(?:crt\.|Capitolul\s+de\s+lucrari|Denumire\s+resursa)\s*$|'
     r'^(?:U\.\s*M\.|Pretul\s+unitar|Cantitatea|Valoare[a]?)\s*$|'
     r'^(?:Observat[il]{1,3}|Corect[il]{1,3})\s*$|'
     r'^[a-d]\)\s*(?:materiale|manopera|util[aăjl]+|transport)\s*$|'
     r'^Total\s*\(a\+b\+c\+d\)\s*$|'
-    r'^SECTIUNE\s+(?:TEHNICA|FINANCIARA)\s*$)',
+    r'^SECTIUNE\s+(?:TEHNICA|FINANCIARA)\s*$|'
+    # DT2 F3 table column headers (free-form PDF, differ from eDevize format)
+    r'Nr\.\s+Capitol\s+de\s+lucr|'               # "Nr. Capitol de lucr."
+    r'Subcapitol\s*\(norma\s+comasata\)|'        # "Subcapitol (norma comasata)"
+    r'^\(col\.\d|'                               # "(col.3x", "(col.4x" formula refs
+    r'Sectiunea\s+(?:tehnica|financiara))',        # lowercase section labels
     re.IGNORECASE
 )
 # NR_CRT + COD_NORM/EXTENDED/SINGLE/NUMERIC + separator + descriere pe aceeași linie
