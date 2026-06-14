@@ -1132,11 +1132,82 @@ def match_global(
             "oferta_cod": ex_cod, "oferta_denumire": best_extra.get('oferta_denumire', ''),
         })
 
+    # Second pass: match by same nr_ordine + same cantitate + same UM (positional match)
+    # Catches cross-family substitutions like TRA02A35↔TRA05A50 where cs<0.80
+    for lipsa_nc in _lipsa_ncs:
+        if id(lipsa_nc) in _paired_ids:
+            continue
+        lip_nr = lipsa_nc.get('nr_ordine_ref')
+        if lip_nr is None:
+            continue
+        lip_cant = lipsa_nc.get('ref_cantitate') or 0
+        lip_um = _normalize_um(lipsa_nc.get('ref_um', ''))
+        if not lip_cant:
+            continue
+        best_extra, best_cs = None, -1.0
+        for extra_nc in _extra_ncs:
+            if id(extra_nc) in _paired_ids:
+                continue
+            if extra_nc.get('nr_ordine_oferta') != lip_nr:
+                continue
+            ex_cant = extra_nc.get('oferta_cantitate') or 0
+            ex_um = _normalize_um(extra_nc.get('oferta_um', ''))
+            if lip_um != ex_um:
+                continue
+            if abs(ex_cant - lip_cant) / max(abs(lip_cant), 1e-9) >= 0.001:
+                continue
+            cs = _cod_similarity(lipsa_nc.get('ref_cod', ''), extra_nc.get('oferta_cod', ''))
+            if cs > best_cs:
+                best_cs, best_extra = cs, extra_nc
+        if best_extra is None:
+            continue
+        _paired_ids.add(id(lipsa_nc))
+        _paired_ids.add(id(best_extra))
+        lip_cod = lipsa_nc.get('ref_cod', '')
+        ex_cod = best_extra.get('oferta_cod', '')
+        deviz_cod = lipsa_nc.get('deviz_ref', '')
+        deviz_den = lipsa_nc.get('deviz_denumire', '')
+        ex_cant = best_extra.get('oferta_cantitate') or 0
+        ref_art_proxy = {
+            'cod': lip_cod, 'denumire': lipsa_nc.get('ref_denumire', ''),
+            'um': lipsa_nc.get('ref_um', ''), 'cantitate': lip_cant,
+            'deviz': deviz_cod, 'deviz_denumire': deviz_den,
+            'is_component': lipsa_nc.get('is_component', False),
+            'source_pages': lipsa_nc.get('ref_source_pages', []),
+            'nr_ordine': lip_nr,
+            'parent_cod': lipsa_nc.get('parent_cod_ref'),
+            'parent_nr_ordine': lipsa_nc.get('parent_nr_ordine_ref'),
+            'display_parent_cod': lipsa_nc.get('display_parent_cod'),
+            'cant_mostenita': lipsa_nc.get('cant_mostenita', False),
+        }
+        off_art_proxy = {
+            'cod': ex_cod, 'denumire': best_extra.get('oferta_denumire', ''),
+            'um': best_extra.get('oferta_um', ''), 'cantitate': ex_cant,
+            'is_component': best_extra.get('is_component', False),
+            'source_pages': best_extra.get('oferta_source_pages', []),
+            'nr_ordine': best_extra.get('nr_ordine_oferta'),
+            'display_parent_cod': best_extra.get('oferta_display_parent_cod'),
+        }
+        cod_sim_nc = {
+            "tip": "COD_SIMILAR",
+            "motiv_similaritate": f"Pozitie identica, cantitate identica: '{lip_cod}' ↔ '{ex_cod}' (cs={best_cs:.2f})",
+        }
+        _enrich(cod_sim_nc, ref_art_proxy, off_art_proxy, deviz_cod, deviz_den)
+        _pair_new_ncs.append(cod_sim_nc)
+        nc_param = _nc_parametru_diferit(ref_art_proxy, off_art_proxy, deviz_cod, deviz_den)
+        if nc_param:
+            _pair_new_ncs.append(nc_param)
+        _pair_new_matches.append({
+            "ref_cod": lip_cod, "ref_denumire": lipsa_nc.get('ref_denumire', ''),
+            "oferta_cod": ex_cod, "oferta_denumire": best_extra.get('oferta_denumire', ''),
+        })
+        logger.info(f"[COMP] LIPSA+EXTRA positional collapse: nr={lip_nr} '{lip_cod}' ↔ '{ex_cod}' cs={best_cs:.2f}")
+
     if _paired_ids:
         neconformitati = [nc for nc in neconformitati if id(nc) not in _paired_ids]
         neconformitati.extend(_pair_new_ncs)
         matches.extend(_pair_new_matches)
-        logger.info(f"[COMP] LIPSA+EXTRA collapse: {len(_pair_new_matches)} perechi → COD_SIMILAR")
+        logger.info(f"[COMP] LIPSA+EXTRA collapse total: {len(_pair_new_matches)} perechi → COD_SIMILAR")
 
     # Post-processing: Lenient UM matching for $ codes
     # If EXTRA code is a $ code and exists in reference with same deviz but empty UM,
