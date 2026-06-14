@@ -20,7 +20,7 @@ SUBCOMP_GRAY_FILL = "E8E8E8"  # Light gray for subcomponents
 LILA_FILL = "C8A0DC"  # Lila pentru DESCRIERE_DIFERITA
 SEMANTIC_MATCH_FILL = "FFD966"  # orange-yellow — COD_NORMATIV_DIFERIT
 SPEC_DIFF_FILL = "FFC000"       # amber — SPECIFICATIE_DIFERITA
-PARAM_DIFF_FILL = "FFB347"      # orange — DIFERENTA_PARAMETRU (parametri tehnici diferiți)
+PARAM_DIFF_FILL = "F0F0F0"      # pale gray — DIFERENTA_PARAMETRU (de-emphasized; obs text already red)
 
 # Tipuri de neconformitate suprimate per mod subcomponente
 SUPPRESSED_BY_MODE: dict[str, frozenset] = {
