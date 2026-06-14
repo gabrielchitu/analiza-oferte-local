@@ -244,7 +244,7 @@ _PRICE_LABEL_RE = re.compile(r'^(material|manopera|utilaj|transport)\s*:', re.IG
 
 UM_KNOWN = {
     # Volum / masa / lungime
-    'BUC', 'BUCATA', 'BUCAT', 'MC', 'ML', 'MP', 'MPC', 'KG', 'T', 'TO', 'TON', 'TONA', 'TONE', 'G', 'MG',
+    'BUC', 'BUCATA', 'BUCATI', 'BUCAT', 'MC', 'ML', 'MP', 'MPC', 'KG', 'T', 'TO', 'TON', 'TONA', 'TONE', 'G', 'MG',
     'L', 'LITRU', 'M', 'H', 'DM', 'KM',
     # Electric
     'KW', 'KWH', 'KVA', 'W',
@@ -374,7 +374,7 @@ def _normalize_um_value(token: str) -> str:
 
     if t in UM_KNOWN:
         # Normalize variants to canonical form
-        if t in ('BUCATA', 'BUCAT'):  # BUCATA și BUCAT = BUC în română
+        if t in ('BUCATA', 'BUCATI', 'BUCAT'):  # plural/singular variants → buc
             return 'buc'
         if t == 'LITRU':
             return 'l'
@@ -382,7 +382,7 @@ def _normalize_um_value(token: str) -> str:
             return 'tona'
         if t in ('ORE', 'OREI'):  # ORE, OREI (plural/genitive) → ora (singular)
             return 'ora'
-        return t.lower() if t in ('BUC', 'BUCATA', 'BUCAT') else t
+        return t.lower() if t in ('BUC', 'BUCATA', 'BUCATI', 'BUCAT') else t
 
     # Only attempt fuzzy match if token contains non-letter OCR noise: ?, !, |, ~, ^
     if any(c in t for c in '?!|~^'):
