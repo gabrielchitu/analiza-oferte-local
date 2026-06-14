@@ -1052,7 +1052,18 @@ def match_global(
         neconformitati.append(neconf)
 
     # ARTICOL_EXTRA — instante neacoperite din oferta (chei nemat-uite + exces N:M)
-    extras_to_report = [a for k in unmatched_oferta_keys for a in oferta_by_key[k]] + extra_from_nm
+    # Exclude individual articles consumed by Layer 2.5/2.6 (tracked by object id).
+    # A group key can remain in unmatched_oferta_keys if other instances in the same key
+    # are still unmatched — but those consumed instances must not become EXTRA.
+    _consumed_oferta_ids: set = set()
+    if 'det_matched_oferta_arts' in locals():
+        _consumed_oferta_ids |= det_matched_oferta_arts
+    if 'det_matched_of_26' in locals():
+        _consumed_oferta_ids |= det_matched_of_26
+    extras_to_report = [
+        a for k in unmatched_oferta_keys for a in oferta_by_key[k]
+        if id(a) not in _consumed_oferta_ids
+    ] + extra_from_nm
 
     for oferta_art in extras_to_report:
         norm_cod = _normalize_cod(oferta_art.get("cod", ""))
