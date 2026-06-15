@@ -55,12 +55,12 @@ COD_BREVIAR_RE = re.compile(r'^(\$[A-Z0-9]{4,})\s*[-–]\s*(.+)', re.IGNORECASE)
 # IMPORTANT: (?!\d) negative lookahead ensures we match COMPLETE numeric codes, not substrings
 # of longer digit sequences (e.g., won't match "22121" in "22222121 - DESC")
 COD_NUMERIC_RE = re.compile(r'^(\d{4,9})(?!\d)(?:[@]|\[\d+\])?\s*[-–]\s*(.+)')
-# Cod format: DIGIT-LETTER-DIGIT (ex: 00106B011, 001C012, 02012A1[1]) — articole cu cod mixt din breviar
-# Format: 3-5 cifre + 1 litera + 1-3 cifre, optional bracket suffix [N], optional cu separator și descriere
-COD_DIGIT_LETTER_DIGIT_RE = re.compile(r'^(\d{3,5}[A-Z]\d{1,3})(?!\d)(?:\[\d+\])?\s*[-–]\s*(.+)', re.IGNORECASE)
-# Cod DIGIT-LETTER-DIGIT SINGUR pe linie: 00106B011, 001C012 (format: 3-5D + L + 1-3D, standalone)
+# Cod format: DIGIT-LETTER-DIGIT (ex: 00106B011, 001C012, 02012A1[1], 01003D) — articole cu cod mixt din breviar
+# Format: 3-5 cifre + 1 litera + 0-3 cifre (cifre finale optionale: 01003D, 01003B1 ambele valide)
+COD_DIGIT_LETTER_DIGIT_RE = re.compile(r'^(\d{3,5}[A-Z]\d{0,3})(?!\d)(?:\[\d+\])?\s*[-–]\s*(.+)', re.IGNORECASE)
+# Cod DIGIT-LETTER-DIGIT SINGUR pe linie: 00106B011, 001C012, 01003D (format: 3-5D + L + 0-3D, standalone)
 COD_DIGIT_LETTER_DIGIT_STANDALONE_RE = re.compile(
-    r'^(\d{3,5}[A-Z]\d{1,3})(?!\d)((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
+    r'^(\d{3,5}[A-Z]\d{0,3})(?!\d)((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
     re.IGNORECASE
 )
 # Cod normativ SINGUR pe linie, cu opțional tokeni sufixe (ASIM, BUC. etc.) — max 3
@@ -222,7 +222,7 @@ NR_COD_DESC_RE = re.compile(
     r'([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?\d?'  # trailing \d? handles IC19XB1, TSA02F1 etc.
     r'|[A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z]?\d?'
     r'|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}'
-    r'|\d{3,5}[A-Z]\d{1,3}(?!\d)'  # digit-letter-digit (00106B011, 01311A1, 02012A1)
+    r'|\d{3,5}[A-Z]\d{0,3}(?!\d)'  # digit-letter-digit (00106B011, 01311A1, 02012A1, 01003D)
     r'|[A-Z]{2,6}-\d+'  # letters-dash-digits: BAPC-16, SORT-10
     r'|(?:\d{4,9})(?!\d)(?:[@]|\[\d+\])?)'  # Numeric code with negative lookahead
     r'(?:#\d*|[>*@%^+]|\[\d*\]|ASIM|TSCH){0,2}[-]?\s*[-–]\s*(.+)$',
@@ -1574,6 +1574,22 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                                 um = ''; cantitate = 0.0; preturi = []
                                 state = _READING; waiting_lines = 0; _after_linked = False
                             else:
+                                # Compound "col_prefix UM" line created by _preprocess_compound_um for
+                                # codeless eDevize labor articles (e.g. "100 ORE", "82 MC").
+                                # NR_CRT was set but no CODE was found — create placeholder so article is emitted.
+                                _m_colum_w = re.match(r'^(\d+)\s+([A-Z]{1,6})\.?$', line, re.IGNORECASE)
+                                if _m_colum_w:
+                                    _wum = _m_colum_w.group(2).upper().rstrip('.')
+                                    if _wum in UM_KNOWN and _wum not in UM_SKIP and _wum != 'KM':
+                                        cod = f'CODELESS{last_nr_crt}'
+                                        um = _normalize_um_value(_m_colum_w.group(2))
+                                        denumire_parts = []
+                                        cantitate = 0.0
+                                        preturi = []
+                                        state = _READING
+                                        waiting_lines = 0
+                                        _after_linked = False
+                                        continue
                                 # eDevize column-order artifact: cantitate appears in WAITING state
                                 # before the article's COD (e.g. DT2 referinta page with col-3 data
                                 # embedded between column-index labels). Save for consumption in _finalize().
