@@ -141,8 +141,16 @@ def _add_header_rows(tbl, obiectivul: str, obiectul: str, categoria: str) -> Non
     row0 = tbl.rows[0]
     for i in range(1, 6):
         row0.cells[0].merge(row0.cells[i])
-    _cell_write(row0.cells[0], f"{obiectivul} / {obiectul} / {categoria}",
-                bold=True, size=9)
+    cell = row0.cells[0]
+    cell.text = ''
+    for label, value in [('Obiectivul', obiectivul), ('Obiectul', obiectul), ('Categoria', categoria)]:
+        p = cell.add_paragraph()
+        run = p.add_run(f'{label}: {value}')
+        run.font.size = Pt(9)
+        run.font.bold = True
+    # remove the empty first paragraph that python-docx adds by default
+    first_p = cell.paragraphs[0]._p
+    first_p.getparent().remove(first_p)
 
     row1 = tbl.rows[1]
     headers = [
@@ -301,9 +309,15 @@ def write_xlsx(devize: list[dict], output_path: Path) -> None:
         r = 1
         # Deviz header row
         ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=6)
-        cell = ws.cell(r, 1,
-                       value=f"{deviz.get('obiectivul','')} / {deviz.get('obiectul','')} / {deviz.get('categoria','')}")
+        header_val = (
+            f"Obiectivul: {deviz.get('obiectivul', '')}\n"
+            f"Obiectul: {deviz.get('obiectul', '')}\n"
+            f"Categoria: {deviz.get('categoria', '')}"
+        )
+        cell = ws.cell(r, 1, value=header_val)
         cell.font = _XLS_BOLD
+        cell.alignment = Alignment(wrap_text=True, vertical='top')
+        ws.row_dimensions[r].height = 48
         r += 1
 
         # Column headers
