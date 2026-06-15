@@ -244,7 +244,7 @@ _PRICE_LABEL_RE = re.compile(r'^(material|manopera|utilaj|transport)\s*:', re.IG
 
 UM_KNOWN = {
     # Volum / masa / lungime
-    'BUC', 'BUCATA', 'BUCATI', 'BUCAT', 'MC', 'ML', 'MP', 'MPC', 'KG', 'T', 'TO', 'TON', 'TONA', 'TONE', 'G', 'MG',
+    'BUC', 'BUCATA', 'BUCATI', 'BUCAT', 'MC', 'ML', 'MP', 'MPC', 'KG', 'T', 'TO', 'TON', 'TONA', 'TONE', 'TONB', 'G', 'MG',
     'L', 'LITRU', 'M', 'H', 'DM', 'KM',
     # Electric
     'KW', 'KWH', 'KVA', 'W',
@@ -378,7 +378,7 @@ def _normalize_um_value(token: str) -> str:
             return 'buc'
         if t == 'LITRU':
             return 'l'
-        if t == 'TONE':  # TONE (plural) → tona (singular)
+        if t in ('TONE', 'TONB'):  # TONE (plural) / TONB (OCR E→B) → tona
             return 'tona'
         if t in ('ORE', 'OREI'):  # ORE, OREI (plural/genitive) → ora (singular)
             return 'ora'
