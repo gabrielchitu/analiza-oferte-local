@@ -32,7 +32,8 @@ _SKIP_RE = re.compile(
 
 _NR_INT_RE = re.compile(r'^\d+$')
 _NR_DEC_RE = re.compile(r'^\d+\.\d+$')
-_COD_NAME_RE = re.compile(r'^([A-Z0-9$.*+#%^>@<]{2,}|\d{4,})\s*-\s*.+$')
+_COD_NAME_RE = re.compile(r'^([A-Z0-9$.*+#%^>@<]{2,}|\d{4,})\s+-\s+(.+)$')
+_NR_COD_INLINE_RE = re.compile(r'^(\d{1,3})\s+([A-Z0-9$.*+#%^>@<]{2,}|\d{4,})\s+-\s+(.+)$')
 _TOTAL_CAPITOL_RE = re.compile(r'^TOTAL\s+(.+)$', re.IGNORECASE)
 _BREAKDOWN_RE = re.compile(r'^(material|manopera|utilaj|transport):$', re.IGNORECASE)
 
@@ -80,6 +81,8 @@ def _is_capitol_header(line: str) -> bool:
     if _NR_INT_RE.match(s) or _NR_DEC_RE.match(s):
         return False
     if re.search(r'\d', s) and '-' not in s:
+        return False
+    if re.fullmatch(r'\d+[-/]\d+', s):
         return False
     if s != s.upper():
         return False
@@ -147,6 +150,10 @@ def _parse_f3_page_lines(lines: list[str]) -> list[tuple[str, dict]]:
             in_article_zone = True
             continue
 
+        if line == 'Antet stanga':
+            in_article_zone = False
+            continue
+
         if not in_article_zone:
             continue
 
@@ -168,24 +175,40 @@ def _parse_f3_page_lines(lines: list[str]) -> list[tuple[str, dict]]:
                     num_window_count = 0
                     continue
 
+        # NR + COD + DENUMIRE on same line (e.g. '10 CF17A01* - Amorsa...')
+        m_nr_cod = _NR_COD_INLINE_RE.match(line)
+        if m_nr_cod:
+            in_num_window = False
+            num_window_count = 0
+            events.append(('ART_NR', {'nr_crt': m_nr_cod.group(1)}))
+            events.append(('COD_NAME', {'cod': m_nr_cod.group(2), 'denumire': m_nr_cod.group(3).strip()}))
+            continue
+
         # COD + DENUMIRE checked BEFORE capitol header (all-caps overlap)
         if _is_cod_name(line):
             denumire_parts = [line]
             while i < len(lines):
                 nxt = lines[i].strip()
-                if (_is_um(nxt) or _NR_INT_RE.match(nxt) or _NR_DEC_RE.match(nxt)
-                        or _is_cod_name(nxt) or _is_breakdown_key(nxt)
-                        or _is_capitol_header(nxt) or _is_skip(nxt)
-                        or _TOTAL_CAPITOL_RE.match(nxt)):
+                if (_is_um(nxt) or _is_cod_name(nxt) or _is_breakdown_key(nxt)
+                        or _is_skip(nxt) or _TOTAL_CAPITOL_RE.match(nxt)):
                     break
-                if _parse_number(nxt) is not None:
+                last_part = denumire_parts[-1].strip()
+                if _is_capitol_header(nxt) and not last_part.endswith('-'):
+                    break
+                # Integer/decimal before UM = norm code in denomination (e.g. '2111' then 'kg')
+                if _NR_INT_RE.match(nxt) or _NR_DEC_RE.match(nxt) or _parse_number(nxt) is not None:
+                    next_next = lines[i + 1].strip() if (i + 1) < len(lines) else ''
+                    if _is_um(next_next):
+                        denumire_parts.append(nxt)
+                        i += 1
+                        continue
                     break
                 denumire_parts.append(nxt)
                 i += 1
             full_line = denumire_parts[0]
-            dash_idx = full_line.index(' - ')
-            cod = full_line[:dash_idx].strip()
-            den_first = full_line[dash_idx + 3:].strip()
+            m_cn = _COD_NAME_RE.match(full_line)
+            cod = m_cn.group(1).strip()
+            den_first = m_cn.group(2).strip()
             denumire = ' '.join([den_first] + denumire_parts[1:]).strip()
             events.append(('COD_NAME', {'cod': cod, 'denumire': denumire}))
             continue
