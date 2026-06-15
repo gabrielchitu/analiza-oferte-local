@@ -128,7 +128,7 @@ NR_SINGLE_INLINE_RE = re.compile(
 # NR_CRT + COD cu prefix numeric: "052 01003B1" — digit-start normativ codes (digit+letter+digit)
 # Pattern: 1-5 digits + 1 letter + 1-4 digits (e.g., 01003B1, 1003B1, 024A1)
 NR_MIXED_DIGIT_INLINE_RE = re.compile(
-    r'^(\d{1,3})[\s|]+(\d{1,5}[A-Z]\d{1,4}[A-Z]?\d{0,2})\s*$',
+    r'^(\d{1,3})[\s|]+(\d{1,5}[A-Z]\d{0,4}[A-Z]?\d{0,2})\s*$',
     re.IGNORECASE
 )
 # NR_CRT: integer 1-999 singur pe linie
