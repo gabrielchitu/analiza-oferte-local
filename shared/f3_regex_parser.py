@@ -1809,6 +1809,14 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # Suportă și format "99 ZECI MP" unde ZECI este descriptor (tens/groups) nu UM
             # BUT: skip "NUMBER KM" (always distance spec like "20 KM", never work unit)
             if um == '':
+                # eDevize column-reference UM: "[ 5] M. C." or "[ 1] BUC." — column index prefix
+                m_colref_um = re.match(r'^\[\s*\d+\s*\]\s+(.+)$', line)
+                if m_colref_um:
+                    um_part = m_colref_um.group(1).strip()
+                    if _is_valid_um(um_part):
+                        um = _normalize_um_value(um_part)
+                        continue
+
                 # Try format: QUALIFIER UNIT standalone (e.g., "ZECI M", "SUTE MP")
                 # Check this FIRST for eDevize format where "ZECI M" appears on own line
                 m_qual_um_standalone = re.match(r'^([A-Z]{1,6})\s+([A-Z]{1,6})\.?\s*$', line, re.IGNORECASE)
