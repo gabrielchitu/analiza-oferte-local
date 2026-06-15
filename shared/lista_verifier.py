@@ -1,7 +1,10 @@
 # shared/lista_verifier.py
 """Autoverificare articole extrase: gaps nr_crt, total deviz, breakdown."""
 
+import re
 from typing import Callable, Optional
+
+_NR_ART_RAW_RE = re.compile(r'^\d{1,3}$')
 
 
 def _check_count_devize(extracted: list[dict], deviz_headers: dict = None) -> dict:
@@ -70,6 +73,44 @@ def _check_total_deviz(extracted: list[dict]) -> dict:
     }
 
 
+def max_nr_crt_in_page_classes(page_classes: list[dict]) -> int | None:
+    """Scan F3 page lines for the highest standalone integer (1-999) = raw last article nr."""
+    best = None
+    for pc in page_classes:
+        if not pc.get('is_f3'):
+            continue
+        for line in pc.get('lines', []):
+            s = line.strip()
+            if _NR_ART_RAW_RE.match(s):
+                n = int(s)
+                if 1 <= n <= 999 and (best is None or n > best):
+                    best = n
+    return best
+
+
+def _check_last_nr_crt(extracted: list[dict], raw_max_nr: int | None) -> dict:
+    """Verify max extracted nr_crt == max nr_crt found in raw F3 lines."""
+    if raw_max_nr is None:
+        return {'ok': None, 'skipped': True, 'reason': 'raw_max_nr not provided'}
+    extracted_max = None
+    for deviz in extracted:
+        for cap in deviz.get('capitole', []):
+            for art in cap.get('articole', []):
+                try:
+                    n = int(art['nr_crt'])
+                    if extracted_max is None or n > extracted_max:
+                        extracted_max = n
+                except (ValueError, TypeError):
+                    pass
+    if extracted_max is None:
+        return {'ok': False, 'extracted_max': None, 'raw_max': raw_max_nr}
+    return {
+        'ok': extracted_max == raw_max_nr,
+        'extracted_max': extracted_max,
+        'raw_max': raw_max_nr,
+    }
+
+
 def _check_breakdown_control(extracted: list[dict]) -> dict:
     suspect = []
     for deviz in extracted:
@@ -85,6 +126,7 @@ def verify(
     deviz_headers: dict = None,
     max_iterations: int = 5,
     reextract_fn: Optional[Callable] = None,
+    raw_max_nr: int | None = None,
 ) -> dict:
     """Run all checks, retry up to max_iterations if HIGH checks fail.
 
@@ -100,14 +142,15 @@ def verify(
         checks = {
             'COUNT_DEVIZE':      _check_count_devize(current, deviz_headers),
             'NR_CRT_GAPS':       _check_nr_crt_gaps(current),
+            'LAST_NR_CRT':       _check_last_nr_crt(current, raw_max_nr),
             'TOTAL_CAPITOL':     _check_total_capitol(current),
             'TOTAL_DEVIZ':       _check_total_deviz(current),
             'BREAKDOWN_CONTROL': _check_breakdown_control(current),
         }
 
         high_failures = [
-            k for k in ('NR_CRT_GAPS', 'TOTAL_CAPITOL', 'TOTAL_DEVIZ')
-            if not checks[k]['ok']
+            k for k in ('NR_CRT_GAPS', 'LAST_NR_CRT', 'TOTAL_CAPITOL', 'TOTAL_DEVIZ')
+            if checks[k].get('ok') is False
         ]
 
         if not high_failures:

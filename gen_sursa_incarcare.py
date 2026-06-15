@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 
 from shared.client_config import ClientConfig
 from shared.f3_price_extractor import extract_prices
-from shared.lista_verifier import verify
+from shared.lista_verifier import verify, max_nr_crt_in_page_classes
 from shared.sursa_incarcare_writer import make_acronym, write_docx, write_xlsx, write_pdf
 
 INPUT_BASE = Path("input_AO")
@@ -140,7 +140,8 @@ def _run_pipeline(client_name: str, json_path: Path, no_pdf: bool = False, force
 
     # Step 4: Verify
     print(f"  [4/4] Verificare...", end="", flush=True)
-    verification = verify(extracted, deviz_headers)
+    raw_max_nr = max_nr_crt_in_page_classes(page_classes)
+    verification = verify(extracted, deviz_headers, raw_max_nr=raw_max_nr)
 
     ckpt_verified = config.output_dir / f"sursa_verified_{json_stem}.json"
     ckpt_verified.write_text(

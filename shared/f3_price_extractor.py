@@ -5,6 +5,9 @@ import re
 from pathlib import Path
 from typing import Optional
 
+# Romanian lowercase conjunctions/prepositions allowed inside CAPITOL headers
+_HEADER_LOWER_ALLOWED = {'si', 'de', 'cu', 'a', 'al', 'ale', 'din', 'la', 'pe', 'in', 'ca'}
+
 _UM_KNOWN = {
     'MP', 'MC', 'ML', 'BUC', 'KG', 'T', 'L', 'SET', 'PERECHE', 'M',
     'ORA', 'ZI', 'LUNA', 'AN', 'TONA', 'MII', 'DM3', 'CM2', 'KM', 'HA',
@@ -84,7 +87,7 @@ def _is_capitol_header(line: str) -> bool:
         return False
     if re.fullmatch(r'\d+[-/]\d+', s):
         return False
-    if s != s.upper():
+    if not all(w.isupper() or w in _HEADER_LOWER_ALLOWED for w in s.split()):
         return False
     if s in _SKIP_EXACT:
         return False
@@ -328,6 +331,8 @@ def _assemble_deviz(events: list[tuple[str, dict]], header) -> dict:
 
         elif etype == 'ART_NR':
             _flush_to_capitol()
+            if current_capitol is None:
+                current_capitol = {'titlu': '', 'articole': [], 'total_capitol': None}
             current_article = {
                 'nr_crt': data['nr_crt'],
                 'cod': '', 'denumire': '',
@@ -401,7 +406,10 @@ def _assemble_deviz(events: list[tuple[str, dict]], header) -> dict:
         'obiectul': header.obiectul or '',
         'categoria': header.categoria or '',
         'capitole': capitole,
-        'total_deviz': sum(cap['total_capitol'] or 0.0 for cap in capitole),
+        'total_deviz': sum(
+            cap['total_capitol'] or sum(a.get('total', 0.0) for a in cap.get('articole', []))
+            for cap in capitole
+        ),
     }
 
 
