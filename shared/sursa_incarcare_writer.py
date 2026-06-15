@@ -406,3 +406,226 @@ def write_pdf(docx_path: Path, output_dir: Path) -> bool:
         return result.returncode == 0
     except (FileNotFoundError, subprocess.TimeoutExpired):
         return False
+
+
+def write_pdf_native(devize: list[dict], output_path: Path) -> bool:
+    """Generate searchable PDF with reportlab (no LibreOffice needed). Returns True on success."""
+    try:
+        import os
+        from reportlab.lib.pagesizes import A4, landscape as rl_landscape
+        from reportlab.lib.units import cm
+        from reportlab.lib import colors
+        from reportlab.platypus import (
+            SimpleDocTemplate, Table, TableStyle, Paragraph, PageBreak,
+        )
+        from reportlab.lib.styles import ParagraphStyle
+        from reportlab.pdfbase import pdfmetrics
+        from reportlab.pdfbase.ttfonts import TTFont
+    except ImportError:
+        return False
+
+    # -- Font (Arial with Romanian character support, fallback Helvetica) --
+    _FONT = 'Helvetica'
+    _FONT_BOLD = 'Helvetica-Bold'
+    _arial_r = '/System/Library/Fonts/Supplemental/Arial.ttf'
+    _arial_b = '/System/Library/Fonts/Supplemental/Arial Bold.ttf'
+    if os.path.exists(_arial_r):
+        try:
+            pdfmetrics.registerFont(TTFont('_PdfArial', _arial_r))
+            _FONT = '_PdfArial'
+            if os.path.exists(_arial_b):
+                pdfmetrics.registerFont(TTFont('_PdfArialBold', _arial_b))
+                _FONT_BOLD = '_PdfArialBold'
+            else:
+                _FONT_BOLD = '_PdfArial'
+        except Exception:
+            pass
+
+    # -- Paragraph styles --
+    def _ps(name, font, size, leading_mult=1.25):
+        return ParagraphStyle(name, fontName=font, fontSize=size,
+                              leading=size * leading_mult, spaceAfter=0, spaceBefore=0)
+
+    ps_normal  = _ps('N',  _FONT,      7)
+    ps_bold    = _ps('B',  _FONT_BOLD, 7)
+    ps_header  = _ps('H',  _FONT_BOLD, 8.5, 1.3)
+    ps_colhdr  = _ps('CH', _FONT_BOLD, 7,   1.2)
+    ps_small   = _ps('S',  _FONT,      6.5)
+    ps_total   = _ps('T',  _FONT_BOLD, 8)
+    ps_total_w = _ps('TW', _FONT_BOLD, 8)
+    ps_total_w.textColor = colors.white
+
+    # -- Column widths: scaled proportionally to fill A4 landscape (26.7 cm usable) --
+    COL_W = [w * cm for w in (1.6, 12.0, 2.0, 3.2, 3.6, 4.3)]
+
+    # -- Colors --
+    C_GRAY    = colors.HexColor('#EEEEEE')
+    C_DGRAY   = colors.HexColor('#D9D9D9')
+    C_YELLOW  = colors.HexColor('#FFF2CC')
+    C_RED     = colors.HexColor('#FF0000')
+
+    def _esc(s: str) -> str:
+        return str(s).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+
+    def _p(text, style):
+        return Paragraph(_esc(text), style)
+
+    def _build_table(deviz: dict) -> Table:
+        rows = []
+        cmds = [
+            ('GRID',          (0, 0), (-1, -1), 0.4,  colors.black),
+            ('FONTNAME',      (0, 0), (-1, -1), _FONT),
+            ('FONTSIZE',      (0, 0), (-1, -1), 7),
+            ('TOPPADDING',    (0, 0), (-1, -1), 2),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
+            ('LEFTPADDING',   (0, 0), (-1, -1), 3),
+            ('RIGHTPADDING',  (0, 0), (-1, -1), 3),
+            ('VALIGN',        (0, 0), (-1, -1), 'MIDDLE'),
+        ]
+
+        # Row 0: deviz header (spans all 6 cols)
+        hdr = (
+            f"<b>Obiectivul:</b> {_esc(deviz.get('obiectivul', ''))}<br/>"
+            f"<b>Obiectul:</b> {_esc(deviz.get('obiectul', ''))}<br/>"
+            f"<b>Categoria:</b> {_esc(deviz.get('categoria', ''))}"
+        )
+        rows.append([Paragraph(hdr, ps_header), '', '', '', '', ''])
+        cmds += [
+            ('SPAN',          (0, 0), (5, 0)),
+            ('BACKGROUND',    (0, 0), (5, 0), C_DGRAY),
+            ('TOPPADDING',    (0, 0), (5, 0), 5),
+            ('BOTTOMPADDING', (0, 0), (5, 0), 5),
+        ]
+
+        # Row 1: column headers
+        col_labels = [
+            'Nr.', 'Capitol de lucrări', 'U.M.',
+            'Cantitatea', 'Preț unitar\n(fără TVA) Lei', 'TOTALUL\n(fără TVA) Lei',
+        ]
+        rows.append([Paragraph(h, ps_colhdr) for h in col_labels])
+        cmds += [
+            ('BACKGROUND', (0, 1), (5, 1), C_DGRAY),
+            ('ALIGN',      (0, 1), (5, 1), 'CENTER'),
+            ('TOPPADDING', (0, 1), (5, 1), 3),
+            ('BOTTOMPADDING', (0, 1), (5, 1), 3),
+        ]
+
+        ri = 2
+
+        for cap in deviz.get('capitole', []):
+            # Chapter header row: col 0 empty, cols 1-5 merged
+            rows.append(['', _p(cap['titlu'], ps_bold), '', '', '', ''])
+            cmds += [
+                ('SPAN',       (1, ri), (5, ri)),
+                ('BACKGROUND', (0, ri), (5, ri), C_GRAY),
+                ('FONTNAME',   (0, ri), (5, ri), _FONT_BOLD),
+            ]
+            ri += 1
+
+            for art in cap.get('articole', []):
+                cod_den = (f"{_esc(art['cod'])} - {_esc(art['denumire'])}"
+                           if art.get('cod') else _esc(art.get('denumire', '')))
+                rows.append([
+                    art.get('nr_crt', ''),
+                    Paragraph(cod_den, ps_normal),
+                    art.get('um', ''),
+                    _fmt_num(art.get('cantitate', 0), 3),
+                    _fmt_num(art.get('pret_unitar', 0)),
+                    _fmt_num(art.get('total', 0)),
+                ])
+                cmds += [
+                    ('ALIGN', (0, ri), (0, ri), 'CENTER'),
+                    ('ALIGN', (2, ri), (2, ri), 'CENTER'),
+                    ('ALIGN', (3, ri), (5, ri), 'RIGHT'),
+                ]
+                ri += 1
+
+                if art.get('breakdown'):
+                    for key in ('material', 'manopera', 'utilaj', 'transport'):
+                        bd = art['breakdown'].get(key, {})
+                        rows.append([
+                            '', Paragraph(f'<i>  {key}:</i>', ps_small), '', '',
+                            _fmt_num(bd.get('pret', 0)),
+                            _fmt_num(bd.get('total', 0)),
+                        ])
+                        cmds += [
+                            ('FONTSIZE', (0, ri), (5, ri), 6.5),
+                            ('ALIGN',    (4, ri), (5, ri), 'RIGHT'),
+                        ]
+                        ri += 1
+
+                for sub in art.get('sub_items', []):
+                    cod_den_s = (f"{_esc(sub['cod'])} - {_esc(sub['denumire'])}"
+                                 if sub.get('cod') else _esc(sub.get('denumire', '')))
+                    rows.append([
+                        sub.get('nr_crt', ''),
+                        Paragraph(cod_den_s, ps_small),
+                        sub.get('um', ''),
+                        _fmt_num(sub.get('cantitate', 0), 3),
+                        _fmt_num(sub.get('pret_unitar', 0)),
+                        _fmt_num(sub.get('total', 0)),
+                    ])
+                    cmds += [
+                        ('FONTSIZE', (0, ri), (5, ri), 6.5),
+                        ('ALIGN', (0, ri), (0, ri), 'CENTER'),
+                        ('ALIGN', (2, ri), (2, ri), 'CENTER'),
+                        ('ALIGN', (3, ri), (5, ri), 'RIGHT'),
+                    ]
+                    ri += 1
+
+            if cap.get('total_capitol') is not None:
+                rows.append([
+                    _p(f'TOTAL {cap["titlu"]}', ps_bold),
+                    '', '', '', '',
+                    _fmt_num(cap['total_capitol']),
+                ])
+                cmds += [
+                    ('SPAN',     (0, ri), (4, ri)),
+                    ('FONTNAME', (0, ri), (5, ri), _FONT_BOLD),
+                    ('ALIGN',    (5, ri), (5, ri), 'RIGHT'),
+                ]
+                ri += 1
+
+        # Deviz total row
+        is_red = deviz.get('status') == 'RED'
+        total_label = ('TOTAL NECONFIRMAT — verificare manuală necesară'
+                       if is_red else 'TOTAL 1 (Cheltuieli directe)')
+        bg = C_RED if is_red else C_YELLOW
+        lbl_style = ps_total_w if is_red else ps_total
+
+        rows.append([
+            Paragraph(_esc(total_label), lbl_style),
+            '', '', '', '',
+            _fmt_num(deviz.get('total_deviz', 0.0)),
+        ])
+        cmds += [
+            ('SPAN',       (0, ri), (4, ri)),
+            ('BACKGROUND', (0, ri), (5, ri), bg),
+            ('FONTNAME',   (0, ri), (5, ri), _FONT_BOLD),
+            ('FONTSIZE',   (0, ri), (5, ri), 8),
+            ('ALIGN',      (5, ri), (5, ri), 'RIGHT'),
+            ('TOPPADDING', (0, ri), (5, ri), 3),
+            ('BOTTOMPADDING', (0, ri), (5, ri), 3),
+        ]
+        if is_red:
+            cmds.append(('TEXTCOLOR', (5, ri), (5, ri), colors.white))
+
+        tbl = Table(rows, colWidths=COL_W, repeatRows=2)
+        tbl.setStyle(TableStyle(cmds))
+        return tbl
+
+    # -- Build document --
+    doc = SimpleDocTemplate(
+        str(output_path),
+        pagesize=rl_landscape(A4),
+        leftMargin=1.5 * cm, rightMargin=1.5 * cm,
+        topMargin=1.5 * cm, bottomMargin=1.5 * cm,
+    )
+    story = []
+    for idx, deviz in enumerate(devize):
+        if idx > 0:
+            story.append(PageBreak())
+        story.append(_build_table(deviz))
+
+    doc.build(story)
+    return True

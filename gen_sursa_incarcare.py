@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 from shared.client_config import ClientConfig
 from shared.f3_price_extractor import extract_prices
 from shared.lista_verifier import verify, max_nr_crt_in_page_classes
-from shared.sursa_incarcare_writer import make_acronym, write_docx, write_xlsx, write_pdf
+from shared.sursa_incarcare_writer import make_acronym, write_docx, write_xlsx, write_pdf, write_pdf_native
 
 INPUT_BASE = Path("input_AO")
 OUTPUT_BASE = Path("output_AO")
@@ -177,8 +177,10 @@ def _run_pipeline(client_name: str, json_path: Path, no_pdf: bool = False, force
     print(f"  {xlsx_path}  OK")
 
     if not no_pdf:
-        ok = write_pdf(docx_path, config.output_dir)
-        print(f"  {pdf_path}  {'OK' if ok else 'WARN (LibreOffice indisponibil - PDF omis)'}")
+        ok = write_pdf_native(extracted, pdf_path)
+        if not ok:
+            ok = write_pdf(docx_path, config.output_dir)
+        print(f"  {pdf_path}  {'OK' if ok else 'WARN (PDF generation failed)'}")
     else:
         print(f"  PDF omis (--no-pdf)")
 
