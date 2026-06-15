@@ -33,6 +33,7 @@ _XLS_BOLD_WHITE = Font(bold=True, color='FFFFFF')
 _XLS_SMALL = Font(size=8, italic=True)
 _XLS_SUBITEM = Font(size=8)
 _XLS_CENTER = Alignment(horizontal='center', vertical='center')
+_XLS_RIGHT = Alignment(horizontal='right', vertical='center')
 
 
 def make_acronym(obiectivul: str) -> str:
@@ -118,7 +119,8 @@ def _fmt_num(value: float, decimals: int = 2) -> str:
 
 
 def _cell_write(cell, text: str, bold: bool = False, size: float = 8,
-                center: bool = False, color: str | None = None) -> None:
+                center: bool = False, right: bool = False,
+                color: str | None = None) -> None:
     cell.text = ''
     p = cell.paragraphs[0]
     p.clear()
@@ -127,7 +129,12 @@ def _cell_write(cell, text: str, bold: bool = False, size: float = 8,
     run.font.bold = bold
     if color:
         run.font.color.rgb = RGBColor.from_string(color)
-    p.alignment = WD_ALIGN_PARAGRAPH.CENTER if center else WD_ALIGN_PARAGRAPH.LEFT
+    if right:
+        p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    elif center:
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    else:
+        p.alignment = WD_ALIGN_PARAGRAPH.LEFT
 
 
 def _add_header_rows(tbl, obiectivul: str, obiectul: str, categoria: str) -> None:
@@ -174,7 +181,8 @@ def _add_article_row(tbl, art: dict) -> None:
         _fmt_num(art.get('total', 0)),
     ]
     for i, v in enumerate(vals):
-        _cell_write(row.cells[i], v, size=8, center=(i in {0, 2, 3, 4, 5}))
+        _cell_write(row.cells[i], v, size=8,
+                    center=(i in {0, 2}), right=(i in {3, 4, 5}))
 
 
 def _add_breakdown_rows(tbl, breakdown: dict) -> None:
@@ -191,8 +199,8 @@ def _add_breakdown_rows(tbl, breakdown: dict) -> None:
         run.font.italic = True
         _cell_write(row.cells[2], '', size=7)
         _cell_write(row.cells[3], '', size=7)
-        _cell_write(row.cells[4], _fmt_num(bd.get('pret', 0)), size=7, center=True)
-        _cell_write(row.cells[5], _fmt_num(bd.get('total', 0)), size=7, center=True)
+        _cell_write(row.cells[4], _fmt_num(bd.get('pret', 0)), size=7, right=True)
+        _cell_write(row.cells[5], _fmt_num(bd.get('total', 0)), size=7, right=True)
 
 
 def _add_sub_item_row(tbl, sub: dict) -> None:
@@ -208,7 +216,8 @@ def _add_sub_item_row(tbl, sub: dict) -> None:
         _fmt_num(sub.get('total', 0)),
     ]
     for i, v in enumerate(vals):
-        _cell_write(row.cells[i], v, size=7.5, center=(i in {0, 2, 3, 4, 5}))
+        _cell_write(row.cells[i], v, size=7.5,
+                    center=(i in {0, 2}), right=(i in {3, 4, 5}))
 
 
 def _add_total_capitol_row(tbl, titlu: str, total: float) -> None:
@@ -216,7 +225,7 @@ def _add_total_capitol_row(tbl, titlu: str, total: float) -> None:
     for i in range(1, 5):
         row.cells[0].merge(row.cells[i])
     _cell_write(row.cells[0], f'TOTAL {titlu}', bold=True, size=8)
-    _cell_write(row.cells[5], _fmt_num(total), bold=True, size=8, center=True)
+    _cell_write(row.cells[5], _fmt_num(total), bold=True, size=8, right=True)
 
 
 def _add_total_deviz_row(tbl, total: float, is_red: bool = False) -> None:
@@ -230,12 +239,12 @@ def _add_total_deviz_row(tbl, total: float, is_red: bool = False) -> None:
                     'TOTAL NECONFIRMAT — verificare manuală necesară',
                     bold=True, size=8, color='FFFFFF')
         _cell_write(row.cells[5], _fmt_num(total), bold=True, size=8,
-                    center=True, color='FFFFFF')
+                    right=True, color='FFFFFF')
     else:
         for cell in row.cells:
             _shade_cell(cell, _YELLOW_HEX)
         _cell_write(row.cells[0], 'TOTAL 1 (Cheltuieli directe)', bold=True, size=9)
-        _cell_write(row.cells[5], _fmt_num(total), bold=True, size=9, center=True)
+        _cell_write(row.cells[5], _fmt_num(total), bold=True, size=9, right=True)
 
 
 def _build_table(doc: Document, deviz: dict) -> None:
@@ -321,17 +330,21 @@ def write_xlsx(devize: list[dict], output_path: Path) -> None:
                 ws.cell(r, 1, value=art['nr_crt']).alignment = _XLS_CENTER
                 ws.cell(r, 2, value=cod_den)
                 ws.cell(r, 3, value=art.get('um', '')).alignment = _XLS_CENTER
-                ws.cell(r, 4, value=art.get('cantitate', 0)).alignment = _XLS_CENTER
-                ws.cell(r, 5, value=art.get('pret_unitar', 0)).alignment = _XLS_CENTER
-                ws.cell(r, 6, value=art.get('total', 0)).alignment = _XLS_CENTER
+                ws.cell(r, 4, value=art.get('cantitate', 0)).alignment = _XLS_RIGHT
+                ws.cell(r, 5, value=art.get('pret_unitar', 0)).alignment = _XLS_RIGHT
+                ws.cell(r, 6, value=art.get('total', 0)).alignment = _XLS_RIGHT
                 r += 1
 
                 if art.get('breakdown'):
                     for key in ('material', 'manopera', 'utilaj', 'transport'):
                         bd = art['breakdown'].get(key, {})
                         ws.cell(r, 2, value=f"  {key}:").font = _XLS_SMALL
-                        ws.cell(r, 5, value=bd.get('pret', 0)).font = _XLS_SMALL
-                        ws.cell(r, 6, value=bd.get('total', 0)).font = _XLS_SMALL
+                        c5 = ws.cell(r, 5, value=bd.get('pret', 0))
+                        c5.font = _XLS_SMALL
+                        c5.alignment = _XLS_RIGHT
+                        c6 = ws.cell(r, 6, value=bd.get('total', 0))
+                        c6.font = _XLS_SMALL
+                        c6.alignment = _XLS_RIGHT
                         r += 1
 
                 for sub in art.get('sub_items', []):
@@ -339,16 +352,18 @@ def write_xlsx(devize: list[dict], output_path: Path) -> None:
                     ws.cell(r, 1, value=sub['nr_crt']).alignment = _XLS_CENTER
                     ws.cell(r, 2, value=cod_den_s).font = _XLS_SUBITEM
                     ws.cell(r, 3, value=sub.get('um', '')).alignment = _XLS_CENTER
-                    ws.cell(r, 4, value=sub.get('cantitate', 0)).alignment = _XLS_CENTER
-                    ws.cell(r, 5, value=sub.get('pret_unitar', 0)).alignment = _XLS_CENTER
-                    ws.cell(r, 6, value=sub.get('total', 0)).alignment = _XLS_CENTER
+                    ws.cell(r, 4, value=sub.get('cantitate', 0)).alignment = _XLS_RIGHT
+                    ws.cell(r, 5, value=sub.get('pret_unitar', 0)).alignment = _XLS_RIGHT
+                    ws.cell(r, 6, value=sub.get('total', 0)).alignment = _XLS_RIGHT
                     r += 1
 
             if cap.get('total_capitol') is not None:
                 for ci in range(1, 6):
                     c = ws.cell(r, ci, value=f'TOTAL {cap["titlu"]}' if ci == 1 else '')
                     c.font = _XLS_BOLD
-                ws.cell(r, 6, value=cap['total_capitol']).font = _XLS_BOLD
+                c = ws.cell(r, 6, value=cap['total_capitol'])
+                c.font = _XLS_BOLD
+                c.alignment = _XLS_RIGHT
                 r += 1
 
         # Total deviz row
@@ -359,7 +374,9 @@ def write_xlsx(devize: list[dict], output_path: Path) -> None:
         for ci in range(1, 7):
             ws.cell(r, ci).fill = fill
         ws.cell(r, 1, value=total_label).font = font
-        ws.cell(r, 6, value=deviz.get('total_deviz', 0)).font = font
+        c = ws.cell(r, 6, value=deviz.get('total_deviz', 0))
+        c.font = font
+        c.alignment = _XLS_RIGHT
 
     wb.save(str(output_path))
 
