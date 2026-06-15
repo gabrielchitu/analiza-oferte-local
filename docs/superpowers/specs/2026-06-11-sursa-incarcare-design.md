@@ -17,7 +17,7 @@ Pipeline nou: un singur `di_*.json` → extrage articole **cu prețuri** → ver
 
 Client de referință pentru UAT: `EuroProject` (`input_AO/EuroProject/di_referinta.json`).  
 Format sursă: eDevize, 14 pagini, 1 deviz (`3.1 ARHITECTURA`), 90 articole principale.
-
+Formatul sursa poate fi diferit; dar conceptele raman aceleasi.
 ---
 
 ## Arhitectură
@@ -353,6 +353,6 @@ python3 gen_sursa_incarcare.py --client "EuroProject" --json di_referinta --no-p
 ## Constrângeri cunoscute
 
 - **Format variabil** — PDFs de la softuri diferite. Extractor-ul poate necesita ajustare regex per client nou (același pattern ca `SKIP_RE` în f3_regex_parser).
-- **LibreOffice** — PDF opțional; dacă absent, skip fără eroare.
+- **LibreOffice** — PDF opțional; dacă absent, skip fără eroare. - incercam sa il instalam totusi
 - **LLM cost** — page classifier face LLM calls la primul run per JSON. Cache-ul evită re-rularea.
 - **Multi-deviz** — JSON cu multiple devize (ex: Blocuri Racari) generează un fișier DOCX/XLS per deviz, cu același acronim în nume.

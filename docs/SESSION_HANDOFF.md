@@ -1,7 +1,7 @@
 # Session Handoff — Analizator Oferte Constructii
 
 > Citeste acest fisier la inceputul unei sesiuni noi. Contine starea actuala a proiectului.
-> **Ultima actualizare:** 2026-06-11 | **Versiune:** v3
+> **Ultima actualizare:** 2026-06-11 | **Versiune:** v3.1 (+ Sursa de Incarcare pipeline)
 
 ---
 
@@ -151,10 +151,60 @@ Grup absent din oferta O2 (DUPLEX). Legitim sau alt header — neinvestigat.
 
 ---
 
+---
+
+## Pipeline Sursa de Incarcare (v3.1 — NOU)
+
+Pipeline separat, independent de cel multi-client. Nu atinge `local_run.py` sau `AgentComparator_local.py`.
+
+### Entry Point
+```bash
+python3 gen_sursa_incarcare.py                                      # interactiv
+python3 gen_sursa_incarcare.py --client "EuroProject" --json di_referinta
+python3 gen_sursa_incarcare.py --client "EuroProject" --json di_referinta --no-pdf
+python3 gen_sursa_incarcare.py --client "EuroProject" --json di_referinta --force
+```
+
+### Fisiere Noi
+
+| Fisier | Responsabilitate |
+|--------|-----------------|
+| `gen_sursa_incarcare.py` | CLI orchestrator: client → json → classify → extract → verify → write |
+| `shared/f3_price_extractor.py` | State machine eDevize → preturi + breakdown + sub_items per articol |
+| `shared/lista_verifier.py` | 5 checks (NR_CRT_GAPS/TOTAL_CAPITOL/TOTAL_DEVIZ=HIGH, BREAKDOWN=WARN) + retry max 5 |
+| `shared/sursa_incarcare_writer.py` | DOCX landscape + XLSX + PDF via LibreOffice; `make_acronym` |
+
+### Output
+```
+output_AO/<client>/
+  Lista-proiect-{ACRONIM}-{json_stem}.docx
+  Lista-proiect-{ACRONIM}-{json_stem}.xlsx
+  Lista-proiect-{ACRONIM}-{json_stem}.pdf   (daca LibreOffice disponibil)
+  sursa_extracted_{json_stem}.json           (checkpoint extract_prices)
+  sursa_verified_{json_stem}.json            (checkpoint verify)
+  {json_stem}_page_classes.json             (checkpoint page classifier)
+```
+
+### Puncte critice
+
+- `deviz['status'] = verification['status']` TREBUIE injectat INAINTE de write_docx/write_xlsx
+- `_is_cod_name` verificat INAINTE de `_is_capitol_header` (linii all-caps satisfac ambele)
+- `in_num_window` deschis la UM event, inchis dupa 3 numere — previne SUB_NR fals din preturi
+- `_parse_number` rightmost-separator-wins: "7,473.71"→7473.71 (US) si "1.234,56"→1234.56 (EU)
+- Daca `extracted` e gol → warning + return early (fara write)
+
+### Teste
+702 passing (49 noi in 3 fisiere noi). Fisierele existente neatinse — zero risc regresie.
+
+---
+
 ## Comenzi Utile
 
 ```bash
-# Rulare client
+# Sursa de incarcare (pipeline nou)
+python3 gen_sursa_incarcare.py --client "EuroProject" --json di_referinta --no-pdf
+
+# Rulare client (pipeline multi-client)
 rtk proxy python3 multi_client_run.py --client "CAV Maneciu" 2>&1 | rtk log
 
 # Genereaza comparatie cu TOATE articolele
@@ -191,18 +241,28 @@ Diferenta de 27 = 9 coduri × 3 aparitii (3 obiecte in PDF consolidat vs 6 blocu
 
 ---
 
-## Git State (v3, 2026-06-11)
+## Git State (v3.1, 2026-06-11)
 
 ```
-tag: v3 → HEAD main (2026-06-11)
+HEAD main (2026-06-11) — sursa de incarcare pipeline complet
+tag: v3   → comparatie lista layout + semantic comparator + CAV Maneciu verified
 tag: 12.0 → commit eb04c83 (baza stabila)
 ```
 
-Commits recente (→ v3):
-- `v3 tag`  fix(report): comparatie layout — tblGrid, cell margins, keep_with_next, repeat headers + baseline docs
-- `52811c7` fix(report): COD_NORMATIV_DIFERIT + SPECIFICATIE_DIFERITA in comparatie_lista_writer
-- `b30d256` fix(semantic): pre-filter SPECIFICATIE_DIFERITA numeric-diff-only
-- `fd5c0c7` feat(report): render COD_NORMATIV_DIFERIT + SPECIFICATIE_DIFERITA in DOCX
-- `3049246` fix(parser): scatter counter auto-increment — BAZIN nr=4.1→5 (CAV Maneciu OS)
+Commits sesiune sursa-incarcare (cele mai recente):
+- `526266d` fix(sursa): gen_sursa_incarcare — status injection, INPUT_BASE in error msg
+- `c290d21` feat(sursa): gen_sursa_incarcare CLI — full pipeline orchestration
+- `b3b6adc` fix(sursa): sursa_incarcare_writer — XLS label/header fixes, _XLS_SUBITEM constant
+- `a5ca243` feat(sursa): sursa_incarcare_writer — XLS + PDF output
+- `3c58b20` feat(sursa): sursa_incarcare_writer — acronym + DOCX generator
+- `ac736f3` fix(sursa): lista_verifier — checks unbound, iterations count, COUNT_DEVIZE, missing tests
+- `e039880` feat(sursa): lista_verifier — 5 checks + retry loop
+- `5895e2a` fix(sursa): f3_price_extractor — comment fix, docstring accuracy, extract_prices test
+- `9254c03` fix(sursa): f3_price_extractor — suspect flag, control_ok zero-price fix
+- `7ed7774` feat(sursa): f3_price_extractor — state machine + assembler + public API
+- `bb6ee80` feat(sursa): f3_price_extractor — utility functions + tests
+
+Commits anteriori (→ v3):
+- `v3 tag`  fix(report): comparatie layout — tblGrid, cell margins, keep_with_next, repeat headers
 - `930965c` fix(parser): exclude material-spec codes (BCR4/5, C20/25) from scatter preprocessor
 - `38a0d01` fix(knowledge): DT Padurii match corectat PA0005 Marcaje

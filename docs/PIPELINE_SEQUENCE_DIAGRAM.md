@@ -1,5 +1,5 @@
 # Pipeline — Diagrama de Secvență
-**Actualizat:** 2026-06-11 | **Versiune:** v3
+**Actualizat:** 2026-06-11 | **Versiune:** v3.1 (+ Sursa de Incarcare pipeline)
 
 > **2026-05-25:** Removed Strategy 0-3 (match_devize_by_denomination). Holistic path uses deviz_key hash exclusively.
 > **2026-05-28:** CM parser fixed (SKIP_RE, LITRU, L: merge, SUBCOMP dot). CM verificat ✅.
@@ -504,3 +504,152 @@ Formatul checkpoint:
 | Scatter counter (last_scatter_counter) | BAZIN CAV Maneciu nr=4.1→5, 21/21 NC comisie acoperite |
 | Semantic comparator (Pass1+Pass2) | COD_NORMATIV_DIFERIT + SPECIFICATIE_DIFERITA detectate |
 | Comparatie lista layout (tblGrid, margins, keep_with_next) | DOCX stabil in orice viewer, header nu se desparte de tabel |
+
+---
+
+## Diagrama Secventa: Sursa de Incarcare (Pipeline Separat)
+
+> Pipeline independent. Entry point: `gen_sursa_incarcare.py`. Zero modificari la pipeline multi-client.
+
+```
+Utilizator          gen_sursa_incarcare     f3_page_classifier    deviz_header_extractor    f3_price_extractor    lista_verifier    sursa_incarcare_writer
+    │                       │                       │                       │                       │                    │                       │
+    │  --client "EP"        │                       │                       │                       │                    │                       │
+    │  --json di_referinta  │                       │                       │                       │                    │                       │
+    │──────────────────────▶│                       │                       │                       │                    │                       │
+    │                       │                       │                       │                       │                    │                       │
+    │                 ClientConfig.detect_clients() │                       │                       │                    │                       │
+    │                 _pick_client(), _pick_json()  │                       │                       │                    │                       │
+    │                       │                       │                       │                       │                    │                       │
+    │                       │  [1/4] classify_pages │                       │                       │                    │                       │
+    │                       │──────────────────────▶│                       │                       │                    │                       │
+    │                       │                       │                       │                       │                    │                       │
+    │                       │                       │ [check ckpt]          │                       │                    │                       │
+    │                       │                       │ {json_stem}_page_classes.json                 │                    │                       │
+    │                       │                       │  ─▶ if exists: return │                       │                    │                       │
+    │                       │                       │  ─▶ else: LLM batch   │                       │                    │                       │
+    │                       │                       │       Claude API       │                       │                    │                       │
+    │                       │                       │       save checkpoint  │                       │                    │                       │
+    │                       │◀─ page_classes        │                       │                       │                    │                       │
+    │                       │   (F3 count printed)  │                       │                       │                    │                       │
+    │                       │                       │                       │                       │                    │                       │
+    │                       │  [2/4] extract_deviz_headers()                │                       │                    │                       │
+    │                       │──────────────────────────────────────────────▶│                       │                    │                       │
+    │                       │◀─ deviz_headers[]     │                       │                       │                    │                       │
+    │                       │                       │                       │                       │                    │                       │
+    │                       │  [3/4] extract_prices(page_classes, deviz_headers, checkpoint_path)   │                    │                       │
+    │                       │──────────────────────────────────────────────────────────────────────▶│                    │                       │
+    │                       │                       │                       │                       │                    │                       │
+    │                       │                       │                       │    per pagina F3:      │                    │                       │
+    │                       │                       │                       │    skip header zone   │                    │                       │
+    │                       │                       │                       │    (pana la "5=3x4")  │                    │                       │
+    │                       │                       │                       │    state machine:     │                    │                       │
+    │                       │                       │                       │      CAPITOL           │                    │                       │
+    │                       │                       │                       │      ART_NR            │                    │                       │
+    │                       │                       │                       │      COD_NAME          │                    │                       │
+    │                       │                       │                       │      UM + 3×NUMBER     │                    │                       │
+    │                       │                       │                       │      BREAKDOWN×4       │                    │                       │
+    │                       │                       │                       │      SUB_NR            │                    │                       │
+    │                       │                       │                       │    _assemble_deviz():  │                    │                       │
+    │                       │                       │                       │      control_ok check  │                    │                       │
+    │                       │                       │                       │      suspect flag      │                    │                       │
+    │                       │                       │                       │    save checkpoint     │                    │                       │
+    │                       │◀─ extracted[]         │                       │                       │                    │                       │
+    │                       │   (N articole, M breakdown printed)           │                       │                    │                       │
+    │                       │                       │                       │                       │                    │                       │
+    │                       │  [4/4] verify(extracted, deviz_headers)       │                       │                    │                       │
+    │                       │──────────────────────────────────────────────────────────────────────────────────────────▶│
+    │                       │                       │                       │                       │ iter 1..5:         │                       │
+    │                       │                       │                       │                       │  NR_CRT_GAPS [HIGH]│                       │
+    │                       │                       │                       │                       │  TOTAL_CAPITOL [HIGH]                      │
+    │                       │                       │                       │                       │  TOTAL_DEVIZ [HIGH]│                       │
+    │                       │                       │                       │                       │  BREAKDOWN_CTRL [W]│                       │
+    │                       │                       │                       │                       │  COUNT_DEVIZE [I]  │                       │
+    │                       │                       │                       │                       │  no HIGH → OK/WARN │                       │
+    │                       │                       │                       │                       │  HIGH×5 → RED      │                       │
+    │                       │◀─ verification{status, iterations, checks}    │                       │                    │                       │
+    │                       │   save sursa_verified_{stem}.json             │                       │                    │                       │
+    │                       │                       │                       │                       │                    │                       │
+    │                       │  inject status: for deviz in extracted: deviz['status'] = status      │                    │                       │
+    │                       │                       │                       │                       │                    │                       │
+    │                       │  write_docx(extracted, docx_path)             │                       │                    │──────────────────────▶│
+    │                       │  write_xlsx(extracted, xlsx_path)             │                       │                    │──────────────────────▶│
+    │                       │  write_pdf(docx_path, output_dir) [optional]  │                       │                    │   soffice CLI         │
+    │                       │◀─ Lista-proiect-{ACRONIM}-{stem}.docx/xlsx/pdf                        │                    │                       │
+    │◀─ output paths printed│                       │                       │                       │                    │                       │
+```
+
+---
+
+### Secventa Detaliata: f3_price_extractor State Machine
+
+```
+pagini F3 (lines per pagina)
+    │
+    ▼
+Header zone SKIP (pana la "5 = 3 x 4")
+    │
+    ▼
+Article zone — dispatch per linie:
+
+  LINIE                     EVENT           ACTIUNE
+  ──────────────────────────────────────────────────────
+  all-caps fara cifre   →   CAPITOL         nou capitol (titlu)
+  "TOTAL XYZ 1234.56"   →   TOTAL_CAPITOL   capitol.total_capitol = float
+  numar intreg singur   →   ART_NR          articol.nr_crt = N
+  "COD - denumire"      →   COD_NAME        articol.cod + denumire  ⚠ INAINTE de CAPITOL
+  token UM valid        →   UM              articol.um = UM
+                                            deschide in_num_window (3 numere)
+  numar (in window)     →   NUMBER          cant | pret_unitar | total
+  "material:" etc.      →   BREAKDOWN       breakdown key activ
+  nr decimal (1.1)      →   SUB_NR          sub_item (DOAR daca NOT in_num_window)
+  altceva               →   TEXT            denumire continua
+
+    ⚠ in_num_window se inchide dupa 3 numere
+      Previne: "225.000" (pret) clasificat ca SUB_NR
+    │
+    ▼
+_assemble_deviz(events, header):
+    ├── construieste articole, capitole, total_deviz
+    ├── pentru fiecare articol cu breakdown:
+    │     control_ok = |mat+man+utl+tra - pret_unitar| < 0.02
+    │     art['suspect'] = not control_ok
+    └── returns deviz dict
+```
+
+---
+
+### Retry Loop: lista_verifier
+
+```
+extracted[]  +  deviz_headers[]
+      │
+      ▼
+iteration 1..5:
+      │
+      ├── NR_CRT_GAPS:    per deviz, nr_crt int consecutive fara salturi
+      │                   gaps = [(deviz_key, nr_a, nr_b)]
+      │
+      ├── TOTAL_CAPITOL:  |sum(art.total) - capitol.total_capitol| ≤ 0.05
+      │                   failures = [(deviz_key, capitol, computed, extracted)]
+      │
+      ├── TOTAL_DEVIZ:    |sum(capitol.total_capitol) - deviz.total_deviz| ≤ 0.05
+      │                   per deviz: extracted vs computed
+      │
+      ├── BREAKDOWN_CTRL: articole cu suspect=True → lista nr_crt
+      │
+      └── COUNT_DEVIZE:   len(extracted) vs len(deviz_headers)
+                          ok=None + skipped=True daca headers=None
+
+      ↓
+      high_failures = [NR_CRT_GAPS, TOTAL_CAPITOL, TOTAL_DEVIZ] care nu ok
+      ↓
+      if not high_failures:
+          status = WARN daca BREAKDOWN_CTRL fail, altfel OK
+          return {status, iterations, checks}
+      else if reextract_fn si iteration < 5:
+          current = reextract_fn(current, checks, iteration)
+          → urmatoarea iteratie
+      else:
+          return {status: RED, iterations, checks}
+```

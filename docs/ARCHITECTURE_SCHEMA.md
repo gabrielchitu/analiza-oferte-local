@@ -1,5 +1,5 @@
 # Architecture Schema — Diagrama Completă Flux
-**Actualizat:** 2026-06-11 | **Versiune:** v3 (CAV Maneciu verified 5 oferte, semantic comparator, comparatie lista layout fixes)
+**Actualizat:** 2026-06-11 | **Versiune:** v3.1 (+ Sursa de Incarcare pipeline)
 
 ---
 
@@ -452,3 +452,175 @@ run_diagnostics.py
 | 2 | BR O3: 3 oferta-only neinvestigate | group_comparator.py | Low |
 | 3 | BR O4: 3 ref-only, 12 oferta-only — structura diferita | — | Low |
 | 4 | CAV Maneciu O2: 1 ref_only — DUPLEX grup absent sau alt header | group_comparator.py | Low |
+
+---
+
+## Pipeline Sursa de Incarcare (v3.1 — PIPELINE SEPARAT)
+
+**Entry point:** `gen_sursa_incarcare.py` — independent, ZERO modificari la pipeline multi-client.
+
+```
+┌──────────────────────────────────────────────────────────────────────────┐
+│  INPUT: un singur di_*.json din input_AO/<ClientName>/                   │
+│  (ex: di_referinta.json — document eDevize cu preturi)                   │
+└────────────────────────────┬─────────────────────────────────────────────┘
+                             │
+                             ▼
+╔══════════════════════════════════════════════════════════════════════════╗
+║  ETAPA 1 — PAGE CLASSIFICATION (existent, reutilizat)                    ║
+║  shared/f3_page_classifier.py                                            ║
+╠══════════════════════════════════════════════════════════════════════════╣
+║  CHECKPOINT: output_AO/<client>/{json_stem}_page_classes.json            ║
+║  Output: page_classes [{page_nr, is_f3, lines, ...}]                    ║
+╚══════════════════════════════════════════════════════════════════════════╝
+                             │
+                             ▼
+╔══════════════════════════════════════════════════════════════════════════╗
+║  ETAPA 2 — DEVIZ HEADER EXTRACTION (existent, reutilizat)                ║
+║  shared/deviz_header_extractor.py                                        ║
+╠══════════════════════════════════════════════════════════════════════════╣
+║  Output: deviz_headers — lista DevizHeader(obj1, obj2, cat, deviz_key)   ║
+╚══════════════════════════════════════════════════════════════════════════╝
+                             │
+                             ▼
+╔══════════════════════════════════════════════════════════════════════════╗
+║  ETAPA 3 — PRICE EXTRACTION (NOU)                                        ║
+║  shared/f3_price_extractor.py                                            ║
+╠══════════════════════════════════════════════════════════════════════════╣
+║                                                                          ║
+║  Structura eDevize (state machine per pagina F3):                        ║
+║   - Header zone SKIP → pana la sentinela "5 = 3 x 4"                    ║
+║   - CAPITOL: linie all-caps fara cifre                                   ║
+║   - ART_NR: numar intreg singur pe linie                                 ║
+║   - COD_NAME: "COD - denumire" (verificat INAINTE de CAPITOL)            ║
+║   - UM, NUMBER (3 numere per articol: cant, pret, total)                 ║
+║   - BREAKDOWN: "material:" + pret + total (4 keys)                       ║
+║   - SUB_NR: numar decimal (1.1, 1.2) — NU din in_num_window             ║
+║                                                                          ║
+║  control_ok = |material+manopera+utilaj+transport - pret_unitar| < 0.02  ║
+║  suspect = not control_ok (setat pe articol)                             ║
+║                                                                          ║
+║  _parse_number: rightmost-separator-wins                                 ║
+║   "7,473.71" → 7473.71 (US)  |  "1.234,56" → 1234.56 (EU)             ║
+║                                                                          ║
+║  CHECKPOINT: output_AO/<client>/sursa_extracted_{json_stem}.json         ║
+║  Output: [deviz{deviz_key, obj1, obj2, cat, capitole[{titlu, articole,   ║
+║           total_capitol}], total_deviz}]                                 ║
+╚══════════════════════════════════════════════════════════════════════════╝
+                             │
+                             ▼
+╔══════════════════════════════════════════════════════════════════════════╗
+║  ETAPA 4 — VERIFICATION (NOU)                                            ║
+║  shared/lista_verifier.py                                                ║
+╠══════════════════════════════════════════════════════════════════════════╣
+║                                                                          ║
+║  5 checks (max 5 iteratii, retry daca HIGH failures):                    ║
+║   NR_CRT_GAPS    — nr_crt intreg consecutiv, fara goluri  [HIGH]         ║
+║   TOTAL_CAPITOL  — sum(art.total) ≈ total_capitol (±0.05 Lei) [HIGH]    ║
+║   TOTAL_DEVIZ    — sum(capitol.total) ≈ total_deviz (±0.05 Lei) [HIGH]  ║
+║   BREAKDOWN_CONTROL — articole cu suspect=True [WARN]                   ║
+║   COUNT_DEVIZE   — len(extracted) vs len(deviz_headers) [INFO]          ║
+║                                                                          ║
+║  Status: OK | WARN | RED (dupa 5 iteratii HIGH nerezolvate)             ║
+║  CHECKPOINT: output_AO/<client>/sursa_verified_{json_stem}.json          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+                             │
+                             ▼
+╔══════════════════════════════════════════════════════════════════════════╗
+║  ETAPA 5 — OUTPUT GENERATION (NOU)                                       ║
+║  shared/sursa_incarcare_writer.py                                        ║
+╠══════════════════════════════════════════════════════════════════════════╣
+║                                                                          ║
+║  Naming: Lista-proiect-{ACRONIM}-{json_stem}.docx/xlsx/pdf               ║
+║  ACRONIM: strip prefix numeric, filtreaza stopwords, max 6 litere        ║
+║   "CONSTRUIRE UNITATE DE CAZARE TARGOVISTE" → "CUCT"                    ║
+║   "0232 000000232 DRUMURI TATARANI" → "DT"                              ║
+║                                                                          ║
+║  DOCX: landscape A4, 6 coloane, tblGrid fixed [1.2,9.0,1.5,2.5,2.8,3.0]║
+║   Randuri: HEADER_DEVIZ | ANTET_TABEL (gray D9D9D9) | CAPITOL (EEEEEE)  ║
+║           ARTICOL | BREAKDOWN (italic 7pt) | SUB_ITEM | TOTAL_CAPITOL   ║
+║           TOTAL_DEVIZ (FFF2CC) | RED_FLAG (FF0000, daca status=RED)     ║
+║                                                                          ║
+║  XLSX: aceeasi structura, un sheet per deviz, fara merge-uri            ║
+║  PDF: LibreOffice CLI (--no-pdf sau indisponibil → skip silentios)      ║
+║                                                                          ║
+║  ⚠ CRITIC: deviz['status'] = verification['status']                     ║
+║    TREBUIE injectat INAINTE de write_docx/write_xlsx                    ║
+╚══════════════════════════════════════════════════════════════════════════╝
+                             │
+                             ▼
+┌──────────────────────────────────────────────────────────────────────────┐
+│  OUTPUT: output_AO/<ClientName>/                                          │
+│   Lista-proiect-{ACRONIM}-{json_stem}.docx                               │
+│   Lista-proiect-{ACRONIM}-{json_stem}.xlsx                               │
+│   Lista-proiect-{ACRONIM}-{json_stem}.pdf  (daca LibreOffice disponibil) │
+└──────────────────────────────────────────────────────────────────────────┘
+```
+
+### Import Graph — Sursa de Incarcare
+
+```
+gen_sursa_incarcare.py
+├── shared/client_config.py          ← existent, neatins
+├── shared/f3_page_classifier.py     ← existent, neatins
+├── shared/deviz_header_extractor.py ← existent, neatins
+├── shared/f3_price_extractor.py     ← NOU
+│   ├── _parse_number()              (rightmost-separator-wins)
+│   ├── _parse_f3_page_lines()       (state machine events)
+│   ├── _assemble_deviz()            (events → deviz dict + suspect flag)
+│   └── extract_prices()             (public API + checkpoint)
+├── shared/lista_verifier.py         ← NOU
+│   ├── _check_nr_crt_gaps()
+│   ├── _check_total_capitol()
+│   ├── _check_total_deviz()
+│   ├── _check_breakdown_control()
+│   └── verify()                     (retry loop + status)
+└── shared/sursa_incarcare_writer.py ← NOU
+    ├── make_acronym()
+    ├── write_docx()
+    ├── write_xlsx()
+    └── write_pdf()
+```
+
+### Structura Output Deviz (extract_prices)
+
+```python
+{
+  'deviz_key': str,         # md5(obiectivul|obiectul|categoria)
+  'obiectivul': str,
+  'obiectul': str,
+  'categoria': str,
+  'status': 'OK'|'WARN'|'RED',  # injectat de CLI
+  'total_deviz': float,
+  'capitole': [
+    {
+      'titlu': str, 'total_capitol': float|None,
+      'articole': [
+        {
+          'nr_crt': str, 'cod': str, 'denumire': str, 'um': str,
+          'cantitate': float, 'pret_unitar': float, 'total': float,
+          'suspect': bool,
+          'breakdown': None | {
+            'material': {'pret': float, 'total': float},
+            'manopera': {'pret': float, 'total': float},
+            'utilaj':   {'pret': float, 'total': float},
+            'transport':{'pret': float, 'total': float},
+            'control_ok': bool
+          },
+          'sub_items': [...]
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Teste Sursa de Incarcare
+
+| Fisier | Teste |
+|--------|-------|
+| `tests/shared/test_f3_price_extractor.py` | 26 teste (state machine, assembler, checkpoint) |
+| `tests/shared/test_lista_verifier.py` | 10 teste (checks, retry loop, status) |
+| `tests/shared/test_sursa_incarcare_writer.py` | 13 teste (acronim, DOCX, XLSX, PDF) |
+
+**Baseline teste:** 702 passing (din 718 total; 16 pre-existing failures neschimbate).
