@@ -623,6 +623,13 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
                 _m_spec = EMBEDDED_SPEC_RE.match(desc_line)
                 if _m_spec and not re.search(r'\d', _m_spec.group(1)) and len(_m_spec.group(1).split()) >= 2:
                     break
+                # Stop if decimal cantitate appears before next counter: column displacement artifact.
+                # Multi-line description of article N causes article N+1's cantitate column to read
+                # before N+1's counter in linear PDF order. Keep cantitate on own line for next article.
+                if CANT_DECIMAL_RE.match(desc_line):
+                    peek = lines[j + 1].strip() if j + 1 < len(lines) else ''
+                    if re.match(r'^\d+$', peek):
+                        break
                 if desc_line:
                     desc_parts.append(desc_line)
                 j += 1
@@ -1026,7 +1033,9 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # Pattern restrâns: 1-2 litere + EXACT 2 cifre (DN32, PN10) SAU 1 litera + 3-5 cifre (S474, S7064).
             # VC1011, SD13A1, SA131 (2+ cifre dupa 2 litere) sunt coduri reale — NU se skipuiesc.
             # Exceptie: Y[A-Z]\d{2} (ex: YB01, YC01, YD01) sunt coduri categorie cost IS (diferenta pret), nu spec tehnica.
-            elif re.match(r'^(?:[A-Z]{1,2}\d{2}|[A-Z]\d{3,5})$', cod) and not re.match(r'^Y[A-Z]\d', cod):
+            # Exceptie: articole cu UM, cantitate proprie SI denumire sunt reale (ex: SP61, MM61).
+            # Codurile spec (DN32, S7064) apar ca fragmente OCR fara denumire proprie.
+            elif re.match(r'^(?:[A-Z]{1,2}\d{2}|[A-Z]\d{3,5})$', cod) and not re.match(r'^Y[A-Z]\d', cod) and not (um and cantitate > 0 and den_joined):
                 logger.debug(f"[PARSER] Skip spec tehnica (DN/PN/tip material): {cod}")
             # Skip coduri marcatori capitol ISDP: $0001-$0009 (CPV section headers)
             # Apar la inceputul fiecarui deviz in format ISDP, nu sunt articole reale.
@@ -1057,10 +1066,15 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                     um = 'mc'
 
                 # Consume pending cantitate (eDevize column-order artifact: cantitate appears
-                # in WAITING state before the article's COD/UM due to PDF column linearization)
+                # before the article's COD/UM due to PDF column linearization).
                 if cantitate == 0.0 and um and pending_cantitate > 0.0:
                     cantitate = pending_cantitate
-                pending_cantitate = 0.0
+                    pending_cantitate = 0.0
+                elif cantitate == 0.0:
+                    # Article has no cantitate and pending wasn't usable (no UM yet) — clear.
+                    pending_cantitate = 0.0
+                # else: cantitate > 0 → pending was set AFTER this article's cantitate,
+                # so it belongs to the NEXT article. Preserve pending_cantitate across finalize.
 
                 # Calculate nr_ordine
                 if not is_subcomp:
@@ -1864,6 +1878,18 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             if cantitate == 0.0 and CANT_DECIMAL_RE.match(line):
                 cantitate = _parse_number(line)
                 continue
+
+            # eDevize column-order artifact: cantitate for NEXT article appears before its NR_CRT.
+            # Multi-line description of article N displaces article N+1's cantitate column earlier
+            # in linear PDF reading order. If cantitate already set AND decimal line AND next line
+            # is a sequential bare NR_CRT → save as pending_cantitate for the next article.
+            if cantitate > 0.0 and CANT_DECIMAL_RE.match(line) and line_idx + 1 < len(lines):
+                _next_stripped = lines[line_idx + 1].strip()
+                _next_nr = NR_CRT_RE.match(_next_stripped)
+                if _next_nr and (int(_next_nr.group(1)) == last_nr_crt + 1 or int(_next_nr.group(1)) <= 5):
+                    pending_cantitate = _parse_number(line)
+                    logger.debug(f"[PARSER] Displaced cantitate={pending_cantitate} → pending for next article (nr={_next_stripped})")
+                    continue
 
             # Cantitate întreagă (doar dacă UM setat și cantitate nu setat)
             if cantitate == 0.0 and um and CANT_INT_RE.match(line):
