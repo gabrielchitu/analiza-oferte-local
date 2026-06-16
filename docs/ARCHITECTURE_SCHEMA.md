@@ -441,7 +441,7 @@ Când `ANTHROPIC_BASE_URL` este setat, apelurile sunt rutate prin proxy (ex: Lit
 |--------|---------|---------------------------|
 | `local_run.py` | `_build_client()` | ✅ (commit 39ea79d) |
 | `shared/v2_orchestrator.py` | `_build_llm_client()` | ✅ (commit 39ea79d) |
-| `gen_sursa_incarcare.py` | `_make_llm_client()` | ❌ (neverificat) |
+| `gen_sursa_incarcare.py` | `_make_llm_client()` | ✅ (commit după 39ea79d) |
 
 Log la pornire: `Model: claude-sonnet-4-6 @ http://localhost:4000` sau `@ Anthropic direct`.
 
