@@ -1,10 +1,12 @@
 # Pipeline — Diagrama de Secvență
-**Actualizat:** 2026-06-11 | **Versiune:** v3.1 (+ Sursa de Incarcare pipeline)
+**Actualizat:** 2026-06-16 | **Versiune:** v3.2 (+ verify_gaps MISSING_TAIL, P-2 parser fix)
 
 > **2026-05-25:** Removed Strategy 0-3 (match_devize_by_denomination). Holistic path uses deviz_key hash exclusively.
 > **2026-05-28:** CM parser fixed (SKIP_RE, LITRU, L: merge, SUBCOMP dot). CM verificat ✅.
 > **2026-06-10:** Scatter counter fix (BAZIN CAV Maneciu nr=4.1→5). Semantic comparator adaugat. CAV Maneciu O1-O5 verificat, 21/21 NC comisie acoperite.
-> **2026-06-11:** Comparatie lista layout fixes (tblGrid, cell margins, keep_with_next, repeat headers). Tag v3.
+> **2026-06-11:** Comparatie lista layout fixes (tblGrid, cell margins, keep_with_next, repeat headers). DT2 adaugat (189/189 grupuri matchate).
+> **2026-06-15:** verify_gaps.py MISSING_TAIL detection (per-deviz exact scope via page_classes checkpoint).
+> **2026-06-16:** P-2 letter-dash-digit parser fix (MISSING_TAIL nr=56 DT2 VS0002). scatter NR absorption fix. codeless eDevize labor fix.
 
 ---
 
@@ -115,6 +117,30 @@ Utilizator          multi_client_run     local_run          f3_page_classifier  
     │  --client "X"         │                │  shared/comparatie_lista_writer.py               │                   │                         │
     │                       │                │  → Comparatie_Lista_Oferta_N.docx (toate art.)   │                   │                         │
     │◀─ Comparatie_Lista_N.docx             │                       │                          │                          │                   │                         │
+    │                       │                │                       │                          │                          │                   │                         │
+    │  gen_lista_oferta.py  │                │                       │                          │                          │                   │                         │
+    │  --client "X"         │                │                       │                          │                          │                   │                         │
+    │  [--referinta]        │                │  shared/lista_oferta_writer.py                   │                          │                   │                         │
+    │  [--oferta N]         │                │  → Lista_Oferta_N.docx (15 col, preturi RO)     │                   │                         │
+    │                       │                │  → Lista_Referinta.docx                         │                   │                         │
+    │◀─ Lista_*.docx        │                │                       │                          │                          │                   │                         │
+    │                       │                │                       │                          │                          │                   │                         │
+    │  verify_agent.py      │                │                       │                          │                          │                   │                         │
+    │  --client "X"         │                │  shared/pipeline_verifier.py                     │                          │                   │                         │
+    │  --verify-only        │                │  → 6 checks: SILENT_VIOLATION, OFERTA_ONLY_GROUP │                   │                         │
+    │                       │                │    REF_ONLY_GROUP, HIGH_EXTRA, HIGH_LIPSA         │                   │                         │
+    │                       │                │    EMPTY_MATCHED_GROUP, COD_SIMILAR_CLUSTER       │                   │                         │
+    │                       │                │  → verify_report_{timestamp}.md                  │                   │                         │
+    │◀─ severitate findings │                │    CRITICAL / HIGH / MEDIUM / LOW                │                   │                         │
+    │                       │                │                       │                          │                          │                   │                         │
+    │  verify_gaps.py       │                │                       │                          │                          │                   │                         │
+    │  --client "X"         │                │  per deviz:                                      │                          │                   │                         │
+    │  [--referinta]        │                │    _find_gaps(): nr_crt lipsă din secventa extrasă                    │                         │
+    │  [--oferta N]         │                │    _find_tail_missing(): articole dupa max_extracted                  │                         │
+    │  [--tail-lookahead N] │                │      ⚠ scope EXACT: page_classes checkpoint pages                     │                         │
+    │                       │                │      (no ±3 extension — previne false positives cross-deviz)          │                         │
+    │                       │                │    BUG EXTRACTOR / DEVIZ GREȘIT / SALT NUMEROTARE                     │                         │
+    │◀─ gaps + MISSING_TAIL │                │    ⚠ MISSING_TAIL: mereu bug extractor → fix obligatoriu              │                         │
 ```
 
 ---
