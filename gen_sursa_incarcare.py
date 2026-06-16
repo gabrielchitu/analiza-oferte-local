@@ -34,7 +34,9 @@ def _make_llm_client():
         print("ERROR: ANTHROPIC_API_KEY not set in .env")
         sys.exit(1)
     from anthropic_adapter import AnthropicAdapter
-    return AnthropicAdapter(anthropic.Anthropic(api_key=api_key), model=MODEL)
+    base_url = os.environ.get("ANTHROPIC_BASE_URL")
+    raw = anthropic.Anthropic(base_url=base_url, api_key=api_key) if base_url else anthropic.Anthropic(api_key=api_key)
+    return AnthropicAdapter(raw, model=MODEL)
 
 
 def _pick_client(args_client) -> str:
