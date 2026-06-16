@@ -131,6 +131,8 @@ def main() -> None:
                         help="Run checks only, no re-run")
     parser.add_argument("--max-iter", type=int, default=3,
                         help="Max loop iterations (default: 3)")
+    parser.add_argument("--semantic", action="store_true",
+                        help="LLM semantic analysis of EXTRA/LIPSA pairs within same deviz")
     args = parser.parse_args()
 
     cfg = ClientConfig.from_folder(args.client, INPUT_BASE, OUTPUT_BASE)
@@ -151,6 +153,8 @@ def main() -> None:
         report_path.write_text(report)
         print(f"[AGENT] Report saved: {report_path}")
         _print_summary(findings)
+        if args.semantic:
+            _run_semantic(cfg, args.client)
         return
 
     # Loop
@@ -190,6 +194,69 @@ def main() -> None:
     report_path.write_text(report)
     print(f"[AGENT] Report saved: {report_path}")
     _print_summary(findings)
+
+
+def _build_llm_client():
+    from dotenv import load_dotenv
+    import os
+    import anthropic
+    from anthropic_adapter import AnthropicAdapter
+    load_dotenv()
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        print("[semantic] ERROR: ANTHROPIC_API_KEY not set in .env")
+        return None, None
+    model = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-6")
+    base_url = os.environ.get("ANTHROPIC_BASE_URL")
+    raw = anthropic.Anthropic(base_url=base_url, api_key=api_key) if base_url else anthropic.Anthropic(api_key=api_key)
+    print(f"[semantic] LLM: {model} @ {base_url or 'Anthropic direct'}")
+    return AnthropicAdapter(raw, model=model), model
+
+
+def _run_semantic(cfg, client_name: str) -> None:
+    from shared.semantic_reconciler import find_candidates, analyze_pairs, summarize
+    import glob, re
+
+    llm_client, model = _build_llm_client()
+    if llm_client is None:
+        return
+
+    all_results = []
+    for n in range(1, 10):
+        # Support both V1 and V2 holistic files (prefer V2 if present)
+        v2_path = Path(cfg.output_dir) / f"holistic_oferta_{n}_v2.json"
+        v1_path = Path(cfg.output_dir) / f"holistic_oferta_{n}.json"
+        path = v2_path if v2_path.exists() else (v1_path if v1_path.exists() else None)
+        if path is None:
+            break
+        data = json.loads(path.read_text())
+        pairs = find_candidates(data)
+        if not pairs:
+            print(f"[semantic] Oferta {n}: 0 perechi EXTRA+LIPSA în același deviz")
+            continue
+        print(f"[semantic] Oferta {n}: {len(pairs)} perechi → analiză LLM...")
+        results = analyze_pairs(pairs, llm_client, model, verbose=True)
+        all_results.extend(results)
+
+        summary = summarize(results)
+        print(f"[semantic] Oferta {n} rezultat: SAME={summary['SAME']}  DIFFERENT={summary['DIFFERENT']}  UNCERTAIN={summary['UNCERTAIN']}")
+        if summary["same_pairs"]:
+            print(f"[semantic] Candidați SAME (potențial match ratat):")
+            for sp in summary["same_pairs"]:
+                print(f"  deviz: {sp['deviz'][:60]}")
+                print(f"    EXTRA: {sp['extra_cod']} | {sp['extra_den'][:60]}")
+                print(f"    LIPSĂ: {sp['lipsa_cod']} | {sp['lipsa_den'][:60]}")
+                print(f"    Motiv: {sp['reason']}")
+
+        # Save per-oferta JSON report
+        out_path = Path(cfg.output_dir) / f"semantic_oferta_{n}.json"
+        out_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False))
+        print(f"[semantic] Salvat: {out_path}")
+
+    if all_results:
+        from shared.semantic_reconciler import summarize as _summarize
+        total_summary = _summarize(all_results)
+        print(f"\n[semantic] TOTAL: {total_summary['total_pairs']} perechi | SAME={total_summary['SAME']} | DIFFERENT={total_summary['DIFFERENT']} | UNCERTAIN={total_summary['UNCERTAIN']}")
 
 
 def _print_summary(findings: list[Finding]) -> None:
