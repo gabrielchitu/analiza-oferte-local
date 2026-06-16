@@ -409,7 +409,9 @@ class V2EndToEndOrchestrator:
                     "or set ANTHROPIC_API_KEY in .env."
                 )
             model = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-6")
-            self._llm_client = AnthropicAdapter(anthropic.Anthropic(api_key=api_key), model=model)
+            base_url = os.environ.get("ANTHROPIC_BASE_URL")
+            raw = anthropic.Anthropic(base_url=base_url, api_key=api_key) if base_url else anthropic.Anthropic(api_key=api_key)
+            self._llm_client = AnthropicAdapter(raw, model=model)
             self._llm_model = model
         return self._llm_client, self._llm_model
 

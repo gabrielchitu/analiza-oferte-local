@@ -61,8 +61,10 @@ def _build_client():
             "  ANTHROPIC_API_KEY=sk-ant-..."
         )
     model = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-6")
-    logger.info(f"Model Anthropic: {model}")
-    return AnthropicAdapter(anthropic.Anthropic(api_key=api_key), model=model), model
+    base_url = os.environ.get("ANTHROPIC_BASE_URL")
+    raw = anthropic.Anthropic(base_url=base_url, api_key=api_key) if base_url else anthropic.Anthropic(api_key=api_key)
+    logger.info(f"Model: {model} @ {base_url or 'Anthropic direct'}")
+    return AnthropicAdapter(raw, model=model), model
 
 
 def run_pipeline(
