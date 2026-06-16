@@ -24,7 +24,7 @@ from shared.sursa_incarcare_writer import make_acronym, write_docx, write_xlsx, 
 
 INPUT_BASE = Path("input_AO")
 OUTPUT_BASE = Path("output_AO")
-MODEL = "claude-sonnet-4-6"
+_DEFAULT_MODEL = "claude-sonnet-4-6"
 
 
 def _make_llm_client():
@@ -34,9 +34,11 @@ def _make_llm_client():
         print("ERROR: ANTHROPIC_API_KEY not set in .env")
         sys.exit(1)
     from anthropic_adapter import AnthropicAdapter
+    model = os.environ.get("ANTHROPIC_MODEL", _DEFAULT_MODEL)
     base_url = os.environ.get("ANTHROPIC_BASE_URL")
     raw = anthropic.Anthropic(base_url=base_url, api_key=api_key) if base_url else anthropic.Anthropic(api_key=api_key)
-    return AnthropicAdapter(raw, model=MODEL)
+    print(f"  LLM: {model} @ {base_url or 'Anthropic direct'}")
+    return AnthropicAdapter(raw, model=model), model
 
 
 def _pick_client(args_client) -> str:
@@ -105,9 +107,9 @@ def _run_pipeline(client_name: str, json_path: Path, no_pdf: bool = False, force
         page_classes = ckpt.get("page_classes", ckpt.get("results", [])) if isinstance(ckpt, dict) else ckpt
     else:
         print(f"  [1/4] Clasificare pagini (LLM, poate dura 2-5 min)...", end="", flush=True)
-        llm_client = _make_llm_client()
+        llm_client, llm_model = _make_llm_client()
         page_classes, ckpt_data = classify_pages(
-            pages, llm_client, MODEL, document_type="reference", source_path=str(json_path)
+            pages, llm_client, llm_model, document_type="reference", source_path=str(json_path)
         )
         ckpt_pages.write_text(
             json.dumps({"page_classes": page_classes, "metadata": ckpt_data},
