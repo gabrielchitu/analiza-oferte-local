@@ -598,9 +598,12 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
                 # Stop at next counter pattern — but absorb trailing small category digits
                 # (e.g., "TEREN CATEG 2" where '2' lands alone on next line, followed by
                 # a 3-digit padded NR like '003' that is the real next article counter).
+                # Only absorb if the digit is small (1-9); larger numbers like 39, 40
+                # are sequential article NRs that must NOT be absorbed into the description.
                 if re.match(r'^\d+$', desc_line):
+                    desc_int = int(desc_line)
                     peek = lines[j + 1].strip() if j + 1 < len(lines) else ''
-                    if re.match(r'^\d{1,4}$', peek):
+                    if desc_int <= 9 and re.match(r'^\d{1,4}$', peek):
                         desc_parts.append(desc_line)
                         j += 1
                         continue
