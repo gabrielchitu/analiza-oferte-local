@@ -93,39 +93,53 @@ def _pairs_v2(data: dict) -> list[SemanticPair]:
     return pairs
 
 
-def find_candidates(data: dict, max_per_deviz: int = 30) -> list[SemanticPair]:
+def find_candidates(
+    data: dict,
+    max_per_deviz: int = 5,
+    min_similarity: int = 25,
+    max_total: int = 60,
+) -> list[SemanticPair]:
     """
     Auto-detect holistic format and extract EXTRA+LIPSA pairs within same deviz.
-    Uses rapidfuzz pre-ranking to surface best candidates first; caps per-deviz.
+
+    Rapidfuzz pre-filters by denomination similarity (min_similarity) and
+    caps at max_per_deviz per deviz + max_total globally. This keeps LLM
+    call count manageable (≤ max_total / BATCH_SIZE calls).
     """
     raw_pairs = _pairs_v2(data) if _is_v2(data) else _pairs_v1(data)
     if not raw_pairs:
         return []
 
     try:
-        from rapidfuzz import fuzz
-        _has_fuzz = True
-    except ImportError:
-        _has_fuzz = False
+        from rapidfuzz import fuzz as _fuzz
 
-    # Group by deviz then rank + cap
-    by_deviz: dict[str, list[SemanticPair]] = {}
+        def _sim(p: SemanticPair) -> int:
+            return _fuzz.token_set_ratio(p.extra_den.lower(), p.lipsa_den.lower())
+    except ImportError:
+        def _sim(p: SemanticPair) -> int:  # type: ignore[misc]
+            return 50  # neutral — pass all without fuzz
+
+    # Group by deviz, score, filter low-similarity, cap per-deviz
+    by_deviz: dict[str, list[tuple[int, SemanticPair]]] = {}
     for p in raw_pairs:
-        by_deviz.setdefault(p.deviz_cod or p.deviz_den, []).append(p)
+        key = p.deviz_cod or p.deviz_den
+        score = _sim(p)
+        if score >= min_similarity:
+            by_deviz.setdefault(key, []).append((score, p))
 
     result: list[SemanticPair] = []
-    for deviz_pairs in by_deviz.values():
-        if _has_fuzz:
-            scored = sorted(
-                deviz_pairs,
-                key=lambda p: fuzz.token_set_ratio(
-                    p.extra_den.lower(), p.lipsa_den.lower()
-                ),
-                reverse=True,
-            )
-        else:
-            scored = deviz_pairs
-        result.extend(scored[:max_per_deviz])
+    for scored_pairs in by_deviz.values():
+        top = sorted(scored_pairs, key=lambda x: x[0], reverse=True)[:max_per_deviz]
+        result.extend(p for _, p in top)
+
+    # Global cap: keep highest-scoring pairs first
+    if len(result) > max_total:
+        all_scored = [(
+            _sim(p), p) for p in result
+        ]
+        all_scored.sort(key=lambda x: x[0], reverse=True)
+        result = [p for _, p in all_scored[:max_total]]
+
     return result
 
 
