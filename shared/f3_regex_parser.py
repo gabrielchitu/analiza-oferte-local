@@ -85,6 +85,11 @@ COD_SINGLE_MULTIDIGIT_STANDALONE_RE = re.compile(
     r'^([A-Z]\d{2,3}[A-Z]\d{2}' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
     re.IGNORECASE
 )
+# Cod litera-liniuta-cifra SINGUR pe linie: P-2 (parapet tip 2), format: L + '-' + 1-2D
+COD_LETTER_DASH_DIGIT_STANDALONE_RE = re.compile(
+    r'^([A-Z]-\d{1,2})((?:\s+[A-Z]{1,8}\.?){0,2})\s*$',
+    re.IGNORECASE
+)
 # Spec material embedded in description: "TUIA OCCIDENTALIS SMARAGD 14 BUC"
 # All-uppercase name (no digits) + integer quantity + known UM — signals a material spec
 # sub-component written as plain text rather than a structured sub-article.
@@ -1179,8 +1184,9 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             cod_raw = m.group(1).strip().upper()
             # Strip #N variant suffix: VC26A#1 → VC26A
             cod_raw = re.sub(r'#\d+$', '', cod_raw)
-            # Strip variant suffix: SC07A-1# → SC07A
-            cod_raw = re.sub(r'[-]\d+[#@!]*$', '', cod_raw)
+            # Strip variant suffix: SC07A-1# → SC07A (only if base has 2+ chars before dash;
+            # single-letter codes like P-2 must keep the full code)
+            cod_raw = re.sub(r'(?<=[A-Z0-9][A-Z0-9])[-]\d+[#@!]*$', '', cod_raw)
             cod_raw = re.sub(r'[-@%>#*^]+$', '', cod_raw)
             cod_raw = re.sub(r'\s*\[\d*\]?\s*$', '', cod_raw)
             cod_raw = re.sub(r'(?:ASIM|TSCH)$', '', cod_raw).strip()
@@ -1199,6 +1205,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                               COD_NORM_EXTENDED_STANDALONE_RE,
                               COD_NORM_SINGLE_STANDALONE_RE,
                               COD_SINGLE_MULTIDIGIT_STANDALONE_RE,
+                              COD_LETTER_DASH_DIGIT_STANDALONE_RE,
                               COD_MATERIAL_SPEC_STANDALONE_RE):
             m = standalone_re.match(s)
             if m:
