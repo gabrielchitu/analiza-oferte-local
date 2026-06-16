@@ -428,22 +428,23 @@ run_diagnostics.py
 
 ## Configurare LLM
 
-Pipeline-urile folosesc Claude API prin `AnthropicAdapter`. Rutarea se controlează din `.env`:
+Un singur `.env` la rădăcina proiectului controlează toate pipeline-urile:
 
 ```
-ANTHROPIC_API_KEY=sk-...                    # necesar întotdeauna
-ANTHROPIC_BASE_URL=http://localhost:4000    # opțional — LiteLLM proxy pentru LLM local
+ANTHROPIC_API_KEY=sk-...                      # necesar întotdeauna (poate fi dummy pt proxy local)
+ANTHROPIC_BASE_URL=http://localhost:4000      # opțional — LiteLLM proxy pentru LLM local
+ANTHROPIC_MODEL=ollama/llama3                 # opțional — default: claude-sonnet-4-6
 ```
 
-Când `ANTHROPIC_BASE_URL` este setat, apelurile sunt rutate prin proxy (ex: LiteLLM cu Ollama) **fără modificări cod**.
+Toate trei variabilele sunt citite automat de fiecare entry point via `load_dotenv()`. Când `ANTHROPIC_BASE_URL` este setat, apelurile sunt rutate prin proxy (ex: LiteLLM cu Ollama) **fără modificări cod**.
 
-| Fișier | Funcție | Suportă ANTHROPIC_BASE_URL |
-|--------|---------|---------------------------|
-| `local_run.py` | `_build_client()` | ✅ (commit 39ea79d) |
-| `shared/v2_orchestrator.py` | `_build_llm_client()` | ✅ (commit 39ea79d) |
-| `gen_sursa_incarcare.py` | `_make_llm_client()` | ✅ (commit după 39ea79d) |
+| Fișier | Funcție | `load_dotenv()` | `BASE_URL` | `MODEL` |
+|--------|---------|-----------------|-----------|---------|
+| `local_run.py` | `_build_client()` | ✅ top-level | ✅ | ✅ |
+| `shared/v2_orchestrator.py` | `_build_llm_client()` | ✅ lazy (în funcție) | ✅ | ✅ |
+| `gen_sursa_incarcare.py` | `_make_llm_client()` | ✅ în funcție | ✅ | ✅ |
 
-Log la pornire: `Model: claude-sonnet-4-6 @ http://localhost:4000` sau `@ Anthropic direct`.
+Log la pornire: `LLM: claude-sonnet-4-6 @ http://localhost:4000` sau `@ Anthropic direct`.
 
 ---
 

@@ -1,5 +1,5 @@
 # Manual de Utilizare — Pipeline Analiza Oferte
-**Versiune:** v3.2 | **Actualizat:** 2026-06-16
+**Versiune:** v3.3 | **Actualizat:** 2026-06-16
 
 Ghid complet pentru utilizatorul final: ce produce fiecare pipeline, cum se rulează, ce fișiere generează.
 
@@ -8,16 +8,17 @@ Ghid complet pentru utilizatorul final: ce produce fiecare pipeline, cum se rule
 ## Cuprins
 
 1. [Privire de ansamblu](#1-privire-de-ansamblu)
-2. [Clienți disponibili](#2-clienți-disponibili)
-3. [Pipeline 1 — Analiză oferte (principal)](#3-pipeline-1--analiză-oferte-principal)
-4. [Pipeline 2 — Liste de articole](#4-pipeline-2--liste-de-articole)
-5. [Pipeline 3 — Comparație completă](#5-pipeline-3--comparație-completă)
-6. [Pipeline 4 — Sursă de încărcare](#6-pipeline-4--sursă-de-încărcare)
-7. [Verificare structurală (verify_agent)](#7-verificare-structurală-verify_agent)
-8. [Verificare completitudine extracție (verify_gaps)](#8-verificare-completitudine-extracție-verify_gaps)
-9. [Skilluri Claude Code](#9-skilluri-claude-code)
-10. [Fișiere generate — referință rapidă](#10-fișiere-generate--referință-rapidă)
-11. [Troubleshooting rapid](#11-troubleshooting-rapid)
+2. [Configurare (.env)](#2-configurare-env)
+3. [Clienți disponibili](#3-clienți-disponibili)
+4. [Pipeline 1 — Analiză oferte (principal)](#4-pipeline-1--analiză-oferte-principal)
+5. [Pipeline 2 — Liste de articole](#5-pipeline-2--liste-de-articole)
+6. [Pipeline 3 — Comparație completă](#6-pipeline-3--comparație-completă)
+7. [Pipeline 4 — Sursă de încărcare](#7-pipeline-4--sursă-de-încărcare)
+8. [Verificare structurală (verify_agent)](#8-verificare-structurală-verify_agent)
+9. [Verificare completitudine extracție (verify_gaps)](#9-verificare-completitudine-extracție-verify_gaps)
+10. [Skilluri Claude Code](#10-skilluri-claude-code)
+11. [Fișiere generate — referință rapidă](#11-fișiere-generate--referință-rapidă)
+12. [Troubleshooting rapid](#12-troubleshooting-rapid)
 
 ---
 
@@ -43,7 +44,35 @@ di_referinta.json ─────▶ [Pipeline 4] ──▶ Lista-proiect-{ACRON
 
 ---
 
-## 2. Clienți disponibili
+## 2. Configurare (.env)
+
+Un singur fișier `.env` la rădăcina proiectului controlează toate pipeline-urile:
+
+```
+# Obligatoriu
+ANTHROPIC_API_KEY=sk-ant-...
+
+# Opțional — LLM local via LiteLLM proxy (fără modificări cod)
+ANTHROPIC_BASE_URL=http://localhost:4000
+ANTHROPIC_MODEL=ollama/llama3          # default: claude-sonnet-4-6
+```
+
+**Mod Anthropic direct (implicit):** lasă `ANTHROPIC_BASE_URL` și `ANTHROPIC_MODEL` nesetate.
+
+**Mod LLM local:** setează `ANTHROPIC_BASE_URL` și `ANTHROPIC_MODEL` conform proxy-ului tău LiteLLM. `ANTHROPIC_API_KEY` poate fi `dummy` dacă proxy-ul nu o cere.
+
+La pornire, fiecare pipeline afișează:
+```
+LLM: claude-sonnet-4-6 @ Anthropic direct
+# sau
+LLM: ollama/llama3 @ http://localhost:4000
+```
+
+Toate entry point-urile (`local_run.py`, `gen_sursa_incarcare.py`, `shared/v2_orchestrator.py`) apelează `load_dotenv()` automat — `.env` e citit indiferent de cum pornești pipeline-ul.
+
+---
+
+## 3. Clienți disponibili
 
 | Client | Director input | Oferte |
 |--------|----------------|--------|
@@ -54,7 +83,7 @@ di_referinta.json ─────▶ [Pipeline 4] ──▶ Lista-proiect-{ACRON
 
 ---
 
-## 3. Pipeline 1 — Analiză oferte (principal)
+## 4. Pipeline 1 — Analiză oferte (principal)
 
 **Ce face:** Extrage articolele din PDF-urile de referință și ofertă, le compară grup cu grup, și generează raportul de neconformități (NC).
 
@@ -110,7 +139,7 @@ La re-rulare, checkpoint-ul este reutilizat — nu se mai fac apeluri LLM.
 
 ---
 
-## 4. Pipeline 2 — Liste de articole
+## 5. Pipeline 2 — Liste de articole
 
 **Ce face:** Generează liste de articole în format tabel (15 coloane) din fișierele holistic existente. Util pentru revizuire rapidă sau trimitere către beneficiar.
 
@@ -144,7 +173,7 @@ Prețurile sunt formatate în localizare română (`1.234,56 lei`).
 
 ---
 
-## 5. Pipeline 3 — Comparație completă
+## 6. Pipeline 3 — Comparație completă
 
 **Ce face:** Generează un document side-by-side cu toate articolele din referință și ofertă, coloană cu coloană, pentru fiecare grup. Util pentru auditori sau comisii de evaluare.
 
@@ -172,7 +201,7 @@ python3 gen_comparatie_lista.py --client "DT2" --oferta 1
 
 ---
 
-## 6. Pipeline 4 — Sursă de încărcare
+## 7. Pipeline 4 — Sursă de încărcare
 
 **Ce face:** Pipeline **independent** față de celelalte. Extrage prețurile din documentul de referință eDevize (format F3 cu breakdown material/manopera/utilaj/transport) și generează Lista-proiect în format DOCX, XLSX și PDF.
 
@@ -218,7 +247,7 @@ python3 gen_sursa_incarcare.py --client "EuroProject" --json di_referinta --forc
 
 ---
 
-## 7. Verificare structurală (`verify_agent`)
+## 8. Verificare structurală (`verify_agent`)
 
 **Ce face:** Rulează 6 verificări structurale pe `holistic_oferta_N.json` și generează un raport de severitate.
 
@@ -261,7 +290,7 @@ Raportul listează fiecare finding cu detalii (grup, cod articol, counts).
 
 ---
 
-## 8. Verificare completitudine extracție (`verify_gaps`)
+## 9. Verificare completitudine extracție (`verify_gaps`)
 
 **Ce face:** Verifică per-deviz că extracția articolelor din DI raw este completă — atât gap-uri interne în secvența de nr_crt, cât și articole la final de deviz care există în raw dar nu au fost extrase.
 
@@ -309,7 +338,7 @@ python3 verify_gaps.py --client "DT2" --tail-lookahead 20
 
 ---
 
-## 9. Skilluri Claude Code
+## 10. Skilluri Claude Code
 
 Skillurile se invocă direct în conversația cu Claude Code ca comenzi `/skill`. Ele orchestrează autonom mai mulți pași, inclusiv fixuri și re-rulări.
 
@@ -359,7 +388,7 @@ Commit-uri: b4a184a 880e97e
 
 ---
 
-## 10. Fișiere generate — referință rapidă
+## 11. Fișiere generate — referință rapidă
 
 ### Per pipeline
 
@@ -402,7 +431,7 @@ output_AO/<Client>/
 
 ---
 
-## 11. Troubleshooting rapid
+## 12. Troubleshooting rapid
 
 ### Grupuri nematchate (ref_only / oferta_only)
 
