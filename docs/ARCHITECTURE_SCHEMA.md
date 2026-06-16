@@ -413,11 +413,37 @@ multi_client_run.py
 gen_comparatie_lista.py
     └── shared/comparatie_lista_writer.py      ← landscape A4, toate articolele, layout fix v3
 
+gen_sursa_incarcare.py
+    ├── shared/f3_price_extractor.py           ← eDevize state machine
+    ├── shared/lista_verifier.py               ← NR_CRT_GAPS / TOTAL_CAPITOL / TOTAL_DEVIZ
+    └── shared/sursa_incarcare_writer.py       ← DOCX / XLSX / PDF (reportlab nativ)
+
 run_diagnostics.py
     ├── shared/client_config.py
     ├── shared/diagnostics_builder.py
     └── shared/diagnostics_word.py
 ```
+
+---
+
+## Configurare LLM
+
+Pipeline-urile folosesc Claude API prin `AnthropicAdapter`. Rutarea se controlează din `.env`:
+
+```
+ANTHROPIC_API_KEY=sk-...                    # necesar întotdeauna
+ANTHROPIC_BASE_URL=http://localhost:4000    # opțional — LiteLLM proxy pentru LLM local
+```
+
+Când `ANTHROPIC_BASE_URL` este setat, apelurile sunt rutate prin proxy (ex: LiteLLM cu Ollama) **fără modificări cod**.
+
+| Fișier | Funcție | Suportă ANTHROPIC_BASE_URL |
+|--------|---------|---------------------------|
+| `local_run.py` | `_build_client()` | ✅ (commit 39ea79d) |
+| `shared/v2_orchestrator.py` | `_build_llm_client()` | ✅ (commit 39ea79d) |
+| `gen_sursa_incarcare.py` | `_make_llm_client()` | ❌ (neverificat) |
+
+Log la pornire: `Model: claude-sonnet-4-6 @ http://localhost:4000` sau `@ Anthropic direct`.
 
 ---
 
