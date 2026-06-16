@@ -398,6 +398,8 @@ class V2EndToEndOrchestrator:
     def _build_llm_client(self):
         """Lazy-init LLM client from env vars. Only called when checkpoint absent."""
         if self._llm_client is None:
+            from dotenv import load_dotenv
+            load_dotenv()
             import anthropic
             from anthropic_adapter import AnthropicAdapter
             api_key = os.environ.get("ANTHROPIC_API_KEY")
