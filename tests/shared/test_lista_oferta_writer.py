@@ -199,7 +199,7 @@ def test_fmt_price_rounds_to_2_decimals():
 
 def test_build_table_header_structure():
     doc = Document()
-    tbl = doc.add_table(rows=2, cols=11)
+    tbl = doc.add_table(rows=2, cols=12)
     _build_table_header(tbl)
     # Row 0 has content in first 7 cells + merged spans for Pret and Val
     assert tbl.rows[0].cells[0].text == "Nr."
@@ -209,13 +209,14 @@ def test_build_table_header_structure():
     assert tbl.rows[0].cells[4].text == "Denumire"
     assert tbl.rows[0].cells[5].text == "UM"
     assert tbl.rows[0].cells[6].text == "Cantitate"
-    # Row 0 merged price group header
-    assert tbl.rows[0].cells[7].text == "Pret unitar (lei/UM)"
-    # Row 1 price sub-headers (no Valoare section)
-    assert tbl.rows[1].cells[7].text == "Material"
-    assert tbl.rows[1].cells[8].text == "Manoperă"
-    assert tbl.rows[1].cells[9].text == "Utilaje"
-    assert tbl.rows[1].cells[10].text == "Transport"
+    # Col 7: Total (vertical merge)
+    assert tbl.rows[0].cells[7].text == "Total\n(lei)"
+    # Cols 8-11: Pret unitar breakdown
+    assert tbl.rows[0].cells[8].text == "Pret unitar (lei/UM)"
+    assert tbl.rows[1].cells[8].text == "Material"
+    assert tbl.rows[1].cells[9].text == "Manoperă"
+    assert tbl.rows[1].cells[10].text == "Utilaje"
+    assert tbl.rows[1].cells[11].text == "Transport"
 
 
 # Tests for _write_article_row
@@ -235,7 +236,7 @@ def _make_full_article(cod="TST01", nr_ordine=1, is_component=False, parent_code
 
 def test_write_article_row_principal():
     doc = Document()
-    tbl = doc.add_table(rows=0, cols=11)
+    tbl = doc.add_table(rows=0, cols=12)
     row = tbl.add_row()
     art = _make_full_article(cod="TSD06XA", nr_ordine=3)
     _write_article_row(row, seq_nr=3, article=art)
@@ -247,12 +248,13 @@ def test_write_article_row_principal():
     assert cells[4].text == "Test article"
     assert cells[5].text == "mc"
     assert cells[6].text == "2.50"     # cantitate 2 decimals
-    assert cells[7].text == ""          # pret_material = 0 → empty
+    assert cells[7].text == ""          # Total = 0 → empty
+    assert cells[8].text == ""          # pret_material = 0 → empty
 
 
 def test_write_article_row_subcomponent():
     doc = Document()
-    tbl = doc.add_table(rows=0, cols=11)
+    tbl = doc.add_table(rows=0, cols=12)
     row = tbl.add_row()
     art = _make_full_article(cod="IZF16A", nr_ordine="9.1", is_component=True, parent_code="TRA01A10P")
     _write_article_row(row, seq_nr=10, article=art)
@@ -265,16 +267,18 @@ def test_write_article_row_subcomponent():
 
 def test_write_article_row_with_prices():
     doc = Document()
-    tbl = doc.add_table(rows=0, cols=11)
+    tbl = doc.add_table(rows=0, cols=12)
     row = tbl.add_row()
     art = _make_full_article(cod="X", pret_material=100.0, val_material=250.0,
                               pret_manopera=50.5, val_manopera=126.25)
     _write_article_row(row, seq_nr=1, article=art)
     cells = row.cells
-    assert cells[7].text == "100,00"    # pret_material
-    assert cells[8].text == "50,50"     # pret_manopera
-    assert cells[9].text == ""           # pret_utilaj = 0
-    assert cells[10].text == ""          # pret_transport = 0
+    # cantitate=2.5, mat=100, man=50.5, util=0, tran=0 → total=2.5*(100+50.5)=376.25
+    assert cells[7].text == "376,25"    # Total
+    assert cells[8].text == "100,00"    # pret_material
+    assert cells[9].text == "50,50"     # pret_manopera
+    assert cells[10].text == ""          # pret_utilaj = 0
+    assert cells[11].text == ""          # pret_transport = 0
 
 
 # Tests for _write_group_section
@@ -369,7 +373,7 @@ def test_col_widths_exact_twips():
     from docx.oxml.ns import qn
     from shared.lista_oferta_writer import _COL_WIDTHS_TWIPS, _build_table_header
     doc = Document()
-    tbl = doc.add_table(rows=2, cols=11)
+    tbl = doc.add_table(rows=2, cols=12)
     _build_table_header(tbl)
     tblGrid = tbl._tbl.find(qn('w:tblGrid'))
     assert tblGrid is not None, "tblGrid missing"
@@ -382,7 +386,7 @@ def test_suppress_table_borders_xml():
     from docx.oxml.ns import qn
     from shared.lista_oferta_writer import _suppress_table_borders
     doc = Document()
-    tbl = doc.add_table(rows=2, cols=11)
+    tbl = doc.add_table(rows=2, cols=12)
     tbl.style = "Table Grid"
     _suppress_table_borders(tbl)
     tblPr = tbl._tbl.find(qn('w:tblPr'))

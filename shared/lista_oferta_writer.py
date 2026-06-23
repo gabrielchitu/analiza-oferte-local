@@ -14,7 +14,7 @@ from docx.table import Table
 
 
 # Exact column widths from Template_exact.docx (twips, dxa)
-_COL_WIDTHS_TWIPS = [397, 510, 1020, 1020, 3175, 567, 1020, 624, 624, 624, 624]
+_COL_WIDTHS_TWIPS = [397, 380, 1020, 850, 2675, 567, 1020, 800, 624, 624, 624, 624]
 
 
 def _set_cell_width_twips(cell, twips: int) -> None:
@@ -146,7 +146,7 @@ def _iter_source_groups(holistic: Dict, source: str) -> Generator[Tuple[Dict, Li
 
 HEADER_FILL = "D9D9D9"   # light grey for header rows
 # Cols that must never wrap: all numeric/code cols except Denumire (4)
-_NO_WRAP_COLS = {0, 1, 2, 3, 5, 6, 7, 8, 9, 10}
+_NO_WRAP_COLS = {0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11}
 
 
 def _set_cell_no_wrap(cell) -> None:
@@ -180,32 +180,39 @@ def _merge_vertical(table: Table, col: int, row_start: int = 0, row_end: int = 1
 
 
 def _build_table_header(table: Table) -> None:
-    """Write 2-row F3 header into an existing 2-row, 11-col table."""
+    """Write 2-row F3 header into an existing 2-row, 12-col table."""
     _set_tbl_grid(table)
 
     row0 = table.rows[0].cells
     row1 = table.rows[1].cells
 
-    for ci in range(11):
+    for ci in range(12):
         _set_cell_width_twips(row0[ci], _COL_WIDTHS_TWIPS[ci])
         _set_cell_width_twips(row1[ci], _COL_WIDTHS_TWIPS[ci])
         if ci in _NO_WRAP_COLS:
             _set_cell_no_wrap(row0[ci])
             _set_cell_no_wrap(row1[ci])
 
+    # Cols 0-6: vertical merge
     labels_row0 = ["Nr.", "Nr.crt", "Cod", "Cod principal", "Denumire", "UM", "Cantitate"]
     for i, label in enumerate(labels_row0):
         _merge_vertical(table, i)
         _cell_text(row0[i], label, bold=True, center=True)
         _shade_cell(row0[i], HEADER_FILL)
 
-    row0[7].merge(row0[10])
-    _cell_text(row0[7], "Pret unitar (lei/UM)", bold=True, center=True)
+    # Col 7: Total — vertical merge
+    _merge_vertical(table, 7)
+    _cell_text(row0[7], "Total\n(lei)", bold=True, center=True)
     _shade_cell(row0[7], HEADER_FILL)
 
+    # Cols 8-11: horizontal merge "Pret unitar (lei/UM)"
+    row0[8].merge(row0[11])
+    _cell_text(row0[8], "Pret unitar (lei/UM)", bold=True, center=True)
+    _shade_cell(row0[8], HEADER_FILL)
+
     for i, label in enumerate(["Material", "Manoperă", "Utilaje", "Transport"]):
-        _cell_text(row1[7 + i], label, bold=True, center=True)
-        _shade_cell(row1[7 + i], HEADER_FILL)
+        _cell_text(row1[8 + i], label, bold=True, center=True)
+        _shade_cell(row1[8 + i], HEADER_FILL)
 
 
 def _write_article_row(row, seq_nr: int, article: Dict) -> None:
@@ -225,6 +232,12 @@ def _write_article_row(row, seq_nr: int, article: Dict) -> None:
     if not article.get("is_component") and cod.startswith("$"):
         cod = cod[1:]
 
+    pu_mat  = article.get("pret_material",  0.0) or 0.0
+    pu_man  = article.get("pret_manopera",  0.0) or 0.0
+    pu_util = article.get("pret_utilaj",    0.0) or 0.0
+    pu_tran = article.get("pret_transport", 0.0) or 0.0
+    total = (cantitate or 0.0) * (pu_mat + pu_man + pu_util + pu_tran)
+
     values = [
         str(seq_nr),
         nr_crt,
@@ -233,16 +246,15 @@ def _write_article_row(row, seq_nr: int, article: Dict) -> None:
         article.get("denumire", ""),
         article.get("um", ""),
         f"{cantitate:.2f}" if cantitate else "",
-        _fmt_price(article.get("pret_material", 0.0)),
-        _fmt_price(article.get("pret_manopera", 0.0)),
-        _fmt_price(article.get("pret_utilaj", 0.0)),
-        _fmt_price(article.get("pret_transport", 0.0)),
+        _fmt_price(total) if total else "",
+        _fmt_price(pu_mat),
+        _fmt_price(pu_man),
+        _fmt_price(pu_util),
+        _fmt_price(pu_tran),
     ]
 
     font_size = 7 if article.get("is_component") else 8
-    # 0=Nr center, 1=Nr.crt right, 2=Cod left, 3=CodPrincipal left, 4=Denumire left
-    # 5=UM center, 6=Cantitate right, 7-10=Pret cols right
-    right_cols = {1, 6, 7, 8, 9, 10}
+    right_cols = {1, 6, 7, 8, 9, 10, 11}
     center_cols = {0, 5}
 
     for i, (cell, val) in enumerate(zip(row.cells, values)):
@@ -318,7 +330,7 @@ def _write_group_section(doc: Document, header: Dict, articles: List[Dict],
     sub_count = sum(1 for a in articles if a.get("is_component"))
 
     n_rows = 2 + len(articles) + 1
-    tbl = doc.add_table(rows=n_rows, cols=11)
+    tbl = doc.add_table(rows=n_rows, cols=12)
     tbl.style = "Table Grid"
     _set_table_fixed_layout(tbl)
 
@@ -329,7 +341,7 @@ def _write_group_section(doc: Document, header: Dict, articles: List[Dict],
         _write_article_row(row, seq_nr=i + 1, article=art)
 
     total_row = tbl.rows[-1]
-    total_row.cells[0].merge(total_row.cells[10])
+    total_row.cells[0].merge(total_row.cells[11])
     total_cell = total_row.cells[0]
     total_cell.text = ""
     run = total_cell.paragraphs[0].add_run(

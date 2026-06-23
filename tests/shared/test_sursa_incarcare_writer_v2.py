@@ -96,15 +96,15 @@ def test_write_docx_v2_group_header_pipe_format():
         os.unlink(out)
 
 
-def test_write_docx_v2_table_11_cols():
-    """Fiecare grup are exact un tabel cu 11 coloane."""
+def test_write_docx_v2_table_12_cols():
+    """Fiecare grup are exact un tabel cu 12 coloane (adăugat Total)."""
     out, doc = _write_and_open([_make_deviz()])
     try:
         assert len(doc.tables) == 1
         tblGrid = doc.tables[0]._tbl.find(qn('w:tblGrid'))
         assert tblGrid is not None
         cols = tblGrid.findall(qn('w:gridCol'))
-        assert len(cols) == 11
+        assert len(cols) == 12
     finally:
         os.unlink(out)
 
@@ -139,9 +139,10 @@ def test_write_docx_v2_table_header_text():
         tbl = doc.tables[0]
         assert tbl.rows[0].cells[0].text == "Nr."
         assert tbl.rows[0].cells[2].text == "Cod"
-        assert tbl.rows[0].cells[7].text == "Pret unitar (lei/UM)"
-        assert tbl.rows[1].cells[7].text == "Material"
-        assert tbl.rows[1].cells[10].text == "Transport"
+        assert tbl.rows[0].cells[7].text == "Total\n(lei)"   # col 7 = Total
+        assert tbl.rows[0].cells[8].text == "Pret unitar (lei/UM)"  # cols 8-11
+        assert tbl.rows[1].cells[8].text == "Material"
+        assert tbl.rows[1].cells[11].text == "Transport"
     finally:
         os.unlink(out)
 
@@ -178,14 +179,15 @@ def test_write_docx_v2_subitem_cod_principal():
 
 
 def test_write_docx_v2_breakdown_prices():
-    """Material pret din breakdown → col 7, format Romanian locale."""
+    """Col 7=Total, col 8=Material, col 9=Manopera (0→empty)."""
     out, doc = _write_and_open([_make_deviz(n_main=1, n_sub=0)])
     try:
         tbl = doc.tables[0]
         row2 = tbl.rows[2]
-        # art 1: breakdown.material.pret = 10.0
-        assert row2.cells[7].text == "10,00"
-        assert row2.cells[8].text == ""   # manopera = 0 → empty
+        # art 1: cantitate=1, material.pret=10.0 → total=10.0
+        assert row2.cells[7].text == "10,00"   # Total
+        assert row2.cells[8].text == "10,00"   # Material pret unitar
+        assert row2.cells[9].text == ""        # Manopera = 0 → empty
     finally:
         os.unlink(out)
 
