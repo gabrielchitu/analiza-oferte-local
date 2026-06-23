@@ -22,6 +22,33 @@ from shared.f3_price_extractor import extract_prices
 from shared.lista_verifier import verify, max_nr_crt_in_page_classes
 from shared.sursa_incarcare_writer import make_acronym, write_docx, write_docx_v2, write_xlsx, write_pdf, write_pdf_native
 
+
+def _convert_docx_to_pdf(docx_path: Path, pdf_path: Path) -> bool:
+    """Convert DOCX to PDF via Microsoft Word AppleScript (macOS) or LibreOffice."""
+    import subprocess, time
+    docx_abs = str(docx_path.resolve())
+    pdf_abs = str(pdf_path.resolve())
+    try:
+        subprocess.run(['open', '-a', 'Microsoft Word', docx_abs],
+                       check=True, capture_output=True, timeout=10)
+        time.sleep(5)
+        script = f'''
+tell application "Microsoft Word"
+    set n to count of documents
+    tell document n
+        save as file name "{pdf_abs}" file format format PDF
+        close saving no
+    end tell
+end tell
+'''
+        r = subprocess.run(['osascript'], input=script, capture_output=True,
+                           text=True, timeout=30)
+        if r.returncode == 0 and pdf_path.exists():
+            return True
+    except Exception:
+        pass
+    return write_pdf(docx_path, pdf_path.parent)
+
 INPUT_BASE = Path("input_AO")
 OUTPUT_BASE = Path("output_AO")
 _DEFAULT_MODEL = "claude-sonnet-4-6"
@@ -187,9 +214,7 @@ def _run_pipeline(client_name: str, json_path: Path, no_pdf: bool = False, force
     print(f"  {xlsx_path}  OK")
 
     if not no_pdf:
-        ok = write_pdf_native(extracted, pdf_path)
-        if not ok:
-            ok = write_pdf(docx_path, config.output_dir)
+        ok = _convert_docx_to_pdf(docx_path, pdf_path)
         print(f"  {pdf_path}  {'OK' if ok else 'WARN (PDF generation failed)'}")
     else:
         print(f"  PDF omis (--no-pdf)")
