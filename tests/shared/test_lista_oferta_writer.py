@@ -111,7 +111,7 @@ def test_iter_source_groups_oferta():
     }
     groups = list(_iter_source_groups(holistic, source="oferta"))
     assert len(groups) == 1
-    header, articles = groups[0]
+    header, articles, _ = groups[0]
     assert header["obiectivul"] == "OBJ"
     assert articles[0]["cod"] == "TST01"
 
@@ -125,7 +125,7 @@ def test_iter_source_groups_referinta():
     }
     groups = list(_iter_source_groups(holistic, source="referinta"))
     assert len(groups) == 1
-    header, articles = groups[0]
+    header, articles, _ = groups[0]
     assert header["obiectivul"] == "R"
     assert articles[0]["cod"] == "REF01"
 
@@ -139,7 +139,7 @@ def test_iter_source_groups_includes_only_groups():
     }
     groups = list(_iter_source_groups(holistic, source="oferta"))
     assert len(groups) == 1
-    _, articles = groups[0]
+    _, articles, _ = groups[0]
     assert articles[0]["cod"] == "ONLY01"
 
 
@@ -167,7 +167,7 @@ def test_iter_source_groups_fallback_header_from_deviz_denumire():
     }
     groups = list(_iter_source_groups(holistic, source="referinta"))
     assert len(groups) == 1
-    header, _ = groups[0]
+    header, _, _ = groups[0]
     assert header["obiectivul"] == "OBJ2"
 
 
