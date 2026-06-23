@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 from shared.client_config import ClientConfig
 from shared.f3_price_extractor import extract_prices
 from shared.lista_verifier import verify, max_nr_crt_in_page_classes
-from shared.sursa_incarcare_writer import make_acronym, write_docx, write_xlsx, write_pdf, write_pdf_native
+from shared.sursa_incarcare_writer import make_acronym, write_docx, write_docx_v2, write_xlsx, write_pdf, write_pdf_native
 
 INPUT_BASE = Path("input_AO")
 OUTPUT_BASE = Path("output_AO")
@@ -86,7 +86,7 @@ def _pick_json(client_name: str, args_json) -> Path:
         sys.exit(1)
 
 
-def _run_pipeline(client_name: str, json_path: Path, no_pdf: bool = False, force: bool = False) -> None:
+def _run_pipeline(client_name: str, json_path: Path, no_pdf: bool = False, force: bool = False, ofertant: str = "") -> None:
     from shared.f3_page_classifier import classify_pages
     from shared.deviz_header_extractor import extract_deviz_headers
 
@@ -173,7 +173,13 @@ def _run_pipeline(client_name: str, json_path: Path, no_pdf: bool = False, force
     for deviz in extracted:
         deviz['status'] = verification['status']
 
-    write_docx(extracted, docx_path)
+    json_stem_num = ''.join(filter(str.isdigit, json_stem)) or '1'
+    metadata = {
+        "offer_label": f"Oferta {json_stem_num}",
+        "client": client_name,
+        "ofertant": ofertant,
+    }
+    write_docx_v2(extracted, docx_path, metadata=metadata)
     print(f"\nOutput generat:")
     print(f"  {docx_path}  OK")
 
@@ -195,11 +201,12 @@ def main() -> None:
     parser.add_argument("--json", dest="json_name", help="Numele fisierului JSON (fara .json)")
     parser.add_argument("--no-pdf", action="store_true", dest="no_pdf")
     parser.add_argument("--force", action="store_true")
+    parser.add_argument("--ofertant", default="", help="Numele ofertantului (apare in header DOCX)")
     args = parser.parse_args()
 
     client_name = _pick_client(args.client)
     json_path = _pick_json(client_name, args.json_name)
-    _run_pipeline(client_name, json_path, no_pdf=args.no_pdf, force=args.force)
+    _run_pipeline(client_name, json_path, no_pdf=args.no_pdf, force=args.force, ofertant=args.ofertant)
 
 
 if __name__ == "__main__":
