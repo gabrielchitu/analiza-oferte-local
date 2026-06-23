@@ -629,3 +629,230 @@ def write_pdf_native(devize: list[dict], output_path: Path) -> bool:
 
     doc.build(story)
     return True
+
+
+# ── V2: Template-exact format ──────────────────────────────────────────────
+
+_COL_WIDTHS_TWIPS_V2 = [397, 510, 1020, 1020, 3175, 567, 1020, 624, 624, 624, 624]
+_NO_WRAP_COLS_V2 = {0, 1, 2, 3, 5, 6, 7, 8, 9, 10}
+_HEADER_FILL_V2 = 'D9D9D9'
+_TOTAL_FILL_V2 = 'F2F2F2'
+
+
+def _set_cell_width_twips_v2(cell, twips: int) -> None:
+    tcPr = cell._tc.get_or_add_tcPr()
+    existing = tcPr.find(qn('w:tcW'))
+    if existing is not None:
+        tcPr.remove(existing)
+    tcW = OxmlElement('w:tcW')
+    tcW.set(qn('w:w'), str(twips))
+    tcW.set(qn('w:type'), 'dxa')
+    tcPr.insert(0, tcW)
+
+
+def _set_cell_no_wrap_v2(cell) -> None:
+    tcPr = cell._tc.get_or_add_tcPr()
+    tcPr.append(OxmlElement('w:noWrap'))
+
+
+def _suppress_borders_v2(tbl) -> None:
+    tblPr = tbl._tbl.tblPr
+    tblBorders = OxmlElement('w:tblBorders')
+    for side in ('top', 'left', 'bottom', 'right', 'insideH', 'insideV'):
+        el = OxmlElement(f'w:{side}')
+        el.set(qn('w:val'), 'none')
+        el.set(qn('w:sz'), '0')
+        el.set(qn('w:color'), 'auto')
+        tblBorders.append(el)
+    tblPr.append(tblBorders)
+
+
+def _set_tbl_grid_v2(tbl) -> None:
+    tbl_el = tbl._tbl
+    existing = tbl_el.find(qn('w:tblGrid'))
+    if existing is not None:
+        tbl_el.remove(existing)
+    tblGrid = OxmlElement('w:tblGrid')
+    for w in _COL_WIDTHS_TWIPS_V2:
+        gc = OxmlElement('w:gridCol')
+        gc.set(qn('w:w'), str(w))
+        tblGrid.append(gc)
+    tblPr = tbl_el.find(qn('w:tblPr'))
+    if tblPr is not None:
+        tblPr.addnext(tblGrid)
+    else:
+        tbl_el.insert(0, tblGrid)
+
+
+def _shade_cell_v2(cell, hex_color: str) -> None:
+    tcPr = cell._tc.get_or_add_tcPr()
+    shd = OxmlElement('w:shd')
+    shd.set(qn('w:val'), 'clear')
+    shd.set(qn('w:color'), 'auto')
+    shd.set(qn('w:fill'), hex_color)
+    tcPr.append(shd)
+
+
+def _cell_write_v2(cell, text: str, bold: bool = False, size: float = 8,
+                   center: bool = False, right: bool = False) -> None:
+    cell.text = ''
+    p = cell.paragraphs[0]
+    p.clear()
+    run = p.add_run(text)
+    run.font.size = Pt(size)
+    run.font.bold = bold
+    if right:
+        p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    elif center:
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+
+def _fmt_price_ro(value) -> str:
+    """None/0 → ''; else Romanian locale: 1.234,50."""
+    if not value:
+        return ''
+    formatted = f'{value:,.2f}'
+    return formatted.replace(',', 'X').replace('.', ',').replace('X', '.')
+
+
+def _build_sursa_table_header(tbl) -> None:
+    """Write 2-row F3 header (same structure as Template_exact.docx)."""
+    row0 = tbl.rows[0].cells
+    row1 = tbl.rows[1].cells
+
+    for ci in range(11):
+        _set_cell_width_twips_v2(row0[ci], _COL_WIDTHS_TWIPS_V2[ci])
+        _set_cell_width_twips_v2(row1[ci], _COL_WIDTHS_TWIPS_V2[ci])
+        if ci in _NO_WRAP_COLS_V2:
+            _set_cell_no_wrap_v2(row0[ci])
+            _set_cell_no_wrap_v2(row1[ci])
+
+    labels = ["Nr.", "Nr.crt", "Cod", "Cod principal", "Denumire", "UM", "Cantitate"]
+    for i, label in enumerate(labels):
+        tbl.cell(0, i).merge(tbl.cell(1, i))
+        _cell_write_v2(row0[i], label, bold=True, center=True)
+        _shade_cell_v2(row0[i], _HEADER_FILL_V2)
+
+    row0[7].merge(row0[10])
+    _cell_write_v2(row0[7], "Pret unitar (lei/UM)", bold=True, center=True)
+    _shade_cell_v2(row0[7], _HEADER_FILL_V2)
+
+    for i, label in enumerate(["Material", "Manoperă", "Utilaje", "Transport"]):
+        _cell_write_v2(row1[7 + i], label, bold=True, center=True)
+        _shade_cell_v2(row1[7 + i], _HEADER_FILL_V2)
+
+
+def _write_sursa_row_v2(row, seq_nr: int, art: dict, is_sub: bool, parent_cod: str) -> None:
+    bd = art.get('breakdown') or {}
+    font_size = 7 if is_sub else 8
+
+    values = [
+        str(seq_nr),
+        str(art.get('nr_crt', '')),
+        art.get('cod', '') or '',
+        parent_cod or '',
+        art.get('denumire', ''),
+        art.get('um', ''),
+        f"{art.get('cantitate', 0):.2f}" if art.get('cantitate') else '',
+        _fmt_price_ro(bd.get('material', {}).get('pret')),
+        _fmt_price_ro(bd.get('manopera', {}).get('pret')),
+        _fmt_price_ro(bd.get('utilaj', {}).get('pret')),
+        _fmt_price_ro(bd.get('transport', {}).get('pret')),
+    ]
+    right_cols = {1, 6, 7, 8, 9, 10}
+    center_cols = {0, 5}
+
+    for ci, (cell, val) in enumerate(zip(row.cells, values)):
+        cell.text = ''
+        p = cell.paragraphs[0]
+        if ci in right_cols:
+            p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+        elif ci in center_cols:
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        run = p.add_run(val)
+        run.font.size = Pt(font_size)
+        if is_sub:
+            run.font.color.rgb = RGBColor(0x44, 0x44, 0x44)
+
+
+def _build_sursa_group(doc, deviz: dict) -> None:
+    """Add group header paragraph + 11-col table for one deviz."""
+    obiectivul = deviz.get('obiectivul', '')
+    obiectul   = deviz.get('obiectul', '')
+    categoria  = deviz.get('categoria', '')
+
+    p = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(6)
+    parts = [s.strip() for s in [obiectivul, obiectul, categoria] if s.strip()]
+    run = p.add_run(' | '.join(parts))
+    run.bold = True
+    run.font.size = Pt(9)
+
+    # Flatten capitole → articole + sub_items
+    flat: list[tuple[bool, dict, str]] = []  # (is_sub, art, parent_cod)
+    for cap in deviz.get('capitole', []):
+        for art in cap.get('articole', []):
+            flat.append((False, art, ''))
+            for sub in art.get('sub_items', []):
+                flat.append((True, sub, art.get('cod', '') or ''))
+
+    main_count = sum(1 for is_sub, _, _ in flat if not is_sub)
+    sub_count  = sum(1 for is_sub, _, _ in flat if is_sub)
+
+    n_rows = 2 + len(flat) + 1
+    tbl = doc.add_table(rows=n_rows, cols=11)
+    tbl.style = 'Table Grid'
+    _set_tbl_grid_v2(tbl)
+    _suppress_borders_v2(tbl)
+
+    _build_sursa_table_header(tbl)
+
+    for i, (is_sub, art, parent_cod) in enumerate(flat):
+        _write_sursa_row_v2(tbl.rows[2 + i], seq_nr=i + 1,
+                            art=art, is_sub=is_sub, parent_cod=parent_cod)
+
+    total_row = tbl.rows[-1]
+    total_row.cells[0].merge(total_row.cells[10])
+    cell = total_row.cells[0]
+    cell.text = ''
+    suffix = f' / {sub_count} subcomponente' if sub_count else ''
+    run = cell.paragraphs[0].add_run(
+        f'Total grup: {main_count} articole principale{suffix}'
+    )
+    run.bold = True
+    run.font.size = Pt(8)
+    _shade_cell_v2(cell, _TOTAL_FILL_V2)
+
+
+def write_docx_v2(devize: list, output_path, metadata: dict | None = None) -> None:
+    """Write F3-format DOCX identical with Template_exact.docx."""
+    from datetime import date as _date
+    meta = metadata or {}
+
+    doc = Document()
+    section = doc.sections[0]
+    section.left_margin = Cm(1.5)
+    section.right_margin = Cm(1.5)
+    section.top_margin = Cm(1.5)
+    section.bottom_margin = Cm(1.5)
+
+    offer_label = meta.get('offer_label', 'Oferta')
+    client_name = meta.get('client', '')
+    ofertant    = meta.get('ofertant', '')
+    gen_date    = meta.get('date', _date.today().isoformat())
+
+    for line, size in [
+        (f'Lista articole — {offer_label}', 14),
+        (f'Client: {client_name}', 11),
+        (f'Ofertant: {ofertant}', 11),
+        (f'Generat: {gen_date}', 9),
+    ]:
+        p = doc.add_paragraph()
+        run = p.add_run(line)
+        run.bold = True
+        run.font.size = Pt(size)
+
+    for deviz in devize:
+        _build_sursa_group(doc, deviz)
+
+    doc.save(str(output_path))
