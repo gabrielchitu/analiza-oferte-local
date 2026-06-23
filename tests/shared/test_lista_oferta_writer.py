@@ -443,8 +443,8 @@ def test_document_header_bold_title_only():
         if os.path.exists(out): os.unlink(out)
 
 
-def test_document_margins_template():
-    """Margini: top/bottom=1.8cm, left/right=1.5cm — identic template."""
+def test_document_margins_and_page_size():
+    """A4 portrait, top/bottom=1.8cm, left/right=1.5cm — identic template."""
     from docx.shared import Cm
     holistic = {"matched_groups": [], "ref_only_groups": [], "oferta_only_groups": []}
     out = tempfile.mktemp(suffix=".docx")
@@ -455,6 +455,7 @@ def test_document_margins_template():
         )
         doc = Document(out)
         s = doc.sections[0]
+        assert abs(s.page_width - Cm(21)) < 5000, f"page_width={s.page_width}"
         assert abs(s.top_margin - Cm(1.8)) < 500, f"top_margin={s.top_margin}"
         assert abs(s.bottom_margin - Cm(1.8)) < 500, f"bottom_margin={s.bottom_margin}"
         assert abs(s.left_margin - Cm(1.5)) < 500, f"left_margin={s.left_margin}"

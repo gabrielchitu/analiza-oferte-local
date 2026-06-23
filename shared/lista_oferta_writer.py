@@ -357,6 +357,8 @@ def build_docx_for_source(
     doc = Document()
 
     section = doc.sections[0]
+    section.page_width = Cm(21)
+    section.page_height = Cm(29.7)
     section.left_margin = Cm(1.5)
     section.right_margin = Cm(1.5)
     section.top_margin = Cm(1.8)
