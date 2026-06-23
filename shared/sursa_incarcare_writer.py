@@ -24,16 +24,40 @@ _YELLOW_HEX = 'FFF2CC'
 _RED_HEX = 'FF0000'
 _HEADER_GRAY = 'D9D9D9'
 
-_XLS_GRAY = PatternFill('solid', fgColor='EEEEEE')
+_XLS_GRAY   = PatternFill('solid', fgColor='EEEEEE')
 _XLS_YELLOW = PatternFill('solid', fgColor='FFF2CC')
-_XLS_RED = PatternFill('solid', fgColor='FF0000')
+_XLS_RED    = PatternFill('solid', fgColor='FF0000')
 _XLS_HEADER = PatternFill('solid', fgColor='D9D9D9')
-_XLS_BOLD = Font(bold=True)
-_XLS_BOLD_WHITE = Font(bold=True, color='FFFFFF')
-_XLS_SMALL = Font(size=8, italic=True)
-_XLS_SUBITEM = Font(size=8)
-_XLS_CENTER = Alignment(horizontal='center', vertical='center')
-_XLS_RIGHT = Alignment(horizontal='right', vertical='center')
+_XLS_PU_HDR = PatternFill('solid', fgColor='DCE6F1')  # blue tint for PU group
+_XLS_VAL_HDR= PatternFill('solid', fgColor='EBF1DE')  # green tint for Val group
+_XLS_BOLD        = Font(bold=True)
+_XLS_BOLD_WHITE  = Font(bold=True, color='FFFFFF')
+_XLS_SMALL       = Font(size=8, italic=True)
+_XLS_SUBITEM     = Font(size=8)
+_XLS_CENTER = Alignment(horizontal='center', vertical='center', wrap_text=True)
+_XLS_RIGHT  = Alignment(horizontal='right',  vertical='center')
+_XLS_LEFT   = Alignment(horizontal='left',   vertical='center', wrap_text=True)
+
+# 17-col layout: 7 desc + 5 PU + 5 Val (matches DOCX v2)
+_XLSX_COLS = [
+    ('Nr.',          5),   # 0
+    ('Nr.crt',       7),   # 1
+    ('Cod',         12),   # 2
+    ('Cod principal',14),  # 3
+    ('Denumire',    40),   # 4
+    ('UM',           7),   # 5
+    ('Cantitate',   11),   # 6
+    ('PU Mat',      12),   # 7
+    ('PU Man',      12),   # 8
+    ('PU Util',     12),   # 9
+    ('PU Trans',    12),   # 10
+    ('PU Total',    12),   # 11
+    ('Val Mat',     14),   # 12
+    ('Val Man',     14),   # 13
+    ('Val Util',    14),   # 14
+    ('Val Trans',   14),   # 15
+    ('Val Total',   14),   # 16
+]
 
 
 def make_acronym(obiectivul: str) -> str:
@@ -293,104 +317,149 @@ def write_docx(devize: list[dict], output_path: Path) -> None:
 
 
 def write_xlsx(devize: list[dict], output_path: Path) -> None:
-    """Write F3 XLS with same row structure as DOCX (one sheet per deviz)."""
+    """17-col XLS matching DOCX v2 landscape layout: 7 desc + 5 PU + 5 Val."""
     wb = Workbook()
     wb.remove(wb.active)
 
-    col_widths = [8, 55, 8, 14, 16, 16]
+    N = len(_XLSX_COLS)  # 17
+
+    def _num(v):
+        try:
+            return float(v) if v else 0.0
+        except (TypeError, ValueError):
+            return 0.0
 
     for deviz in devize:
         sheet_name = (deviz.get('categoria') or 'Deviz')[:31]
         ws = wb.create_sheet(title=sheet_name)
 
-        for ci, w in enumerate(col_widths, 1):
+        # Col widths
+        for ci, (_, w) in enumerate(_XLSX_COLS, 1):
             ws.column_dimensions[ws.cell(1, ci).column_letter].width = w
 
         r = 1
-        # Deviz header row
-        ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=6)
+        # Row 0: deviz header merged across all 17 cols
+        ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=N)
         header_val = (
-            f"Obiectivul: {deviz.get('obiectivul', '')}\n"
-            f"Obiectul: {deviz.get('obiectul', '')}\n"
+            f"Obiectivul: {deviz.get('obiectivul', '')}  |  "
+            f"Obiectul: {deviz.get('obiectul', '')}  |  "
             f"Categoria: {deviz.get('categoria', '')}"
         )
         cell = ws.cell(r, 1, value=header_val)
         cell.font = _XLS_BOLD
-        cell.alignment = Alignment(wrap_text=True, vertical='top')
-        ws.row_dimensions[r].height = 48
+        cell.alignment = Alignment(horizontal='left', wrap_text=True, vertical='top')
+        cell.fill = _XLS_HEADER
+        ws.row_dimensions[r].height = 36
         r += 1
 
-        # Column headers
-        headers = ['Nr.', 'Capitol de lucrări', 'U.M.', 'Cantitatea',
-                   'Preț unitar (fără TVA) — Lei', 'TOTALUL (fără TVA) — Lei']
-        for ci, h in enumerate(headers, 1):
-            c = ws.cell(r, ci, value=h)
-            c.fill = _XLS_HEADER
+        # Row 1: group labels (cols 1-7 blank, 8-12 "Pret unitar", 13-17 "Total lei")
+        ws.merge_cells(start_row=r, start_column=8, end_row=r, end_column=12)
+        c = ws.cell(r, 8, value='Pret unitar (lei/UM)')
+        c.font = _XLS_BOLD; c.fill = _XLS_PU_HDR; c.alignment = _XLS_CENTER
+        for ci in range(8, 13): ws.cell(r, ci).fill = _XLS_PU_HDR
+
+        ws.merge_cells(start_row=r, start_column=13, end_row=r, end_column=17)
+        c = ws.cell(r, 13, value='Total (lei)')
+        c.font = _XLS_BOLD; c.fill = _XLS_VAL_HDR; c.alignment = _XLS_CENTER
+        for ci in range(13, 18): ws.cell(r, ci).fill = _XLS_VAL_HDR
+        r += 1
+
+        # Row 2: column labels
+        labels_desc = ['Nr.', 'Nr.crt', 'Cod', 'Cod principal', 'Denumire', 'UM', 'Cantitate']
+        labels_pu   = ['Material', 'Manoperă', 'Utilaj', 'Transport', 'Total']
+        labels_val  = ['Material', 'Manoperă', 'Utilaj', 'Transport', 'Total']
+        all_labels  = labels_desc + labels_pu + labels_val
+        for ci, lbl in enumerate(all_labels, 1):
+            c = ws.cell(r, ci, value=lbl)
             c.font = _XLS_BOLD
             c.alignment = _XLS_CENTER
+            if ci <= 7:
+                c.fill = _XLS_HEADER
+            elif ci <= 12:
+                c.fill = _XLS_PU_HDR
+            else:
+                c.fill = _XLS_VAL_HDR
+        ws.row_dimensions[r].height = 30
+        ws.freeze_panes = ws.cell(r + 1, 1)
         r += 1
 
+        seq = 0
         for cap in deviz.get('capitole', []):
-            ws.cell(r, 1, value='').fill = _XLS_GRAY
-            c = ws.cell(r, 2, value=cap['titlu'])
-            c.font = _XLS_BOLD
-            c.fill = _XLS_GRAY
-            for ci in range(3, 7):
-                ws.cell(r, ci).fill = _XLS_GRAY
+            # Capitol header
+            ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=N)
+            c = ws.cell(r, 1, value=cap.get('titlu', ''))
+            c.font = _XLS_BOLD; c.fill = _XLS_GRAY
+            c.alignment = Alignment(horizontal='left', vertical='center')
+            for ci in range(2, N + 1): ws.cell(r, ci).fill = _XLS_GRAY
             r += 1
 
             for art in cap.get('articole', []):
-                cod_den = f"{art['cod']} - {art['denumire']}" if art['cod'] else art['denumire']
-                ws.cell(r, 1, value=art['nr_crt']).alignment = _XLS_CENTER
-                ws.cell(r, 2, value=cod_den)
-                ws.cell(r, 3, value=art.get('um', '')).alignment = _XLS_CENTER
-                ws.cell(r, 4, value=art.get('cantitate', 0)).alignment = _XLS_RIGHT
-                ws.cell(r, 5, value=art.get('pret_unitar', 0)).alignment = _XLS_RIGHT
-                ws.cell(r, 6, value=art.get('total', 0)).alignment = _XLS_RIGHT
-                r += 1
+                seq += 1
+                bd = art.get('breakdown') or {}
 
-                if art.get('breakdown'):
-                    for key in ('material', 'manopera', 'utilaj', 'transport'):
-                        bd = art['breakdown'].get(key, {})
-                        ws.cell(r, 2, value=f"  {key}:").font = _XLS_SMALL
-                        c5 = ws.cell(r, 5, value=bd.get('pret', 0))
-                        c5.font = _XLS_SMALL
-                        c5.alignment = _XLS_RIGHT
-                        c6 = ws.cell(r, 6, value=bd.get('total', 0))
-                        c6.font = _XLS_SMALL
-                        c6.alignment = _XLS_RIGHT
-                        r += 1
+                def _pu(comp): return _num((bd.get(comp) or {}).get('pret'))
+                def _val(comp):
+                    v = _num((bd.get(comp) or {}).get('total'))
+                    if v: return v
+                    return _num(art.get('cantitate')) * _pu(comp)
 
-                for sub in art.get('sub_items', []):
-                    cod_den_s = f"{sub['cod']} - {sub['denumire']}" if sub['cod'] else sub['denumire']
-                    ws.cell(r, 1, value=sub['nr_crt']).alignment = _XLS_CENTER
-                    ws.cell(r, 2, value=cod_den_s).font = _XLS_SUBITEM
-                    ws.cell(r, 3, value=sub.get('um', '')).alignment = _XLS_CENTER
-                    ws.cell(r, 4, value=sub.get('cantitate', 0)).alignment = _XLS_RIGHT
-                    ws.cell(r, 5, value=sub.get('pret_unitar', 0)).alignment = _XLS_RIGHT
-                    ws.cell(r, 6, value=sub.get('total', 0)).alignment = _XLS_RIGHT
-                    r += 1
+                pu_mat, pu_man, pu_util, pu_tran = _pu('material'), _pu('manopera'), _pu('utilaj'), _pu('transport')
+                pu_tot = pu_mat + pu_man + pu_util + pu_tran
+                val_mat  = _val('material')
+                val_man  = _val('manopera')
+                val_util = _val('utilaj')
+                val_tran = _val('transport')
+                val_tot  = _num(art.get('total')) or (val_mat + val_man + val_util + val_tran)
+                cant     = _num(art.get('cantitate'))
 
-            if cap.get('total_capitol') is not None:
-                for ci in range(1, 6):
-                    c = ws.cell(r, ci, value=f'TOTAL {cap["titlu"]}' if ci == 1 else '')
-                    c.font = _XLS_BOLD
-                c = ws.cell(r, 6, value=cap['total_capitol'])
-                c.font = _XLS_BOLD
-                c.alignment = _XLS_RIGHT
+                is_sub = bool(art.get('parent_cod'))
+                fn = Font(size=8) if is_sub else None
+
+                def _w(col, val, align=_XLS_RIGHT):
+                    c = ws.cell(r, col, value=val if val != 0.0 else None)
+                    c.alignment = align
+                    if fn: c.font = fn
+                    return c
+
+                _w(1, seq, _XLS_CENTER)
+                _w(2, art.get('nr_crt', ''), _XLS_CENTER)
+                _w(3, art.get('cod', '') or '', _XLS_LEFT)
+                _w(4, art.get('parent_cod', '') or '', _XLS_LEFT)
+                _w(5, art.get('denumire', ''), _XLS_LEFT)
+                _w(6, art.get('um', ''), _XLS_CENTER)
+                _w(7, cant or None)
+                _w(8, pu_mat or None)
+                _w(9, pu_man or None)
+                _w(10, pu_util or None)
+                _w(11, pu_tran or None)
+                _w(12, pu_tot or None)
+                _w(13, val_mat or None)
+                _w(14, val_man or None)
+                _w(15, val_util or None)
+                _w(16, val_tran or None)
+                _w(17, val_tot or None)
+
+                # Format numeric cols as number
+                for ci in range(7, 18):
+                    ws.cell(r, ci).number_format = '#,##0.00'
                 r += 1
 
         # Total deviz row
         is_red = deviz.get('status') == 'RED'
-        total_label = 'TOTAL NECONFIRMAT — verificare manuală necesară' if is_red else 'TOTAL 1 (Cheltuieli directe)'
+        total_label = 'TOTAL NECONFIRMAT — verificare manuală necesară' if is_red else 'TOTAL (Cheltuieli directe)'
         fill = _XLS_RED if is_red else _XLS_YELLOW
         font = _XLS_BOLD_WHITE if is_red else _XLS_BOLD
-        for ci in range(1, 7):
+        ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=16)
+        for ci in range(1, N + 1):
             ws.cell(r, ci).fill = fill
-        ws.cell(r, 1, value=total_label).font = font
-        c = ws.cell(r, 6, value=deviz.get('total_deviz', 0))
+        c = ws.cell(r, 1, value=total_label)
+        c.font = font
+        c.alignment = Alignment(horizontal='left', vertical='center')
+        c = ws.cell(r, 17, value=_num(deviz.get('total_deviz')) or None)
         c.font = font
         c.alignment = _XLS_RIGHT
+        c.number_format = '#,##0.00'
+        r += 1
 
     wb.save(str(output_path))
 
