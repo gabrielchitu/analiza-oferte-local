@@ -801,6 +801,7 @@ def _build_sursa_group(doc, deviz: dict) -> None:
 
     n_rows = 2 + len(flat) + 1
     tbl = doc.add_table(rows=n_rows, cols=11)
+    tbl.style = 'Table Grid'
     _set_tbl_grid_v2(tbl)
     tblPr_el = tbl._tbl.find(qn('w:tblPr'))
     if tblPr_el is not None:

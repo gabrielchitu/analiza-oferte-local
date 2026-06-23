@@ -120,16 +120,15 @@ def test_write_docx_v2_col_widths_exact():
         os.unlink(out)
 
 
-def test_write_docx_v2_no_borders():
-    """Fara borduri — no tblStyle si no tblBorders element — identic template."""
+def test_write_docx_v2_table_grid_style():
+    """Tabel foloseste TableGrid style — borduri vizibile ca in template."""
     out, doc = _write_and_open([_make_deviz()])
     try:
         tbl = doc.tables[0]
         tblPr = tbl._tbl.find(qn('w:tblPr'))
         tblStyle = tblPr.find(qn('w:tblStyle'))
-        tblBorders = tblPr.find(qn('w:tblBorders'))
-        assert tblStyle is None, f"tblStyle should be absent (got {tblStyle})"
-        assert tblBorders is None, "tblBorders should be absent (no explicit border suppression needed)"
+        assert tblStyle is not None, "tblStyle missing"
+        assert tblStyle.get(qn('w:val')) == 'TableGrid'
     finally:
         os.unlink(out)
 
