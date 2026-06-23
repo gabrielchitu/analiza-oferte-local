@@ -420,8 +420,8 @@ def test_group_section_header_no_label():
     assert "Obiectivul:" not in para_texts[0]
 
 
-def test_document_header_all_bold():
-    """Toate 4 linii din header document trebuie sa fie bold."""
+def test_document_header_bold_title_only():
+    """Doar titlul (linia 1) e bold; Client/Ofertant/Generat nu sunt bold — identic template."""
     holistic = {"matched_groups": [], "ref_only_groups": [], "oferta_only_groups": []}
     out = tempfile.mktemp(suffix=".docx")
     try:
@@ -433,15 +433,18 @@ def test_document_header_all_bold():
         doc = Document(out)
         header_paras = [p for p in doc.paragraphs if p.text.strip()][:4]
         assert len(header_paras) == 4
-        for p in header_paras:
+        # Line 1 bold
+        assert any(r.bold for r in header_paras[0].runs), "Titlul trebuie bold"
+        # Lines 2-4 not bold
+        for p in header_paras[1:]:
             for run in p.runs:
-                assert run.bold, f"Run not bold in: {p.text!r}"
+                assert not run.bold, f"Linia nu trebuie bold: {p.text!r}"
     finally:
         if os.path.exists(out): os.unlink(out)
 
 
-def test_document_margins_1_5cm():
-    """Margini document: 1.5cm toate laturile."""
+def test_document_margins_template():
+    """Margini: top/bottom=1.8cm, left/right=1.5cm — identic template."""
     from docx.shared import Cm
     holistic = {"matched_groups": [], "ref_only_groups": [], "oferta_only_groups": []}
     out = tempfile.mktemp(suffix=".docx")
@@ -452,7 +455,9 @@ def test_document_margins_1_5cm():
         )
         doc = Document(out)
         s = doc.sections[0]
-        assert abs(s.top_margin - Cm(1.5)) < 500, f"top_margin={s.top_margin}"
-        assert abs(s.bottom_margin - Cm(1.5)) < 500, f"bottom_margin={s.bottom_margin}"
+        assert abs(s.top_margin - Cm(1.8)) < 500, f"top_margin={s.top_margin}"
+        assert abs(s.bottom_margin - Cm(1.8)) < 500, f"bottom_margin={s.bottom_margin}"
+        assert abs(s.left_margin - Cm(1.5)) < 500, f"left_margin={s.left_margin}"
+        assert abs(s.right_margin - Cm(1.5)) < 500, f"right_margin={s.right_margin}"
     finally:
         if os.path.exists(out): os.unlink(out)

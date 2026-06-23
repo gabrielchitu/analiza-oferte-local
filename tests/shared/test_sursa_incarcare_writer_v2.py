@@ -72,13 +72,16 @@ def test_write_docx_v2_document_header_paragraphs():
         os.unlink(out)
 
 
-def test_write_docx_v2_document_header_all_bold():
+def test_write_docx_v2_document_header_bold_title_only():
+    """Doar titlul bold; Client/Ofertant/Generat nu sunt bold — identic template."""
     out, doc = _write_and_open([_make_deviz()])
     try:
         header_paras = [p for p in doc.paragraphs if p.text.strip()][:4]
-        for p in header_paras:
+        assert len(header_paras) == 4
+        assert any(r.bold for r in header_paras[0].runs), "Titlul trebuie bold"
+        for p in header_paras[1:]:
             for run in p.runs:
-                assert run.bold, f"Not bold: {p.text!r}"
+                assert not run.bold, f"Linia nu trebuie bold: {p.text!r}"
     finally:
         os.unlink(out)
 
@@ -118,14 +121,15 @@ def test_write_docx_v2_col_widths_exact():
 
 
 def test_write_docx_v2_no_borders():
+    """Fara borduri — no tblStyle si no tblBorders element — identic template."""
     out, doc = _write_and_open([_make_deviz()])
     try:
         tbl = doc.tables[0]
         tblPr = tbl._tbl.find(qn('w:tblPr'))
-        borders = tblPr.find(qn('w:tblBorders'))
-        assert borders is not None
-        top = borders.find(qn('w:top'))
-        assert top is not None and top.get(qn('w:val')) == 'none'
+        tblStyle = tblPr.find(qn('w:tblStyle'))
+        tblBorders = tblPr.find(qn('w:tblBorders'))
+        assert tblStyle is None, f"tblStyle should be absent (got {tblStyle})"
+        assert tblBorders is None, "tblBorders should be absent (no explicit border suppression needed)"
     finally:
         os.unlink(out)
 

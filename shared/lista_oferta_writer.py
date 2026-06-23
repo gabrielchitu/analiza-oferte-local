@@ -314,8 +314,6 @@ def _write_group_section(doc: Document, header: Dict, articles: List[Dict],
 
     n_rows = 2 + len(articles) + 1
     tbl = doc.add_table(rows=n_rows, cols=11)
-    tbl.style = "Table Grid"
-    _suppress_table_borders(tbl)
     _set_table_fixed_layout(tbl)
 
     _build_table_header(tbl)
