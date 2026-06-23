@@ -758,7 +758,13 @@ def _write_sursa_row_v2(row, seq_nr: int, art: dict, is_sub: bool, parent_cod: s
     pu_man  = (bd.get('manopera',  {}) or {}).get('pret') or 0.0
     pu_util = (bd.get('utilaj',    {}) or {}).get('pret') or 0.0
     pu_tran = (bd.get('transport', {}) or {}).get('pret') or 0.0
-    total = cantitate * (pu_mat + pu_man + pu_util + pu_tran)
+    # Total = suma totalurilor per componentă (extrase din JSON, evitând erori de rotunjire)
+    total = (
+        ((bd.get('material',  {}) or {}).get('total') or 0.0) +
+        ((bd.get('manopera',  {}) or {}).get('total') or 0.0) +
+        ((bd.get('utilaj',    {}) or {}).get('total') or 0.0) +
+        ((bd.get('transport', {}) or {}).get('total') or 0.0)
+    ) or (art.get('total') or 0.0)
 
     values = [
         str(seq_nr),
