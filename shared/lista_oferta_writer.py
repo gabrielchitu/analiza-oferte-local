@@ -261,11 +261,16 @@ def _write_article_row(row, seq_nr: int, article: Dict) -> None:
 
 
 def _set_table_fixed_layout(tbl: Table) -> None:
-    """Lock table column widths — prevent Word autofit from resizing columns."""
+    """Set explicit table total width; let Word auto-fit individual columns."""
     tblPr = tbl._tbl.tblPr
-    tblLayout = OxmlElement("w:tblLayout")
-    tblLayout.set(qn("w:type"), "fixed")
-    tblPr.append(tblLayout)
+    tbl_total = sum(_COL_WIDTHS_TWIPS)
+    existing_tblW = tblPr.find(qn('w:tblW'))
+    if existing_tblW is not None:
+        tblPr.remove(existing_tblW)
+    tblW = OxmlElement('w:tblW')
+    tblW.set(qn('w:w'), str(tbl_total))
+    tblW.set(qn('w:type'), 'dxa')
+    tblPr.append(tblW)
 
 
 def _is_numeric_only(val: str) -> bool:

@@ -805,9 +805,14 @@ def _build_sursa_group(doc, deviz: dict) -> None:
     _set_tbl_grid_v2(tbl)
     tblPr_el = tbl._tbl.find(qn('w:tblPr'))
     if tblPr_el is not None:
-        tblLayout = OxmlElement('w:tblLayout')
-        tblLayout.set(qn('w:type'), 'fixed')
-        tblPr_el.append(tblLayout)
+        tbl_total = sum(_COL_WIDTHS_TWIPS_V2)
+        existing_tblW = tblPr_el.find(qn('w:tblW'))
+        if existing_tblW is not None:
+            tblPr_el.remove(existing_tblW)
+        tblW_el = OxmlElement('w:tblW')
+        tblW_el.set(qn('w:w'), str(tbl_total))
+        tblW_el.set(qn('w:type'), 'dxa')
+        tblPr_el.append(tblW_el)
 
     _build_sursa_table_header(tbl)
 
