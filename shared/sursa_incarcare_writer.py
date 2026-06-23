@@ -804,6 +804,11 @@ def _build_sursa_group(doc, deviz: dict) -> None:
     tbl.style = 'Table Grid'
     _set_tbl_grid_v2(tbl)
     _suppress_borders_v2(tbl)
+    tblPr_el = tbl._tbl.find(qn('w:tblPr'))
+    if tblPr_el is not None:
+        tblLayout = OxmlElement('w:tblLayout')
+        tblLayout.set(qn('w:type'), 'fixed')
+        tblPr_el.append(tblLayout)
 
     _build_sursa_table_header(tbl)
 
@@ -833,23 +838,23 @@ def write_docx_v2(devize: list, output_path, metadata: dict | None = None) -> No
     section = doc.sections[0]
     section.left_margin = Cm(1.5)
     section.right_margin = Cm(1.5)
-    section.top_margin = Cm(1.5)
-    section.bottom_margin = Cm(1.5)
+    section.top_margin = Cm(1.8)
+    section.bottom_margin = Cm(1.8)
 
     offer_label = meta.get('offer_label', 'Oferta')
     client_name = meta.get('client', '')
     ofertant    = meta.get('ofertant', '')
     gen_date    = meta.get('date', _date.today().isoformat())
 
-    for line, size in [
-        (f'Lista articole — {offer_label}', 14),
-        (f'Client: {client_name}', 11),
-        (f'Ofertant: {ofertant}', 11),
-        (f'Generat: {gen_date}', 9),
+    for line, bold, size in [
+        (f'Lista articole — {offer_label}', True, 14),
+        (f'Client: {client_name}', False, 11),
+        (f'Ofertant: {ofertant}', False, 11),
+        (f'Generat: {gen_date}', False, 9),
     ]:
         p = doc.add_paragraph()
         run = p.add_run(line)
-        run.bold = True
+        run.bold = bold
         run.font.size = Pt(size)
 
     for deviz in devize:

@@ -360,15 +360,15 @@ def build_docx_for_source(
     section = doc.sections[0]
     section.left_margin = Cm(1.5)
     section.right_margin = Cm(1.5)
-    section.top_margin = Cm(1.5)
-    section.bottom_margin = Cm(1.5)
+    section.top_margin = Cm(1.8)
+    section.bottom_margin = Cm(1.8)
 
     entity_label = "Ofertant" if source == "oferta" else "Proiectant"
     for line, bold, size in [
         (f"Lista articole — {label}", True, 14),
-        (f"Client: {client_name}", True, 11),
-        (f"{entity_label}: {entity_name}", True, 11),
-        (f"Generat: {date.today().isoformat()}", True, 9),
+        (f"Client: {client_name}", False, 11),
+        (f"{entity_label}: {entity_name}", False, 11),
+        (f"Generat: {date.today().isoformat()}", False, 9),
     ]:
         p = doc.add_paragraph()
         run = p.add_run(line)
