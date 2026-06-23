@@ -452,7 +452,7 @@ def test_document_margins_1_5cm():
         )
         doc = Document(out)
         s = doc.sections[0]
-        assert abs(s.top_margin - Cm(1.5)) < 1000, f"top_margin={s.top_margin}"
-        assert abs(s.bottom_margin - Cm(1.5)) < 1000, f"bottom_margin={s.bottom_margin}"
+        assert abs(s.top_margin - Cm(1.5)) < 500, f"top_margin={s.top_margin}"
+        assert abs(s.bottom_margin - Cm(1.5)) < 500, f"bottom_margin={s.bottom_margin}"
     finally:
         if os.path.exists(out): os.unlink(out)
