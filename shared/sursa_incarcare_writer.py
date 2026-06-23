@@ -633,8 +633,13 @@ def write_pdf_native(devize: list[dict], output_path: Path) -> bool:
 
 # ── V2: Template-exact format ──────────────────────────────────────────────
 
-_COL_WIDTHS_TWIPS_V2 = [397, 380, 1020, 850, 2675, 567, 1020, 800, 624, 624, 624, 624]
-_NO_WRAP_COLS_V2 = {0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11}
+# Landscape A4 (26.7cm usable): 7 desc + 5 PU + 5 Val = 17 cols, sum=15120 twips
+_COL_WIDTHS_TWIPS_V2 = [
+    250, 300, 720, 720, 2270, 380, 550,   # 0-6: desc
+    993, 993, 993, 993, 993,               # 7-11: Pret unitar (Material/Man/Util/Trans/Total)
+    993, 993, 993, 993, 993,               # 12-16: Total valoare (Material/Man/Util/Trans/Total)
+]
+_NO_WRAP_COLS_V2 = {0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
 _HEADER_FILL_V2 = 'D9D9D9'
 _TOTAL_FILL_V2 = 'F2F2F2'
 
@@ -716,37 +721,38 @@ def _fmt_price_ro(value) -> str:
 
 
 def _build_sursa_table_header(tbl) -> None:
-    """Write 2-row F3 header with 12 columns (cols 0-6 + Total + 4 price breakdown)."""
+    """Write 2-row header: 7 desc cols + 5 PU cols + 5 Val cols = 17 cols."""
     row0 = tbl.rows[0].cells
     row1 = tbl.rows[1].cells
 
-    for ci in range(12):
+    for ci in range(17):
         _set_cell_width_twips_v2(row0[ci], _COL_WIDTHS_TWIPS_V2[ci])
         _set_cell_width_twips_v2(row1[ci], _COL_WIDTHS_TWIPS_V2[ci])
         if ci in _NO_WRAP_COLS_V2:
             _set_cell_no_wrap_v2(row0[ci])
             _set_cell_no_wrap_v2(row1[ci])
 
-    # Cols 0-6: vertical merge (Nr, Nr.crt, Cod, Cod principal, Denumire, UM, Cantitate)
-    labels = ["Nr.", "Nr.crt", "Cod", "Cod principal", "Denumire", "UM", "Cantitate"]
-    for i, label in enumerate(labels):
+    # Cols 0-6: vertical merge
+    for i, label in enumerate(["Nr.", "Nr.crt", "Cod", "Cod principal", "Denumire", "UM", "Cantitate"]):
         tbl.cell(0, i).merge(tbl.cell(1, i))
         _cell_write_v2(row0[i], label, bold=True, center=True)
         _shade_cell_v2(row0[i], _HEADER_FILL_V2)
 
-    # Col 7: Total — vertical merge
-    tbl.cell(0, 7).merge(tbl.cell(1, 7))
-    _cell_write_v2(row0[7], "Total\n(lei)", bold=True, center=True)
+    # Cols 7-11: horizontal merge "Pret unitar (lei/UM)"
+    row0[7].merge(row0[11])
+    _cell_write_v2(row0[7], "Pret unitar (lei/UM)", bold=True, center=True)
     _shade_cell_v2(row0[7], _HEADER_FILL_V2)
+    for i, label in enumerate(["Material", "Manoperă", "Utilaj", "Transport", "Total"]):
+        _cell_write_v2(row1[7 + i], label, bold=True, center=True)
+        _shade_cell_v2(row1[7 + i], _HEADER_FILL_V2)
 
-    # Cols 8-11: horizontal merge "Pret unitar (lei/UM)"
-    row0[8].merge(row0[11])
-    _cell_write_v2(row0[8], "Pret unitar (lei/UM)", bold=True, center=True)
-    _shade_cell_v2(row0[8], _HEADER_FILL_V2)
-
-    for i, label in enumerate(["Material", "Manoperă", "Utilaje", "Transport"]):
-        _cell_write_v2(row1[8 + i], label, bold=True, center=True)
-        _shade_cell_v2(row1[8 + i], _HEADER_FILL_V2)
+    # Cols 12-16: horizontal merge "Total (lei)"
+    row0[12].merge(row0[16])
+    _cell_write_v2(row0[12], "Total (lei)", bold=True, center=True)
+    _shade_cell_v2(row0[12], _HEADER_FILL_V2)
+    for i, label in enumerate(["Material", "Manoperă", "Utilaj", "Transport", "Total"]):
+        _cell_write_v2(row1[12 + i], label, bold=True, center=True)
+        _shade_cell_v2(row1[12 + i], _HEADER_FILL_V2)
 
 
 def _write_sursa_row_v2(row, seq_nr: int, art: dict, is_sub: bool, parent_cod: str) -> None:
@@ -754,17 +760,23 @@ def _write_sursa_row_v2(row, seq_nr: int, art: dict, is_sub: bool, parent_cod: s
     font_size = 7 if is_sub else 8
 
     cantitate = art.get('cantitate') or 0.0
-    pu_mat  = (bd.get('material',  {}) or {}).get('pret') or 0.0
-    pu_man  = (bd.get('manopera',  {}) or {}).get('pret') or 0.0
-    pu_util = (bd.get('utilaj',    {}) or {}).get('pret') or 0.0
-    pu_tran = (bd.get('transport', {}) or {}).get('pret') or 0.0
-    # Total = suma totalurilor per componentă (extrase din JSON, evitând erori de rotunjire)
-    total = (
-        ((bd.get('material',  {}) or {}).get('total') or 0.0) +
-        ((bd.get('manopera',  {}) or {}).get('total') or 0.0) +
-        ((bd.get('utilaj',    {}) or {}).get('total') or 0.0) +
-        ((bd.get('transport', {}) or {}).get('total') or 0.0)
-    ) or (art.get('total') or 0.0)
+
+    def _pu(comp): return (bd.get(comp) or {}).get('pret') or 0.0
+    def _val(comp):
+        v = (bd.get(comp) or {}).get('total')
+        if v:
+            return v
+        # fallback: cantitate × pret dacă total lipsește din JSON
+        return cantitate * _pu(comp)
+
+    pu_mat, pu_man, pu_util, pu_tran = _pu('material'), _pu('manopera'), _pu('utilaj'), _pu('transport')
+    pu_total = pu_mat + pu_man + pu_util + pu_tran
+
+    val_mat  = _val('material')
+    val_man  = _val('manopera')
+    val_util = _val('utilaj')
+    val_tran = _val('transport')
+    val_total = art.get('total') or (val_mat + val_man + val_util + val_tran)
 
     values = [
         str(seq_nr),
@@ -774,13 +786,18 @@ def _write_sursa_row_v2(row, seq_nr: int, art: dict, is_sub: bool, parent_cod: s
         art.get('denumire', ''),
         art.get('um', ''),
         f"{cantitate:.2f}" if cantitate else '',
-        _fmt_price_ro(total) if total else '',
-        _fmt_price_ro(pu_mat) if pu_mat else '',
-        _fmt_price_ro(pu_man) if pu_man else '',
-        _fmt_price_ro(pu_util) if pu_util else '',
-        _fmt_price_ro(pu_tran) if pu_tran else '',
+        _fmt_price_ro(pu_mat),
+        _fmt_price_ro(pu_man),
+        _fmt_price_ro(pu_util),
+        _fmt_price_ro(pu_tran),
+        _fmt_price_ro(pu_total),
+        _fmt_price_ro(val_mat),
+        _fmt_price_ro(val_man),
+        _fmt_price_ro(val_util),
+        _fmt_price_ro(val_tran),
+        _fmt_price_ro(val_total),
     ]
-    right_cols = {1, 6, 7, 8, 9, 10, 11}
+    right_cols = {1, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
     center_cols = {0, 5}
 
     for ci, (cell, val) in enumerate(zip(row.cells, values)):
@@ -797,7 +814,7 @@ def _write_sursa_row_v2(row, seq_nr: int, art: dict, is_sub: bool, parent_cod: s
 
 
 def _build_sursa_group(doc, deviz: dict) -> None:
-    """Add group header paragraph + 12-col table for one deviz."""
+    """Add group header paragraph + 17-col table for one deviz (landscape)."""
     obiectivul = deviz.get('obiectivul', '')
     obiectul   = deviz.get('obiectul', '')
     categoria  = deviz.get('categoria', '')
@@ -821,7 +838,7 @@ def _build_sursa_group(doc, deviz: dict) -> None:
     sub_count  = sum(1 for is_sub, _, _ in flat if is_sub)
 
     n_rows = 2 + len(flat) + 1
-    tbl = doc.add_table(rows=n_rows, cols=12)
+    tbl = doc.add_table(rows=n_rows, cols=17)
     tbl.style = 'Table Grid'
     _set_tbl_grid_v2(tbl)
     tblPr_el = tbl._tbl.find(qn('w:tblPr'))
@@ -842,7 +859,7 @@ def _build_sursa_group(doc, deviz: dict) -> None:
                             art=art, is_sub=is_sub, parent_cod=parent_cod)
 
     total_row = tbl.rows[-1]
-    total_row.cells[0].merge(total_row.cells[11])
+    total_row.cells[0].merge(total_row.cells[16])
     cell = total_row.cells[0]
     cell.text = ''
     suffix = f' / {sub_count} subcomponente' if sub_count else ''
@@ -861,12 +878,13 @@ def write_docx_v2(devize: list, output_path, metadata: dict | None = None) -> No
 
     doc = Document()
     section = doc.sections[0]
-    section.page_width = Cm(21)
-    section.page_height = Cm(29.7)
+    # Landscape A4
+    section.page_width = Cm(29.7)
+    section.page_height = Cm(21)
     section.left_margin = Cm(1.5)
     section.right_margin = Cm(1.5)
-    section.top_margin = Cm(1.8)
-    section.bottom_margin = Cm(1.8)
+    section.top_margin = Cm(1.5)
+    section.bottom_margin = Cm(1.5)
 
     offer_label = meta.get('offer_label', 'Oferta')
     client_name = meta.get('client', '')
