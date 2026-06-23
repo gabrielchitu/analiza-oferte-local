@@ -13,6 +13,50 @@ from docx.oxml import OxmlElement
 from docx.table import Table
 
 
+# Exact column widths from Template_exact.docx (twips, dxa)
+_COL_WIDTHS_TWIPS = [397, 510, 1020, 1020, 3175, 567, 1020, 624, 624, 624, 624]
+
+
+def _set_cell_width_twips(cell, twips: int) -> None:
+    tcPr = cell._tc.get_or_add_tcPr()
+    existing = tcPr.find(qn('w:tcW'))
+    if existing is not None:
+        tcPr.remove(existing)
+    tcW = OxmlElement('w:tcW')
+    tcW.set(qn('w:w'), str(twips))
+    tcW.set(qn('w:type'), 'dxa')
+    tcPr.insert(0, tcW)
+
+
+def _suppress_table_borders(tbl) -> None:
+    tblPr = tbl._tbl.tblPr
+    tblBorders = OxmlElement('w:tblBorders')
+    for side in ('top', 'left', 'bottom', 'right', 'insideH', 'insideV'):
+        el = OxmlElement(f'w:{side}')
+        el.set(qn('w:val'), 'none')
+        el.set(qn('w:sz'), '0')
+        el.set(qn('w:color'), 'auto')
+        tblBorders.append(el)
+    tblPr.append(tblBorders)
+
+
+def _set_tbl_grid(tbl) -> None:
+    tbl_el = tbl._tbl
+    existing = tbl_el.find(qn('w:tblGrid'))
+    if existing is not None:
+        tbl_el.remove(existing)
+    tblGrid = OxmlElement('w:tblGrid')
+    for w in _COL_WIDTHS_TWIPS:
+        gc = OxmlElement('w:gridCol')
+        gc.set(qn('w:w'), str(w))
+        tblGrid.append(gc)
+    tblPr = tbl_el.find(qn('w:tblPr'))
+    if tblPr is not None:
+        tblPr.addnext(tblGrid)
+    else:
+        tbl_el.insert(0, tblGrid)
+
+
 def extract_entity_name(di_json_path: str, is_referinta: bool) -> str:
     """Extract proiectant/ofertant name from raw DI JSON (first 5 pages)."""
     marker = "PROIECTANT" if is_referinta else "CONTRACTANT (OFERTANT)"
@@ -101,9 +145,6 @@ def _iter_source_groups(holistic: Dict, source: str) -> Generator[Tuple[Dict, Li
 
 
 HEADER_FILL = "D9D9D9"   # light grey for header rows
-# 11 cols; total ~18.0 cm fits A4 portrait with 1.5 cm margins
-# Cantitate widened to 1.8 so label fits; price cols 1.1 so "1.234,56" fits
-COL_WIDTHS_CM = [0.7, 0.9, 1.8, 1.8, 5.6, 1.0, 1.8, 1.1, 1.1, 1.1, 1.1]
 # Cols that must never wrap: all numeric/code cols except Denumire (4)
 _NO_WRAP_COLS = {0, 1, 2, 3, 5, 6, 7, 8, 9, 10}
 
@@ -140,14 +181,17 @@ def _merge_vertical(table: Table, col: int, row_start: int = 0, row_end: int = 1
 
 def _build_table_header(table: Table) -> None:
     """Write 2-row F3 header into an existing 2-row, 11-col table."""
-    for row in table.rows:
-        for i, cell in enumerate(row.cells):
-            cell.width = Cm(COL_WIDTHS_CM[i])
-            if i in _NO_WRAP_COLS:
-                _set_cell_no_wrap(cell)
+    _set_tbl_grid(table)
 
     row0 = table.rows[0].cells
     row1 = table.rows[1].cells
+
+    for ci in range(11):
+        _set_cell_width_twips(row0[ci], _COL_WIDTHS_TWIPS[ci])
+        _set_cell_width_twips(row1[ci], _COL_WIDTHS_TWIPS[ci])
+        if ci in _NO_WRAP_COLS:
+            _set_cell_no_wrap(row0[ci])
+            _set_cell_no_wrap(row1[ci])
 
     labels_row0 = ["Nr.", "Nr.crt", "Cod", "Cod principal", "Denumire", "UM", "Cantitate"]
     for i, label in enumerate(labels_row0):
@@ -155,12 +199,10 @@ def _build_table_header(table: Table) -> None:
         _cell_text(row0[i], label, bold=True, center=True)
         _shade_cell(row0[i], HEADER_FILL)
 
-    # "Pret unitar (lei/UM)" spans cols 7-10
     row0[7].merge(row0[10])
     _cell_text(row0[7], "Pret unitar (lei/UM)", bold=True, center=True)
     _shade_cell(row0[7], HEADER_FILL)
 
-    # Row 1: sub-labels for pret cols only (no val section)
     for i, label in enumerate(["Material", "Manoperă", "Utilaje", "Transport"]):
         _cell_text(row1[7 + i], label, bold=True, center=True)
         _shade_cell(row1[7 + i], HEADER_FILL)
@@ -255,25 +297,16 @@ def _write_group_section(doc: Document, header: Dict, articles: List[Dict],
 
     # When obiectivul/obiectul are pure CPV numbers, use deviz_denumire as title
     if _is_numeric_only(obiectivul) and deviz_denumire:
-        parts = [s.strip() for s in deviz_denumire.split("|")]
-        title = " | ".join(p for p in parts if p)
+        raw_parts = [s.strip() for s in deviz_denumire.split("|")]
+        title = " | ".join(part for part in raw_parts if part)
         run = p.add_run(title)
         run.bold = True
         run.font.size = Pt(9)
     else:
-        first_line = True
-        for label, val in [
-            ("Obiectivul", obiectivul),
-            ("Obiectul", obiectul),
-            ("Cod de lucrari sau stare fizica", categoria),
-        ]:
-            if val:
-                if not first_line:
-                    p.add_run().add_break()
-                run = p.add_run(f"{label}: {val}")
-                run.bold = True
-                run.font.size = Pt(9)
-                first_line = False
+        parts = [s.strip() for s in [obiectivul, obiectul, categoria] if s.strip()]
+        run = p.add_run(" | ".join(parts))
+        run.bold = True
+        run.font.size = Pt(9)
 
     # Count main vs subcomponent articles
     main_count = sum(1 for a in articles if not a.get("is_component"))
@@ -282,6 +315,7 @@ def _write_group_section(doc: Document, header: Dict, articles: List[Dict],
     n_rows = 2 + len(articles) + 1
     tbl = doc.add_table(rows=n_rows, cols=11)
     tbl.style = "Table Grid"
+    _suppress_table_borders(tbl)
     _set_table_fixed_layout(tbl)
 
     _build_table_header(tbl)
@@ -326,15 +360,15 @@ def build_docx_for_source(
     section = doc.sections[0]
     section.left_margin = Cm(1.5)
     section.right_margin = Cm(1.5)
-    section.top_margin = Cm(1.8)
-    section.bottom_margin = Cm(1.8)
+    section.top_margin = Cm(1.5)
+    section.bottom_margin = Cm(1.5)
 
     entity_label = "Ofertant" if source == "oferta" else "Proiectant"
     for line, bold, size in [
         (f"Lista articole — {label}", True, 14),
-        (f"Client: {client_name}", False, 11),
-        (f"{entity_label}: {entity_name}", False, 11),
-        (f"Generat: {date.today().isoformat()}", False, 9),
+        (f"Client: {client_name}", True, 11),
+        (f"{entity_label}: {entity_name}", True, 11),
+        (f"Generat: {date.today().isoformat()}", True, 9),
     ]:
         p = doc.add_paragraph()
         run = p.add_run(line)

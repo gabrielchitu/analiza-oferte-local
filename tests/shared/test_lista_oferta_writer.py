@@ -360,3 +360,99 @@ def test_build_docx_for_source_header_contains_entity():
     finally:
         if os.path.exists(out):
             os.unlink(out)
+
+
+# ── Tests for template-exact formatting ──────────────────────────────────────
+
+def test_col_widths_exact_twips():
+    """tblGrid trebuie să conțină exact lățimile din template (twips)."""
+    from docx.oxml.ns import qn
+    from shared.lista_oferta_writer import _COL_WIDTHS_TWIPS, _build_table_header
+    doc = Document()
+    tbl = doc.add_table(rows=2, cols=11)
+    _build_table_header(tbl)
+    tblGrid = tbl._tbl.find(qn('w:tblGrid'))
+    assert tblGrid is not None, "tblGrid missing"
+    widths = [int(gc.get(qn('w:w'))) for gc in tblGrid.findall(qn('w:gridCol'))]
+    assert widths == _COL_WIDTHS_TWIPS
+
+
+def test_suppress_table_borders_xml():
+    """_suppress_table_borders adaugă tblBorders cu toate laturile none."""
+    from docx.oxml.ns import qn
+    from shared.lista_oferta_writer import _suppress_table_borders
+    doc = Document()
+    tbl = doc.add_table(rows=2, cols=11)
+    tbl.style = "Table Grid"
+    _suppress_table_borders(tbl)
+    tblPr = tbl._tbl.find(qn('w:tblPr'))
+    borders = tblPr.find(qn('w:tblBorders'))
+    assert borders is not None, "tblBorders element missing"
+    for side in ('top', 'left', 'bottom', 'right', 'insideH', 'insideV'):
+        el = borders.find(qn(f'w:{side}'))
+        assert el is not None, f"missing border side: {side}"
+        assert el.get(qn('w:val')) == 'none', f"{side} val != none"
+
+
+def test_group_section_header_pipe_format():
+    """Paragraf grup: 'OBJ | OBL | CAT' — fara label, fara newlines."""
+    from shared.lista_oferta_writer import _write_group_section
+    doc = Document()
+    header = {"obiectivul": "PROIECT X", "obiectul": "25.4 CAV", "categoria": "1 Copertina"}
+    _write_group_section(doc, header, [], deviz_denumire="")
+    # Primul paragraf non-gol este header-ul grupului
+    para_texts = [p.text for p in doc.paragraphs if p.text.strip()]
+    assert len(para_texts) >= 1
+    title = para_texts[0]
+    assert title == "PROIECT X | 25.4 CAV | 1 Copertina"
+    assert "Obiectivul:" not in title
+    assert "\n" not in title
+
+
+def test_group_section_header_no_label():
+    """Daca obiectivul e numeric, foloseste deviz_denumire pipe-separat."""
+    from shared.lista_oferta_writer import _write_group_section
+    doc = Document()
+    header = {"obiectivul": "0232 000000232", "obiectul": "", "categoria": ""}
+    _write_group_section(doc, header, [], deviz_denumire="DRUMURI | Ob 1 | Str. X")
+    para_texts = [p.text for p in doc.paragraphs if p.text.strip()]
+    assert "DRUMURI" in para_texts[0]
+    assert "Obiectivul:" not in para_texts[0]
+
+
+def test_document_header_all_bold():
+    """Toate 4 linii din header document trebuie sa fie bold."""
+    holistic = {"matched_groups": [], "ref_only_groups": [], "oferta_only_groups": []}
+    out = tempfile.mktemp(suffix=".docx")
+    try:
+        build_docx_for_source(
+            holistic=holistic, source="oferta",
+            entity_name="TestOfertant", client_name="TestClient",
+            label="Oferta 1", output_path=out,
+        )
+        doc = Document(out)
+        header_paras = [p for p in doc.paragraphs if p.text.strip()][:4]
+        assert len(header_paras) == 4
+        for p in header_paras:
+            for run in p.runs:
+                assert run.bold, f"Run not bold in: {p.text!r}"
+    finally:
+        if os.path.exists(out): os.unlink(out)
+
+
+def test_document_margins_1_5cm():
+    """Margini document: 1.5cm toate laturile."""
+    from docx.shared import Cm
+    holistic = {"matched_groups": [], "ref_only_groups": [], "oferta_only_groups": []}
+    out = tempfile.mktemp(suffix=".docx")
+    try:
+        build_docx_for_source(
+            holistic=holistic, source="oferta",
+            entity_name="E", client_name="C", label="Oferta 1", output_path=out,
+        )
+        doc = Document(out)
+        s = doc.sections[0]
+        assert abs(s.top_margin - Cm(1.5)) < 1000, f"top_margin={s.top_margin}"
+        assert abs(s.bottom_margin - Cm(1.5)) < 1000, f"bottom_margin={s.bottom_margin}"
+    finally:
+        if os.path.exists(out): os.unlink(out)
