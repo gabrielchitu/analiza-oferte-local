@@ -49,12 +49,12 @@ COD_SIMPLE_LETTER_DIGITS_RE = re.compile(
 )
 # Cod breviar cu $ prefix
 COD_BREVIAR_RE = re.compile(r'^(\$[A-Z0-9]{4,})\s*[-–]\s*(.+)', re.IGNORECASE)
-# Cod numeric pur 4-8 cifre cu – şi descriere; acceptă @ suffix şi bracket suffix [1], [2], etc.
-# 4 cifre: utilaje breviar (1303, 2506); 8 cifre: materiale extinse (22000561)
+# Cod numeric pur 4-12 cifre cu – şi descriere; acceptă @ suffix şi bracket suffix [1], [2], etc.
+# 4 cifre: utilaje breviar (1303, 2506); 8 cifre: materiale extinse (22000561); 10 cifre: materiale eDevize (9002602798)
 # Exemple: "6715504 - Piesa..." sau "6715504[1] - Piesa..." sau "6715504@ - Piesa..."
 # IMPORTANT: (?!\d) negative lookahead ensures we match COMPLETE numeric codes, not substrings
 # of longer digit sequences (e.g., won't match "22121" in "22222121 - DESC")
-COD_NUMERIC_RE = re.compile(r'^(\d{4,9})(?!\d)(?:[@]|\[\d+\])?\s*[-–]\s*(.+)')
+COD_NUMERIC_RE = re.compile(r'^(\d{4,12})(?!\d)(?:[@]|\[\d+\])?\s*[-–]\s*(.+)')
 # Cod format: DIGIT-LETTER-DIGIT (ex: 00106B011, 001C012, 02012A1[1], 01003D) — articole cu cod mixt din breviar
 # Format: 3-5 cifre + 1 litera + 0-3 cifre (cifre finale optionale: 01003D, 01003B1 ambele valide)
 COD_DIGIT_LETTER_DIGIT_RE = re.compile(r'^(\d{3,5}[A-Z]\d{0,3})(?!\d)(?:\[\d+\])?\s*[-–]\s*(.+)', re.IGNORECASE)
