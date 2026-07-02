@@ -116,7 +116,7 @@ COD_NUMERIC_PIPE_RE = re.compile(
 # NR_CRT + COD NORMATIV pe aceeaşi linie, cu optional tokeni UM (ASIM, BUC. etc.)
 # Ex: "024 CK26A#" sau "002 TCB40A1 ASIM" sau "004 ATA01B ASIM BUC."
 NR_ALPHA_INLINE_RE = re.compile(
-    r'^(\d{1,3})[\s|]+([A-Z]{1,5}\d{1,4}[A-Z]{0,3}\d{0,2}[A-Z]{0,3}\d?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,2})\s*$',
+    r'^(\d{1,3})[\s|]+([A-Z]{1,6}\d{1,4}[A-Z]{0,3}\d{0,2}[A-Z]{0,3}\d?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,2})\s*$',
     re.IGNORECASE
 )
 # NR_CRT + COD NUMERIC pe aceeaşi linie (format referinţă deviz: "024 2200012" or "024|2200012")
@@ -227,8 +227,8 @@ SKIP_RE = re.compile(
 # Supports both space and pipe separators: "6 CA01J1" or "6|CA01J1"
 NR_COD_DESC_RE = re.compile(
     r'^(\d{1,3})[\s|]+'
-    r'([A-Z]{1,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?\d?'  # trailing \d? handles IC19XB1, TSA02F1 etc.
-    r'|[A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{2,4}[A-Z]?\d?'
+    r'([A-Z]{1,6}\d{1,4}[A-Z]?\d{0,2}[A-Z]?\d?'  # trailing \d? handles IC19XB1; {1,6} pt OCR TRIJAA08F2 (1→J)
+    r'|[A-Z]{2,5}\d{1,2}[A-Z]{1,3}\d{1,4}[A-Z]{0,2}\d{0,2}'  # {1,4}+{0,2}{0,2} pt OCR TRI1AA0BF2 (8→B)
     r'|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2}'
     r'|\d{3,5}[A-Z]\d{0,3}(?!\d)'  # digit-letter-digit (00106B011, 01311A1, 02012A1, 01003D)
     r'|[A-Z]{2,6}-\d+'  # letters-dash-digits: BAPC-16, SORT-10

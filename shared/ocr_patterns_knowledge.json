@@ -49,6 +49,14 @@
   {
    "from": "TRIJAA08F2",
    "to": "TRI1AA08F2"
+  },
+  {
+   "from": "TRI1AA0BF2",
+   "to": "TRI1AA08F2"
+  },
+  {
+   "from": "TRILAA08F2",
+   "to": "TRI1AA08F2"
   }
  ]
 }
