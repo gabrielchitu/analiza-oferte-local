@@ -20,7 +20,8 @@ logger = logging.getLogger(__name__)
 # Permite combinatii: '#' urmat opțional de ASIM/TSCH (ex: CG08A#ASIM)
 # Variant suffix: -1#, -2#, etc. (ex: SC07A-1#, SA14B-3#)
 # Paren suffix: (1), (2) — variante articol eDevize (ex: IZF13C1(1), IZF13C1(2))
-_COD_SUFFIX = r'(?:-\d+)?(?:#\d*|[>*@%^+]|\[\d*\]|[\[\]]\d*|\(\d+\))?(?:ASIM|TSCH)?[-]?'
+# Bracket suffix cu spatiu optional: 'CK09A1 [1]', 'IZF13C1 [2]' (Gura Foii referinta)
+_COD_SUFFIX = r'(?:-\d+)?(?:#\d*|[>*@%^+]|\s?\[\d*\]|[\[\]]\d*|\(\d+\))?(?:ASIM|TSCH)?[-]?'
 COD_NORM_RE = re.compile(
     r'^([A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?' + _COD_SUFFIX + r')\s*[-–]\s*(.+)',
     re.IGNORECASE
@@ -66,8 +67,9 @@ COD_DIGIT_LETTER_DIGIT_STANDALONE_RE = re.compile(
 )
 # Cod normativ SINGUR pe linie, cu opțional tokeni sufixe (ASIM, BUC. etc.) — max 3
 # Ex: "TCB40A1", "TCB40A1 ASIM", "IA37E1 ASIM BUC.", "YC01RON" (sufix 3 litere moneda)
+# Prefix pana la 6 litere: acopera OCR 1→J in interiorul prefixului (TRIJAA08F2 = TRI1AA08F2)
 COD_NORM_STANDALONE_RE = re.compile(
-    r'^([A-Z]{1,5}\d{1,4}[A-Z]{0,3}\d{0,2}[A-Z]{0,3}\d?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
+    r'^([A-Z]{1,6}\d{1,4}[A-Z]{0,3}\d{0,2}[A-Z]{0,3}\d?' + _COD_SUFFIX + r')((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
     re.IGNORECASE
 )
 # Cod extended SINGUR pe linie: TRI1AA08F1, TRI1AA01C2, TSC35XA1 (format: 2-5L + 1-2D + 1-3L + 1-4D + opt)
@@ -231,7 +233,7 @@ NR_COD_DESC_RE = re.compile(
     r'|\d{3,5}[A-Z]\d{0,3}(?!\d)'  # digit-letter-digit (00106B011, 01311A1, 02012A1, 01003D)
     r'|[A-Z]{2,6}-\d+'  # letters-dash-digits: BAPC-16, SORT-10
     r'|(?:\d{4,9})(?!\d)(?:[@]|\[\d+\])?)'  # Numeric code with negative lookahead
-    r'(?:#\d*|[>*@%^+]|\[\d*\]|\(\d+\)|ASIM|TSCH){0,2}[-]?\s*[-–]\s*(.+)$',
+    r'(?:#\d*|[>*@%^+]|\s?\[\d*\]|\(\d+\)|ASIM|TSCH){0,2}[-]?\s*[-–]\s*(.+)$',
     re.IGNORECASE
 )
 # NR_CRT directly concatenated with CODE (no separator): "3CF41B01* - Tencuiala..."
@@ -1640,6 +1642,15 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 if (m_ai or m_si) and cod and um == '' and _is_valid_um(_candidate_cod):
                     um = _normalize_um_value(_candidate_cod)
                     continue
+                # Guard: "15 B330" — cod candidat e spec tehnica (marca beton/DN/PN) si articolul
+                # curent e incomplet (fara UM/cantitate) → e continuare de descriere ruptă de OCR
+                # ('DISTANTE PINA LA' + '15 B330'), NU articol nou. Finalizarea aici ar lasa
+                # articolul curent fara UM/cant (Gura Foii O1: CA07D1 pierdea M.C./55.000).
+                if ((m_ai or m_si) and cod and um == '' and cantitate == 0.0 and denumire_parts
+                        and re.match(r'^(?:[A-Z]{1,2}\d{2}|[A-Z]\d{3,5})$', _candidate_cod)
+                        and not re.match(r'^Y[A-Z]\d', _candidate_cod)):
+                    denumire_parts.append(line)
+                    continue
                 _finalize()
                 last_nr_crt = int(m.group(1))
                 if last_nr_crt == current_parent_nr and current_parent_nr > 0:
@@ -1797,6 +1808,16 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                         COD_NORM_EXTENDED_STANDALONE_RE.match(line_norm) or
                         COD_NORM_SINGLE_STANDALONE_RE.match(line_norm) or
                         COD_MATERIAL_SPEC_STANDALONE_RE.match(line_norm))
+            # Guard: marca de material standalone ('BST500S' otel, 'B330' beton) intre
+            # descriere si UM, cu articolul curent INCOMPLET (fara UM/cant) → e fragment
+            # de denumire rupt de OCR, nu articol nou. Finalizarea aici lasa articolul
+            # curent fara UM/cant si muta cantitatea pe un articol fals (Gura Foii O1).
+            if (parsed_cod and cod and um == '' and cantitate == 0.0 and denumire_parts
+                    and re.match(r'^[A-Z]{1,3}\d{2,4}[A-Z]?$', line_norm)
+                    and not re.match(r'^Y[A-Z]\d', line_norm)
+                    and line_idx + 1 < len(lines) and _is_valid_um(lines[line_idx + 1].strip())):
+                denumire_parts.append(line)
+                continue
             if parsed_cod and not _numeric_den and (um != '' or cantitate != 0.0 or is_strong) and (
                     COD_NUMERIC_RE.match(line) or COD_NORM_RE.match(line)
                     or COD_NORM_EXTENDED_RE.match(line) or COD_BREVIAR_RE.match(line)
