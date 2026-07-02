@@ -1995,6 +1995,22 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
     if state == _READING:
         _finalize()
 
+    # Reparare OCR nr_ordine: format zero-padded '008' citit ca '800' (transpozitie cifre).
+    # Repara doar cand valoarea este exact succesorul_asteptat*100 (7 → '800' → 8);
+    # nr legitim 100/200 dupa 99/199 nu declanseaza (99+1=100 != 100//100).
+    _prev_main_nr = None
+    for art in articole:
+        if art.get('is_component'):
+            continue
+        nr = art.get('nr_ordine')
+        if (isinstance(nr, int) and _prev_main_nr is not None
+                and nr >= 100 and nr % 100 == 0
+                and nr // 100 == _prev_main_nr + 1):
+            art['nr_ordine'] = _prev_main_nr + 1
+            logger.info(f"[OCR-NR] {deviz_cod}: nr_ordine {nr} reparat → {_prev_main_nr + 1} (transpozitie zero-padded)")
+        if isinstance(art.get('nr_ordine'), int):
+            _prev_main_nr = art['nr_ordine']
+
     # Deduplication: remove articles where code is suffix of another (e.g., $0853 vs $2100853)
     # Same deviz, cantitate, UM but different codes → keep longest code
     articole_before = len(articole)
