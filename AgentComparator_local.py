@@ -362,8 +362,9 @@ def match_global(
             oferta_articole_valid.append(a)
     oferta_articole = oferta_articole_valid
 
-    # Deduplicate by 4-tuple (deviz, cod, um, cantitate) before matching
+    # Deduplicate by 5-tuple (deviz, nr_ordine, cod, um, cantitate) before matching
     # If same article appears multiple times with identical values, keep first occurrence
+    # nr_ordine in cheie: articole distincte pot avea acelasi cod+um+cant (CK09A1 nr=23/24 Gura Foii)
     # Filtreaza artefactele breviar: cantitate=0 cu UM gol sau majuscule (template/header)
     def _is_breviar_artifact(a: dict) -> bool:
         cant = a.get("cantitate") or 0
@@ -374,7 +375,7 @@ def match_global(
     ref_dedup = []
     for a in ref_articole:
         if a.get("cod") and not a.get("is_component") and not _is_breviar_artifact(a):
-            key = (a.get("deviz"), a.get("cod"), a.get("um"), a.get("cantitate"))
+            key = (a.get("deviz"), a.get("nr_ordine"), a.get("cod"), a.get("um"), a.get("cantitate"))
             if key not in ref_seen:
                 ref_dedup.append(a)
                 ref_seen[key] = True
@@ -386,7 +387,7 @@ def match_global(
         # when a standalone article with the same cod exists — they pollute oferta_by_key and
         # cause Layer 2 N:M zip to pair ref with the phantom instead of the real article.
         if a.get("cod") and not _is_breviar_artifact(a) and not a.get("cant_mostenita"):
-            key = (a.get("deviz"), a.get("cod"), a.get("um"), a.get("cantitate"))
+            key = (a.get("deviz"), a.get("nr_ordine"), a.get("cod"), a.get("um"), a.get("cantitate"))
             if key not in oferta_seen:
                 oferta_dedup.append(a)
                 oferta_seen[key] = True
