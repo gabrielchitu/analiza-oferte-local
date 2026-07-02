@@ -249,6 +249,10 @@ NR_COD_CONCAT_RE = re.compile(
 )
 # Etichete de sectiune pret in format eDevize — NU sunt denumire articol
 _PRICE_LABEL_RE = re.compile(r'^(material|manopera|utilaj|transport)\s*:', re.IGNORECASE)
+# Cuvinte de descriere care arata ca un cod normativ dar NU sunt articole:
+# 'GRUP1-3 DISTANTA 40M' (grupa de greutate 1-3) — GRUP1 matchuia [A-Z]{4}\d si
+# rupea descrierea / genera articol fals GRUP1 (Gura Foii TRB01C14).
+_NOT_CODE_WORD_RE = re.compile(r'^GRUPA?\d', re.IGNORECASE)
 
 UM_KNOWN = {
     # Volum / masa / lungime
@@ -621,9 +625,11 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
                 if re.match(r'^\d{1,4}\s+(?:[A-Z]{1,5}\d|\d{4,})', desc_line):
                     break
                 # Stop at next code pattern (conservative check)
-                if (re.match(r'^[A-Z]{1,5}\d{1,4}', desc_line, re.IGNORECASE) or
-                        re.match(r'^(\$[A-Z0-9]{4,})', desc_line, re.IGNORECASE) or
-                        re.match(r'^(\d{4,9})(?!\d)', desc_line)):
+                # Exceptie: cuvinte de descriere care arata ca un cod (GRUP1-3, GRUPA2)
+                if (not _NOT_CODE_WORD_RE.match(desc_line)
+                        and (re.match(r'^[A-Z]{1,5}\d{1,4}', desc_line, re.IGNORECASE)
+                             or re.match(r'^(\$[A-Z0-9]{4,})', desc_line, re.IGNORECASE)
+                             or re.match(r'^(\d{4,9})(?!\d)', desc_line))):
                     break
                 # Stop at price labels or footer lines — prevents last-on-page articles
                 # from absorbing footer content and getting skipped by SKIP_RE
@@ -683,9 +689,10 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
                 # Stop at NR+COD inline format: "002 2000068", "004 DF19A1"
                 if re.match(r'^\d{1,4}\s+(?:[A-Z]{1,5}\d|\d{4,})', candidate):
                     break
-                if (re.match(r'^[A-Z]{1,5}\d{1,4}', candidate, re.IGNORECASE) or
-                        re.match(r'^(\$[A-Z0-9]{4,})', candidate, re.IGNORECASE) or
-                        re.match(r'^(\d{4,9})(?!\d)', candidate)):
+                if (not _NOT_CODE_WORD_RE.match(candidate)
+                        and (re.match(r'^[A-Z]{1,5}\d{1,4}', candidate, re.IGNORECASE)
+                             or re.match(r'^(\$[A-Z0-9]{4,})', candidate, re.IGNORECASE)
+                             or re.match(r'^(\d{4,9})(?!\d)', candidate))):
                     break
                 if _PRICE_LABEL_RE.match(candidate) or (candidate and SKIP_RE.search(candidate)):
                     break
@@ -991,6 +998,10 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
     Returns:
         Lista de articole în formatul standard (compatibil AgentComparator).
     """
+    # Normalizare OCR simboluri valutare: '₽' citit in loc de 'P' in coduri
+    # (Gura Foii O2: 'TRA01A10₽' — codul nu se recunostea si articolul urmator
+    # era absorbit in denumirea precedentului)
+    lines = [l.replace('₽', 'P') for l in lines]
     # Merge split L: sub-component lines (CM format: alpha code + continuation on next line)
     # Must run before _DEVIZ_RESOURCE_RE to avoid the continuation being pre-converted
     lines = _merge_split_l_lines(lines)
@@ -1039,6 +1050,9 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # Skip token UM capturat gresit ca cod (BUC, MC, MP etc.)
             elif cod.upper() in UM_KNOWN:
                 logger.debug(f"[PARSER] Skip UM capturat ca cod: {cod}")
+            # Skip cuvinte de descriere cod-like (GRUP1 din 'GRUP1-3 DISTANTA 40M')
+            elif _NOT_CODE_WORD_RE.match(cod):
+                logger.debug(f"[PARSER] Skip cuvant descriere cod-like: {cod}")
             # Skip coduri de specificatii tehnice: DN32, PN10, S474, S7064, N1080 etc.
             # Acestea sunt fragmente din denominatia articolului precedent splituite de OCR.
             # Pattern restrâns: 1-2 litere + EXACT 2 cifre (DN32, PN10) SAU 1 litera + 3-5 cifre (S474, S7064).
@@ -1841,7 +1855,11 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             if not um and _is_valid_um(line):
                 um_candidate = re.sub(r'[\.\s]', '', line.strip()).upper()
                 if um_candidate == 'KM':
-                    continue  # Skip distance specifications
+                    # Specificatie de distanta ('DIST = 20' + 'KM' pe linia urmatoare) —
+                    # nu e UM, dar apartine denumirii; aruncata, denumirea pierdea unitatea
+                    # si aparea fals DIFERENTA_PARAMETRU (TRA01A20 Gura Foii)
+                    denumire_parts.append(line.strip())
+                    continue
                 # Skip single-letter UM if next line is also valid UM (e.g., "G" followed by "M")
                 if len(um_candidate) == 1 and line_idx + 1 < len(lines):
                     next_line = lines[line_idx + 1].strip().upper()

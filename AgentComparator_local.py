@@ -244,8 +244,10 @@ def _art_key(art: dict) -> tuple:
 # ── DIFERENTA_PARAMETRU detection ────────────────────────────────────────────
 # Matches correct business-wise (same article) but with different numeric
 # parameters in the denomination (distance, height, capacity, etc.).
+# '\s*(?:-\s*)?' intre numar si unitate: line-join-ul introduce ' - ' in denumiri
+# ('de 3' + 'mm grosime' → 'de 3 - mm grosime') si parametrul nu se mai extragea
 _PARAM_RE = re.compile(
-    r'\b(\d+(?:[.,]\s*\d+)?)\s*'
+    r'\b(\d+(?:[.,]\s*\d+)?)\s*(?:-\s*)?'
     r'(km|mc|mp|ml|m[23]?|cm|mm|kw[ah]?|kva|kn|bar|mpa|tone?|tona|t|l)\b',
     re.IGNORECASE,
 )
