@@ -82,6 +82,13 @@ _DEVIZ_OFERTA_RE = re.compile(
     r'Deviz\s+[Oo]ferta\s+([A-Z0-9]{5,8})',
     re.IGNORECASE
 )
+# Tier 1b: "Deviz oferta DENUMIRE TEXT" — denumire pura, FARA cod (Gura Foii referinta).
+# Fara asta, _DEVIZ_OFERTA_RE taie primele 8 litere din denumire ('INSTALATII...' → 'INSTALAT')
+# → 7 devize diferite primesc acelasi cod → prefix match imperecheaza arbitrar.
+_DEVIZ_OFERTA_TEXT_RE = re.compile(
+    r'Deviz\s+[Oo]ferta\s+([A-Z][A-Z\s]{3,59}?)\s*(?=Categoria|Lista\s+cu|Nr\.|Formular|$)',
+    re.IGNORECASE
+)
 
 # Tier 2a: Extract Obiectul (Object/Section number)
 # Patterns: "Obiectul: 4.1 Cladire camin", "Obiectul: 0002 VESTIAR TEREN"
@@ -219,14 +226,28 @@ def _extract_grouping_key(lines: list[str], deviz_text_map: dict = None, referen
     full = " ".join(lines)
 
     # Priority 1: Explicit 'Deviz Oferta XXXXX' (5-8 alphanum chars)
+    # Doar tokeni cu cel putin o cifra sunt coduri reale (226238, ZO0001);
+    # tokenii pur-alfabetici sunt prefixe de denumire trunchiate → Tier 1b
     m = _DEVIZ_OFERTA_RE.search(full)
-    if m:
+    if m and re.search(r'\d', m.group(1)):
         return {
             "method": "explicit",
             "deviz_cod": m.group(1).upper(),
             "obiectul": None,
             "categoria": None,
         }
+
+    # Priority 1b: 'Deviz oferta DENUMIRE' fara cod — denumirea completa e cheia de grup
+    m_txt = _DEVIZ_OFERTA_TEXT_RE.search(full)
+    if m_txt:
+        den = ' '.join(m_txt.group(1).upper().split())
+        if len(den) >= 4:
+            return {
+                "method": "explicit",
+                "deviz_cod": den,
+                "obiectul": None,
+                "categoria": None,
+            }
 
     # Priority 2 + 3: Try Obiectul + Categoria with optional numeric prefix
     m_obj = _OBIECTUL_OPT_RE.search(full)
@@ -660,7 +681,6 @@ def build_page_classifications(
 
         else:  # AMBIGUOUS
             # Pagina ambiguă → trimitem la LLM
-            # Reset propagare — nu știm ce urmează
             results.append({
                 **base,
                 "is_f3": False,  # default, LLM poate schimba
@@ -668,8 +688,14 @@ def build_page_classifications(
                 "deviz_den": current_deviz_den,
                 "needs_llm": True,
             })
-            current_deviz_cod = ""
-            current_deviz_den = ""
+            # Reset propagare DOAR daca pagina nu arata ca o continuare de tabel F3.
+            # Paginile de continuare (fara header, doar '010 RPCT26A1' + articole) sunt
+            # AMBIGUOUS local; resetarea le orfana pe toate cele urmatoare din acelasi
+            # deviz si articolele lor se pierd (Gura Foii ref: devize pe 5-7 pagini).
+            _head = " ".join(lines[:20])
+            if not _ARTICLE_CODE_RE.search(_head):
+                current_deviz_cod = ""
+                current_deviz_den = ""
 
     # Build and return checkpoint data alongside results
     # (checkpoint will be saved by caller)

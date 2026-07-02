@@ -863,14 +863,15 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
     # - Numeric codes: "226108", "07", "19"
     # - Compound codes: "4.1-01", "4.3-02"
     # - Word codes: "CAMIN", "CAMINE" (Obiectul names from new format documents)
-    # Reject only: very long codes (>20 chars = likely OCR garbage)
+    # - Full denomination keys: "INSTALATII SANITARE INTERIOARE" (Gura Foii ref, deviz fara cod)
+    # Reject only: very long codes (>40 chars = likely OCR garbage)
     invalid_deviz = []
     articles_filtered = []
     for art in articles:
         deviz = art.get("deviz", "")
-        # Valid deviz: non-empty, 2-20 chars (covers all legitimate formats)
+        # Valid deviz: non-empty, 2-40 chars (covers all legitimate formats incl. denumiri complete)
         # The parser already did most filtering, so we're mainly rejecting obvious OCR garbage
-        if deviz and len(deviz) >= 2 and len(deviz) <= 20:
+        if deviz and len(deviz) >= 2 and len(deviz) <= 40:
             articles_filtered.append(art)
         else:
             invalid_deviz.append(deviz)

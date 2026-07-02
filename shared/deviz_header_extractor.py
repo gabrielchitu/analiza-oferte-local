@@ -32,6 +32,14 @@ _DEVIZ_OFERTA_LETTERED_RE = re.compile(
     r'Deviz\s+oferta\s+([A-Z0-9]{3,8})\s+(.+?)(?:\s+Categoria|\s+Lista\s+cu|\s+Nr\.|$)',
     re.IGNORECASE
 )
+# "Deviz oferta INSTALATII SANITARE INTERIOARE" (Gura Foii ref) — denumire pura, FARA cod.
+# Fallback cand pattern-ul lettered nu se aplica (primul cuvant >8 caractere, ex. INFRASTRUCTURA).
+# Fara el, categoria cade pe "Categoria de lucrari:" gol → junk din headerul tabelului
+# ("= NR. SIMBOL ART. CANTITATE") → toate devizele unui obiect colapseaza intr-un singur grup.
+_DEVIZ_OFERTA_PLAIN_RE = re.compile(
+    r'Deviz\s+oferta\s+(.+?)(?:\s+Categoria|\s+Lista\s+cu|\s+Nr\.|$)',
+    re.IGNORECASE
+)
 # Structural lines that should not be merged into obiectivul/obiectul values
 _STRUCT_LINES = frozenset([
     'formularul f3', 'lista cu cantitatile de lucrari', 'lista de cantitati',
@@ -150,6 +158,11 @@ def _extract_from_lines(
     if m_dt:
         # DT format: use "CODE denomination" as categoria
         categoria = f"{m_dt.group(1).upper()} {m_dt.group(2).strip()}"
+    else:
+        # Gura Foii ref format: "Deviz oferta DENUMIRE" fara cod — denumirea e categoria
+        m_plain = _DEVIZ_OFERTA_PLAIN_RE.search(full_joined)
+        if m_plain:
+            categoria = m_plain.group(1).strip()
 
     for i, line in enumerate(lines):
         s = line.strip()

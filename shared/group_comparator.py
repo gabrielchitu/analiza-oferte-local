@@ -320,11 +320,13 @@ def _deviz_cod_prefix_match(
             # Normalize offer CATEGORIA before prefix check:
             # - Strip "oferta " (ISDP format: "Deviz oferta 226108...")
             # - Strip leading page-number prefix like "001 " (eDevize multi-doc format)
+            # - Strip short deviz-code prefix like "GF06 " (Gura Foii O2: "GF06 INSTALATII SANITARE...")
             import re as _re
             cat = oh.categoria.strip()
             if cat.lower().startswith("oferta "):
                 cat = cat[7:].strip()
             cat = _re.sub(r'^\d{1,3}\s+', '', cat)
+            cat = _re.sub(r'^[A-Z]{1,3}\d{1,4}\s+', '', cat)
             if cat.startswith(cod):
                 result.append((ref_key, oferta_key))
                 matched_ref.add(ref_key)
