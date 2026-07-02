@@ -785,6 +785,51 @@ def compare_by_groups(
             ]
         _save_knowledge(client_name, _new_llm_pairs)
 
+    # Phase 2.6: knowledge N:1 merge — perechi din knowledge al caror ref e DEJA matchuit
+    # (referinta agregata pe un singur deviz mare vs oferta detaliata pe multe devize,
+    # ex. Gura Foii: ref "1 CONSTRUCTII SI INSTALATII" 282 articole vs 11-12 devize oferta).
+    # Articolele grupului oferta se contopesc in grupul matchuit existent si se re-compara.
+    remaining_oferta_keys = oferta_cods - matched_oferta_cods
+    if remaining_oferta_keys:
+        merge_pairs = _apply_knowledge(
+            ref_cods, remaining_oferta_keys,
+            ref_deviz_headers, oferta_deviz_headers, client_name,
+        )
+        from collections import defaultdict as _dd
+        _merge_by_ref: dict = _dd(list)
+        for ref_key, oferta_key in merge_pairs:
+            if oferta_key not in matched_oferta_cods:
+                _merge_by_ref[ref_key].append(oferta_key)
+        for ref_key, oferta_keys in _merge_by_ref.items():
+            mg = next((g for g in result.matched_groups if g["ref_deviz_cod"] == ref_key), None)
+            if mg is None:
+                continue
+            # Concat simplu, fara dedup cross-grup: acelasi cod+cant in devize diferite
+            # e legitim (transport, organizare) si ref agregat le listeaza separat
+            merged_oferta = list(mg["oferta_articles"])
+            for ok in oferta_keys:
+                merged_oferta.extend(_dedup_articles(oferta_by_deviz.get(ok, [])))
+            ncs_m, matches_m = _compare_articles_in_group(
+                mg["ref_articles"], merged_oferta, ref_key, _eff_llm_client, _eff_llm_model,
+                semantic_cache=_semantic_cache,
+            )
+            den_m = mg.get("deviz_denumire", "")
+            for nc in ncs_m:
+                nc["deviz_denumire"] = den_m
+            mg["oferta_articles"] = merged_oferta
+            mg["neconformitati"] = ncs_m
+            mg["matches"] = matches_m
+            mg["oferta_deviz_cods_merged"] = [mg["oferta_deviz_cod"]] + oferta_keys
+            for ok in oferta_keys:
+                matched_oferta_cods.add(ok)
+                _trace_matched.append({
+                    "ref_key": ref_key, "oferta_key": ok,
+                    "match_type": "knowledge_merge",
+                    "ref_den": _den_string(ref_deviz_headers.get(ref_key)),
+                    "oferta_den": _den_string(oferta_deviz_headers.get(ok)),
+                })
+            logger.info(f"[GC] Knowledge merge (N:1): {len(oferta_keys)} grupuri oferta → ref {ref_key}")
+
     # Ref-only → LIPSA
     for ref_cod in sorted(ref_cods - matched_ref_cods):
         arts = ref_by_deviz.get(ref_cod, [])
