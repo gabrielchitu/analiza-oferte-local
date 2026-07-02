@@ -366,11 +366,15 @@ def _articles_by_deviz(articles: list, unassigned_out: list | None = None) -> di
 
 
 def _dedup_articles(arts: list) -> list:
-    """Remove duplicate articles with identical (cod, um, cantitate) within a group."""
+    """Remove duplicate articles with identical (nr_ordine, cod, um, cantitate) within a group.
+
+    nr_ordine face parte din cheie: articole distincte pot avea acelasi cod normativ
+    cu um+cantitate identice (ex: CK09A1 GLAFURI LEMN INT. nr=23 vs TABLA EXT. nr=24);
+    devizele duplicate integral (BLC7) dubleaza si nr_ordine, deci raman dedupate."""
     seen = {}
     result = []
     for a in arts:
-        key = (a.get("cod", ""), a.get("um", ""), a.get("cantitate", 0))
+        key = (a.get("nr_ordine"), a.get("cod", ""), a.get("um", ""), a.get("cantitate", 0))
         if key not in seen:
             seen[key] = True
             result.append(a)
