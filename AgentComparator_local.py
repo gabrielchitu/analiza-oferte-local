@@ -253,7 +253,14 @@ _PARAM_RE = re.compile(
 
 def _extract_param_pairs(text: str) -> frozenset:
     result = set()
-    for m in _PARAM_RE.finditer(text or ''):
+    text = text or ''
+    # OCR: litera 'o'/'O' citita in loc de cifra '0' in context numeric.
+    # 'h < 30, om' → 'h < 30, 0m' (zecimala) si '3o' → '30' (dupa cifra).
+    # Fara asta, parametrul nu se extrage si apare fals DIFERENTA_PARAMETRU
+    # (Gura Foii: CB47A1 'h<30,0m' ref vs 'h < 30, om' oferta).
+    text = re.sub(r'(\d\s*[.,]\s*)[oO](?=(?:m[23]?|cm|mm|km|ml|l|t)\b)', r'\g<1>0', text)
+    text = re.sub(r'(?<=\d)[oO](?=[\s.,]|\d|$)', '0', text)
+    for m in _PARAM_RE.finditer(text):
         # Strip spaces introduced by OCR between decimal digits (e.g. "1, 25" → 1.25)
         val = float(m.group(1).replace(',', '.').replace(' ', ''))
         unit = m.group(2).lower()
