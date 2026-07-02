@@ -828,14 +828,16 @@ def extract_document(di_path: Path, client, model: str, ref_deviz_groups: list |
                     "categoria": dh.categoria,
                 }
 
-    # Deduplicate by 4-tuple: (deviz_key, cod, um, cantitate)
+    # Deduplicate by 5-tuple: (deviz_key, nr_ordine, cod, um, cantitate)
     # deviz_key (hash) is the canonical group identifier — same cod/qty in different
     # logical groups (e.g. "3 ORGANIZARE SANTIER|BLC7" vs "4 ORGANIZARE SANTIER|BLC7")
     # must NOT be merged even when deviz_cod string is identical.
+    # nr_ordine in cheie: articole distincte pot avea acelasi cod+um+cant in acelasi deviz
+    # (CK09A1 GLAFURI LEMN INT. nr=23 vs TABLA EXT. nr=24 — Gura Foii O1).
     seen_4tuple = {}
     deduped = []
     for art in articles:
-        key = (art.get("deviz_key") or art.get("deviz"), art.get("cod"), art.get("um"), art.get("cantitate"))
+        key = (art.get("deviz_key") or art.get("deviz"), art.get("nr_ordine"), art.get("cod"), art.get("um"), art.get("cantitate"))
         if key not in seen_4tuple:
             deduped.append(art)
             seen_4tuple[key] = True
