@@ -15,11 +15,12 @@ logger = logging.getLogger(__name__)
 # ── Regex-uri ────────────────────────────────────────────────────────────────
 
 # Cod normativ: TSC35A22, SA14B#, RPCE26C1, CA02A1 etc. (cu – şi descriere)
-# Sufixe acceptate: # > * @ % ^ + și [1] [2] ]1, variant suffixes (-1#, -2#), cu optional - trailing
+# Sufixe acceptate: # > * @ % ^ + și [1] [2] ]1 (1) (2), variant suffixes (-1#, -2#), cu optional - trailing
 # Include si sufixe designator normativ: ASIM, TSCH (TCB40B1ASIM, CG08A#ASIM)
 # Permite combinatii: '#' urmat opțional de ASIM/TSCH (ex: CG08A#ASIM)
 # Variant suffix: -1#, -2#, etc. (ex: SC07A-1#, SA14B-3#)
-_COD_SUFFIX = r'(?:-\d+)?(?:#\d*|[>*@%^+]|\[\d*\]|[\[\]]\d*)?(?:ASIM|TSCH)?[-]?'
+# Paren suffix: (1), (2) — variante articol eDevize (ex: IZF13C1(1), IZF13C1(2))
+_COD_SUFFIX = r'(?:-\d+)?(?:#\d*|[>*@%^+]|\[\d*\]|[\[\]]\d*|\(\d+\))?(?:ASIM|TSCH)?[-]?'
 COD_NORM_RE = re.compile(
     r'^([A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?' + _COD_SUFFIX + r')\s*[-–]\s*(.+)',
     re.IGNORECASE
@@ -230,7 +231,7 @@ NR_COD_DESC_RE = re.compile(
     r'|\d{3,5}[A-Z]\d{0,3}(?!\d)'  # digit-letter-digit (00106B011, 01311A1, 02012A1, 01003D)
     r'|[A-Z]{2,6}-\d+'  # letters-dash-digits: BAPC-16, SORT-10
     r'|(?:\d{4,9})(?!\d)(?:[@]|\[\d+\])?)'  # Numeric code with negative lookahead
-    r'(?:#\d*|[>*@%^+]|\[\d*\]|ASIM|TSCH){0,2}[-]?\s*[-–]\s*(.+)$',
+    r'(?:#\d*|[>*@%^+]|\[\d*\]|\(\d+\)|ASIM|TSCH){0,2}[-]?\s*[-–]\s*(.+)$',
     re.IGNORECASE
 )
 # NR_CRT directly concatenated with CODE (no separator): "3CF41B01* - Tencuiala..."
