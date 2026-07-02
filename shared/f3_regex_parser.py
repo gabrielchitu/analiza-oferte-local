@@ -161,7 +161,7 @@ DOT_L_RE = re.compile(r'^\.L\s*$', re.IGNORECASE)
 # (?!\d) negative lookahead prevents matching substrings of longer digit sequences
 COD_NUMERIC_BARE_RE = re.compile(r'^(\d{4,9})(?!\d)\s*$')  # 4+ cifre: NR_CRT e max 3 cifre, deci 4 = breviar
 # UM: token scurt alfabetic
-UM_RE = re.compile(r'^([A-Z]{1,6})\.?$', re.IGNORECASE)
+UM_RE = re.compile(r'^([A-Z]{1,6})[.,]?$', re.IGNORECASE)  # [.,] — OCR citeste punctul final ca virgula ('MP,')
 # Cantitate cu zecimale — include format cu separator mii și valori negative.
 # Include si N.DDD (ex: 480.000 = 480.0) — format cu 3 zecimale zero frecvent in devize.
 CANT_DECIMAL_RE = re.compile(r'^-?(?:\d{1,10}(?:[.,]\d{3})*[,.]\d{1,6}|\d{1,10}[.,]\d{1,3})$')
@@ -342,7 +342,7 @@ def _is_valid_um(token: str) -> bool:
     if 'm²' in token_lower or 'm2' in token_lower:
         return True
 
-    t = re.sub(r'[\.\s]', '', token.strip()).upper()
+    t = re.sub(r'[\.,\s]', '', token.strip()).upper()
     if not t:
         return False
     if t in UM_SKIP:
@@ -371,12 +371,13 @@ def _is_valid_um(token: str) -> bool:
 
 def _normalize_um_value(token: str) -> str:
     """Return the canonical UM value, handling OCR corruption and normalization."""
-    t = re.sub(r'[\.\s]', '', token.strip()).upper()
+    t = re.sub(r'[\.,\s]', '', token.strip()).upper()
     if not t:
         return ''
 
     # Handle multi-word UM and special symbols before stripping
-    token_lower = token.lower().strip()
+    # (strip si punctuatia finala — 'MP,' trebuie tratat identic cu 'MP')
+    token_lower = token.lower().strip().rstrip('.,').strip()
     if token_lower in ('m cub', 'm3', 'm cu b'):
         return 'mc'
     if token_lower in ('mp', 'm²', 'm2'):
