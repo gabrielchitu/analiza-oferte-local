@@ -478,7 +478,10 @@ def classify_page_local(page: dict, deviz_text_map: dict = None, reference_artic
 
     # Special guard: Formular F3 with no key AND no article codes
     # = eDevize signature/footer page (e.g., 'Deviz "07" - Formular F3')
-    if key["method"] == "none" and not _has_article_codes(full):
+    # Exceptie: listing cu coduri PUR NUMERICE pe linii proprii (Naipu: '5709072'
+    # radiatoare/echipamente) — _has_article_codes cere litere si nu le vede.
+    _numeric_listing = len(re.findall(r'^\d{6,8}$', "\n".join(lines), re.MULTILINE)) >= 3
+    if key["method"] == "none" and not _has_article_codes(full) and not _numeric_listing:
         return _non_f3()
 
     deviz_den = ""
