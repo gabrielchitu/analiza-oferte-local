@@ -847,16 +847,28 @@ def extract_articles_v3(page_classifications: list) -> list:
             if not cuts:
                 out.append(pc)
                 continue
+
+            # f3_line_end e in coordonate de pagina intreaga — remapat per segment:
+            # cade in segment → index relativ; inainte/dupa segment → None (continutul
+            # segmentelor urmatoare e deviz NOU, valid dupa end-marker-ul precedentului).
+            f3_end = pc.get("f3_line_end")
+
+            def _seg(start: int, stop: int) -> dict:
+                seg = dict(pc)
+                seg["lines"] = lines[start:stop]
+                seg.pop("f3_restart_line", None)
+                if f3_end is not None and start <= f3_end < stop:
+                    seg["f3_line_end"] = f3_end - start
+                else:
+                    seg["f3_line_end"] = None
+                return seg
+
             prev = 0
             for cut in cuts:
                 if cut > prev:
-                    seg = dict(pc)
-                    seg["lines"] = lines[prev:cut]
-                    out.append(seg)
+                    out.append(_seg(prev, cut))
                 prev = cut
-            seg = dict(pc)
-            seg["lines"] = lines[prev:]
-            out.append(seg)
+            out.append(_seg(prev, len(lines)))
         return out
 
     page_classifications = _split_midpage_devize(page_classifications)
