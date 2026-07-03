@@ -1865,6 +1865,14 @@
     {
       "ref_den": "104 SCOALA GHIMPATI, JUD.GIURGIU | 6 ORGANIZARE DE SANTIER | 1 OS",
       "oferta_den": "104 SCOALA GHIMPATI, JUD.GIURGIU | 6 ORGANIZARE SANTIER | 01 ORG SANTIER"
+    },
+    {
+      "ref_den": "104 SCOALA GHIMPATI, JUD.GIURGIU | 1 CLADIRE SCOALA EXTINDERE | 5 canalizare apa pluviala",
+      "oferta_den": "104 SCOALA GHIMPATI, JUD.GIURGIU | Cladire scoala extindere Instalatii - Canalizare apa pluviala"
+    },
+    {
+      "ref_den": "104 SCOALA GHIMPATI, JUD.GIURGIU | 1 CLADIRE SCOALA EXTINDERE | 10 hidranti interiori",
+      "oferta_den": "104 SCOALA GHIMPATI, JUD.GIURGIU | Cladire scoala extindere Instalatii - Hidranti interiori"
     }
   ]
 }
