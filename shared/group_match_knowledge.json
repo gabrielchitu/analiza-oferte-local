@@ -1800,5 +1800,19 @@
       "ref_den": "0021 Drumuri Tatarani | 0002 Strada Branii | 0003 Piatra sparta 12cm 23,57smp",
       "oferta_den": "0050 45230000 | 0002 45230000 | BR003 PIATRA SPARTA 12CM 23.57SMP"
     }
+  ],
+  "Naipu": [
+    {
+      "ref_den": "104 SCOALA GHIMPATI, JUD.GIURGIU | 6 ORGANIZARE DE SANTIER | 1 OS",
+      "oferta_den": "104 SCOALA GHIMPATI, JUD.GIURGIU | Organizare de santier | Organizare de santier"
+    },
+    {
+      "ref_den": "104 SCOALA GHIMPATI, JUD.GIURGIU | 1 CLADIRE SCOALA EXTINDERE | 2 AMENJ. EXTER.+SISTEMATIZARE",
+      "oferta_den": "104 SCOALA GHIMPATI, JUD.GIURGIU | Cladire scoala extindere | Amenaj ext+Sistematizare"
+    },
+    {
+      "ref_den": "104 SCOALA GHIMPATI, JUD.GIURGIU | 1 CLADIRE SCOALA EXTINDERE | 15 instalatii date-voce",
+      "oferta_den": "104 SCOALA GHIMPATI, JUD.GIURGIU | Cladire scoala extindere | Instalatii date - voce"
+    }
   ]
 }

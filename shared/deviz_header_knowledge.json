@@ -6633,5 +6633,570 @@
     "obiectivul": "REABILITARE SCOALA GURA FOII PRIN",
     "obiectul": "1 CONSTRUCTII SI INSTALATII",
     "categoria": "SUPRASTRUCTURA NEELIGIBIL"
+  },
+  "159832cb4e89e37d": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "1 ARHITECTURA"
+  },
+  "41967266696e04a5": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "10 hidranti interiori"
+  },
+  "abce50062b82ebf2": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "11 instalatii termice"
+  },
+  "67db1b2a92e347e3": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "12 instalatii in centrala termica"
+  },
+  "75b6ad3d5572250b": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "13 instalatii ventilare"
+  },
+  "cea958a05d813e7f": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "14 instalatii electrice"
+  },
+  "827c57decef3954e": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "15 instalatii date-voce"
+  },
+  "01d86053e9ee21dc": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "16 instalatii curenti slabi"
+  },
+  "d2991035e3acbe12": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "17 montaj utilaje"
+  },
+  "6a7f411bd53a0ed5": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "2 AMENJ. EXTER.+SISTEMATIZARE"
+  },
+  "6e57e5d9e47a90df": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "3 REZISTENTA"
+  },
+  "14bcc0ef9a4c60a1": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "4 canalizare menajera"
+  },
+  "ad17f084be994225": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "5 canalizare apa pluviala"
+  },
+  "87d2cb88345a0def": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "6 gospodarie de apa pentru incen"
+  },
+  "27eace3387d5cf7d": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "7 retea hidranti exteriori"
+  },
+  "b573fd0c472d30f1": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "8 instalatii sanitare"
+  },
+  "2f8893be78d33845": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "9 retele alimentare cu apa"
+  },
+  "054def5ee286c97a": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "1 SCARI SI ZID SPRIJIN ACCES COR"
+  },
+  "c44c778861990536": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "2 camera pompe"
+  },
+  "afedb0de35f0e52b": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "3 fosa septica"
+  },
+  "5f93920968a145ab": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "4 scari si gradene curte"
+  },
+  "473d0a07afc30f91": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "5 arh.camera pompe"
+  },
+  "0cc68e0416d93814": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "6 arh.fosa septica"
+  },
+  "14f2ddfddc043763": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "3 CONSOLIDARE CLADIRE SCOALA",
+    "categoria": "1 consolidare"
+  },
+  "18f15ed975e678a8": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "4 AMENAJARE TEREN",
+    "categoria": "1 RACORD LA DN"
+  },
+  "5ed9ae2fd527d19f": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "4 AMENAJARE TEREN",
+    "categoria": "2 DEZAFECTARI"
+  },
+  "91cb8612541d6965": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "5 AMENAJARI PT.PROT. MEDIULUI",
+    "categoria": "1 PROTECTIA MEDIULUI"
+  },
+  "5acea868bb3fecec": {
+    "obiectivul": "104 SCOALA GHIMPATI, JUD.GIURGIU",
+    "obiectul": "6 ORGANIZARE DE SANTIER",
+    "categoria": "1 OS"
+  },
+  "b5568db9015fbcb3": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "01 ARHITECTURA"
+  },
+  "bdee4c9b7ee97efe": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "010 HIDRANTI INTERIOR"
+  },
+  "cd62d328575bc0da": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "011 INSTALATII TERMICE"
+  },
+  "d1301c9ac912d268": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "012 INSTALATII CENTRALA TERMICA"
+  },
+  "0e06780baf7e5373": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "013 INSTALATII VENTILARE"
+  },
+  "121c43975c958ddc": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "014 INSTALATII ELECTRICE"
+  },
+  "bfa0fbd7201775f4": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "15 instalatii date-voce"
+  },
+  "144ef073a4b93699": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "16 INSTALATII CURENTI SLABI"
+  },
+  "bf3bffd8b20fa0ae": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "17 MONTAJ UTILAJE"
+  },
+  "25a88473a6f2d981": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "20 AMENJ. EXTER.+SISTEMATIZARE"
+  },
+  "5501ba0be834a46b": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "30 REZISTENTA"
+  },
+  "1474dc6f519ef056": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "40 Canalizare menajera"
+  },
+  "6029a01afadaa138": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "50 Canalizare apa pluviala"
+  },
+  "636d88db0a95463e": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "60 GOSPODARIE APA INCENDIU"
+  },
+  "a2de1e309ac65083": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "70 Retea hidranti exteriori"
+  },
+  "78f0a7752d2a0643": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "80 INSTALATII SANITARE"
+  },
+  "2cbf85eb53e4d5ab": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "01 CLADIRE SCOALA EXTINDERE",
+    "categoria": "90 Retele alimentare cu apa"
+  },
+  "a5a6d6b71452eaae": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "1 SCARI SI ZID SPRIJIN ACCES COR"
+  },
+  "a1994a7708e061bc": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "2 CAMERA POMPE"
+  },
+  "88845054090f0b09": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "3 FOSA SEPTICA"
+  },
+  "6ab8428075f30a62": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "4 SCARI SI GRADENE"
+  },
+  "a374fad42aa5c387": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "5 ARH CAMERA POMPE"
+  },
+  "4be0286cd180b9c4": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "6 ARHITECTURA FOSA SEPTICA"
+  },
+  "bdd434a365c10af9": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "3 CONSOLIDARE CLADIRE SCOALA",
+    "categoria": "1 CONSOLIDARE CLADIRE"
+  },
+  "fedc9cd80af5ba97": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "4 AMENAJARE TEREN",
+    "categoria": "1 RACORD LA DN"
+  },
+  "bf86f1447032b5d8": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "4 AMENAJARE TEREN",
+    "categoria": "2 DEZAFECTARI"
+  },
+  "24d7a3df898e396d": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "5 AMENAJARE PT PROTECTIA MEDIULU",
+    "categoria": "1 PROTECTIA MEDIULUI"
+  },
+  "b6bb9f062e4a4c72": {
+    "obiectivul": "104 Executie lucrari în cadrul proiectului ,REABILITARE SI EXTINDERE SCOALA GENERALA (CLASELE 1 - 8) sat NAIPU - com. GHIMPATI",
+    "obiectul": "6 ORGANIZARE SANTIER",
+    "categoria": "01 ORG SANTIER"
+  },
+  "7cf655a54772bd0d": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "1 ARHITECTURA"
+  },
+  "e1e39529020eadd0": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "10 HIDRANTI INTERIORI"
+  },
+  "b1bb21b41c331d97": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "11 INSTALATII TERMICE"
+  },
+  "31b2113f224ce3b9": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "12 INSTALATII IN CENTRALA TERMICA"
+  },
+  "d5d837b607a97833": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "13 INSTALATII VENTILARE"
+  },
+  "11cdeaa6fa198ff3": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "14 INSTALATII ELECTRICE"
+  },
+  "855d7b53fbb8cfcb": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "15 INSTALATII DATE-VOCE"
+  },
+  "fb402ec915b20498": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "16 INSTALATII CURENTI SLABI"
+  },
+  "cc0a06f0e0d6127f": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "17 MONTAJ UTILAJE"
+  },
+  "286ac6b461c71a6b": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "2 AMENAJ. EXTER. + SISTEMATIZARE"
+  },
+  "140e9d9c7cd749fc": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "3 REZISTENTA"
+  },
+  "87eaf6318dc5c47d": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "4 CANALIZARE MENAJERA"
+  },
+  "0fc4ec44681ba1b3": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "5 CANALIZARE APA PLUVIALA"
+  },
+  "c0152d57f4bbd751": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "6 GOSPODARIE DE APA PENTRU INCEN"
+  },
+  "a25141345e124739": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "7 RETEA HIDRANTI EXTERIORI"
+  },
+  "7d6e9856652afa67": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "8 INSTALATII SANITARE"
+  },
+  "4e7c06c5e60e244c": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "1 CLADIRE SCOALA EXTINDERE",
+    "categoria": "9 RETELE ALIMENTARE CU APA"
+  },
+  "1a0dd526bb015134": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "1 SCARI SI ZID SPRIJIN ACCES COR"
+  },
+  "129cb9b9f394cfd8": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "2 CAMERA POMPE"
+  },
+  "75b7a2887239dda6": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "3 FOSA SEPTICA"
+  },
+  "d194c452a6d1b63f": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "4 SCARI SI GRADENE CURTE"
+  },
+  "e418a02a56ea47ae": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "5 ARH. CAMERA POMPE"
+  },
+  "e6e317328a7e1f72": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "2 CHELTUIELI CONEXE",
+    "categoria": "6 ARH. FOSA SEPTICA"
+  },
+  "c2925e2577112f3c": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "3 CONSOLIDARE CLADIRE SCOALA",
+    "categoria": "1 CONSOLIDARE"
+  },
+  "625cfbf3a05a38ce": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "4 AMENAJARE TEREN",
+    "categoria": "1 RACORD LA DN"
+  },
+  "141efaa00fbf901f": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "4 AMENAJARE TEREN",
+    "categoria": "2 DEZAFECTARI"
+  },
+  "e789fe9ae9b02ab0": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "5 AMENAJARI PT. PROT. MEDIULUI",
+    "categoria": "1 PROTECTIA MEDIULUI"
+  },
+  "a79b010969067b8a": {
+    "obiectivul": "SCG REABILIT. SI EXTINDERE SCOALA",
+    "obiectul": "6 ORGANIZARE DE SANTIER",
+    "categoria": "1 OS"
+  },
+  "e1984fa27bfb57d7": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Organizare de santier",
+    "categoria": "Organizare de santier"
+  },
+  "d08e111e21276f3d": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": ""
+  },
+  "f6d2502aebdabef9": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Arhitectura"
+  },
+  "d2d2c1ee941f727d": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Amenaj ext+Sistematizare"
+  },
+  "1d528a7bd75ad9fb": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Rezistenta"
+  },
+  "0aaa792c3140ca8d": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Instalatii - Hidranti interiori"
+  },
+  "c99ec0a76fc054b3": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Instalatii termice"
+  },
+  "0191cdc31825730f": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Instalatii in centrala termica"
+  },
+  "ba86f15a980774d6": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Instalatii ventilare"
+  },
+  "e6926dc6d38baeea": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Instalatii electrice"
+  },
+  "8bbb5a3ce9c8b85d": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Instalatii date - voce"
+  },
+  "30550a3e8aa3ef4b": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Instalatii curenti slabi"
+  },
+  "f256a18bcfc72290": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Instalatii - Canalizare menajera"
+  },
+  "8a5822b9b9c0140f": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Instalatii - Canalizare apa pluviala"
+  },
+  "3591741758b8ef10": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Gospodarie de apa pt incendii"
+  },
+  "65c629b4c75dc4e5": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "",
+    "categoria": "Gospodarie de apa pt incendii"
+  },
+  "8b0c61d715f707e7": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Retea hidranti exteriori"
+  },
+  "41a376552d46eeb7": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Instalatii sanitare"
+  },
+  "6873a6c1888ad473": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Retele alimentare cu apa"
+  },
+  "4c437663c7ed476d": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cladire scoala extindere",
+    "categoria": "Montaj utilaje"
+  },
+  "b364eb1fca6ece12": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cheltuieli conexe",
+    "categoria": "Scari si zid sprijin acces COR"
+  },
+  "607c13611ed61dc0": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cheltuieli conexe",
+    "categoria": "Camera pompe"
+  },
+  "f60ace2a0f88465b": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cheltuieli conexe",
+    "categoria": "Fosa septica"
+  },
+  "c114e8b0b4689cb8": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cheltuieli conexe",
+    "categoria": "Scari si gradene curte"
+  },
+  "b0d90d3d2d22955c": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cheltuieli conexe",
+    "categoria": "Arh. camera pompe"
+  },
+  "d488faeee8b601dd": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Cheltuieli conexe",
+    "categoria": "Arh.fosa septica"
+  },
+  "8eb42cf7afcbce87": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Consolidare cladire scoala",
+    "categoria": "Consolidare"
+  },
+  "fd8495974000f3f9": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Amenajare teren",
+    "categoria": "Racord la DN"
+  },
+  "b28d96e170e9e4b5": {
+    "obiectivul": "Scoala Ghimpati, jud. Giurgiu",
+    "obiectul": "Amenajare teren",
+    "categoria": "Dezafectari"
   }
 }
