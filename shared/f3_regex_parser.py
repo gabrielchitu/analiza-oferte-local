@@ -1346,6 +1346,10 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             if not _is_main_start and NR_CRT_RE.match(line) and line_idx + 1 < len(lines):
                 _nxt = lines[line_idx + 1].strip()
                 _is_main_start = bool(re.match(_alnum_cod_re, _nxt))
+            # Forme inline produse de scatter: 'NR COD' sau 'NR COD - DESC'
+            if not _is_main_start:
+                _is_main_start = (bool(NR_COD_DESC_RE.match(line))
+                                  or bool(re.match(r'^\d{1,3}\s+' + _alnum_cod_re.lstrip('^'), line)))
             if _is_main_start:
                 # Finalizeaza ultima resursa CAT TIMP modul e inca activ,
                 # ca sa fie marcata component (finalize citeste _extras_mode)
