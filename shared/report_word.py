@@ -1293,9 +1293,11 @@ def generate_word(
     ).bold = True
 
     # ── Dispatch: holistic, hierarchical, or flat ────────────────────
+    from shared.holistic_filters import strip_codeless, strip_codeless_ncs
     raport_holistic = comp.get('raport_holistic')
     raport_ierarhic = comp.get('raport_ierarhic')
     if raport_holistic:
+        raport_holistic = strip_codeless(raport_holistic)
         _generate_word_holistic(doc, raport_holistic, comp,
                                 subcomponent_mode=subcomponent_mode)
     elif raport_ierarhic:
@@ -1304,7 +1306,8 @@ def generate_word(
                                     devize_lipsa, audit_data,
                                     subcomponent_mode=subcomponent_mode)
     else:
-        _generate_word_flat(doc, neconformitati, deviz_mismatches_list,
+        _generate_word_flat(doc, strip_codeless_ncs(neconformitati),
+                            deviz_mismatches_list,
                             devize_extra, devize_lipsa, audit_data, comp)
 
     buf = io.BytesIO()

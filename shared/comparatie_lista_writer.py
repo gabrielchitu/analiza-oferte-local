@@ -608,6 +608,8 @@ def build_comparatie_docx(holistic: dict, client_name: str, oferta_nr: int, outp
     nc_only=True → Raport extract: only rows with neconformitati (LIPSA/EXTRA/NC).
     nc_only=False → Full comparatie: all rows including clean matches.
     """
+    from shared.holistic_filters import strip_codeless
+    holistic = strip_codeless(holistic)
     doc = Document()
     _set_landscape(doc)
 
