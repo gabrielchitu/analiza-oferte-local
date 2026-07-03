@@ -248,11 +248,17 @@ NR_COD_CONCAT_RE = re.compile(
     re.IGNORECASE
 )
 # Etichete de sectiune pret in format eDevize — NU sunt denumire articol
-_PRICE_LABEL_RE = re.compile(r'^(material|manopera|utilaj|transport)\s*:', re.IGNORECASE)
+# Sp.mat/Sp.man/Sp.uti = sporuri (format Naipu), urmate de valoare '0,00'
+_PRICE_LABEL_RE = re.compile(r'^(material|manopera|utilaj|transport)\s*:|^Sp\.(mat|man|uti)\b', re.IGNORECASE)
 # Cuvinte de descriere care arata ca un cod normativ dar NU sunt articole:
 # 'GRUP1-3 DISTANTA 40M' (grupa de greutate 1-3) — GRUP1 matchuia [A-Z]{4}\d si
 # rupea descrierea / genera articol fals GRUP1 (Gura Foii TRB01C14).
-_NOT_CODE_WORD_RE = re.compile(r'^GRUPA?\d', re.IGNORECASE)
+# 'Obi01'/'Cate01' — markeri obiect/categorie din headerul Naipu, nu articole.
+_NOT_CODE_WORD_RE = re.compile(r'^(GRUPA?\d|OBI\d|CATE\d)', re.IGNORECASE)
+# Sectiune resurse format Naipu: 'Extras MATERIALE/MANOPERA/UTILAJE' — resursele
+# de sub ea sunt componente ale articolului precedent, nu articole main.
+_EXTRAS_SECTION_RE = re.compile(r'^Extras(\s+(MATERIALE|MANOPERA|UTILAJE?))?\s*$', re.IGNORECASE)
+_EXTRAS_META_RE = re.compile(r'^(Consum\s+specific|Pret\s+unitar|MATERIALE|MANOPERA|UTILAJE?)\s*$', re.IGNORECASE)
 
 UM_KNOWN = {
     # Volum / masa / lungime
@@ -335,7 +341,7 @@ def _is_valid_um(token: str) -> bool:
     token_lower = token.lower().strip()
 
     # Check multi-word UM variations
-    if token_lower in ('m cub', 'm3', 'm cu b'):  # m cu b è OCR variant
+    if token_lower in ('m cub', 'm3', 'm cu b', 'zeci mp', 'zeci m'):  # m cu b è OCR variant; zeci mp/m = Naipu
         return True
 
     # Check for square/cubic meter symbols before stripping
@@ -384,6 +390,8 @@ def _normalize_um_value(token: str) -> str:
         return 'mp'
     if token_lower in ('zeci m', 'zeci'):  # ZECI M = 10 m (qualifier + unit)
         return 'm'  # Normalize to meters; quantity is in 10-meter units
+    if token_lower == 'zeci mp':  # ZECI MP = 10 mp (Naipu); cantitatea ramane in zeci
+        return 'mp'
 
     if t in UM_KNOWN:
         # Normalize variants to canonical form
@@ -588,7 +596,7 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
                                 re.match(r'^(\$[A-Z0-9]{4,})', desc_line, re.IGNORECASE) or
                                 re.match(r'^(\d{4,9})(?!\d)', desc_line)):
                             break
-                        if _PRICE_LABEL_RE.match(desc_line) or (desc_line and SKIP_RE.search(desc_line)):
+                        if _PRICE_LABEL_RE.match(desc_line) or _EXTRAS_SECTION_RE.match(desc_line) or (desc_line and SKIP_RE.search(desc_line)):
                             break
                         if desc_line:
                             desc_parts.append(desc_line)
@@ -634,7 +642,7 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
                     break
                 # Stop at price labels or footer lines — prevents last-on-page articles
                 # from absorbing footer content and getting skipped by SKIP_RE
-                if _PRICE_LABEL_RE.match(desc_line) or (desc_line and SKIP_RE.search(desc_line)):
+                if _PRICE_LABEL_RE.match(desc_line) or _EXTRAS_SECTION_RE.match(desc_line) or (desc_line and SKIP_RE.search(desc_line)):
                     break
                 # Stop at embedded material-spec lines ("TUIA OCCIDENTALIS SMARAGD 14 BUC")
                 # so they remain as standalone lines for the main loop spec detection.
@@ -695,7 +703,7 @@ def _preprocess_scattered_format(lines: List[str]) -> List[str]:
                              or re.match(r'^(\$[A-Z0-9]{4,})', candidate, re.IGNORECASE)
                              or re.match(r'^(\d{4,9})(?!\d)', candidate))):
                     break
-                if _PRICE_LABEL_RE.match(candidate) or (candidate and SKIP_RE.search(candidate)):
+                if _PRICE_LABEL_RE.match(candidate) or _EXTRAS_SECTION_RE.match(candidate) or (candidate and SKIP_RE.search(candidate)):
                     break
                 # Check if this line is a valid UM token.
                 # Require single-token UM to avoid multi-word false positives like
@@ -755,6 +763,21 @@ def _preprocess_compound_um(lines: List[str]) -> List[str]:
     i = 0
     while i < len(lines):
         line = lines[i].strip()
+        # Format Naipu: coloana 'corectie' (2 cifre) intre cod si UM.
+        # Inline: '02 M CUB', '99 ZECI MP' → pastreaza doar UM-ul.
+        m_corr = re.match(r'^(\d{2})\s+([A-Za-z][A-Za-z\s\.]{0,10})$', line)
+        if m_corr and _is_valid_um(m_corr.group(2)):
+            result.append(m_corr.group(2).strip())
+            i += 1
+            continue
+        # Standalone (referinta, coloana rupta): COD / '02' / 'M CUB' → drop '02'.
+        # Doar cand linia precedenta arata ca un cod normativ si urmatoarea e UM valid —
+        # altfel un NR_CRT legitim de 2 cifre ar fi sters.
+        if (re.match(r'^\d{2}$', line) and result and i + 1 < len(lines)
+                and _is_valid_um(lines[i + 1].strip())
+                and re.match(r'^Q?[A-Z]{2,5}\d{1,4}[A-Z]{0,3}\d{0,2}$', result[-1].strip(), re.IGNORECASE)):
+            i += 1
+            continue
         if i + 1 < len(lines):
             next_line = lines[i + 1].strip()
             if (re.match(r'^\d{1,4}$', line) and
@@ -1035,6 +1058,7 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
     current_parent_nr = 0   # nr_ordine of last finalized main article
     sub_counter = 0         # subarticle counter per parent
     pending_cantitate = 0.0  # cantitate apărută în WAITING state înainte de COD (eDevize col-order artifact)
+    _extras_mode = False    # True in sectiunea 'Extras MATERIALE/...' (Naipu) — resursele = componente
 
 
     def _finalize():
@@ -1081,7 +1105,9 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 logger.debug(f"[PARSER] Skip cod cu footer eDevize in denominatie: {cod}")
             else:
                 is_subcomp_detected, parent_cod = _detect_subcomponent(cod, last_article_cod, ' '.join(denumire_parts))
-                is_subcomp = explicit_component_marker or is_subcomp_detected
+                # _extras_mode: articolele finalizate in sectiunea 'Extras ...' (Naipu)
+                # sunt resurse ale main-ului precedent
+                is_subcomp = explicit_component_marker or is_subcomp_detected or _extras_mode
                 subcomp_codes = _extract_subcomponent_codes(den_joined)
 
                 # Use parent_cod from detection if not already marked explicitly
@@ -1261,11 +1287,41 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             skip_due_to_filter = False
         # Finalize article before skipping metadata block (material:, manopera:, utilaj:, transport:)
         # This ensures that numeric codes after metadata (e.g., 6720363 after "transport:") are recognized as new articles
-        if _PRICE_LABEL_RE.match(line) and state == _READING and cod:
+        # DOAR daca denumirea exista deja: in formatul Naipu descrierea vine DUPA sporurile
+        # Sp.mat/Sp.man/Sp.uti — finalizarea timpurie lasa articolul fara denumire
+        if _PRICE_LABEL_RE.match(line) and state == _READING and cod and denumire_parts:
             _finalize()
             state = _IDLE  # Reset state after finalization so next code is processed as new article
         if not line or (skip_due_to_filter and not (state == _WAITING and _after_linked)):
             continue
+
+        # Sectiune resurse Naipu: 'Extras MATERIALE/MANOPERA/UTILAJE' — finalizeaza main-ul
+        # si marcheaza resursele urmatoare drept componente pana la urmatorul NR main.
+        if _EXTRAS_SECTION_RE.match(line):
+            if state == _READING and cod:
+                _finalize()
+                state = _IDLE
+            _extras_mode = True
+            continue
+        if _extras_mode:
+            if _EXTRAS_META_RE.match(line):
+                continue
+            # Iesire din extras mode DOAR la inceput de articol main:
+            # cod normativ alfanumeric (resursele sunt numerice) sau NR standalone
+            # urmat de un asemenea cod. Cifrele singure din resurse nu inchid modul.
+            _alnum_cod_re = r'^Q?[A-Z]{2,5}\d{1,4}[A-Z]{0,3}\d{0,2}$'
+            _is_main_start = bool(_NOT_CODE_WORD_RE.match(line)) or bool(re.match(_alnum_cod_re, line))
+            if not _is_main_start and NR_CRT_RE.match(line) and line_idx + 1 < len(lines):
+                _nxt = lines[line_idx + 1].strip()
+                _is_main_start = bool(re.match(_alnum_cod_re, _nxt))
+            if _is_main_start:
+                # Finalizeaza ultima resursa CAT TIMP modul e inca activ,
+                # ca sa fie marcata component (finalize citeste _extras_mode)
+                if state == _READING and cod:
+                    _finalize()
+                    state = _IDLE
+                _extras_mode = False
+                explicit_component_marker = False
 
         # N.L handler: articol legat ISDP — funcționează în orice stare
         m_linked = NR_LINKED_RE.match(line)
@@ -2048,6 +2104,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 and nr // 100 == _prev_main_nr + 1):
             art['nr_ordine'] = _prev_main_nr + 1
             logger.info(f"[OCR-NR] {deviz_cod}: nr_ordine {nr} reparat → {_prev_main_nr + 1} (transpozitie zero-padded)")
+        # NR pierdut de OCR: doua main-uri consecutive cu acelasi nr (cod diferit) —
+        # al doilea a mostenit nr-ul pentru ca linia NR lipseste din raw (Naipu ref).
+        # In F3 nr-urile main sunt strict crescatoare → repara la succesor.
+        elif (isinstance(nr, int) and _prev_main_nr is not None and nr == _prev_main_nr):
+            art['nr_ordine'] = _prev_main_nr + 1
+            logger.info(f"[OCR-NR] {deviz_cod}: nr_ordine duplicat {nr} reparat → {_prev_main_nr + 1} (linie NR pierduta)")
         if isinstance(art.get('nr_ordine'), int):
             _prev_main_nr = art['nr_ordine']
 
