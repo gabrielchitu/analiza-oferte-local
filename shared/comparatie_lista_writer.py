@@ -299,6 +299,139 @@ def _sub_rows(ref_arts, of_arts, ncs, parent_nr, parent_fill) -> List[RowTuple]:
     return rows
 
 
+def _pair_fill(ref_art, of_art, pair_ncs, of_main, ref_main):
+    """Shared fill + NC-text logic for one row pair."""
+    nc_texts = [_nc_text(nc) for nc in pair_ncs]
+    if ref_art and not of_art:
+        fill = FILL_LIPSA
+        if not nc_texts:
+            nc_texts = ["LIPSĂ: absent din ofertă"]
+        suggestion = _fuzzy_suggest(ref_art, of_main)
+        if suggestion:
+            nc_texts.append(suggestion)
+    elif not ref_art and of_art:
+        fill = FILL_EXTRA
+        if not nc_texts:
+            nc_texts = ["EXTRA: absent din referință"]
+        suggestion = _fuzzy_suggest(of_art, ref_main)
+        if suggestion:
+            nc_texts.append(suggestion)
+    elif pair_ncs:
+        tips = {nc.get("tip") for nc in pair_ncs}
+        if "COD_NORMATIV_DIFERIT" in tips:
+            fill = FILL_COD_NORM
+        elif "SPECIFICATIE_DIFERITA" in tips:
+            fill = FILL_SPEC_DIFF
+        elif "DIFERENTA_PARAMETRU" in tips:
+            fill = FILL_PARAM_DIFF
+        elif "DIFERENTA_CAMP" in tips or "UM_DIFERIT" in tips:
+            fill = FILL_REAL_NC
+        elif tips <= {"COD_SIMILAR", "DESCRIERE_DIFERITA"}:
+            fill = FILL_COD_SIMILAR
+        else:
+            fill = FILL_NC
+    else:
+        fill = None
+    return fill, nc_texts
+
+
+def _build_rows_from_matches(ref_main, of_main, ref_arts, of_arts, ncs, matches) -> List[RowTuple]:
+    """Pair rows from the comparator's verdicts, not by nr_ordine.
+
+    nr_ordine pairing breaks on Naipu: eDevize offers have nr=None (all collapse
+    to key 0) and N:1-merged groups have overlapping nr sequences.
+
+    Ground truth: ARTICOL_LIPSA/ARTICOL_EXTRA NCs say WHICH articles are
+    unmatched. Everything else was matched by the comparator (possibly with
+    OCR-normalized codes) — after removing the LIPSA refs and EXTRA offers,
+    the two sides align POSITIONALLY (both follow document order).
+    """
+    from collections import Counter
+
+    lipsa_q: Counter = Counter(
+        str(nc.get("ref_cod") or "") for nc in ncs
+        if nc.get("tip") == "ARTICOL_LIPSA" and not nc.get("is_component"))
+    extra_q: Counter = Counter(
+        str(nc.get("oferta_cod") or "") for nc in ncs
+        if nc.get("tip") == "ARTICOL_EXTRA" and not nc.get("is_component"))
+
+    from collections import defaultdict, deque
+
+    def _k(c) -> str:
+        return str(c or "").lstrip("$").upper()
+
+    ref_flags = []  # (ref_art, is_lipsa)
+    for a in ref_main:
+        c = str(a.get("cod") or "")
+        if lipsa_q.get(c, 0) > 0:
+            lipsa_q[c] -= 1
+            ref_flags.append((a, True))
+        else:
+            ref_flags.append((a, False))
+
+    of_extra_list, of_rest = [], []
+    for a in of_main:
+        c = str(a.get("cod") or "")
+        if extra_q.get(c, 0) > 0:
+            extra_q[c] -= 1
+            of_extra_list.append(a)
+        else:
+            of_rest.append(a)
+
+    # Pas 1: pereche pe cod (FIFO); dublurile ref refolosesc ultimul offer cu
+    # acelasi cod (comparatorul face N:M — nu genereaza LIPSA pentru ele).
+    of_pool: dict = defaultdict(deque)
+    for a in of_rest:
+        of_pool[_k(a.get("cod"))].append(id(a))
+    of_by_id = {id(a): a for a in of_rest}
+    last_by_cod: dict = {}
+    paired: dict = {}
+    used_of = set()
+    for ref_art, is_lipsa in ref_flags:
+        if is_lipsa:
+            continue
+        rk = _k(ref_art.get("cod"))
+        if of_pool.get(rk):
+            oid = of_pool[rk].popleft()
+            paired[id(ref_art)] = of_by_id[oid]
+            used_of.add(oid)
+            last_by_cod[rk] = of_by_id[oid]
+        elif rk in last_by_cod:
+            paired[id(ref_art)] = last_by_cod[rk]  # N:M reuse pt dubluri
+    # Pas 2: pozitional pentru resturile de pe ambele parti (ordine document)
+    rest_ref = [a for a, fl in ref_flags if not fl and id(a) not in paired]
+    rest_of = [a for a in of_rest if id(a) not in used_of]
+    for ref_art, of_art in zip(rest_ref, rest_of):
+        paired[id(ref_art)] = of_art
+        used_of.add(id(of_art))
+
+    rows: List[RowTuple] = []
+    for ref_art, is_lipsa in ref_flags:
+        of_art = None if is_lipsa else paired.get(id(ref_art))
+        pair_ncs = [nc for nc in _ncs_for(ncs, ref_art, of_art)
+                    if nc.get("tip") not in _SUPPRESSED_TIPS]
+        if of_art is None and not is_lipsa:
+            # comparatorul NU a marcat LIPSA — nu inventa eticheta (rest N:M)
+            fill, nc_texts = None, [_nc_text(nc) for nc in pair_ncs]
+        else:
+            fill, nc_texts = _pair_fill(ref_art, of_art, pair_ncs, of_main, ref_main)
+        rows.append((ref_art, of_art, fill, nc_texts))
+        parent_nr = _major_nr(ref_art)
+        if parent_nr:
+            rows.extend(_sub_rows(ref_arts, of_arts, ncs, parent_nr, fill))
+
+    leftover_of = [a for a in of_rest if id(a) not in used_of]
+    for of_art in leftover_of:
+        # nematchuit dar fara NC EXTRA — afiseaza fara eticheta
+        rows.append((None, of_art, None, []))
+    for of_art in of_extra_list:
+        pair_ncs = [nc for nc in _ncs_for(ncs, None, of_art)
+                    if nc.get("tip") not in _SUPPRESSED_TIPS]
+        fill, nc_texts = _pair_fill(None, of_art, pair_ncs, of_main, ref_main)
+        rows.append((None, of_art, fill, nc_texts))
+    return rows
+
+
 def _build_matched_rows(group: dict) -> List[RowTuple]:
     ncs      = group.get("neconformitati", [])
     ref_arts = group.get("ref_articles", [])
@@ -306,6 +439,10 @@ def _build_matched_rows(group: dict) -> List[RowTuple]:
 
     ref_main = sorted([a for a in ref_arts if not a.get("is_component")], key=_sort_key)
     of_main  = sorted([a for a in of_arts  if not a.get("is_component")], key=_sort_key)
+
+    matches = [m for m in (group.get("matches") or []) if isinstance(m, dict)]
+    if matches:
+        return _build_rows_from_matches(ref_main, of_main, ref_arts, of_arts, ncs, matches)
 
     # EXTRA oferta articles identified by (cod, nr_ordine) — not cod alone
     # (multiple articles can share a cod; only the specific nr_ordine is EXTRA)
