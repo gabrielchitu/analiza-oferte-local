@@ -1116,7 +1116,8 @@ def compare_and_report(
     docx_path = output_dir / f"Raport_Oferta_{oferta_nr}.docx"
     try:
         client_name = client_config.name if client_config else ""
-        build_comparatie_docx(raport_holistic, client_name, oferta_nr, str(docx_path), nc_only=True)
+        build_comparatie_docx(raport_holistic, client_name, oferta_nr, str(docx_path),
+                              nc_only=True, include_components=False)
         logger.info(f"  DOCX: {docx_path.name}")
     except Exception as e:
         logger.warning(f"  DOCX failed: {e}")
