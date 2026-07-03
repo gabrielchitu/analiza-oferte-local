@@ -1285,6 +1285,13 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         # (e.g. "PESTE" in description triggers STE[\-\s] pattern).
         if skip_due_to_filter and (NR_COD_DESC_RE.match(line) or NR_COD_CONCAT_RE.match(line)):
             skip_due_to_filter = False
+        # Naipu: articole main cu cod PUR NUMERIC ('300031' dupa NR, urmat de UM) —
+        # SKIP_RE taie 4-6 cifre (regula capitol), dar in _WAITING cu UM valid pe
+        # linia urmatoare e un cod de echipament/material legitim.
+        if (skip_due_to_filter and state == _WAITING and not _extras_mode
+                and re.match(r'^\d{4,8}$', line)
+                and line_idx + 1 < len(lines) and _is_valid_um(lines[line_idx + 1].strip())):
+            skip_due_to_filter = False
         # Finalize article before skipping metadata block (material:, manopera:, utilaj:, transport:)
         # This ensures that numeric codes after metadata (e.g., 6720363 after "transport:") are recognized as new articles
         # DOAR daca denumirea exista deja: in formatul Naipu descrierea vine DUPA sporurile
