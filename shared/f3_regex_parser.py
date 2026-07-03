@@ -258,8 +258,8 @@ _PRICE_LABEL_RE = re.compile(r'^(material|manopera|utilaj|transport)\s*:|^Sp\.(m
 _NOT_CODE_WORD_RE = re.compile(r'^(GRUPA?\d|OBI\d|CATE\d)', re.IGNORECASE)
 # Sectiune resurse format Naipu: 'Extras MATERIALE/MANOPERA/UTILAJE' — resursele
 # de sub ea sunt componente ale articolului precedent, nu articole main.
-_EXTRAS_SECTION_RE = re.compile(r'^Extras(\s+(MATERIALE|MANOPERA|UTILAJE?))?\s*$', re.IGNORECASE)
-_EXTRAS_META_RE = re.compile(r'^(Consum\s+specific|Pret\s+unitar|MATERIALE|MANOPERA|UTILAJE?)\s*$', re.IGNORECASE)
+_EXTRAS_SECTION_RE = re.compile(r'^\$?\s*Extras(\s+(MATERIALE|MANOPERA|UTILAJE?|TRANSPORT))?\s*$', re.IGNORECASE)
+_EXTRAS_META_RE = re.compile(r'^(Consum\s+specific|Pret\s+unitar|MATERIALE|MANOPERA|UTILAJE?|TRANSPORT|\$)\s*$', re.IGNORECASE)
 
 UM_KNOWN = {
     # Volum / masa / lungime
@@ -1329,7 +1329,17 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             # cod normativ alfanumeric (resursele sunt numerice) sau NR standalone
             # urmat de un asemenea cod. Cifrele singure din resurse nu inchid modul.
             _alnum_cod_re = r'^Q?[A-Z]{2,5}\d{1,4}[A-Z]{0,3}\d{0,2}$'
-            _is_main_start = bool(_NOT_CODE_WORD_RE.match(line)) or bool(re.match(_alnum_cod_re, line))
+
+            def _next_is_main_structure(idx):
+                # Dupa codul unui articol MAIN urmeaza corectia ('82') sau UM standalone;
+                # dupa o RESURSA din Extras urmeaza consumul inline ('1,560000 TONE')
+                if idx + 1 >= len(lines):
+                    return False
+                nxt = lines[idx + 1].strip()
+                return bool(re.match(r'^\d{2}$', nxt)) or bool(re.match(r'^\d{2}\s+[A-Za-z]', nxt)) or _is_valid_um(nxt)
+
+            _is_main_start = bool(_NOT_CODE_WORD_RE.match(line)) or (
+                bool(re.match(_alnum_cod_re, line)) and _next_is_main_structure(line_idx))
             if not _is_main_start and NR_CRT_RE.match(line) and line_idx + 1 < len(lines):
                 _nxt = lines[line_idx + 1].strip()
                 _is_main_start = bool(re.match(_alnum_cod_re, _nxt))
