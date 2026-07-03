@@ -884,7 +884,7 @@ def extract_articles_v3(page_classifications: list) -> list:
             continue
 
         # Extrage 3-layer din headerul ACESTEI pagini
-        page_lines = pc.get("lines", [])[:30]
+        page_lines = pc.get("lines", [])[:40]
         obj1, obj2, cat = _exfl(page_lines)
 
         if obj2 or cat:

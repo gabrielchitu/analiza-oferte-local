@@ -133,7 +133,7 @@ def _extract_from_lines(
                    Categoria vine din 'Deviz oferta ZO0001 Terasamente 7.70 smp'
     """
     obiectivul = obiectul = categoria = None
-    lines = header_lines[:30]
+    lines = header_lines[:40]  # 40: headerul O3 Naipu are categoria la idx 30 (STADIUL FIZIC: pe 29, valoarea pe 30)
 
     def _is_label(s: str) -> bool:
         return bool(
@@ -141,12 +141,18 @@ def _extract_from_lines(
             or any(s.lower().startswith(p) for p in _STRUCT_LINES)
         )
 
+    _code_like_re = re.compile(r'^Q?[A-Z]{2,5}\d{1,4}[A-Z0-9#\[\]\s]*$')
+
     def _next_lines_value(idx: int) -> str:
-        """Take 1-2 continuation lines as value (for multi-line DT headers)."""
+        """Take 1-2 continuation lines as value (for multi-line DT headers).
+
+        Se opreste la linii care arata ca un cod de articol ('CD04C# [2]') —
+        headerul O3 Naipu e urmat imediat de primul articol al devizului.
+        """
         parts = []
         for j in range(idx + 1, min(idx + 3, len(lines))):
             nxt = lines[j].strip()
-            if not nxt or _is_label(nxt):
+            if not nxt or _is_label(nxt) or _code_like_re.match(nxt):
                 break
             parts.append(nxt)
         return ' '.join(parts)
@@ -293,7 +299,7 @@ def extract_deviz_headers(
         if not cod:
             continue
 
-        lines = pc.get("lines", [])[:30]
+        lines = pc.get("lines", [])[:40]
         obj1, obj2, cat = _extract_from_lines(lines)
 
         if obj2 or cat:
