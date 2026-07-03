@@ -60,10 +60,11 @@ COD_BREVIAR_RE = re.compile(r'^(\$[A-Z0-9]{4,})\s*[-–]\s*(.+)', re.IGNORECASE)
 COD_NUMERIC_RE = re.compile(r'^(\d{4,12})(?!\d)(?:[@]|\[\d+\])?\s*[-–]\s*(.+)')
 # Cod format: DIGIT-LETTER-DIGIT (ex: 00106B011, 001C012, 02012A1[1], 01003D) — articole cu cod mixt din breviar
 # Format: 3-5 cifre + 1 litera + 0-3 cifre (cifre finale optionale: 01003D, 01003B1 ambele valide)
-COD_DIGIT_LETTER_DIGIT_RE = re.compile(r'^(\d{3,5}[A-Z]\d{0,3})(?!\d)(?:\[\d+\])?\s*[-–]\s*(.+)', re.IGNORECASE)
+COD_DIGIT_LETTER_DIGIT_RE = re.compile(r'^(\d{3,5}[A-Z]\d{0,3}(?:[A-Z]\d{0,2})?)(?!\d)(?:\[\d+\])?\s*[-–]\s*(.+)', re.IGNORECASE)
 # Cod DIGIT-LETTER-DIGIT SINGUR pe linie: 00106B011, 001C012, 01003D (format: 3-5D + L + 0-3D, standalone)
+# Al doilea bloc litera-cifre optional: 00802B23A1, 00802B15A4, 00612D2A (Naipu)
 COD_DIGIT_LETTER_DIGIT_STANDALONE_RE = re.compile(
-    r'^(\d{3,5}[A-Z]\d{0,3})(?!\d)((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
+    r'^(\d{3,5}[A-Z]\d{0,3}(?:[A-Z]\d{0,2})?)(?!\d)((?:\s+[A-Z]{1,8}\.?){0,3})\s*$',
     re.IGNORECASE
 )
 # Cod normativ SINGUR pe linie, cu opțional tokeni sufixe (ASIM, BUC. etc.) — max 3
@@ -767,6 +768,15 @@ def _preprocess_compound_um(lines: List[str]) -> List[str]:
     i = 0
     while i < len(lines):
         line = lines[i].strip()
+        # OCR: spatiu in interiorul unui cod normativ ('EA1 6C1' → 'EA16C1'),
+        # doar cand urmeaza structura corectie/UM (altfel nu e cod de articol).
+        m_sp = re.match(r'^([A-Z]{1,4}\d{1,3})\s+(\d{1,3}[A-Z]\d{0,2})$', line, re.IGNORECASE)
+        if m_sp and i + 1 < len(lines) and (
+                re.match(r'^\d{2}$', lines[i + 1].strip()) or _is_valid_um(lines[i + 1].strip())):
+            line = m_sp.group(1) + m_sp.group(2)
+            result.append(line)
+            i += 1
+            continue
         # Format Naipu: coloana 'corectie' (2 cifre) intre cod si UM.
         # Inline: '02 M CUB', '99 ZECI MP' → pastreaza doar UM-ul.
         m_corr = re.match(r'^(\d{2})\s+([A-Za-z][A-Za-z\s\.]{0,10})$', line)
@@ -779,7 +789,8 @@ def _preprocess_compound_um(lines: List[str]) -> List[str]:
         # altfel un NR_CRT legitim de 2 cifre ar fi sters.
         if (re.match(r'^\d{2}$', line) and result and i + 1 < len(lines)
                 and _is_valid_um(lines[i + 1].strip())
-                and re.match(r'^Q?[A-Z]{2,5}\d{1,4}[A-Z]{0,3}\d{0,2}$', result[-1].strip(), re.IGNORECASE)):
+                and re.match(r'^(?:Q?[A-Z]{2,5}\d{1,4}[A-Z]{0,3}\d{0,2}|\d{3,5}[A-Z]\d{0,3}(?:[A-Z]\d{0,2})?)(?:\s*\*{1,3})?$',
+                             result[-1].strip(), re.IGNORECASE)):
             i += 1
             continue
         if i + 1 < len(lines):
@@ -1214,6 +1225,8 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         s = line.strip()
         # Normalizeaza spatiu inainte de sufix bracket: "IA22C1 [1]" → "IA22C1[1]"
         s = re.sub(r'(?<=[A-Z0-9])\s+(\[\d)', r'\1', s, flags=re.IGNORECASE)
+        # Strip sufix asterisc separat de spatiu: "YC01 **" → "YC01" (Naipu referinta)
+        s = re.sub(r'^([A-Z]{1,6}\d{1,4}[A-Z0-9]*)\s+\*{1,3}$', r'\1', s, flags=re.IGNORECASE)
         # Strip OCR trailing-quote artifact before separator: 'TCD09XA" - ...' → 'TCD09XA - ...'
         s = re.sub(r'^([A-Z][A-Z0-9]+)"(\s*[-–])', r'\1\2', s, flags=re.IGNORECASE)
         # Formate cu separator –: breviar $COD, normativ (2+ litere), single-letter, single-multi-digit, digit-letter-digit, numeric
