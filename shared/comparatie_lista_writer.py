@@ -602,14 +602,44 @@ def _write_group_section(doc: Document, group: dict, group_type: str, nc_only: b
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 
-def build_comparatie_docx(holistic: dict, client_name: str, oferta_nr: int, output_path: str, nc_only: bool = False) -> None:
+def _strip_components(holistic: dict) -> dict:
+    """Copy of holistic without subcomponent articles and their NCs.
+
+    Reference documents (listing format) carry almost no subcomponents while
+    eDevize offers list every resource — side-by-side component rows are
+    one-sided noise.
+    """
+    result = dict(holistic)
+    for key in ("matched_groups", "ref_only_groups", "oferta_only_groups"):
+        groups = holistic.get(key)
+        if not isinstance(groups, list):
+            continue
+        new_groups = []
+        for g in groups:
+            g2 = dict(g)
+            for akey in ("ref_articles", "oferta_articles", "articles"):
+                if isinstance(g2.get(akey), list):
+                    g2[akey] = [a for a in g2[akey] if not a.get("is_component")]
+            if isinstance(g2.get("neconformitati"), list):
+                g2["neconformitati"] = [nc for nc in g2["neconformitati"]
+                                        if not nc.get("is_component")]
+            new_groups.append(g2)
+        result[key] = new_groups
+    return result
+
+
+def build_comparatie_docx(holistic: dict, client_name: str, oferta_nr: int, output_path: str,
+                          nc_only: bool = False, include_components: bool = True) -> None:
     """Generate landscape A4 side-by-side comparison DOCX.
 
     nc_only=True → Raport extract: only rows with neconformitati (LIPSA/EXTRA/NC).
     nc_only=False → Full comparatie: all rows including clean matches.
+    include_components=False → hide subcomponent rows (resources) entirely.
     """
     from shared.holistic_filters import strip_codeless
     holistic = strip_codeless(holistic)
+    if not include_components:
+        holistic = _strip_components(holistic)
     doc = Document()
     _set_landscape(doc)
 

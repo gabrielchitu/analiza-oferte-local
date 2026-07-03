@@ -21,7 +21,8 @@ def _run(client: str, oferta_nr: int) -> None:
         return
 
     holistic = json.loads(holistic_path.read_text(encoding="utf-8"))
-    build_comparatie_docx(holistic, client, oferta_nr, str(output_path))
+    build_comparatie_docx(holistic, client, oferta_nr, str(output_path),
+                          include_components=False)
     print(f"Saved: {output_path}")
 
 
