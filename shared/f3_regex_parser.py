@@ -1251,6 +1251,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 if pattern in (COD_NORM_RE, COD_NORM_EXTENDED_RE, COD_NORM_SINGLE_RE) and len(den) < 3:
                     continue
                 return cod_raw, den, ''
+        # Format eDevize scatter: 'COD [N] Descriere' inline, fara separator '-'
+        # (Naipu O3: 'CZ0301B1 [1] Confectionarea armaturilor zid de sprijin kg').
+        # Bracket-ul e deja lipit de cod de normalizarea de mai sus.
+        m_bd = re.match(r'^([A-Z]{1,6}\d{1,4}[A-Z0-9]{0,4})\[\d*\]\s+(.{3,})$', s, re.IGNORECASE)
+        if m_bd:
+            return m_bd.group(1).upper(), m_bd.group(2).strip(), ''
         # Cod normativ singur pe linie (simple, extended, single-letter) — cu sufixe opționale
         def _parse_standalone(m):
             cod_raw = m.group(1).strip().upper()
