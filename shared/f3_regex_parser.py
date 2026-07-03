@@ -21,7 +21,8 @@ logger = logging.getLogger(__name__)
 # Variant suffix: -1#, -2#, etc. (ex: SC07A-1#, SA14B-3#)
 # Paren suffix: (1), (2) — variante articol eDevize (ex: IZF13C1(1), IZF13C1(2))
 # Bracket suffix cu spatiu optional: 'CK09A1 [1]', 'IZF13C1 [2]' (Gura Foii referinta)
-_COD_SUFFIX = r'(?:-\d+)?(?:#\d*|[>*@%^+]|\s?\[\d*\]|[\[\]]\d*|\(\d+\))?(?:ASIM|TSCH)?[-]?'
+# Combinatie marker+bracket: 'CD04C# [2]' (Naipu O3) — bracketul e grup separat, cumulabil
+_COD_SUFFIX = r'(?:-\d+)?(?:#\d*|[>*@%^+]|[\[\]]\d*|\(\d+\))?(?:\s?\[\d*\])?(?:ASIM|TSCH)?[-]?'
 COD_NORM_RE = re.compile(
     r'^([A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}[A-Z]?' + _COD_SUFFIX + r')\s*[-–]\s*(.+)',
     re.IGNORECASE
@@ -1064,10 +1065,21 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
     def _finalize():
         nonlocal cod, denumire_parts, um, cantitate, preturi, last_article_cod, explicit_component_marker, current_parent_nr, sub_counter, pending_cantitate
         if cod:
+            # Curatare sufixe marker ramase pe cod (path-uri standalone: 'CD04C#' din 'CD04C# [2]')
+            if not cod.startswith('$'):
+                cod = re.sub(r'[#>*@%^+]+$|\s*\[\d*\]\s*$', '', cod).strip()
             # Coduri numerice pure → adaugă prefix $
             if re.match(r'^\d+$', cod):
                 cod = '$' + cod
             den_joined = ' '.join(denumire_parts)
+            # UM lipit la coada descrierii (Naipu O3: coloana UM unita cu descrierea —
+            # 'Zidarie ... verticale tip mc') — extrage doar cand UM lipseste complet
+            if not um and denumire_parts:
+                _tail = denumire_parts[0].rstrip().rsplit(' ', 1)
+                if len(_tail) == 2 and _is_valid_um(_tail[1]) and len(_tail[1]) <= 4:
+                    um = _normalize_um_value(_tail[1])
+                    denumire_parts[0] = _tail[0]
+                    den_joined = ' '.join(denumire_parts)
             # Skip coduri cu / (numere proiect: 424/2018, 424-rev/2024)
             # Exceptie: coduri clasa beton/material (C25/30, C30/37, C20/25) — nu se skipuiesc
             if '/' in cod and not COD_MATERIAL_SPEC_STANDALONE_RE.match(cod):
@@ -2111,12 +2123,14 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
                 and nr // 100 == _prev_main_nr + 1):
             art['nr_ordine'] = _prev_main_nr + 1
             logger.info(f"[OCR-NR] {deviz_cod}: nr_ordine {nr} reparat → {_prev_main_nr + 1} (transpozitie zero-padded)")
-        # NR pierdut de OCR: doua main-uri consecutive cu acelasi nr (cod diferit) —
-        # al doilea a mostenit nr-ul pentru ca linia NR lipseste din raw (Naipu ref).
-        # In F3 nr-urile main sunt strict crescatoare → repara la succesor.
-        elif (isinstance(nr, int) and _prev_main_nr is not None and nr == _prev_main_nr):
+        # NR pierdut de OCR: main cu nr egal sau usor REGRESAT fata de precedentul —
+        # nr-ul real lipseste din raw / e bleed din headerul tabelului (Naipu).
+        # In F3 nr-urile main sunt strict crescatoare per deviz → repara la succesor.
+        # Regres mare (>3) NU se atinge: poate fi un nr fals urias anterior.
+        elif (isinstance(nr, int) and _prev_main_nr is not None
+              and _prev_main_nr - 3 <= nr <= _prev_main_nr):
             art['nr_ordine'] = _prev_main_nr + 1
-            logger.info(f"[OCR-NR] {deviz_cod}: nr_ordine duplicat {nr} reparat → {_prev_main_nr + 1} (linie NR pierduta)")
+            logger.info(f"[OCR-NR] {deviz_cod}: nr_ordine {nr} reparat → {_prev_main_nr + 1} (duplicat/regres mic — linie NR pierduta)")
         if isinstance(art.get('nr_ordine'), int):
             _prev_main_nr = art['nr_ordine']
 
