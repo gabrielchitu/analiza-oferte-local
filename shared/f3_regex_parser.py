@@ -342,7 +342,8 @@ def _is_valid_um(token: str) -> bool:
     token_lower = token.lower().strip()
 
     # Check multi-word UM variations
-    if token_lower in ('m cub', 'm3', 'm cu b', 'zeci mp', 'zeci m'):  # m cu b è OCR variant; zeci mp/m = Naipu
+    if token_lower in ('m cub', 'm3', 'm cu b', 'zeci mp', 'zeci m',
+                       'sute mc', 'sute m', 'sute mp'):  # zeci/sute = qualifier Naipu; cantitatea ramane in zeci/sute
         return True
 
     # Check for square/cubic meter symbols before stripping
@@ -393,6 +394,8 @@ def _normalize_um_value(token: str) -> str:
         return 'm'  # Normalize to meters; quantity is in 10-meter units
     if token_lower == 'zeci mp':  # ZECI MP = 10 mp (Naipu); cantitatea ramane in zeci
         return 'mp'
+    if token_lower in ('sute mc', 'sute m', 'sute mp'):  # SUTE X (Naipu); cantitatea ramane in sute
+        return token_lower.split()[1]
 
     if t in UM_KNOWN:
         # Normalize variants to canonical form
