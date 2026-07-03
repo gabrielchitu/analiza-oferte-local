@@ -825,6 +825,42 @@ def extract_articles_v3(page_classifications: list) -> list:
     from shared.f3_regex_parser import extract_articles_regex
     from collections import defaultdict
 
+    # Split pagini cu tranzitie de deviz MID-PAGE (Naipu O3: 'TOTAL GENERAL:' urmat de
+    # 'OBIECTUL:/STADIUL FIZIC: <deviz nou>' pe aceeasi pagina). Fara split, articolele
+    # devizului nou raman sub devizul precedent → LIPSA/EXTRA false in ambele grupuri.
+    def _split_midpage_devize(pcs: list) -> list:
+        out = []
+        for pc in pcs:
+            lines = pc.get("lines", [])
+            if not pc.get("is_f3") or len(lines) < 15:
+                out.append(pc)
+                continue
+            cuts = []
+            for i, l in enumerate(lines):
+                if i > 12 and l.strip().upper().startswith("STADIUL FIZIC"):
+                    start = i
+                    for j in range(max(0, i - 4), i):
+                        if lines[j].strip().upper().startswith("OBIECTUL"):
+                            start = j
+                            break
+                    cuts.append(start)
+            if not cuts:
+                out.append(pc)
+                continue
+            prev = 0
+            for cut in cuts:
+                if cut > prev:
+                    seg = dict(pc)
+                    seg["lines"] = lines[prev:cut]
+                    out.append(seg)
+                prev = cut
+            seg = dict(pc)
+            seg["lines"] = lines[prev:]
+            out.append(seg)
+        return out
+
+    page_classifications = _split_midpage_devize(page_classifications)
+
     all_articles: list = []
     seen: dict = {}  # (cod, deviz_cod) → index în all_articles, pentru deduplicare
 
