@@ -195,7 +195,7 @@ SKIP_RE = re.compile(
     r'Valoare\s+aferenta|'
     r'PROIECTANT|ORIGEN\s+STUDIE|'
     r'SIGN\s+|S\.\s+C\.\s+|Artisan|-\s+proiect|\b424\b(?!\d)|'
-    r'STE[\-\s]|TARGO|DAMBO|'
+    r'\bSTE[\-\s]|TARGO|DAMBO|'
     r'\d{3}-?rev[/\s]+\d{4}|'  # Project version codes like "424-rev/2024" or "424 rev 2024"
     r'[A-Z\s]*S\.R\.L\.|[A-Z]{2,}\s+SRL|'  # Company names with SRL/S.R.L.
     r'(?:proiect|project)\s+(?:initial|inițial|integral|actualizat|updated)|'  # Project status phrases
@@ -1333,6 +1333,12 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
         if _PRICE_LABEL_RE.match(line) and state == _READING and cod and denumire_parts:
             _finalize()
             state = _IDLE  # Reset state after finalization so next code is processed as new article
+        # Cifra parazit de coloana (ref Naipu): '236,00000' / '2' / 'Sp.mat' — un digit
+        # 1-2 cifre intre cantitate si sporuri e artefact de coloana, nu NR_CRT nou.
+        if (state == _READING and cantitate and re.match(r'^\d{1,2}$', line)
+                and line_idx + 1 < len(lines)
+                and _PRICE_LABEL_RE.match(lines[line_idx + 1].strip())):
+            continue
         if not line or (skip_due_to_filter and not (state == _WAITING and _after_linked)):
             continue
 
@@ -1886,6 +1892,11 @@ def extract_articles_regex(lines: List[str], deviz_cod: str,
             if parsed_cod and um == '' and cantitate == 0.0 and not is_strong_code:
                 # Current article is incomplete AND code is weak pattern → treat as denomination continuation
                 # But strong patterns (standalone codes) start new articles
+                parsed_cod = None
+            # Ref Naipu: descrierea vine DUPA sporurile Sp.* — daca articolul curent e
+            # complet (um+cant) dar FARA denumire, o linie cod-like ('RACK24U') e primul
+            # cuvant al descrierii, nu un articol nou (articolele noi incep cu NR).
+            if parsed_cod and not denumire_parts and cod and um and cantitate:
                 parsed_cod = None
             # Check both code patterns WITH separators and standalone code patterns.
             # (line_norm already computed above)
