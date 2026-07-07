@@ -929,6 +929,8 @@ def _build_sursa_group(doc, deviz: dict) -> None:
                 continue
             flat.append((False, art, ''))
             for sub in art.get('sub_items', []):
+                if not sub.get('cod') and not sub.get('denumire'):
+                    continue
                 flat.append((True, sub, art.get('cod', '') or ''))
 
     main_count = sum(1 for is_sub, _, _ in flat if not is_sub)
@@ -1019,12 +1021,21 @@ def write_docx_v2(devize: list, output_path, metadata: dict | None = None, foote
     tbl_r = doc.add_table(rows=len(recap_data), cols=2)
     tbl_r.style = 'Table Grid'
     for i, (label, val) in enumerate(recap_data):
-        tbl_r.rows[i].cells[0].text = label
-        tbl_r.rows[i].cells[1].text = _fmt_price_ro(val or 0.0)
-        for cell in tbl_r.rows[i].cells:
-            for para in cell.paragraphs:
-                for run in para.runs:
-                    run.bold = True
-                    run.font.size = Pt(9)
+        # label cell — left aligned
+        c0 = tbl_r.rows[i].cells[0]
+        c0.text = ''
+        p0 = c0.paragraphs[0]
+        p0.alignment = WD_ALIGN_PARAGRAPH.LEFT
+        r0 = p0.add_run(label)
+        r0.bold = True
+        r0.font.size = Pt(9)
+        # value cell — right aligned
+        c1 = tbl_r.rows[i].cells[1]
+        c1.text = ''
+        p1 = c1.paragraphs[0]
+        p1.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+        r1 = p1.add_run(_fmt_price_ro(val or 0.0))
+        r1.bold = True
+        r1.font.size = Pt(9)
 
     doc.save(str(output_path))
