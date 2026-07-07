@@ -33,6 +33,46 @@ _SKIP_RE = re.compile(
     re.IGNORECASE
 )
 
+_TG_FARA_TVA_RE = re.compile(r'TOTAL\s+GENERAL\s*\(fara\s+TVA\)', re.IGNORECASE)
+_TVA_LINE_RE    = re.compile(r'\bTVA\b[^\d(]*\((\d+[\.,]\d+)\s*%\)', re.IGNORECASE)
+_TG_CU_TVA_RE   = re.compile(r'TOTAL\s+GENERAL\s*\(inclusiv\s+TVA\)', re.IGNORECASE)
+
+
+def extract_footer_totals(page_classes: list) -> dict:
+    """Scan all F3 lines for TOTAL GENERAL / TVA footer values.
+
+    In eDevize OCR output the value for each footer row sits on a *different*
+    line than the label:
+      - TOTAL GENERAL (fara TVA):  value is on the line BEFORE the label
+      - TVA (XX%):                 value is on the line AFTER the label
+      - TOTAL GENERAL (inclusiv TVA): value is on the line AFTER the label
+    """
+    footer: dict = {}
+    all_lines: list = []
+    for pc in page_classes:
+        if pc.get('is_f3'):
+            all_lines.extend(line.strip() for line in pc.get('lines', []))
+
+    for i, s in enumerate(all_lines):
+        if _TG_FARA_TVA_RE.search(s):
+            val = _parse_number(all_lines[i - 1]) if i > 0 else None
+            if val is not None:
+                footer['total_general_fara_tva'] = val
+        elif _TVA_LINE_RE.search(s):
+            m = _TVA_LINE_RE.search(s)
+            pct = _parse_number(m.group(1)) if m else None
+            if pct is not None:
+                footer['tva_pct'] = pct
+            val = _parse_number(all_lines[i + 1]) if i + 1 < len(all_lines) else None
+            if val is not None:
+                footer['tva_val'] = val
+        elif _TG_CU_TVA_RE.search(s):
+            val = _parse_number(all_lines[i + 1]) if i + 1 < len(all_lines) else None
+            if val is not None:
+                footer['total_cu_tva'] = val
+    return footer
+
+
 _NR_INT_RE = re.compile(r'^\d+$')
 _NR_DEC_RE = re.compile(r'^\d+\.\d+$')
 _COD_NAME_RE = re.compile(r'^([A-Z0-9$.*+#%^>@<]{2,}|\d{4,})\s+-\s+(.+)$')

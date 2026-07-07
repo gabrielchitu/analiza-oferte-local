@@ -134,7 +134,7 @@ def test_write_xlsx_has_rows(tmp_path):
     out = tmp_path / "test.xlsx"
     write_xlsx([deviz], out)
     wb = load_workbook(str(out))
-    ws = wb.active
+    ws = wb.worksheets[0]  # first deviz sheet, not the Recapitulatie sheet
     assert ws.max_row >= 8
 
 

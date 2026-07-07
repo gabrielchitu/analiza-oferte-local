@@ -316,7 +316,7 @@ def write_docx(devize: list[dict], output_path: Path) -> None:
     doc.save(str(output_path))
 
 
-def write_xlsx(devize: list[dict], output_path: Path) -> None:
+def write_xlsx(devize: list[dict], output_path: Path, footer: dict | None = None) -> None:
     """17-col XLS matching DOCX v2 landscape layout: 7 desc + 5 PU + 5 Val."""
     wb = Workbook()
     wb.remove(wb.active)
@@ -394,6 +394,8 @@ def write_xlsx(devize: list[dict], output_path: Path) -> None:
             r += 1
 
             for art in cap.get('articole', []):
+                if not art.get('cod') and not art.get('denumire'):
+                    continue
                 seq += 1
                 bd = art.get('breakdown') or {}
 
@@ -460,6 +462,30 @@ def write_xlsx(devize: list[dict], output_path: Path) -> None:
         c.alignment = _XLS_RIGHT
         c.number_format = '#,##0.00'
         r += 1
+
+    # Recapitulatie sheet — 4 grand-total rows
+    ws_r = wb.create_sheet(title='Recapitulatie')
+    for ci, (_, w) in enumerate(_XLSX_COLS, 1):
+        ws_r.column_dimensions[ws_r.cell(1, ci).column_letter].width = w
+    t1 = sum(d.get('total_deviz', 0.0) or 0.0 for d in devize)
+    ft = footer or {}
+    recap_rows = [
+        ('TOTAL 1 (Cheltuieli directe)',   t1),
+        ('Total general (fără TVA)',        ft.get('total_general_fara_tva')),
+        (f"TVA ({ft.get('tva_pct', 0.0):.2f}%)", ft.get('tva_val')),
+        ('Total general (inclusiv TVA)',    ft.get('total_cu_tva')),
+    ]
+    for ri, (label, val) in enumerate(recap_rows, 1):
+        ws_r.merge_cells(start_row=ri, start_column=1, end_row=ri, end_column=16)
+        c = ws_r.cell(ri, 1, value=label)
+        c.font = _XLS_BOLD
+        c.alignment = Alignment(horizontal='left', vertical='center')
+        ws_r.row_dimensions[ri].height = 22
+        c = ws_r.cell(ri, 17, value=val)
+        c.font = _XLS_BOLD
+        c.alignment = _XLS_RIGHT
+        c.number_format = '#,##0.00'
+        c.fill = _XLS_YELLOW
 
     wb.save(str(output_path))
 
@@ -899,6 +925,8 @@ def _build_sursa_group(doc, deviz: dict) -> None:
     flat: list[tuple[bool, dict, str]] = []  # (is_sub, art, parent_cod)
     for cap in deviz.get('capitole', []):
         for art in cap.get('articole', []):
+            if not art.get('cod') and not art.get('denumire'):
+                continue
             flat.append((False, art, ''))
             for sub in art.get('sub_items', []):
                 flat.append((True, sub, art.get('cod', '') or ''))
@@ -940,7 +968,7 @@ def _build_sursa_group(doc, deviz: dict) -> None:
     _shade_cell_v2(cell, _TOTAL_FILL_V2)
 
 
-def write_docx_v2(devize: list, output_path, metadata: dict | None = None) -> None:
+def write_docx_v2(devize: list, output_path, metadata: dict | None = None, footer: dict | None = None) -> None:
     """Write F3-format DOCX identical with Template_exact.docx."""
     from datetime import date as _date
     meta = metadata or {}
@@ -973,5 +1001,30 @@ def write_docx_v2(devize: list, output_path, metadata: dict | None = None) -> No
 
     for deviz in devize:
         _build_sursa_group(doc, deviz)
+
+    # Recapitulatie generala
+    t1 = sum(d.get('total_deviz', 0.0) or 0.0 for d in devize)
+    ft = footer or {}
+    recap_data = [
+        ('TOTAL 1 (Cheltuieli directe)',   t1),
+        ('Total general (fără TVA)',        ft.get('total_general_fara_tva')),
+        (f"TVA ({ft.get('tva_pct', 0.0):.2f}%)", ft.get('tva_val')),
+        ('Total general (inclusiv TVA)',    ft.get('total_cu_tva')),
+    ]
+    doc.add_paragraph()
+    p = doc.add_paragraph()
+    run = p.add_run('Recapitulație generală')
+    run.bold = True
+    run.font.size = Pt(10)
+    tbl_r = doc.add_table(rows=len(recap_data), cols=2)
+    tbl_r.style = 'Table Grid'
+    for i, (label, val) in enumerate(recap_data):
+        tbl_r.rows[i].cells[0].text = label
+        tbl_r.rows[i].cells[1].text = _fmt_price_ro(val or 0.0)
+        for cell in tbl_r.rows[i].cells:
+            for para in cell.paragraphs:
+                for run in para.runs:
+                    run.bold = True
+                    run.font.size = Pt(9)
 
     doc.save(str(output_path))

@@ -18,7 +18,7 @@ import anthropic
 from dotenv import load_dotenv
 
 from shared.client_config import ClientConfig
-from shared.f3_price_extractor import extract_prices
+from shared.f3_price_extractor import extract_prices, extract_footer_totals
 from shared.lista_verifier import verify, max_nr_crt_in_page_classes
 from shared.sursa_incarcare_writer import make_acronym, write_docx, write_docx_v2, write_xlsx, write_pdf, write_pdf_native
 
@@ -168,6 +168,7 @@ def _run_pipeline(client_name: str, json_path: Path, no_pdf: bool = False, force
         if art.get("breakdown")
     )
     print(f" OK {total_arts} articole, {bd_count} cu breakdown")
+    footer_totals = extract_footer_totals(page_classes)
 
     # Step 4: Verify
     print(f"  [4/4] Verificare...", end="", flush=True)
@@ -206,11 +207,11 @@ def _run_pipeline(client_name: str, json_path: Path, no_pdf: bool = False, force
         "client": client_name,
         "ofertant": ofertant,
     }
-    write_docx_v2(extracted, docx_path, metadata=metadata)
+    write_docx_v2(extracted, docx_path, metadata=metadata, footer=footer_totals)
     print(f"\nOutput generat:")
     print(f"  {docx_path}  OK")
 
-    write_xlsx(extracted, xlsx_path)
+    write_xlsx(extracted, xlsx_path, footer=footer_totals)
     print(f"  {xlsx_path}  OK")
 
     if not no_pdf:

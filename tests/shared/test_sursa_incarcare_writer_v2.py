@@ -100,7 +100,7 @@ def test_write_docx_v2_table_17_cols():
     """17 coloane: 7 desc + 5 PU + 5 Val (landscape)."""
     out, doc = _write_and_open([_make_deviz()])
     try:
-        assert len(doc.tables) == 1
+        assert len(doc.tables) >= 1  # deviz table(s) + recapitulatie table
         tblGrid = doc.tables[0]._tbl.find(qn('w:tblGrid'))
         assert tblGrid is not None
         cols = tblGrid.findall(qn('w:gridCol'))
@@ -214,7 +214,7 @@ def test_write_docx_v2_multiple_devize():
     """Un paragraf + un tabel per deviz."""
     out, doc = _write_and_open([_make_deviz(), _make_deviz(n_main=1, n_sub=0)])
     try:
-        assert len(doc.tables) == 2
+        assert len(doc.tables) == 3  # 2 deviz tables + 1 recapitulatie table
         group_paras = [p for p in doc.paragraphs if "OBIECTIV TEST" in p.text]
         assert len(group_paras) == 2
     finally:
