@@ -9,7 +9,8 @@ def _make_deviz(articole_per_capitol, total_deviz=None, capitole_totals=None):
             capitole_totals or [None] * len(articole_per_capitol))
     ):
         arts = [
-            {'nr_crt': str(nr), 'pret_unitar': 10.0, 'total': 10.0,
+            {'nr_crt': str(nr), 'cod': f'C{nr}', 'denumire': f'Art {nr}',
+             'pret_unitar': 10.0, 'total': 10.0,
              'breakdown': None, 'suspect': False, 'sub_items': []}
             for nr in nr_list
         ]

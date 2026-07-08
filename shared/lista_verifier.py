@@ -121,6 +121,22 @@ def _check_breakdown_control(extracted: list[dict]) -> dict:
     return {'ok': len(suspect) == 0, 'suspect_articles': suspect}
 
 
+def _check_hollow_articles(extracted: list[dict]) -> dict:
+    """Detect articles that have prices but no cod/denumire — extraction bug."""
+    hollow = []
+    for deviz in extracted:
+        for cap in deviz.get('capitole', []):
+            for art in cap.get('articole', []):
+                if (not art.get('cod') and not art.get('denumire')
+                        and (art.get('total') or art.get('cantitate'))):
+                    hollow.append({
+                        'nr_crt': art.get('nr_crt'),
+                        'cantitate': art.get('cantitate'),
+                        'total': art.get('total'),
+                    })
+    return {'ok': len(hollow) == 0, 'hollow_articles': hollow}
+
+
 def verify(
     extracted: list[dict],
     deviz_headers: dict = None,
@@ -143,6 +159,7 @@ def verify(
             'COUNT_DEVIZE':      _check_count_devize(current, deviz_headers),
             'NR_CRT_GAPS':       _check_nr_crt_gaps(current),
             'LAST_NR_CRT':       _check_last_nr_crt(current, raw_max_nr),
+            'HOLLOW_ARTICLES':   _check_hollow_articles(current),
             'TOTAL_CAPITOL':     _check_total_capitol(current),
             'TOTAL_DEVIZ':       _check_total_deviz(current),
             'BREAKDOWN_CONTROL': _check_breakdown_control(current),
@@ -154,7 +171,11 @@ def verify(
         ]
 
         if not high_failures:
-            has_warn = not checks['BREAKDOWN_CONTROL']['ok']
+            has_warn = any(
+                not checks[k]['ok']
+                for k in ('BREAKDOWN_CONTROL', 'HOLLOW_ARTICLES')
+                if checks[k].get('ok') is not None
+            )
             return {
                 'status': 'WARN' if has_warn else 'OK',
                 'iterations': iteration,

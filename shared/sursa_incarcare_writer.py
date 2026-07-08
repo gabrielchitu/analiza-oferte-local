@@ -394,7 +394,7 @@ def write_xlsx(devize: list[dict], output_path: Path, footer: dict | None = None
             r += 1
 
             for art in cap.get('articole', []):
-                if not art.get('cod') and not art.get('denumire'):
+                if not art.get('cod') and not art.get('denumire') and not (art.get('total') or art.get('cantitate')):
                     continue
                 seq += 1
                 bd = art.get('breakdown') or {}

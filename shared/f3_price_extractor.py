@@ -75,8 +75,8 @@ def extract_footer_totals(page_classes: list) -> dict:
 
 _NR_INT_RE = re.compile(r'^\d+$')
 _NR_DEC_RE = re.compile(r'^\d+\.\d+$')
-_COD_NAME_RE = re.compile(r'^([A-Z0-9$.*+#%^>@<]{2,}|\d{4,})\s+-\s+(.+)$')
-_NR_COD_INLINE_RE = re.compile(r'^(\d{1,3})\s+([A-Z0-9$.*+#%^>@<]{2,}|\d{4,})\s+-\s+(.+)$')
+_COD_NAME_RE = re.compile(r'^([A-Z0-9$.*+#%^>@<-]{2,}|\d{4,})\s+-\s+(.+)$')
+_NR_COD_INLINE_RE = re.compile(r'^(\d{1,3})\s+([A-Z0-9$.*+#%^>@<-]{2,}|\d{4,})\s+-\s+(.+)$')
 _TOTAL_CAPITOL_RE = re.compile(r'^TOTAL\s+(.+)$', re.IGNORECASE)
 _BREAKDOWN_RE = re.compile(r'^(material|manopera|utilaj|transport):$', re.IGNORECASE)
 
