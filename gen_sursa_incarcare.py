@@ -18,7 +18,7 @@ import anthropic
 from dotenv import load_dotenv
 
 from shared.client_config import ClientConfig
-from shared.f3_price_extractor import extract_prices, extract_footer_totals
+from shared.f3_price_extractor import extract_prices, extract_footer_totals, extract_document_parties
 from shared.lista_verifier import verify, max_nr_crt_in_page_classes
 from shared.sursa_incarcare_writer import make_acronym, write_docx, write_docx_v2, write_xlsx, write_pdf, write_pdf_native
 
@@ -201,11 +201,13 @@ def _run_pipeline(client_name: str, json_path: Path, no_pdf: bool = False, force
     for deviz in extracted:
         deviz['status'] = verification['status']
 
-    json_stem_num = ''.join(filter(str.isdigit, json_stem)) or '1'
+    parties = extract_document_parties(pages)
     metadata = {
-        "offer_label": f"Oferta {json_stem_num}",
         "client": client_name,
         "ofertant": ofertant,
+        "beneficiar":  parties.get("beneficiar", ""),
+        "executant":   parties.get("executant", ""),
+        "proiectant":  parties.get("proiectant", ""),
     }
     write_docx_v2(extracted, docx_path, metadata=metadata, footer=footer_totals)
     print(f"\nOutput generat:")

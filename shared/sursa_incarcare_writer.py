@@ -985,17 +985,21 @@ def write_docx_v2(devize: list, output_path, metadata: dict | None = None, foote
     section.top_margin = Cm(1.5)
     section.bottom_margin = Cm(1.5)
 
-    offer_label = meta.get('offer_label', 'Oferta')
-    client_name = meta.get('client', '')
-    ofertant    = meta.get('ofertant', '')
+    beneficiar  = meta.get('beneficiar', '') or meta.get('client', '')
+    executant   = meta.get('executant', '')  or meta.get('ofertant', '')
+    proiectant  = meta.get('proiectant', '')
     gen_date    = meta.get('date', _date.today().isoformat())
 
-    for line, bold, size in [
-        (f'Lista articole — {offer_label}', True, 14),
-        (f'Client: {client_name}', False, 11),
-        (f'Ofertant: {ofertant}', False, 11),
-        (f'Generat: {gen_date}', False, 9),
-    ]:
+    header_lines = [('Lista articole', True, 14)]
+    if beneficiar:
+        header_lines.append((f'Beneficiar: {beneficiar}', False, 11))
+    if executant:
+        header_lines.append((f'Executant: {executant}', False, 11))
+    if proiectant:
+        header_lines.append((f'Proiectant: {proiectant}', False, 11))
+    header_lines.append((f'Generat: {gen_date}', False, 9))
+
+    for line, bold, size in header_lines:
         p = doc.add_paragraph()
         run = p.add_run(line)
         run.bold = bold

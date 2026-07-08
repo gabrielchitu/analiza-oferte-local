@@ -38,6 +38,29 @@ _TVA_LINE_RE    = re.compile(r'\bTVA\b[^\d(]*\((\d+[\.,]\d+)\s*%\)', re.IGNORECA
 _TG_CU_TVA_RE   = re.compile(r'TOTAL\s+GENERAL\s*\(inclusiv\s+TVA\)', re.IGNORECASE)
 
 
+_PARTY_LABELS = {
+    'Beneficiar:': 'beneficiar',
+    'Executant:':  'executant',
+    'Proiectant:': 'proiectant',
+}
+
+
+def extract_document_parties(raw_pages: list) -> dict:
+    """Scan raw DI pages for Beneficiar/Executant/Proiectant (label on line N, value on N+1)."""
+    parties: dict = {}
+    for page in raw_pages:
+        lines = [ln.get('content', '').strip() for ln in page.get('lines', [])]
+        for i, line in enumerate(lines):
+            key = _PARTY_LABELS.get(line)
+            if key and key not in parties and i + 1 < len(lines):
+                val = lines[i + 1].strip()
+                if val:
+                    parties[key] = val
+        if len(parties) == 3:
+            break
+    return parties
+
+
 def extract_footer_totals(page_classes: list) -> dict:
     """Scan all F3 lines for TOTAL GENERAL / TVA footer values.
 

@@ -59,25 +59,31 @@ def test_write_docx_v2_creates_file():
 
 
 def test_write_docx_v2_document_header_paragraphs():
-    """Primele 4 paragrafe: Lista articole, Client, Ofertant, Generat."""
-    meta = {"offer_label": "Oferta 2", "client": "Test Client", "ofertant": "SC TEST SRL", "date": "2026-06-23"}
+    """Header: Lista articole, Beneficiar, Executant, Proiectant, Generat."""
+    meta = {
+        "beneficiar": "Test Client SRL",
+        "executant":  "SC TEST SRL",
+        "proiectant": "SC PROIECT SRL",
+        "date": "2026-06-23",
+    }
     out, doc = _write_and_open([_make_deviz()], metadata=meta)
     try:
         paras = [p.text for p in doc.paragraphs if p.text.strip()]
-        assert paras[0] == "Lista articole — Oferta 2"
-        assert "Test Client" in paras[1]
+        assert paras[0] == "Lista articole"
+        assert "Test Client SRL" in paras[1]
         assert "SC TEST SRL" in paras[2]
-        assert "2026-06-23" in paras[3]
+        assert "SC PROIECT SRL" in paras[3]
+        assert "2026-06-23" in paras[4]
     finally:
         os.unlink(out)
 
 
 def test_write_docx_v2_document_header_bold_title_only():
-    """Doar titlul bold; Client/Ofertant/Generat nu sunt bold — identic template."""
-    out, doc = _write_and_open([_make_deviz()])
+    """Doar titlul bold; restul header nu sunt bold."""
+    meta = {"beneficiar": "B", "executant": "E", "proiectant": "P"}
+    out, doc = _write_and_open([_make_deviz()], metadata=meta)
     try:
-        header_paras = [p for p in doc.paragraphs if p.text.strip()][:4]
-        assert len(header_paras) == 4
+        header_paras = [p for p in doc.paragraphs if p.text.strip()][:5]
         assert any(r.bold for r in header_paras[0].runs), "Titlul trebuie bold"
         for p in header_paras[1:]:
             for run in p.runs:
@@ -90,7 +96,8 @@ def test_write_docx_v2_group_header_pipe_format():
     """Paragraf grup: 'OBIECTIV TEST | Ob 001 | Cat Test'."""
     out, doc = _write_and_open([_make_deviz()])
     try:
-        group_paras = [p for p in doc.paragraphs if p.text.strip()][4:]
+        # no metadata → only title + Generat = 2 header paras; group header is index [2]
+        group_paras = [p for p in doc.paragraphs if p.text.strip()][2:]
         assert group_paras[0].text == "OBIECTIV TEST | Ob 001 | Cat Test"
     finally:
         os.unlink(out)
