@@ -113,8 +113,10 @@ def test_cached_extraction_first_time(orchestrator, tmp_path, mock_di_json):
         "test_key_1", di_ref, "TestClient", is_offer=False
     )
 
-    # Cache file should exist
-    cache_file = orchestrator.cache_dir / "test_key_1_extracted.json"
+    # Cache file should exist. Numele poarta hash-ul sursei clasificatorului:
+    # extractia depinde de gruparea lui, deci un clasificator nou nu are voie sa
+    # refoloseasca extractia veche.
+    cache_file = orchestrator.cache_dir / f"test_key_1_extracted_{orchestrator._clf_hash()}.json"
     assert cache_file.exists()
 
     # Content should be valid extraction result
@@ -123,7 +125,7 @@ def test_cached_extraction_first_time(orchestrator, tmp_path, mock_di_json):
 
 def test_cached_extraction_second_time(orchestrator, tmp_path, mock_di_json):
     """Test extraction loads from cache on second run."""
-    cache_file = orchestrator.cache_dir / "test_key_2_extracted.json"
+    cache_file = orchestrator.cache_dir / f"test_key_2_extracted_{orchestrator._clf_hash()}.json"
     cached_data = {
         "client": "TestClient",
         "di_file": "test",

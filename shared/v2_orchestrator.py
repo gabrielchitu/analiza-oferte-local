@@ -426,10 +426,24 @@ class V2EndToEndOrchestrator:
     def _ensure_page_classes_checkpoint(
         self, di_path: Path, di_json: Dict, client_config: ClientConfig
     ) -> None:
-        """Run page classifier and save checkpoint if it doesn't exist yet."""
+        """Run page classifier and save checkpoint if it doesn't exist yet.
+
+        Checkpoint-ul poarta in nume hash-ul sursei clasificatorului tocmai ca sa fie
+        invalidat cand clasificatorul se schimba. Verificarea trebuie sa ceara hash-ul
+        CURENT: un glob pe orice hash accepta la nesfarsit un checkpoint vechi, deci
+        orice imbunatatire a clasificatorului ramane fara efect pe proiectele existente.
+        """
         checkpoint_dir = client_config.output_dir / "checkpoints"
-        if list(checkpoint_dir.glob(f"{di_path.stem}_page_classes_*.json")):
-            return  # already exists
+        clf_hash = self._clf_hash()
+        if (checkpoint_dir / f"{di_path.stem}_page_classes_{clf_hash}.json").exists():
+            return  # already exists, pentru clasificatorul curent
+
+        # Checkpoint-uri ale unei versiuni vechi de clasificator: ies din drum, ca
+        # incarcatorii care cauta prin glob sa nu apuce varianta invechita.
+        for vechi in checkpoint_dir.glob(f"{di_path.stem}_page_classes_*.json"):
+            vechi.unlink(missing_ok=True)
+        for vechi in checkpoint_dir.glob(f"{di_path.stem}_deviz_mapping_*.json"):
+            vechi.unlink(missing_ok=True)
 
         logger.info(
             f"[V2] page_classes checkpoint absent for {di_path.stem} — running classifier "
@@ -456,11 +470,16 @@ class V2EndToEndOrchestrator:
     ) -> None:
         """Run deviz header extraction and save checkpoint if it doesn't exist yet."""
         checkpoint_dir = client_config.output_dir / "checkpoints"
-        if list(checkpoint_dir.glob(f"{di_path.stem}_deviz_mapping_*.json")):
-            return  # already exists
+        clf_hash = self._clf_hash()
+        if (checkpoint_dir / f"{di_path.stem}_deviz_mapping_{clf_hash}.json").exists():
+            return  # already exists, pentru clasificatorul curent
 
-        # Need page_classes to extract headers
-        pc_matches = list(checkpoint_dir.glob(f"{di_path.stem}_page_classes_*.json"))
+        # Need page_classes to extract headers — cele ale clasificatorului curent au
+        # prioritate; glob-ul ramane doar ca plasa de siguranta pentru checkpointuri
+        # scrise de o versiune anterioara a numelui de fisier.
+        pc_curent = checkpoint_dir / f"{di_path.stem}_page_classes_{clf_hash}.json"
+        pc_matches = ([pc_curent] if pc_curent.exists()
+                      else list(checkpoint_dir.glob(f"{di_path.stem}_page_classes_*.json")))
         if not pc_matches:
             logger.warning(
                 f"[V2] Cannot build deviz_mapping for {di_path.stem}: "
@@ -574,7 +593,11 @@ class V2EndToEndOrchestrator:
         di_file_stem: Optional[str] = None,
         is_offer: bool = False,
     ) -> Dict:
-        cache_file = self.cache_dir / f"{cache_key}_extracted.json"
+        # Hash-ul clasificatorului intra in numele fisierului: extractia depinde de
+        # gruparea produsa de clasificator, deci un clasificator nou trebuie sa produca
+        # o extractie noua. Fara asta, checkpoint-urile se regenereaza corect dar
+        # extractia veche e servita din cache si fix-ul ramane invizibil.
+        cache_file = self.cache_dir / f"{cache_key}_extracted_{self._clf_hash()}.json"
 
         # Ensure checkpoints exist — generate them if V1 hasn't run yet
         if client_config and di_file_stem:

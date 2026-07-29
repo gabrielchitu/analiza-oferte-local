@@ -77,9 +77,17 @@ _RECAPITULATIE_RE = re.compile(r'\bRecapitulati[ae]?\b', re.IGNORECASE)
 _ARTICLE_CODE_RE = re.compile(r'\b(?:[A-Z]{2,5}\d{1,4}[A-Z]?\d{0,2}|[A-Z]\d[A-Z]{1,3}\d{2,4}[A-Z]?\d{0,2})\b')
 
 # Tier 1: Explicit "Deviz Oferta XXXX" — highest priority
-# Patterns: "Deviz oferta 226238", "Deviz Oferta 226238", "Deviz oferta 226U38"
+# Patterns: "Deviz oferta 226238", "Deviz Oferta 226238", "Deviz oferta 226U38",
+#           "Deviz oferta GF06" (cod scurt, 2-4 caractere — Gura Foii oferta)
+# Lungimea minima e 2, nu 5: codurile scurte exista in practica, iar garda reala
+# contra denumirilor trunchiate ('INSTALAT' din 'INSTALATII...') e cerinta de
+# CIFRA din apelant, nu lungimea.
+# Grupul 2 (optional) prinde denumirea care urmeaza codului — pe aceeasi linie sau
+# pe urmatoarea, fiindca liniile paginii sunt unite cu spatiu inainte de cautare.
 _DEVIZ_OFERTA_RE = re.compile(
-    r'Deviz\s+[Oo]ferta\s+([A-Z0-9]{5,8})',
+    r'Deviz\s+[Oo]ferta\s+([A-Z0-9]{2,8})'
+    r'(?:\s+([A-Z][^\n]*?))?'
+    r'(?=\s+(?:Categoria|Stadiul|Lista\s+cu|Nr\.|Formular)|$)',
     re.IGNORECASE
 )
 # Tier 1b: "Deviz oferta DENUMIRE TEXT" — denumire pura, FARA cod (Gura Foii referinta).
@@ -87,6 +95,18 @@ _DEVIZ_OFERTA_RE = re.compile(
 # → 7 devize diferite primesc acelasi cod → prefix match imperecheaza arbitrar.
 _DEVIZ_OFERTA_TEXT_RE = re.compile(
     r'Deviz\s+[Oo]ferta\s+([A-Z][A-Z\s]{3,59}?)\s*(?=Categoria|Lista\s+cu|Nr\.|Formular|$)',
+    re.IGNORECASE
+)
+
+# Tier 1c: antetul curent al paginilor de CONTINUARE — "pag 2 GF06" / "GF06 pag 2".
+# Pagina n-are nici "Deviz oferta", nici Obiectul/Categoria: singurul indiciu ca
+# apartine devizului GF06 e antetul repetat. Fara el articolele paginilor 2..N
+# raman fara grup si apar ca devize-fantoma pline de articole "extra".
+# Codul trebuie sa contina o cifra si cel putin o litera — altfel numarul de rand
+# al primului articol ("007 2442288") ar deveni cod de deviz.
+_ANTET_CURENT_RE = re.compile(
+    r'(?:\bpag\.?\s+\d{1,3}\s+(?P<dupa>[A-Z]{1,5}[0-9][A-Z0-9]{0,4})\b'
+    r'|\b(?P<inainte>[A-Z]{1,5}[0-9][A-Z0-9]{0,4})\s+pag\.?\s+\d{1,3}\b)',
     re.IGNORECASE
 )
 
@@ -230,11 +250,15 @@ def _extract_grouping_key(lines: list[str], deviz_text_map: dict = None, referen
     # tokenii pur-alfabetici sunt prefixe de denumire trunchiate → Tier 1b
     m = _DEVIZ_OFERTA_RE.search(full)
     if m and re.search(r'\d', m.group(1)):
+        # Denumirea de dupa cod, cand exista, devine categoria: fara ea grupurile
+        # ofertei n-ar avea text de comparat cu referinta, iar potrivirea ar cadea pe
+        # egalitate de cod — imposibila intre "GF06" si "INSTALATII SANITARE INTERIOARE".
+        den = ' '.join((m.group(2) or '').split())[:60].strip()
         return {
             "method": "explicit",
             "deviz_cod": m.group(1).upper(),
             "obiectul": None,
-            "categoria": None,
+            "categoria": {"num": m.group(1).upper(), "text": den} if den else None,
         }
 
     # Priority 1b: 'Deviz oferta DENUMIRE' fara cod — denumirea completa e cheia de grup
@@ -248,6 +272,19 @@ def _extract_grouping_key(lines: list[str], deviz_text_map: dict = None, referen
                 "obiectul": None,
                 "categoria": None,
             }
+
+    # Priority 1c: antetul curent al paginilor de continuare ("pag 2 GF06").
+    # Cautam DOAR in primele linii: mai jos in pagina, un cod de articol urmat de
+    # numarul paginii ar produce potriviri accidentale.
+    m_antet = _ANTET_CURENT_RE.search(" ".join(lines[:6]))
+    if m_antet:
+        cod_antet = (m_antet.group("dupa") or m_antet.group("inainte")).upper()
+        return {
+            "method": "running_header",
+            "deviz_cod": cod_antet,
+            "obiectul": None,
+            "categoria": None,  # denumirea vine de pe pagina de antet a devizului
+        }
 
     # Priority 2 + 3: Try Obiectul + Categoria with optional numeric prefix
     m_obj = _OBIECTUL_OPT_RE.search(full)
@@ -452,6 +489,13 @@ def classify_page_local(page: dict, deviz_text_map: dict = None, reference_artic
     if not is_f3:
         m = re.search(r"\b([A-Z0-9]{6})\s+pag\b", full, re.IGNORECASE)
         if m and m.start() < 150:
+            is_f3 = True
+
+    # B5b: pagina de continuare cu antet curent ("pag 2 GF06") + coduri de articol.
+    # Singura ei legatura cu devizul e antetul repetat; fara regula asta pagina iese
+    # AMBIGUOUS si articolele ei se pierd din grup.
+    if not is_f3:
+        if _ANTET_CURENT_RE.search(" ".join(lines[:6])) and _has_article_codes(full):
             is_f3 = True
 
     # B5: eDevize cover page (Stadiul fizic: [optional prefix] CODE DESCRIPTION)
