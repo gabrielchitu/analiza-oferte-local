@@ -36,6 +36,14 @@ _SKIP_RE = re.compile(
     re.IGNORECASE
 )
 
+# Sfarsitul tabelului de articole — urmeaza blocul de recapitulatie. Etichetele
+# lui sunt deja in _SKIP_RE, dar numerele dintre ele nu sunt, iar valorile pe
+# care OCR-ul le rupe in doua ('1,081,909.0' + '6') lasa cifre izolate care
+# altfel devin nr_crt de articol.
+_END_OF_ARTICLES_RE = re.compile(
+    r'^(TOTAL\s+1\s*\(Cheltuieli\s+directe|Recapitulati[ae]?\b)', re.IGNORECASE
+)
+
 _TG_FARA_TVA_RE = re.compile(r'TOTAL\s+GENERAL\s*\(fara\s+TVA\)', re.IGNORECASE)
 _TVA_LINE_RE    = re.compile(r'\bTVA\b[^\d(]*\((\d+[\.,]\d+)\s*%\)', re.IGNORECASE)
 _TG_CU_TVA_RE   = re.compile(r'TOTAL\s+GENERAL\s*\(inclusiv\s+TVA\)', re.IGNORECASE)
@@ -65,7 +73,11 @@ def extract_document_parties(raw_pages: list) -> dict:
 
 
 def extract_footer_totals(page_classes: list) -> dict:
-    """Scan all F3 lines for TOTAL GENERAL / TVA footer values.
+    """Scan every page for TOTAL GENERAL / TVA footer values.
+
+    Non-F3 pages count too: in most devize the recapitulation sits on a page
+    of its own, which the classifier correctly labels NON_F3 — restricting the
+    scan to F3 pages loses the footer entirely.
 
     In eDevize OCR output the value for each footer row sits on a *different*
     line than the label:
@@ -76,8 +88,7 @@ def extract_footer_totals(page_classes: list) -> dict:
     footer: dict = {}
     all_lines: list = []
     for pc in page_classes:
-        if pc.get('is_f3'):
-            all_lines.extend(line.strip() for line in pc.get('lines', []))
+        all_lines.extend(line.strip() for line in pc.get('lines', []))
 
     for i, s in enumerate(all_lines):
         if _TG_FARA_TVA_RE.search(s):
@@ -240,6 +251,10 @@ def _parse_f3_page_lines(lines: list[str]) -> list[tuple[str, dict]]:
             continue
 
         if line == 'Antet stanga':
+            in_article_zone = False
+            continue
+
+        if _END_OF_ARTICLES_RE.match(line):
             in_article_zone = False
             continue
 

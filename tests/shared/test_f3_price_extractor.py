@@ -430,3 +430,53 @@ def test_sub_item_breakdown_does_not_overwrite_the_article():
     assert art['breakdown']['manopera']['pret'] == pytest.approx(9988.45)
     assert art['breakdown']['control_ok'] is True
     assert art['sub_items'][0]['breakdown']['manopera']['pret'] == pytest.approx(11.19)
+
+
+# --- Regression: recap block leaking into the article table (EuroProject) ---
+
+_RECAP_TAIL = [
+    '5 = 3 x 4',
+    '90', 'EE12D03^ - SONERIE CU ILUMINARE', 'buc', '8.000', '266.07', '2,128.52',
+    'material:', '252.50', '2,020.00',
+    'manopera:', '13.57', '108.52',
+    'utilaj:', '0.00', '0.00',
+    'transport:', '0.00', '0.00',
+    'TOTAL 1 (Cheltuieli directe)',
+    'Greutate Materiale (tone)', 'Ore Manopera',
+    '458.30', '14,649.92', '1,081,909.06', '678,687.88',
+    'Recapitulatie',
+    'T2 = T1 + Alte cheltuieli directe',
+    '1,081,909.0', '6', '693,958.35',       # OCR splits the value; '6' is not an article
+    'T3 = T2 + Cheltuieli indirecte',
+    '1,190,099.9', '7', '763,354.19',
+    'TOTAL GENERAL (fara TVA)', '2,253,025.29',
+]
+
+
+def test_recap_block_does_not_produce_articles():
+    """The article zone closes at the recap; its stray digits are not nr_crt."""
+    class FakeHeader:
+        obiectivul = obiectul = categoria = 'TEST'
+        deviz_key = 'k'
+
+    deviz = _assemble_deviz(_parse_f3_page_lines(_RECAP_TAIL), FakeHeader())
+    arts = [a for cap in deviz['capitole'] for a in cap['articole']]
+    assert [a['nr_crt'] for a in arts] == ['90']
+    assert arts[0]['sub_items'] == []
+
+
+def test_footer_totals_read_from_a_non_f3_page():
+    """The recapitulation usually sits on its own page, labelled NON_F3."""
+    from shared.f3_price_extractor import extract_footer_totals
+
+    page_classes = [
+        {'is_f3': True, 'lines': ['5 = 3 x 4', '1', 'AA01A01> - Ceva', 'buc']},
+        {'is_f3': False, 'lines': ['Recapitulatie',
+                                   '251,810.64', 'TOTAL GENERAL (fara TVA)',
+                                   'TVA (21.00%)', '52,880.23',
+                                   'TOTAL GENERAL (inclusiv TVA)', '304,690.88']},
+    ]
+    footer = extract_footer_totals(page_classes)
+    assert footer['total_general_fara_tva'] == pytest.approx(251810.64)
+    assert footer['tva_pct'] == pytest.approx(21.0)
+    assert footer['total_cu_tva'] == pytest.approx(304690.88)
