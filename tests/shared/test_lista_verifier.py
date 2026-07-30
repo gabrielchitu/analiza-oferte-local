@@ -112,3 +112,29 @@ def test_verify_retry_loop():
     assert result['status'] == 'OK'
     assert call_count[0] == 1
     assert result['iterations'] == 2
+
+
+# --- Regression: raw last-article-nr scan (EuroProject short devize) ---
+
+def _page(lines):
+    return {'is_f3': True, 'lines': lines}
+
+
+def test_max_nr_ignores_table_column_numbers():
+    """'0' '1' '2' '3' '4' above the '5 = 3 x 4' header are column labels."""
+    from shared.lista_verifier import max_nr_crt_in_page_classes
+
+    page = _page(['Formular F3', '0', '1', '2', '3', '4', '5 = 3 x 4',
+                  '1', 'OS - Organizare de santier', 'buc', '1.000'])
+    assert max_nr_crt_in_page_classes([page]) == 1
+
+
+def test_max_nr_counts_inline_nr_cod_articles():
+    """'4 ACD03A01> - Bazin ...' carries article nr 4 on the code line."""
+    from shared.lista_verifier import max_nr_crt_in_page_classes
+
+    page = _page(['5 = 3 x 4',
+                  '1', 'IB05A01> - Montare ventiloconvector', 'buc',
+                  '4 ACD03A01> - Bazin ecologic vidanjabil', 'buc',
+                  '7 CP14C# - Montare ventilatie cu recuperare', 'buc'])
+    assert max_nr_crt_in_page_classes([page]) == 7

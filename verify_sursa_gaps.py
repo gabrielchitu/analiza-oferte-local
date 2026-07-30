@@ -24,6 +24,7 @@ INPUT_BASE = Path("input_AO")
 OUTPUT_BASE = Path("output_AO")
 
 _NR_STANDALONE_RE = re.compile(r'^\d{1,3}$')
+_TABLE_HEADER_LINE = '5 = 3 x 4'
 _XLS_BOLD   = Font(bold=True)
 _XLS_RED_BG = PatternFill('solid', fgColor='FFCCCC')
 _XLS_WARN_BG= PatternFill('solid', fgColor='FFF2CC')
@@ -45,11 +46,18 @@ def _load_di_pages(di_path: Path) -> dict[int, list[str]]:
 
 
 def _find_nr_in_pages(pages: dict[int, list[str]], nr: int) -> list[tuple[int, int, list[str]]]:
-    """Return [(page_nr, line_idx, context_lines)] for standalone nr in raw pages."""
+    """Return [(page_nr, line_idx, context_lines)] for standalone nr in raw pages.
+
+    Lines above the '5 = 3 x 4' table header are skipped: the column numbers
+    printed there ('0' '1' '2' '3' '4') are not article numbers.
+    """
     hits = []
     nr_str = str(nr)
     for pn, lines in sorted(pages.items()):
+        start = lines.index(_TABLE_HEADER_LINE) + 1 if _TABLE_HEADER_LINE in lines else 0
         for i, line in enumerate(lines):
+            if i < start:
+                continue
             if line.strip() == nr_str and _NR_STANDALONE_RE.match(line.strip()):
                 context = lines[max(0, i - 2): i + 6]
                 hits.append((pn, i, context))

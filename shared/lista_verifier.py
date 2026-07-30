@@ -6,6 +6,14 @@ from typing import Callable, Optional
 
 _NR_ART_RAW_RE = re.compile(r'^\d{1,3}$')
 
+# 'NR COD - denumire' pe o singura linie — acelasi format pe care il accepta
+# f3_price_extractor._NR_COD_INLINE_RE
+_NR_COD_INLINE_RAW_RE = re.compile(r'^(\d{1,3})\s+(?:[A-Z0-9$.*+#%^>@<-]{2,}|\d{4,})\s+-\s+')
+
+# Randul de antet al tabelului F3; numerele de coloana de dinaintea lui
+# ('0' '1' '2' '3' '4') nu sunt numere de articol
+_TABLE_HEADER_LINE = '5 = 3 x 4'
+
 
 def _check_count_devize(extracted: list[dict], deviz_headers: dict = None) -> dict:
     found = len(extracted)
@@ -74,17 +82,25 @@ def _check_total_deviz(extracted: list[dict]) -> dict:
 
 
 def max_nr_crt_in_page_classes(page_classes: list[dict]) -> int | None:
-    """Scan F3 page lines for the highest standalone integer (1-999) = raw last article nr."""
+    """Scan F3 page lines for the highest article nr = raw last article nr.
+
+    Only the article zone counts: on a page that opens the table, the column
+    numbers ('0' '1' '2' '3' '4') printed just above the '5 = 3 x 4' header
+    would otherwise be read as article numbers.  Article numbers appear either
+    standalone or glued to the code ('4 ACD03A01> - Bazin ...').
+    """
     best = None
     for pc in page_classes:
         if not pc.get('is_f3'):
             continue
-        for line in pc.get('lines', []):
-            s = line.strip()
-            if _NR_ART_RAW_RE.match(s):
-                n = int(s)
-                if 1 <= n <= 999 and (best is None or n > best):
-                    best = n
+        lines = [line.strip() for line in pc.get('lines', [])]
+        if _TABLE_HEADER_LINE in lines:
+            lines = lines[lines.index(_TABLE_HEADER_LINE) + 1:]
+        for s in lines:
+            m = _NR_COD_INLINE_RAW_RE.match(s)
+            n = int(m.group(1)) if m else (int(s) if _NR_ART_RAW_RE.match(s) else None)
+            if n is not None and 1 <= n <= 999 and (best is None or n > best):
+                best = n
     return best
 
 

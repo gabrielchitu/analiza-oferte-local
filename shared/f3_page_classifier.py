@@ -70,6 +70,11 @@ _NON_F3_PATTERNS = [
 # Recapitulatie = pagina de sumar la finalul unui deviz, NU date F3
 _RECAPITULATIE_RE = re.compile(r'\bRecapitulati[ae]?\b', re.IGNORECASE)
 
+# Randul de antet al tabelului F3 ('5 = 3 x 4'). Apare pe orice pagina care
+# chiar contine articole si lipseste de pe paginile de sumar — discriminator
+# pentru devizele scurte unde tabelul si Recapitulatia stau pe aceeasi pagina.
+_F3_TABLE_HEADER_RE = re.compile(r'\b5\s*=\s*3\s*x\s*4\b', re.IGNORECASE)
+
 # Article code pattern: matches various normative code formats
 # Examples: VA02B08, CA01J1, ACA10B1, TSC02D11, CD05B1, CE05E1, L1C25A1, W2F05C01, etc.
 # Matches: 2-5 letters + 1-4 digits + optional letter + 0-2 digits
@@ -459,11 +464,16 @@ def classify_page_local(page: dict, deviz_text_map: dict = None, reference_artic
         if pat.search(full):
             return _non_f3()
 
-    # Summary pages without article codes
-    if _RECAPITULATIE_RE.search(full) and not _has_article_codes(full):
+    # Summary pages without article codes. Pages carrying the F3 table header
+    # are single-page devize (table + recap together), not summaries — keep
+    # them even when the codes are non-normative (e.g. 'OS', numeric material
+    # codes) and _has_article_codes therefore sees nothing.
+    has_table = bool(_F3_TABLE_HEADER_RE.search(full))
+
+    if _RECAPITULATIE_RE.search(full) and not _has_article_codes(full) and not has_table:
         return _non_f3()
 
-    if "TOTAL GENERAL" in full[:200] and not _has_article_codes(full):
+    if "TOTAL GENERAL" in full[:200] and not _has_article_codes(full) and not has_table:
         return _non_f3()
 
     # ── Phase B: F3 detection ─────────────────────────────────────────────────
