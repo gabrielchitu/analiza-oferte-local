@@ -9,9 +9,12 @@ from typing import Optional
 _HEADER_LOWER_ALLOWED = {'si', 'de', 'cu', 'a', 'al', 'ale', 'din', 'la', 'pe', 'in', 'ca'}
 
 _UM_KNOWN = {
-    'MP', 'MC', 'ML', 'BUC', 'KG', 'T', 'L', 'SET', 'PERECHE', 'M',
-    'ORA', 'ZI', 'LUNA', 'AN', 'TONA', 'MII', 'DM3', 'CM2', 'KM', 'HA',
+    'MP', 'MC', 'ML', 'BUC', 'BUCATA', 'KG', 'T', 'L', 'SET', 'PERECHE', 'M',
+    'ORA', 'ZI', 'LUNA', 'AN', 'ANS', 'TONA', 'MII', 'DM3', 'CM2', 'KM', 'HA',
 }
+
+# Spelling variants folded onto the canonical UM used in the output
+_UM_NORMALIZE = {'BUCATA': 'BUC'}
 
 _SKIP_EXACT = {
     'Antet stanga', 'eDevize', 'e', 'Beneficiar:', 'Executant:', 'Proiectant:',
@@ -167,6 +170,21 @@ def _is_um(line: str) -> bool:
     return line.strip().upper() in _UM_KNOWN
 
 
+def _match_um(line: str, next_line: str = '') -> Optional[tuple[str, int]]:
+    """Match a UM starting at `line`, tolerating an OCR line-split.
+
+    eDevize output sometimes wraps a UM across two lines ('BUCAT' + 'A').
+    Returns ``(canonical_um, lines_consumed)`` or ``None``.
+    """
+    s = line.strip().upper()
+    if s in _UM_KNOWN:
+        return _UM_NORMALIZE.get(s, s), 1
+    joined = s + next_line.strip().upper()
+    if joined in _UM_KNOWN:
+        return _UM_NORMALIZE.get(joined, joined), 2
+    return None
+
+
 def _is_breakdown_key(line: str) -> bool:
     """Line is 'material:', 'manopera:', etc."""
     return bool(_BREAKDOWN_RE.match(line.strip()))
@@ -255,12 +273,18 @@ def _parse_f3_page_lines(lines: list[str]) -> list[tuple[str, dict]]:
             denumire_parts = [line]
             while i < len(lines):
                 nxt = lines[i].strip()
-                if (_is_um(nxt) or _is_cod_name(nxt) or _is_breakdown_key(nxt)
+                nxt2 = lines[i + 1].strip() if (i + 1) < len(lines) else ''
+                if (_match_um(nxt, nxt2) or _is_cod_name(nxt) or _is_breakdown_key(nxt)
                         or _is_skip(nxt) or _TOTAL_CAPITOL_RE.match(nxt)):
                     break
                 last_part = denumire_parts[-1].strip()
                 if _is_capitol_header(nxt) and not last_part.endswith('-'):
-                    break
+                    # A real section header is never followed by a UM; an all-caps
+                    # line that is, is a wrapped denumire fragment
+                    # ('... pt. instalatie' + 'CATV' + 'm').
+                    nxt3 = lines[i + 2].strip() if (i + 2) < len(lines) else ''
+                    if not _match_um(nxt2, nxt3):
+                        break
                 # Integer/decimal before UM = norm code in denomination (e.g. '2111' then 'kg')
                 if _NR_INT_RE.match(nxt) or _NR_DEC_RE.match(nxt) or _parse_number(nxt) is not None:
                     next_next = lines[i + 1].strip() if (i + 1) < len(lines) else ''
@@ -279,8 +303,8 @@ def _parse_f3_page_lines(lines: list[str]) -> list[tuple[str, dict]]:
             events.append(('COD_NAME', {'cod': cod, 'denumire': denumire}))
             continue
 
-        # CAPITOL HEADER
-        if _is_capitol_header(line):
+        # CAPITOL HEADER — but a line-split UM ('BUCAT' + 'A') is not a header
+        if _is_capitol_header(line) and not _match_um(line, lines[i].strip() if i < len(lines) else ''):
             in_num_window = False
             num_window_count = 0
             events.append(('CAPITOL', {'titlu': line}))
@@ -318,10 +342,13 @@ def _parse_f3_page_lines(lines: list[str]) -> list[tuple[str, dict]]:
                     continue
 
         # UM — opens the num window (next ≤3 decimal tokens are numbers)
-        if _is_um(line):
+        m_um = _match_um(line, lines[i].strip() if i < len(lines) else '')
+        if m_um:
+            um, consumed = m_um
+            i += consumed - 1
             in_num_window = True
             num_window_count = 0
-            events.append(('UM', {'um': line.upper()}))
+            events.append(('UM', {'um': um}))
             continue
 
         # NUMBER (plain float/int value)

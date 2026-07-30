@@ -321,3 +321,63 @@ def test_extract_prices_checkpoint_roundtrip(tmp_path):
     # force=True — re-extracts even with checkpoint
     result3 = extract_prices(page_classes, deviz_headers, checkpoint_path=ckpt, force=True)
     assert len(result3) == 1
+
+
+# --- Regression: all-caps line mistaken for a CAPITOL header (EuroProject) ---
+
+def _capitole(lines):
+    events = _parse_f3_page_lines(['5 = 3 x 4'] + lines)
+    return [e[1]['titlu'] for e in events if e[0] == 'CAPITOL']
+
+
+def _first(events, etype):
+    return next(e[1] for e in events if e[0] == etype)
+
+
+def test_wrapped_denumire_fragment_is_not_a_capitol():
+    """'CATV' wraps off the denumire above it — the UM right after proves it."""
+    lines = [
+        '25.1',
+        '100014356 - Cablu coaxial 2275 tip RG6 pt. instalatie',
+        'CATV',
+        'm', '61.800', '3.80', '234.53',
+    ]
+    assert _capitole(lines) == []
+    events = _parse_f3_page_lines(['5 = 3 x 4'] + lines)
+    assert _first(events, 'COD_NAME')['denumire'].endswith('instalatie CATV')
+    assert _first(events, 'UM')['um'] == 'M'
+
+
+def test_line_split_um_bucata_is_not_a_capitol():
+    """eDevize splits the UM 'BUCATA' across two lines as 'BUCAT' + 'A'."""
+    lines = [
+        '115',
+        'RPSE21A# - Apometru Dn25',
+        'BUCAT', 'A',
+        '8.000', '2,572.27', '20,578.19',
+    ]
+    assert _capitole(lines) == []
+    events = _parse_f3_page_lines(['5 = 3 x 4'] + lines)
+    assert _first(events, 'COD_NAME')['denumire'] == 'Apometru Dn25'
+    assert _first(events, 'UM')['um'] == 'BUC'
+    assert [e[1]['value'] for e in events if e[0] == 'NUMBER'] == [8.0, 2572.27, 20578.19]
+
+
+def test_um_ans_is_recognised():
+    """'ans' (ansamblu) is a UM, not a trailing word of the denumire."""
+    lines = [
+        '22',
+        'IE01A02> - Efectuarea probei de etanseitate la presiune a',
+        'instalatiei de incalzire',
+        'ans', '2.000', '149.32', '298.63',
+    ]
+    events = _parse_f3_page_lines(['5 = 3 x 4'] + lines)
+    assert _first(events, 'COD_NAME')['denumire'].endswith('instalatiei de incalzire')
+    assert _first(events, 'UM')['um'] == 'ANS'
+
+
+def test_real_capitol_header_still_detected():
+    """A header followed by an article number is still a CAPITOL."""
+    lines = ['TOTAL CURENTI TARI', '54,018.05', 'CURENTI SLABI', '21',
+             'ED04B01> - Priza dubla RJ45, montaj ST', 'buc', '6.000', '59.88', '359.28']
+    assert _capitole(lines) == ['CURENTI SLABI']
