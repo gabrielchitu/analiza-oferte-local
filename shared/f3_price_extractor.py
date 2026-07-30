@@ -101,8 +101,13 @@ def extract_footer_totals(page_classes: list) -> dict:
 
 _NR_INT_RE = re.compile(r'^\d+$')
 _NR_DEC_RE = re.compile(r'^\d+\.\d+$')
-_COD_NAME_RE = re.compile(r'^([A-Z0-9$.*+#%^>@<-]{2,}|\d{4,})\s+-\s+(.+)$')
-_NR_COD_INLINE_RE = re.compile(r'^(\d{1,3})\s+([A-Z0-9$.*+#%^>@<-]{2,}|\d{4,})\s+-\s+(.+)$')
+# Article code token: all-caps/symbolic, a bare numeric material code, or a
+# mixed-case normative code ('AcD27A1*', 'eA10B1' — eDevize is not consistent
+# about capitalisation). The mixed-case form must contain a digit so ordinary
+# words ahead of a dash are not mistaken for codes.
+_COD_TOKEN = r'[A-Z0-9$.*+#%^>@<-]{2,}|\d{4,}|[A-Za-z]{1,5}\d[A-Za-z0-9$.*+#%^>@<-]*'
+_COD_NAME_RE = re.compile(rf'^({_COD_TOKEN})\s+-\s+(.+)$')
+_NR_COD_INLINE_RE = re.compile(rf'^(\d{{1,3}})\s+({_COD_TOKEN})\s+-\s+(.+)$')
 _TOTAL_CAPITOL_RE = re.compile(r'^TOTAL\s+(.+)$', re.IGNORECASE)
 _BREAKDOWN_RE = re.compile(r'^(material|manopera|utilaj|transport):$', re.IGNORECASE)
 
@@ -462,16 +467,19 @@ def _assemble_deviz(events: list[tuple[str, dict]], header) -> dict:
             num_queue.append(data['value'])
 
         elif etype == 'BREAKDOWN':
-            if current_article is not None:
-                if current_article['breakdown'] is None:
-                    current_article['breakdown'] = {
+            # Sub-items carry their own breakdown block in some devize; without
+            # this branch the last sub-item's block overwrites the article's.
+            target = current_sub if (in_sub_item and current_sub is not None) else current_article
+            if target is not None:
+                if target.get('breakdown') is None:
+                    target['breakdown'] = {
                         'material': {'pret': 0.0, 'total': 0.0},
                         'manopera': {'pret': 0.0, 'total': 0.0},
                         'utilaj': {'pret': 0.0, 'total': 0.0},
                         'transport': {'pret': 0.0, 'total': 0.0},
                         'control_ok': False,
                     }
-                current_article['breakdown'][data['key']] = {
+                target['breakdown'][data['key']] = {
                     'pret': data['pret'],
                     'total': data['total'],
                 }

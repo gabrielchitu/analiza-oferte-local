@@ -381,3 +381,52 @@ def test_real_capitol_header_still_detected():
     lines = ['TOTAL CURENTI TARI', '54,018.05', 'CURENTI SLABI', '21',
              'ED04B01> - Priza dubla RJ45, montaj ST', 'buc', '6.000', '59.88', '359.28']
     assert _capitole(lines) == ['CURENTI SLABI']
+
+
+# --- Regression: mixed-case codes and per-sub-item breakdown (EuroProject) ---
+
+def test_mixed_case_article_code_is_recognised():
+    """eDevize is inconsistent about capitalisation: 'AcD27A1*', 'eA10B1'."""
+    assert _is_cod_name('AcD27A1* - Tub circular din PVC-KG pentru canalizare')
+    assert _is_cod_name('eA10B1 - Tub gofrat DN 60')
+
+
+def test_plain_words_before_a_dash_are_not_codes():
+    """The mixed-case branch needs a digit, so prose stays prose."""
+    assert not _is_cod_name('depozitare materiale - constructive')
+    assert not _is_cod_name('instalatie - de incalzire')
+
+
+def test_mixed_case_code_reaches_the_article():
+    lines = ['12', 'eA10B1 - Tub gofrat DN 60', 'm', '70.000', '29.59', '2,071.51']
+    events = _parse_f3_page_lines(['5 = 3 x 4'] + lines)
+    cod_name = next(e[1] for e in events if e[0] == 'COD_NAME')
+    assert cod_name['cod'] == 'eA10B1'
+    assert cod_name['denumire'] == 'Tub gofrat DN 60'
+
+
+def test_sub_item_breakdown_does_not_overwrite_the_article():
+    """Both the article and its sub-items carry a breakdown block here."""
+    class FakeHeader:
+        obiectivul = obiectul = categoria = 'TEST'
+        deviz_key = 'k'
+
+    lines = [
+        '5 = 3 x 4',
+        '1', 'RES0057 - Decopertare strat vegetal', 'mc', '1.000', '13,906.45', '13,906.45',
+        'material:', '3,918.00', '3,918.00',
+        'manopera:', '9,988.45', '9,988.45',
+        'utilaj:', '0.00', '0.00',
+        'transport:', '0.00', '0.00',
+        '1.1', 'SPVA15C - Decopertare', 'mc', '65.000', '11.19', '727.58',
+        'material:', '0.00', '0.00',
+        'manopera:', '11.19', '727.58',
+        'utilaj:', '0.00', '0.00',
+        'transport:', '0.00', '0.00',
+    ]
+    deviz = _assemble_deviz(_parse_f3_page_lines(lines), FakeHeader())
+    art = deviz['capitole'][0]['articole'][0]
+    assert art['breakdown']['material']['pret'] == pytest.approx(3918.00)
+    assert art['breakdown']['manopera']['pret'] == pytest.approx(9988.45)
+    assert art['breakdown']['control_ok'] is True
+    assert art['sub_items'][0]['breakdown']['manopera']['pret'] == pytest.approx(11.19)
