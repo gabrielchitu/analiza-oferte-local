@@ -11,6 +11,10 @@ _HEADER_LOWER_ALLOWED = {'si', 'de', 'cu', 'a', 'al', 'ale', 'din', 'la', 'pe', 
 _UM_KNOWN = {
     'MP', 'MC', 'ML', 'BUC', 'BUCATA', 'KG', 'T', 'L', 'SET', 'PERECHE', 'M',
     'ORA', 'ZI', 'LUNA', 'AN', 'ANS', 'TONA', 'MII', 'DM3', 'CM2', 'KM', 'HA',
+    # eDevize prints a literal 'um' in the unit column of some material lines.
+    # It still occupies the UM slot: without it the qty/price window never
+    # opens and the following numbers are misread as sub-item markers.
+    'UM',
 }
 
 # Spelling variants folded onto the canonical UM used in the output
@@ -154,6 +158,9 @@ def _parse_number(s: str) -> Optional[float]:
 
 def _is_capitol_header(line: str) -> bool:
     """All-caps line with no digits and no dash — section header.
+
+    Deliberately strict: a title missed here is recovered from the closing
+    'TOTAL <name>' line, whereas a false positive swallows an article row.
 
     Note: callers must check `_is_cod_name` first — all-caps cod-name lines
     (e.g. ``RPCE27A+ - MASTIC BITUMINOS``) satisfy both predicates.
@@ -436,6 +443,12 @@ def _assemble_deviz(events: list[tuple[str, dict]], header) -> dict:
             _flush_to_capitol()
             if current_capitol is not None:
                 current_capitol['total_capitol'] = data['total']
+                # _is_capitol_header is intentionally strict and misses titles
+                # carrying digits or dashes ('APARTAMENT 3 CAMERE',
+                # 'INFRASTRUCTURA - TERASAMENTE'). The closing line names the
+                # section, so recover it rather than leave the header blank.
+                if not current_capitol['titlu'].strip():
+                    current_capitol['titlu'] = data['titlu']
                 capitole.append(current_capitol)
                 current_capitol = None
 

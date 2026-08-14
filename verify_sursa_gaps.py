@@ -35,14 +35,33 @@ _XLS_LEFT   = Alignment(horizontal='left',   vertical='center', wrap_text=True)
 
 # ── raw DI helpers ──────────────────────────────────────────────────────────
 
-def _load_di_pages(di_path: Path) -> dict[int, list[str]]:
+def _load_di_pages(di_path: Path, f3_pages: set[int] | None = None) -> dict[int, list[str]]:
+    """Raw lines per page, limited to the F3 pages the extractor actually read.
+
+    The annex tables ('Lista materiale', 'Ore Manopera', 'Utilaje', 'Transport')
+    are not F3 and carry their own numbering plus their own column-header rows
+    ('4 = 2 X 3', '6 = 2 X 3 X 5'), which would otherwise surface as missing
+    article numbers.
+    """
     data = json.loads(di_path.read_text(encoding='utf-8'))
     result = {}
     for page in data.get('pages', []):
         pn = page.get('page_number', 0)
+        if f3_pages is not None and pn not in f3_pages:
+            continue
         lines = [ln.get('content', '').strip() for ln in page.get('lines', [])]
         result[pn] = lines
     return result
+
+
+def _f3_page_numbers(client: str, json_stem: str) -> set[int] | None:
+    """Page numbers classified as F3, from the classifier checkpoint."""
+    ckpt = OUTPUT_BASE / client / f"{json_stem}_page_classes.json"
+    if not ckpt.exists():
+        return None
+    data = json.loads(ckpt.read_text(encoding='utf-8'))
+    pcs = data.get('page_classes', data) if isinstance(data, dict) else data
+    return {pc.get('page_number') for pc in pcs if pc.get('is_f3')}
 
 
 def _find_nr_in_pages(pages: dict[int, list[str]], nr: int) -> list[tuple[int, int, list[str]]]:
@@ -174,7 +193,7 @@ def analyze(client: str, json_stem: str) -> None:
     print(f"  Extras:    {extracted_path}")
     print(f"  XLSX:      {xlsx_path or 'negăsit'}")
 
-    di_pages = _load_di_pages(di_path)
+    di_pages = _load_di_pages(di_path, _f3_page_numbers(client, json_stem))
     arts = _load_extracted(extracted_path)
     nrs = _main_nrs(arts)
     gaps = _find_gaps(nrs)

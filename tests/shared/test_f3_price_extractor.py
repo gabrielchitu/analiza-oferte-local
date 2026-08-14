@@ -480,3 +480,52 @@ def test_footer_totals_read_from_a_non_f3_page():
     assert footer['total_general_fara_tva'] == pytest.approx(251810.64)
     assert footer['tva_pct'] == pytest.approx(21.0)
     assert footer['total_cu_tva'] == pytest.approx(304690.88)
+
+
+# --- Regression: literal 'um' unit and capitol title recovery (EuroProject) ---
+
+class _H:
+    obiectivul = obiectul = categoria = 'TEST'
+    deviz_key = 'k'
+
+
+def test_literal_um_unit_opens_the_number_window():
+    """Some material lines print 'um' in the unit column. Without it the qty
+    and price are misread as sub-item markers and the article loses its
+    totals to a stale sub-item."""
+    lines = [
+        '5 = 3 x 4',
+        '1', 'CA02B# - Beton simplu', 'mc', '40.000', '582.22', '23,288.91',
+        'material:', '360.00', '14,400.00',
+        '1.0', '2100969 - Beton de ciment B 250', 'um', '1.000', '360.00', '360.00',
+        '2', 'CA02A% - Betonare sistem de fundare', 'mc', '133.000', '615.88', '81,912.29',
+    ]
+    deviz = _assemble_deviz(_parse_f3_page_lines(lines), _H())
+    arts = [a for cap in deviz['capitole'] for a in cap['articole']]
+    assert [a['nr_crt'] for a in arts] == ['1', '2']
+    assert arts[0]['sub_items'][0]['nr_crt'] == '1.0'
+    assert arts[1]['cantitate'] == pytest.approx(133.0)
+    assert arts[1]['total'] == pytest.approx(81912.29)
+
+
+def test_capitol_title_recovered_from_the_total_line():
+    """'INFRASTRUCTURA - TERASAMENTE' is rejected as a header (dashes), but the
+    closing TOTAL line names the section."""
+    lines = [
+        '5 = 3 x 4',
+        'INFRASTRUCTURA - TERASAMENTE - SAPATURA',
+        '1', 'CA02B# - Beton simplu', 'mc', '40.000', '582.22', '23,288.91',
+        'TOTAL INFRASTRUCTURA - TERASAMENTE - SAPATURA', '23,288.91',
+    ]
+    deviz = _assemble_deviz(_parse_f3_page_lines(lines), _H())
+    assert deviz['capitole'][0]['titlu'] == 'INFRASTRUCTURA - TERASAMENTE - SAPATURA'
+
+
+def test_capitol_title_from_header_wins_over_the_total_line():
+    lines = [
+        '5 = 3 x 4', 'CURENTI TARI',
+        '1', 'EE12D03^ - Corp iluminat', 'buc', '1.000', '10.00', '10.00',
+        'TOTAL CURENTI TARI', '10.00',
+    ]
+    deviz = _assemble_deviz(_parse_f3_page_lines(lines), _H())
+    assert deviz['capitole'][0]['titlu'] == 'CURENTI TARI'
