@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 
 from shared.client_config import ClientConfig
 from shared.f3_price_extractor import extract_prices, extract_footer_totals, extract_document_parties
-from shared.lista_verifier import verify, max_nr_crt_in_page_classes
+from shared.lista_verifier import verify, max_nr_crt_in_page_classes, article_nrs_in_page_classes
 from shared.sursa_incarcare_writer import make_acronym, write_docx, write_docx_v2, write_xlsx, write_pdf, write_pdf_native
 
 
@@ -172,8 +172,9 @@ def _run_pipeline(client_name: str, json_path: Path, no_pdf: bool = False, force
 
     # Step 4: Verify
     print(f"  [4/4] Verificare...", end="", flush=True)
-    raw_max_nr = max_nr_crt_in_page_classes(page_classes)
-    verification = verify(extracted, deviz_headers, raw_max_nr=raw_max_nr)
+    raw_nrs = article_nrs_in_page_classes(page_classes)
+    raw_max_nr = max(raw_nrs) if raw_nrs else None
+    verification = verify(extracted, deviz_headers, raw_max_nr=raw_max_nr, raw_nrs=raw_nrs)
 
     ckpt_verified = config.output_dir / f"sursa_verified_{json_stem}.json"
     ckpt_verified.write_text(

@@ -529,3 +529,39 @@ def test_capitol_title_from_header_wins_over_the_total_line():
     ]
     deviz = _assemble_deviz(_parse_f3_page_lines(lines), _H())
     assert deviz['capitole'][0]['titlu'] == 'CURENTI TARI'
+
+
+def test_stray_digit_glued_to_cod_line_is_not_an_article():
+    """OCR splits '200' as '20' + a '0' glued to the code line. Two article
+    numbers never follow each other, so the leading digit is noise."""
+    lines = [
+        '5 = 3 x 4',
+        '20', '0 CA02J1 - Betonare placa peste fundatii',
+        'mc', '51.000', '530.90', '27,076.01',
+    ]
+    events = _parse_f3_page_lines(lines)
+    assert [e[1]['nr_crt'] for e in events if e[0] == 'ART_NR'] == ['20']
+    cod_name = next(e[1] for e in events if e[0] == 'COD_NAME')
+    assert cod_name['cod'] == 'CA02J1'
+
+
+def test_inline_nr_cod_still_starts_an_article():
+    """Without a preceding bare article number the inline form is genuine."""
+    lines = ['5 = 3 x 4', '10 CF17A01* - Amorsa', 'mp', '5.000', '2.00', '10.00']
+    events = _parse_f3_page_lines(lines)
+    assert [e[1]['nr_crt'] for e in events if e[0] == 'ART_NR'] == ['10']
+
+
+def test_repeated_article_number_stays_an_article():
+    """In the 'situatie de lucrari' format a resource line reuses its parent's
+    number and still counts towards the capitol total."""
+    lines = [
+        '5 = 3 x 4', 'COMPARTIMENTARI',
+        '3', 'CD08C2 - Pereti compartimentare', 'mc', '34.630', '711.89', '24,652.74',
+        '3', '2101121 - Mortar de zidarie M 10', 'mc', '1.939', '385.00', '746.62',
+        'TOTAL COMPARTIMENTARI', '25,399.36',
+    ]
+    deviz = _assemble_deviz(_parse_f3_page_lines(lines), _H())
+    arts = deviz['capitole'][0]['articole']
+    assert [a['nr_crt'] for a in arts] == ['3', '3']
+    assert sum(a['total'] for a in arts) == pytest.approx(25399.36)

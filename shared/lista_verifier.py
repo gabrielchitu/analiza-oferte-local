@@ -23,8 +23,16 @@ def _check_count_devize(extracted: list[dict], deviz_headers: dict = None) -> di
     return {'ok': found == expected, 'found': found, 'expected': expected}
 
 
-def _check_nr_crt_gaps(extracted: list[dict]) -> dict:
+def _check_nr_crt_gaps(extracted: list[dict], raw_nrs: set[int] | None = None) -> dict:
+    """Missing article numbers.
+
+    A hole only means an article was lost if that number is actually printed in
+    the document. A 'situatie de lucrari' lists just the articles executed in
+    the period, so its numbering skips by design — pass `raw_nrs` to tell the
+    two apart.
+    """
     gaps = []
+    skipped = []
     for deviz in extracted:
         nrs = []
         for cap in deviz.get('capitole', []):
@@ -36,7 +44,13 @@ def _check_nr_crt_gaps(extracted: list[dict]) -> dict:
         nrs_sorted = sorted(set(nrs))
         for a, b in zip(nrs_sorted, nrs_sorted[1:]):
             if b - a > 1:
-                gaps.extend(range(a + 1, b))
+                for n in range(a + 1, b):
+                    if raw_nrs is not None and n not in raw_nrs:
+                        skipped.append(n)
+                    else:
+                        gaps.append(n)
+    if skipped:
+        return {'ok': len(gaps) == 0, 'gaps': gaps, 'numbering_skips': skipped}
     return {'ok': len(gaps) == 0, 'gaps': gaps}
 
 
@@ -81,15 +95,15 @@ def _check_total_deviz(extracted: list[dict]) -> dict:
     }
 
 
-def max_nr_crt_in_page_classes(page_classes: list[dict]) -> int | None:
-    """Scan F3 page lines for the highest article nr = raw last article nr.
+def article_nrs_in_page_classes(page_classes: list[dict]) -> set[int]:
+    """Every article number printed in the raw F3 pages.
 
     Only the article zone counts: on a page that opens the table, the column
     numbers ('0' '1' '2' '3' '4') printed just above the '5 = 3 x 4' header
     would otherwise be read as article numbers.  Article numbers appear either
     standalone or glued to the code ('4 ACD03A01> - Bazin ...').
     """
-    best = None
+    found: set[int] = set()
     for pc in page_classes:
         if not pc.get('is_f3'):
             continue
@@ -99,9 +113,15 @@ def max_nr_crt_in_page_classes(page_classes: list[dict]) -> int | None:
         for s in lines:
             m = _NR_COD_INLINE_RAW_RE.match(s)
             n = int(m.group(1)) if m else (int(s) if _NR_ART_RAW_RE.match(s) else None)
-            if n is not None and 1 <= n <= 999 and (best is None or n > best):
-                best = n
-    return best
+            if n is not None and 1 <= n <= 999:
+                found.add(n)
+    return found
+
+
+def max_nr_crt_in_page_classes(page_classes: list[dict]) -> int | None:
+    """Highest article nr printed in the raw F3 pages."""
+    found = article_nrs_in_page_classes(page_classes)
+    return max(found) if found else None
 
 
 def _check_last_nr_crt(extracted: list[dict], raw_max_nr: int | None) -> dict:
@@ -159,6 +179,7 @@ def verify(
     max_iterations: int = 5,
     reextract_fn: Optional[Callable] = None,
     raw_max_nr: int | None = None,
+    raw_nrs: set[int] | None = None,
 ) -> dict:
     """Run all checks, retry up to max_iterations if HIGH checks fail.
 
@@ -173,7 +194,7 @@ def verify(
         last_iteration = iteration
         checks = {
             'COUNT_DEVIZE':      _check_count_devize(current, deviz_headers),
-            'NR_CRT_GAPS':       _check_nr_crt_gaps(current),
+            'NR_CRT_GAPS':       _check_nr_crt_gaps(current, raw_nrs),
             'LAST_NR_CRT':       _check_last_nr_crt(current, raw_max_nr),
             'HOLLOW_ARTICLES':   _check_hollow_articles(current),
             'TOTAL_CAPITOL':     _check_total_capitol(current),

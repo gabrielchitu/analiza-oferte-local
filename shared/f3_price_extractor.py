@@ -246,6 +246,9 @@ def _parse_f3_page_lines(lines: list[str]) -> list[tuple[str, dict]]:
     # appear, decimal tokens are again eligible as sub-item markers.
     in_num_window = False  # True when UM seen and <3 NUMBERs collected yet
     num_window_count = 0
+    # True while an article number has been seen but its code line has not.
+    # Digits glued to that code line are OCR noise, not a second article.
+    awaiting_cod = False
     i = 0
 
     while i < len(lines):
@@ -291,8 +294,21 @@ def _parse_f3_page_lines(lines: list[str]) -> list[tuple[str, dict]]:
         if m_nr_cod:
             in_num_window = False
             num_window_count = 0
-            events.append(('ART_NR', {'nr_crt': m_nr_cod.group(1)}))
-            events.append(('COD_NAME', {'cod': m_nr_cod.group(2), 'denumire': m_nr_cod.group(3).strip()}))
+            if awaiting_cod:
+                # The article number came on its own line just above, so the
+                # leading digits here are OCR noise ('20' / '0 CA02J1 - ...').
+                # Two article numbers never follow each other.
+                events.append(('COD_NAME', {
+                    'cod': m_nr_cod.group(2),
+                    'denumire': m_nr_cod.group(3).strip(),
+                }))
+            else:
+                events.append(('ART_NR', {'nr_crt': m_nr_cod.group(1)}))
+                events.append(('COD_NAME', {
+                    'cod': m_nr_cod.group(2),
+                    'denumire': m_nr_cod.group(3).strip(),
+                }))
+            awaiting_cod = False
             continue
 
         # COD + DENUMIRE checked BEFORE capitol header (all-caps overlap)
@@ -328,6 +344,7 @@ def _parse_f3_page_lines(lines: list[str]) -> list[tuple[str, dict]]:
             den_first = m_cn.group(2).strip()
             denumire = ' '.join([den_first] + denumire_parts[1:]).strip()
             events.append(('COD_NAME', {'cod': cod, 'denumire': denumire}))
+            awaiting_cod = False
             continue
 
         # CAPITOL HEADER — but a line-split UM ('BUCAT' + 'A') is not a header
@@ -347,6 +364,10 @@ def _parse_f3_page_lines(lines: list[str]) -> list[tuple[str, dict]]:
         if _NR_INT_RE.match(line):
             in_num_window = False
             num_window_count = 0
+            # A repeated number is not a sub-item marker: in the 'situatie de
+            # lucrari' format a resource line reuses its parent's number and
+            # still counts towards the capitol total, so it stays an article.
+            awaiting_cod = True
             events.append(('ART_NR', {'nr_crt': line}))
             continue
 

@@ -61,7 +61,10 @@ _EDEVIZE_CONTINUATION_RE = re.compile(r'>>>\s*componenta')
 # ── Semnale non-F3 ────────────────────────────────────────────────────────────
 
 _NON_F3_PATTERNS = [
-    re.compile(r'FORMULAR\s+(?!F3\b)[CF][0-9]', re.IGNORECASE),      # FORMULAR C6, F1, F2, F4 — excludes F3
+    # FORMULAR C6, F1, F2, F4 — excludes F3 and its suffixed variants
+    # ('Formular F3nrz - Realizari la data de ...' is the progress form, same
+    # table layout; a \b here would let it fall through to this exclusion).
+    re.compile(r'FORMULAR\s+(?!F3)[CF][0-9]', re.IGNORECASE),
     re.compile(r'CENTRALIZATORUL\s+cheltuielilor', re.IGNORECASE),
     re.compile(r'LISTA\s+cuprinzand\s+consumurile', re.IGNORECASE),
     re.compile(r'Formularul\s+nr\.', re.IGNORECASE),         # formular de oferta

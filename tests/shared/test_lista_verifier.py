@@ -138,3 +138,41 @@ def test_max_nr_counts_inline_nr_cod_articles():
                   '4 ACD03A01> - Bazin ecologic vidanjabil', 'buc',
                   '7 CP14C# - Montare ventilatie cu recuperare', 'buc'])
     assert max_nr_crt_in_page_classes([page]) == 7
+
+
+def test_numbering_skips_are_not_gaps_when_absent_from_raw():
+    """A 'situatie de lucrari' lists only the articles executed in the period,
+    so its numbering skips by design."""
+    from shared.lista_verifier import _check_nr_crt_gaps
+
+    extracted = [{'capitole': [{'articole': [{'nr_crt': '3'}, {'nr_crt': '7'}]}]}]
+    # 4, 5, 6 are not printed anywhere in the document
+    res = _check_nr_crt_gaps(extracted, raw_nrs={3, 7})
+    assert res['ok'] is True
+    assert res['gaps'] == []
+    assert res['numbering_skips'] == [4, 5, 6]
+
+
+def test_gap_still_reported_when_the_number_is_printed():
+    from shared.lista_verifier import _check_nr_crt_gaps
+
+    extracted = [{'capitole': [{'articole': [{'nr_crt': '3'}, {'nr_crt': '5'}]}]}]
+    res = _check_nr_crt_gaps(extracted, raw_nrs={3, 4, 5})
+    assert res['ok'] is False
+    assert res['gaps'] == [4]
+
+
+def test_gaps_without_raw_keep_the_old_behaviour():
+    from shared.lista_verifier import _check_nr_crt_gaps
+
+    extracted = [{'capitole': [{'articole': [{'nr_crt': '3'}, {'nr_crt': '5'}]}]}]
+    assert _check_nr_crt_gaps(extracted) == {'ok': False, 'gaps': [4]}
+
+
+def test_article_nrs_collects_every_printed_number():
+    from shared.lista_verifier import article_nrs_in_page_classes
+
+    page = {'is_f3': True, 'lines': ['0', '1', '2', '3', '4', '5 = 3 x 4',
+                                     '3', 'CD08C2 - Pereti', 'mc',
+                                     '7 CP14C# - Ventilatie', 'buc']}
+    assert article_nrs_in_page_classes([page]) == {3, 7}
