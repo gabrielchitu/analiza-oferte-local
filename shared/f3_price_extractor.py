@@ -51,6 +51,8 @@ _END_OF_ARTICLES_RE = re.compile(
 _TG_FARA_TVA_RE = re.compile(r'TOTAL\s+GENERAL\s*\(fara\s+TVA\)', re.IGNORECASE)
 _TVA_LINE_RE    = re.compile(r'\bTVA\b[^\d(]*\((\d+[\.,]\d+)\s*%\)', re.IGNORECASE)
 _TG_CU_TVA_RE   = re.compile(r'TOTAL\s+GENERAL\s*\(inclusiv\s+TVA\)', re.IGNORECASE)
+_T1_LABEL_RE    = re.compile(r'^TOTAL\s*1\b', re.IGNORECASE)
+_T1_COL_TOTAL_RE = re.compile(r'^TOTAL$', re.IGNORECASE)
 
 
 _PARTY_LABELS = {
@@ -76,6 +78,44 @@ def extract_document_parties(raw_pages: list) -> dict:
     return parties
 
 
+_NUMERIC_LINE_RE = re.compile(r'^-?[\d.,]+$')
+
+
+def _read_total_1(all_lines: list, label_idx: int) -> Optional[float]:
+    """Value of 'TOTAL 1 (Cheltuieli directe)' in the eDevize recap block.
+
+    The label heads a small table whose column captions are printed first and
+    whose figures follow, so the number never sits next to its label:
+
+        TOTAL 1 (Cheltuieli directe)
+        Greutate Materiale (tone) / Ore Manopera / Material / Manopera /
+        Utilaj / Transport / TOTAL      <- captions
+        5,053.32 ... 0.00 / 1,231,027.40  <- figures, TOTAL last
+
+    Locate the 'TOTAL' caption that closes the caption run, then take the last
+    figure of the numeric run that follows it.
+    """
+    total_idx = None
+    for j in range(label_idx + 1, min(label_idx + 16, len(all_lines))):
+        if _T1_COL_TOTAL_RE.match(all_lines[j]):
+            total_idx = j
+            break
+    if total_idx is None:
+        return None
+    run: list = []
+    for j in range(total_idx + 1, len(all_lines)):
+        s = all_lines[j]
+        if not _NUMERIC_LINE_RE.match(s):
+            break
+        val = _parse_number(s)
+        if val is None:
+            break
+        run.append(val)
+    if not run:
+        return None
+    return run[-1]
+
+
 def extract_footer_totals(page_classes: list) -> dict:
     """Scan every page for TOTAL GENERAL / TVA footer values.
 
@@ -94,8 +134,14 @@ def extract_footer_totals(page_classes: list) -> dict:
     for pc in page_classes:
         all_lines.extend(line.strip() for line in pc.get('lines', []))
 
+    t1_labels = 0
     for i, s in enumerate(all_lines):
-        if _TG_FARA_TVA_RE.search(s):
+        if _T1_LABEL_RE.match(s):
+            t1_labels += 1
+            val = _read_total_1(all_lines, i)
+            if val is not None:
+                footer['total_1_cheltuieli_directe'] = val
+        elif _TG_FARA_TVA_RE.search(s):
             val = _parse_number(all_lines[i - 1]) if i > 0 else None
             if val is not None:
                 footer['total_general_fara_tva'] = val
@@ -111,6 +157,10 @@ def extract_footer_totals(page_classes: list) -> dict:
             val = _parse_number(all_lines[i + 1]) if i + 1 < len(all_lines) else None
             if val is not None:
                 footer['total_cu_tva'] = val
+    # One recapitulation per deviz means no single document-wide TOTAL 1;
+    # keeping the last one would invite a bogus comparison.
+    if t1_labels != 1:
+        footer.pop('total_1_cheltuieli_directe', None)
     return footer
 
 

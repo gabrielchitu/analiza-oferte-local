@@ -95,6 +95,26 @@ def _check_total_deviz(extracted: list[dict]) -> dict:
     }
 
 
+def _check_total_1_doc(extracted: list[dict], doc_total_1: float | None) -> dict:
+    """Cross-check the extracted grand total against the one the document prints.
+
+    `total_deviz` is *derived* from what was extracted, so TOTAL_DEVIZ can only
+    confirm the sum is self-consistent. 'TOTAL 1 (Cheltuieli directe)' is read
+    straight off the recapitulation, which makes it the one figure that can
+    reveal a whole capitol or article silently missing from the extraction.
+    """
+    if doc_total_1 is None:
+        return {'ok': None, 'skipped': True, 'reason': 'TOTAL 1 not found in document'}
+    computed = sum(d.get('total_deviz', 0.0) or 0.0 for d in extracted)
+    diff = abs(computed - doc_total_1)
+    return {
+        'ok': diff <= 0.05,
+        'computed': computed,
+        'doc': doc_total_1,
+        'diff': diff,
+    }
+
+
 def article_nrs_in_page_classes(page_classes: list[dict]) -> set[int]:
     """Every article number printed in the raw F3 pages.
 
@@ -180,6 +200,7 @@ def verify(
     reextract_fn: Optional[Callable] = None,
     raw_max_nr: int | None = None,
     raw_nrs: set[int] | None = None,
+    doc_total_1: float | None = None,
 ) -> dict:
     """Run all checks, retry up to max_iterations if HIGH checks fail.
 
@@ -199,11 +220,13 @@ def verify(
             'HOLLOW_ARTICLES':   _check_hollow_articles(current),
             'TOTAL_CAPITOL':     _check_total_capitol(current),
             'TOTAL_DEVIZ':       _check_total_deviz(current),
+            'TOTAL_1_DOC':       _check_total_1_doc(current, doc_total_1),
             'BREAKDOWN_CONTROL': _check_breakdown_control(current),
         }
 
         high_failures = [
-            k for k in ('NR_CRT_GAPS', 'LAST_NR_CRT', 'TOTAL_CAPITOL', 'TOTAL_DEVIZ')
+            k for k in ('NR_CRT_GAPS', 'LAST_NR_CRT', 'TOTAL_CAPITOL', 'TOTAL_DEVIZ',
+                       'TOTAL_1_DOC')
             if checks[k].get('ok') is False
         ]
 

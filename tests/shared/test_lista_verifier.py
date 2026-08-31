@@ -176,3 +176,47 @@ def test_article_nrs_collects_every_printed_number():
                                      '3', 'CD08C2 - Pereti', 'mc',
                                      '7 CP14C# - Ventilatie', 'buc']}
     assert article_nrs_in_page_classes([page]) == {3, 7}
+
+
+# --- TOTAL 1 (Cheltuieli directe) cross-check against the printed value ---
+
+def test_check_total_1_doc_match():
+    from shared.lista_verifier import _check_total_1_doc
+
+    deviz = _make_deviz([[1, 2, 3]])  # 3 x 10.0 = 30.0
+    result = _check_total_1_doc([deviz], 30.0)
+    assert result['ok'] is True
+
+
+def test_check_total_1_doc_mismatch():
+    from shared.lista_verifier import _check_total_1_doc
+
+    deviz = _make_deviz([[1, 2, 3]])  # 30.0 extracted
+    result = _check_total_1_doc([deviz], 40.0)
+    assert result['ok'] is False
+    assert result['computed'] == pytest.approx(30.0)
+    assert result['doc'] == pytest.approx(40.0)
+    assert result['diff'] == pytest.approx(10.0)
+
+
+def test_check_total_1_doc_skipped_when_not_printed():
+    from shared.lista_verifier import _check_total_1_doc
+
+    deviz = _make_deviz([[1, 2, 3]])
+    result = _check_total_1_doc([deviz], None)
+    assert result['ok'] is None
+    assert result['skipped'] is True
+
+
+def test_verify_red_when_doc_total_1_disagrees():
+    """A lost article changes the sum; the printed TOTAL 1 must catch it."""
+    deviz = _make_deviz([[1, 2, 3]])
+    result = verify([deviz], doc_total_1=40.0)
+    assert result['status'] == 'RED'
+    assert result['checks']['TOTAL_1_DOC']['ok'] is False
+
+
+def test_verify_ok_when_doc_total_1_agrees():
+    deviz = _make_deviz([[1, 2, 3]])
+    result = verify([deviz], doc_total_1=30.0)
+    assert result['status'] == 'OK'

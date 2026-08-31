@@ -565,3 +565,55 @@ def test_repeated_article_number_stays_an_article():
     arts = deviz['capitole'][0]['articole']
     assert [a['nr_crt'] for a in arts] == ['3', '3']
     assert sum(a['total'] for a in arts) == pytest.approx(25399.36)
+
+
+# --- TOTAL 1 (Cheltuieli directe) from the eDevize recapitulation block ---
+
+_T1_BLOCK = [
+    'TOTAL 1 (Cheltuieli directe)',
+    'Greutate Materiale (tone)',
+    'Ore Manopera',
+    'Material',
+    'Manopera',
+    'Utilaj',
+    'Transport',
+    'TOTAL',
+    '5,053.32',
+    '10,582.99',
+    '714,692.69',
+    '430,763.28',
+    '85,571.43',
+    '0.00',
+    '1,231,027.40',
+    'Recapitulatie',
+]
+
+
+def test_footer_total_1_read_from_column_block():
+    """eDevize prints the TOTAL 1 value last in the column run, not next to its label."""
+    from shared.f3_price_extractor import extract_footer_totals
+
+    footer = extract_footer_totals([{'is_f3': False, 'lines': _T1_BLOCK}])
+    assert footer['total_1_cheltuieli_directe'] == pytest.approx(1231027.40)
+
+
+def test_footer_total_1_absent_when_label_missing():
+    from shared.f3_price_extractor import extract_footer_totals
+
+    footer = extract_footer_totals([
+        {'is_f3': False, 'lines': ['Recapitulatie', 'Valoare', '1,231,027.40']},
+    ])
+    assert 'total_1_cheltuieli_directe' not in footer
+
+
+def test_footer_total_1_dropped_when_document_has_several():
+    """With one recap per deviz the value is not a document-wide total."""
+    from shared.f3_price_extractor import extract_footer_totals
+
+    second = list(_T1_BLOCK)
+    second[-2] = '2,000,000.00'
+    footer = extract_footer_totals([
+        {'is_f3': False, 'lines': _T1_BLOCK},
+        {'is_f3': False, 'lines': second},
+    ])
+    assert 'total_1_cheltuieli_directe' not in footer

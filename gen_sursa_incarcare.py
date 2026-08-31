@@ -174,7 +174,12 @@ def _run_pipeline(client_name: str, json_path: Path, no_pdf: bool = False, force
     print(f"  [4/4] Verificare...", end="", flush=True)
     raw_nrs = article_nrs_in_page_classes(page_classes)
     raw_max_nr = max(raw_nrs) if raw_nrs else None
-    verification = verify(extracted, deviz_headers, raw_max_nr=raw_max_nr, raw_nrs=raw_nrs)
+    verification = verify(
+        extracted, deviz_headers,
+        raw_max_nr=raw_max_nr,
+        raw_nrs=raw_nrs,
+        doc_total_1=footer_totals.get('total_1_cheltuieli_directe'),
+    )
 
     ckpt_verified = config.output_dir / f"sursa_verified_{json_stem}.json"
     ckpt_verified.write_text(
