@@ -50,6 +50,10 @@ _END_OF_ARTICLES_RE = re.compile(
 
 _TG_FARA_TVA_RE = re.compile(r'TOTAL\s+GENERAL\s*\(fara\s+TVA\)', re.IGNORECASE)
 _TVA_LINE_RE    = re.compile(r'\bTVA\b[^\d(]*\((\d+[\.,]\d+)\s*%\)', re.IGNORECASE)
+# OCR sometimes breaks the label after the word, orphaning the percent
+# on the next line: 'TVA' / '(21.00%)' / '300,936.53'.
+_TVA_WORD_RE    = re.compile(r'^TVA$', re.IGNORECASE)
+_TVA_PCT_RE     = re.compile(r'^\((\d+[\.,]\d+)\s*%\)$')
 _TG_CU_TVA_RE   = re.compile(r'TOTAL\s+GENERAL\s*\(inclusiv\s+TVA\)', re.IGNORECASE)
 _T1_LABEL_RE    = re.compile(r'^TOTAL\s*1\b', re.IGNORECASE)
 _T1_COL_TOTAL_RE = re.compile(r'^TOTAL$', re.IGNORECASE)
@@ -145,12 +149,19 @@ def extract_footer_totals(page_classes: list) -> dict:
             val = _parse_number(all_lines[i - 1]) if i > 0 else None
             if val is not None:
                 footer['total_general_fara_tva'] = val
-        elif _TVA_LINE_RE.search(s):
-            m = _TVA_LINE_RE.search(s)
+        elif _TVA_LINE_RE.search(s) or (
+            _TVA_WORD_RE.match(s)
+            and i + 1 < len(all_lines)
+            and _TVA_PCT_RE.match(all_lines[i + 1])
+        ):
+            wrapped = not _TVA_LINE_RE.search(s)
+            m = (_TVA_PCT_RE.match(all_lines[i + 1]) if wrapped
+                 else _TVA_LINE_RE.search(s))
             pct = _parse_number(m.group(1)) if m else None
             if pct is not None:
                 footer['tva_pct'] = pct
-            val = _parse_number(all_lines[i + 1]) if i + 1 < len(all_lines) else None
+            val_idx = i + 2 if wrapped else i + 1
+            val = _parse_number(all_lines[val_idx]) if val_idx < len(all_lines) else None
             if val is not None:
                 footer['tva_val'] = val
         elif _TG_CU_TVA_RE.search(s):
@@ -172,6 +183,17 @@ _NR_DEC_RE = re.compile(r'^\d+\.\d+$')
 # words ahead of a dash are not mistaken for codes.
 _COD_TOKEN = r'[A-Z0-9$.*+#%^>@<-]{2,}|\d{4,}|[A-Za-z]{1,5}\d[A-Za-z0-9$.*+#%^>@<-]*'
 _COD_NAME_RE = re.compile(rf'^({_COD_TOKEN})\s+-\s+(.+)$')
+
+def _clean_cod(cod: str) -> str:
+    """Drop a stray leading dot the OCR sometimes glues onto the code.
+
+    Codes carry plenty of trailing punctuation that is real ('CA02B#',
+    'TSD08B01>', 'AcD27A1*'), and a dot can appear inside one ('101.73'), but
+    none of them start with a dot — that is always noise.
+    """
+    return cod.lstrip('.')
+
+
 _NR_COD_INLINE_RE = re.compile(rf'^(\d{{1,3}})\s+({_COD_TOKEN})\s+-\s+(.+)$')
 _TOTAL_CAPITOL_RE = re.compile(r'^TOTAL\s+(.+)$', re.IGNORECASE)
 _BREAKDOWN_RE = re.compile(r'^(material|manopera|utilaj|transport):$', re.IGNORECASE)
@@ -349,13 +371,13 @@ def _parse_f3_page_lines(lines: list[str]) -> list[tuple[str, dict]]:
                 # leading digits here are OCR noise ('20' / '0 CA02J1 - ...').
                 # Two article numbers never follow each other.
                 events.append(('COD_NAME', {
-                    'cod': m_nr_cod.group(2),
+                    'cod': _clean_cod(m_nr_cod.group(2)),
                     'denumire': m_nr_cod.group(3).strip(),
                 }))
             else:
                 events.append(('ART_NR', {'nr_crt': m_nr_cod.group(1)}))
                 events.append(('COD_NAME', {
-                    'cod': m_nr_cod.group(2),
+                    'cod': _clean_cod(m_nr_cod.group(2)),
                     'denumire': m_nr_cod.group(3).strip(),
                 }))
             awaiting_cod = False
@@ -390,7 +412,7 @@ def _parse_f3_page_lines(lines: list[str]) -> list[tuple[str, dict]]:
                 i += 1
             full_line = denumire_parts[0]
             m_cn = _COD_NAME_RE.match(full_line)
-            cod = m_cn.group(1).strip()
+            cod = _clean_cod(m_cn.group(1).strip())
             den_first = m_cn.group(2).strip()
             denumire = ' '.join([den_first] + denumire_parts[1:]).strip()
             events.append(('COD_NAME', {'cod': cod, 'denumire': denumire}))

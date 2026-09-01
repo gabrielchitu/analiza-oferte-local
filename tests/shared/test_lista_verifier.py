@@ -220,3 +220,60 @@ def test_verify_ok_when_doc_total_1_agrees():
     deviz = _make_deviz([[1, 2, 3]])
     result = verify([deviz], doc_total_1=30.0)
     assert result['status'] == 'OK'
+
+
+# --- Footer coherence (TOTAL GENERAL / TVA) ---
+
+def test_check_footer_coherent_ok():
+    from shared.lista_verifier import _check_footer
+
+    result = _check_footer({
+        'total_general_fara_tva': 1433031.11,
+        'tva_pct': 21.0,
+        'tva_val': 300936.53,
+        'total_cu_tva': 1733967.64,
+    })
+    assert result['ok'] is True
+
+
+def test_check_footer_flags_lost_tva_value():
+    """A wrapped TVA label loses the value; the totals alone still look fine."""
+    from shared.lista_verifier import _check_footer
+
+    result = _check_footer({
+        'total_general_fara_tva': 1433031.11,
+        'total_cu_tva': 1733967.64,
+    })
+    assert result['ok'] is False
+    assert 'tva_val' in result['missing']
+
+
+def test_check_footer_flags_arithmetic_mismatch():
+    from shared.lista_verifier import _check_footer
+
+    result = _check_footer({
+        'total_general_fara_tva': 1000.0,
+        'tva_pct': 21.0,
+        'tva_val': 210.0,
+        'total_cu_tva': 9999.0,
+    })
+    assert result['ok'] is False
+    assert result['sum_diff'] == pytest.approx(8789.0)
+
+
+def test_check_footer_skipped_when_document_prints_none():
+    from shared.lista_verifier import _check_footer
+
+    result = _check_footer({})
+    assert result['ok'] is None
+    assert result['skipped'] is True
+
+
+def test_verify_red_when_footer_incoherent():
+    deviz = _make_deviz([[1, 2, 3]])
+    result = verify([deviz], footer={
+        'total_general_fara_tva': 1433031.11,
+        'total_cu_tva': 1733967.64,
+    })
+    assert result['status'] == 'RED'
+    assert result['checks']['FOOTER']['ok'] is False

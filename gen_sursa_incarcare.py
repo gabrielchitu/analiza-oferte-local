@@ -23,15 +23,54 @@ from shared.lista_verifier import verify, max_nr_crt_in_page_classes, article_nr
 from shared.sursa_incarcare_writer import make_acronym, write_docx, write_docx_v2, write_xlsx, write_pdf, write_pdf_native
 
 
+def _word_has_document() -> bool:
+    """True once Word reports an open document."""
+    import subprocess
+    try:
+        r = subprocess.run(
+            ['osascript', '-e',
+             'tell application "Microsoft Word" to count of documents'],
+            capture_output=True, text=True, timeout=15,
+        )
+        return r.returncode == 0 and int((r.stdout or '0').strip() or 0) > 0
+    except Exception:
+        return False
+
+
+def _wait_for_word_document(probe=_word_has_document, timeout: float = 60.0,
+                            interval: float = 1.0) -> bool:
+    """Poll until Word has the document open, or `timeout` elapses.
+
+    A cold Word start easily outruns any fixed sleep: the export script then
+    addresses `document 0`, fails, and the caller silently falls back to a
+    converter that is not installed — leaving whatever PDF was on disk before,
+    which is worse than no PDF at all.
+    """
+    import time
+    deadline = time.monotonic() + timeout
+    while True:
+        if probe():
+            return True
+        if time.monotonic() >= deadline:
+            return False
+        if interval:
+            time.sleep(interval)
+
+
 def _convert_docx_to_pdf(docx_path: Path, pdf_path: Path) -> bool:
     """Convert DOCX to PDF via Microsoft Word AppleScript (macOS) or LibreOffice."""
-    import subprocess, time
+    import subprocess
     docx_abs = str(docx_path.resolve())
     pdf_abs = str(pdf_path.resolve())
+    # Drop any earlier PDF first: a failed conversion that leaves one behind
+    # produces a stale file sitting next to a fresh DOCX, which reads as
+    # current and gets sent to the client.
+    pdf_path.unlink(missing_ok=True)
     try:
         subprocess.run(['open', '-a', 'Microsoft Word', docx_abs],
                        check=True, capture_output=True, timeout=10)
-        time.sleep(5)
+        if not _wait_for_word_document():
+            return write_pdf(docx_path, pdf_path.parent)
         script = f'''
 tell application "Microsoft Word"
     set n to count of documents
@@ -179,6 +218,7 @@ def _run_pipeline(client_name: str, json_path: Path, no_pdf: bool = False, force
         raw_max_nr=raw_max_nr,
         raw_nrs=raw_nrs,
         doc_total_1=footer_totals.get('total_1_cheltuieli_directe'),
+        footer=footer_totals,
     )
 
     ckpt_verified = config.output_dir / f"sursa_verified_{json_stem}.json"

@@ -617,3 +617,47 @@ def test_footer_total_1_dropped_when_document_has_several():
         {'is_f3': False, 'lines': second},
     ])
     assert 'total_1_cheltuieli_directe' not in footer
+
+
+def test_footer_tva_label_wrapped_onto_two_lines():
+    """OCR sometimes breaks 'TVA (21.00%)' after the word, orphaning the percent."""
+    from shared.f3_price_extractor import extract_footer_totals
+
+    footer = extract_footer_totals([{'is_f3': False, 'lines': [
+        'TOTAL GENERAL (fara TVA)',
+        '1,433,031.11',
+        'TVA',
+        '(21.00%)',
+        '300,936.53',
+        'TOTAL GENERAL (inclusiv TVA)',
+        '1,733,967.64',
+    ]}])
+    assert footer['tva_pct'] == pytest.approx(21.0)
+    assert footer['tva_val'] == pytest.approx(300936.53)
+    assert footer['total_cu_tva'] == pytest.approx(1733967.64)
+
+
+def test_leading_dot_stripped_from_article_code():
+    """OCR occasionally prefixes the code with a stray dot ('.CC02A1')."""
+    lines = [
+        '5 = 3 x 4',
+        '21', '.CC02A1 - Armare placa peste fundatii', 'kg',
+        '2960.000', '7.60', '22,514.07',
+        '22', '.CA02J1 - Betonare placa peste P', 'mc',
+        '57.000', '589.42', '33,597.07',
+    ]
+    deviz = _assemble_deviz(_parse_f3_page_lines(lines), _H())
+    arts = [a for cap in deviz['capitole'] for a in cap['articole']]
+    assert [a['cod'] for a in arts] == ['CC02A1', 'CA02J1']
+
+
+def test_leading_dot_stripped_from_inline_nr_code():
+    """Same artefact on the 'NR COD - denumire' one-line form."""
+    lines = [
+        '5 = 3 x 4',
+        '8 .IFB10A2 - Nisip si pietris introdus in foraje', 'mc',
+        '10.000', '100.00', '1,000.00',
+    ]
+    deviz = _assemble_deviz(_parse_f3_page_lines(lines), _H())
+    arts = [a for cap in deviz['capitole'] for a in cap['articole']]
+    assert [a['cod'] for a in arts] == ['IFB10A2']

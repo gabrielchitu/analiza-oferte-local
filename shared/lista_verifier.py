@@ -115,6 +115,42 @@ def _check_total_1_doc(extracted: list[dict], doc_total_1: float | None) -> dict
     }
 
 
+def _check_footer(footer: dict | None) -> dict:
+    """The recapitulation rows must all be present and add up.
+
+    These figures are copied into the report verbatim, so a value the OCR
+    layout hid — a TVA label wrapped onto two lines orphans its percent and
+    its amount — reaches the client as a blank row. Nothing else notices:
+    the article totals above it are untouched.
+    """
+    ft = footer or {}
+    if not ft:
+        return {'ok': None, 'skipped': True, 'reason': 'no footer in document'}
+
+    expected = ('total_general_fara_tva', 'tva_pct', 'tva_val', 'total_cu_tva')
+    missing = [k for k in expected if ft.get(k) is None]
+
+    result: dict = {'missing': missing}
+    fara = ft.get('total_general_fara_tva')
+    tva = ft.get('tva_val')
+    cu = ft.get('total_cu_tva')
+    pct = ft.get('tva_pct')
+
+    sum_ok = True
+    if fara is not None and tva is not None and cu is not None:
+        result['sum_diff'] = abs((fara + tva) - cu)
+        sum_ok = result['sum_diff'] <= 0.05
+
+    pct_ok = True
+    if fara is not None and tva is not None and pct is not None:
+        result['pct_diff'] = abs(fara * pct / 100.0 - tva)
+        # The printed TVA is rounded to the leu in some devize.
+        pct_ok = result['pct_diff'] <= 1.0
+
+    result['ok'] = not missing and sum_ok and pct_ok
+    return result
+
+
 def article_nrs_in_page_classes(page_classes: list[dict]) -> set[int]:
     """Every article number printed in the raw F3 pages.
 
@@ -201,6 +237,7 @@ def verify(
     raw_max_nr: int | None = None,
     raw_nrs: set[int] | None = None,
     doc_total_1: float | None = None,
+    footer: dict | None = None,
 ) -> dict:
     """Run all checks, retry up to max_iterations if HIGH checks fail.
 
@@ -221,12 +258,13 @@ def verify(
             'TOTAL_CAPITOL':     _check_total_capitol(current),
             'TOTAL_DEVIZ':       _check_total_deviz(current),
             'TOTAL_1_DOC':       _check_total_1_doc(current, doc_total_1),
+            'FOOTER':            _check_footer(footer),
             'BREAKDOWN_CONTROL': _check_breakdown_control(current),
         }
 
         high_failures = [
             k for k in ('NR_CRT_GAPS', 'LAST_NR_CRT', 'TOTAL_CAPITOL', 'TOTAL_DEVIZ',
-                       'TOTAL_1_DOC')
+                       'TOTAL_1_DOC', 'FOOTER')
             if checks[k].get('ok') is False
         ]
 
