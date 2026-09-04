@@ -415,7 +415,7 @@ gen_comparatie_lista.py
 
 gen_sursa_incarcare.py
     ├── shared/f3_price_extractor.py           ← eDevize state machine
-    ├── shared/lista_verifier.py               ← NR_CRT_GAPS / TOTAL_CAPITOL / TOTAL_DEVIZ
+    ├── shared/lista_verifier.py               ← 9 checks (vezi ETAPA 4)
     └── shared/sursa_incarcare_writer.py       ← DOCX / XLSX / PDF (reportlab nativ)
 
 run_diagnostics.py
@@ -541,12 +541,20 @@ Log la pornire: `LLM: claude-sonnet-4-6 @ http://localhost:4000` sau `@ Anthropi
 ║  shared/lista_verifier.py                                                ║
 ╠══════════════════════════════════════════════════════════════════════════╣
 ║                                                                          ║
-║  5 checks (max 5 iteratii, retry daca HIGH failures):                    ║
+║  9 checks (max 5 iteratii, retry daca HIGH failures):                    ║
 ║   NR_CRT_GAPS    — nr_crt intreg consecutiv, fara goluri  [HIGH]         ║
+║   LAST_NR_CRT    — max(nr_crt) extras == max(nr_crt) din raw [HIGH]      ║
 ║   TOTAL_CAPITOL  — sum(art.total) ≈ total_capitol (±0.05 Lei) [HIGH]    ║
 ║   TOTAL_DEVIZ    — sum(capitol.total) ≈ total_deviz (±0.05 Lei) [HIGH]  ║
+║   TOTAL_1_DOC    — sum(total_deviz) ≈ 'TOTAL 1' CITIT din doc [HIGH]     ║
+║   FOOTER         — cele 4 randuri de recapitulatie + aritmetica [HIGH]   ║
+║   HOLLOW_ARTICLES — articole cu preturi dar fara cod/denumire [WARN]     ║
 ║   BREAKDOWN_CONTROL — articole cu suspect=True [WARN]                   ║
 ║   COUNT_DEVIZE   — len(extracted) vs len(deviz_headers) [INFO]          ║
+║                                                                          ║
+║  ATENTIE: TOTAL_DEVIZ e tautologic — total_deviz e CALCULAT ca suma      ║
+║  total_capitol, deci checkul compara suma cu ea insasi si nu poate       ║
+║  esua. TOTAL_1_DOC e singurul care prinde un articol/capitol pierdut.    ║
 ║                                                                          ║
 ║  Status: OK | WARN | RED (dupa 5 iteratii HIGH nerezolvate)             ║
 ║  CHECKPOINT: output_AO/<client>/sursa_verified_{json_stem}.json          ║
@@ -569,7 +577,7 @@ Log la pornire: `LLM: claude-sonnet-4-6 @ http://localhost:4000` sau `@ Anthropi
 ║           TOTAL_DEVIZ (FFF2CC) | RED_FLAG (FF0000, daca status=RED)     ║
 ║                                                                          ║
 ║  XLSX: aceeasi structura, un sheet per deviz, fara merge-uri            ║
-║  PDF: LibreOffice CLI (--no-pdf sau indisponibil → skip silentios)      ║
+║  PDF: Microsoft Word AppleScript din DOCX (--no-pdf → skip)            ║
 ║                                                                          ║
 ║  ⚠ CRITIC: deviz['status'] = verification['status']                     ║
 ║    TREBUIE injectat INAINTE de write_docx/write_xlsx                    ║
@@ -580,7 +588,7 @@ Log la pornire: `LLM: claude-sonnet-4-6 @ http://localhost:4000` sau `@ Anthropi
 │  OUTPUT: output_AO/<ClientName>/                                          │
 │   Lista-proiect-{ACRONIM}-{json_stem}.docx                               │
 │   Lista-proiect-{ACRONIM}-{json_stem}.xlsx                               │
-│   Lista-proiect-{ACRONIM}-{json_stem}.pdf  (daca LibreOffice disponibil) │
+│   Lista-proiect-{ACRONIM}-{json_stem}.pdf  (daca Word disponibil)        │
 └──────────────────────────────────────────────────────────────────────────┘
 ```
 

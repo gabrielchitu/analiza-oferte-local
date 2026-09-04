@@ -648,19 +648,37 @@ _assemble_deviz(events, header):
 ### Retry Loop: lista_verifier
 
 ```
-extracted[]  +  deviz_headers[]
+extracted[]  +  deviz_headers[]  +  raw_nrs/raw_max_nr  +  footer{}
       │
       ▼
 iteration 1..5:
       │
       ├── NR_CRT_GAPS:    per deviz, nr_crt int consecutive fara salturi
       │                   gaps = [(deviz_key, nr_a, nr_b)]
+      │                   raw_nrs distinge golul real de numerotarea sarita
+      │                   dintr-o situatie de lucrari → numbering_skips
+      │
+      ├── LAST_NR_CRT:    max(nr_crt) extras == max(nr_crt) printat in raw
       │
       ├── TOTAL_CAPITOL:  |sum(art.total) - capitol.total_capitol| ≤ 0.05
       │                   failures = [(deviz_key, capitol, computed, extracted)]
+      │                   total_capitol e CITIT din linia 'TOTAL <capitol>'
       │
       ├── TOTAL_DEVIZ:    |sum(capitol.total_capitol) - deviz.total_deviz| ≤ 0.05
-      │                   per deviz: extracted vs computed
+      │                   TAUTOLOGIC: total_deviz e calculat ca aceeasi suma
+      │                   (f3_price_extractor._assemble_deviz) → nu poate esua
+      │
+      ├── TOTAL_1_DOC:    |sum(total_deviz) - footer.total_1| ≤ 0.05
+      │                   'TOTAL 1 (Cheltuieli directe)' CITIT din recapitulatie
+      │                   singurul check care prinde un articol/capitol pierdut
+      │                   skipped daca doc nu printeaza TOTAL 1, sau printeaza
+      │                   mai multe (o recapitulatie per deviz → nu e total doc)
+      │
+      ├── FOOTER:         cele 4 randuri de recapitulatie prezente +
+      │                   fara_TVA + TVA = cu_TVA (±0.05) +
+      │                   fara_TVA × pct = TVA (±1.0, TVA e rotunjit la leu)
+      │
+      ├── HOLLOW_ARTICLES: articole cu total/cantitate dar fara cod+denumire
       │
       ├── BREAKDOWN_CTRL: articole cu suspect=True → lista nr_crt
       │
@@ -668,10 +686,11 @@ iteration 1..5:
                           ok=None + skipped=True daca headers=None
 
       ↓
-      high_failures = [NR_CRT_GAPS, TOTAL_CAPITOL, TOTAL_DEVIZ] care nu ok
+      high_failures = [NR_CRT_GAPS, LAST_NR_CRT, TOTAL_CAPITOL, TOTAL_DEVIZ,
+                       TOTAL_1_DOC, FOOTER] care nu ok
       ↓
       if not high_failures:
-          status = WARN daca BREAKDOWN_CTRL fail, altfel OK
+          status = WARN daca BREAKDOWN_CTRL / HOLLOW_ARTICLES fail, altfel OK
           return {status, iterations, checks}
       else if reextract_fn si iteration < 5:
           current = reextract_fn(current, checks, iteration)

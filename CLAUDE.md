@@ -81,10 +81,22 @@ input_AO/{ClientName}/
 - `verify_agent.py` — 6 structural checks on holistic JSON. Checks: SILENT_VIOLATION, OFERTA_ONLY_GROUP, REF_ONLY_GROUP, HIGH_EXTRA, HIGH_LIPSA, EMPTY_MATCHED_GROUP, COD_SIMILAR_CLUSTER
 - `shared/pipeline_verifier.py` — Check logic + convergence loop
 
+**Sursa de incarcare (pipeline independent):**
+- `gen_sursa_incarcare.py` — CLI: `--client X --json di_oferta_N`. Genereaza `Lista-proiect-{ACRONIM}-{stem}.docx/xlsx/pdf`
+- `shared/f3_price_extractor.py` — state machine eDevize → preturi + breakdown + `extract_footer_totals()`
+- `shared/lista_verifier.py` — 9 checks pe extractie, checkpoint `sursa_verified_{stem}.json`
+- `shared/sursa_incarcare_writer.py` — DOCX/XLSX; PDF-ul se face din DOCX prin **Microsoft Word AppleScript** in `gen_sursa_incarcare._convert_docx_to_pdf` (`write_pdf`/LibreOffice e fallback, nu e instalat; `write_pdf_native` e importat dar nu se apeleaza si nu primeste footer)
+
+**CRITIC — ce verifica de fapt checkurile de totaluri:**
+`TOTAL_DEVIZ` **nu poate esua**: `total_deviz` e calculat ca suma `total_capitol` in `_assemble_deviz`, deci checkul compara suma cu ea insasi. Daca un articol sau capitol lipseste din extractie, `TOTAL_DEVIZ` si `TOTAL_CAPITOL` raman verzi.
+`TOTAL_1_DOC` e singurul care prinde pierderea — compara suma extrasa cu `TOTAL 1 (Cheltuieli directe)` citit din recapitulatia documentului. `FOOTER` verifica cele 4 randuri de recapitulatie + aritmetica TVA.
+In eDevize valorile de footer NU stau langa eticheta: captions intai, cifrele dupa (`_read_total_1`); eticheta TVA poate fi rupta pe doua linii (`TVA` / `(21.00%)`).
+
 ### Entry Points
 - `multi_client_run.py` — Interactive menu or `--client "Name"` CLI
 - `local_run.py` — Legacy single-client (uses root `input_AO/di_*.json`)
 - `verify_agent.py` — Verify pipeline output (optional 2nd pass)
+- `gen_sursa_incarcare.py` — Lista-proiect din di_*.json (pipeline independent)
 
 ## Adding a Client
 
@@ -275,7 +287,12 @@ Format document complet diferit față de ceilalți clienți. Fixes în `shared/
 
 ## Current State
 
-**v12.3.** DT adăugat și verificat. CM fully verified. SSR nerezolvat.
+**v12.4.** Sursa de incarcare: verificarea totalurilor legata de document. DT adăugat și verificat. CM fully verified. SSR nerezolvat.
+
+**EuroProject (sursa de incarcare) — 18 fisiere, toate OK:**
+- di_referinta + ofertele 1-19 (lipsesc 9 si 13 din numerotarea clientului)
+- `TOTAL_1_DOC` si `FOOTER` trec pe toate; diferenta max fata de document 0,01 lei (rotunjire)
+- Oferta 19 = acelasi caiet ca 18, rescanat, cu TVA 21% in loc de 19%
 
 **Clienți activi verificați (0 violări invariant):**
 - Blocuri Racari (consolidat) + BR BLOC A/A2/A3/A4/B/C

@@ -149,6 +149,13 @@ Dacă `control_ok = False` → articol marcat `"suspect": true` → lista_verifi
 
 ## Secțiunea 2: lista_verifier
 
+> **Notă (2026-09-04):** secțiunea de mai jos descrie designul inițial, cu 5 checkuri.
+> Implementarea are acum 9 — s-au adăugat `LAST_NR_CRT`, `HOLLOW_ARTICLES`,
+> `TOTAL_1_DOC` și `FOOTER`. Cel mai important: `TOTAL_DEVIZ`, așa cum e specificat
+> aici, nu poate eșua (`total_deviz` e calculat ca aceeași sumă pe care o verifică),
+> iar `TOTAL_1_DOC` e cel care leagă extracția de totalul tipărit în document.
+> Lista curentă: `docs/MANUAL_UTILIZARE.md` §7.
+
 ### Checks (în ordine)
 
 | Check ID | Logică | Severitate |

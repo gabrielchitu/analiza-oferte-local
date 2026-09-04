@@ -1,7 +1,7 @@
 # Session Handoff — Analizator Oferte Constructii
 
 > Citeste acest fisier la inceputul unei sesiuni noi. Contine starea actuala a proiectului.
-> **Ultima actualizare:** 2026-06-11 | **Versiune:** v3.1 (+ Sursa de Incarcare pipeline)
+> **Ultima actualizare:** 2026-09-04 | **Versiune:** v3.2 (+ verificare totaluri contra documentului)
 
 ---
 
@@ -171,15 +171,15 @@ python3 gen_sursa_incarcare.py --client "EuroProject" --json di_referinta --forc
 |--------|-----------------|
 | `gen_sursa_incarcare.py` | CLI orchestrator: client → json → classify → extract → verify → write |
 | `shared/f3_price_extractor.py` | State machine eDevize → preturi + breakdown + sub_items per articol |
-| `shared/lista_verifier.py` | 5 checks (NR_CRT_GAPS/TOTAL_CAPITOL/TOTAL_DEVIZ=HIGH, BREAKDOWN=WARN) + retry max 5 |
-| `shared/sursa_incarcare_writer.py` | DOCX landscape + XLSX + PDF via LibreOffice; `make_acronym` |
+| `shared/lista_verifier.py` | 9 checks (NR_CRT_GAPS/LAST_NR_CRT/TOTAL_CAPITOL/TOTAL_DEVIZ/TOTAL_1_DOC/FOOTER=HIGH, BREAKDOWN+HOLLOW=WARN, COUNT_DEVIZE=INFO) + retry max 5. **TOTAL_DEVIZ e tautologic**; TOTAL_1_DOC e checkul real |
+| `shared/sursa_incarcare_writer.py` | DOCX landscape + XLSX + PDF; `make_acronym`. PDF-ul se face prin **Microsoft Word AppleScript** (`gen_sursa_incarcare._convert_docx_to_pdf`) — `write_pdf`/LibreOffice e doar fallback si nu e instalat |
 
 ### Output
 ```
 output_AO/<client>/
   Lista-proiect-{ACRONIM}-{json_stem}.docx
   Lista-proiect-{ACRONIM}-{json_stem}.xlsx
-  Lista-proiect-{ACRONIM}-{json_stem}.pdf   (daca LibreOffice disponibil)
+  Lista-proiect-{ACRONIM}-{json_stem}.pdf   (daca Microsoft Word disponibil)
   sursa_extracted_{json_stem}.json           (checkpoint extract_prices)
   sursa_verified_{json_stem}.json            (checkpoint verify)
   {json_stem}_page_classes.json             (checkpoint page classifier)

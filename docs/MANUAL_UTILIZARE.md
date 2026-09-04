@@ -218,7 +218,7 @@ python3 gen_sursa_incarcare.py
 # Direct
 python3 gen_sursa_incarcare.py --client "EuroProject" --json di_referinta
 
-# Fără PDF (dacă LibreOffice/reportlab nu e disponibil)
+# Fără PDF (dacă Microsoft Word nu e disponibil)
 python3 gen_sursa_incarcare.py --client "EuroProject" --json di_referinta --no-pdf
 
 # Forțează re-extracție (ignoră cache)
@@ -231,7 +231,7 @@ python3 gen_sursa_incarcare.py --client "EuroProject" --json di_referinta --forc
 |--------|---------|
 | `output_AO/<Client>/Lista-proiect-{ACRONIM}-{stem}.docx` | Lista-proiect formatat (devize, capitole, articole, breakdown) |
 | `output_AO/<Client>/Lista-proiect-{ACRONIM}-{stem}.xlsx` | Același conținut în Excel |
-| `output_AO/<Client>/Lista-proiect-{ACRONIM}-{stem}.pdf` | PDF searchable (via reportlab nativ sau LibreOffice) |
+| `output_AO/<Client>/Lista-proiect-{ACRONIM}-{stem}.pdf` | PDF generat din DOCX prin Microsoft Word (AppleScript) |
 | `output_AO/<Client>/sursa_extracted_{stem}.json` | Date extrase brut (checkpoint) |
 | `output_AO/<Client>/sursa_verified_{stem}.json` | Rezultatul verificării (status: OK/WARN/RED) |
 
@@ -241,9 +241,27 @@ python3 gen_sursa_incarcare.py --client "EuroProject" --json di_referinta --forc
 
 | Status | Semnificație |
 |--------|-------------|
-| `OK` | Toate totalurile corecte, niciun gap nr_crt |
-| `WARN` | Totale ok, dar ≥1 articol cu breakdown suspect (sum material+man+utl+tra ≠ preț unitar) |
-| `RED` | Gap nr_crt sau total deviz incorect după 5 iterații |
+| `OK` | Toate cele 6 checkuri HIGH trec |
+| `WARN` | Checkurile HIGH trec, dar ≥1 articol cu breakdown suspect (material+manoperă+utilaj+transport ≠ preț unitar) sau ≥1 articol gol |
+| `RED` | ≥1 check HIGH eșuat după 5 iterații |
+
+Cele 9 checkuri, în ordinea din `sursa_verified_{stem}.json`:
+
+| Check | Ce compară | Sever. |
+|-------|-----------|--------|
+| `COUNT_DEVIZE` | nr. devize extrase vs. antete găsite | INFO |
+| `NR_CRT_GAPS` | numerotarea articolelor, fără goluri | HIGH |
+| `LAST_NR_CRT` | ultimul nr extras vs. ultimul nr tipărit în document | HIGH |
+| `HOLLOW_ARTICLES` | articole cu prețuri dar fără cod/denumire | WARN |
+| `TOTAL_CAPITOL` | suma articolelor vs. linia `TOTAL <capitol>` din document | HIGH |
+| `TOTAL_DEVIZ` | suma capitolelor vs. `total_deviz` | HIGH |
+| `TOTAL_1_DOC` | suma extrasă vs. `TOTAL 1 (Cheltuieli directe)` din document | HIGH |
+| `FOOTER` | cele 4 rânduri de recapitulație + aritmetica TVA | HIGH |
+| `BREAKDOWN_CONTROL` | material+manoperă+utilaj+transport = preț unitar, per articol | WARN |
+
+**De reținut:** `TOTAL_DEVIZ` nu poate eșua niciodată — `total_deviz` este *calculat* ca sumă a `total_capitol`, deci checkul compară suma cu ea însăși. Dacă un articol sau un capitol întreg lipsește din extracție, `TOTAL_DEVIZ` și `TOTAL_CAPITOL` rămân verzi; **doar `TOTAL_1_DOC` prinde pierderea**, fiindcă citește totalul direct din recapitulația documentului.
+
+`TOTAL_1_DOC` apare cu `skipped: true` când documentul nu tipărește `TOTAL 1`, sau când tipărește mai multe (o recapitulație per deviz înseamnă că nu există un total pe document).
 
 ---
 
